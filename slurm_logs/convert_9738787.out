@@ -1,0 +1,87 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-h04/tmp/slurm-9738787
+Running on host: node-h04.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Sun Dec 28 04:45:48 PM CET 2025
+SLURM_JOB_ID: 9738787
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.3)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.1)
+Requirement already satisfied: mygene in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.2.2)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2025.2)
+Requirement already satisfied: biothings-client>=0.2.6 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from mygene) (0.4.1)
+Requirement already satisfied: httpx>=0.22.0 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from biothings-client>=0.2.6->mygene) (0.28.1)
+Requirement already satisfied: anyio in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from httpx>=0.22.0->biothings-client>=0.2.6->mygene) (4.12.0)
+Requirement already satisfied: certifi in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from httpx>=0.22.0->biothings-client>=0.2.6->mygene) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from httpx>=0.22.0->biothings-client>=0.2.6->mygene) (1.0.9)
+Requirement already satisfied: idna in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from httpx>=0.22.0->biothings-client>=0.2.6->mygene) (3.11)
+Requirement already satisfied: h11>=0.16 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from httpcore==1.*->httpx>=0.22.0->biothings-client>=0.2.6->mygene) (0.16.0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Expression file loaded
+Index type: object
+First 10 indices: ['Xkr4', 'Gm1992', 'Gm19938', 'Gm37381', 'Rp1', 'Sox17', 'Gm37587', 'Gm37323', 'Mrpl15', 'Lypla1']
+Index as strings: ['Xkr4', 'Gm1992', 'Gm19938', 'Gm37381', 'Rp1', 'Sox17', 'Gm37587', 'Gm37323', 'Mrpl15', 'Lypla1']
+
+Test IDs: ['Xkr4', 'Gm1992', 'Gm19938', 'Gm37381', 'Rp1', 'Sox17', 'Gm37587', 'Gm37323', 'Mrpl15', 'Lypla1']
+
+================================================================================
+Testing mygene.info query with scopes='entrezgene'
+================================================================================
+
+Query result keys: dict_keys(['out', 'dup', 'missing'])
+Number of results in 'out': 10
+
+First 3 results:
+
+  Result 0:
+    Query: Xkr4
+    NotFound: True
+    Symbol: None
+    Has homologene: False
+    Has pantherdb: False
+
+  Result 1:
+    Query: Gm1992
+    NotFound: True
+    Symbol: None
+    Has homologene: False
+    Has pantherdb: False
+
+  Result 2:
+    Query: Gm19938
+    NotFound: True
+    Symbol: None
+    Has homologene: False
+    Has pantherdb: False
+
+================================================================================
+Testing mygene.info query with scopes='symbol'
+================================================================================
+Test symbols: ['Atf3', 'Calca', 'Trpv1']
+
+Query result keys: dict_keys(['out', 'dup', 'missing'])
+Number of results in 'out': 3
+
+First 3 results:
+
+  Result 0:
+    Query: Atf3
+    NotFound: False
+    Symbol: Atf3
+    Has homologene: True
+    Has pantherdb: True
+
+  Result 1:
+    Query: Calca
+    NotFound: False
+    Symbol: Calca
+    Has homologene: True
+    Has pantherdb: True
+
+  Result 2:
+    Query: Trpv1
+    NotFound: False
+    Symbol: Trpv1
+    Has homologene: True
+    Has pantherdb: True
+Finished at: Sun Dec 28 04:46:03 PM CET 2025

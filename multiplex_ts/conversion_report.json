@@ -1,0 +1,3009 @@
+{
+  "summary": {
+    "n_cell_types": 157,
+    "genes_before": 18272,
+    "genes_after": 18272,
+    "genes_lost": 0,
+    "gene_retention_pct": 100.0,
+    "edges_before": 3296142,
+    "edges_after": 3296142,
+    "edges_lost": 0,
+    "edge_retention_pct": 100.0
+  },
+  "per_celltype": {
+    "acinar_cell_of_salivary_gland": {
+      "ppi_genes_before": 2386,
+      "ppi_genes_after": 2386,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 8104,
+      "ppi_edges_after": 8104,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.305113160100587,
+      "seed_genes_connected": false,
+      "n_seed_components": 38
+    },
+    "adipocyte": {
+      "ppi_genes_before": 3099,
+      "ppi_genes_after": 3099,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 33261,
+      "ppi_edges_after": 33261,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.9680542110358179,
+      "seed_genes_connected": false,
+      "n_seed_components": 24
+    },
+    "adventitial_cell": {
+      "ppi_genes_before": 2763,
+      "ppi_genes_after": 2763,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 26740,
+      "ppi_edges_after": 26740,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0267824828085415,
+      "seed_genes_connected": false,
+      "n_seed_components": 38
+    },
+    "alveolar_fibroblast": {
+      "ppi_genes_before": 1200,
+      "ppi_genes_after": 1200,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 2842,
+      "ppi_edges_after": 2842,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 5.25,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "artery_endothelial_cell": {
+      "ppi_genes_before": 3171,
+      "ppi_genes_after": 3171,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 21497,
+      "ppi_edges_after": 21497,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.302112898139388,
+      "seed_genes_connected": false,
+      "n_seed_components": 48
+    },
+    "b_cell": {
+      "ppi_genes_before": 1179,
+      "ppi_genes_after": 1179,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7087,
+      "ppi_edges_after": 7087,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.5445292620865136,
+      "seed_genes_connected": false,
+      "n_seed_components": 24
+    },
+    "basal_cell": {
+      "ppi_genes_before": 3182,
+      "ppi_genes_after": 3182,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 35050,
+      "ppi_edges_after": 35050,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6656191074795725,
+      "seed_genes_connected": false,
+      "n_seed_components": 48
+    },
+    "basal_cell_of_prostate_epithelium": {
+      "ppi_genes_before": 3035,
+      "ppi_genes_after": 3035,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22522,
+      "ppi_edges_after": 22522,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.14168039538715,
+      "seed_genes_connected": false,
+      "n_seed_components": 43
+    },
+    "bladder_urothelial_cell": {
+      "ppi_genes_before": 3198,
+      "ppi_genes_after": 3198,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 35627,
+      "ppi_edges_after": 35627,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7823639774859286,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "bronchial_smooth_muscle_cell": {
+      "ppi_genes_before": 1412,
+      "ppi_genes_after": 1412,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 3964,
+      "ppi_edges_after": 3964,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.9660056657223794,
+      "seed_genes_connected": false,
+      "n_seed_components": 40
+    },
+    "bronchial_vessel_endothelial_cell": {
+      "ppi_genes_before": 3312,
+      "ppi_genes_after": 3312,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 39319,
+      "ppi_edges_after": 39319,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7512077294685993,
+      "seed_genes_connected": false,
+      "n_seed_components": 46
+    },
+    "capillary_endothelial_cell": {
+      "ppi_genes_before": 1394,
+      "ppi_genes_after": 1394,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 4340,
+      "ppi_edges_after": 4340,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 4.304160688665711,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "cardiac_endothelial_cell": {
+      "ppi_genes_before": 2065,
+      "ppi_genes_after": 2065,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7411,
+      "ppi_edges_after": 7411,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.1961259079903144,
+      "seed_genes_connected": false,
+      "n_seed_components": 49
+    },
+    "cardiac_muscle_cell": {
+      "ppi_genes_before": 3247,
+      "ppi_genes_after": 3247,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 32904,
+      "ppi_edges_after": 32904,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.9547274407145057,
+      "seed_genes_connected": false,
+      "n_seed_components": 25
+    },
+    "cd141-positive_myeloid_dendritic_cell": {
+      "ppi_genes_before": 3296,
+      "ppi_genes_after": 3296,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 40271,
+      "ppi_edges_after": 40271,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.8507281553398056,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "cd1c-positive_myeloid_dendritic_cell": {
+      "ppi_genes_before": 3049,
+      "ppi_genes_after": 3049,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 30173,
+      "ppi_edges_after": 30173,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.7222040013119053,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "cd24_neutrophil": {
+      "ppi_genes_before": 1837,
+      "ppi_genes_after": 1837,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6738,
+      "ppi_edges_after": 6738,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.9940119760479043,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "cd4-positive,_alpha-beta_memory_t_cell": {
+      "ppi_genes_before": 1066,
+      "ppi_genes_after": 1066,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6836,
+      "ppi_edges_after": 6836,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.6266416510318953,
+      "seed_genes_connected": false,
+      "n_seed_components": 14
+    },
+    "cd4-positive_helper_t_cell": {
+      "ppi_genes_before": 1272,
+      "ppi_genes_after": 1272,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6509,
+      "ppi_edges_after": 6509,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.358490566037736,
+      "seed_genes_connected": false,
+      "n_seed_components": 16
+    },
+    "cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell": {
+      "ppi_genes_before": 1772,
+      "ppi_genes_after": 1772,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7617,
+      "ppi_edges_after": 7617,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.2573363431151243,
+      "seed_genes_connected": false,
+      "n_seed_components": 20
+    },
+    "cd8-positive,_alpha-beta_cytotoxic_t_cell": {
+      "ppi_genes_before": 1854,
+      "ppi_genes_after": 1854,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7622,
+      "ppi_edges_after": 7622,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.8047464940668827,
+      "seed_genes_connected": false,
+      "n_seed_components": 23
+    },
+    "cell_of_skeletal_muscle": {
+      "ppi_genes_before": 2891,
+      "ppi_genes_after": 2891,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22647,
+      "ppi_edges_after": 22647,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3175371843652712,
+      "seed_genes_connected": false,
+      "n_seed_components": 53
+    },
+    "ciliary_body": {
+      "ppi_genes_before": 3151,
+      "ppi_genes_after": 3151,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22557,
+      "ppi_edges_after": 22557,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.2532529355760076,
+      "seed_genes_connected": false,
+      "n_seed_components": 49
+    },
+    "ciliated_cell": {
+      "ppi_genes_before": 2575,
+      "ppi_genes_after": 2575,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 12983,
+      "ppi_edges_after": 12983,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5145631067961165,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "ciliated_epithelial_cell": {
+      "ppi_genes_before": 3077,
+      "ppi_genes_after": 3077,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 27399,
+      "ppi_edges_after": 27399,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6249593760155996,
+      "seed_genes_connected": false,
+      "n_seed_components": 38
+    },
+    "classical_monocyte": {
+      "ppi_genes_before": 3039,
+      "ppi_genes_after": 3039,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22639,
+      "ppi_edges_after": 22639,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.566633761105627,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "club_cell": {
+      "ppi_genes_before": 2140,
+      "ppi_genes_after": 2140,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7457,
+      "ppi_edges_after": 7457,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.149532710280374,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "club_cell_of_prostate_epithelium": {
+      "ppi_genes_before": 2748,
+      "ppi_genes_after": 2748,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 13379,
+      "ppi_edges_after": 13379,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.9286754002911208,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "conjunctival_epithelial_cell": {
+      "ppi_genes_before": 3111,
+      "ppi_genes_after": 3111,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 25080,
+      "ppi_edges_after": 25080,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1215043394406945,
+      "seed_genes_connected": false,
+      "n_seed_components": 41
+    },
+    "connective_tissue_cell": {
+      "ppi_genes_before": 2164,
+      "ppi_genes_after": 2164,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6741,
+      "ppi_edges_after": 6741,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.6506469500924212,
+      "seed_genes_connected": false,
+      "n_seed_components": 39
+    },
+    "corneal_epithelial_cell": {
+      "ppi_genes_before": 3290,
+      "ppi_genes_after": 3290,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 31470,
+      "ppi_edges_after": 31470,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4893617021276597,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "corneal_keratocyte": {
+      "ppi_genes_before": 2952,
+      "ppi_genes_after": 2952,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14501,
+      "ppi_edges_after": 14501,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.303523035230352,
+      "seed_genes_connected": false,
+      "n_seed_components": 40
+    },
+    "dendritic_cell": {
+      "ppi_genes_before": 2048,
+      "ppi_genes_after": 2048,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 11816,
+      "ppi_edges_after": 11816,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.271484375,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "dn1_thymic_pro-t_cell": {
+      "ppi_genes_before": 1596,
+      "ppi_genes_after": 1596,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 10043,
+      "ppi_edges_after": 10043,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.631578947368421,
+      "seed_genes_connected": false,
+      "n_seed_components": 25
+    },
+    "dn3_thymocyte": {
+      "ppi_genes_before": 1295,
+      "ppi_genes_after": 1295,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 8907,
+      "ppi_edges_after": 8907,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1621621621621623,
+      "seed_genes_connected": false,
+      "n_seed_components": 17
+    },
+    "dn4_thymocyte": {
+      "ppi_genes_before": 3443,
+      "ppi_genes_after": 3443,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 49813,
+      "ppi_edges_after": 49813,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.0165553296543712,
+      "seed_genes_connected": false,
+      "n_seed_components": 15
+    },
+    "double-positive,_alpha-beta_thymocyte": {
+      "ppi_genes_before": 2628,
+      "ppi_genes_after": 2628,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 24255,
+      "ppi_edges_after": 24255,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.9025875190258752,
+      "seed_genes_connected": false,
+      "n_seed_components": 26
+    },
+    "duct_epithelial_cell": {
+      "ppi_genes_before": 2821,
+      "ppi_genes_after": 2821,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 13863,
+      "ppi_edges_after": 13863,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.056008507621411,
+      "seed_genes_connected": false,
+      "n_seed_components": 39
+    },
+    "duodenum_glandular_cell": {
+      "ppi_genes_before": 2850,
+      "ppi_genes_after": 2850,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16737,
+      "ppi_edges_after": 16737,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4385964912280702,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "endothelial_cell": {
+      "ppi_genes_before": 3175,
+      "ppi_genes_after": 3175,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 24602,
+      "ppi_edges_after": 24602,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.393700787401575,
+      "seed_genes_connected": false,
+      "n_seed_components": 49
+    },
+    "endothelial_cell_of_artery": {
+      "ppi_genes_before": 2907,
+      "ppi_genes_after": 2907,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16201,
+      "ppi_edges_after": 16201,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.6143790849673203,
+      "seed_genes_connected": false,
+      "n_seed_components": 53
+    },
+    "endothelial_cell_of_hepatic_sinusoid": {
+      "ppi_genes_before": 2141,
+      "ppi_genes_after": 2141,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7136,
+      "ppi_edges_after": 7136,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.269500233535731,
+      "seed_genes_connected": false,
+      "n_seed_components": 41
+    },
+    "endothelial_cell_of_lymphatic_vessel": {
+      "ppi_genes_before": 3038,
+      "ppi_genes_after": 3038,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 19692,
+      "ppi_edges_after": 19692,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.238314680710994,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "endothelial_cell_of_vascular_tree": {
+      "ppi_genes_before": 2163,
+      "ppi_genes_after": 2163,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 15230,
+      "ppi_edges_after": 15230,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.0975496994914473,
+      "seed_genes_connected": false,
+      "n_seed_components": 42
+    },
+    "enterocyte_of_epithelium_of_large_intestine": {
+      "ppi_genes_before": 1319,
+      "ppi_genes_after": 1319,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 3721,
+      "ppi_edges_after": 3721,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.577710386656558,
+      "seed_genes_connected": false,
+      "n_seed_components": 22
+    },
+    "enterocyte_of_epithelium_of_small_intestine": {
+      "ppi_genes_before": 1943,
+      "ppi_genes_after": 1943,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6870,
+      "ppi_edges_after": 6870,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3160061760164696,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "epithelial_cell": {
+      "ppi_genes_before": 2818,
+      "ppi_genes_after": 2818,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 24539,
+      "ppi_edges_after": 24539,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4904187366926898,
+      "seed_genes_connected": false,
+      "n_seed_components": 30
+    },
+    "epithelial_cell_of_lacrimal_sac": {
+      "ppi_genes_before": 1529,
+      "ppi_genes_after": 1529,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 4480,
+      "ppi_edges_after": 4480,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 5.0359712230215825,
+      "seed_genes_connected": false,
+      "n_seed_components": 50
+    },
+    "epithelial_cell_of_uterus": {
+      "ppi_genes_before": 3167,
+      "ppi_genes_after": 3167,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 37386,
+      "ppi_edges_after": 37386,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.768234922639722,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "erythroid_progenitor": {
+      "ppi_genes_before": 3312,
+      "ppi_genes_after": 3312,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 45133,
+      "ppi_edges_after": 45133,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.6038647342995169,
+      "seed_genes_connected": false,
+      "n_seed_components": 20
+    },
+    "eye_photoreceptor_cell": {
+      "ppi_genes_before": 2140,
+      "ppi_genes_after": 2140,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 8581,
+      "ppi_edges_after": 8581,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0560747663551404,
+      "seed_genes_connected": false,
+      "n_seed_components": 23
+    },
+    "fast_muscle_cell": {
+      "ppi_genes_before": 1295,
+      "ppi_genes_after": 1295,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5809,
+      "ppi_edges_after": 5809,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.2355212355212355,
+      "seed_genes_connected": false,
+      "n_seed_components": 14
+    },
+    "fibroblast": {
+      "ppi_genes_before": 3197,
+      "ppi_genes_after": 3197,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 28855,
+      "ppi_edges_after": 28855,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.5336252736940885,
+      "seed_genes_connected": false,
+      "n_seed_components": 38
+    },
+    "fibroblast_of_breast": {
+      "ppi_genes_before": 2472,
+      "ppi_genes_after": 2472,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 17229,
+      "ppi_edges_after": 17229,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3867313915857604,
+      "seed_genes_connected": false,
+      "n_seed_components": 46
+    },
+    "fibroblast_of_cardiac_tissue": {
+      "ppi_genes_before": 1826,
+      "ppi_genes_after": 1826,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5426,
+      "ppi_edges_after": 5426,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.12157721796276,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "goblet_cell": {
+      "ppi_genes_before": 1989,
+      "ppi_genes_after": 1989,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6660,
+      "ppi_edges_after": 6660,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3127199597787835,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "granulocyte": {
+      "ppi_genes_before": 3300,
+      "ppi_genes_after": 3300,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 42358,
+      "ppi_edges_after": 42358,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4242424242424243,
+      "seed_genes_connected": false,
+      "n_seed_components": 24
+    },
+    "gut_endothelial_cell": {
+      "ppi_genes_before": 1781,
+      "ppi_genes_after": 1781,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5477,
+      "ppi_edges_after": 5477,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.5934868051656377,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "hematopoietic_stem_cell": {
+      "ppi_genes_before": 2919,
+      "ppi_genes_after": 2919,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 37231,
+      "ppi_edges_after": 37231,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.0620075368276807,
+      "seed_genes_connected": false,
+      "n_seed_components": 20
+    },
+    "hepatocyte": {
+      "ppi_genes_before": 3024,
+      "ppi_genes_after": 3024,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 20041,
+      "ppi_edges_after": 20041,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.0912698412698412,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "hillock-club_cell_of_prostate_epithelium": {
+      "ppi_genes_before": 2952,
+      "ppi_genes_after": 2952,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 20527,
+      "ppi_edges_after": 20527,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5921409214092141,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "hillock_cell_of_prostate_epithelium": {
+      "ppi_genes_before": 2748,
+      "ppi_genes_after": 2748,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14755,
+      "ppi_edges_after": 14755,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4919941775836971,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "immature_enterocyte": {
+      "ppi_genes_before": 3100,
+      "ppi_genes_after": 3100,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 32885,
+      "ppi_edges_after": 32885,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4193548387096775,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "immature_natural_killer_cell": {
+      "ppi_genes_before": 1578,
+      "ppi_genes_after": 1578,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6142,
+      "ppi_edges_after": 6142,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1546261089987326,
+      "seed_genes_connected": false,
+      "n_seed_components": 15
+    },
+    "immune_cell": {
+      "ppi_genes_before": 1433,
+      "ppi_genes_after": 1433,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5985,
+      "ppi_edges_after": 5985,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 4.256803907885555,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "intermediate_monocyte": {
+      "ppi_genes_before": 2585,
+      "ppi_genes_after": 2585,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 12620,
+      "ppi_edges_after": 12620,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.442940038684719,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "intestinal_crypt_stem_cell": {
+      "ppi_genes_before": 3072,
+      "ppi_genes_after": 3072,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 36982,
+      "ppi_edges_after": 36982,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.2369791666666665,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "intestinal_crypt_stem_cell_of_large_intestine": {
+      "ppi_genes_before": 1152,
+      "ppi_genes_after": 1152,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 2708,
+      "ppi_edges_after": 2708,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.864583333333333,
+      "seed_genes_connected": false,
+      "n_seed_components": 19
+    },
+    "intestinal_crypt_stem_cell_of_small_intestine": {
+      "ppi_genes_before": 3239,
+      "ppi_genes_after": 3239,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 39874,
+      "ppi_edges_after": 39874,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4510651435628281,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "intestinal_enteroendocrine_cell": {
+      "ppi_genes_before": 2847,
+      "ppi_genes_after": 2847,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14834,
+      "ppi_edges_after": 14834,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0372321742184756,
+      "seed_genes_connected": false,
+      "n_seed_components": 41
+    },
+    "intestinal_tuft_cell": {
+      "ppi_genes_before": 1557,
+      "ppi_genes_after": 1557,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 4821,
+      "ppi_edges_after": 4821,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.569043031470777,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "intrahepatic_cholangiocyte": {
+      "ppi_genes_before": 2844,
+      "ppi_genes_after": 2844,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 15327,
+      "ppi_edges_after": 15327,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7229254571026722,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "ionocyte": {
+      "ppi_genes_before": 2866,
+      "ppi_genes_after": 2866,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16201,
+      "ppi_edges_after": 16201,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.09351011863224,
+      "seed_genes_connected": false,
+      "n_seed_components": 45
+    },
+    "keratinocyte": {
+      "ppi_genes_before": 3217,
+      "ppi_genes_after": 3217,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 35629,
+      "ppi_edges_after": 35629,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.3055641902393536,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "kidney_epithelial_cell": {
+      "ppi_genes_before": 2909,
+      "ppi_genes_after": 2909,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 18873,
+      "ppi_edges_after": 18873,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5469233413544174,
+      "seed_genes_connected": false,
+      "n_seed_components": 30
+    },
+    "lacrimal_gland_functional_unit_cell": {
+      "ppi_genes_before": 2323,
+      "ppi_genes_after": 2323,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7078,
+      "ppi_edges_after": 7078,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0662935858803273,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "langerhans_cell": {
+      "ppi_genes_before": 3065,
+      "ppi_genes_after": 3065,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 31516,
+      "ppi_edges_after": 31516,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1207177814029365,
+      "seed_genes_connected": false,
+      "n_seed_components": 42
+    },
+    "large_intestine_goblet_cell": {
+      "ppi_genes_before": 1215,
+      "ppi_genes_after": 1215,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 2727,
+      "ppi_edges_after": 2727,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.292181069958848,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "limbal_stem_cell": {
+      "ppi_genes_before": 3203,
+      "ppi_genes_after": 3203,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 24287,
+      "ppi_edges_after": 24287,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.966906025600999,
+      "seed_genes_connected": false,
+      "n_seed_components": 49
+    },
+    "limbal_stromal_cell": {
+      "ppi_genes_before": 2747,
+      "ppi_genes_after": 2747,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 11695,
+      "ppi_edges_after": 11695,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.693847834000728,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "liver_dendritic_cell": {
+      "ppi_genes_before": 2472,
+      "ppi_genes_after": 2472,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14530,
+      "ppi_edges_after": 14530,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.033980582524272,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "luminal_cell_of_prostate_epithelium": {
+      "ppi_genes_before": 2738,
+      "ppi_genes_after": 2738,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 12806,
+      "ppi_edges_after": 12806,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.8626734842951058,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "luminal_epithelial_cell_of_mammary_gland": {
+      "ppi_genes_before": 3093,
+      "ppi_genes_after": 3093,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 31011,
+      "ppi_edges_after": 31011,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.325573876495312,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "lung_ciliated_cell": {
+      "ppi_genes_before": 2625,
+      "ppi_genes_after": 2625,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14443,
+      "ppi_edges_after": 14443,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.2952380952380953,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "lung_microvascular_endothelial_cell": {
+      "ppi_genes_before": 1907,
+      "ppi_genes_after": 1907,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7356,
+      "ppi_edges_after": 7356,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.7755637126376507,
+      "seed_genes_connected": false,
+      "n_seed_components": 47
+    },
+    "lymphatic_endothelial_cell": {
+      "ppi_genes_before": 3023,
+      "ppi_genes_after": 3023,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 18936,
+      "ppi_edges_after": 18936,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7863049950380416,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "macrophage": {
+      "ppi_genes_before": 3112,
+      "ppi_genes_after": 3112,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22139,
+      "ppi_edges_after": 22139,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.892030848329049,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "mature_conventional_dendritic_cell": {
+      "ppi_genes_before": 2988,
+      "ppi_genes_after": 2988,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 27239,
+      "ppi_edges_after": 27239,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.9745649263721552,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "mature_enterocyte": {
+      "ppi_genes_before": 1103,
+      "ppi_genes_after": 1103,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 2636,
+      "ppi_edges_after": 2636,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 4.0797824116047146,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "mature_nk_t_cell": {
+      "ppi_genes_before": 1449,
+      "ppi_genes_after": 1449,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6202,
+      "ppi_edges_after": 6202,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.898550724637681,
+      "seed_genes_connected": false,
+      "n_seed_components": 16
+    },
+    "medullary_thymic_epithelial_cell": {
+      "ppi_genes_before": 3299,
+      "ppi_genes_after": 3299,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 39186,
+      "ppi_edges_after": 39186,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6065474386177632,
+      "seed_genes_connected": false,
+      "n_seed_components": 42
+    },
+    "melanocyte": {
+      "ppi_genes_before": 2746,
+      "ppi_genes_after": 2746,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 21284,
+      "ppi_edges_after": 21284,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0757465404224327,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "memory_b_cell": {
+      "ppi_genes_before": 1920,
+      "ppi_genes_after": 1920,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 15250,
+      "ppi_edges_after": 15250,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7187500000000002,
+      "seed_genes_connected": false,
+      "n_seed_components": 25
+    },
+    "mesenchymal_stem_cell": {
+      "ppi_genes_before": 2834,
+      "ppi_genes_after": 2834,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 21857,
+      "ppi_edges_after": 21857,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.681721947776994,
+      "seed_genes_connected": false,
+      "n_seed_components": 43
+    },
+    "mesothelial_cell": {
+      "ppi_genes_before": 3211,
+      "ppi_genes_after": 3211,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 34192,
+      "ppi_edges_after": 34192,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6505761445032698,
+      "seed_genes_connected": false,
+      "n_seed_components": 39
+    },
+    "microglial_cell": {
+      "ppi_genes_before": 2606,
+      "ppi_genes_after": 2606,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 17095,
+      "ppi_edges_after": 17095,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.916346891788181,
+      "seed_genes_connected": false,
+      "n_seed_components": 27
+    },
+    "monocyte": {
+      "ppi_genes_before": 2866,
+      "ppi_genes_after": 2866,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 18725,
+      "ppi_edges_after": 18725,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.8611304954640615,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "mucus_secreting_cell": {
+      "ppi_genes_before": 2833,
+      "ppi_genes_after": 2833,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 15258,
+      "ppi_edges_after": 15258,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.8355100600070597,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "muller_cell": {
+      "ppi_genes_before": 2356,
+      "ppi_genes_after": 2356,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 9191,
+      "ppi_edges_after": 9191,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.886247877758913,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "muscle_cell": {
+      "ppi_genes_before": 2206,
+      "ppi_genes_after": 2206,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 21200,
+      "ppi_edges_after": 21200,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.402538531278332,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "myeloid_cell": {
+      "ppi_genes_before": 3195,
+      "ppi_genes_after": 3195,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 28490,
+      "ppi_edges_after": 28490,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.15962441314554,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "myeloid_dendritic_cell": {
+      "ppi_genes_before": 3258,
+      "ppi_genes_after": 3258,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 38370,
+      "ppi_edges_after": 38370,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5346838551258442,
+      "seed_genes_connected": false,
+      "n_seed_components": 26
+    },
+    "myeloid_progenitor": {
+      "ppi_genes_before": 3337,
+      "ppi_genes_after": 3337,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 47562,
+      "ppi_edges_after": 47562,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.7791429427629608,
+      "seed_genes_connected": false,
+      "n_seed_components": 20
+    },
+    "myoepithelial_cell": {
+      "ppi_genes_before": 2026,
+      "ppi_genes_after": 2026,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6270,
+      "ppi_edges_after": 6270,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.2082922013820334,
+      "seed_genes_connected": false,
+      "n_seed_components": 41
+    },
+    "myofibroblast_cell": {
+      "ppi_genes_before": 2806,
+      "ppi_genes_after": 2806,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14495,
+      "ppi_edges_after": 14495,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.5281539558089805,
+      "seed_genes_connected": false,
+      "n_seed_components": 47
+    },
+    "myometrial_cell": {
+      "ppi_genes_before": 2477,
+      "ppi_genes_after": 2477,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 11834,
+      "ppi_edges_after": 11834,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.391199031085991,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "naive_regulatory_t_cell": {
+      "ppi_genes_before": 2429,
+      "ppi_genes_after": 2429,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16284,
+      "ppi_edges_after": 16284,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.9761218608480857,
+      "seed_genes_connected": false,
+      "n_seed_components": 24
+    },
+    "naive_thymus-derived_cd4-positive,_alpha-beta_t_cell": {
+      "ppi_genes_before": 1080,
+      "ppi_genes_after": 1080,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7527,
+      "ppi_edges_after": 7527,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.5925925925925926,
+      "seed_genes_connected": false,
+      "n_seed_components": 16
+    },
+    "nampt_neutrophil": {
+      "ppi_genes_before": 1291,
+      "ppi_genes_after": 1291,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 4073,
+      "ppi_edges_after": 4073,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 4.8799380325329205,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "nk_cell": {
+      "ppi_genes_before": 1456,
+      "ppi_genes_after": 1456,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5040,
+      "ppi_edges_after": 5040,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.2280219780219785,
+      "seed_genes_connected": false,
+      "n_seed_components": 22
+    },
+    "non-classical_monocyte": {
+      "ppi_genes_before": 1393,
+      "ppi_genes_after": 1393,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 4295,
+      "ppi_edges_after": 4295,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 4.737975592246949,
+      "seed_genes_connected": false,
+      "n_seed_components": 30
+    },
+    "ocular_surface_cell": {
+      "ppi_genes_before": 2986,
+      "ppi_genes_after": 2986,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 19363,
+      "ppi_edges_after": 19363,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0763563295378433,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "pancreatic_acinar_cell": {
+      "ppi_genes_before": 2628,
+      "ppi_genes_after": 2628,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16506,
+      "ppi_edges_after": 16506,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.21765601217656,
+      "seed_genes_connected": false,
+      "n_seed_components": 25
+    },
+    "pancreatic_alpha_cell": {
+      "ppi_genes_before": 2246,
+      "ppi_genes_after": 2246,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 9114,
+      "ppi_edges_after": 9114,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0035618878005343,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "pancreatic_beta_cell": {
+      "ppi_genes_before": 2741,
+      "ppi_genes_after": 2741,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 17384,
+      "ppi_edges_after": 17384,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6782196278730388,
+      "seed_genes_connected": false,
+      "n_seed_components": 38
+    },
+    "pancreatic_delta_cell": {
+      "ppi_genes_before": 2868,
+      "ppi_genes_after": 2868,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 20933,
+      "ppi_edges_after": 20933,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6736401673640167,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "pancreatic_ductal_cell": {
+      "ppi_genes_before": 3053,
+      "ppi_genes_after": 3053,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22080,
+      "ppi_edges_after": 22080,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5722240419259743,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "pancreatic_pp_cell": {
+      "ppi_genes_before": 1397,
+      "ppi_genes_after": 1397,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6447,
+      "ppi_edges_after": 6447,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.6485325697924123,
+      "seed_genes_connected": false,
+      "n_seed_components": 30
+    },
+    "pancreatic_stellate_cell": {
+      "ppi_genes_before": 3109,
+      "ppi_genes_after": 3109,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 24227,
+      "ppi_edges_after": 24227,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1871984560952074,
+      "seed_genes_connected": false,
+      "n_seed_components": 43
+    },
+    "paneth_cell_of_epithelium_of_large_intestine": {
+      "ppi_genes_before": 1964,
+      "ppi_genes_after": 1964,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 7770,
+      "ppi_edges_after": 7770,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3421588594704685,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "paneth_cell_of_epithelium_of_small_intestine": {
+      "ppi_genes_before": 2695,
+      "ppi_genes_after": 2695,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14348,
+      "ppi_edges_after": 14348,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.1150278293135436,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "pericyte_cell": {
+      "ppi_genes_before": 2986,
+      "ppi_genes_after": 2986,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 18662,
+      "ppi_edges_after": 18662,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.712659075686537,
+      "seed_genes_connected": false,
+      "n_seed_components": 53
+    },
+    "plasma_cell": {
+      "ppi_genes_before": 3178,
+      "ppi_genes_after": 3178,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 39142,
+      "ppi_edges_after": 39142,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.5663939584644431,
+      "seed_genes_connected": false,
+      "n_seed_components": 16
+    },
+    "plasmablast": {
+      "ppi_genes_before": 3041,
+      "ppi_genes_after": 3041,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 32875,
+      "ppi_edges_after": 32875,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 0.7234462347911871,
+      "seed_genes_connected": false,
+      "n_seed_components": 13
+    },
+    "plasmacytoid_dendritic_cell": {
+      "ppi_genes_before": 2544,
+      "ppi_genes_after": 2544,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 17992,
+      "ppi_edges_after": 17992,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7688679245283019,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "ppi": {
+      "ppi_genes_before": 17916,
+      "ppi_genes_after": 17916,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 380340,
+      "ppi_edges_after": 380340,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.2270596115204286,
+      "seed_genes_connected": false,
+      "n_seed_components": 100
+    },
+    "pulmonary_ionocyte": {
+      "ppi_genes_before": 2784,
+      "ppi_genes_after": 2784,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 15837,
+      "ppi_edges_after": 15837,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7600574712643677,
+      "seed_genes_connected": false,
+      "n_seed_components": 39
+    },
+    "radial_glial_cell": {
+      "ppi_genes_before": 3384,
+      "ppi_genes_after": 3384,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 43426,
+      "ppi_edges_after": 43426,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5661938534278959,
+      "seed_genes_connected": false,
+      "n_seed_components": 35
+    },
+    "regulatory_t_cell": {
+      "ppi_genes_before": 2246,
+      "ppi_genes_after": 2246,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14987,
+      "ppi_edges_after": 14987,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6028495102404272,
+      "seed_genes_connected": false,
+      "n_seed_components": 22
+    },
+    "respiratory_goblet_cell": {
+      "ppi_genes_before": 3092,
+      "ppi_genes_after": 3092,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 26907,
+      "ppi_edges_after": 26907,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.6170763260025873,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "respiratory_mucous_cell": {
+      "ppi_genes_before": 2939,
+      "ppi_genes_after": 2939,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 20932,
+      "ppi_edges_after": 20932,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.667233752977203,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "retina_horizontal_cell": {
+      "ppi_genes_before": 2360,
+      "ppi_genes_after": 2360,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 10834,
+      "ppi_edges_after": 10834,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.415254237288136,
+      "seed_genes_connected": false,
+      "n_seed_components": 33
+    },
+    "retinal_bipolar_neuron": {
+      "ppi_genes_before": 2832,
+      "ppi_genes_after": 2832,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16269,
+      "ppi_edges_after": 16269,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.824858757062147,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "retinal_blood_vessel_endothelial_cell": {
+      "ppi_genes_before": 3176,
+      "ppi_genes_after": 3176,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 27795,
+      "ppi_edges_after": 27795,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.3299748110831233,
+      "seed_genes_connected": false,
+      "n_seed_components": 43
+    },
+    "retinal_ganglion_cell": {
+      "ppi_genes_before": 1460,
+      "ppi_genes_after": 1460,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5536,
+      "ppi_edges_after": 5536,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.7123287671232876,
+      "seed_genes_connected": false,
+      "n_seed_components": 19
+    },
+    "retinal_pigment_epithelial_cell": {
+      "ppi_genes_before": 2225,
+      "ppi_genes_after": 2225,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 8014,
+      "ppi_edges_after": 8014,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.157303370786517,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "salivary_gland_cell": {
+      "ppi_genes_before": 3424,
+      "ppi_genes_after": 3424,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 35231,
+      "ppi_edges_after": 35231,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4894859813084111,
+      "seed_genes_connected": false,
+      "n_seed_components": 40
+    },
+    "schwann_cell": {
+      "ppi_genes_before": 3015,
+      "ppi_genes_after": 3015,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 19739,
+      "ppi_edges_after": 19739,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.321724709784411,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "secretory_cell": {
+      "ppi_genes_before": 3134,
+      "ppi_genes_after": 3134,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 25037,
+      "ppi_edges_after": 25037,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.691129546904914,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "serous_cell_of_epithelium_of_bronchus": {
+      "ppi_genes_before": 2953,
+      "ppi_genes_after": 2953,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 23999,
+      "ppi_edges_after": 23999,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5238740264138164,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "serous_cell_of_epithelium_of_trachea": {
+      "ppi_genes_before": 2741,
+      "ppi_genes_after": 2741,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14913,
+      "ppi_edges_after": 14913,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.8241517694272162,
+      "seed_genes_connected": false,
+      "n_seed_components": 39
+    },
+    "skeletal_muscle_satellite_stem_cell": {
+      "ppi_genes_before": 1861,
+      "ppi_genes_after": 1861,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 14445,
+      "ppi_edges_after": 14445,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.6867275658248255,
+      "seed_genes_connected": false,
+      "n_seed_components": 37
+    },
+    "small_intestine_goblet_cell": {
+      "ppi_genes_before": 1803,
+      "ppi_genes_after": 1803,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 5741,
+      "ppi_edges_after": 5741,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.4958402662229617,
+      "seed_genes_connected": false,
+      "n_seed_components": 22
+    },
+    "smooth_muscle_cell": {
+      "ppi_genes_before": 3186,
+      "ppi_genes_after": 3186,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 23278,
+      "ppi_edges_after": 23278,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.0087884494664157,
+      "seed_genes_connected": false,
+      "n_seed_components": 42
+    },
+    "sperm": {
+      "ppi_genes_before": 2633,
+      "ppi_genes_after": 2633,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 22822,
+      "ppi_edges_after": 22822,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4812001519179643,
+      "seed_genes_connected": false,
+      "n_seed_components": 32
+    },
+    "stromal_cell": {
+      "ppi_genes_before": 3091,
+      "ppi_genes_after": 3091,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 33516,
+      "ppi_edges_after": 33516,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.5234551924943385,
+      "seed_genes_connected": false,
+      "n_seed_components": 46
+    },
+    "t_follicular_helper_cell": {
+      "ppi_genes_before": 2028,
+      "ppi_genes_after": 2028,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 13369,
+      "ppi_edges_after": 13369,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.2682445759368837,
+      "seed_genes_connected": false,
+      "n_seed_components": 24
+    },
+    "tendon_cell": {
+      "ppi_genes_before": 2747,
+      "ppi_genes_after": 2747,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 19808,
+      "ppi_edges_after": 19808,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.4390243902439024,
+      "seed_genes_connected": false,
+      "n_seed_components": 42
+    },
+    "tongue_muscle_cell": {
+      "ppi_genes_before": 1381,
+      "ppi_genes_after": 1381,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 6210,
+      "ppi_edges_after": 6210,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.113685734974656,
+      "seed_genes_connected": false,
+      "n_seed_components": 34
+    },
+    "tracheal_goblet_cell": {
+      "ppi_genes_before": 2965,
+      "ppi_genes_after": 2965,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16381,
+      "ppi_edges_after": 16381,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.821247892074199,
+      "seed_genes_connected": false,
+      "n_seed_components": 36
+    },
+    "transit_amplifying_cell_of_large_intestine": {
+      "ppi_genes_before": 3158,
+      "ppi_genes_after": 3158,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 37459,
+      "ppi_edges_after": 37459,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.1082963901203293,
+      "seed_genes_connected": false,
+      "n_seed_components": 28
+    },
+    "transit_amplifying_cell_of_small_intestine": {
+      "ppi_genes_before": 3031,
+      "ppi_genes_after": 3031,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 32198,
+      "ppi_edges_after": 32198,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.5176509402837348,
+      "seed_genes_connected": false,
+      "n_seed_components": 29
+    },
+    "type_i_nk_t_cell": {
+      "ppi_genes_before": 1006,
+      "ppi_genes_after": 1006,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 2740,
+      "ppi_edges_after": 2740,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.982107355864811,
+      "seed_genes_connected": false,
+      "n_seed_components": 16
+    },
+    "type_i_pneumocyte": {
+      "ppi_genes_before": 2975,
+      "ppi_genes_after": 2975,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 16306,
+      "ppi_edges_after": 16306,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.8823529411764703,
+      "seed_genes_connected": false,
+      "n_seed_components": 44
+    },
+    "type_ii_pneumocyte": {
+      "ppi_genes_before": 3228,
+      "ppi_genes_after": 3228,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 35172,
+      "ppi_edges_after": 35172,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 1.4560099132589839,
+      "seed_genes_connected": false,
+      "n_seed_components": 31
+    },
+    "vascular_associated_smooth_muscle_cell": {
+      "ppi_genes_before": 2494,
+      "ppi_genes_after": 2494,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 10826,
+      "ppi_edges_after": 10826,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 3.0473135525260626,
+      "seed_genes_connected": false,
+      "n_seed_components": 52
+    },
+    "vein_endothelial_cell": {
+      "ppi_genes_before": 3070,
+      "ppi_genes_after": 3070,
+      "ppi_genes_lost": 0,
+      "ppi_node_survival_pct": 100.0,
+      "ppi_edges_before": 27612,
+      "ppi_edges_after": 27612,
+      "ppi_edges_lost": 0,
+      "ppi_edge_survival_pct": 100.0,
+      "seed_gene_pct_of_layer": 2.4104234527687294,
+      "seed_genes_connected": false,
+      "n_seed_components": 45
+    }
+  },
+  "seed_gene_analysis": {
+    "summary": {
+      "total_seed_genes": 408,
+      "seed_genes_in_ppi_before": 400,
+      "seed_genes_in_multiplex_after": 400,
+      "seed_genes_lost": 0,
+      "seed_gene_recovery_pct": 98.0392156862745
+    },
+    "per_celltype": {
+      "acinar_cell_of_salivary_gland": {
+        "seed_genes_in_ppi": 55,
+        "seed_genes_in_layer": 55,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.480392156862745
+      },
+      "adipocyte": {
+        "seed_genes_in_ppi": 30,
+        "seed_genes_in_layer": 30,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.352941176470589
+      },
+      "adventitial_cell": {
+        "seed_genes_in_ppi": 56,
+        "seed_genes_in_layer": 56,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.725490196078432
+      },
+      "alveolar_fibroblast": {
+        "seed_genes_in_ppi": 63,
+        "seed_genes_in_layer": 63,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.441176470588236
+      },
+      "artery_endothelial_cell": {
+        "seed_genes_in_ppi": 73,
+        "seed_genes_in_layer": 73,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 17.892156862745097
+      },
+      "b_cell": {
+        "seed_genes_in_ppi": 30,
+        "seed_genes_in_layer": 30,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.352941176470589
+      },
+      "basal_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "basal_cell_of_prostate_epithelium": {
+        "seed_genes_in_ppi": 65,
+        "seed_genes_in_layer": 65,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.931372549019606
+      },
+      "bladder_urothelial_cell": {
+        "seed_genes_in_ppi": 57,
+        "seed_genes_in_layer": 57,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.970588235294118
+      },
+      "bronchial_smooth_muscle_cell": {
+        "seed_genes_in_ppi": 56,
+        "seed_genes_in_layer": 56,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.725490196078432
+      },
+      "bronchial_vessel_endothelial_cell": {
+        "seed_genes_in_ppi": 58,
+        "seed_genes_in_layer": 58,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.215686274509803
+      },
+      "capillary_endothelial_cell": {
+        "seed_genes_in_ppi": 60,
+        "seed_genes_in_layer": 60,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.705882352941178
+      },
+      "cardiac_endothelial_cell": {
+        "seed_genes_in_ppi": 66,
+        "seed_genes_in_layer": 66,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.176470588235293
+      },
+      "cardiac_muscle_cell": {
+        "seed_genes_in_ppi": 31,
+        "seed_genes_in_layer": 31,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.598039215686274
+      },
+      "cd141-positive_myeloid_dendritic_cell": {
+        "seed_genes_in_ppi": 61,
+        "seed_genes_in_layer": 61,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.950980392156863
+      },
+      "cd1c-positive_myeloid_dendritic_cell": {
+        "seed_genes_in_ppi": 83,
+        "seed_genes_in_layer": 83,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 20.34313725490196
+      },
+      "cd24_neutrophil": {
+        "seed_genes_in_ppi": 55,
+        "seed_genes_in_layer": 55,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.480392156862745
+      },
+      "cd4-positive,_alpha-beta_memory_t_cell": {
+        "seed_genes_in_ppi": 28,
+        "seed_genes_in_layer": 28,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 6.862745098039216
+      },
+      "cd4-positive_helper_t_cell": {
+        "seed_genes_in_ppi": 30,
+        "seed_genes_in_layer": 30,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.352941176470589
+      },
+      "cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell": {
+        "seed_genes_in_ppi": 40,
+        "seed_genes_in_layer": 40,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.803921568627452
+      },
+      "cd8-positive,_alpha-beta_cytotoxic_t_cell": {
+        "seed_genes_in_ppi": 52,
+        "seed_genes_in_layer": 52,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.745098039215685
+      },
+      "cell_of_skeletal_muscle": {
+        "seed_genes_in_ppi": 67,
+        "seed_genes_in_layer": 67,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.42156862745098
+      },
+      "ciliary_body": {
+        "seed_genes_in_ppi": 71,
+        "seed_genes_in_layer": 71,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 17.401960784313726
+      },
+      "ciliated_cell": {
+        "seed_genes_in_ppi": 39,
+        "seed_genes_in_layer": 39,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.558823529411764
+      },
+      "ciliated_epithelial_cell": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "classical_monocyte": {
+        "seed_genes_in_ppi": 78,
+        "seed_genes_in_layer": 78,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.11764705882353
+      },
+      "club_cell": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "club_cell_of_prostate_epithelium": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "conjunctival_epithelial_cell": {
+        "seed_genes_in_ppi": 66,
+        "seed_genes_in_layer": 66,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.176470588235293
+      },
+      "connective_tissue_cell": {
+        "seed_genes_in_ppi": 79,
+        "seed_genes_in_layer": 79,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.362745098039216
+      },
+      "corneal_epithelial_cell": {
+        "seed_genes_in_ppi": 49,
+        "seed_genes_in_layer": 49,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.009803921568627
+      },
+      "corneal_keratocyte": {
+        "seed_genes_in_ppi": 68,
+        "seed_genes_in_layer": 68,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.666666666666664
+      },
+      "dendritic_cell": {
+        "seed_genes_in_ppi": 67,
+        "seed_genes_in_layer": 67,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.42156862745098
+      },
+      "dn1_thymic_pro-t_cell": {
+        "seed_genes_in_ppi": 42,
+        "seed_genes_in_layer": 42,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.294117647058822
+      },
+      "dn3_thymocyte": {
+        "seed_genes_in_ppi": 28,
+        "seed_genes_in_layer": 28,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 6.862745098039216
+      },
+      "dn4_thymocyte": {
+        "seed_genes_in_ppi": 35,
+        "seed_genes_in_layer": 35,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.57843137254902
+      },
+      "double-positive,_alpha-beta_thymocyte": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "duct_epithelial_cell": {
+        "seed_genes_in_ppi": 58,
+        "seed_genes_in_layer": 58,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.215686274509803
+      },
+      "duodenum_glandular_cell": {
+        "seed_genes_in_ppi": 41,
+        "seed_genes_in_layer": 41,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.049019607843137
+      },
+      "endothelial_cell": {
+        "seed_genes_in_ppi": 76,
+        "seed_genes_in_layer": 76,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.627450980392158
+      },
+      "endothelial_cell_of_artery": {
+        "seed_genes_in_ppi": 76,
+        "seed_genes_in_layer": 76,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.627450980392158
+      },
+      "endothelial_cell_of_hepatic_sinusoid": {
+        "seed_genes_in_ppi": 70,
+        "seed_genes_in_layer": 70,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 17.15686274509804
+      },
+      "endothelial_cell_of_lymphatic_vessel": {
+        "seed_genes_in_ppi": 68,
+        "seed_genes_in_layer": 68,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.666666666666664
+      },
+      "endothelial_cell_of_vascular_tree": {
+        "seed_genes_in_ppi": 67,
+        "seed_genes_in_layer": 67,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.42156862745098
+      },
+      "enterocyte_of_epithelium_of_large_intestine": {
+        "seed_genes_in_ppi": 34,
+        "seed_genes_in_layer": 34,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.333333333333332
+      },
+      "enterocyte_of_epithelium_of_small_intestine": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "epithelial_cell": {
+        "seed_genes_in_ppi": 42,
+        "seed_genes_in_layer": 42,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.294117647058822
+      },
+      "epithelial_cell_of_lacrimal_sac": {
+        "seed_genes_in_ppi": 77,
+        "seed_genes_in_layer": 77,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.872549019607842
+      },
+      "epithelial_cell_of_uterus": {
+        "seed_genes_in_ppi": 56,
+        "seed_genes_in_layer": 56,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.725490196078432
+      },
+      "erythroid_progenitor": {
+        "seed_genes_in_ppi": 20,
+        "seed_genes_in_layer": 20,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 4.901960784313726
+      },
+      "eye_photoreceptor_cell": {
+        "seed_genes_in_ppi": 44,
+        "seed_genes_in_layer": 44,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.784313725490197
+      },
+      "fast_muscle_cell": {
+        "seed_genes_in_ppi": 16,
+        "seed_genes_in_layer": 16,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 3.9215686274509802
+      },
+      "fibroblast": {
+        "seed_genes_in_ppi": 81,
+        "seed_genes_in_layer": 81,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.852941176470587
+      },
+      "fibroblast_of_breast": {
+        "seed_genes_in_ppi": 59,
+        "seed_genes_in_layer": 59,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.460784313725492
+      },
+      "fibroblast_of_cardiac_tissue": {
+        "seed_genes_in_ppi": 57,
+        "seed_genes_in_layer": 57,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.970588235294118
+      },
+      "goblet_cell": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "granulocyte": {
+        "seed_genes_in_ppi": 47,
+        "seed_genes_in_layer": 47,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.519607843137255
+      },
+      "gut_endothelial_cell": {
+        "seed_genes_in_ppi": 64,
+        "seed_genes_in_layer": 64,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.686274509803921
+      },
+      "hematopoietic_stem_cell": {
+        "seed_genes_in_ppi": 31,
+        "seed_genes_in_layer": 31,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.598039215686274
+      },
+      "hepatocyte": {
+        "seed_genes_in_ppi": 33,
+        "seed_genes_in_layer": 33,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.088235294117647
+      },
+      "hillock-club_cell_of_prostate_epithelium": {
+        "seed_genes_in_ppi": 47,
+        "seed_genes_in_layer": 47,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.519607843137255
+      },
+      "hillock_cell_of_prostate_epithelium": {
+        "seed_genes_in_ppi": 41,
+        "seed_genes_in_layer": 41,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.049019607843137
+      },
+      "immature_enterocyte": {
+        "seed_genes_in_ppi": 44,
+        "seed_genes_in_layer": 44,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.784313725490197
+      },
+      "immature_natural_killer_cell": {
+        "seed_genes_in_ppi": 34,
+        "seed_genes_in_layer": 34,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.333333333333332
+      },
+      "immune_cell": {
+        "seed_genes_in_ppi": 61,
+        "seed_genes_in_layer": 61,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.950980392156863
+      },
+      "intermediate_monocyte": {
+        "seed_genes_in_ppi": 89,
+        "seed_genes_in_layer": 89,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 21.813725490196077
+      },
+      "intestinal_crypt_stem_cell": {
+        "seed_genes_in_ppi": 38,
+        "seed_genes_in_layer": 38,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.313725490196079
+      },
+      "intestinal_crypt_stem_cell_of_large_intestine": {
+        "seed_genes_in_ppi": 33,
+        "seed_genes_in_layer": 33,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.088235294117647
+      },
+      "intestinal_crypt_stem_cell_of_small_intestine": {
+        "seed_genes_in_ppi": 47,
+        "seed_genes_in_layer": 47,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.519607843137255
+      },
+      "intestinal_enteroendocrine_cell": {
+        "seed_genes_in_ppi": 58,
+        "seed_genes_in_layer": 58,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.215686274509803
+      },
+      "intestinal_tuft_cell": {
+        "seed_genes_in_ppi": 40,
+        "seed_genes_in_layer": 40,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.803921568627452
+      },
+      "intrahepatic_cholangiocyte": {
+        "seed_genes_in_ppi": 49,
+        "seed_genes_in_layer": 49,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.009803921568627
+      },
+      "ionocyte": {
+        "seed_genes_in_ppi": 60,
+        "seed_genes_in_layer": 60,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.705882352941178
+      },
+      "keratinocyte": {
+        "seed_genes_in_ppi": 42,
+        "seed_genes_in_layer": 42,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.294117647058822
+      },
+      "kidney_epithelial_cell": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "lacrimal_gland_functional_unit_cell": {
+        "seed_genes_in_ppi": 48,
+        "seed_genes_in_layer": 48,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.76470588235294
+      },
+      "langerhans_cell": {
+        "seed_genes_in_ppi": 65,
+        "seed_genes_in_layer": 65,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.931372549019606
+      },
+      "large_intestine_goblet_cell": {
+        "seed_genes_in_ppi": 40,
+        "seed_genes_in_layer": 40,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.803921568627452
+      },
+      "limbal_stem_cell": {
+        "seed_genes_in_ppi": 63,
+        "seed_genes_in_layer": 63,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.441176470588236
+      },
+      "limbal_stromal_cell": {
+        "seed_genes_in_ppi": 74,
+        "seed_genes_in_layer": 74,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.137254901960784
+      },
+      "liver_dendritic_cell": {
+        "seed_genes_in_ppi": 75,
+        "seed_genes_in_layer": 75,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.38235294117647
+      },
+      "luminal_cell_of_prostate_epithelium": {
+        "seed_genes_in_ppi": 51,
+        "seed_genes_in_layer": 51,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.5
+      },
+      "luminal_epithelial_cell_of_mammary_gland": {
+        "seed_genes_in_ppi": 41,
+        "seed_genes_in_layer": 41,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.049019607843137
+      },
+      "lung_ciliated_cell": {
+        "seed_genes_in_ppi": 34,
+        "seed_genes_in_layer": 34,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.333333333333332
+      },
+      "lung_microvascular_endothelial_cell": {
+        "seed_genes_in_ppi": 72,
+        "seed_genes_in_layer": 72,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 17.647058823529413
+      },
+      "lymphatic_endothelial_cell": {
+        "seed_genes_in_ppi": 54,
+        "seed_genes_in_layer": 54,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.23529411764706
+      },
+      "macrophage": {
+        "seed_genes_in_ppi": 90,
+        "seed_genes_in_layer": 90,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 22.058823529411764
+      },
+      "mature_conventional_dendritic_cell": {
+        "seed_genes_in_ppi": 59,
+        "seed_genes_in_layer": 59,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 14.460784313725492
+      },
+      "mature_enterocyte": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "mature_nk_t_cell": {
+        "seed_genes_in_ppi": 42,
+        "seed_genes_in_layer": 42,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.294117647058822
+      },
+      "medullary_thymic_epithelial_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "melanocyte": {
+        "seed_genes_in_ppi": 57,
+        "seed_genes_in_layer": 57,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.970588235294118
+      },
+      "memory_b_cell": {
+        "seed_genes_in_ppi": 33,
+        "seed_genes_in_layer": 33,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.088235294117647
+      },
+      "mesenchymal_stem_cell": {
+        "seed_genes_in_ppi": 76,
+        "seed_genes_in_layer": 76,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.627450980392158
+      },
+      "mesothelial_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "microglial_cell": {
+        "seed_genes_in_ppi": 76,
+        "seed_genes_in_layer": 76,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.627450980392158
+      },
+      "monocyte": {
+        "seed_genes_in_ppi": 82,
+        "seed_genes_in_layer": 82,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 20.098039215686274
+      },
+      "mucus_secreting_cell": {
+        "seed_genes_in_ppi": 52,
+        "seed_genes_in_layer": 52,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.745098039215685
+      },
+      "muller_cell": {
+        "seed_genes_in_ppi": 68,
+        "seed_genes_in_layer": 68,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.666666666666664
+      },
+      "muscle_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "myeloid_cell": {
+        "seed_genes_in_ppi": 69,
+        "seed_genes_in_layer": 69,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.911764705882355
+      },
+      "myeloid_dendritic_cell": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "myeloid_progenitor": {
+        "seed_genes_in_ppi": 26,
+        "seed_genes_in_layer": 26,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 6.372549019607843
+      },
+      "myoepithelial_cell": {
+        "seed_genes_in_ppi": 65,
+        "seed_genes_in_layer": 65,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.931372549019606
+      },
+      "myofibroblast_cell": {
+        "seed_genes_in_ppi": 99,
+        "seed_genes_in_layer": 99,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 24.264705882352942
+      },
+      "myometrial_cell": {
+        "seed_genes_in_ppi": 84,
+        "seed_genes_in_layer": 84,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 20.588235294117645
+      },
+      "naive_regulatory_t_cell": {
+        "seed_genes_in_ppi": 48,
+        "seed_genes_in_layer": 48,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.76470588235294
+      },
+      "naive_thymus-derived_cd4-positive,_alpha-beta_t_cell": {
+        "seed_genes_in_ppi": 28,
+        "seed_genes_in_layer": 28,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 6.862745098039216
+      },
+      "nampt_neutrophil": {
+        "seed_genes_in_ppi": 63,
+        "seed_genes_in_layer": 63,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.441176470588236
+      },
+      "nk_cell": {
+        "seed_genes_in_ppi": 47,
+        "seed_genes_in_layer": 47,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.519607843137255
+      },
+      "non-classical_monocyte": {
+        "seed_genes_in_ppi": 66,
+        "seed_genes_in_layer": 66,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.176470588235293
+      },
+      "ocular_surface_cell": {
+        "seed_genes_in_ppi": 62,
+        "seed_genes_in_layer": 62,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.196078431372548
+      },
+      "pancreatic_acinar_cell": {
+        "seed_genes_in_ppi": 32,
+        "seed_genes_in_layer": 32,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.8431372549019605
+      },
+      "pancreatic_alpha_cell": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "pancreatic_beta_cell": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "pancreatic_delta_cell": {
+        "seed_genes_in_ppi": 48,
+        "seed_genes_in_layer": 48,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.76470588235294
+      },
+      "pancreatic_ductal_cell": {
+        "seed_genes_in_ppi": 48,
+        "seed_genes_in_layer": 48,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.76470588235294
+      },
+      "pancreatic_pp_cell": {
+        "seed_genes_in_ppi": 37,
+        "seed_genes_in_layer": 37,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.068627450980392
+      },
+      "pancreatic_stellate_cell": {
+        "seed_genes_in_ppi": 68,
+        "seed_genes_in_layer": 68,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.666666666666664
+      },
+      "paneth_cell_of_epithelium_of_large_intestine": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "paneth_cell_of_epithelium_of_small_intestine": {
+        "seed_genes_in_ppi": 57,
+        "seed_genes_in_layer": 57,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.970588235294118
+      },
+      "pericyte_cell": {
+        "seed_genes_in_ppi": 81,
+        "seed_genes_in_layer": 81,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.852941176470587
+      },
+      "plasma_cell": {
+        "seed_genes_in_ppi": 18,
+        "seed_genes_in_layer": 18,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 4.411764705882353
+      },
+      "plasmablast": {
+        "seed_genes_in_ppi": 22,
+        "seed_genes_in_layer": 22,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 5.392156862745098
+      },
+      "plasmacytoid_dendritic_cell": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "ppi": {
+        "seed_genes_in_ppi": 399,
+        "seed_genes_in_layer": 399,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 97.79411764705883
+      },
+      "pulmonary_ionocyte": {
+        "seed_genes_in_ppi": 49,
+        "seed_genes_in_layer": 49,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.009803921568627
+      },
+      "radial_glial_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "regulatory_t_cell": {
+        "seed_genes_in_ppi": 36,
+        "seed_genes_in_layer": 36,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.823529411764707
+      },
+      "respiratory_goblet_cell": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "respiratory_mucous_cell": {
+        "seed_genes_in_ppi": 49,
+        "seed_genes_in_layer": 49,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.009803921568627
+      },
+      "retina_horizontal_cell": {
+        "seed_genes_in_ppi": 57,
+        "seed_genes_in_layer": 57,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.970588235294118
+      },
+      "retinal_bipolar_neuron": {
+        "seed_genes_in_ppi": 80,
+        "seed_genes_in_layer": 80,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.607843137254903
+      },
+      "retinal_blood_vessel_endothelial_cell": {
+        "seed_genes_in_ppi": 74,
+        "seed_genes_in_layer": 74,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.137254901960784
+      },
+      "retinal_ganglion_cell": {
+        "seed_genes_in_ppi": 25,
+        "seed_genes_in_layer": 25,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 6.127450980392156
+      },
+      "retinal_pigment_epithelial_cell": {
+        "seed_genes_in_ppi": 48,
+        "seed_genes_in_layer": 48,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.76470588235294
+      },
+      "salivary_gland_cell": {
+        "seed_genes_in_ppi": 51,
+        "seed_genes_in_layer": 51,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.5
+      },
+      "schwann_cell": {
+        "seed_genes_in_ppi": 70,
+        "seed_genes_in_layer": 70,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 17.15686274509804
+      },
+      "secretory_cell": {
+        "seed_genes_in_ppi": 53,
+        "seed_genes_in_layer": 53,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.990196078431374
+      },
+      "serous_cell_of_epithelium_of_bronchus": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "serous_cell_of_epithelium_of_trachea": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "skeletal_muscle_satellite_stem_cell": {
+        "seed_genes_in_ppi": 50,
+        "seed_genes_in_layer": 50,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 12.254901960784313
+      },
+      "small_intestine_goblet_cell": {
+        "seed_genes_in_ppi": 45,
+        "seed_genes_in_layer": 45,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.029411764705882
+      },
+      "smooth_muscle_cell": {
+        "seed_genes_in_ppi": 64,
+        "seed_genes_in_layer": 64,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 15.686274509803921
+      },
+      "sperm": {
+        "seed_genes_in_ppi": 39,
+        "seed_genes_in_layer": 39,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 9.558823529411764
+      },
+      "stromal_cell": {
+        "seed_genes_in_ppi": 78,
+        "seed_genes_in_layer": 78,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 19.11764705882353
+      },
+      "t_follicular_helper_cell": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "tendon_cell": {
+        "seed_genes_in_ppi": 67,
+        "seed_genes_in_layer": 67,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 16.42156862745098
+      },
+      "tongue_muscle_cell": {
+        "seed_genes_in_ppi": 43,
+        "seed_genes_in_layer": 43,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 10.53921568627451
+      },
+      "tracheal_goblet_cell": {
+        "seed_genes_in_ppi": 54,
+        "seed_genes_in_layer": 54,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.23529411764706
+      },
+      "transit_amplifying_cell_of_large_intestine": {
+        "seed_genes_in_ppi": 35,
+        "seed_genes_in_layer": 35,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 8.57843137254902
+      },
+      "transit_amplifying_cell_of_small_intestine": {
+        "seed_genes_in_ppi": 46,
+        "seed_genes_in_layer": 46,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.27450980392157
+      },
+      "type_i_nk_t_cell": {
+        "seed_genes_in_ppi": 30,
+        "seed_genes_in_layer": 30,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 7.352941176470589
+      },
+      "type_i_pneumocyte": {
+        "seed_genes_in_ppi": 56,
+        "seed_genes_in_layer": 56,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 13.725490196078432
+      },
+      "type_ii_pneumocyte": {
+        "seed_genes_in_ppi": 47,
+        "seed_genes_in_layer": 47,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 11.519607843137255
+      },
+      "vascular_associated_smooth_muscle_cell": {
+        "seed_genes_in_ppi": 76,
+        "seed_genes_in_layer": 76,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.627450980392158
+      },
+      "vein_endothelial_cell": {
+        "seed_genes_in_ppi": 74,
+        "seed_genes_in_layer": 74,
+        "seed_genes_lost": 0,
+        "seed_gene_pct_of_total": 18.137254901960784
+      }
+    }
+  }
+}

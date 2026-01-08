@@ -1,0 +1,653 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-9738641
+Running on host: node-b01.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Sun Dec 28 03:46:10 PM CET 2025
+SLURM_JOB_ID: 9738641
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.3)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.1)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.6.1)
+Requirement already satisfied: pickly in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.0)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.16.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2025.2)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Loading human orthologs expression data...
+  Loaded 17030 human genes × 51 cell types
+Loading base PPI network from ../og_gene_set/temp/combined/full_network.pkl...
+  Loaded PPI with 24554 nodes, 277632 edges
+  Converted node names to uppercase
+
+Human expression matrix:
+  17030 total genes
+  51 total cell types
+
+================================================================================
+GENE ID VERIFICATION
+================================================================================
+
+1. Gene ID Format Check:
+   Expression genes: 17030
+   PPI genes: 24554
+
+   Expression gene examples:
+      1. 28706
+      2. 8780
+      3. 8504
+      4. 9024
+      5. 14472
+
+   PPI gene examples:
+      1. SLC12A6
+      2. SDOS
+      3. CHST10
+      4. FAM129B
+      5. ARMC12
+
+2. Gene Overlap:
+   Genes in both: 420 (2.5%)
+   ⚠️  WARNING: Low overlap! Likely gene ID format mismatch.
+
+3. Seed Gene Verification:
+   Total seed genes: 408
+   Seeds in expression data: 9 (2.2%)
+   Seeds in PPI network: 391 (95.8%)
+   Seeds in BOTH (expression AND PPI): 9 (2.2%)
+
+   ❌ CRITICAL: Only 2.2% of seed genes will be in multiplex network
+================================================================================
+
+
+================================================================================
+Calculating co-expression weights...
+================================================================================
+Calculating co-expression weights using pearson correlation...
+  Calculated 111557617 gene pairs with correlation > 0.1
+
+================================================================================
+Building multiplex layers...
+================================================================================
+
+Building layer for cell type: Atf3
+  14556 genes expressed in Atf3 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14556
+    PPI genes: 24554
+    Overlap: 310 (2.1%)
+  310 genes have PPI edges
+  146 PPI edges in layer
+  124 edges with co-expression support
+
+Building layer for cell type: Calca.Adra2a
+  14729 genes expressed in Calca.Adra2a (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14729
+    PPI genes: 24554
+    Overlap: 315 (2.1%)
+  315 genes have PPI edges
+  140 PPI edges in layer
+  120 edges with co-expression support
+
+Building layer for cell type: Calca.Bmpr1b
+  15295 genes expressed in Calca.Bmpr1b (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15295
+    PPI genes: 24554
+    Overlap: 326 (2.1%)
+  326 genes have PPI edges
+  143 PPI edges in layer
+  120 edges with co-expression support
+
+Building layer for cell type: Calca.Dcn
+  14367 genes expressed in Calca.Dcn (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14367
+    PPI genes: 24554
+    Overlap: 313 (2.2%)
+  313 genes have PPI edges
+  139 PPI edges in layer
+  117 edges with co-expression support
+
+Building layer for cell type: Calca.Oprk1
+  13901 genes expressed in Calca.Oprk1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 13901
+    PPI genes: 24554
+    Overlap: 299 (2.2%)
+  299 genes have PPI edges
+  123 PPI edges in layer
+  109 edges with co-expression support
+
+Building layer for cell type: Calca.Smr2
+  15033 genes expressed in Calca.Smr2 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15033
+    PPI genes: 24554
+    Overlap: 317 (2.1%)
+  317 genes have PPI edges
+  143 PPI edges in layer
+  120 edges with co-expression support
+
+Building layer for cell type: Calca.Sstr2
+  15104 genes expressed in Calca.Sstr2 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15104
+    PPI genes: 24554
+    Overlap: 326 (2.2%)
+  326 genes have PPI edges
+  150 PPI edges in layer
+  126 edges with co-expression support
+
+Building layer for cell type: Mrgpra3.Mrgprb4
+  13633 genes expressed in Mrgpra3.Mrgprb4 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 13633
+    PPI genes: 24554
+    Overlap: 296 (2.2%)
+  296 genes have PPI edges
+  116 PPI edges in layer
+  102 edges with co-expression support
+
+Building layer for cell type: Mrgpra3.Trpv1
+  13665 genes expressed in Mrgpra3.Trpv1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 13665
+    PPI genes: 24554
+    Overlap: 294 (2.2%)
+  294 genes have PPI edges
+  119 PPI edges in layer
+  105 edges with co-expression support
+
+Building layer for cell type: Mrgprd
+  14866 genes expressed in Mrgprd (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14866
+    PPI genes: 24554
+    Overlap: 316 (2.1%)
+  316 genes have PPI edges
+  148 PPI edges in layer
+  127 edges with co-expression support
+
+Building layer for cell type: Ntrk3high.Ntrk2
+  14785 genes expressed in Ntrk3high.Ntrk2 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14785
+    PPI genes: 24554
+    Overlap: 314 (2.1%)
+  314 genes have PPI edges
+  142 PPI edges in layer
+  121 edges with co-expression support
+
+Building layer for cell type: Ntrk3high.S100a16
+  14388 genes expressed in Ntrk3high.S100a16 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14388
+    PPI genes: 24554
+    Overlap: 312 (2.2%)
+  312 genes have PPI edges
+  148 PPI edges in layer
+  125 edges with co-expression support
+
+Building layer for cell type: Ntrk3low.Ntrk2
+  14676 genes expressed in Ntrk3low.Ntrk2 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14676
+    PPI genes: 24554
+    Overlap: 309 (2.1%)
+  309 genes have PPI edges
+  130 PPI edges in layer
+  110 edges with co-expression support
+
+Building layer for cell type: Pvalb
+  15186 genes expressed in Pvalb (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15186
+    PPI genes: 24554
+    Overlap: 324 (2.1%)
+  324 genes have PPI edges
+  150 PPI edges in layer
+  127 edges with co-expression support
+
+Building layer for cell type: Rxfp1
+  14660 genes expressed in Rxfp1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14660
+    PPI genes: 24554
+    Overlap: 314 (2.1%)
+  314 genes have PPI edges
+  136 PPI edges in layer
+  114 edges with co-expression support
+
+Building layer for cell type: Sst
+  14958 genes expressed in Sst (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14958
+    PPI genes: 24554
+    Overlap: 320 (2.1%)
+  320 genes have PPI edges
+  140 PPI edges in layer
+  119 edges with co-expression support
+
+Building layer for cell type: Th
+  14452 genes expressed in Th (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14452
+    PPI genes: 24554
+    Overlap: 308 (2.1%)
+  308 genes have PPI edges
+  134 PPI edges in layer
+  118 edges with co-expression support
+
+Building layer for cell type: Trpm8
+  14878 genes expressed in Trpm8 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14878
+    PPI genes: 24554
+    Overlap: 324 (2.2%)
+  324 genes have PPI edges
+  137 PPI edges in layer
+  114 edges with co-expression support
+
+Building layer for cell type: Endothelial
+  15653 genes expressed in Endothelial (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15653
+    PPI genes: 24554
+    Overlap: 335 (2.1%)
+  335 genes have PPI edges
+  151 PPI edges in layer
+  128 edges with co-expression support
+
+Building layer for cell type: Fibroblast
+  15705 genes expressed in Fibroblast (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15705
+    PPI genes: 24554
+    Overlap: 338 (2.2%)
+  338 genes have PPI edges
+  158 PPI edges in layer
+  132 edges with co-expression support
+
+Building layer for cell type: Immune
+  15685 genes expressed in Immune (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15685
+    PPI genes: 24554
+    Overlap: 335 (2.1%)
+  335 genes have PPI edges
+  157 PPI edges in layer
+  132 edges with co-expression support
+
+Building layer for cell type: Pericyte
+  15597 genes expressed in Pericyte (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15597
+    PPI genes: 24554
+    Overlap: 336 (2.2%)
+  336 genes have PPI edges
+  158 PPI edges in layer
+  133 edges with co-expression support
+
+Building layer for cell type: Satellite.glia
+  15715 genes expressed in Satellite.glia (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15715
+    PPI genes: 24554
+    Overlap: 339 (2.2%)
+  339 genes have PPI edges
+  158 PPI edges in layer
+  132 edges with co-expression support
+
+Building layer for cell type: Schwann.M
+  15651 genes expressed in Schwann.M (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15651
+    PPI genes: 24554
+    Overlap: 337 (2.2%)
+  337 genes have PPI edges
+  157 PPI edges in layer
+  132 edges with co-expression support
+
+Building layer for cell type: Schwann.N
+  15657 genes expressed in Schwann.N (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15657
+    PPI genes: 24554
+    Overlap: 336 (2.1%)
+  336 genes have PPI edges
+  152 PPI edges in layer
+  128 edges with co-expression support
+
+Building layer for cell type: Atf3.1
+  14174 genes expressed in Atf3.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14174
+    PPI genes: 24554
+    Overlap: 315 (2.2%)
+  315 genes have PPI edges
+  152 PPI edges in layer
+  128 edges with co-expression support
+
+Building layer for cell type: Calca.Adra2a.1
+  15033 genes expressed in Calca.Adra2a.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15033
+    PPI genes: 24554
+    Overlap: 342 (2.3%)
+  342 genes have PPI edges
+  234 PPI edges in layer
+  199 edges with co-expression support
+
+Building layer for cell type: Calca.Bmpr1b.1
+  15395 genes expressed in Calca.Bmpr1b.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15395
+    PPI genes: 24554
+    Overlap: 342 (2.2%)
+  342 genes have PPI edges
+  216 PPI edges in layer
+  184 edges with co-expression support
+
+Building layer for cell type: Calca.Oprk1.1
+  14991 genes expressed in Calca.Oprk1.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14991
+    PPI genes: 24554
+    Overlap: 337 (2.2%)
+  337 genes have PPI edges
+  189 PPI edges in layer
+  163 edges with co-expression support
+
+Building layer for cell type: Calca.Smr2.1
+  15290 genes expressed in Calca.Smr2.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15290
+    PPI genes: 24554
+    Overlap: 343 (2.2%)
+  343 genes have PPI edges
+  243 PPI edges in layer
+  200 edges with co-expression support
+
+Building layer for cell type: Calca.Sstr2.1
+  15023 genes expressed in Calca.Sstr2.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15023
+    PPI genes: 24554
+    Overlap: 347 (2.3%)
+  347 genes have PPI edges
+  234 PPI edges in layer
+  199 edges with co-expression support
+
+Building layer for cell type: Mrgpra3.Mrgprb4.1
+  14522 genes expressed in Mrgpra3.Mrgprb4.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14522
+    PPI genes: 24554
+    Overlap: 336 (2.3%)
+  336 genes have PPI edges
+  237 PPI edges in layer
+  194 edges with co-expression support
+
+Building layer for cell type: Mrgpra3.Trpv1.1
+  14434 genes expressed in Mrgpra3.Trpv1.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14434
+    PPI genes: 24554
+    Overlap: 320 (2.2%)
+  320 genes have PPI edges
+  208 PPI edges in layer
+  179 edges with co-expression support
+
+Building layer for cell type: Mrgprd.1
+  15085 genes expressed in Mrgprd.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15085
+    PPI genes: 24554
+    Overlap: 339 (2.2%)
+  339 genes have PPI edges
+  217 PPI edges in layer
+  188 edges with co-expression support
+
+Building layer for cell type: Ntrk3high.Ntrk2.1
+  15511 genes expressed in Ntrk3high.Ntrk2.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15511
+    PPI genes: 24554
+    Overlap: 344 (2.2%)
+  344 genes have PPI edges
+  208 PPI edges in layer
+  175 edges with co-expression support
+
+Building layer for cell type: Ntrk3high.S100a16.1
+  15457 genes expressed in Ntrk3high.S100a16.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15457
+    PPI genes: 24554
+    Overlap: 344 (2.2%)
+  344 genes have PPI edges
+  228 PPI edges in layer
+  193 edges with co-expression support
+
+Building layer for cell type: Ntrk3low.Ntrk2.1
+  14993 genes expressed in Ntrk3low.Ntrk2.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14993
+    PPI genes: 24554
+    Overlap: 332 (2.2%)
+  332 genes have PPI edges
+  217 PPI edges in layer
+  183 edges with co-expression support
+
+Building layer for cell type: Sst.1
+  15274 genes expressed in Sst.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15274
+    PPI genes: 24554
+    Overlap: 343 (2.2%)
+  343 genes have PPI edges
+  223 PPI edges in layer
+  187 edges with co-expression support
+
+Building layer for cell type: Th.1
+  15064 genes expressed in Th.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15064
+    PPI genes: 24554
+    Overlap: 343 (2.3%)
+  343 genes have PPI edges
+  235 PPI edges in layer
+  202 edges with co-expression support
+
+Building layer for cell type: Trpm8.1
+  15397 genes expressed in Trpm8.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15397
+    PPI genes: 24554
+    Overlap: 344 (2.2%)
+  344 genes have PPI edges
+  212 PPI edges in layer
+  179 edges with co-expression support
+
+Building layer for cell type: Arachnoid
+  15381 genes expressed in Arachnoid (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15381
+    PPI genes: 24554
+    Overlap: 334 (2.2%)
+  334 genes have PPI edges
+  154 PPI edges in layer
+  126 edges with co-expression support
+
+Building layer for cell type: Astrocyte.like
+  14881 genes expressed in Astrocyte.like (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 14881
+    PPI genes: 24554
+    Overlap: 320 (2.2%)
+  320 genes have PPI edges
+  157 PPI edges in layer
+  130 edges with co-expression support
+
+Building layer for cell type: Dura
+  15369 genes expressed in Dura (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15369
+    PPI genes: 24554
+    Overlap: 333 (2.2%)
+  333 genes have PPI edges
+  149 PPI edges in layer
+  125 edges with co-expression support
+
+Building layer for cell type: Endothelial.1
+  15525 genes expressed in Endothelial.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15525
+    PPI genes: 24554
+    Overlap: 343 (2.2%)
+  343 genes have PPI edges
+  209 PPI edges in layer
+  173 edges with co-expression support
+
+Building layer for cell type: Immune.1
+  15662 genes expressed in Immune.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15662
+    PPI genes: 24554
+    Overlap: 356 (2.3%)
+  356 genes have PPI edges
+  275 PPI edges in layer
+  213 edges with co-expression support
+
+Building layer for cell type: Oligodendrocyte.like
+  15316 genes expressed in Oligodendrocyte.like (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15316
+    PPI genes: 24554
+    Overlap: 344 (2.2%)
+  344 genes have PPI edges
+  200 PPI edges in layer
+  168 edges with co-expression support
+
+Building layer for cell type: Pericyte.1
+  15158 genes expressed in Pericyte.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15158
+    PPI genes: 24554
+    Overlap: 340 (2.2%)
+  340 genes have PPI edges
+  177 PPI edges in layer
+  146 edges with co-expression support
+
+Building layer for cell type: Pia
+  15340 genes expressed in Pia (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15340
+    PPI genes: 24554
+    Overlap: 338 (2.2%)
+  338 genes have PPI edges
+  161 PPI edges in layer
+  134 edges with co-expression support
+
+Building layer for cell type: Satellite.glia.1
+  15272 genes expressed in Satellite.glia.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15272
+    PPI genes: 24554
+    Overlap: 335 (2.2%)
+  335 genes have PPI edges
+  169 PPI edges in layer
+  143 edges with co-expression support
+
+Building layer for cell type: Schwann.M.1
+  15127 genes expressed in Schwann.M.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15127
+    PPI genes: 24554
+    Overlap: 333 (2.2%)
+  333 genes have PPI edges
+  187 PPI edges in layer
+  158 edges with co-expression support
+
+Building layer for cell type: Schwann.N.1
+  15377 genes expressed in Schwann.N.1 (threshold: 0.001)
+  Checking gene ID overlap:
+    Expressed genes: 15377
+    PPI genes: 24554
+    Overlap: 348 (2.3%)
+  348 genes have PPI edges
+  216 PPI edges in layer
+  183 edges with co-expression support
+
+================================================================================
+Saving layer networks...
+================================================================================
+  Saved Atf3
+  Saved Calca.Adra2a
+  Saved Calca.Bmpr1b
+  Saved Calca.Dcn
+  Saved Calca.Oprk1
+  Saved Calca.Smr2
+  Saved Calca.Sstr2
+  Saved Mrgpra3.Mrgprb4
+  Saved Mrgpra3.Trpv1
+  Saved Mrgprd
+  Saved Ntrk3high.Ntrk2
+  Saved Ntrk3high.S100a16
+  Saved Ntrk3low.Ntrk2
+  Saved Pvalb
+  Saved Rxfp1
+  Saved Sst
+  Saved Th
+  Saved Trpm8
+  Saved Endothelial
+  Saved Fibroblast
+  Saved Immune
+  Saved Pericyte
+  Saved Satellite.glia
+  Saved Schwann.M
+  Saved Schwann.N
+  Saved Atf3.1
+  Saved Calca.Adra2a.1
+  Saved Calca.Bmpr1b.1
+  Saved Calca.Oprk1.1
+  Saved Calca.Smr2.1
+  Saved Calca.Sstr2.1
+  Saved Mrgpra3.Mrgprb4.1
+  Saved Mrgpra3.Trpv1.1
+  Saved Mrgprd.1
+  Saved Ntrk3high.Ntrk2.1
+  Saved Ntrk3high.S100a16.1
+  Saved Ntrk3low.Ntrk2.1
+  Saved Sst.1
+  Saved Th.1
+  Saved Trpm8.1
+  Saved Arachnoid
+  Saved Astrocyte.like
+  Saved Dura
+  Saved Endothelial.1
+  Saved Immune.1
+  Saved Oligodendrocyte.like
+  Saved Pericyte.1
+  Saved Pia
+  Saved Satellite.glia.1
+  Saved Schwann.M.1
+  Saved Schwann.N.1
+
+Layer statistics saved to multiplex_interactome/layer_statistics.csv
+
+Saved comprehensive report to multiplex_interactome/multiplex_conversion_report.txt
+Saved JSON report to multiplex_interactome/multiplex_conversion_report.json
+
+================================================================================
+MULTIPLEX INTERACTOME CONSTRUCTION COMPLETE
+================================================================================
+Total layers: 51
+Total unique genes: 399
+Total edges: 8882
+Gene retention: 1.6%
+Edge retention: 3.2%
+Seed gene recovery: 2.0%
+Time elapsed: 114.03 seconds
+Output directory: multiplex_interactome
+================================================================================
+Finished at: Sun Dec 28 03:48:32 PM CET 2025
