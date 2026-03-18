@@ -66,6 +66,8 @@ def query_mouse_symbols_to_human(mouse_symbols, batch_size=100, delay=0.2):
                                                     'symbol': symbol.upper(),
                                                     'gene_id': human_entrez
                                                 })
+                                            else:
+                                                continue
                                     except:
                                         pass
                     
@@ -88,8 +90,12 @@ def query_mouse_symbols_to_human(mouse_symbols, batch_size=100, delay=0.2):
                         if not human_gene:
                             human_gene = human_orthologs[0].get('symbol')
                         
-                        if human_gene:
+                        # Only add if we have a valid symbol (not None or empty)
+                        if human_gene and isinstance(human_gene, str) and len(human_gene) > 0:
                             orthologs[mouse_symbol] = human_gene
+                        else:
+                            failed_symbols.append(mouse_symbol)
+                            
                     else:
                         failed_symbols.append(mouse_symbol)
             
@@ -143,6 +149,43 @@ def convert_expression_file(expr_file, orthologs, output_file):
     print(f"  ✓ Saved to {output_file}")
     
     return n_original, n_converted
+
+def convert_entrez_to_symbols(expr_file, output_file):
+    """Convert expression file index from Entrez IDs to gene symbols"""
+    import mygene
+    
+    print(f"\nConverting expression file index from Entrez IDs to symbols...")
+    expr_df = pd.read_csv(expr_file, index_col=0)
+    
+    entrez_ids = expr_df.index.tolist()
+    mg = mygene.MyGeneInfo()
+    
+    print(f"  Converting {len(entrez_ids)} Entrez IDs to symbols...")
+    mapping = {}
+    
+    for i in range(0, len(entrez_ids), 1000):
+        batch = [str(x) for x in entrez_ids[i:i+1000]]
+        results = mg.querymany(batch, scopes='entrezgene', species='human', 
+                              fields='symbol', returnall=True)
+        
+        for hit in results['out']:
+            if 'symbol' in hit:
+                mapping[int(hit['query'])] = hit['symbol'].upper()
+        
+        if (i + 1000) % 5000 == 0:
+            print(f"    Processed {min(i+1000, len(entrez_ids))}/{len(entrez_ids)}")
+    
+    # Map the index
+    expr_df.index = expr_df.index.map(lambda x: mapping.get(x, None))
+    expr_df = expr_df[expr_df.index.notna()]
+    
+    print(f"  Converted {len(mapping)} IDs to symbols")
+    print(f"  Retained {len(expr_df)} genes with symbol matches")
+    
+    expr_df.to_csv(output_file)
+    print(f"  ✓ Saved to {output_file}")
+    
+    return len(expr_df)
 
 def main():
     expr_dir = '../R/processed'
@@ -200,6 +243,8 @@ def main():
             continue
         
         output_file = os.path.join(output_dir, f'{tissue}_celltype_avg_expression_human.csv')
+        if os.path.exists(output_file):
+            convert_entrez_to_symbols(output_file, output_file)
         n_orig, n_conv = convert_expression_file(expr_file, orthologs, output_file)
         
         all_stats.append({
@@ -208,7 +253,7 @@ def main():
             'converted_genes': n_conv,
             'conversion_rate': n_conv / n_orig * 100
         })
-        print(n_conv.head())
+        print(f"Converted {n_conv} genes from {tissue}")
         # Load for combining
         expr_converted = pd.read_csv(output_file, index_col=0)
         all_expr_dfs.append(expr_converted)

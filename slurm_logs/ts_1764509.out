@@ -1,0 +1,1198 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-1764509
+Running on host: node-c05.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed Mar 11 02:38:44 PM CET 2026
+SLURM_JOB_ID: 1764509
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.0.0)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.5)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.6.1)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.17.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+
+================================================================================
+LOADING CELL-TYPE PPI NETWORKS
+================================================================================
+Loading cell-type PPI files from ./tabula_sapiens...
+Found 157 PPI files
+  acinar_cell_of_salivary_gland: 2386 nodes, 8104 edges
+  adipocyte: 3099 nodes, 33261 edges
+  adventitial_cell: 2763 nodes, 26740 edges
+  alveolar_fibroblast: 1200 nodes, 2842 edges
+  artery_endothelial_cell: 3171 nodes, 21497 edges
+  b_cell: 1179 nodes, 7087 edges
+  basal_cell: 3182 nodes, 35050 edges
+  basal_cell_of_prostate_epithelium: 3035 nodes, 22522 edges
+  bladder_urothelial_cell: 3198 nodes, 35627 edges
+  bronchial_smooth_muscle_cell: 1412 nodes, 3964 edges
+  bronchial_vessel_endothelial_cell: 3312 nodes, 39319 edges
+  capillary_endothelial_cell: 1394 nodes, 4340 edges
+  cardiac_endothelial_cell: 2065 nodes, 7411 edges
+  cardiac_muscle_cell: 3247 nodes, 32904 edges
+  cd141-positive_myeloid_dendritic_cell: 3296 nodes, 40271 edges
+  cd1c-positive_myeloid_dendritic_cell: 3049 nodes, 30173 edges
+  cd24_neutrophil: 1837 nodes, 6738 edges
+  cd4-positive,_alpha-beta_memory_t_cell: 1066 nodes, 6836 edges
+  cd4-positive_helper_t_cell: 1272 nodes, 6509 edges
+  cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 1772 nodes, 7617 edges
+  cd8-positive,_alpha-beta_cytotoxic_t_cell: 1854 nodes, 7622 edges
+  cell_of_skeletal_muscle: 2891 nodes, 22647 edges
+  ciliary_body: 3151 nodes, 22557 edges
+  ciliated_cell: 2575 nodes, 12983 edges
+  ciliated_epithelial_cell: 3077 nodes, 27399 edges
+  classical_monocyte: 3039 nodes, 22639 edges
+  club_cell: 2140 nodes, 7457 edges
+  club_cell_of_prostate_epithelium: 2748 nodes, 13379 edges
+  conjunctival_epithelial_cell: 3111 nodes, 25080 edges
+  connective_tissue_cell: 2164 nodes, 6741 edges
+  corneal_epithelial_cell: 3290 nodes, 31470 edges
+  corneal_keratocyte: 2952 nodes, 14501 edges
+  dendritic_cell: 2048 nodes, 11816 edges
+  dn1_thymic_pro-t_cell: 1596 nodes, 10043 edges
+  dn3_thymocyte: 1295 nodes, 8907 edges
+  dn4_thymocyte: 3443 nodes, 49813 edges
+  double-positive,_alpha-beta_thymocyte: 2628 nodes, 24255 edges
+  duct_epithelial_cell: 2821 nodes, 13863 edges
+  duodenum_glandular_cell: 2850 nodes, 16737 edges
+  endothelial_cell: 3175 nodes, 24602 edges
+  endothelial_cell_of_artery: 2907 nodes, 16201 edges
+  endothelial_cell_of_hepatic_sinusoid: 2141 nodes, 7136 edges
+  endothelial_cell_of_lymphatic_vessel: 3038 nodes, 19692 edges
+  endothelial_cell_of_vascular_tree: 2163 nodes, 15230 edges
+  enterocyte_of_epithelium_of_large_intestine: 1319 nodes, 3721 edges
+  enterocyte_of_epithelium_of_small_intestine: 1943 nodes, 6870 edges
+  epithelial_cell: 2818 nodes, 24539 edges
+  epithelial_cell_of_lacrimal_sac: 1529 nodes, 4480 edges
+  epithelial_cell_of_uterus: 3167 nodes, 37386 edges
+  erythroid_progenitor: 3312 nodes, 45133 edges
+  eye_photoreceptor_cell: 2140 nodes, 8581 edges
+  fast_muscle_cell: 1295 nodes, 5809 edges
+  fibroblast: 3197 nodes, 28855 edges
+  fibroblast_of_breast: 2472 nodes, 17229 edges
+  fibroblast_of_cardiac_tissue: 1826 nodes, 5426 edges
+  goblet_cell: 1989 nodes, 6660 edges
+  granulocyte: 3300 nodes, 42358 edges
+  gut_endothelial_cell: 1781 nodes, 5477 edges
+  hematopoietic_stem_cell: 2919 nodes, 37231 edges
+  hepatocyte: 3024 nodes, 20041 edges
+  hillock-club_cell_of_prostate_epithelium: 2952 nodes, 20527 edges
+  hillock_cell_of_prostate_epithelium: 2748 nodes, 14755 edges
+  immature_enterocyte: 3100 nodes, 32885 edges
+  immature_natural_killer_cell: 1578 nodes, 6142 edges
+  immune_cell: 1433 nodes, 5985 edges
+  intermediate_monocyte: 2585 nodes, 12620 edges
+  intestinal_crypt_stem_cell: 3072 nodes, 36982 edges
+  intestinal_crypt_stem_cell_of_large_intestine: 1152 nodes, 2708 edges
+  intestinal_crypt_stem_cell_of_small_intestine: 3239 nodes, 39874 edges
+  intestinal_enteroendocrine_cell: 2847 nodes, 14834 edges
+  intestinal_tuft_cell: 1557 nodes, 4821 edges
+  intrahepatic_cholangiocyte: 2844 nodes, 15327 edges
+  ionocyte: 2866 nodes, 16201 edges
+  keratinocyte: 3217 nodes, 35629 edges
+  kidney_epithelial_cell: 2909 nodes, 18873 edges
+  lacrimal_gland_functional_unit_cell: 2323 nodes, 7078 edges
+  langerhans_cell: 3065 nodes, 31516 edges
+  large_intestine_goblet_cell: 1215 nodes, 2727 edges
+  limbal_stem_cell: 3203 nodes, 24287 edges
+  limbal_stromal_cell: 2747 nodes, 11695 edges
+  liver_dendritic_cell: 2472 nodes, 14530 edges
+  luminal_cell_of_prostate_epithelium: 2738 nodes, 12806 edges
+  luminal_epithelial_cell_of_mammary_gland: 3093 nodes, 31011 edges
+  lung_ciliated_cell: 2625 nodes, 14443 edges
+  lung_microvascular_endothelial_cell: 1907 nodes, 7356 edges
+  lymphatic_endothelial_cell: 3023 nodes, 18936 edges
+  macrophage: 3112 nodes, 22139 edges
+  mature_conventional_dendritic_cell: 2988 nodes, 27239 edges
+  mature_enterocyte: 1103 nodes, 2636 edges
+  mature_nk_t_cell: 1449 nodes, 6202 edges
+  medullary_thymic_epithelial_cell: 3299 nodes, 39186 edges
+  melanocyte: 2746 nodes, 21284 edges
+  memory_b_cell: 1920 nodes, 15250 edges
+  mesenchymal_stem_cell: 2834 nodes, 21857 edges
+  mesothelial_cell: 3211 nodes, 34192 edges
+  microglial_cell: 2606 nodes, 17095 edges
+  monocyte: 2866 nodes, 18725 edges
+  mucus_secreting_cell: 2833 nodes, 15258 edges
+  muller_cell: 2356 nodes, 9191 edges
+  muscle_cell: 2206 nodes, 21200 edges
+  myeloid_cell: 3195 nodes, 28490 edges
+  myeloid_dendritic_cell: 3258 nodes, 38370 edges
+  myeloid_progenitor: 3337 nodes, 47562 edges
+  myoepithelial_cell: 2026 nodes, 6270 edges
+  myofibroblast_cell: 2806 nodes, 14495 edges
+  myometrial_cell: 2477 nodes, 11834 edges
+  naive_regulatory_t_cell: 2429 nodes, 16284 edges
+  naive_thymus-derived_cd4-positive,_alpha-beta_t_cell: 1080 nodes, 7527 edges
+  nampt_neutrophil: 1291 nodes, 4073 edges
+  nk_cell: 1456 nodes, 5040 edges
+  non-classical_monocyte: 1393 nodes, 4295 edges
+  ocular_surface_cell: 2986 nodes, 19363 edges
+  pancreatic_acinar_cell: 2628 nodes, 16506 edges
+  pancreatic_alpha_cell: 2246 nodes, 9114 edges
+  pancreatic_beta_cell: 2741 nodes, 17384 edges
+  pancreatic_delta_cell: 2868 nodes, 20933 edges
+  pancreatic_ductal_cell: 3053 nodes, 22080 edges
+  pancreatic_pp_cell: 1397 nodes, 6447 edges
+  pancreatic_stellate_cell: 3109 nodes, 24227 edges
+  paneth_cell_of_epithelium_of_large_intestine: 1964 nodes, 7770 edges
+  paneth_cell_of_epithelium_of_small_intestine: 2695 nodes, 14348 edges
+  pericyte_cell: 2986 nodes, 18662 edges
+  plasma_cell: 3178 nodes, 39142 edges
+  plasmablast: 3041 nodes, 32875 edges
+  plasmacytoid_dendritic_cell: 2544 nodes, 17992 edges
+  ppi: 17916 nodes, 380340 edges
+  pulmonary_ionocyte: 2784 nodes, 15837 edges
+  radial_glial_cell: 3384 nodes, 43426 edges
+  regulatory_t_cell: 2246 nodes, 14987 edges
+  respiratory_goblet_cell: 3092 nodes, 26907 edges
+  respiratory_mucous_cell: 2939 nodes, 20932 edges
+  retina_horizontal_cell: 2360 nodes, 10834 edges
+  retinal_bipolar_neuron: 2832 nodes, 16269 edges
+  retinal_blood_vessel_endothelial_cell: 3176 nodes, 27795 edges
+  retinal_ganglion_cell: 1460 nodes, 5536 edges
+  retinal_pigment_epithelial_cell: 2225 nodes, 8014 edges
+  salivary_gland_cell: 3424 nodes, 35231 edges
+  schwann_cell: 3015 nodes, 19739 edges
+  secretory_cell: 3134 nodes, 25037 edges
+  serous_cell_of_epithelium_of_bronchus: 2953 nodes, 23999 edges
+  serous_cell_of_epithelium_of_trachea: 2741 nodes, 14913 edges
+  skeletal_muscle_satellite_stem_cell: 1861 nodes, 14445 edges
+  small_intestine_goblet_cell: 1803 nodes, 5741 edges
+  smooth_muscle_cell: 3186 nodes, 23278 edges
+  sperm: 2633 nodes, 22822 edges
+  stromal_cell: 3091 nodes, 33516 edges
+  t_follicular_helper_cell: 2028 nodes, 13369 edges
+  tendon_cell: 2747 nodes, 19808 edges
+  tongue_muscle_cell: 1381 nodes, 6210 edges
+  tracheal_goblet_cell: 2965 nodes, 16381 edges
+  transit_amplifying_cell_of_large_intestine: 3158 nodes, 37459 edges
+  transit_amplifying_cell_of_small_intestine: 3031 nodes, 32198 edges
+  type_i_nk_t_cell: 1006 nodes, 2740 edges
+  type_i_pneumocyte: 2975 nodes, 16306 edges
+  type_ii_pneumocyte: 3228 nodes, 35172 edges
+  vascular_associated_smooth_muscle_cell: 2494 nodes, 10826 edges
+  vein_endothelial_cell: 3070 nodes, 27612 edges
+
+================================================================================
+LOADING SEED GENES
+================================================================================
+Loaded 408 seed genes from ../og_gene_set/seed_genes.csv
+
+================================================================================
+PRE-FILTERING STATISTICS
+================================================================================
+Total unique genes across all cell types: 18272
+Total edges across all cell types: 3296142
+Average genes per cell type: 2628.2
+Average edges per cell type: 20994.5
+
+================================================================================
+SEED GENE ANALYSIS - BEFORE FILTERING
+================================================================================
+Total seed genes: 408
+Seed genes in PPI networks: 400 (98.0%)
+
+Seed genes per cell type (before filtering):
+  acinar_cell_of_salivary_gland: 55 / 408 (13.5%)
+  adipocyte: 30 / 408 (7.4%)
+  adventitial_cell: 56 / 408 (13.7%)
+  alveolar_fibroblast: 63 / 408 (15.4%)
+  artery_endothelial_cell: 73 / 408 (17.9%)
+  b_cell: 30 / 408 (7.4%)
+  basal_cell: 53 / 408 (13.0%)
+  basal_cell_of_prostate_epithelium: 65 / 408 (15.9%)
+  bladder_urothelial_cell: 57 / 408 (14.0%)
+  bronchial_smooth_muscle_cell: 56 / 408 (13.7%)
+  bronchial_vessel_endothelial_cell: 58 / 408 (14.2%)
+  capillary_endothelial_cell: 60 / 408 (14.7%)
+  cardiac_endothelial_cell: 66 / 408 (16.2%)
+  cardiac_muscle_cell: 31 / 408 (7.6%)
+  cd141-positive_myeloid_dendritic_cell: 61 / 408 (15.0%)
+  cd1c-positive_myeloid_dendritic_cell: 83 / 408 (20.3%)
+  cd24_neutrophil: 55 / 408 (13.5%)
+  cd4-positive,_alpha-beta_memory_t_cell: 28 / 408 (6.9%)
+  cd4-positive_helper_t_cell: 30 / 408 (7.4%)
+  cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 40 / 408 (9.8%)
+  cd8-positive,_alpha-beta_cytotoxic_t_cell: 52 / 408 (12.7%)
+  cell_of_skeletal_muscle: 67 / 408 (16.4%)
+  ciliary_body: 71 / 408 (17.4%)
+  ciliated_cell: 39 / 408 (9.6%)
+  ciliated_epithelial_cell: 50 / 408 (12.3%)
+  classical_monocyte: 78 / 408 (19.1%)
+  club_cell: 46 / 408 (11.3%)
+  club_cell_of_prostate_epithelium: 53 / 408 (13.0%)
+  conjunctival_epithelial_cell: 66 / 408 (16.2%)
+  connective_tissue_cell: 79 / 408 (19.4%)
+  corneal_epithelial_cell: 49 / 408 (12.0%)
+  corneal_keratocyte: 68 / 408 (16.7%)
+  dendritic_cell: 67 / 408 (16.4%)
+  dn1_thymic_pro-t_cell: 42 / 408 (10.3%)
+  dn3_thymocyte: 28 / 408 (6.9%)
+  dn4_thymocyte: 35 / 408 (8.6%)
+  double-positive,_alpha-beta_thymocyte: 50 / 408 (12.3%)
+  duct_epithelial_cell: 58 / 408 (14.2%)
+  duodenum_glandular_cell: 41 / 408 (10.0%)
+  endothelial_cell: 76 / 408 (18.6%)
+  endothelial_cell_of_artery: 76 / 408 (18.6%)
+  endothelial_cell_of_hepatic_sinusoid: 70 / 408 (17.2%)
+  endothelial_cell_of_lymphatic_vessel: 68 / 408 (16.7%)
+  endothelial_cell_of_vascular_tree: 67 / 408 (16.4%)
+  enterocyte_of_epithelium_of_large_intestine: 34 / 408 (8.3%)
+  enterocyte_of_epithelium_of_small_intestine: 45 / 408 (11.0%)
+  epithelial_cell: 42 / 408 (10.3%)
+  epithelial_cell_of_lacrimal_sac: 77 / 408 (18.9%)
+  epithelial_cell_of_uterus: 56 / 408 (13.7%)
+  erythroid_progenitor: 20 / 408 (4.9%)
+  eye_photoreceptor_cell: 44 / 408 (10.8%)
+  fast_muscle_cell: 16 / 408 (3.9%)
+  fibroblast: 81 / 408 (19.9%)
+  fibroblast_of_breast: 59 / 408 (14.5%)
+  fibroblast_of_cardiac_tissue: 57 / 408 (14.0%)
+  goblet_cell: 46 / 408 (11.3%)
+  granulocyte: 47 / 408 (11.5%)
+  gut_endothelial_cell: 64 / 408 (15.7%)
+  hematopoietic_stem_cell: 31 / 408 (7.6%)
+  hepatocyte: 33 / 408 (8.1%)
+  hillock-club_cell_of_prostate_epithelium: 47 / 408 (11.5%)
+  hillock_cell_of_prostate_epithelium: 41 / 408 (10.0%)
+  immature_enterocyte: 44 / 408 (10.8%)
+  immature_natural_killer_cell: 34 / 408 (8.3%)
+  immune_cell: 61 / 408 (15.0%)
+  intermediate_monocyte: 89 / 408 (21.8%)
+  intestinal_crypt_stem_cell: 38 / 408 (9.3%)
+  intestinal_crypt_stem_cell_of_large_intestine: 33 / 408 (8.1%)
+  intestinal_crypt_stem_cell_of_small_intestine: 47 / 408 (11.5%)
+  intestinal_enteroendocrine_cell: 58 / 408 (14.2%)
+  intestinal_tuft_cell: 40 / 408 (9.8%)
+  intrahepatic_cholangiocyte: 49 / 408 (12.0%)
+  ionocyte: 60 / 408 (14.7%)
+  keratinocyte: 42 / 408 (10.3%)
+  kidney_epithelial_cell: 45 / 408 (11.0%)
+  lacrimal_gland_functional_unit_cell: 48 / 408 (11.8%)
+  langerhans_cell: 65 / 408 (15.9%)
+  large_intestine_goblet_cell: 40 / 408 (9.8%)
+  limbal_stem_cell: 63 / 408 (15.4%)
+  limbal_stromal_cell: 74 / 408 (18.1%)
+  liver_dendritic_cell: 75 / 408 (18.4%)
+  luminal_cell_of_prostate_epithelium: 51 / 408 (12.5%)
+  luminal_epithelial_cell_of_mammary_gland: 41 / 408 (10.0%)
+  lung_ciliated_cell: 34 / 408 (8.3%)
+  lung_microvascular_endothelial_cell: 72 / 408 (17.6%)
+  lymphatic_endothelial_cell: 54 / 408 (13.2%)
+  macrophage: 90 / 408 (22.1%)
+  mature_conventional_dendritic_cell: 59 / 408 (14.5%)
+  mature_enterocyte: 45 / 408 (11.0%)
+  mature_nk_t_cell: 42 / 408 (10.3%)
+  medullary_thymic_epithelial_cell: 53 / 408 (13.0%)
+  melanocyte: 57 / 408 (14.0%)
+  memory_b_cell: 33 / 408 (8.1%)
+  mesenchymal_stem_cell: 76 / 408 (18.6%)
+  mesothelial_cell: 53 / 408 (13.0%)
+  microglial_cell: 76 / 408 (18.6%)
+  monocyte: 82 / 408 (20.1%)
+  mucus_secreting_cell: 52 / 408 (12.7%)
+  muller_cell: 68 / 408 (16.7%)
+  muscle_cell: 53 / 408 (13.0%)
+  myeloid_cell: 69 / 408 (16.9%)
+  myeloid_dendritic_cell: 50 / 408 (12.3%)
+  myeloid_progenitor: 26 / 408 (6.4%)
+  myoepithelial_cell: 65 / 408 (15.9%)
+  myofibroblast_cell: 99 / 408 (24.3%)
+  myometrial_cell: 84 / 408 (20.6%)
+  naive_regulatory_t_cell: 48 / 408 (11.8%)
+  naive_thymus-derived_cd4-positive,_alpha-beta_t_cell: 28 / 408 (6.9%)
+  nampt_neutrophil: 63 / 408 (15.4%)
+  nk_cell: 47 / 408 (11.5%)
+  non-classical_monocyte: 66 / 408 (16.2%)
+  ocular_surface_cell: 62 / 408 (15.2%)
+  pancreatic_acinar_cell: 32 / 408 (7.8%)
+  pancreatic_alpha_cell: 45 / 408 (11.0%)
+  pancreatic_beta_cell: 46 / 408 (11.3%)
+  pancreatic_delta_cell: 48 / 408 (11.8%)
+  pancreatic_ductal_cell: 48 / 408 (11.8%)
+  pancreatic_pp_cell: 37 / 408 (9.1%)
+  pancreatic_stellate_cell: 68 / 408 (16.7%)
+  paneth_cell_of_epithelium_of_large_intestine: 46 / 408 (11.3%)
+  paneth_cell_of_epithelium_of_small_intestine: 57 / 408 (14.0%)
+  pericyte_cell: 81 / 408 (19.9%)
+  plasma_cell: 18 / 408 (4.4%)
+  plasmablast: 22 / 408 (5.4%)
+  plasmacytoid_dendritic_cell: 45 / 408 (11.0%)
+  ppi: 399 / 408 (97.8%)
+  pulmonary_ionocyte: 49 / 408 (12.0%)
+  radial_glial_cell: 53 / 408 (13.0%)
+  regulatory_t_cell: 36 / 408 (8.8%)
+  respiratory_goblet_cell: 50 / 408 (12.3%)
+  respiratory_mucous_cell: 49 / 408 (12.0%)
+  retina_horizontal_cell: 57 / 408 (14.0%)
+  retinal_bipolar_neuron: 80 / 408 (19.6%)
+  retinal_blood_vessel_endothelial_cell: 74 / 408 (18.1%)
+  retinal_ganglion_cell: 25 / 408 (6.1%)
+  retinal_pigment_epithelial_cell: 48 / 408 (11.8%)
+  salivary_gland_cell: 51 / 408 (12.5%)
+  schwann_cell: 70 / 408 (17.2%)
+  secretory_cell: 53 / 408 (13.0%)
+  serous_cell_of_epithelium_of_bronchus: 45 / 408 (11.0%)
+  serous_cell_of_epithelium_of_trachea: 50 / 408 (12.3%)
+  skeletal_muscle_satellite_stem_cell: 50 / 408 (12.3%)
+  small_intestine_goblet_cell: 45 / 408 (11.0%)
+  smooth_muscle_cell: 64 / 408 (15.7%)
+  sperm: 39 / 408 (9.6%)
+  stromal_cell: 78 / 408 (19.1%)
+  t_follicular_helper_cell: 46 / 408 (11.3%)
+  tendon_cell: 67 / 408 (16.4%)
+  tongue_muscle_cell: 43 / 408 (10.5%)
+  tracheal_goblet_cell: 54 / 408 (13.2%)
+  transit_amplifying_cell_of_large_intestine: 35 / 408 (8.6%)
+  transit_amplifying_cell_of_small_intestine: 46 / 408 (11.3%)
+  type_i_nk_t_cell: 30 / 408 (7.4%)
+  type_i_pneumocyte: 56 / 408 (13.7%)
+  type_ii_pneumocyte: 47 / 408 (11.5%)
+  vascular_associated_smooth_muscle_cell: 76 / 408 (18.6%)
+  vein_endothelial_cell: 74 / 408 (18.1%)
+
+Example seed genes found in PPI:
+  ✓ CAMK4 (in 15/157 cell types)
+  ✓ HLA-DQB1 (in 26/157 cell types)
+  ✓ BACE1 (in 42/157 cell types)
+  ✓ OSM (in 12/157 cell types)
+  ✓ PTPRZ1 (in 32/157 cell types)
+  ✓ BDKRB2 (in 23/157 cell types)
+  ✓ TNFRSF1B (in 42/157 cell types)
+  ✓ ESR2 (in 17/157 cell types)
+  ✓ KCND2 (in 6/157 cell types)
+  ✓ NBL1 (in 73/157 cell types)
+  ... and 390 more
+
+Example seed genes NOT found in PPI:
+  ✗ CHRFAM7A
+  ✗ ACP3
+  ✗ MRGPRE
+  ✗ KCNT1
+  ✗ PIRT
+  ✗ BHLHE22
+  ✗ DRGX
+  ✗ KCNK2
+
+================================================================================
+BUILDING MULTIPLEX LAYERS
+================================================================================
+acinar_cell_of_salivary_gland:
+  Nodes: 2386 | Edges: 8104 | Density: 0.0028 | Avg degree: 6.79
+  Seed genes: 55 / 408 (13.5%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (38 component(s))
+adipocyte:
+  Nodes: 3099 | Edges: 33261 | Density: 0.0069 | Avg degree: 21.47
+  Seed genes: 30 / 408 (7.4%)
+  Seed genes % of layer: 1.0%
+  Seed genes connected: False (24 component(s))
+adventitial_cell:
+  Nodes: 2763 | Edges: 26740 | Density: 0.0070 | Avg degree: 19.36
+  Seed genes: 56 / 408 (13.7%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (38 component(s))
+alveolar_fibroblast:
+  Nodes: 1200 | Edges: 2842 | Density: 0.0040 | Avg degree: 4.74
+  Seed genes: 63 / 408 (15.4%)
+  Seed genes % of layer: 5.2%
+  Seed genes connected: False (36 component(s))
+artery_endothelial_cell:
+  Nodes: 3171 | Edges: 21497 | Density: 0.0043 | Avg degree: 13.56
+  Seed genes: 73 / 408 (17.9%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (48 component(s))
+b_cell:
+  Nodes: 1179 | Edges: 7087 | Density: 0.0102 | Avg degree: 12.02
+  Seed genes: 30 / 408 (7.4%)
+  Seed genes % of layer: 2.5%
+  Seed genes connected: False (24 component(s))
+basal_cell:
+  Nodes: 3182 | Edges: 35050 | Density: 0.0069 | Avg degree: 22.03
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (48 component(s))
+basal_cell_of_prostate_epithelium:
+  Nodes: 3035 | Edges: 22522 | Density: 0.0049 | Avg degree: 14.84
+  Seed genes: 65 / 408 (15.9%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (43 component(s))
+bladder_urothelial_cell:
+  Nodes: 3198 | Edges: 35627 | Density: 0.0070 | Avg degree: 22.28
+  Seed genes: 57 / 408 (14.0%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (37 component(s))
+bronchial_smooth_muscle_cell:
+  Nodes: 1412 | Edges: 3964 | Density: 0.0040 | Avg degree: 5.61
+  Seed genes: 56 / 408 (13.7%)
+  Seed genes % of layer: 4.0%
+  Seed genes connected: False (40 component(s))
+bronchial_vessel_endothelial_cell:
+  Nodes: 3312 | Edges: 39319 | Density: 0.0072 | Avg degree: 23.74
+  Seed genes: 58 / 408 (14.2%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (46 component(s))
+capillary_endothelial_cell:
+  Nodes: 1394 | Edges: 4340 | Density: 0.0045 | Avg degree: 6.23
+  Seed genes: 60 / 408 (14.7%)
+  Seed genes % of layer: 4.3%
+  Seed genes connected: False (31 component(s))
+cardiac_endothelial_cell:
+  Nodes: 2065 | Edges: 7411 | Density: 0.0035 | Avg degree: 7.18
+  Seed genes: 66 / 408 (16.2%)
+  Seed genes % of layer: 3.2%
+  Seed genes connected: False (49 component(s))
+cardiac_muscle_cell:
+  Nodes: 3247 | Edges: 32904 | Density: 0.0062 | Avg degree: 20.27
+  Seed genes: 31 / 408 (7.6%)
+  Seed genes % of layer: 1.0%
+  Seed genes connected: False (25 component(s))
+cd141-positive_myeloid_dendritic_cell:
+  Nodes: 3296 | Edges: 40271 | Density: 0.0074 | Avg degree: 24.44
+  Seed genes: 61 / 408 (15.0%)
+  Seed genes % of layer: 1.9%
+  Seed genes connected: False (27 component(s))
+cd1c-positive_myeloid_dendritic_cell:
+  Nodes: 3049 | Edges: 30173 | Density: 0.0065 | Avg degree: 19.79
+  Seed genes: 83 / 408 (20.3%)
+  Seed genes % of layer: 2.7%
+  Seed genes connected: False (36 component(s))
+cd24_neutrophil:
+  Nodes: 1837 | Edges: 6738 | Density: 0.0040 | Avg degree: 7.34
+  Seed genes: 55 / 408 (13.5%)
+  Seed genes % of layer: 3.0%
+  Seed genes connected: False (27 component(s))
+cd4-positive,_alpha-beta_memory_t_cell:
+  Nodes: 1066 | Edges: 6836 | Density: 0.0120 | Avg degree: 12.83
+  Seed genes: 28 / 408 (6.9%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (14 component(s))
+cd4-positive_helper_t_cell:
+  Nodes: 1272 | Edges: 6509 | Density: 0.0081 | Avg degree: 10.23
+  Seed genes: 30 / 408 (7.4%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (16 component(s))
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell:
+  Nodes: 1772 | Edges: 7617 | Density: 0.0049 | Avg degree: 8.60
+  Seed genes: 40 / 408 (9.8%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (20 component(s))
+cd8-positive,_alpha-beta_cytotoxic_t_cell:
+  Nodes: 1854 | Edges: 7622 | Density: 0.0044 | Avg degree: 8.22
+  Seed genes: 52 / 408 (12.7%)
+  Seed genes % of layer: 2.8%
+  Seed genes connected: False (23 component(s))
+cell_of_skeletal_muscle:
+  Nodes: 2891 | Edges: 22647 | Density: 0.0054 | Avg degree: 15.67
+  Seed genes: 67 / 408 (16.4%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (53 component(s))
+ciliary_body:
+  Nodes: 3151 | Edges: 22557 | Density: 0.0045 | Avg degree: 14.32
+  Seed genes: 71 / 408 (17.4%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (49 component(s))
+ciliated_cell:
+  Nodes: 2575 | Edges: 12983 | Density: 0.0039 | Avg degree: 10.08
+  Seed genes: 39 / 408 (9.6%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (32 component(s))
+ciliated_epithelial_cell:
+  Nodes: 3077 | Edges: 27399 | Density: 0.0058 | Avg degree: 17.81
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (38 component(s))
+classical_monocyte:
+  Nodes: 3039 | Edges: 22639 | Density: 0.0049 | Avg degree: 14.90
+  Seed genes: 78 / 408 (19.1%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (29 component(s))
+club_cell:
+  Nodes: 2140 | Edges: 7457 | Density: 0.0033 | Avg degree: 6.97
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (36 component(s))
+club_cell_of_prostate_epithelium:
+  Nodes: 2748 | Edges: 13379 | Density: 0.0035 | Avg degree: 9.74
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.9%
+  Seed genes connected: False (35 component(s))
+conjunctival_epithelial_cell:
+  Nodes: 3111 | Edges: 25080 | Density: 0.0052 | Avg degree: 16.12
+  Seed genes: 66 / 408 (16.2%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (41 component(s))
+connective_tissue_cell:
+  Nodes: 2164 | Edges: 6741 | Density: 0.0029 | Avg degree: 6.23
+  Seed genes: 79 / 408 (19.4%)
+  Seed genes % of layer: 3.7%
+  Seed genes connected: False (39 component(s))
+corneal_epithelial_cell:
+  Nodes: 3290 | Edges: 31470 | Density: 0.0058 | Avg degree: 19.13
+  Seed genes: 49 / 408 (12.0%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (31 component(s))
+corneal_keratocyte:
+  Nodes: 2952 | Edges: 14501 | Density: 0.0033 | Avg degree: 9.82
+  Seed genes: 68 / 408 (16.7%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (40 component(s))
+dendritic_cell:
+  Nodes: 2048 | Edges: 11816 | Density: 0.0056 | Avg degree: 11.54
+  Seed genes: 67 / 408 (16.4%)
+  Seed genes % of layer: 3.3%
+  Seed genes connected: False (33 component(s))
+dn1_thymic_pro-t_cell:
+  Nodes: 1596 | Edges: 10043 | Density: 0.0079 | Avg degree: 12.59
+  Seed genes: 42 / 408 (10.3%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (25 component(s))
+dn3_thymocyte:
+  Nodes: 1295 | Edges: 8907 | Density: 0.0106 | Avg degree: 13.76
+  Seed genes: 28 / 408 (6.9%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (17 component(s))
+dn4_thymocyte:
+  Nodes: 3443 | Edges: 49813 | Density: 0.0084 | Avg degree: 28.94
+  Seed genes: 35 / 408 (8.6%)
+  Seed genes % of layer: 1.0%
+  Seed genes connected: False (15 component(s))
+double-positive,_alpha-beta_thymocyte:
+  Nodes: 2628 | Edges: 24255 | Density: 0.0070 | Avg degree: 18.46
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 1.9%
+  Seed genes connected: False (26 component(s))
+duct_epithelial_cell:
+  Nodes: 2821 | Edges: 13863 | Density: 0.0035 | Avg degree: 9.83
+  Seed genes: 58 / 408 (14.2%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (39 component(s))
+duodenum_glandular_cell:
+  Nodes: 2850 | Edges: 16737 | Density: 0.0041 | Avg degree: 11.75
+  Seed genes: 41 / 408 (10.0%)
+  Seed genes % of layer: 1.4%
+  Seed genes connected: False (27 component(s))
+endothelial_cell:
+  Nodes: 3175 | Edges: 24602 | Density: 0.0049 | Avg degree: 15.50
+  Seed genes: 76 / 408 (18.6%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (49 component(s))
+endothelial_cell_of_artery:
+  Nodes: 2907 | Edges: 16201 | Density: 0.0038 | Avg degree: 11.15
+  Seed genes: 76 / 408 (18.6%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (53 component(s))
+endothelial_cell_of_hepatic_sinusoid:
+  Nodes: 2141 | Edges: 7136 | Density: 0.0031 | Avg degree: 6.67
+  Seed genes: 70 / 408 (17.2%)
+  Seed genes % of layer: 3.3%
+  Seed genes connected: False (41 component(s))
+endothelial_cell_of_lymphatic_vessel:
+  Nodes: 3038 | Edges: 19692 | Density: 0.0043 | Avg degree: 12.96
+  Seed genes: 68 / 408 (16.7%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (35 component(s))
+endothelial_cell_of_vascular_tree:
+  Nodes: 2163 | Edges: 15230 | Density: 0.0065 | Avg degree: 14.08
+  Seed genes: 67 / 408 (16.4%)
+  Seed genes % of layer: 3.1%
+  Seed genes connected: False (42 component(s))
+enterocyte_of_epithelium_of_large_intestine:
+  Nodes: 1319 | Edges: 3721 | Density: 0.0043 | Avg degree: 5.64
+  Seed genes: 34 / 408 (8.3%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (22 component(s))
+enterocyte_of_epithelium_of_small_intestine:
+  Nodes: 1943 | Edges: 6870 | Density: 0.0036 | Avg degree: 7.07
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (27 component(s))
+epithelial_cell:
+  Nodes: 2818 | Edges: 24539 | Density: 0.0062 | Avg degree: 17.42
+  Seed genes: 42 / 408 (10.3%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (30 component(s))
+epithelial_cell_of_lacrimal_sac:
+  Nodes: 1529 | Edges: 4480 | Density: 0.0038 | Avg degree: 5.86
+  Seed genes: 77 / 408 (18.9%)
+  Seed genes % of layer: 5.0%
+  Seed genes connected: False (50 component(s))
+epithelial_cell_of_uterus:
+  Nodes: 3167 | Edges: 37386 | Density: 0.0075 | Avg degree: 23.61
+  Seed genes: 56 / 408 (13.7%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (44 component(s))
+erythroid_progenitor:
+  Nodes: 3312 | Edges: 45133 | Density: 0.0082 | Avg degree: 27.25
+  Seed genes: 20 / 408 (4.9%)
+  Seed genes % of layer: 0.6%
+  Seed genes connected: False (20 component(s))
+eye_photoreceptor_cell:
+  Nodes: 2140 | Edges: 8581 | Density: 0.0037 | Avg degree: 8.02
+  Seed genes: 44 / 408 (10.8%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (23 component(s))
+fast_muscle_cell:
+  Nodes: 1295 | Edges: 5809 | Density: 0.0069 | Avg degree: 8.97
+  Seed genes: 16 / 408 (3.9%)
+  Seed genes % of layer: 1.2%
+  Seed genes connected: False (14 component(s))
+fibroblast:
+  Nodes: 3197 | Edges: 28855 | Density: 0.0056 | Avg degree: 18.05
+  Seed genes: 81 / 408 (19.9%)
+  Seed genes % of layer: 2.5%
+  Seed genes connected: False (38 component(s))
+fibroblast_of_breast:
+  Nodes: 2472 | Edges: 17229 | Density: 0.0056 | Avg degree: 13.94
+  Seed genes: 59 / 408 (14.5%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (46 component(s))
+fibroblast_of_cardiac_tissue:
+  Nodes: 1826 | Edges: 5426 | Density: 0.0033 | Avg degree: 5.94
+  Seed genes: 57 / 408 (14.0%)
+  Seed genes % of layer: 3.1%
+  Seed genes connected: False (44 component(s))
+goblet_cell:
+  Nodes: 1989 | Edges: 6660 | Density: 0.0034 | Avg degree: 6.70
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (27 component(s))
+granulocyte:
+  Nodes: 3300 | Edges: 42358 | Density: 0.0078 | Avg degree: 25.67
+  Seed genes: 47 / 408 (11.5%)
+  Seed genes % of layer: 1.4%
+  Seed genes connected: False (24 component(s))
+gut_endothelial_cell:
+  Nodes: 1781 | Edges: 5477 | Density: 0.0035 | Avg degree: 6.15
+  Seed genes: 64 / 408 (15.7%)
+  Seed genes % of layer: 3.6%
+  Seed genes connected: False (44 component(s))
+hematopoietic_stem_cell:
+  Nodes: 2919 | Edges: 37231 | Density: 0.0087 | Avg degree: 25.51
+  Seed genes: 31 / 408 (7.6%)
+  Seed genes % of layer: 1.1%
+  Seed genes connected: False (20 component(s))
+hepatocyte:
+  Nodes: 3024 | Edges: 20041 | Density: 0.0044 | Avg degree: 13.25
+  Seed genes: 33 / 408 (8.1%)
+  Seed genes % of layer: 1.1%
+  Seed genes connected: False (27 component(s))
+hillock-club_cell_of_prostate_epithelium:
+  Nodes: 2952 | Edges: 20527 | Density: 0.0047 | Avg degree: 13.91
+  Seed genes: 47 / 408 (11.5%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (34 component(s))
+hillock_cell_of_prostate_epithelium:
+  Nodes: 2748 | Edges: 14755 | Density: 0.0039 | Avg degree: 10.74
+  Seed genes: 41 / 408 (10.0%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (31 component(s))
+immature_enterocyte:
+  Nodes: 3100 | Edges: 32885 | Density: 0.0068 | Avg degree: 21.22
+  Seed genes: 44 / 408 (10.8%)
+  Seed genes % of layer: 1.4%
+  Seed genes connected: False (33 component(s))
+immature_natural_killer_cell:
+  Nodes: 1578 | Edges: 6142 | Density: 0.0049 | Avg degree: 7.78
+  Seed genes: 34 / 408 (8.3%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (15 component(s))
+immune_cell:
+  Nodes: 1433 | Edges: 5985 | Density: 0.0058 | Avg degree: 8.35
+  Seed genes: 61 / 408 (15.0%)
+  Seed genes % of layer: 4.3%
+  Seed genes connected: False (32 component(s))
+intermediate_monocyte:
+  Nodes: 2585 | Edges: 12620 | Density: 0.0038 | Avg degree: 9.76
+  Seed genes: 89 / 408 (21.8%)
+  Seed genes % of layer: 3.4%
+  Seed genes connected: False (34 component(s))
+intestinal_crypt_stem_cell:
+  Nodes: 3072 | Edges: 36982 | Density: 0.0078 | Avg degree: 24.08
+  Seed genes: 38 / 408 (9.3%)
+  Seed genes % of layer: 1.2%
+  Seed genes connected: False (28 component(s))
+intestinal_crypt_stem_cell_of_large_intestine:
+  Nodes: 1152 | Edges: 2708 | Density: 0.0041 | Avg degree: 4.70
+  Seed genes: 33 / 408 (8.1%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (19 component(s))
+intestinal_crypt_stem_cell_of_small_intestine:
+  Nodes: 3239 | Edges: 39874 | Density: 0.0076 | Avg degree: 24.62
+  Seed genes: 47 / 408 (11.5%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (27 component(s))
+intestinal_enteroendocrine_cell:
+  Nodes: 2847 | Edges: 14834 | Density: 0.0037 | Avg degree: 10.42
+  Seed genes: 58 / 408 (14.2%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (41 component(s))
+intestinal_tuft_cell:
+  Nodes: 1557 | Edges: 4821 | Density: 0.0040 | Avg degree: 6.19
+  Seed genes: 40 / 408 (9.8%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (28 component(s))
+intrahepatic_cholangiocyte:
+  Nodes: 2844 | Edges: 15327 | Density: 0.0038 | Avg degree: 10.78
+  Seed genes: 49 / 408 (12.0%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (35 component(s))
+ionocyte:
+  Nodes: 2866 | Edges: 16201 | Density: 0.0039 | Avg degree: 11.31
+  Seed genes: 60 / 408 (14.7%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (45 component(s))
+keratinocyte:
+  Nodes: 3217 | Edges: 35629 | Density: 0.0069 | Avg degree: 22.15
+  Seed genes: 42 / 408 (10.3%)
+  Seed genes % of layer: 1.3%
+  Seed genes connected: False (35 component(s))
+kidney_epithelial_cell:
+  Nodes: 2909 | Edges: 18873 | Density: 0.0045 | Avg degree: 12.98
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (30 component(s))
+lacrimal_gland_functional_unit_cell:
+  Nodes: 2323 | Edges: 7078 | Density: 0.0026 | Avg degree: 6.09
+  Seed genes: 48 / 408 (11.8%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (33 component(s))
+langerhans_cell:
+  Nodes: 3065 | Edges: 31516 | Density: 0.0067 | Avg degree: 20.57
+  Seed genes: 65 / 408 (15.9%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (42 component(s))
+large_intestine_goblet_cell:
+  Nodes: 1215 | Edges: 2727 | Density: 0.0037 | Avg degree: 4.49
+  Seed genes: 40 / 408 (9.8%)
+  Seed genes % of layer: 3.3%
+  Seed genes connected: False (28 component(s))
+limbal_stem_cell:
+  Nodes: 3203 | Edges: 24287 | Density: 0.0047 | Avg degree: 15.17
+  Seed genes: 63 / 408 (15.4%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (49 component(s))
+limbal_stromal_cell:
+  Nodes: 2747 | Edges: 11695 | Density: 0.0031 | Avg degree: 8.51
+  Seed genes: 74 / 408 (18.1%)
+  Seed genes % of layer: 2.7%
+  Seed genes connected: False (44 component(s))
+liver_dendritic_cell:
+  Nodes: 2472 | Edges: 14530 | Density: 0.0048 | Avg degree: 11.76
+  Seed genes: 75 / 408 (18.4%)
+  Seed genes % of layer: 3.0%
+  Seed genes connected: False (29 component(s))
+luminal_cell_of_prostate_epithelium:
+  Nodes: 2738 | Edges: 12806 | Density: 0.0034 | Avg degree: 9.35
+  Seed genes: 51 / 408 (12.5%)
+  Seed genes % of layer: 1.9%
+  Seed genes connected: False (37 component(s))
+luminal_epithelial_cell_of_mammary_gland:
+  Nodes: 3093 | Edges: 31011 | Density: 0.0065 | Avg degree: 20.05
+  Seed genes: 41 / 408 (10.0%)
+  Seed genes % of layer: 1.3%
+  Seed genes connected: False (29 component(s))
+lung_ciliated_cell:
+  Nodes: 2625 | Edges: 14443 | Density: 0.0042 | Avg degree: 11.00
+  Seed genes: 34 / 408 (8.3%)
+  Seed genes % of layer: 1.3%
+  Seed genes connected: False (28 component(s))
+lung_microvascular_endothelial_cell:
+  Nodes: 1907 | Edges: 7356 | Density: 0.0040 | Avg degree: 7.71
+  Seed genes: 72 / 408 (17.6%)
+  Seed genes % of layer: 3.8%
+  Seed genes connected: False (47 component(s))
+lymphatic_endothelial_cell:
+  Nodes: 3023 | Edges: 18936 | Density: 0.0041 | Avg degree: 12.53
+  Seed genes: 54 / 408 (13.2%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (36 component(s))
+macrophage:
+  Nodes: 3112 | Edges: 22139 | Density: 0.0046 | Avg degree: 14.23
+  Seed genes: 90 / 408 (22.1%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (37 component(s))
+mature_conventional_dendritic_cell:
+  Nodes: 2988 | Edges: 27239 | Density: 0.0061 | Avg degree: 18.23
+  Seed genes: 59 / 408 (14.5%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (33 component(s))
+mature_enterocyte:
+  Nodes: 1103 | Edges: 2636 | Density: 0.0043 | Avg degree: 4.78
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 4.1%
+  Seed genes connected: False (29 component(s))
+mature_nk_t_cell:
+  Nodes: 1449 | Edges: 6202 | Density: 0.0059 | Avg degree: 8.56
+  Seed genes: 42 / 408 (10.3%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (16 component(s))
+medullary_thymic_epithelial_cell:
+  Nodes: 3299 | Edges: 39186 | Density: 0.0072 | Avg degree: 23.76
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (42 component(s))
+melanocyte:
+  Nodes: 2746 | Edges: 21284 | Density: 0.0056 | Avg degree: 15.50
+  Seed genes: 57 / 408 (14.0%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (34 component(s))
+memory_b_cell:
+  Nodes: 1920 | Edges: 15250 | Density: 0.0083 | Avg degree: 15.89
+  Seed genes: 33 / 408 (8.1%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (25 component(s))
+mesenchymal_stem_cell:
+  Nodes: 2834 | Edges: 21857 | Density: 0.0054 | Avg degree: 15.42
+  Seed genes: 76 / 408 (18.6%)
+  Seed genes % of layer: 2.7%
+  Seed genes connected: False (43 component(s))
+mesothelial_cell:
+  Nodes: 3211 | Edges: 34192 | Density: 0.0066 | Avg degree: 21.30
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (39 component(s))
+microglial_cell:
+  Nodes: 2606 | Edges: 17095 | Density: 0.0050 | Avg degree: 13.12
+  Seed genes: 76 / 408 (18.6%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (27 component(s))
+monocyte:
+  Nodes: 2866 | Edges: 18725 | Density: 0.0046 | Avg degree: 13.07
+  Seed genes: 82 / 408 (20.1%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (31 component(s))
+mucus_secreting_cell:
+  Nodes: 2833 | Edges: 15258 | Density: 0.0038 | Avg degree: 10.77
+  Seed genes: 52 / 408 (12.7%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (33 component(s))
+muller_cell:
+  Nodes: 2356 | Edges: 9191 | Density: 0.0033 | Avg degree: 7.80
+  Seed genes: 68 / 408 (16.7%)
+  Seed genes % of layer: 2.9%
+  Seed genes connected: False (34 component(s))
+muscle_cell:
+  Nodes: 2206 | Edges: 21200 | Density: 0.0087 | Avg degree: 19.22
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (44 component(s))
+myeloid_cell:
+  Nodes: 3195 | Edges: 28490 | Density: 0.0056 | Avg degree: 17.83
+  Seed genes: 69 / 408 (16.9%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (28 component(s))
+myeloid_dendritic_cell:
+  Nodes: 3258 | Edges: 38370 | Density: 0.0072 | Avg degree: 23.55
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (26 component(s))
+myeloid_progenitor:
+  Nodes: 3337 | Edges: 47562 | Density: 0.0085 | Avg degree: 28.51
+  Seed genes: 26 / 408 (6.4%)
+  Seed genes % of layer: 0.8%
+  Seed genes connected: False (20 component(s))
+myoepithelial_cell:
+  Nodes: 2026 | Edges: 6270 | Density: 0.0031 | Avg degree: 6.19
+  Seed genes: 65 / 408 (15.9%)
+  Seed genes % of layer: 3.2%
+  Seed genes connected: False (41 component(s))
+myofibroblast_cell:
+  Nodes: 2806 | Edges: 14495 | Density: 0.0037 | Avg degree: 10.33
+  Seed genes: 99 / 408 (24.3%)
+  Seed genes % of layer: 3.5%
+  Seed genes connected: False (47 component(s))
+myometrial_cell:
+  Nodes: 2477 | Edges: 11834 | Density: 0.0039 | Avg degree: 9.56
+  Seed genes: 84 / 408 (20.6%)
+  Seed genes % of layer: 3.4%
+  Seed genes connected: False (44 component(s))
+naive_regulatory_t_cell:
+  Nodes: 2429 | Edges: 16284 | Density: 0.0055 | Avg degree: 13.41
+  Seed genes: 48 / 408 (11.8%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (24 component(s))
+naive_thymus-derived_cd4-positive,_alpha-beta_t_cell:
+  Nodes: 1080 | Edges: 7527 | Density: 0.0129 | Avg degree: 13.94
+  Seed genes: 28 / 408 (6.9%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (16 component(s))
+nampt_neutrophil:
+  Nodes: 1291 | Edges: 4073 | Density: 0.0049 | Avg degree: 6.31
+  Seed genes: 63 / 408 (15.4%)
+  Seed genes % of layer: 4.9%
+  Seed genes connected: False (32 component(s))
+nk_cell:
+  Nodes: 1456 | Edges: 5040 | Density: 0.0048 | Avg degree: 6.92
+  Seed genes: 47 / 408 (11.5%)
+  Seed genes % of layer: 3.2%
+  Seed genes connected: False (22 component(s))
+non-classical_monocyte:
+  Nodes: 1393 | Edges: 4295 | Density: 0.0044 | Avg degree: 6.17
+  Seed genes: 66 / 408 (16.2%)
+  Seed genes % of layer: 4.7%
+  Seed genes connected: False (30 component(s))
+ocular_surface_cell:
+  Nodes: 2986 | Edges: 19363 | Density: 0.0043 | Avg degree: 12.97
+  Seed genes: 62 / 408 (15.2%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (31 component(s))
+pancreatic_acinar_cell:
+  Nodes: 2628 | Edges: 16506 | Density: 0.0048 | Avg degree: 12.56
+  Seed genes: 32 / 408 (7.8%)
+  Seed genes % of layer: 1.2%
+  Seed genes connected: False (25 component(s))
+pancreatic_alpha_cell:
+  Nodes: 2246 | Edges: 9114 | Density: 0.0036 | Avg degree: 8.12
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (37 component(s))
+pancreatic_beta_cell:
+  Nodes: 2741 | Edges: 17384 | Density: 0.0046 | Avg degree: 12.68
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (38 component(s))
+pancreatic_delta_cell:
+  Nodes: 2868 | Edges: 20933 | Density: 0.0051 | Avg degree: 14.60
+  Seed genes: 48 / 408 (11.8%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (37 component(s))
+pancreatic_ductal_cell:
+  Nodes: 3053 | Edges: 22080 | Density: 0.0047 | Avg degree: 14.46
+  Seed genes: 48 / 408 (11.8%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (35 component(s))
+pancreatic_pp_cell:
+  Nodes: 1397 | Edges: 6447 | Density: 0.0066 | Avg degree: 9.23
+  Seed genes: 37 / 408 (9.1%)
+  Seed genes % of layer: 2.6%
+  Seed genes connected: False (30 component(s))
+pancreatic_stellate_cell:
+  Nodes: 3109 | Edges: 24227 | Density: 0.0050 | Avg degree: 15.59
+  Seed genes: 68 / 408 (16.7%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (43 component(s))
+paneth_cell_of_epithelium_of_large_intestine:
+  Nodes: 1964 | Edges: 7770 | Density: 0.0040 | Avg degree: 7.91
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (32 component(s))
+paneth_cell_of_epithelium_of_small_intestine:
+  Nodes: 2695 | Edges: 14348 | Density: 0.0040 | Avg degree: 10.65
+  Seed genes: 57 / 408 (14.0%)
+  Seed genes % of layer: 2.1%
+  Seed genes connected: False (34 component(s))
+pericyte_cell:
+  Nodes: 2986 | Edges: 18662 | Density: 0.0042 | Avg degree: 12.50
+  Seed genes: 81 / 408 (19.9%)
+  Seed genes % of layer: 2.7%
+  Seed genes connected: False (53 component(s))
+plasma_cell:
+  Nodes: 3178 | Edges: 39142 | Density: 0.0078 | Avg degree: 24.63
+  Seed genes: 18 / 408 (4.4%)
+  Seed genes % of layer: 0.6%
+  Seed genes connected: False (16 component(s))
+plasmablast:
+  Nodes: 3041 | Edges: 32875 | Density: 0.0071 | Avg degree: 21.62
+  Seed genes: 22 / 408 (5.4%)
+  Seed genes % of layer: 0.7%
+  Seed genes connected: False (13 component(s))
+plasmacytoid_dendritic_cell:
+  Nodes: 2544 | Edges: 17992 | Density: 0.0056 | Avg degree: 14.14
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (29 component(s))
+ppi:
+  Nodes: 17916 | Edges: 380340 | Density: 0.0024 | Avg degree: 42.46
+  Seed genes: 399 / 408 (97.8%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (100 component(s))
+pulmonary_ionocyte:
+  Nodes: 2784 | Edges: 15837 | Density: 0.0041 | Avg degree: 11.38
+  Seed genes: 49 / 408 (12.0%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (39 component(s))
+radial_glial_cell:
+  Nodes: 3384 | Edges: 43426 | Density: 0.0076 | Avg degree: 25.67
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (35 component(s))
+regulatory_t_cell:
+  Nodes: 2246 | Edges: 14987 | Density: 0.0059 | Avg degree: 13.35
+  Seed genes: 36 / 408 (8.8%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (22 component(s))
+respiratory_goblet_cell:
+  Nodes: 3092 | Edges: 26907 | Density: 0.0056 | Avg degree: 17.40
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 1.6%
+  Seed genes connected: False (34 component(s))
+respiratory_mucous_cell:
+  Nodes: 2939 | Edges: 20932 | Density: 0.0048 | Avg degree: 14.24
+  Seed genes: 49 / 408 (12.0%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (32 component(s))
+retina_horizontal_cell:
+  Nodes: 2360 | Edges: 10834 | Density: 0.0039 | Avg degree: 9.18
+  Seed genes: 57 / 408 (14.0%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (33 component(s))
+retinal_bipolar_neuron:
+  Nodes: 2832 | Edges: 16269 | Density: 0.0041 | Avg degree: 11.49
+  Seed genes: 80 / 408 (19.6%)
+  Seed genes % of layer: 2.8%
+  Seed genes connected: False (36 component(s))
+retinal_blood_vessel_endothelial_cell:
+  Nodes: 3176 | Edges: 27795 | Density: 0.0055 | Avg degree: 17.50
+  Seed genes: 74 / 408 (18.1%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (43 component(s))
+retinal_ganglion_cell:
+  Nodes: 1460 | Edges: 5536 | Density: 0.0052 | Avg degree: 7.58
+  Seed genes: 25 / 408 (6.1%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (19 component(s))
+retinal_pigment_epithelial_cell:
+  Nodes: 2225 | Edges: 8014 | Density: 0.0032 | Avg degree: 7.20
+  Seed genes: 48 / 408 (11.8%)
+  Seed genes % of layer: 2.2%
+  Seed genes connected: False (32 component(s))
+salivary_gland_cell:
+  Nodes: 3424 | Edges: 35231 | Density: 0.0060 | Avg degree: 20.58
+  Seed genes: 51 / 408 (12.5%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (40 component(s))
+schwann_cell:
+  Nodes: 3015 | Edges: 19739 | Density: 0.0043 | Avg degree: 13.09
+  Seed genes: 70 / 408 (17.2%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (37 component(s))
+secretory_cell:
+  Nodes: 3134 | Edges: 25037 | Density: 0.0051 | Avg degree: 15.98
+  Seed genes: 53 / 408 (13.0%)
+  Seed genes % of layer: 1.7%
+  Seed genes connected: False (32 component(s))
+serous_cell_of_epithelium_of_bronchus:
+  Nodes: 2953 | Edges: 23999 | Density: 0.0055 | Avg degree: 16.25
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (29 component(s))
+serous_cell_of_epithelium_of_trachea:
+  Nodes: 2741 | Edges: 14913 | Density: 0.0040 | Avg degree: 10.88
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (39 component(s))
+skeletal_muscle_satellite_stem_cell:
+  Nodes: 1861 | Edges: 14445 | Density: 0.0083 | Avg degree: 15.52
+  Seed genes: 50 / 408 (12.3%)
+  Seed genes % of layer: 2.7%
+  Seed genes connected: False (37 component(s))
+small_intestine_goblet_cell:
+  Nodes: 1803 | Edges: 5741 | Density: 0.0035 | Avg degree: 6.37
+  Seed genes: 45 / 408 (11.0%)
+  Seed genes % of layer: 2.5%
+  Seed genes connected: False (22 component(s))
+smooth_muscle_cell:
+  Nodes: 3186 | Edges: 23278 | Density: 0.0046 | Avg degree: 14.61
+  Seed genes: 64 / 408 (15.7%)
+  Seed genes % of layer: 2.0%
+  Seed genes connected: False (42 component(s))
+sperm:
+  Nodes: 2633 | Edges: 22822 | Density: 0.0066 | Avg degree: 17.34
+  Seed genes: 39 / 408 (9.6%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (32 component(s))
+stromal_cell:
+  Nodes: 3091 | Edges: 33516 | Density: 0.0070 | Avg degree: 21.69
+  Seed genes: 78 / 408 (19.1%)
+  Seed genes % of layer: 2.5%
+  Seed genes connected: False (46 component(s))
+t_follicular_helper_cell:
+  Nodes: 2028 | Edges: 13369 | Density: 0.0065 | Avg degree: 13.18
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 2.3%
+  Seed genes connected: False (24 component(s))
+tendon_cell:
+  Nodes: 2747 | Edges: 19808 | Density: 0.0053 | Avg degree: 14.42
+  Seed genes: 67 / 408 (16.4%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (42 component(s))
+tongue_muscle_cell:
+  Nodes: 1381 | Edges: 6210 | Density: 0.0065 | Avg degree: 8.99
+  Seed genes: 43 / 408 (10.5%)
+  Seed genes % of layer: 3.1%
+  Seed genes connected: False (34 component(s))
+tracheal_goblet_cell:
+  Nodes: 2965 | Edges: 16381 | Density: 0.0037 | Avg degree: 11.05
+  Seed genes: 54 / 408 (13.2%)
+  Seed genes % of layer: 1.8%
+  Seed genes connected: False (36 component(s))
+transit_amplifying_cell_of_large_intestine:
+  Nodes: 3158 | Edges: 37459 | Density: 0.0075 | Avg degree: 23.72
+  Seed genes: 35 / 408 (8.6%)
+  Seed genes % of layer: 1.1%
+  Seed genes connected: False (28 component(s))
+transit_amplifying_cell_of_small_intestine:
+  Nodes: 3031 | Edges: 32198 | Density: 0.0070 | Avg degree: 21.25
+  Seed genes: 46 / 408 (11.3%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (29 component(s))
+type_i_nk_t_cell:
+  Nodes: 1006 | Edges: 2740 | Density: 0.0054 | Avg degree: 5.45
+  Seed genes: 30 / 408 (7.4%)
+  Seed genes % of layer: 3.0%
+  Seed genes connected: False (16 component(s))
+type_i_pneumocyte:
+  Nodes: 2975 | Edges: 16306 | Density: 0.0037 | Avg degree: 10.96
+  Seed genes: 56 / 408 (13.7%)
+  Seed genes % of layer: 1.9%
+  Seed genes connected: False (44 component(s))
+type_ii_pneumocyte:
+  Nodes: 3228 | Edges: 35172 | Density: 0.0068 | Avg degree: 21.79
+  Seed genes: 47 / 408 (11.5%)
+  Seed genes % of layer: 1.5%
+  Seed genes connected: False (31 component(s))
+vascular_associated_smooth_muscle_cell:
+  Nodes: 2494 | Edges: 10826 | Density: 0.0035 | Avg degree: 8.68
+  Seed genes: 76 / 408 (18.6%)
+  Seed genes % of layer: 3.0%
+  Seed genes connected: False (52 component(s))
+vein_endothelial_cell:
+  Nodes: 3070 | Edges: 27612 | Density: 0.0059 | Avg degree: 17.99
+  Seed genes: 74 / 408 (18.1%)
+  Seed genes % of layer: 2.4%
+  Seed genes connected: False (45 component(s))
+
+================================================================================
+MULTIPLEX-LEVEL STATISTICS
+================================================================================
+Total unique genes in multiplex: 18272
+Total edges in multiplex: 3296142
+Number of layers: 157
+
+Seed genes in final multiplex: 400 / 408 (98.0%)
+Seed genes lost: 8
+
+================================================================================
+SAVING OUTPUTS
+================================================================================
+Saved 157 layer networks to multiplex_ts/layers
+Saved layer statistics to multiplex_ts/layer_statistics.csv
+
+================================================================================
+GENERATING CONVERSION REPORT
+================================================================================
+Saved text report to multiplex_ts/conversion_report.txt
+Saved conversion report to multiplex_ts/conversion_report.json
+
+================================================================================
+MULTIPLEX INTERACTOME CONSTRUCTION COMPLETE
+================================================================================
+Total cell types: 157
+Total unique genes: 18272
+Total edges: 3296142
+Seed gene recovery: 400 / 408 (98.0%)
+Time elapsed: 47.62 seconds
+Output directory: multiplex_ts
+================================================================================
+Finished at: Wed Mar 11 02:39:45 PM CET 2026

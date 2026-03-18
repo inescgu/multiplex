@@ -1,0 +1,17 @@
+
+[notice] A new release of pip is available: 25.3 -> 26.0.1
+[notice] To update, run: pip install --upgrade pip
+/lisc/home/user/gerardursin/.local/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:3860: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/lisc/home/user/gerardursin/.local/lib/python3.13/site-packages/numpy/_core/_methods.py:144: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/multiplex_comparison.py", line 636, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/lisc/home/user/gerardursin/multiplex/multiplex_comparison.py", line 561, in main
+    tabula_analysis = analyze_multiplex(tabula_layers, seed_genes=seed_genes, name="Tabula Sapiens")
+  File "/lisc/home/user/gerardursin/multiplex/multiplex_comparison.py", line 214, in analyze_multiplex
+    seeds_in_all = set(layers[list(layers.keys())[0]].nodes()).intersection(seed_genes)
+                              ~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range

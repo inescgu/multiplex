@@ -1,0 +1,55 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-h02/tmp/slurm-1796283
+Running on host: node-h02.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed Mar 18 01:42:58 PM CET 2026
+SLURM_JOB_ID: 1796283
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.0.0)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.5)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.6.1)
+Requirement already satisfied: pickly in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.0)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.17.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+
+================================================================================
+LOADING SEED GENES
+================================================================================
+Loaded 408 seed genes
+
+================================================================================
+LOADING MULTIPLEX NETWORKS
+================================================================================
+
+Loading Tabula Sapiens multiplex...
+Loaded 0 layers
+
+Loading Pain multiplex...
+Loaded 0 layers
+
+Loading Pain subset of Tabula multiplex...
+Loaded 0 layers
+
+================================================================================
+ANALYZING MULTIPLEX NETWORKS
+================================================================================
+
+================================================================================
+ANALYZING: Tabula Sapiens
+================================================================================
+
+Per-layer statistics:
+
+Multiplex-level statistics:
+  Total unique genes: 0
+  Total edges: 0
+  Avg genes per layer: nan
+  Avg edges per layer: nan
+  Avg density: nan
+  Avg degree: nan
+  Avg components per layer: nan
+  Avg largest CC: nan%
+
+Seed gene statistics:
+  Total seed genes: 408
+  Seed genes in multiplex: 0 (0.0%)
+Finished at: Wed Mar 18 01:43:25 PM CET 2026

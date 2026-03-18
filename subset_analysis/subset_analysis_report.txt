@@ -1,0 +1,449 @@
+================================================================================
+SUBSET MULTIPLEX ANALYSIS REPORT
+================================================================================
+
+SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Number of cell types: 26
+Total unique genes: 10790
+Total edges: 460325
+Average genes per layer: 2287.6
+Average edges per layer: 17704.8
+Average density: 0.0061
+Average degree: 13.84
+
+PER CELL TYPE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                Nodes        Edges        Density      Avg Degree  
+--------------------------------------------------------------------------------
+adipocyte                                3099         33261        0.0069        21.47
+b_cell                                   1179         7087         0.0102        12.02
+cd1c-positive_myeloid_dendritic_cell     3049         30173        0.0065        19.79
+cd24_neutrophil                          1837         6738         0.0040        7.34
+cd4-positive,_alpha-beta_memory_t_cell   1066         6836         0.0120        12.83
+cd4-positive_helper_t_cell               1272         6509         0.0081        10.23
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell 1772         7617         0.0049        8.60
+cd8-positive,_alpha-beta_cytotoxic_t_cell 1854         7622         0.0044        8.22
+dendritic_cell                           2048         11816        0.0056        11.54
+endothelial_cell                         3175         24602        0.0049        15.50
+epithelial_cell_of_uterus                3167         37386        0.0075        23.61
+granulocyte                              3300         42358        0.0078        25.67
+gut_endothelial_cell                     1781         5477         0.0035        6.15
+immune_cell                              1433         5985         0.0058        8.35
+keratinocyte                             3217         35629        0.0069        22.15
+langerhans_cell                          3065         31516        0.0067        20.57
+macrophage                               3112         22139        0.0046        14.23
+memory_b_cell                            1920         15250        0.0083        15.89
+microglial_cell                          2606         17095        0.0050        13.12
+monocyte                                 2866         18725        0.0046        13.07
+myeloid_dendritic_cell                   3258         38370        0.0072        23.55
+nampt_neutrophil                         1291         4073         0.0049        6.31
+nk_cell                                  1456         5040         0.0048        6.92
+non-classical_monocyte                   1393         4295         0.0044        6.17
+regulatory_t_cell                        2246         14987        0.0059        13.35
+schwann_cell                             3015         19739        0.0043        13.09
+
+================================================================================
+INTER-LAYER ANALYSIS
+================================================================================
+
+PAIRWISE GENE OVERLAPS
+--------------------------------------------------------------------------------
+adipocyte <-> b_cell: 242 genes (20.5%)
+adipocyte <-> cd1c-positive_myeloid_dendritic_cell: 1034 genes (33.9%)
+adipocyte <-> cd24_neutrophil: 417 genes (22.7%)
+adipocyte <-> cd4-positive,_alpha-beta_memory_t_cell: 220 genes (20.6%)
+adipocyte <-> cd4-positive_helper_t_cell: 252 genes (19.8%)
+adipocyte <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 439 genes (24.8%)
+adipocyte <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 317 genes (17.1%)
+adipocyte <-> dendritic_cell: 497 genes (24.3%)
+adipocyte <-> endothelial_cell: 1126 genes (36.3%)
+adipocyte <-> epithelial_cell_of_uterus: 1544 genes (49.8%)
+adipocyte <-> granulocyte: 1511 genes (48.8%)
+adipocyte <-> gut_endothelial_cell: 331 genes (18.6%)
+adipocyte <-> immune_cell: 276 genes (19.3%)
+adipocyte <-> keratinocyte: 1926 genes (62.1%)
+adipocyte <-> langerhans_cell: 1135 genes (37.0%)
+adipocyte <-> macrophage: 1055 genes (34.0%)
+adipocyte <-> memory_b_cell: 581 genes (30.3%)
+adipocyte <-> microglial_cell: 766 genes (29.4%)
+adipocyte <-> monocyte: 937 genes (32.7%)
+adipocyte <-> myeloid_dendritic_cell: 1504 genes (48.5%)
+adipocyte <-> nampt_neutrophil: 223 genes (17.3%)
+adipocyte <-> nk_cell: 240 genes (16.5%)
+adipocyte <-> non-classical_monocyte: 248 genes (17.8%)
+adipocyte <-> regulatory_t_cell: 556 genes (24.8%)
+adipocyte <-> schwann_cell: 1254 genes (41.6%)
+b_cell <-> cd1c-positive_myeloid_dendritic_cell: 545 genes (46.2%)
+b_cell <-> cd24_neutrophil: 265 genes (22.5%)
+b_cell <-> cd4-positive,_alpha-beta_memory_t_cell: 456 genes (42.8%)
+b_cell <-> cd4-positive_helper_t_cell: 480 genes (40.7%)
+b_cell <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 436 genes (37.0%)
+b_cell <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 474 genes (40.2%)
+b_cell <-> dendritic_cell: 430 genes (36.5%)
+b_cell <-> endothelial_cell: 215 genes (18.2%)
+b_cell <-> epithelial_cell_of_uterus: 270 genes (22.9%)
+b_cell <-> granulocyte: 442 genes (37.5%)
+b_cell <-> gut_endothelial_cell: 112 genes (9.5%)
+b_cell <-> immune_cell: 330 genes (28.0%)
+b_cell <-> keratinocyte: 234 genes (19.8%)
+b_cell <-> langerhans_cell: 440 genes (37.3%)
+b_cell <-> macrophage: 335 genes (28.4%)
+b_cell <-> memory_b_cell: 1041 genes (88.3%)
+b_cell <-> microglial_cell: 456 genes (38.7%)
+b_cell <-> monocyte: 364 genes (30.9%)
+b_cell <-> myeloid_dendritic_cell: 509 genes (43.2%)
+b_cell <-> nampt_neutrophil: 216 genes (18.3%)
+b_cell <-> nk_cell: 387 genes (32.8%)
+b_cell <-> non-classical_monocyte: 241 genes (20.4%)
+b_cell <-> regulatory_t_cell: 658 genes (55.8%)
+b_cell <-> schwann_cell: 178 genes (15.1%)
+cd1c-positive_myeloid_dendritic_cell <-> cd24_neutrophil: 882 genes (48.0%)
+cd1c-positive_myeloid_dendritic_cell <-> cd4-positive,_alpha-beta_memory_t_cell: 444 genes (41.7%)
+cd1c-positive_myeloid_dendritic_cell <-> cd4-positive_helper_t_cell: 438 genes (34.4%)
+cd1c-positive_myeloid_dendritic_cell <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 666 genes (37.6%)
+cd1c-positive_myeloid_dendritic_cell <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 666 genes (35.9%)
+cd1c-positive_myeloid_dendritic_cell <-> dendritic_cell: 1345 genes (65.7%)
+cd1c-positive_myeloid_dendritic_cell <-> endothelial_cell: 1217 genes (39.9%)
+cd1c-positive_myeloid_dendritic_cell <-> epithelial_cell_of_uterus: 1252 genes (41.1%)
+cd1c-positive_myeloid_dendritic_cell <-> granulocyte: 1655 genes (54.3%)
+cd1c-positive_myeloid_dendritic_cell <-> gut_endothelial_cell: 392 genes (22.0%)
+cd1c-positive_myeloid_dendritic_cell <-> immune_cell: 753 genes (52.5%)
+cd1c-positive_myeloid_dendritic_cell <-> keratinocyte: 1210 genes (39.7%)
+cd1c-positive_myeloid_dendritic_cell <-> langerhans_cell: 2020 genes (66.3%)
+cd1c-positive_myeloid_dendritic_cell <-> macrophage: 1898 genes (62.2%)
+cd1c-positive_myeloid_dendritic_cell <-> memory_b_cell: 855 genes (44.5%)
+cd1c-positive_myeloid_dendritic_cell <-> microglial_cell: 1713 genes (65.7%)
+cd1c-positive_myeloid_dendritic_cell <-> monocyte: 1726 genes (60.2%)
+cd1c-positive_myeloid_dendritic_cell <-> myeloid_dendritic_cell: 1725 genes (56.6%)
+cd1c-positive_myeloid_dendritic_cell <-> nampt_neutrophil: 715 genes (55.4%)
+cd1c-positive_myeloid_dendritic_cell <-> nk_cell: 593 genes (40.7%)
+cd1c-positive_myeloid_dendritic_cell <-> non-classical_monocyte: 940 genes (67.5%)
+cd1c-positive_myeloid_dendritic_cell <-> regulatory_t_cell: 896 genes (39.9%)
+cd1c-positive_myeloid_dendritic_cell <-> schwann_cell: 919 genes (30.5%)
+cd24_neutrophil <-> cd4-positive,_alpha-beta_memory_t_cell: 258 genes (24.2%)
+cd24_neutrophil <-> cd4-positive_helper_t_cell: 273 genes (21.5%)
+cd24_neutrophil <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 559 genes (31.5%)
+cd24_neutrophil <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 382 genes (20.8%)
+cd24_neutrophil <-> dendritic_cell: 539 genes (29.3%)
+cd24_neutrophil <-> endothelial_cell: 529 genes (28.8%)
+cd24_neutrophil <-> epithelial_cell_of_uterus: 371 genes (20.2%)
+cd24_neutrophil <-> granulocyte: 963 genes (52.4%)
+cd24_neutrophil <-> gut_endothelial_cell: 200 genes (11.2%)
+cd24_neutrophil <-> immune_cell: 392 genes (27.4%)
+cd24_neutrophil <-> keratinocyte: 427 genes (23.2%)
+cd24_neutrophil <-> langerhans_cell: 691 genes (37.6%)
+cd24_neutrophil <-> macrophage: 853 genes (46.4%)
+cd24_neutrophil <-> memory_b_cell: 426 genes (23.2%)
+cd24_neutrophil <-> microglial_cell: 856 genes (46.6%)
+cd24_neutrophil <-> monocyte: 1091 genes (59.4%)
+cd24_neutrophil <-> myeloid_dendritic_cell: 663 genes (36.1%)
+cd24_neutrophil <-> nampt_neutrophil: 1019 genes (78.9%)
+cd24_neutrophil <-> nk_cell: 476 genes (32.7%)
+cd24_neutrophil <-> non-classical_monocyte: 567 genes (40.7%)
+cd24_neutrophil <-> regulatory_t_cell: 543 genes (29.6%)
+cd24_neutrophil <-> schwann_cell: 394 genes (21.4%)
+cd4-positive,_alpha-beta_memory_t_cell <-> cd4-positive_helper_t_cell: 806 genes (75.6%)
+cd4-positive,_alpha-beta_memory_t_cell <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 556 genes (52.2%)
+cd4-positive,_alpha-beta_memory_t_cell <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 652 genes (61.2%)
+cd4-positive,_alpha-beta_memory_t_cell <-> dendritic_cell: 398 genes (37.3%)
+cd4-positive,_alpha-beta_memory_t_cell <-> endothelial_cell: 200 genes (18.8%)
+cd4-positive,_alpha-beta_memory_t_cell <-> epithelial_cell_of_uterus: 257 genes (24.1%)
+cd4-positive,_alpha-beta_memory_t_cell <-> granulocyte: 385 genes (36.1%)
+cd4-positive,_alpha-beta_memory_t_cell <-> gut_endothelial_cell: 121 genes (11.4%)
+cd4-positive,_alpha-beta_memory_t_cell <-> immune_cell: 479 genes (44.9%)
+cd4-positive,_alpha-beta_memory_t_cell <-> keratinocyte: 225 genes (21.1%)
+cd4-positive,_alpha-beta_memory_t_cell <-> langerhans_cell: 424 genes (39.8%)
+cd4-positive,_alpha-beta_memory_t_cell <-> macrophage: 245 genes (23.0%)
+cd4-positive,_alpha-beta_memory_t_cell <-> memory_b_cell: 570 genes (53.5%)
+cd4-positive,_alpha-beta_memory_t_cell <-> microglial_cell: 323 genes (30.3%)
+cd4-positive,_alpha-beta_memory_t_cell <-> monocyte: 301 genes (28.2%)
+cd4-positive,_alpha-beta_memory_t_cell <-> myeloid_dendritic_cell: 426 genes (40.0%)
+cd4-positive,_alpha-beta_memory_t_cell <-> nampt_neutrophil: 212 genes (19.9%)
+cd4-positive,_alpha-beta_memory_t_cell <-> nk_cell: 553 genes (51.9%)
+cd4-positive,_alpha-beta_memory_t_cell <-> non-classical_monocyte: 159 genes (14.9%)
+cd4-positive,_alpha-beta_memory_t_cell <-> regulatory_t_cell: 907 genes (85.1%)
+cd4-positive,_alpha-beta_memory_t_cell <-> schwann_cell: 173 genes (16.2%)
+cd4-positive_helper_t_cell <-> cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 575 genes (45.2%)
+cd4-positive_helper_t_cell <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 805 genes (63.3%)
+cd4-positive_helper_t_cell <-> dendritic_cell: 353 genes (27.8%)
+cd4-positive_helper_t_cell <-> endothelial_cell: 228 genes (17.9%)
+cd4-positive_helper_t_cell <-> epithelial_cell_of_uterus: 230 genes (18.1%)
+cd4-positive_helper_t_cell <-> granulocyte: 408 genes (32.1%)
+cd4-positive_helper_t_cell <-> gut_endothelial_cell: 134 genes (10.5%)
+cd4-positive_helper_t_cell <-> immune_cell: 414 genes (32.5%)
+cd4-positive_helper_t_cell <-> keratinocyte: 216 genes (17.0%)
+cd4-positive_helper_t_cell <-> langerhans_cell: 421 genes (33.1%)
+cd4-positive_helper_t_cell <-> macrophage: 232 genes (18.2%)
+cd4-positive_helper_t_cell <-> memory_b_cell: 635 genes (49.9%)
+cd4-positive_helper_t_cell <-> microglial_cell: 317 genes (24.9%)
+cd4-positive_helper_t_cell <-> monocyte: 301 genes (23.7%)
+cd4-positive_helper_t_cell <-> myeloid_dendritic_cell: 418 genes (32.9%)
+cd4-positive_helper_t_cell <-> nampt_neutrophil: 196 genes (15.4%)
+cd4-positive_helper_t_cell <-> nk_cell: 526 genes (41.4%)
+cd4-positive_helper_t_cell <-> non-classical_monocyte: 154 genes (12.1%)
+cd4-positive_helper_t_cell <-> regulatory_t_cell: 986 genes (77.5%)
+cd4-positive_helper_t_cell <-> schwann_cell: 215 genes (16.9%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> cd8-positive,_alpha-beta_cytotoxic_t_cell: 740 genes (41.8%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> dendritic_cell: 529 genes (29.9%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> endothelial_cell: 507 genes (28.6%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> epithelial_cell_of_uterus: 375 genes (21.2%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> granulocyte: 750 genes (42.3%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> gut_endothelial_cell: 235 genes (13.3%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> immune_cell: 463 genes (32.3%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> keratinocyte: 365 genes (20.6%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> langerhans_cell: 608 genes (34.3%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> macrophage: 504 genes (28.4%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> memory_b_cell: 773 genes (43.6%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> microglial_cell: 551 genes (31.1%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> monocyte: 672 genes (37.9%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> myeloid_dendritic_cell: 638 genes (36.0%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> nampt_neutrophil: 394 genes (30.5%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> nk_cell: 1102 genes (75.7%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> non-classical_monocyte: 306 genes (22.0%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> regulatory_t_cell: 893 genes (50.4%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell <-> schwann_cell: 451 genes (25.5%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> dendritic_cell: 525 genes (28.3%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> endothelial_cell: 418 genes (22.5%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> epithelial_cell_of_uterus: 361 genes (19.5%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> granulocyte: 571 genes (30.8%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> gut_endothelial_cell: 206 genes (11.6%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> immune_cell: 541 genes (37.8%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> keratinocyte: 344 genes (18.6%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> langerhans_cell: 632 genes (34.1%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> macrophage: 451 genes (24.3%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> memory_b_cell: 612 genes (33.0%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> microglial_cell: 440 genes (23.7%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> monocyte: 500 genes (27.0%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> myeloid_dendritic_cell: 635 genes (34.3%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> nampt_neutrophil: 289 genes (22.4%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> nk_cell: 752 genes (51.6%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> non-classical_monocyte: 230 genes (16.5%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> regulatory_t_cell: 1127 genes (60.8%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell <-> schwann_cell: 344 genes (18.6%)
+dendritic_cell <-> endothelial_cell: 546 genes (26.7%)
+dendritic_cell <-> epithelial_cell_of_uterus: 701 genes (34.2%)
+dendritic_cell <-> granulocyte: 1038 genes (50.7%)
+dendritic_cell <-> gut_endothelial_cell: 247 genes (13.9%)
+dendritic_cell <-> immune_cell: 773 genes (53.9%)
+dendritic_cell <-> keratinocyte: 666 genes (32.5%)
+dendritic_cell <-> langerhans_cell: 1035 genes (50.5%)
+dendritic_cell <-> macrophage: 1230 genes (60.1%)
+dendritic_cell <-> memory_b_cell: 623 genes (32.4%)
+dendritic_cell <-> microglial_cell: 1119 genes (54.6%)
+dendritic_cell <-> monocyte: 1083 genes (52.9%)
+dendritic_cell <-> myeloid_dendritic_cell: 1070 genes (52.2%)
+dendritic_cell <-> nampt_neutrophil: 440 genes (34.1%)
+dendritic_cell <-> nk_cell: 577 genes (39.6%)
+dendritic_cell <-> non-classical_monocyte: 784 genes (56.3%)
+dendritic_cell <-> regulatory_t_cell: 685 genes (33.4%)
+dendritic_cell <-> schwann_cell: 480 genes (23.4%)
+endothelial_cell <-> epithelial_cell_of_uterus: 1379 genes (43.5%)
+endothelial_cell <-> granulocyte: 1104 genes (34.8%)
+endothelial_cell <-> gut_endothelial_cell: 1224 genes (68.7%)
+endothelial_cell <-> immune_cell: 330 genes (23.0%)
+endothelial_cell <-> keratinocyte: 1226 genes (38.6%)
+endothelial_cell <-> langerhans_cell: 1343 genes (43.8%)
+endothelial_cell <-> macrophage: 1205 genes (38.7%)
+endothelial_cell <-> memory_b_cell: 477 genes (24.8%)
+endothelial_cell <-> microglial_cell: 949 genes (36.4%)
+endothelial_cell <-> monocyte: 940 genes (32.8%)
+endothelial_cell <-> myeloid_dendritic_cell: 1250 genes (39.4%)
+endothelial_cell <-> nampt_neutrophil: 408 genes (31.6%)
+endothelial_cell <-> nk_cell: 358 genes (24.6%)
+endothelial_cell <-> non-classical_monocyte: 393 genes (28.2%)
+endothelial_cell <-> regulatory_t_cell: 540 genes (24.0%)
+endothelial_cell <-> schwann_cell: 1314 genes (43.6%)
+epithelial_cell_of_uterus <-> granulocyte: 1392 genes (44.0%)
+epithelial_cell_of_uterus <-> gut_endothelial_cell: 537 genes (30.2%)
+epithelial_cell_of_uterus <-> immune_cell: 374 genes (26.1%)
+epithelial_cell_of_uterus <-> keratinocyte: 1870 genes (59.0%)
+epithelial_cell_of_uterus <-> langerhans_cell: 1394 genes (45.5%)
+epithelial_cell_of_uterus <-> macrophage: 1273 genes (40.9%)
+epithelial_cell_of_uterus <-> memory_b_cell: 510 genes (26.6%)
+epithelial_cell_of_uterus <-> microglial_cell: 861 genes (33.0%)
+epithelial_cell_of_uterus <-> monocyte: 895 genes (31.2%)
+epithelial_cell_of_uterus <-> myeloid_dendritic_cell: 1554 genes (49.1%)
+epithelial_cell_of_uterus <-> nampt_neutrophil: 264 genes (20.4%)
+epithelial_cell_of_uterus <-> nk_cell: 262 genes (18.0%)
+epithelial_cell_of_uterus <-> non-classical_monocyte: 289 genes (20.7%)
+epithelial_cell_of_uterus <-> regulatory_t_cell: 550 genes (24.5%)
+epithelial_cell_of_uterus <-> schwann_cell: 1257 genes (41.7%)
+granulocyte <-> gut_endothelial_cell: 264 genes (14.8%)
+granulocyte <-> immune_cell: 546 genes (38.1%)
+granulocyte <-> keratinocyte: 1476 genes (45.9%)
+granulocyte <-> langerhans_cell: 1388 genes (45.3%)
+granulocyte <-> macrophage: 1587 genes (51.0%)
+granulocyte <-> memory_b_cell: 865 genes (45.1%)
+granulocyte <-> microglial_cell: 1293 genes (49.6%)
+granulocyte <-> monocyte: 1744 genes (60.9%)
+granulocyte <-> myeloid_dendritic_cell: 1844 genes (56.6%)
+granulocyte <-> nampt_neutrophil: 607 genes (47.0%)
+granulocyte <-> nk_cell: 637 genes (43.8%)
+granulocyte <-> non-classical_monocyte: 709 genes (50.9%)
+granulocyte <-> regulatory_t_cell: 967 genes (43.1%)
+granulocyte <-> schwann_cell: 1110 genes (36.8%)
+gut_endothelial_cell <-> immune_cell: 192 genes (13.4%)
+gut_endothelial_cell <-> keratinocyte: 414 genes (23.2%)
+gut_endothelial_cell <-> langerhans_cell: 435 genes (24.4%)
+gut_endothelial_cell <-> macrophage: 458 genes (25.7%)
+gut_endothelial_cell <-> memory_b_cell: 187 genes (10.5%)
+gut_endothelial_cell <-> microglial_cell: 376 genes (21.1%)
+gut_endothelial_cell <-> monocyte: 301 genes (16.9%)
+gut_endothelial_cell <-> myeloid_dendritic_cell: 369 genes (20.7%)
+gut_endothelial_cell <-> nampt_neutrophil: 161 genes (12.5%)
+gut_endothelial_cell <-> nk_cell: 185 genes (12.7%)
+gut_endothelial_cell <-> non-classical_monocyte: 196 genes (14.1%)
+gut_endothelial_cell <-> regulatory_t_cell: 218 genes (12.2%)
+gut_endothelial_cell <-> schwann_cell: 577 genes (32.4%)
+immune_cell <-> keratinocyte: 442 genes (30.8%)
+immune_cell <-> langerhans_cell: 645 genes (45.0%)
+immune_cell <-> macrophage: 606 genes (42.3%)
+immune_cell <-> memory_b_cell: 439 genes (30.6%)
+immune_cell <-> microglial_cell: 698 genes (48.7%)
+immune_cell <-> monocyte: 489 genes (34.1%)
+immune_cell <-> myeloid_dendritic_cell: 536 genes (37.4%)
+immune_cell <-> nampt_neutrophil: 309 genes (23.9%)
+immune_cell <-> nk_cell: 555 genes (38.7%)
+immune_cell <-> non-classical_monocyte: 404 genes (29.0%)
+immune_cell <-> regulatory_t_cell: 686 genes (47.9%)
+immune_cell <-> schwann_cell: 302 genes (21.1%)
+keratinocyte <-> langerhans_cell: 1326 genes (43.3%)
+keratinocyte <-> macrophage: 1325 genes (42.6%)
+keratinocyte <-> memory_b_cell: 497 genes (25.9%)
+keratinocyte <-> microglial_cell: 820 genes (31.5%)
+keratinocyte <-> monocyte: 1044 genes (36.4%)
+keratinocyte <-> myeloid_dendritic_cell: 1632 genes (50.7%)
+keratinocyte <-> nampt_neutrophil: 274 genes (21.2%)
+keratinocyte <-> nk_cell: 225 genes (15.5%)
+keratinocyte <-> non-classical_monocyte: 318 genes (22.8%)
+keratinocyte <-> regulatory_t_cell: 541 genes (24.1%)
+keratinocyte <-> schwann_cell: 1365 genes (45.3%)
+langerhans_cell <-> macrophage: 1539 genes (50.2%)
+langerhans_cell <-> memory_b_cell: 709 genes (36.9%)
+langerhans_cell <-> microglial_cell: 1344 genes (51.6%)
+langerhans_cell <-> monocyte: 1255 genes (43.8%)
+langerhans_cell <-> myeloid_dendritic_cell: 1550 genes (50.6%)
+langerhans_cell <-> nampt_neutrophil: 524 genes (40.6%)
+langerhans_cell <-> nk_cell: 482 genes (33.1%)
+langerhans_cell <-> non-classical_monocyte: 559 genes (40.1%)
+langerhans_cell <-> regulatory_t_cell: 882 genes (39.3%)
+langerhans_cell <-> schwann_cell: 1046 genes (34.7%)
+macrophage <-> memory_b_cell: 547 genes (28.5%)
+macrophage <-> microglial_cell: 1804 genes (69.2%)
+macrophage <-> monocyte: 1892 genes (66.0%)
+macrophage <-> myeloid_dendritic_cell: 1594 genes (51.2%)
+macrophage <-> nampt_neutrophil: 704 genes (54.5%)
+macrophage <-> nk_cell: 427 genes (29.3%)
+macrophage <-> non-classical_monocyte: 1142 genes (82.0%)
+macrophage <-> regulatory_t_cell: 555 genes (24.7%)
+macrophage <-> schwann_cell: 1061 genes (35.2%)
+memory_b_cell <-> microglial_cell: 685 genes (35.7%)
+memory_b_cell <-> monocyte: 643 genes (33.5%)
+memory_b_cell <-> myeloid_dendritic_cell: 889 genes (46.3%)
+memory_b_cell <-> nampt_neutrophil: 290 genes (22.5%)
+memory_b_cell <-> nk_cell: 611 genes (42.0%)
+memory_b_cell <-> non-classical_monocyte: 343 genes (24.6%)
+memory_b_cell <-> regulatory_t_cell: 981 genes (51.1%)
+memory_b_cell <-> schwann_cell: 421 genes (21.9%)
+microglial_cell <-> monocyte: 1515 genes (58.1%)
+microglial_cell <-> myeloid_dendritic_cell: 1222 genes (46.9%)
+microglial_cell <-> nampt_neutrophil: 699 genes (54.1%)
+microglial_cell <-> nk_cell: 460 genes (31.6%)
+microglial_cell <-> non-classical_monocyte: 1048 genes (75.2%)
+microglial_cell <-> regulatory_t_cell: 604 genes (26.9%)
+microglial_cell <-> schwann_cell: 755 genes (29.0%)
+monocyte <-> myeloid_dendritic_cell: 1413 genes (49.3%)
+monocyte <-> nampt_neutrophil: 859 genes (66.5%)
+monocyte <-> nk_cell: 526 genes (36.1%)
+monocyte <-> non-classical_monocyte: 1122 genes (80.5%)
+monocyte <-> regulatory_t_cell: 672 genes (29.9%)
+monocyte <-> schwann_cell: 862 genes (30.1%)
+myeloid_dendritic_cell <-> nampt_neutrophil: 469 genes (36.3%)
+myeloid_dendritic_cell <-> nk_cell: 510 genes (35.0%)
+myeloid_dendritic_cell <-> non-classical_monocyte: 617 genes (44.3%)
+myeloid_dendritic_cell <-> regulatory_t_cell: 888 genes (39.5%)
+myeloid_dendritic_cell <-> schwann_cell: 1171 genes (38.8%)
+nampt_neutrophil <-> nk_cell: 331 genes (25.6%)
+nampt_neutrophil <-> non-classical_monocyte: 511 genes (39.6%)
+nampt_neutrophil <-> regulatory_t_cell: 347 genes (26.9%)
+nampt_neutrophil <-> schwann_cell: 252 genes (19.5%)
+nk_cell <-> non-classical_monocyte: 274 genes (19.7%)
+nk_cell <-> regulatory_t_cell: 911 genes (62.6%)
+nk_cell <-> schwann_cell: 287 genes (19.7%)
+non-classical_monocyte <-> regulatory_t_cell: 290 genes (20.8%)
+non-classical_monocyte <-> schwann_cell: 324 genes (23.3%)
+regulatory_t_cell <-> schwann_cell: 470 genes (20.9%)
+
+Genes in ALL layers: 0
+
+UNIQUE GENES PER LAYER
+--------------------------------------------------------------------------------
+adipocyte: 126 unique genes (4.1%)
+b_cell: 26 unique genes (2.2%)
+cd1c-positive_myeloid_dendritic_cell: 13 unique genes (0.4%)
+cd24_neutrophil: 70 unique genes (3.8%)
+cd4-positive,_alpha-beta_memory_t_cell: 8 unique genes (0.8%)
+cd4-positive_helper_t_cell: 31 unique genes (2.4%)
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell: 37 unique genes (2.1%)
+cd8-positive,_alpha-beta_cytotoxic_t_cell: 85 unique genes (4.6%)
+dendritic_cell: 33 unique genes (1.6%)
+endothelial_cell: 119 unique genes (3.7%)
+epithelial_cell_of_uterus: 137 unique genes (4.3%)
+granulocyte: 50 unique genes (1.5%)
+gut_endothelial_cell: 220 unique genes (12.4%)
+immune_cell: 51 unique genes (3.6%)
+keratinocyte: 104 unique genes (3.2%)
+langerhans_cell: 60 unique genes (2.0%)
+macrophage: 46 unique genes (1.5%)
+memory_b_cell: 31 unique genes (1.6%)
+microglial_cell: 50 unique genes (1.9%)
+monocyte: 37 unique genes (1.3%)
+myeloid_dendritic_cell: 44 unique genes (1.4%)
+nampt_neutrophil: 53 unique genes (4.1%)
+nk_cell: 9 unique genes (0.6%)
+non-classical_monocyte: 43 unique genes (3.1%)
+regulatory_t_cell: 44 unique genes (2.0%)
+schwann_cell: 232 unique genes (7.7%)
+
+================================================================================
+SEED GENE ANALYSIS
+================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------
+Total seed genes: 408
+Seed genes in multiplex: 255
+Seed gene recovery: 62.5%
+Seed genes in ALL layers: 0
+
+PER CELL TYPE SEED GENE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                Seed Genes      % of Total      Connected   
+--------------------------------------------------------------------------------
+adipocyte                                30              7.4%           False       
+b_cell                                   30              7.4%           False       
+cd1c-positive_myeloid_dendritic_cell     83              20.3%           False       
+cd24_neutrophil                          55              13.5%           False       
+cd4-positive,_alpha-beta_memory_t_cell   28              6.9%           False       
+cd4-positive_helper_t_cell               30              7.4%           False       
+cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell 40              9.8%           False       
+cd8-positive,_alpha-beta_cytotoxic_t_cell 52              12.7%           False       
+dendritic_cell                           67              16.4%           False       
+endothelial_cell                         76              18.6%           False       
+epithelial_cell_of_uterus                56              13.7%           False       
+granulocyte                              47              11.5%           False       
+gut_endothelial_cell                     64              15.7%           False       
+immune_cell                              61              15.0%           False       
+keratinocyte                             42              10.3%           False       
+langerhans_cell                          65              15.9%           False       
+macrophage                               90              22.1%           False       
+memory_b_cell                            33              8.1%           False       
+microglial_cell                          76              18.6%           False       
+monocyte                                 82              20.1%           False       
+myeloid_dendritic_cell                   50              12.3%           False       
+nampt_neutrophil                         63              15.4%           False       
+nk_cell                                  47              11.5%           False       
+non-classical_monocyte                   66              16.2%           False       
+regulatory_t_cell                        36              8.8%           False       
+schwann_cell                             70              17.2%           False       

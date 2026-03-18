@@ -1,0 +1,176 @@
+================================================================================
+MULTIPLEX INTERACTOME CONSTRUCTION REPORT
+================================================================================
+
+SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Number of cell types: 51
+Expression threshold: 1e-08
+Co-expression method: pearson
+
+GENE STATISTICS
+  PPI genes (before): 24,554
+  Genes in multiplex (after): 450
+  Genes lost: 24,104
+  Gene retention: 1.8%
+
+EDGE STATISTICS
+  PPI edges (before): 277,632
+  Edges in multiplex (after): 19,203
+  Edges lost: 258,429
+  Edge retention: 6.9%
+
+EXPRESSION FILTERING DETAILS
+--------------------------------------------------------------------------------
+Genes in expression file: 17,191
+Genes in PPI network: 24,554
+Genes in both (expression AND PPI): 455
+Overlap percentage: 2.6%
+
+PER CELL TYPE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                Expressed    In PPI       In Layer     Node %     Edge %    
+--------------------------------------------------------------------------------
+Arachnoid                                16075        366          366          100.0%       100.0%
+Astrocyte.like                           15031        323          323          100.0%       100.0%
+Atf3                                     15111        326          326          100.0%       100.0%
+Atf3.1                                   14325        327          327          100.0%       100.0%
+Calca.Adra2a                             16269        389          389          100.0%       100.0%
+Calca.Adra2a.1                           16622        409          409          100.0%       100.0%
+Calca.Bmpr1b                             16771        414          414          100.0%       100.0%
+Calca.Bmpr1b.1                           16801        412          412          100.0%       100.0%
+Calca.Dcn                                15604        351          351          100.0%       100.0%
+Calca.Oprk1                              16110        381          381          100.0%       100.0%
+Calca.Oprk1.1                            16462        407          407          100.0%       100.0%
+Calca.Smr2                               16570        402          402          100.0%       100.0%
+Calca.Smr2.1                             16882        422          422          100.0%       100.0%
+Calca.Sstr2                              16744        411          411          100.0%       100.0%
+Calca.Sstr2.1                            16370        407          407          100.0%       100.0%
+Dura                                     15897        353          353          100.0%       100.0%
+Endothelial                              16522        373          373          100.0%       100.0%
+Endothelial.1                            16165        375          375          100.0%       100.0%
+Fibroblast                               16686        380          380          100.0%       100.0%
+Immune                                   16549        375          375          100.0%       100.0%
+Immune.1                                 16262        403          403          100.0%       100.0%
+Mrgpra3.Mrgprb4                          15376        352          352          100.0%       100.0%
+Mrgpra3.Mrgprb4.1                        15785        387          387          100.0%       100.0%
+Mrgpra3.Trpv1                            15792        372          372          100.0%       100.0%
+Mrgpra3.Trpv1.1                          15224        367          367          100.0%       100.0%
+Mrgprd                                   16871        414          414          100.0%       100.0%
+Mrgprd.1                                 16954        428          428          100.0%       100.0%
+Ntrk3high.Ntrk2                          16271        384          384          100.0%       100.0%
+Ntrk3high.Ntrk2.1                        16723        400          400          100.0%       100.0%
+Ntrk3high.S100a16                        15801        370          370          100.0%       100.0%
+Ntrk3high.S100a16.1                      16808        404          404          100.0%       100.0%
+Ntrk3low.Ntrk2                           16134        384          384          100.0%       100.0%
+Ntrk3low.Ntrk2.1                         16083        378          378          100.0%       100.0%
+Oligodendrocyte.like                     15947        381          381          100.0%       100.0%
+Pericyte                                 16286        361          361          100.0%       100.0%
+Pericyte.1                               15396        350          350          100.0%       100.0%
+Pia                                      16041        371          371          100.0%       100.0%
+Pvalb                                    16447        388          388          100.0%       100.0%
+Rxfp1                                    15542        345          345          100.0%       100.0%
+Satellite.glia                           16829        389          389          100.0%       100.0%
+Satellite.glia.1                         16534        400          400          100.0%       100.0%
+Schwann.M                                16462        365          365          100.0%       100.0%
+Schwann.M.1                              16225        386          386          100.0%       100.0%
+Schwann.N                                16580        374          374          100.0%       100.0%
+Schwann.N.1                              15928        377          377          100.0%       100.0%
+Sst                                      16557        393          393          100.0%       100.0%
+Sst.1                                    16151        384          384          100.0%       100.0%
+Th                                       16631        406          406          100.0%       100.0%
+Th.1                                     16782        421          421          100.0%       100.0%
+Trpm8                                    16413        387          387          100.0%       100.0%
+Trpm8.1                                  16926        415          415          100.0%       100.0%
+
+================================================================================
+SEED GENE ANALYSIS
+================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------
+Total seed genes: 408
+Seed genes in expression file: 9
+Seed genes in PPI network: 391
+Seed genes in both (before multiplex): 9
+Seed genes in multiplex (after): 9
+Seed genes lost: 399
+Seed gene recovery: 2.2%
+
+PER CELL TYPE SEED GENE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                In Layer        % of Total     
+--------------------------------------------------------------------------------
+Arachnoid                                8               2.0%
+Astrocyte.like                           8               2.0%
+Atf3                                     8               2.0%
+Atf3.1                                   8               2.0%
+Calca.Adra2a                             8               2.0%
+Calca.Adra2a.1                           9               2.2%
+Calca.Bmpr1b                             8               2.0%
+Calca.Bmpr1b.1                           9               2.2%
+Calca.Dcn                                8               2.0%
+Calca.Oprk1                              8               2.0%
+Calca.Oprk1.1                            9               2.2%
+Calca.Smr2                               8               2.0%
+Calca.Smr2.1                             9               2.2%
+Calca.Sstr2                              8               2.0%
+Calca.Sstr2.1                            8               2.0%
+Dura                                     8               2.0%
+Endothelial                              8               2.0%
+Endothelial.1                            8               2.0%
+Fibroblast                               8               2.0%
+Immune                                   9               2.2%
+Immune.1                                 8               2.0%
+Mrgpra3.Mrgprb4                          8               2.0%
+Mrgpra3.Mrgprb4.1                        8               2.0%
+Mrgpra3.Trpv1                            9               2.2%
+Mrgpra3.Trpv1.1                          8               2.0%
+Mrgprd                                   8               2.0%
+Mrgprd.1                                 9               2.2%
+Ntrk3high.Ntrk2                          8               2.0%
+Ntrk3high.Ntrk2.1                        8               2.0%
+Ntrk3high.S100a16                        8               2.0%
+Ntrk3high.S100a16.1                      9               2.2%
+Ntrk3low.Ntrk2                           8               2.0%
+Ntrk3low.Ntrk2.1                         8               2.0%
+Oligodendrocyte.like                     8               2.0%
+Pericyte                                 8               2.0%
+Pericyte.1                               8               2.0%
+Pia                                      8               2.0%
+Pvalb                                    8               2.0%
+Rxfp1                                    8               2.0%
+Satellite.glia                           9               2.2%
+Satellite.glia.1                         9               2.2%
+Schwann.M                                8               2.0%
+Schwann.M.1                              8               2.0%
+Schwann.N                                8               2.0%
+Schwann.N.1                              8               2.0%
+Sst                                      8               2.0%
+Sst.1                                    8               2.0%
+Th                                       8               2.0%
+Th.1                                     9               2.2%
+Trpm8                                    8               2.0%
+Trpm8.1                                  9               2.2%
+
+================================================================================
+INTERPRETATION GUIDE
+================================================================================
+
+Gene Retention:
+  Current: 1.8%
+  Status: ❌ POOR - Severe gene loss
+
+Edge Retention:
+  Current: 6.9%
+  Status: ❌ POOR - Severe edge loss
+
+Seed Gene Recovery:
+  Current: 2.2%
+  Status: ❌ POOR - Severe seed gene loss
+
+Where genes are lost:
+  1. Expression filtering: Genes not expressed above threshold
+  2. PPI filtering: Expressed genes not in PPI network
+  3. Connectivity: Genes with no edges in the subgraph
+  4. Co-expression: Edges without co-expression support (weighted down)
