@@ -10,3 +10,1065 @@ Requirement already satisfied: pickly in /lisc/home/user/gerardursin/.local/lib/
 Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.17.0)
 Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
 Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+
+================================================================================
+LOADING SEED GENES
+================================================================================
+Loaded 408 seed genes
+
+================================================================================
+LOADING MULTIPLEX NETWORKS
+================================================================================
+
+Loading Tabula Sapiens multiplex...
+Loaded 157 layers
+
+Loading Pain multiplex...
+Loaded 1 layers
+
+Loading Pain subset of Tabula multiplex...
+Loaded 26 layers
+
+================================================================================
+ANALYZING MULTIPLEX NETWORKS
+================================================================================
+
+================================================================================
+ANALYZING: Tabula Sapiens
+================================================================================
+
+Per-layer statistics:
+  acinar_cell_of_salivary_gland:
+    Nodes: 2386 | Edges: 8104 | Density: 0.0028 | Avg degree: 6.79
+    Components: 1 | Largest CC: 2386 (100.0%)
+    Seed genes: 55 (2.3% of layer, 13.5% of total)
+    Seed genes connected: False (38 component(s))
+  adipocyte:
+    Nodes: 3099 | Edges: 33261 | Density: 0.0069 | Avg degree: 21.47
+    Components: 1 | Largest CC: 3099 (100.0%)
+    Seed genes: 30 (1.0% of layer, 7.4% of total)
+    Seed genes connected: False (24 component(s))
+  adventitial_cell:
+    Nodes: 2763 | Edges: 26740 | Density: 0.0070 | Avg degree: 19.36
+    Components: 1 | Largest CC: 2763 (100.0%)
+    Seed genes: 56 (2.0% of layer, 13.7% of total)
+    Seed genes connected: False (38 component(s))
+  alveolar_fibroblast:
+    Nodes: 1200 | Edges: 2842 | Density: 0.0040 | Avg degree: 4.74
+    Components: 1 | Largest CC: 1200 (100.0%)
+    Seed genes: 63 (5.2% of layer, 15.4% of total)
+    Seed genes connected: False (36 component(s))
+  artery_endothelial_cell:
+    Nodes: 3171 | Edges: 21497 | Density: 0.0043 | Avg degree: 13.56
+    Components: 1 | Largest CC: 3171 (100.0%)
+    Seed genes: 73 (2.3% of layer, 17.9% of total)
+    Seed genes connected: False (48 component(s))
+  b_cell:
+    Nodes: 1179 | Edges: 7087 | Density: 0.0102 | Avg degree: 12.02
+    Components: 1 | Largest CC: 1179 (100.0%)
+    Seed genes: 30 (2.5% of layer, 7.4% of total)
+    Seed genes connected: False (24 component(s))
+  basal_cell:
+    Nodes: 3182 | Edges: 35050 | Density: 0.0069 | Avg degree: 22.03
+    Components: 1 | Largest CC: 3182 (100.0%)
+    Seed genes: 53 (1.7% of layer, 13.0% of total)
+    Seed genes connected: False (48 component(s))
+  basal_cell_of_prostate_epithelium:
+    Nodes: 3035 | Edges: 22522 | Density: 0.0049 | Avg degree: 14.84
+    Components: 1 | Largest CC: 3035 (100.0%)
+    Seed genes: 65 (2.1% of layer, 15.9% of total)
+    Seed genes connected: False (43 component(s))
+  bladder_urothelial_cell:
+    Nodes: 3198 | Edges: 35627 | Density: 0.0070 | Avg degree: 22.28
+    Components: 1 | Largest CC: 3198 (100.0%)
+    Seed genes: 57 (1.8% of layer, 14.0% of total)
+    Seed genes connected: False (37 component(s))
+  bronchial_smooth_muscle_cell:
+    Nodes: 1412 | Edges: 3964 | Density: 0.0040 | Avg degree: 5.61
+    Components: 1 | Largest CC: 1412 (100.0%)
+    Seed genes: 56 (4.0% of layer, 13.7% of total)
+    Seed genes connected: False (40 component(s))
+  bronchial_vessel_endothelial_cell:
+    Nodes: 3312 | Edges: 39319 | Density: 0.0072 | Avg degree: 23.74
+    Components: 1 | Largest CC: 3312 (100.0%)
+    Seed genes: 58 (1.8% of layer, 14.2% of total)
+    Seed genes connected: False (46 component(s))
+  capillary_endothelial_cell:
+    Nodes: 1394 | Edges: 4340 | Density: 0.0045 | Avg degree: 6.23
+    Components: 1 | Largest CC: 1394 (100.0%)
+    Seed genes: 60 (4.3% of layer, 14.7% of total)
+    Seed genes connected: False (31 component(s))
+  cardiac_endothelial_cell:
+    Nodes: 2065 | Edges: 7411 | Density: 0.0035 | Avg degree: 7.18
+    Components: 1 | Largest CC: 2065 (100.0%)
+    Seed genes: 66 (3.2% of layer, 16.2% of total)
+    Seed genes connected: False (49 component(s))
+  cardiac_muscle_cell:
+    Nodes: 3247 | Edges: 32904 | Density: 0.0062 | Avg degree: 20.27
+    Components: 1 | Largest CC: 3247 (100.0%)
+    Seed genes: 31 (1.0% of layer, 7.6% of total)
+    Seed genes connected: False (25 component(s))
+  cd141-positive_myeloid_dendritic_cell:
+    Nodes: 3296 | Edges: 40271 | Density: 0.0074 | Avg degree: 24.44
+    Components: 1 | Largest CC: 3296 (100.0%)
+    Seed genes: 61 (1.9% of layer, 15.0% of total)
+    Seed genes connected: False (27 component(s))
+  cd1c-positive_myeloid_dendritic_cell:
+    Nodes: 3049 | Edges: 30173 | Density: 0.0065 | Avg degree: 19.79
+    Components: 1 | Largest CC: 3049 (100.0%)
+    Seed genes: 83 (2.7% of layer, 20.3% of total)
+    Seed genes connected: False (36 component(s))
+  cd24_neutrophil:
+    Nodes: 1837 | Edges: 6738 | Density: 0.0040 | Avg degree: 7.34
+    Components: 1 | Largest CC: 1837 (100.0%)
+    Seed genes: 55 (3.0% of layer, 13.5% of total)
+    Seed genes connected: False (27 component(s))
+  cd4-positive,_alpha-beta_memory_t_cell:
+    Nodes: 1066 | Edges: 6836 | Density: 0.0120 | Avg degree: 12.83
+    Components: 1 | Largest CC: 1066 (100.0%)
+    Seed genes: 28 (2.6% of layer, 6.9% of total)
+    Seed genes connected: False (14 component(s))
+  cd4-positive_helper_t_cell:
+    Nodes: 1272 | Edges: 6509 | Density: 0.0081 | Avg degree: 10.23
+    Components: 1 | Largest CC: 1272 (100.0%)
+    Seed genes: 30 (2.4% of layer, 7.4% of total)
+    Seed genes connected: False (16 component(s))
+  cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell:
+    Nodes: 1772 | Edges: 7617 | Density: 0.0049 | Avg degree: 8.60
+    Components: 1 | Largest CC: 1772 (100.0%)
+    Seed genes: 40 (2.3% of layer, 9.8% of total)
+    Seed genes connected: False (20 component(s))
+  cd8-positive,_alpha-beta_cytotoxic_t_cell:
+    Nodes: 1854 | Edges: 7622 | Density: 0.0044 | Avg degree: 8.22
+    Components: 1 | Largest CC: 1854 (100.0%)
+    Seed genes: 52 (2.8% of layer, 12.7% of total)
+    Seed genes connected: False (23 component(s))
+  cell_of_skeletal_muscle:
+    Nodes: 2891 | Edges: 22647 | Density: 0.0054 | Avg degree: 15.67
+    Components: 1 | Largest CC: 2891 (100.0%)
+    Seed genes: 67 (2.3% of layer, 16.4% of total)
+    Seed genes connected: False (53 component(s))
+  ciliary_body:
+    Nodes: 3151 | Edges: 22557 | Density: 0.0045 | Avg degree: 14.32
+    Components: 1 | Largest CC: 3151 (100.0%)
+    Seed genes: 71 (2.3% of layer, 17.4% of total)
+    Seed genes connected: False (49 component(s))
+  ciliated_cell:
+    Nodes: 2575 | Edges: 12983 | Density: 0.0039 | Avg degree: 10.08
+    Components: 1 | Largest CC: 2575 (100.0%)
+    Seed genes: 39 (1.5% of layer, 9.6% of total)
+    Seed genes connected: False (32 component(s))
+  ciliated_epithelial_cell:
+    Nodes: 3077 | Edges: 27399 | Density: 0.0058 | Avg degree: 17.81
+    Components: 1 | Largest CC: 3077 (100.0%)
+    Seed genes: 50 (1.6% of layer, 12.3% of total)
+    Seed genes connected: False (38 component(s))
+  classical_monocyte:
+    Nodes: 3039 | Edges: 22639 | Density: 0.0049 | Avg degree: 14.90
+    Components: 1 | Largest CC: 3039 (100.0%)
+    Seed genes: 78 (2.6% of layer, 19.1% of total)
+    Seed genes connected: False (29 component(s))
+  club_cell:
+    Nodes: 2140 | Edges: 7457 | Density: 0.0033 | Avg degree: 6.97
+    Components: 1 | Largest CC: 2140 (100.0%)
+    Seed genes: 46 (2.1% of layer, 11.3% of total)
+    Seed genes connected: False (36 component(s))
+  club_cell_of_prostate_epithelium:
+    Nodes: 2748 | Edges: 13379 | Density: 0.0035 | Avg degree: 9.74
+    Components: 1 | Largest CC: 2748 (100.0%)
+    Seed genes: 53 (1.9% of layer, 13.0% of total)
+    Seed genes connected: False (35 component(s))
+  conjunctival_epithelial_cell:
+    Nodes: 3111 | Edges: 25080 | Density: 0.0052 | Avg degree: 16.12
+    Components: 1 | Largest CC: 3111 (100.0%)
+    Seed genes: 66 (2.1% of layer, 16.2% of total)
+    Seed genes connected: False (41 component(s))
+  connective_tissue_cell:
+    Nodes: 2164 | Edges: 6741 | Density: 0.0029 | Avg degree: 6.23
+    Components: 1 | Largest CC: 2164 (100.0%)
+    Seed genes: 79 (3.7% of layer, 19.4% of total)
+    Seed genes connected: False (39 component(s))
+  corneal_epithelial_cell:
+    Nodes: 3290 | Edges: 31470 | Density: 0.0058 | Avg degree: 19.13
+    Components: 1 | Largest CC: 3290 (100.0%)
+    Seed genes: 49 (1.5% of layer, 12.0% of total)
+    Seed genes connected: False (31 component(s))
+  corneal_keratocyte:
+    Nodes: 2952 | Edges: 14501 | Density: 0.0033 | Avg degree: 9.82
+    Components: 1 | Largest CC: 2952 (100.0%)
+    Seed genes: 68 (2.3% of layer, 16.7% of total)
+    Seed genes connected: False (40 component(s))
+  dendritic_cell:
+    Nodes: 2048 | Edges: 11816 | Density: 0.0056 | Avg degree: 11.54
+    Components: 1 | Largest CC: 2048 (100.0%)
+    Seed genes: 67 (3.3% of layer, 16.4% of total)
+    Seed genes connected: False (33 component(s))
+  dn1_thymic_pro-t_cell:
+    Nodes: 1596 | Edges: 10043 | Density: 0.0079 | Avg degree: 12.59
+    Components: 1 | Largest CC: 1596 (100.0%)
+    Seed genes: 42 (2.6% of layer, 10.3% of total)
+    Seed genes connected: False (25 component(s))
+  dn3_thymocyte:
+    Nodes: 1295 | Edges: 8907 | Density: 0.0106 | Avg degree: 13.76
+    Components: 1 | Largest CC: 1295 (100.0%)
+    Seed genes: 28 (2.2% of layer, 6.9% of total)
+    Seed genes connected: False (17 component(s))
+  dn4_thymocyte:
+    Nodes: 3443 | Edges: 49813 | Density: 0.0084 | Avg degree: 28.94
+    Components: 1 | Largest CC: 3443 (100.0%)
+    Seed genes: 35 (1.0% of layer, 8.6% of total)
+    Seed genes connected: False (15 component(s))
+  double-positive,_alpha-beta_thymocyte:
+    Nodes: 2628 | Edges: 24255 | Density: 0.0070 | Avg degree: 18.46
+    Components: 1 | Largest CC: 2628 (100.0%)
+    Seed genes: 50 (1.9% of layer, 12.3% of total)
+    Seed genes connected: False (26 component(s))
+  duct_epithelial_cell:
+    Nodes: 2821 | Edges: 13863 | Density: 0.0035 | Avg degree: 9.83
+    Components: 1 | Largest CC: 2821 (100.0%)
+    Seed genes: 58 (2.1% of layer, 14.2% of total)
+    Seed genes connected: False (39 component(s))
+  duodenum_glandular_cell:
+    Nodes: 2850 | Edges: 16737 | Density: 0.0041 | Avg degree: 11.75
+    Components: 1 | Largest CC: 2850 (100.0%)
+    Seed genes: 41 (1.4% of layer, 10.0% of total)
+    Seed genes connected: False (27 component(s))
+  endothelial_cell:
+    Nodes: 3175 | Edges: 24602 | Density: 0.0049 | Avg degree: 15.50
+    Components: 1 | Largest CC: 3175 (100.0%)
+    Seed genes: 76 (2.4% of layer, 18.6% of total)
+    Seed genes connected: False (49 component(s))
+  endothelial_cell_of_artery:
+    Nodes: 2907 | Edges: 16201 | Density: 0.0038 | Avg degree: 11.15
+    Components: 1 | Largest CC: 2907 (100.0%)
+    Seed genes: 76 (2.6% of layer, 18.6% of total)
+    Seed genes connected: False (53 component(s))
+  endothelial_cell_of_hepatic_sinusoid:
+    Nodes: 2141 | Edges: 7136 | Density: 0.0031 | Avg degree: 6.67
+    Components: 1 | Largest CC: 2141 (100.0%)
+    Seed genes: 70 (3.3% of layer, 17.2% of total)
+    Seed genes connected: False (41 component(s))
+  endothelial_cell_of_lymphatic_vessel:
+    Nodes: 3038 | Edges: 19692 | Density: 0.0043 | Avg degree: 12.96
+    Components: 1 | Largest CC: 3038 (100.0%)
+    Seed genes: 68 (2.2% of layer, 16.7% of total)
+    Seed genes connected: False (35 component(s))
+  endothelial_cell_of_vascular_tree:
+    Nodes: 2163 | Edges: 15230 | Density: 0.0065 | Avg degree: 14.08
+    Components: 1 | Largest CC: 2163 (100.0%)
+    Seed genes: 67 (3.1% of layer, 16.4% of total)
+    Seed genes connected: False (42 component(s))
+  enterocyte_of_epithelium_of_large_intestine:
+    Nodes: 1319 | Edges: 3721 | Density: 0.0043 | Avg degree: 5.64
+    Components: 1 | Largest CC: 1319 (100.0%)
+    Seed genes: 34 (2.6% of layer, 8.3% of total)
+    Seed genes connected: False (22 component(s))
+  enterocyte_of_epithelium_of_small_intestine:
+    Nodes: 1943 | Edges: 6870 | Density: 0.0036 | Avg degree: 7.07
+    Components: 1 | Largest CC: 1943 (100.0%)
+    Seed genes: 45 (2.3% of layer, 11.0% of total)
+    Seed genes connected: False (27 component(s))
+  epithelial_cell:
+    Nodes: 2818 | Edges: 24539 | Density: 0.0062 | Avg degree: 17.42
+    Components: 1 | Largest CC: 2818 (100.0%)
+    Seed genes: 42 (1.5% of layer, 10.3% of total)
+    Seed genes connected: False (30 component(s))
+  epithelial_cell_of_lacrimal_sac:
+    Nodes: 1529 | Edges: 4480 | Density: 0.0038 | Avg degree: 5.86
+    Components: 1 | Largest CC: 1529 (100.0%)
+    Seed genes: 77 (5.0% of layer, 18.9% of total)
+    Seed genes connected: False (50 component(s))
+  epithelial_cell_of_uterus:
+    Nodes: 3167 | Edges: 37386 | Density: 0.0075 | Avg degree: 23.61
+    Components: 1 | Largest CC: 3167 (100.0%)
+    Seed genes: 56 (1.8% of layer, 13.7% of total)
+    Seed genes connected: False (44 component(s))
+  erythroid_progenitor:
+    Nodes: 3312 | Edges: 45133 | Density: 0.0082 | Avg degree: 27.25
+    Components: 1 | Largest CC: 3312 (100.0%)
+    Seed genes: 20 (0.6% of layer, 4.9% of total)
+    Seed genes connected: False (20 component(s))
+  eye_photoreceptor_cell:
+    Nodes: 2140 | Edges: 8581 | Density: 0.0037 | Avg degree: 8.02
+    Components: 1 | Largest CC: 2140 (100.0%)
+    Seed genes: 44 (2.1% of layer, 10.8% of total)
+    Seed genes connected: False (23 component(s))
+  fast_muscle_cell:
+    Nodes: 1295 | Edges: 5809 | Density: 0.0069 | Avg degree: 8.97
+    Components: 1 | Largest CC: 1295 (100.0%)
+    Seed genes: 16 (1.2% of layer, 3.9% of total)
+    Seed genes connected: False (14 component(s))
+  fibroblast:
+    Nodes: 3197 | Edges: 28855 | Density: 0.0056 | Avg degree: 18.05
+    Components: 1 | Largest CC: 3197 (100.0%)
+    Seed genes: 81 (2.5% of layer, 19.9% of total)
+    Seed genes connected: False (38 component(s))
+  fibroblast_of_breast:
+    Nodes: 2472 | Edges: 17229 | Density: 0.0056 | Avg degree: 13.94
+    Components: 1 | Largest CC: 2472 (100.0%)
+    Seed genes: 59 (2.4% of layer, 14.5% of total)
+    Seed genes connected: False (46 component(s))
+  fibroblast_of_cardiac_tissue:
+    Nodes: 1826 | Edges: 5426 | Density: 0.0033 | Avg degree: 5.94
+    Components: 1 | Largest CC: 1826 (100.0%)
+    Seed genes: 57 (3.1% of layer, 14.0% of total)
+    Seed genes connected: False (44 component(s))
+  goblet_cell:
+    Nodes: 1989 | Edges: 6660 | Density: 0.0034 | Avg degree: 6.70
+    Components: 1 | Largest CC: 1989 (100.0%)
+    Seed genes: 46 (2.3% of layer, 11.3% of total)
+    Seed genes connected: False (27 component(s))
+  granulocyte:
+    Nodes: 3300 | Edges: 42358 | Density: 0.0078 | Avg degree: 25.67
+    Components: 1 | Largest CC: 3300 (100.0%)
+    Seed genes: 47 (1.4% of layer, 11.5% of total)
+    Seed genes connected: False (24 component(s))
+  gut_endothelial_cell:
+    Nodes: 1781 | Edges: 5477 | Density: 0.0035 | Avg degree: 6.15
+    Components: 1 | Largest CC: 1781 (100.0%)
+    Seed genes: 64 (3.6% of layer, 15.7% of total)
+    Seed genes connected: False (44 component(s))
+  hematopoietic_stem_cell:
+    Nodes: 2919 | Edges: 37231 | Density: 0.0087 | Avg degree: 25.51
+    Components: 1 | Largest CC: 2919 (100.0%)
+    Seed genes: 31 (1.1% of layer, 7.6% of total)
+    Seed genes connected: False (20 component(s))
+  hepatocyte:
+    Nodes: 3024 | Edges: 20041 | Density: 0.0044 | Avg degree: 13.25
+    Components: 1 | Largest CC: 3024 (100.0%)
+    Seed genes: 33 (1.1% of layer, 8.1% of total)
+    Seed genes connected: False (27 component(s))
+  hillock-club_cell_of_prostate_epithelium:
+    Nodes: 2952 | Edges: 20527 | Density: 0.0047 | Avg degree: 13.91
+    Components: 1 | Largest CC: 2952 (100.0%)
+    Seed genes: 47 (1.6% of layer, 11.5% of total)
+    Seed genes connected: False (34 component(s))
+  hillock_cell_of_prostate_epithelium:
+    Nodes: 2748 | Edges: 14755 | Density: 0.0039 | Avg degree: 10.74
+    Components: 1 | Largest CC: 2748 (100.0%)
+    Seed genes: 41 (1.5% of layer, 10.0% of total)
+    Seed genes connected: False (31 component(s))
+  immature_enterocyte:
+    Nodes: 3100 | Edges: 32885 | Density: 0.0068 | Avg degree: 21.22
+    Components: 1 | Largest CC: 3100 (100.0%)
+    Seed genes: 44 (1.4% of layer, 10.8% of total)
+    Seed genes connected: False (33 component(s))
+  immature_natural_killer_cell:
+    Nodes: 1578 | Edges: 6142 | Density: 0.0049 | Avg degree: 7.78
+    Components: 1 | Largest CC: 1578 (100.0%)
+    Seed genes: 34 (2.2% of layer, 8.3% of total)
+    Seed genes connected: False (15 component(s))
+  immune_cell:
+    Nodes: 1433 | Edges: 5985 | Density: 0.0058 | Avg degree: 8.35
+    Components: 1 | Largest CC: 1433 (100.0%)
+    Seed genes: 61 (4.3% of layer, 15.0% of total)
+    Seed genes connected: False (32 component(s))
+  intermediate_monocyte:
+    Nodes: 2585 | Edges: 12620 | Density: 0.0038 | Avg degree: 9.76
+    Components: 1 | Largest CC: 2585 (100.0%)
+    Seed genes: 89 (3.4% of layer, 21.8% of total)
+    Seed genes connected: False (34 component(s))
+  intestinal_crypt_stem_cell:
+    Nodes: 3072 | Edges: 36982 | Density: 0.0078 | Avg degree: 24.08
+    Components: 1 | Largest CC: 3072 (100.0%)
+    Seed genes: 38 (1.2% of layer, 9.3% of total)
+    Seed genes connected: False (28 component(s))
+  intestinal_crypt_stem_cell_of_large_intestine:
+    Nodes: 1152 | Edges: 2708 | Density: 0.0041 | Avg degree: 4.70
+    Components: 1 | Largest CC: 1152 (100.0%)
+    Seed genes: 33 (2.9% of layer, 8.1% of total)
+    Seed genes connected: False (19 component(s))
+  intestinal_crypt_stem_cell_of_small_intestine:
+    Nodes: 3239 | Edges: 39874 | Density: 0.0076 | Avg degree: 24.62
+    Components: 1 | Largest CC: 3239 (100.0%)
+    Seed genes: 47 (1.5% of layer, 11.5% of total)
+    Seed genes connected: False (27 component(s))
+  intestinal_enteroendocrine_cell:
+    Nodes: 2847 | Edges: 14834 | Density: 0.0037 | Avg degree: 10.42
+    Components: 1 | Largest CC: 2847 (100.0%)
+    Seed genes: 58 (2.0% of layer, 14.2% of total)
+    Seed genes connected: False (41 component(s))
+  intestinal_tuft_cell:
+    Nodes: 1557 | Edges: 4821 | Density: 0.0040 | Avg degree: 6.19
+    Components: 1 | Largest CC: 1557 (100.0%)
+    Seed genes: 40 (2.6% of layer, 9.8% of total)
+    Seed genes connected: False (28 component(s))
+  intrahepatic_cholangiocyte:
+    Nodes: 2844 | Edges: 15327 | Density: 0.0038 | Avg degree: 10.78
+    Components: 1 | Largest CC: 2844 (100.0%)
+    Seed genes: 49 (1.7% of layer, 12.0% of total)
+    Seed genes connected: False (35 component(s))
+  ionocyte:
+    Nodes: 2866 | Edges: 16201 | Density: 0.0039 | Avg degree: 11.31
+    Components: 1 | Largest CC: 2866 (100.0%)
+    Seed genes: 60 (2.1% of layer, 14.7% of total)
+    Seed genes connected: False (45 component(s))
+  keratinocyte:
+    Nodes: 3217 | Edges: 35629 | Density: 0.0069 | Avg degree: 22.15
+    Components: 1 | Largest CC: 3217 (100.0%)
+    Seed genes: 42 (1.3% of layer, 10.3% of total)
+    Seed genes connected: False (35 component(s))
+  kidney_epithelial_cell:
+    Nodes: 2909 | Edges: 18873 | Density: 0.0045 | Avg degree: 12.98
+    Components: 1 | Largest CC: 2909 (100.0%)
+    Seed genes: 45 (1.5% of layer, 11.0% of total)
+    Seed genes connected: False (30 component(s))
+  lacrimal_gland_functional_unit_cell:
+    Nodes: 2323 | Edges: 7078 | Density: 0.0026 | Avg degree: 6.09
+    Components: 1 | Largest CC: 2323 (100.0%)
+    Seed genes: 48 (2.1% of layer, 11.8% of total)
+    Seed genes connected: False (33 component(s))
+  langerhans_cell:
+    Nodes: 3065 | Edges: 31516 | Density: 0.0067 | Avg degree: 20.57
+    Components: 1 | Largest CC: 3065 (100.0%)
+    Seed genes: 65 (2.1% of layer, 15.9% of total)
+    Seed genes connected: False (42 component(s))
+  large_intestine_goblet_cell:
+    Nodes: 1215 | Edges: 2727 | Density: 0.0037 | Avg degree: 4.49
+    Components: 1 | Largest CC: 1215 (100.0%)
+    Seed genes: 40 (3.3% of layer, 9.8% of total)
+    Seed genes connected: False (28 component(s))
+  limbal_stem_cell:
+    Nodes: 3203 | Edges: 24287 | Density: 0.0047 | Avg degree: 15.17
+    Components: 1 | Largest CC: 3203 (100.0%)
+    Seed genes: 63 (2.0% of layer, 15.4% of total)
+    Seed genes connected: False (49 component(s))
+  limbal_stromal_cell:
+    Nodes: 2747 | Edges: 11695 | Density: 0.0031 | Avg degree: 8.51
+    Components: 1 | Largest CC: 2747 (100.0%)
+    Seed genes: 74 (2.7% of layer, 18.1% of total)
+    Seed genes connected: False (44 component(s))
+  liver_dendritic_cell:
+    Nodes: 2472 | Edges: 14530 | Density: 0.0048 | Avg degree: 11.76
+    Components: 1 | Largest CC: 2472 (100.0%)
+    Seed genes: 75 (3.0% of layer, 18.4% of total)
+    Seed genes connected: False (29 component(s))
+  luminal_cell_of_prostate_epithelium:
+    Nodes: 2738 | Edges: 12806 | Density: 0.0034 | Avg degree: 9.35
+    Components: 1 | Largest CC: 2738 (100.0%)
+    Seed genes: 51 (1.9% of layer, 12.5% of total)
+    Seed genes connected: False (37 component(s))
+  luminal_epithelial_cell_of_mammary_gland:
+    Nodes: 3093 | Edges: 31011 | Density: 0.0065 | Avg degree: 20.05
+    Components: 1 | Largest CC: 3093 (100.0%)
+    Seed genes: 41 (1.3% of layer, 10.0% of total)
+    Seed genes connected: False (29 component(s))
+  lung_ciliated_cell:
+    Nodes: 2625 | Edges: 14443 | Density: 0.0042 | Avg degree: 11.00
+    Components: 1 | Largest CC: 2625 (100.0%)
+    Seed genes: 34 (1.3% of layer, 8.3% of total)
+    Seed genes connected: False (28 component(s))
+  lung_microvascular_endothelial_cell:
+    Nodes: 1907 | Edges: 7356 | Density: 0.0040 | Avg degree: 7.71
+    Components: 1 | Largest CC: 1907 (100.0%)
+    Seed genes: 72 (3.8% of layer, 17.6% of total)
+    Seed genes connected: False (47 component(s))
+  lymphatic_endothelial_cell:
+    Nodes: 3023 | Edges: 18936 | Density: 0.0041 | Avg degree: 12.53
+    Components: 1 | Largest CC: 3023 (100.0%)
+    Seed genes: 54 (1.8% of layer, 13.2% of total)
+    Seed genes connected: False (36 component(s))
+  macrophage:
+    Nodes: 3112 | Edges: 22139 | Density: 0.0046 | Avg degree: 14.23
+    Components: 1 | Largest CC: 3112 (100.0%)
+    Seed genes: 90 (2.9% of layer, 22.1% of total)
+    Seed genes connected: False (37 component(s))
+  mature_conventional_dendritic_cell:
+    Nodes: 2988 | Edges: 27239 | Density: 0.0061 | Avg degree: 18.23
+    Components: 1 | Largest CC: 2988 (100.0%)
+    Seed genes: 59 (2.0% of layer, 14.5% of total)
+    Seed genes connected: False (33 component(s))
+  mature_enterocyte:
+    Nodes: 1103 | Edges: 2636 | Density: 0.0043 | Avg degree: 4.78
+    Components: 1 | Largest CC: 1103 (100.0%)
+    Seed genes: 45 (4.1% of layer, 11.0% of total)
+    Seed genes connected: False (29 component(s))
+  mature_nk_t_cell:
+    Nodes: 1449 | Edges: 6202 | Density: 0.0059 | Avg degree: 8.56
+    Components: 1 | Largest CC: 1449 (100.0%)
+    Seed genes: 42 (2.9% of layer, 10.3% of total)
+    Seed genes connected: False (16 component(s))
+  medullary_thymic_epithelial_cell:
+    Nodes: 3299 | Edges: 39186 | Density: 0.0072 | Avg degree: 23.76
+    Components: 1 | Largest CC: 3299 (100.0%)
+    Seed genes: 53 (1.6% of layer, 13.0% of total)
+    Seed genes connected: False (42 component(s))
+  melanocyte:
+    Nodes: 2746 | Edges: 21284 | Density: 0.0056 | Avg degree: 15.50
+    Components: 1 | Largest CC: 2746 (100.0%)
+    Seed genes: 57 (2.1% of layer, 14.0% of total)
+    Seed genes connected: False (34 component(s))
+  memory_b_cell:
+    Nodes: 1920 | Edges: 15250 | Density: 0.0083 | Avg degree: 15.89
+    Components: 1 | Largest CC: 1920 (100.0%)
+    Seed genes: 33 (1.7% of layer, 8.1% of total)
+    Seed genes connected: False (25 component(s))
+  mesenchymal_stem_cell:
+    Nodes: 2834 | Edges: 21857 | Density: 0.0054 | Avg degree: 15.42
+    Components: 1 | Largest CC: 2834 (100.0%)
+    Seed genes: 76 (2.7% of layer, 18.6% of total)
+    Seed genes connected: False (43 component(s))
+  mesothelial_cell:
+    Nodes: 3211 | Edges: 34192 | Density: 0.0066 | Avg degree: 21.30
+    Components: 1 | Largest CC: 3211 (100.0%)
+    Seed genes: 53 (1.7% of layer, 13.0% of total)
+    Seed genes connected: False (39 component(s))
+  microglial_cell:
+    Nodes: 2606 | Edges: 17095 | Density: 0.0050 | Avg degree: 13.12
+    Components: 1 | Largest CC: 2606 (100.0%)
+    Seed genes: 76 (2.9% of layer, 18.6% of total)
+    Seed genes connected: False (27 component(s))
+  monocyte:
+    Nodes: 2866 | Edges: 18725 | Density: 0.0046 | Avg degree: 13.07
+    Components: 1 | Largest CC: 2866 (100.0%)
+    Seed genes: 82 (2.9% of layer, 20.1% of total)
+    Seed genes connected: False (31 component(s))
+  mucus_secreting_cell:
+    Nodes: 2833 | Edges: 15258 | Density: 0.0038 | Avg degree: 10.77
+    Components: 1 | Largest CC: 2833 (100.0%)
+    Seed genes: 52 (1.8% of layer, 12.7% of total)
+    Seed genes connected: False (33 component(s))
+  muller_cell:
+    Nodes: 2356 | Edges: 9191 | Density: 0.0033 | Avg degree: 7.80
+    Components: 1 | Largest CC: 2356 (100.0%)
+    Seed genes: 68 (2.9% of layer, 16.7% of total)
+    Seed genes connected: False (34 component(s))
+  muscle_cell:
+    Nodes: 2206 | Edges: 21200 | Density: 0.0087 | Avg degree: 19.22
+    Components: 1 | Largest CC: 2206 (100.0%)
+    Seed genes: 53 (2.4% of layer, 13.0% of total)
+    Seed genes connected: False (44 component(s))
+  myeloid_cell:
+    Nodes: 3195 | Edges: 28490 | Density: 0.0056 | Avg degree: 17.83
+    Components: 1 | Largest CC: 3195 (100.0%)
+    Seed genes: 69 (2.2% of layer, 16.9% of total)
+    Seed genes connected: False (28 component(s))
+  myeloid_dendritic_cell:
+    Nodes: 3258 | Edges: 38370 | Density: 0.0072 | Avg degree: 23.55
+    Components: 1 | Largest CC: 3258 (100.0%)
+    Seed genes: 50 (1.5% of layer, 12.3% of total)
+    Seed genes connected: False (26 component(s))
+  myeloid_progenitor:
+    Nodes: 3337 | Edges: 47562 | Density: 0.0085 | Avg degree: 28.51
+    Components: 1 | Largest CC: 3337 (100.0%)
+    Seed genes: 26 (0.8% of layer, 6.4% of total)
+    Seed genes connected: False (20 component(s))
+  myoepithelial_cell:
+    Nodes: 2026 | Edges: 6270 | Density: 0.0031 | Avg degree: 6.19
+    Components: 1 | Largest CC: 2026 (100.0%)
+    Seed genes: 65 (3.2% of layer, 15.9% of total)
+    Seed genes connected: False (41 component(s))
+  myofibroblast_cell:
+    Nodes: 2806 | Edges: 14495 | Density: 0.0037 | Avg degree: 10.33
+    Components: 1 | Largest CC: 2806 (100.0%)
+    Seed genes: 99 (3.5% of layer, 24.3% of total)
+    Seed genes connected: False (47 component(s))
+  myometrial_cell:
+    Nodes: 2477 | Edges: 11834 | Density: 0.0039 | Avg degree: 9.56
+    Components: 1 | Largest CC: 2477 (100.0%)
+    Seed genes: 84 (3.4% of layer, 20.6% of total)
+    Seed genes connected: False (44 component(s))
+  naive_regulatory_t_cell:
+    Nodes: 2429 | Edges: 16284 | Density: 0.0055 | Avg degree: 13.41
+    Components: 1 | Largest CC: 2429 (100.0%)
+    Seed genes: 48 (2.0% of layer, 11.8% of total)
+    Seed genes connected: False (24 component(s))
+  naive_thymus-derived_cd4-positive,_alpha-beta_t_cell:
+    Nodes: 1080 | Edges: 7527 | Density: 0.0129 | Avg degree: 13.94
+    Components: 1 | Largest CC: 1080 (100.0%)
+    Seed genes: 28 (2.6% of layer, 6.9% of total)
+    Seed genes connected: False (16 component(s))
+  nampt_neutrophil:
+    Nodes: 1291 | Edges: 4073 | Density: 0.0049 | Avg degree: 6.31
+    Components: 1 | Largest CC: 1291 (100.0%)
+    Seed genes: 63 (4.9% of layer, 15.4% of total)
+    Seed genes connected: False (32 component(s))
+  nk_cell:
+    Nodes: 1456 | Edges: 5040 | Density: 0.0048 | Avg degree: 6.92
+    Components: 1 | Largest CC: 1456 (100.0%)
+    Seed genes: 47 (3.2% of layer, 11.5% of total)
+    Seed genes connected: False (22 component(s))
+  non-classical_monocyte:
+    Nodes: 1393 | Edges: 4295 | Density: 0.0044 | Avg degree: 6.17
+    Components: 1 | Largest CC: 1393 (100.0%)
+    Seed genes: 66 (4.7% of layer, 16.2% of total)
+    Seed genes connected: False (30 component(s))
+  ocular_surface_cell:
+    Nodes: 2986 | Edges: 19363 | Density: 0.0043 | Avg degree: 12.97
+    Components: 1 | Largest CC: 2986 (100.0%)
+    Seed genes: 62 (2.1% of layer, 15.2% of total)
+    Seed genes connected: False (31 component(s))
+  pancreatic_acinar_cell:
+    Nodes: 2628 | Edges: 16506 | Density: 0.0048 | Avg degree: 12.56
+    Components: 1 | Largest CC: 2628 (100.0%)
+    Seed genes: 32 (1.2% of layer, 7.8% of total)
+    Seed genes connected: False (25 component(s))
+  pancreatic_alpha_cell:
+    Nodes: 2246 | Edges: 9114 | Density: 0.0036 | Avg degree: 8.12
+    Components: 1 | Largest CC: 2246 (100.0%)
+    Seed genes: 45 (2.0% of layer, 11.0% of total)
+    Seed genes connected: False (37 component(s))
+  pancreatic_beta_cell:
+    Nodes: 2741 | Edges: 17384 | Density: 0.0046 | Avg degree: 12.68
+    Components: 1 | Largest CC: 2741 (100.0%)
+    Seed genes: 46 (1.7% of layer, 11.3% of total)
+    Seed genes connected: False (38 component(s))
+  pancreatic_delta_cell:
+    Nodes: 2868 | Edges: 20933 | Density: 0.0051 | Avg degree: 14.60
+    Components: 1 | Largest CC: 2868 (100.0%)
+    Seed genes: 48 (1.7% of layer, 11.8% of total)
+    Seed genes connected: False (37 component(s))
+  pancreatic_ductal_cell:
+    Nodes: 3053 | Edges: 22080 | Density: 0.0047 | Avg degree: 14.46
+    Components: 1 | Largest CC: 3053 (100.0%)
+    Seed genes: 48 (1.6% of layer, 11.8% of total)
+    Seed genes connected: False (35 component(s))
+  pancreatic_pp_cell:
+    Nodes: 1397 | Edges: 6447 | Density: 0.0066 | Avg degree: 9.23
+    Components: 1 | Largest CC: 1397 (100.0%)
+    Seed genes: 37 (2.6% of layer, 9.1% of total)
+    Seed genes connected: False (30 component(s))
+  pancreatic_stellate_cell:
+    Nodes: 3109 | Edges: 24227 | Density: 0.0050 | Avg degree: 15.59
+    Components: 1 | Largest CC: 3109 (100.0%)
+    Seed genes: 68 (2.2% of layer, 16.7% of total)
+    Seed genes connected: False (43 component(s))
+  paneth_cell_of_epithelium_of_large_intestine:
+    Nodes: 1964 | Edges: 7770 | Density: 0.0040 | Avg degree: 7.91
+    Components: 1 | Largest CC: 1964 (100.0%)
+    Seed genes: 46 (2.3% of layer, 11.3% of total)
+    Seed genes connected: False (32 component(s))
+  paneth_cell_of_epithelium_of_small_intestine:
+    Nodes: 2695 | Edges: 14348 | Density: 0.0040 | Avg degree: 10.65
+    Components: 1 | Largest CC: 2695 (100.0%)
+    Seed genes: 57 (2.1% of layer, 14.0% of total)
+    Seed genes connected: False (34 component(s))
+  pericyte_cell:
+    Nodes: 2986 | Edges: 18662 | Density: 0.0042 | Avg degree: 12.50
+    Components: 1 | Largest CC: 2986 (100.0%)
+    Seed genes: 81 (2.7% of layer, 19.9% of total)
+    Seed genes connected: False (53 component(s))
+  plasma_cell:
+    Nodes: 3178 | Edges: 39142 | Density: 0.0078 | Avg degree: 24.63
+    Components: 1 | Largest CC: 3178 (100.0%)
+    Seed genes: 18 (0.6% of layer, 4.4% of total)
+    Seed genes connected: False (16 component(s))
+  plasmablast:
+    Nodes: 3041 | Edges: 32875 | Density: 0.0071 | Avg degree: 21.62
+    Components: 1 | Largest CC: 3041 (100.0%)
+    Seed genes: 22 (0.7% of layer, 5.4% of total)
+    Seed genes connected: False (13 component(s))
+  plasmacytoid_dendritic_cell:
+    Nodes: 2544 | Edges: 17992 | Density: 0.0056 | Avg degree: 14.14
+    Components: 1 | Largest CC: 2544 (100.0%)
+    Seed genes: 45 (1.8% of layer, 11.0% of total)
+    Seed genes connected: False (29 component(s))
+  ppi:
+    Nodes: 17916 | Edges: 380340 | Density: 0.0024 | Avg degree: 42.46
+    Components: 1 | Largest CC: 17916 (100.0%)
+    Seed genes: 399 (2.2% of layer, 97.8% of total)
+    Seed genes connected: False (100 component(s))
+  pulmonary_ionocyte:
+    Nodes: 2784 | Edges: 15837 | Density: 0.0041 | Avg degree: 11.38
+    Components: 1 | Largest CC: 2784 (100.0%)
+    Seed genes: 49 (1.8% of layer, 12.0% of total)
+    Seed genes connected: False (39 component(s))
+  radial_glial_cell:
+    Nodes: 3384 | Edges: 43426 | Density: 0.0076 | Avg degree: 25.67
+    Components: 1 | Largest CC: 3384 (100.0%)
+    Seed genes: 53 (1.6% of layer, 13.0% of total)
+    Seed genes connected: False (35 component(s))
+  regulatory_t_cell:
+    Nodes: 2246 | Edges: 14987 | Density: 0.0059 | Avg degree: 13.35
+    Components: 1 | Largest CC: 2246 (100.0%)
+    Seed genes: 36 (1.6% of layer, 8.8% of total)
+    Seed genes connected: False (22 component(s))
+  respiratory_goblet_cell:
+    Nodes: 3092 | Edges: 26907 | Density: 0.0056 | Avg degree: 17.40
+    Components: 1 | Largest CC: 3092 (100.0%)
+    Seed genes: 50 (1.6% of layer, 12.3% of total)
+    Seed genes connected: False (34 component(s))
+  respiratory_mucous_cell:
+    Nodes: 2939 | Edges: 20932 | Density: 0.0048 | Avg degree: 14.24
+    Components: 1 | Largest CC: 2939 (100.0%)
+    Seed genes: 49 (1.7% of layer, 12.0% of total)
+    Seed genes connected: False (32 component(s))
+  retina_horizontal_cell:
+    Nodes: 2360 | Edges: 10834 | Density: 0.0039 | Avg degree: 9.18
+    Components: 1 | Largest CC: 2360 (100.0%)
+    Seed genes: 57 (2.4% of layer, 14.0% of total)
+    Seed genes connected: False (33 component(s))
+  retinal_bipolar_neuron:
+    Nodes: 2832 | Edges: 16269 | Density: 0.0041 | Avg degree: 11.49
+    Components: 1 | Largest CC: 2832 (100.0%)
+    Seed genes: 80 (2.8% of layer, 19.6% of total)
+    Seed genes connected: False (36 component(s))
+  retinal_blood_vessel_endothelial_cell:
+    Nodes: 3176 | Edges: 27795 | Density: 0.0055 | Avg degree: 17.50
+    Components: 1 | Largest CC: 3176 (100.0%)
+    Seed genes: 74 (2.3% of layer, 18.1% of total)
+    Seed genes connected: False (43 component(s))
+  retinal_ganglion_cell:
+    Nodes: 1460 | Edges: 5536 | Density: 0.0052 | Avg degree: 7.58
+    Components: 1 | Largest CC: 1460 (100.0%)
+    Seed genes: 25 (1.7% of layer, 6.1% of total)
+    Seed genes connected: False (19 component(s))
+  retinal_pigment_epithelial_cell:
+    Nodes: 2225 | Edges: 8014 | Density: 0.0032 | Avg degree: 7.20
+    Components: 1 | Largest CC: 2225 (100.0%)
+    Seed genes: 48 (2.2% of layer, 11.8% of total)
+    Seed genes connected: False (32 component(s))
+  salivary_gland_cell:
+    Nodes: 3424 | Edges: 35231 | Density: 0.0060 | Avg degree: 20.58
+    Components: 1 | Largest CC: 3424 (100.0%)
+    Seed genes: 51 (1.5% of layer, 12.5% of total)
+    Seed genes connected: False (40 component(s))
+  schwann_cell:
+    Nodes: 3015 | Edges: 19739 | Density: 0.0043 | Avg degree: 13.09
+    Components: 1 | Largest CC: 3015 (100.0%)
+    Seed genes: 70 (2.3% of layer, 17.2% of total)
+    Seed genes connected: False (37 component(s))
+  secretory_cell:
+    Nodes: 3134 | Edges: 25037 | Density: 0.0051 | Avg degree: 15.98
+    Components: 1 | Largest CC: 3134 (100.0%)
+    Seed genes: 53 (1.7% of layer, 13.0% of total)
+    Seed genes connected: False (32 component(s))
+  serous_cell_of_epithelium_of_bronchus:
+    Nodes: 2953 | Edges: 23999 | Density: 0.0055 | Avg degree: 16.25
+    Components: 1 | Largest CC: 2953 (100.0%)
+    Seed genes: 45 (1.5% of layer, 11.0% of total)
+    Seed genes connected: False (29 component(s))
+  serous_cell_of_epithelium_of_trachea:
+    Nodes: 2741 | Edges: 14913 | Density: 0.0040 | Avg degree: 10.88
+    Components: 1 | Largest CC: 2741 (100.0%)
+    Seed genes: 50 (1.8% of layer, 12.3% of total)
+    Seed genes connected: False (39 component(s))
+  skeletal_muscle_satellite_stem_cell:
+    Nodes: 1861 | Edges: 14445 | Density: 0.0083 | Avg degree: 15.52
+    Components: 1 | Largest CC: 1861 (100.0%)
+    Seed genes: 50 (2.7% of layer, 12.3% of total)
+    Seed genes connected: False (37 component(s))
+  small_intestine_goblet_cell:
+    Nodes: 1803 | Edges: 5741 | Density: 0.0035 | Avg degree: 6.37
+    Components: 1 | Largest CC: 1803 (100.0%)
+    Seed genes: 45 (2.5% of layer, 11.0% of total)
+    Seed genes connected: False (22 component(s))
+  smooth_muscle_cell:
+    Nodes: 3186 | Edges: 23278 | Density: 0.0046 | Avg degree: 14.61
+    Components: 1 | Largest CC: 3186 (100.0%)
+    Seed genes: 64 (2.0% of layer, 15.7% of total)
+    Seed genes connected: False (42 component(s))
+  sperm:
+    Nodes: 2633 | Edges: 22822 | Density: 0.0066 | Avg degree: 17.34
+    Components: 1 | Largest CC: 2633 (100.0%)
+    Seed genes: 39 (1.5% of layer, 9.6% of total)
+    Seed genes connected: False (32 component(s))
+  stromal_cell:
+    Nodes: 3091 | Edges: 33516 | Density: 0.0070 | Avg degree: 21.69
+    Components: 1 | Largest CC: 3091 (100.0%)
+    Seed genes: 78 (2.5% of layer, 19.1% of total)
+    Seed genes connected: False (46 component(s))
+  t_follicular_helper_cell:
+    Nodes: 2028 | Edges: 13369 | Density: 0.0065 | Avg degree: 13.18
+    Components: 1 | Largest CC: 2028 (100.0%)
+    Seed genes: 46 (2.3% of layer, 11.3% of total)
+    Seed genes connected: False (24 component(s))
+  tendon_cell:
+    Nodes: 2747 | Edges: 19808 | Density: 0.0053 | Avg degree: 14.42
+    Components: 1 | Largest CC: 2747 (100.0%)
+    Seed genes: 67 (2.4% of layer, 16.4% of total)
+    Seed genes connected: False (42 component(s))
+  tongue_muscle_cell:
+    Nodes: 1381 | Edges: 6210 | Density: 0.0065 | Avg degree: 8.99
+    Components: 1 | Largest CC: 1381 (100.0%)
+    Seed genes: 43 (3.1% of layer, 10.5% of total)
+    Seed genes connected: False (34 component(s))
+  tracheal_goblet_cell:
+    Nodes: 2965 | Edges: 16381 | Density: 0.0037 | Avg degree: 11.05
+    Components: 1 | Largest CC: 2965 (100.0%)
+    Seed genes: 54 (1.8% of layer, 13.2% of total)
+    Seed genes connected: False (36 component(s))
+  transit_amplifying_cell_of_large_intestine:
+    Nodes: 3158 | Edges: 37459 | Density: 0.0075 | Avg degree: 23.72
+    Components: 1 | Largest CC: 3158 (100.0%)
+    Seed genes: 35 (1.1% of layer, 8.6% of total)
+    Seed genes connected: False (28 component(s))
+  transit_amplifying_cell_of_small_intestine:
+    Nodes: 3031 | Edges: 32198 | Density: 0.0070 | Avg degree: 21.25
+    Components: 1 | Largest CC: 3031 (100.0%)
+    Seed genes: 46 (1.5% of layer, 11.3% of total)
+    Seed genes connected: False (29 component(s))
+  type_i_nk_t_cell:
+    Nodes: 1006 | Edges: 2740 | Density: 0.0054 | Avg degree: 5.45
+    Components: 1 | Largest CC: 1006 (100.0%)
+    Seed genes: 30 (3.0% of layer, 7.4% of total)
+    Seed genes connected: False (16 component(s))
+  type_i_pneumocyte:
+    Nodes: 2975 | Edges: 16306 | Density: 0.0037 | Avg degree: 10.96
+    Components: 1 | Largest CC: 2975 (100.0%)
+    Seed genes: 56 (1.9% of layer, 13.7% of total)
+    Seed genes connected: False (44 component(s))
+  type_ii_pneumocyte:
+    Nodes: 3228 | Edges: 35172 | Density: 0.0068 | Avg degree: 21.79
+    Components: 1 | Largest CC: 3228 (100.0%)
+    Seed genes: 47 (1.5% of layer, 11.5% of total)
+    Seed genes connected: False (31 component(s))
+  vascular_associated_smooth_muscle_cell:
+    Nodes: 2494 | Edges: 10826 | Density: 0.0035 | Avg degree: 8.68
+    Components: 1 | Largest CC: 2494 (100.0%)
+    Seed genes: 76 (3.0% of layer, 18.6% of total)
+    Seed genes connected: False (52 component(s))
+  vein_endothelial_cell:
+    Nodes: 3070 | Edges: 27612 | Density: 0.0059 | Avg degree: 17.99
+    Components: 1 | Largest CC: 3070 (100.0%)
+    Seed genes: 74 (2.4% of layer, 18.1% of total)
+    Seed genes connected: False (45 component(s))
+
+Multiplex-level statistics:
+  Total unique genes: 18272
+  Total edges: 3296142
+  Avg genes per layer: 2628.2
+  Avg edges per layer: 20994.5
+  Avg density: 0.0054
+  Avg degree: 13.81
+  Avg components per layer: 1.00
+  Avg largest CC: 100.0%
+
+Seed gene statistics:
+  Total seed genes: 408
+  Seed genes in multiplex: 400 (98.0%)
+  Seed genes in ALL layers: 0
+  Seed gene spread across layers:
+    Avg layers per seed: 21.80
+    Min layers per seed: 1
+    Max layers per seed: 94
+
+================================================================================
+ANALYZING: Pain Multiplex
+================================================================================
+
+Per-layer statistics:
+  A-LTMR.TAC3:
+    Nodes: 5987 | Edges: 33260 | Density: 0.0019 | Avg degree: 11.11
+    Components: 509 | Largest CC: 5452 (91.1%)
+    Seed genes: 141 (2.4% of layer, 34.6% of total)
+    Seed genes connected: False (87 component(s))
+
+Multiplex-level statistics:
+  Total unique genes: 5987
+  Total edges: 33260
+  Avg genes per layer: 5987.0
+  Avg edges per layer: 33260.0
+  Avg density: 0.0019
+  Avg degree: 11.11
+  Avg components per layer: 509.00
+  Avg largest CC: 91.1%
+
+Seed gene statistics:
+  Total seed genes: 408
+  Seed genes in multiplex: 141 (34.6%)
+  Seed genes in ALL layers: 141
+  Seed gene spread across layers:
+    Avg layers per seed: 1.00
+    Min layers per seed: 1
+    Max layers per seed: 1
+
+================================================================================
+ANALYZING: Pain Subset (Tabula)
+================================================================================
+
+Per-layer statistics:
+  adipocyte:
+    Nodes: 3099 | Edges: 33261 | Density: 0.0069 | Avg degree: 21.47
+    Components: 1 | Largest CC: 3099 (100.0%)
+    Seed genes: 30 (1.0% of layer, 7.4% of total)
+    Seed genes connected: False (24 component(s))
+  b_cell:
+    Nodes: 1179 | Edges: 7087 | Density: 0.0102 | Avg degree: 12.02
+    Components: 1 | Largest CC: 1179 (100.0%)
+    Seed genes: 30 (2.5% of layer, 7.4% of total)
+    Seed genes connected: False (24 component(s))
+  cd1c-positive_myeloid_dendritic_cell:
+    Nodes: 3049 | Edges: 30173 | Density: 0.0065 | Avg degree: 19.79
+    Components: 1 | Largest CC: 3049 (100.0%)
+    Seed genes: 83 (2.7% of layer, 20.3% of total)
+    Seed genes connected: False (36 component(s))
+  cd24_neutrophil:
+    Nodes: 1837 | Edges: 6738 | Density: 0.0040 | Avg degree: 7.34
+    Components: 1 | Largest CC: 1837 (100.0%)
+    Seed genes: 55 (3.0% of layer, 13.5% of total)
+    Seed genes connected: False (27 component(s))
+  cd4-positive,_alpha-beta_memory_t_cell:
+    Nodes: 1066 | Edges: 6836 | Density: 0.0120 | Avg degree: 12.83
+    Components: 1 | Largest CC: 1066 (100.0%)
+    Seed genes: 28 (2.6% of layer, 6.9% of total)
+    Seed genes connected: False (14 component(s))
+  cd4-positive_helper_t_cell:
+    Nodes: 1272 | Edges: 6509 | Density: 0.0081 | Avg degree: 10.23
+    Components: 1 | Largest CC: 1272 (100.0%)
+    Seed genes: 30 (2.4% of layer, 7.4% of total)
+    Seed genes connected: False (16 component(s))
+  cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell:
+    Nodes: 1772 | Edges: 7617 | Density: 0.0049 | Avg degree: 8.60
+    Components: 1 | Largest CC: 1772 (100.0%)
+    Seed genes: 40 (2.3% of layer, 9.8% of total)
+    Seed genes connected: False (20 component(s))
+  cd8-positive,_alpha-beta_cytotoxic_t_cell:
+    Nodes: 1854 | Edges: 7622 | Density: 0.0044 | Avg degree: 8.22
+    Components: 1 | Largest CC: 1854 (100.0%)
+    Seed genes: 52 (2.8% of layer, 12.7% of total)
+    Seed genes connected: False (23 component(s))
+  dendritic_cell:
+    Nodes: 2048 | Edges: 11816 | Density: 0.0056 | Avg degree: 11.54
+    Components: 1 | Largest CC: 2048 (100.0%)
+    Seed genes: 67 (3.3% of layer, 16.4% of total)
+    Seed genes connected: False (33 component(s))
+  endothelial_cell:
+    Nodes: 3175 | Edges: 24602 | Density: 0.0049 | Avg degree: 15.50
+    Components: 1 | Largest CC: 3175 (100.0%)
+    Seed genes: 76 (2.4% of layer, 18.6% of total)
+    Seed genes connected: False (49 component(s))
+  epithelial_cell_of_uterus:
+    Nodes: 3167 | Edges: 37386 | Density: 0.0075 | Avg degree: 23.61
+    Components: 1 | Largest CC: 3167 (100.0%)
+    Seed genes: 56 (1.8% of layer, 13.7% of total)
+    Seed genes connected: False (44 component(s))
+  granulocyte:
+    Nodes: 3300 | Edges: 42358 | Density: 0.0078 | Avg degree: 25.67
+    Components: 1 | Largest CC: 3300 (100.0%)
+    Seed genes: 47 (1.4% of layer, 11.5% of total)
+    Seed genes connected: False (24 component(s))
+  gut_endothelial_cell:
+    Nodes: 1781 | Edges: 5477 | Density: 0.0035 | Avg degree: 6.15
+    Components: 1 | Largest CC: 1781 (100.0%)
+    Seed genes: 64 (3.6% of layer, 15.7% of total)
+    Seed genes connected: False (44 component(s))
+  immune_cell:
+    Nodes: 1433 | Edges: 5985 | Density: 0.0058 | Avg degree: 8.35
+    Components: 1 | Largest CC: 1433 (100.0%)
+    Seed genes: 61 (4.3% of layer, 15.0% of total)
+    Seed genes connected: False (32 component(s))
+  keratinocyte:
+    Nodes: 3217 | Edges: 35629 | Density: 0.0069 | Avg degree: 22.15
+    Components: 1 | Largest CC: 3217 (100.0%)
+    Seed genes: 42 (1.3% of layer, 10.3% of total)
+    Seed genes connected: False (35 component(s))
+  langerhans_cell:
+    Nodes: 3065 | Edges: 31516 | Density: 0.0067 | Avg degree: 20.57
+    Components: 1 | Largest CC: 3065 (100.0%)
+    Seed genes: 65 (2.1% of layer, 15.9% of total)
+    Seed genes connected: False (42 component(s))
+  macrophage:
+    Nodes: 3112 | Edges: 22139 | Density: 0.0046 | Avg degree: 14.23
+    Components: 1 | Largest CC: 3112 (100.0%)
+    Seed genes: 90 (2.9% of layer, 22.1% of total)
+    Seed genes connected: False (37 component(s))
+  memory_b_cell:
+    Nodes: 1920 | Edges: 15250 | Density: 0.0083 | Avg degree: 15.89
+    Components: 1 | Largest CC: 1920 (100.0%)
+    Seed genes: 33 (1.7% of layer, 8.1% of total)
+    Seed genes connected: False (25 component(s))
+  microglial_cell:
+    Nodes: 2606 | Edges: 17095 | Density: 0.0050 | Avg degree: 13.12
+    Components: 1 | Largest CC: 2606 (100.0%)
+    Seed genes: 76 (2.9% of layer, 18.6% of total)
+    Seed genes connected: False (27 component(s))
+  monocyte:
+    Nodes: 2866 | Edges: 18725 | Density: 0.0046 | Avg degree: 13.07
+    Components: 1 | Largest CC: 2866 (100.0%)
+    Seed genes: 82 (2.9% of layer, 20.1% of total)
+    Seed genes connected: False (31 component(s))
+  myeloid_dendritic_cell:
+    Nodes: 3258 | Edges: 38370 | Density: 0.0072 | Avg degree: 23.55
+    Components: 1 | Largest CC: 3258 (100.0%)
+    Seed genes: 50 (1.5% of layer, 12.3% of total)
+    Seed genes connected: False (26 component(s))
+  nampt_neutrophil:
+    Nodes: 1291 | Edges: 4073 | Density: 0.0049 | Avg degree: 6.31
+    Components: 1 | Largest CC: 1291 (100.0%)
+    Seed genes: 63 (4.9% of layer, 15.4% of total)
+    Seed genes connected: False (32 component(s))
+  nk_cell:
+    Nodes: 1456 | Edges: 5040 | Density: 0.0048 | Avg degree: 6.92
+    Components: 1 | Largest CC: 1456 (100.0%)
+    Seed genes: 47 (3.2% of layer, 11.5% of total)
+    Seed genes connected: False (22 component(s))
+  non-classical_monocyte:
+    Nodes: 1393 | Edges: 4295 | Density: 0.0044 | Avg degree: 6.17
+    Components: 1 | Largest CC: 1393 (100.0%)
+    Seed genes: 66 (4.7% of layer, 16.2% of total)
+    Seed genes connected: False (30 component(s))
+  regulatory_t_cell:
+    Nodes: 2246 | Edges: 14987 | Density: 0.0059 | Avg degree: 13.35
+    Components: 1 | Largest CC: 2246 (100.0%)
+    Seed genes: 36 (1.6% of layer, 8.8% of total)
+    Seed genes connected: False (22 component(s))
+  schwann_cell:
+    Nodes: 3015 | Edges: 19739 | Density: 0.0043 | Avg degree: 13.09
+    Components: 1 | Largest CC: 3015 (100.0%)
+    Seed genes: 70 (2.3% of layer, 17.2% of total)
+    Seed genes connected: False (37 component(s))
+
+Multiplex-level statistics:
+  Total unique genes: 10790
+  Total edges: 460325
+  Avg genes per layer: 2287.6
+  Avg edges per layer: 17704.8
+  Avg density: 0.0061
+  Avg degree: 13.84
+  Avg components per layer: 1.00
+  Avg largest CC: 100.0%
+
+Seed gene statistics:
+  Total seed genes: 408
+  Seed genes in multiplex: 255 (62.5%)
+  Seed genes in ALL layers: 0
+  Seed gene spread across layers:
+    Avg layers per seed: 5.64
+    Min layers per seed: 1
+    Max layers per seed: 21
+
+================================================================================
+CREATING COMPARISON DATAFRAMES
+================================================================================
+Saved: comparison_results/layer_comparison.csv
+Saved: comparison_results/multiplex_summary.csv
+Saved: comparison_results/detailed_analysis.json
+
+================================================================================
+CREATING VISUALIZATIONS
+================================================================================
+Saved: density_comparison.png
+Saved: degree_comparison.png
+Saved: seed_gene_spread.png
+Saved: seed_connectivity.png
+Saved: components_comparison.png
+Saved: largest_cc_comparison.png
+Saved: seed_components_comparison.png
+Saved: multiplex_summary.png
+
+================================================================================
+MULTIPLEX SUMMARY
+================================================================================
+           Multiplex  N Layers  Total Genes  Total Edges  Avg Genes/Layer  Avg Edges/Layer  Avg Density  Avg Degree  Avg Components  Avg Largest CC %  Avg Shortest Path  Seed Gene Recovery %  Avg Layers/Seed
+      Tabula Sapiens       157        18272      3296142      2628.178344     20994.535032     0.005353   13.809715             1.0        100.000000           3.677597             98.039216        21.802500
+      Pain Multiplex         1         5987        33260      5987.000000     33260.000000     0.001856   11.110740           509.0         91.063972           3.966215             34.558824         1.000000
+Pain Subset (Tabula)        26        10790       460325      2287.576923     17704.807692     0.006143   13.835573             1.0        100.000000           3.646517             62.500000         5.643137
+
+================================================================================
+COMPARISON COMPLETE
+================================================================================
+Output directory: comparison_results
+Files generated:
+  - layer_comparison.csv
+  - multiplex_summary.csv
+  - detailed_analysis.json
+  - density_comparison.png
+  - degree_comparison.png
+  - seed_gene_spread.png
+  - seed_connectivity.png
+  - components_comparison.png
+  - largest_cc_comparison.png
+  - seed_components_comparison.png
+  - multiplex_summary.png
+Finished at: Wed Mar 18 08:50:30 PM CET 2026
