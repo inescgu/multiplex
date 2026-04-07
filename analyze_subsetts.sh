@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/ats_%j.out
 #SBATCH --error=slurm_logs/ats_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=5G
+#SBATCH --mem=14G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -21,8 +21,8 @@ pip install --user pandas numpy networkx scipy
 
 # Run the multiplex interactome construction
 python analyze_subset_tabulasapiens.py \
-    --layers-dir multiplex_ts/layers \
-    --celltype-list celltype_list.txt \
+    --layers-dir new_ts/layers \
+    --celltype-list converted_cells.txt \
     --output-dir subset_analysis \
     --seed-genes-file ../og_gene_set/seed_genes.csv
 

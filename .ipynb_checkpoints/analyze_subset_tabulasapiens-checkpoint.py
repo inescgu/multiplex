@@ -362,7 +362,7 @@ def analyze_subset_multiplex(subset_layers, seed_genes=None, output_dir='subset_
     print(f"Saved layer statistics to {stats_file}")
     
     # Save subset layers
-    layers_dir = os.path.join(output_dir, 'subset_layers')
+    layers_dir = os.path.join(output_dir, 'layers')
     os.makedirs(layers_dir, exist_ok=True)
     
     for cell_type, layer in subset_layers.items():

@@ -450,7 +450,9 @@ def build_multiplex_from_markers(markers_file, base_ppi_file, output_dir,
     os.makedirs(layers_dir, exist_ok=True)
     
     for cell_type, layer_graph in layers.items():
-        layer_file = os.path.join(layers_dir, f"{cell_type}_layer.pkl")
+        # Replace problematic characters in filename
+        safe_cell_type = cell_type.replace('/', '_')
+        layer_file = os.path.join(layers_dir, f"{safe_cell_type}_layer.pkl")
         with open(layer_file, 'wb') as f:
             pickle.dump(layer_graph, f, protocol=4)
     

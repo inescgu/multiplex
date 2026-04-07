@@ -4,14 +4,14 @@ MULTIPLEX INTERACTOME CONVERSION REPORT
 
 SUMMARY STATISTICS
 --------------------------------------------------------------------------------
-Number of cell types: 157
-Total genes (before): 18272
-Total genes (after): 18272
+Number of cell types: 156
+Total genes (before): 13642
+Total genes (after): 13642
 Genes lost: 0
 Gene retention: 100.0%
 
-Total edges (before): 3296142
-Total edges (after): 3296142
+Total edges (before): 2915802
+Total edges (after): 2915802
 Edges lost: 0
 Edge retention: 100.0%
 
@@ -144,7 +144,6 @@ pericyte_cell                                      2986            18662        
 plasma_cell                                        3178            39142           100.0%       100.0%
 plasmablast                                        3041            32875           100.0%       100.0%
 plasmacytoid_dendritic_cell                        2544            17992           100.0%       100.0%
-ppi                                                17916           380340          100.0%       100.0%
 pulmonary_ionocyte                                 2784            15837           100.0%       100.0%
 radial_glial_cell                                  3384            43426           100.0%       100.0%
 regulatory_t_cell                                  2246            14987           100.0%       100.0%
@@ -303,7 +302,6 @@ pericyte_cell                                      2.7%       False        53
 plasma_cell                                        0.6%       False        16
 plasmablast                                        0.7%       False        13
 plasmacytoid_dendritic_cell                        1.8%       False        29
-ppi                                                2.2%       False        100
 pulmonary_ionocyte                                 1.8%       False        39
 radial_glial_cell                                  1.6%       False        35
 regulatory_t_cell                                  1.6%       False        22
@@ -343,10 +341,10 @@ SEED GENE ANALYSIS
 SUMMARY
 --------------------------------------------------------------------------------
 Total seed genes: 408
-Seed genes in PPI (before): 400
-Seed genes in multiplex (after): 400
+Seed genes in PPI (before): 350
+Seed genes in multiplex (after): 350
 Seed genes lost: 0
-Seed gene recovery: 98.0%
+Seed gene recovery: 85.8%
 
 PER CELL TYPE SEED GENE STATISTICS
 --------------------------------------------------------------------------------
@@ -477,7 +475,6 @@ pericyte_cell                                      81              19.9%
 plasma_cell                                        18              4.4%
 plasmablast                                        22              5.4%
 plasmacytoid_dendritic_cell                        45              11.0%
-ppi                                                399             97.8%
 pulmonary_ionocyte                                 49              12.0%
 radial_glial_cell                                  53              13.0%
 regulatory_t_cell                                  36              8.8%

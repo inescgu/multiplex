@@ -1,0 +1,50 @@
+multiplex:
+  1:
+    layers:
+    - multiplex/1/B cell.tsv
+    - multiplex/1/CD4-positive, alpha-beta T cell.tsv
+    - multiplex/1/CD8-positive, alpha-beta T cell.tsv
+    - multiplex/1/Langerhans cell.tsv
+    - multiplex/1/Schwann cell.tsv
+    - multiplex/1/activated CD8-positive, alpha-beta T cell.tsv
+    - multiplex/1/colon endothelial cell.tsv
+    - multiplex/1/endothelial cell.tsv
+    - multiplex/1/epithelial cell of uterus.tsv
+    - multiplex/1/granulocyte.tsv
+    - multiplex/1/keratocyte.tsv
+    - multiplex/1/leukocyte.tsv
+    - multiplex/1/macrophage.tsv
+    - multiplex/1/mesenchymal stem cell of adipose tissue.tsv
+    - multiplex/1/microglial cell.tsv
+    - multiplex/1/monocyte.tsv
+    - multiplex/1/myeloid dendritic cell.tsv
+    - multiplex/1/natural killer cell.tsv
+    - multiplex/1/neutrophil.tsv
+    - multiplex/1/non-classical monocyte.tsv
+    - multiplex/1/regulatory T cell.tsv
+    tau:
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+    - 0.047619047619047616
+seed: seeds.txt
+r: 0.7
+eta:
+- 1.0

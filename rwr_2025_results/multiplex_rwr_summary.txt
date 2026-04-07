@@ -1,0 +1,13 @@
+================================================================================
+MULTIPLEX RWR ANALYSIS SUMMARY
+================================================================================
+
+method: MultiXrank
+n_layers: 22
+layer_names: (22 items)
+n_seed_genes_provided: 221
+n_seed_genes_in_network: 221
+n_genes_scored: 8224
+disease_module_size: 421
+n_seed_genes_in_module: 221
+n_added_genes: 200

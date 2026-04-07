@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/analyze_subset_tabulasapiens.py", line 529, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/lisc/home/user/gerardursin/multiplex/analyze_subset_tabulasapiens.py", line 524, in main
+    report = analyze_subset_multiplex(subset_layers, seed_genes=seed_genes, output_dir=args.output_dir)
+  File "/lisc/home/user/gerardursin/multiplex/analyze_subset_tabulasapiens.py", line 462, in analyze_subset_multiplex
+    json.dump(report, f, indent=2)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/opt/sw/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "/lisc/opt/sw/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/json/encoder.py", line 433, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/lisc/opt/sw/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/json/encoder.py", line 407, in _iterencode_dict
+    yield from chunks
+  File "/lisc/opt/sw/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/json/encoder.py", line 407, in _iterencode_dict
+    yield from chunks
+  File "/lisc/opt/sw/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/json/encoder.py", line 376, in _iterencode_dict
+    raise TypeError(f'keys must be str, int, float, bool or None, '
+                    f'not {key.__class__.__name__}')
+TypeError: keys must be str, int, float, bool or None, not tuple

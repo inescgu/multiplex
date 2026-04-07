@@ -1,0 +1,378 @@
+{
+  "summary": {
+    "n_cell_types": 22,
+    "marker_genes_total": 10298,
+    "marker_genes_in_ppi": 8976,
+    "genes_in_multiplex": 8976,
+    "genes_lost": 0,
+    "gene_retention_pct": 100.0,
+    "edges_in_multiplex": 146357
+  },
+  "per_celltype": {
+    "A-LTMR.TAC3": {
+      "marker_genes": 6792,
+      "markers_in_ppi": 5987,
+      "nodes_in_layer": 5987,
+      "edges_in_layer": 33260,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0018561209382775053,
+      "avg_degree": 11.110739936529146
+    },
+    "A-PEP.CHRNA7/SLC18A3": {
+      "marker_genes": 1675,
+      "markers_in_ppi": 1482,
+      "nodes_in_layer": 1482,
+      "edges_in_layer": 1578,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014379167156451352,
+      "avg_degree": 2.1295546558704452
+    },
+    "A-PEP.KIT": {
+      "marker_genes": 4122,
+      "markers_in_ppi": 3605,
+      "nodes_in_layer": 3605,
+      "edges_in_layer": 11846,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0018235247936873962,
+      "avg_degree": 6.571983356449376
+    },
+    "A-PEP.NTRK3/S100A16": {
+      "marker_genes": 2108,
+      "markers_in_ppi": 1849,
+      "nodes_in_layer": 1849,
+      "edges_in_layer": 2438,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014270027790849857,
+      "avg_degree": 2.6371011357490537
+    },
+    "A-PEP.SCGN/ADRA2C": {
+      "marker_genes": 2263,
+      "markers_in_ppi": 2018,
+      "nodes_in_layer": 2018,
+      "edges_in_layer": 3869,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.001901085569487896,
+      "avg_degree": 3.834489593657086
+    },
+    "A-Propr.EPHA3": {
+      "marker_genes": 3634,
+      "markers_in_ppi": 3175,
+      "nodes_in_layer": 3175,
+      "edges_in_layer": 8031,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0015938555884673206,
+      "avg_degree": 5.058897637795275
+    },
+    "A-Propr.HAPLN4": {
+      "marker_genes": 2939,
+      "markers_in_ppi": 2605,
+      "nodes_in_layer": 2605,
+      "edges_in_layer": 5759,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0016979635641018837,
+      "avg_degree": 4.421497120921305
+    },
+    "A-Propr.PCDH8": {
+      "marker_genes": 4197,
+      "markers_in_ppi": 3669,
+      "nodes_in_layer": 3669,
+      "edges_in_layer": 12303,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0018283695544591976,
+      "avg_degree": 6.706459525756337
+    },
+    "ATF3": {
+      "marker_genes": 2196,
+      "markers_in_ppi": 1913,
+      "nodes_in_layer": 1913,
+      "edges_in_layer": 5424,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0029658338564370187,
+      "avg_degree": 5.67067433350758
+    },
+    "Ab-LTMR.CCKAR": {
+      "marker_genes": 2221,
+      "markers_in_ppi": 1965,
+      "nodes_in_layer": 1965,
+      "edges_in_layer": 2818,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014603835968553557,
+      "avg_degree": 2.8681933842239187
+    },
+    "Ab-LTMR.ETV1": {
+      "marker_genes": 3566,
+      "markers_in_ppi": 3221,
+      "nodes_in_layer": 3221,
+      "edges_in_layer": 9143,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0017630804059539397,
+      "avg_degree": 5.677118907171685
+    },
+    "Ab-LTMR.LGI2": {
+      "marker_genes": 3674,
+      "markers_in_ppi": 3267,
+      "nodes_in_layer": 3267,
+      "edges_in_layer": 8246,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0015456387999949765,
+      "avg_degree": 5.048056320783593
+    },
+    "Ab-LTMR.NSG2": {
+      "marker_genes": 2698,
+      "markers_in_ppi": 2400,
+      "nodes_in_layer": 2400,
+      "edges_in_layer": 4418,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0015346672224538001,
+      "avg_degree": 3.6816666666666666
+    },
+    "C-LTMR.CDH9": {
+      "marker_genes": 2663,
+      "markers_in_ppi": 2300,
+      "nodes_in_layer": 2300,
+      "edges_in_layer": 4489,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0016979026798040735,
+      "avg_degree": 3.9034782608695653
+    },
+    "C-NP.MRGPRX1/GFRA2": {
+      "marker_genes": 1643,
+      "markers_in_ppi": 1452,
+      "nodes_in_layer": 1452,
+      "edges_in_layer": 1492,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014163310949226618,
+      "avg_degree": 2.0550964187327825
+    },
+    "C-NP.MRGPRX1/MRGPRX4": {
+      "marker_genes": 1988,
+      "markers_in_ppi": 1724,
+      "nodes_in_layer": 1724,
+      "edges_in_layer": 2446,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0016468874097275432,
+      "avg_degree": 2.8375870069605567
+    },
+    "C-NP.SST": {
+      "marker_genes": 1918,
+      "markers_in_ppi": 1668,
+      "nodes_in_layer": 1668,
+      "edges_in_layer": 1867,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0013428968882482496,
+      "avg_degree": 2.238609112709832
+    },
+    "C-PEP.ADORA2B": {
+      "marker_genes": 3875,
+      "markers_in_ppi": 3413,
+      "nodes_in_layer": 3413,
+      "edges_in_layer": 9253,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0015891586166814767,
+      "avg_degree": 5.422209200117199
+    },
+    "C-PEP.TAC1/CACNG5": {
+      "marker_genes": 1957,
+      "markers_in_ppi": 1693,
+      "nodes_in_layer": 1693,
+      "edges_in_layer": 2011,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014040570336205681,
+      "avg_degree": 2.375664500886001
+    },
+    "C-PEP.TAC1/CHRNA3": {
+      "marker_genes": 2319,
+      "markers_in_ppi": 2044,
+      "nodes_in_layer": 2044,
+      "edges_in_layer": 3008,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0014406502850169496,
+      "avg_degree": 2.943248532289628
+    },
+    "C-Thermo.RXFP1": {
+      "marker_genes": 4280,
+      "markers_in_ppi": 3694,
+      "nodes_in_layer": 3694,
+      "edges_in_layer": 11193,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0016409687125190826,
+      "avg_degree": 6.060097455332972
+    },
+    "C-Thermo.TRPM8": {
+      "marker_genes": 1757,
+      "markers_in_ppi": 1515,
+      "nodes_in_layer": 1515,
+      "edges_in_layer": 1465,
+      "node_retention_pct": 100.0,
+      "edge_retention_pct": 100.0,
+      "density": 0.0012774064724834439,
+      "avg_degree": 1.933993399339934
+    }
+  },
+  "seed_gene_analysis": {
+    "per_celltype": {
+      "A-LTMR.TAC3": {
+        "seed_genes_in_layer": 141,
+        "seed_gene_pct_of_total": 34.55882352941176,
+        "seed_genes_connected": false,
+        "n_seed_components": 87
+      },
+      "A-PEP.CHRNA7/SLC18A3": {
+        "seed_genes_in_layer": 64,
+        "seed_gene_pct_of_total": 15.686274509803921,
+        "seed_genes_connected": false,
+        "n_seed_components": 51
+      },
+      "A-PEP.KIT": {
+        "seed_genes_in_layer": 113,
+        "seed_gene_pct_of_total": 27.696078431372552,
+        "seed_genes_connected": false,
+        "n_seed_components": 81
+      },
+      "A-PEP.NTRK3/S100A16": {
+        "seed_genes_in_layer": 86,
+        "seed_gene_pct_of_total": 21.07843137254902,
+        "seed_genes_connected": false,
+        "n_seed_components": 69
+      },
+      "A-PEP.SCGN/ADRA2C": {
+        "seed_genes_in_layer": 71,
+        "seed_gene_pct_of_total": 17.401960784313726,
+        "seed_genes_connected": false,
+        "n_seed_components": 55
+      },
+      "A-Propr.EPHA3": {
+        "seed_genes_in_layer": 123,
+        "seed_gene_pct_of_total": 30.14705882352941,
+        "seed_genes_connected": false,
+        "n_seed_components": 72
+      },
+      "A-Propr.HAPLN4": {
+        "seed_genes_in_layer": 105,
+        "seed_gene_pct_of_total": 25.735294117647058,
+        "seed_genes_connected": false,
+        "n_seed_components": 67
+      },
+      "A-Propr.PCDH8": {
+        "seed_genes_in_layer": 131,
+        "seed_gene_pct_of_total": 32.1078431372549,
+        "seed_genes_connected": false,
+        "n_seed_components": 76
+      },
+      "ATF3": {
+        "seed_genes_in_layer": 76,
+        "seed_gene_pct_of_total": 18.627450980392158,
+        "seed_genes_connected": false,
+        "n_seed_components": 59
+      },
+      "Ab-LTMR.CCKAR": {
+        "seed_genes_in_layer": 89,
+        "seed_gene_pct_of_total": 21.813725490196077,
+        "seed_genes_connected": false,
+        "n_seed_components": 67
+      },
+      "Ab-LTMR.ETV1": {
+        "seed_genes_in_layer": 117,
+        "seed_gene_pct_of_total": 28.676470588235293,
+        "seed_genes_connected": false,
+        "n_seed_components": 74
+      },
+      "Ab-LTMR.LGI2": {
+        "seed_genes_in_layer": 126,
+        "seed_gene_pct_of_total": 30.88235294117647,
+        "seed_genes_connected": false,
+        "n_seed_components": 82
+      },
+      "Ab-LTMR.NSG2": {
+        "seed_genes_in_layer": 96,
+        "seed_gene_pct_of_total": 23.52941176470588,
+        "seed_genes_connected": false,
+        "n_seed_components": 70
+      },
+      "C-LTMR.CDH9": {
+        "seed_genes_in_layer": 87,
+        "seed_gene_pct_of_total": 21.323529411764707,
+        "seed_genes_connected": false,
+        "n_seed_components": 56
+      },
+      "C-NP.MRGPRX1/GFRA2": {
+        "seed_genes_in_layer": 86,
+        "seed_gene_pct_of_total": 21.07843137254902,
+        "seed_genes_connected": false,
+        "n_seed_components": 70
+      },
+      "C-NP.MRGPRX1/MRGPRX4": {
+        "seed_genes_in_layer": 87,
+        "seed_gene_pct_of_total": 21.323529411764707,
+        "seed_genes_connected": false,
+        "n_seed_components": 64
+      },
+      "C-NP.SST": {
+        "seed_genes_in_layer": 85,
+        "seed_gene_pct_of_total": 20.833333333333336,
+        "seed_genes_connected": false,
+        "n_seed_components": 63
+      },
+      "C-PEP.ADORA2B": {
+        "seed_genes_in_layer": 106,
+        "seed_gene_pct_of_total": 25.98039215686275,
+        "seed_genes_connected": false,
+        "n_seed_components": 75
+      },
+      "C-PEP.TAC1/CACNG5": {
+        "seed_genes_in_layer": 81,
+        "seed_gene_pct_of_total": 19.852941176470587,
+        "seed_genes_connected": false,
+        "n_seed_components": 66
+      },
+      "C-PEP.TAC1/CHRNA3": {
+        "seed_genes_in_layer": 86,
+        "seed_gene_pct_of_total": 21.07843137254902,
+        "seed_genes_connected": false,
+        "n_seed_components": 67
+      },
+      "C-Thermo.RXFP1": {
+        "seed_genes_in_layer": 105,
+        "seed_gene_pct_of_total": 25.735294117647058,
+        "seed_genes_connected": false,
+        "n_seed_components": 76
+      },
+      "C-Thermo.TRPM8": {
+        "seed_genes_in_layer": 74,
+        "seed_gene_pct_of_total": 18.137254901960784,
+        "seed_genes_connected": false,
+        "n_seed_components": 61
+      }
+    },
+    "summary": {
+      "total_seed_genes": 408,
+      "seed_genes_in_markers": 244,
+      "seed_genes_in_ppi": 391,
+      "seed_genes_in_both_before": 231,
+      "seed_genes_in_multiplex": 231,
+      "seed_genes_lost": 177,
+      "seed_gene_recovery_pct": 56.61764705882353
+    }
+  }
+}

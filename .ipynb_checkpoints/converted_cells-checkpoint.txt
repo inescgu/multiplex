@@ -1,0 +1,21 @@
+mesenchymal stem cell of adipose tissue
+macrophage
+non-classical monocyte
+neutrophil
+endothelial cell
+monocyte
+granulocyte
+myeloid dendritic cell
+CD8-positive, alpha-beta T cell
+activated CD8-positive, alpha-beta T cell
+natural killer cell
+leukocyte
+microglial cell
+colon endothelial cell
+B cell
+regulatory T cell
+CD4-positive, alpha-beta T cell
+Schwann cell
+keratocyte
+Langerhans cell
+epithelial cell of uterus

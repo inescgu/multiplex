@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/com_multi_%j.out
 #SBATCH --error=slurm_logs/com_multi_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=5G
+#SBATCH --mem=15G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -25,9 +25,9 @@ pip install --user pandas numpy networkx pickly scipy
 
 # Run the multiplex interactome construction
 python multiplex_comparison.py \
-  --tabula-layers ./multiplex_ts/layers \
+  --tabula-layers ./new_ts/layers \
   --pain-layers ./multiplex_2025hdrg/layers \
-  --pain-subset-layers ./subset_analysis/subset_layers \
+  --pain-subset-layers ./subset_analysis/layers \
   --seed-genes ../og_gene_set/seed_genes.csv \
   --output-dir comparison_results
 

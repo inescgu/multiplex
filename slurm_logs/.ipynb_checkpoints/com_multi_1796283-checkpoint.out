@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-h02/tmp/slurm-1796283
-Running on host: node-h02.lisc
-Current working directory: /lisc/home/user/gerardursin/multiplex
-Starting at: Wed Mar 18 01:42:58 PM CET 2026
-SLURM_JOB_ID: 1796283

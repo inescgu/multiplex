@@ -1,0 +1,459 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d04/tmp/slurm-2186951
+Running on host: node-d04.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Mon Apr  6 01:28:08 PM CEST 2026
+SLURM_JOB_ID: 2186951
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (1.17.1)
+Requirement already satisfied: tiledbsoma in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (2.3.0)
+Requirement already satisfied: cellxgene-census in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (1.17.0)
+Requirement already satisfied: numpy<2.7,>=1.26.4 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scipy) (2.4.4)
+Requirement already satisfied: anndata>=0.10.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (0.12.10)
+Requirement already satisfied: attrs>=22.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (26.1.0)
+Requirement already satisfied: more-itertools in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (11.0.1)
+Requirement already satisfied: pandas<3.0.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (2.3.3)
+Requirement already satisfied: pyarrow in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (22.0.0)
+Requirement already satisfied: scanpy>=1.9.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (1.12)
+Requirement already satisfied: somacore==1.0.29 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (1.0.29)
+Requirement already satisfied: typing-extensions>=4.5.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from tiledbsoma) (4.15.0)
+Requirement already satisfied: pyarrow-hotfix in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from somacore==1.0.29->tiledbsoma) (0.7)
+Requirement already satisfied: shapely in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from somacore==1.0.29->tiledbsoma) (2.1.1)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from pandas<3.0.0->tiledbsoma) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from pandas<3.0.0->tiledbsoma) (2026.1.post1)
+Requirement already satisfied: tzdata>=2022.7 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from pandas<3.0.0->tiledbsoma) (2026.1)
+Requirement already satisfied: requests in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from cellxgene-census) (2.33.1)
+Requirement already satisfied: s3fs>=2021.06.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from cellxgene-census) (2026.3.0)
+Requirement already satisfied: array-api-compat>=1.7.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (1.14.0)
+Requirement already satisfied: h5py>=3.8 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (3.16.0)
+Requirement already satisfied: legacy-api-wrap in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (1.5)
+Requirement already satisfied: natsort in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (8.4.0)
+Requirement already satisfied: packaging>=24.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (26.0)
+Requirement already satisfied: zarr!=3.0.*,>=2.18.7 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from anndata>=0.10.1->tiledbsoma) (3.1.6)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from python-dateutil>=2.8.2->pandas<3.0.0->tiledbsoma) (1.17.0)
+Requirement already satisfied: aiobotocore<4.0.0,>=2.19.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from s3fs>=2021.06.1->cellxgene-census) (3.3.0)
+Requirement already satisfied: fsspec==2026.3.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from s3fs>=2021.06.1->cellxgene-census) (2026.3.0)
+Requirement already satisfied: aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from s3fs>=2021.06.1->cellxgene-census) (3.13.5)
+Requirement already satisfied: aioitertools<1.0.0,>=0.5.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (0.13.0)
+Requirement already satisfied: botocore<1.42.71,>=1.42.62 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (1.42.70)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (1.1.0)
+Requirement already satisfied: multidict<7.0.0,>=6.0.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (6.7.1)
+Requirement already satisfied: wrapt<3.0.0,>=1.10.10 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (2.1.2)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (2.6.1)
+Requirement already satisfied: aiosignal>=1.4.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (1.4.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (1.8.0)
+Requirement already satisfied: propcache>=0.2.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (0.4.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (1.23.0)
+Requirement already satisfied: urllib3!=2.2.0,<3,>=1.25.4 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from botocore<1.42.71,>=1.42.62->aiobotocore<4.0.0,>=2.19.0->s3fs>=2021.06.1->cellxgene-census) (2.6.3)
+Requirement already satisfied: idna>=2.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from yarl<2.0,>=1.17.0->aiohttp!=4.0.0a0,!=4.0.0a1,>=3.9.0->s3fs>=2021.06.1->cellxgene-census) (3.11)
+Requirement already satisfied: fast-array-utils>=1.2.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from fast-array-utils[accel,sparse]>=1.2.1->scanpy>=1.9.2->tiledbsoma) (1.4)
+Requirement already satisfied: joblib in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (1.5.3)
+Requirement already satisfied: matplotlib>=3.9 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (3.10.8)
+Requirement already satisfied: networkx>=2.8.8 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (3.6.1)
+Requirement already satisfied: numba>=0.60 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.65.0)
+Requirement already satisfied: patsy in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (1.0.2)
+Requirement already satisfied: pynndescent>=0.5.13 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.6.0)
+Requirement already satisfied: scikit-learn>=1.4.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (1.8.0)
+Requirement already satisfied: seaborn>=0.13.2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.13.2)
+Requirement already satisfied: session-info2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.4)
+Requirement already satisfied: statsmodels>=0.14.5 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.14.6)
+Requirement already satisfied: tqdm in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (4.67.1)
+Requirement already satisfied: umap-learn>=0.5.7 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scanpy>=1.9.2->tiledbsoma) (0.5.11)
+Requirement already satisfied: contourpy>=1.0.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (4.62.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (1.5.0)
+Requirement already satisfied: pillow>=8 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (12.2.0)
+Requirement already satisfied: pyparsing>=3 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from matplotlib>=3.9->scanpy>=1.9.2->tiledbsoma) (3.3.2)
+Requirement already satisfied: llvmlite<0.48,>=0.47.0dev0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from numba>=0.60->scanpy>=1.9.2->tiledbsoma) (0.47.0)
+Requirement already satisfied: threadpoolctl>=3.2.0 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from scikit-learn>=1.4.2->scanpy>=1.9.2->tiledbsoma) (3.6.0)
+Requirement already satisfied: donfig>=0.8 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from zarr!=3.0.*,>=2.18.7->anndata>=0.10.1->tiledbsoma) (0.8.1.post1)
+Requirement already satisfied: google-crc32c>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from zarr!=3.0.*,>=2.18.7->anndata>=0.10.1->tiledbsoma) (1.8.0)
+Requirement already satisfied: numcodecs>=0.14 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from zarr!=3.0.*,>=2.18.7->anndata>=0.10.1->tiledbsoma) (0.16.5)
+Requirement already satisfied: pyyaml in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from donfig>=0.8->zarr!=3.0.*,>=2.18.7->anndata>=0.10.1->tiledbsoma) (6.0.3)
+Requirement already satisfied: charset_normalizer<4,>=2 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from requests->cellxgene-census) (3.4.7)
+Requirement already satisfied: certifi>=2023.5.7 in /lisc/home/user/gerardursin/.local/lib/python3.12/site-packages (from requests->cellxgene-census) (2026.2.25)
+Loaded 408 seed genes from ../og_gene_set/seed_genes.csv
+
+Loading custom PPI from ../og_gene_set/temp/combined26/full_network.pkl ...
+  Custom PPI loaded: 17,053 nodes, 302,564 edges
+  Connected components: 1 | Largest CC: 17,053 nodes
+
+Opening CELLxGENE Census (version='stable') ...
+  Querying datasets table for Tabula Sapiens ...
+  Found 35 Tabula Sapiens dataset(s):
+    • Tabula Sapiens - Neural  [6e4acdae-59ef-452b-a6d4-260cba368586]
+    • Tabula Sapiens - Ear  [d45aca3a-ddb8-4185-a462-eff1e0c7af2e]
+    • Tabula Sapiens - Germline  [b806712d-18b0-454c-a0fe-9909159e07c7]
+    • Tabula Sapiens - Testis  [ec6ef004-5f30-4a40-b282-980cca20a561]
+    • Tabula Sapiens - Kidney  [2423ce2c-3149-4cca-a2ff-cf682ea29b5f]
+    • Tabula Sapiens - Skin  [0041b9c3-6a49-4bf7-8514-9bc7190067a7]
+    • Tabula Sapiens - Pancreas  [ff45e623-7f5f-46e3-b47d-56be0341f66b]
+    • Tabula Sapiens - Liver  [6d41668c-168c-4500-b06a-4674ccf3e19d]
+    • Tabula Sapiens - Uterus  [6ec405bb-4727-4c6d-ab4e-01fe489af7ea]
+    • Tabula Sapiens - Prostate  [d77ec7d6-ef2e-49d6-9e79-05b7f8881484]
+    • Tabula Sapiens - Trachea  [d8732da6-8d1d-42d9-b625-f2416c30054b]
+    • Tabula Sapiens - Large_Intestine  [7357cee7-9f7f-4ab0-8cec-90de8f047e38]
+    • Tabula Sapiens - Bone_Marrow  [4f1555bc-4664-46c3-a606-78d34dd10d92]
+    • Tabula Sapiens - Stomach  [9ba03780-4b13-44bc-a7d3-ce532ea0a856]
+    • Tabula Sapiens - Heart  [e6a11140-2545-46bc-929e-da243eed2cae]
+    • Tabula Sapiens - Mammary  [2ba40233-8576-4dec-a5f1-2adfa115e2dc]
+    • Tabula Sapiens - Eye  [a0754256-f44b-4c4a-962c-a552e47d3fdc]
+    • Tabula Sapiens - Thymus  [0ced5e76-6040-47ff-8a72-93847965afc0]
+    • Tabula Sapiens - Salivary_Gland  [f01bdd17-4902-40f5-86e3-240d66dd2587]
+    • Tabula Sapiens - Small_Intestine  [a357414d-2042-4eb5-95f0-c58604a18bdd]
+    • Tabula Sapiens - Ovary  [bb78adbb-1428-4468-bad0-63602bb974e9]
+    • Tabula Sapiens - Tongue  [55cf0ea3-9d2b-4294-871e-bb4b49a79fc7]
+    • Tabula Sapiens - Muscle  [1c9eb291-6d31-47e1-96b2-129b5e1ae64f]
+    • Tabula Sapiens - Vasculature  [a2d4d33e-4c62-4361-b80a-9be53d2e50e8]
+    • Tabula Sapiens - Blood  [983d5ec9-40e8-4512-9e65-a572a9c486cb]
+    • Tabula Sapiens - Spleen  [cee11228-9f0b-4e57-afe2-cfe15ee56312]
+    • Tabula Sapiens - Endothelium  [5a11f879-d1ef-458a-910c-9b0bdfca5ebf]
+    • Tabula Sapiens - Lung  [0d2ee4ac-05ee-40b2-afb6-ebb584caa867]
+    • Tabula Sapiens - Bladder  [e5c63d94-593c-4338-a489-e1048599e751]
+    • Tabula Sapiens - Fat  [5e5e7a2f-8f1c-42ac-90dc-b4f80f38e84c]
+    • Tabula Sapiens - Lymph_Node  [18eb630b-a754-4111-8cd4-c24ec80aa5ec]
+    • Tabula Sapiens - Stromal  [a68b64d8-aee3-4947-81b7-36b8fe5a44d2]
+    • Tabula Sapiens - Epithelium  [97a17473-e2b1-4f31-a544-44a60773e2dd]
+    • Tabula Sapiens - Immune  [c5d88abe-f23a-45fa-a534-788985e93dad]
+    • Tabula Sapiens - All Cells  [53d208b0-2cfd-4366-9866-c3c6114081bc]
+
+  Fetching cell metadata ...
+  1,136,218 cells retrieved
+  156 cell types with ≥ 50 cells (dropped 742 with fewer)
+
+  Fetching gene metadata ...
+  61,497 total Census genes | 16,768 overlap with your PPI
+
+  Streaming expression matrix (this may take several minutes) ...
+  Tracking 16,768 PPI genes across 156 cell types
+
+  Streaming complete: 28 batches | 3,193,107,015 values kept
+
+  Applying expression threshold (mean count > 0.1) ...
+    B cell: 10,195 expressed PPI-overlapping genes (114,495 cells)
+    BEST4+ enterocyte: 8,053 expressed PPI-overlapping genes (1,970 cells)
+    CD4-positive, alpha-beta T cell: 10,564 expressed PPI-overlapping genes (97,130 cells)
+    CD4-positive, alpha-beta thymocyte: 9,431 expressed PPI-overlapping genes (4,685 cells)
+    CD8-positive, alpha-beta T cell: 10,557 expressed PPI-overlapping genes (76,277 cells)
+    CD8-positive, alpha-beta thymocyte: 10,251 expressed PPI-overlapping genes (731 cells)
+    Langerhans cell: 7,967 expressed PPI-overlapping genes (76 cells)
+    Mueller cell: 9,637 expressed PPI-overlapping genes (506 cells)
+    Schwann cell: 9,284 expressed PPI-overlapping genes (318 cells)
+    T cell: 10,151 expressed PPI-overlapping genes (6,290 cells)
+    acinar cell: 7,299 expressed PPI-overlapping genes (1,345 cells)
+    acinar cell of salivary gland: 11,165 expressed PPI-overlapping genes (12,237 cells)
+    activated CD4-positive, alpha-beta T cell: 8,720 expressed PPI-overlapping genes (572 cells)
+    activated CD8-positive, alpha-beta T cell: 6,709 expressed PPI-overlapping genes (1,147 cells)
+    adventitial cell: 13,551 expressed PPI-overlapping genes (1,045 cells)
+    alveolar adventitial fibroblast: 11,753 expressed PPI-overlapping genes (1,113 cells)
+    basal cell: 12,970 expressed PPI-overlapping genes (33,526 cells)
+    basal cell of prostate epithelium: 11,288 expressed PPI-overlapping genes (3,495 cells)
+    basophil: 8,361 expressed PPI-overlapping genes (1,669 cells)
+    bladder urothelial cell: 11,727 expressed PPI-overlapping genes (27,241 cells)
+    blood vessel smooth muscle cell: 8,885 expressed PPI-overlapping genes (6,642 cells)
+    bronchial smooth muscle cell: 9,022 expressed PPI-overlapping genes (220 cells)
+    capillary endothelial cell: 11,782 expressed PPI-overlapping genes (15,298 cells)
+    cardiac endothelial cell: 10,369 expressed PPI-overlapping genes (10,092 cells)
+    ciliated epithelial cell: 10,848 expressed PPI-overlapping genes (320 cells)
+    classical monocyte: 10,141 expressed PPI-overlapping genes (18,200 cells)
+    club cell: 10,994 expressed PPI-overlapping genes (1,747 cells)
+    colon endothelial cell: 10,734 expressed PPI-overlapping genes (348 cells)
+    colon macrophage: 9,491 expressed PPI-overlapping genes (328 cells)
+    common myeloid progenitor: 11,638 expressed PPI-overlapping genes (456 cells)
+    conjunctival epithelial cell: 10,599 expressed PPI-overlapping genes (11,087 cells)
+    connective tissue cell: 8,326 expressed PPI-overlapping genes (152 cells)
+    corneal epithelial cell: 9,749 expressed PPI-overlapping genes (4,187 cells)
+    duct epithelial cell: 11,437 expressed PPI-overlapping genes (3,889 cells)
+    endothelial cell: 12,022 expressed PPI-overlapping genes (33,703 cells)
+    endothelial cell of arteriole: 9,728 expressed PPI-overlapping genes (132 cells)
+    endothelial cell of artery: 11,007 expressed PPI-overlapping genes (3,471 cells)
+    endothelial cell of lymphatic vessel: 11,379 expressed PPI-overlapping genes (2,438 cells)
+    endothelial cell of vascular tree: 12,888 expressed PPI-overlapping genes (875 cells)
+    endothelial cell of venule: 9,281 expressed PPI-overlapping genes (52 cells)
+    enterocyte of epithelium of large intestine: 12,176 expressed PPI-overlapping genes (4,567 cells)
+    enterocyte of epithelium proper of duodenum: 8,490 expressed PPI-overlapping genes (13,495 cells)
+    enterocyte of epithelium proper of ileum: 9,178 expressed PPI-overlapping genes (6,477 cells)
+    enterocyte of epithelium proper of jejunum: 8,128 expressed PPI-overlapping genes (405 cells)
+    enterocyte of epithelium proper of small intestine: 14,003 expressed PPI-overlapping genes (1,415 cells)
+    enteroendocrine cell of small intestine: 11,108 expressed PPI-overlapping genes (264 cells)
+    enteroglial cell: 8,971 expressed PPI-overlapping genes (990 cells)
+    epithelial cell: 9,547 expressed PPI-overlapping genes (1,675 cells)
+    epithelial cell of uterus: 12,072 expressed PPI-overlapping genes (1,417 cells)
+    erythrocyte: 4,470 expressed PPI-overlapping genes (14,611 cells)
+    erythroid progenitor cell: 11,394 expressed PPI-overlapping genes (971 cells)
+    eye photoreceptor cell: 8,733 expressed PPI-overlapping genes (1,536 cells)
+    fast muscle cell: 9,460 expressed PPI-overlapping genes (495 cells)
+    fibroblast: 12,276 expressed PPI-overlapping genes (83,338 cells)
+    fibroblast of breast: 9,629 expressed PPI-overlapping genes (5,270 cells)
+    fibroblast of cardiac tissue: 10,440 expressed PPI-overlapping genes (1,947 cells)
+    gamma-delta T cell: 7,196 expressed PPI-overlapping genes (1,977 cells)
+    glandular secretory epithelial cell: 10,571 expressed PPI-overlapping genes (235 cells)
+    granulocyte: 10,860 expressed PPI-overlapping genes (769 cells)
+    hematopoietic cell: 6,666 expressed PPI-overlapping genes (100 cells)
+    hematopoietic precursor cell: 9,981 expressed PPI-overlapping genes (2,140 cells)
+    hematopoietic stem cell: 12,279 expressed PPI-overlapping genes (858 cells)
+    hepatic stellate cell: 9,188 expressed PPI-overlapping genes (223 cells)
+    hepatocyte: 8,884 expressed PPI-overlapping genes (7,414 cells)
+    innate lymphoid cell: 12,105 expressed PPI-overlapping genes (971 cells)
+    intermediate monocyte: 8,790 expressed PPI-overlapping genes (5,478 cells)
+    interstitial cell of Cajal: 4,914 expressed PPI-overlapping genes (71 cells)
+    intestinal crypt stem cell of colon: 9,741 expressed PPI-overlapping genes (1,732 cells)
+    intestinal crypt stem cell of small intestine: 11,504 expressed PPI-overlapping genes (587 cells)
+    intestinal tuft cell: 8,255 expressed PPI-overlapping genes (448 cells)
+    intrahepatic cholangiocyte: 10,729 expressed PPI-overlapping genes (665 cells)
+    ionocyte: 9,670 expressed PPI-overlapping genes (160 cells)
+    keratocyte: 10,171 expressed PPI-overlapping genes (1,001 cells)
+    kidney epithelial cell: 9,501 expressed PPI-overlapping genes (9,278 cells)
+    large intestine goblet cell: 7,661 expressed PPI-overlapping genes (1,557 cells)
+    leukocyte: 12,976 expressed PPI-overlapping genes (201 cells)
+    luminal cell of prostate epithelium: 11,479 expressed PPI-overlapping genes (10,652 cells)
+    luminal epithelial cell of mammary gland: 11,087 expressed PPI-overlapping genes (15,432 cells)
+    lung multiciliated epithelial cell: 12,054 expressed PPI-overlapping genes (1,209 cells)
+    macrophage: 11,523 expressed PPI-overlapping genes (69,072 cells)
+    male germ cell: 9,673 expressed PPI-overlapping genes (116 cells)
+    mast cell: 11,147 expressed PPI-overlapping genes (6,222 cells)
+    mature NK T cell: 10,943 expressed PPI-overlapping genes (5,394 cells)
+    melanocyte: 10,334 expressed PPI-overlapping genes (234 cells)
+    mesenchymal stem cell: 12,426 expressed PPI-overlapping genes (23,499 cells)
+    mesenchymal stem cell of adipose tissue: 10,587 expressed PPI-overlapping genes (3,777 cells)
+    mesothelial cell: 11,290 expressed PPI-overlapping genes (350 cells)
+    microglial cell: 12,682 expressed PPI-overlapping genes (410 cells)
+    monocyte: 10,905 expressed PPI-overlapping genes (25,753 cells)
+    mononuclear phagocyte: 8,839 expressed PPI-overlapping genes (5,336 cells)
+    mucus secreting cell: 10,530 expressed PPI-overlapping genes (270 cells)
+    multiciliated columnar cell of tracheobronchial tree: 12,037 expressed PPI-overlapping genes (713 cells)
+    mural cell: 9,485 expressed PPI-overlapping genes (618 cells)
+    muscle cell: 4,802 expressed PPI-overlapping genes (406 cells)
+    myeloid cell: 10,613 expressed PPI-overlapping genes (81 cells)
+    myeloid dendritic cell: 11,662 expressed PPI-overlapping genes (571 cells)
+    myeloid leukocyte: 7,516 expressed PPI-overlapping genes (1,002 cells)
+    myo-medullary thymic epithelial cell: 9,253 expressed PPI-overlapping genes (77 cells)
+    myoepithelial cell: 9,589 expressed PPI-overlapping genes (486 cells)
+    myofibroblast cell: 11,283 expressed PPI-overlapping genes (4,436 cells)
+    myometrial cell: 8,561 expressed PPI-overlapping genes (917 cells)
+    naive thymus-derived CD4-positive, alpha-beta T cell: 10,040 expressed PPI-overlapping genes (9,827 cells)
+    naive thymus-derived CD8-positive, alpha-beta T cell: 7,421 expressed PPI-overlapping genes (1,056 cells)
+    natural killer cell: 10,824 expressed PPI-overlapping genes (14,231 cells)
+    neuro-medullary thymic epithelial cell: 9,770 expressed PPI-overlapping genes (135 cells)
+    neuron: 6,501 expressed PPI-overlapping genes (82 cells)
+    neutrophil: 5,765 expressed PPI-overlapping genes (69,539 cells)
+    non-classical monocyte: 10,082 expressed PPI-overlapping genes (1,284 cells)
+    ovarian surface epithelial cell: 9,945 expressed PPI-overlapping genes (241 cells)
+    pancreatic acinar cell: 9,978 expressed PPI-overlapping genes (5,482 cells)
+    pancreatic ductal cell: 10,635 expressed PPI-overlapping genes (2,721 cells)
+    pancreatic stellate cell: 9,895 expressed PPI-overlapping genes (438 cells)
+    paneth cell of colon: 12,054 expressed PPI-overlapping genes (217 cells)
+    paneth cell of epithelium of small intestine: 12,220 expressed PPI-overlapping genes (1,853 cells)
+    pericyte: 12,204 expressed PPI-overlapping genes (10,888 cells)
+    peritubular myoid cell: 8,683 expressed PPI-overlapping genes (67 cells)
+    plasma cell: 11,532 expressed PPI-overlapping genes (27,349 cells)
+    plasmacytoid dendritic cell: 10,069 expressed PPI-overlapping genes (99 cells)
+    platelet: 5,788 expressed PPI-overlapping genes (494 cells)
+    progenitor cell of mammary luminal epithelium: 7,542 expressed PPI-overlapping genes (1,694 cells)
+    pulmonary alveolar type 1 cell: 10,618 expressed PPI-overlapping genes (3,116 cells)
+    pulmonary alveolar type 2 cell: 12,585 expressed PPI-overlapping genes (11,594 cells)
+    regular atrial cardiac myocyte: 10,819 expressed PPI-overlapping genes (5,816 cells)
+    regulatory T cell: 9,825 expressed PPI-overlapping genes (2,649 cells)
+    respiratory tract goblet cell: 12,033 expressed PPI-overlapping genes (1,040 cells)
+    retinal bipolar neuron: 12,569 expressed PPI-overlapping genes (61 cells)
+    retinal blood vessel endothelial cell: 10,678 expressed PPI-overlapping genes (2,091 cells)
+    retinal pigment epithelial cell: 7,968 expressed PPI-overlapping genes (67 cells)
+    salivary gland cell: 12,351 expressed PPI-overlapping genes (850 cells)
+    sebocyte: 12,233 expressed PPI-overlapping genes (135 cells)
+    serous cell of epithelium of trachea: 8,512 expressed PPI-overlapping genes (326 cells)
+    skeletal muscle satellite stem cell: 12,191 expressed PPI-overlapping genes (6,170 cells)
+    slow muscle cell: 8,099 expressed PPI-overlapping genes (174 cells)
+    small intestine goblet cell: 10,492 expressed PPI-overlapping genes (2,044 cells)
+    smooth muscle cell: 12,041 expressed PPI-overlapping genes (18,425 cells)
+    spermatid: 5,700 expressed PPI-overlapping genes (4,009 cells)
+    spermatocyte: 9,861 expressed PPI-overlapping genes (3,070 cells)
+    spermatogonium: 8,771 expressed PPI-overlapping genes (64 cells)
+    stratified squamous epithelial cell: 10,645 expressed PPI-overlapping genes (12,323 cells)
+    stromal cell: 13,280 expressed PPI-overlapping genes (3,458 cells)
+    stromal cell of ovary: 7,647 expressed PPI-overlapping genes (35,003 cells)
+    supporting cell of vestibular epithelium: 10,059 expressed PPI-overlapping genes (270 cells)
+    tendon cell: 10,694 expressed PPI-overlapping genes (420 cells)
+    theca cell: 10,903 expressed PPI-overlapping genes (1,038 cells)
+    thymic fibroblast type 1: 9,357 expressed PPI-overlapping genes (3,270 cells)
+    thymic fibroblast type 2: 9,443 expressed PPI-overlapping genes (4,205 cells)
+    thymocyte: 8,263 expressed PPI-overlapping genes (455 cells)
+    tissue-resident macrophage: 8,964 expressed PPI-overlapping genes (1,355 cells)
+    tongue muscle cell: 9,747 expressed PPI-overlapping genes (202 cells)
+    tracheal goblet cell: 11,626 expressed PPI-overlapping genes (232 cells)
+    transit amplifying cell of colon: 9,274 expressed PPI-overlapping genes (237 cells)
+    tuft cell of colon: 7,860 expressed PPI-overlapping genes (178 cells)
+    type B pancreatic cell: 10,262 expressed PPI-overlapping genes (102 cells)
+    vascular associated smooth muscle cell: 11,067 expressed PPI-overlapping genes (5,019 cells)
+    vein endothelial cell: 12,107 expressed PPI-overlapping genes (4,698 cells)
+    ventricular cardiac muscle cell: 9,968 expressed PPI-overlapping genes (2,599 cells)
+
+======================================================================
+BUILDING MULTIPLEX LAYERS
+======================================================================
+  B cell: 10,195 nodes | 159,622 edges | density=0.0031 | avg_degree=31.31
+  BEST4+ enterocyte: 8,053 nodes | 109,410 edges | density=0.0034 | avg_degree=27.17
+  CD4-positive, alpha-beta T cell: 10,564 nodes | 169,098 edges | density=0.0030 | avg_degree=32.01
+  CD4-positive, alpha-beta thymocyte: 9,431 nodes | 145,688 edges | density=0.0033 | avg_degree=30.90
+  CD8-positive, alpha-beta T cell: 10,557 nodes | 170,260 edges | density=0.0031 | avg_degree=32.26
+  CD8-positive, alpha-beta thymocyte: 10,251 nodes | 159,090 edges | density=0.0030 | avg_degree=31.04
+  Langerhans cell: 7,967 nodes | 115,874 edges | density=0.0037 | avg_degree=29.09
+  Mueller cell: 9,637 nodes | 142,195 edges | density=0.0031 | avg_degree=29.51
+  Schwann cell: 9,284 nodes | 138,821 edges | density=0.0032 | avg_degree=29.91
+  T cell: 10,151 nodes | 161,625 edges | density=0.0031 | avg_degree=31.84
+  acinar cell: 7,299 nodes | 93,726 edges | density=0.0035 | avg_degree=25.68
+  acinar cell of salivary gland: 11,165 nodes | 179,780 edges | density=0.0029 | avg_degree=32.20
+  activated CD4-positive, alpha-beta T cell: 8,720 nodes | 128,714 edges | density=0.0034 | avg_degree=29.52
+  activated CD8-positive, alpha-beta T cell: 6,709 nodes | 88,281 edges | density=0.0039 | avg_degree=26.32
+  adventitial cell: 13,551 nodes | 227,959 edges | density=0.0025 | avg_degree=33.64
+  alveolar adventitial fibroblast: 11,753 nodes | 188,593 edges | density=0.0027 | avg_degree=32.09
+  basal cell: 12,970 nodes | 219,682 edges | density=0.0026 | avg_degree=33.88
+  basal cell of prostate epithelium: 11,288 nodes | 182,316 edges | density=0.0029 | avg_degree=32.30
+  basophil: 8,361 nodes | 120,830 edges | density=0.0035 | avg_degree=28.90
+  bladder urothelial cell: 11,727 nodes | 192,640 edges | density=0.0028 | avg_degree=32.85
+  blood vessel smooth muscle cell: 8,885 nodes | 133,393 edges | density=0.0034 | avg_degree=30.03
+  bronchial smooth muscle cell: 9,022 nodes | 132,890 edges | density=0.0033 | avg_degree=29.46
+  capillary endothelial cell: 11,782 nodes | 190,019 edges | density=0.0027 | avg_degree=32.26
+  cardiac endothelial cell: 10,369 nodes | 159,852 edges | density=0.0030 | avg_degree=30.83
+  ciliated epithelial cell: 10,848 nodes | 170,882 edges | density=0.0029 | avg_degree=31.50
+  classical monocyte: 10,141 nodes | 156,095 edges | density=0.0030 | avg_degree=30.78
+  club cell: 10,994 nodes | 174,242 edges | density=0.0029 | avg_degree=31.70
+  colon endothelial cell: 10,734 nodes | 168,093 edges | density=0.0029 | avg_degree=31.32
+  colon macrophage: 9,491 nodes | 143,802 edges | density=0.0032 | avg_degree=30.30
+  common myeloid progenitor: 11,638 nodes | 187,680 edges | density=0.0028 | avg_degree=32.25
+  conjunctival epithelial cell: 10,599 nodes | 168,555 edges | density=0.0030 | avg_degree=31.81
+  connective tissue cell: 8,326 nodes | 117,835 edges | density=0.0034 | avg_degree=28.31
+  corneal epithelial cell: 9,749 nodes | 152,657 edges | density=0.0032 | avg_degree=31.32
+  duct epithelial cell: 11,437 nodes | 185,742 edges | density=0.0028 | avg_degree=32.48
+  endothelial cell: 12,022 nodes | 195,837 edges | density=0.0027 | avg_degree=32.58
+  endothelial cell of arteriole: 9,728 nodes | 147,577 edges | density=0.0031 | avg_degree=30.34
+  endothelial cell of artery: 11,007 nodes | 174,458 edges | density=0.0029 | avg_degree=31.70
+  endothelial cell of lymphatic vessel: 11,379 nodes | 184,135 edges | density=0.0028 | avg_degree=32.36
+  endothelial cell of vascular tree: 12,888 nodes | 211,803 edges | density=0.0026 | avg_degree=32.87
+  endothelial cell of venule: 9,281 nodes | 137,926 edges | density=0.0032 | avg_degree=29.72
+  enterocyte of epithelium of large intestine: 12,176 nodes | 196,943 edges | density=0.0027 | avg_degree=32.35
+  enterocyte of epithelium proper of duodenum: 8,490 nodes | 120,142 edges | density=0.0033 | avg_degree=28.30
+  enterocyte of epithelium proper of ileum: 9,178 nodes | 132,899 edges | density=0.0032 | avg_degree=28.96
+  enterocyte of epithelium proper of jejunum: 8,128 nodes | 115,545 edges | density=0.0035 | avg_degree=28.43
+  enterocyte of epithelium proper of small intestine: 14,003 nodes | 232,158 edges | density=0.0024 | avg_degree=33.16
+  enteroendocrine cell of small intestine: 11,108 nodes | 169,886 edges | density=0.0028 | avg_degree=30.59
+  enteroglial cell: 8,971 nodes | 130,363 edges | density=0.0032 | avg_degree=29.06
+  epithelial cell: 9,547 nodes | 144,514 edges | density=0.0032 | avg_degree=30.27
+  epithelial cell of uterus: 12,072 nodes | 199,095 edges | density=0.0027 | avg_degree=32.98
+  erythrocyte: 4,470 nodes | 51,311 edges | density=0.0051 | avg_degree=22.96
+  erythroid progenitor cell: 11,394 nodes | 183,335 edges | density=0.0028 | avg_degree=32.18
+  eye photoreceptor cell: 8,733 nodes | 123,089 edges | density=0.0032 | avg_degree=28.19
+  fast muscle cell: 9,460 nodes | 143,523 edges | density=0.0032 | avg_degree=30.34
+  fibroblast: 12,276 nodes | 201,571 edges | density=0.0027 | avg_degree=32.84
+  fibroblast of breast: 9,629 nodes | 145,548 edges | density=0.0031 | avg_degree=30.23
+  fibroblast of cardiac tissue: 10,440 nodes | 161,199 edges | density=0.0030 | avg_degree=30.88
+  gamma-delta T cell: 7,196 nodes | 99,738 edges | density=0.0039 | avg_degree=27.72
+  glandular secretory epithelial cell: 10,571 nodes | 166,732 edges | density=0.0030 | avg_degree=31.55
+  granulocyte: 10,860 nodes | 171,126 edges | density=0.0029 | avg_degree=31.51
+  hematopoietic cell: 6,666 nodes | 83,403 edges | density=0.0038 | avg_degree=25.02
+  hematopoietic precursor cell: 9,981 nodes | 157,146 edges | density=0.0032 | avg_degree=31.49
+  hematopoietic stem cell: 12,279 nodes | 199,851 edges | density=0.0027 | avg_degree=32.55
+  hepatic stellate cell: 9,188 nodes | 134,038 edges | density=0.0032 | avg_degree=29.18
+  hepatocyte: 8,884 nodes | 125,501 edges | density=0.0032 | avg_degree=28.25
+  innate lymphoid cell: 12,105 nodes | 196,550 edges | density=0.0027 | avg_degree=32.47
+  intermediate monocyte: 8,790 nodes | 131,837 edges | density=0.0034 | avg_degree=30.00
+  interstitial cell of Cajal: 4,914 nodes | 53,586 edges | density=0.0044 | avg_degree=21.81
+  intestinal crypt stem cell of colon: 9,741 nodes | 150,934 edges | density=0.0032 | avg_degree=30.99
+  intestinal crypt stem cell of small intestine: 11,504 nodes | 184,410 edges | density=0.0028 | avg_degree=32.06
+  intestinal tuft cell: 8,255 nodes | 115,208 edges | density=0.0034 | avg_degree=27.91
+  intrahepatic cholangiocyte: 10,729 nodes | 168,318 edges | density=0.0029 | avg_degree=31.38
+  ionocyte: 9,670 nodes | 147,396 edges | density=0.0032 | avg_degree=30.49
+  keratocyte: 10,171 nodes | 156,134 edges | density=0.0030 | avg_degree=30.70
+  kidney epithelial cell: 9,501 nodes | 144,447 edges | density=0.0032 | avg_degree=30.41
+  large intestine goblet cell: 7,661 nodes | 104,217 edges | density=0.0036 | avg_degree=27.21
+  leukocyte: 12,976 nodes | 216,673 edges | density=0.0026 | avg_degree=33.40
+  luminal cell of prostate epithelium: 11,479 nodes | 184,799 edges | density=0.0028 | avg_degree=32.20
+  luminal epithelial cell of mammary gland: 11,087 nodes | 178,317 edges | density=0.0029 | avg_degree=32.17
+  lung multiciliated epithelial cell: 12,054 nodes | 196,250 edges | density=0.0027 | avg_degree=32.56
+  macrophage: 11,523 nodes | 187,090 edges | density=0.0028 | avg_degree=32.47
+  male germ cell: 9,673 nodes | 139,250 edges | density=0.0030 | avg_degree=28.79
+  mast cell: 11,147 nodes | 177,652 edges | density=0.0029 | avg_degree=31.87
+  mature NK T cell: 10,943 nodes | 176,044 edges | density=0.0029 | avg_degree=32.17
+  melanocyte: 10,334 nodes | 161,778 edges | density=0.0030 | avg_degree=31.31
+  mesenchymal stem cell: 12,426 nodes | 200,824 edges | density=0.0026 | avg_degree=32.32
+  mesenchymal stem cell of adipose tissue: 10,587 nodes | 166,263 edges | density=0.0030 | avg_degree=31.41
+  mesothelial cell: 11,290 nodes | 181,107 edges | density=0.0028 | avg_degree=32.08
+  microglial cell: 12,682 nodes | 207,195 edges | density=0.0026 | avg_degree=32.68
+  monocyte: 10,905 nodes | 173,916 edges | density=0.0029 | avg_degree=31.90
+  mononuclear phagocyte: 8,839 nodes | 129,614 edges | density=0.0033 | avg_degree=29.33
+  mucus secreting cell: 10,530 nodes | 166,877 edges | density=0.0030 | avg_degree=31.70
+  multiciliated columnar cell of tracheobronchial tree: 12,037 nodes | 196,875 edges | density=0.0027 | avg_degree=32.71
+  mural cell: 9,485 nodes | 142,867 edges | density=0.0032 | avg_degree=30.12
+  muscle cell: 4,802 nodes | 58,759 edges | density=0.0051 | avg_degree=24.47
+  myeloid cell: 10,613 nodes | 163,501 edges | density=0.0029 | avg_degree=30.81
+  myeloid dendritic cell: 11,662 nodes | 187,546 edges | density=0.0028 | avg_degree=32.16
+  myeloid leukocyte: 7,516 nodes | 100,682 edges | density=0.0036 | avg_degree=26.79
+  myo-medullary thymic epithelial cell: 9,253 nodes | 138,188 edges | density=0.0032 | avg_degree=29.87
+  myoepithelial cell: 9,589 nodes | 145,268 edges | density=0.0032 | avg_degree=30.30
+  myofibroblast cell: 11,283 nodes | 178,700 edges | density=0.0028 | avg_degree=31.68
+  myometrial cell: 8,561 nodes | 124,707 edges | density=0.0034 | avg_degree=29.13
+  naive thymus-derived CD4-positive, alpha-beta T cell: 10,040 nodes | 156,627 edges | density=0.0031 | avg_degree=31.20
+  naive thymus-derived CD8-positive, alpha-beta T cell: 7,421 nodes | 104,005 edges | density=0.0038 | avg_degree=28.03
+  natural killer cell: 10,824 nodes | 173,631 edges | density=0.0030 | avg_degree=32.08
+  neuro-medullary thymic epithelial cell: 9,770 nodes | 121,157 edges | density=0.0025 | avg_degree=24.80
+  neuron: 6,501 nodes | 76,204 edges | density=0.0036 | avg_degree=23.44
+  neutrophil: 5,765 nodes | 64,586 edges | density=0.0039 | avg_degree=22.41
+  non-classical monocyte: 10,082 nodes | 156,427 edges | density=0.0031 | avg_degree=31.03
+  ovarian surface epithelial cell: 9,945 nodes | 154,212 edges | density=0.0031 | avg_degree=31.01
+  pancreatic acinar cell: 9,978 nodes | 153,947 edges | density=0.0031 | avg_degree=30.86
+  pancreatic ductal cell: 10,635 nodes | 166,411 edges | density=0.0029 | avg_degree=31.29
+  pancreatic stellate cell: 9,895 nodes | 150,726 edges | density=0.0031 | avg_degree=30.47
+  paneth cell of colon: 12,054 nodes | 195,861 edges | density=0.0027 | avg_degree=32.50
+  paneth cell of epithelium of small intestine: 12,220 nodes | 196,937 edges | density=0.0026 | avg_degree=32.23
+  pericyte: 12,204 nodes | 198,322 edges | density=0.0027 | avg_degree=32.50
+  peritubular myoid cell: 8,683 nodes | 115,887 edges | density=0.0031 | avg_degree=26.69
+  plasma cell: 11,532 nodes | 187,804 edges | density=0.0028 | avg_degree=32.57
+  plasmacytoid dendritic cell: 10,069 nodes | 157,954 edges | density=0.0031 | avg_degree=31.37
+  platelet: 5,788 nodes | 65,927 edges | density=0.0039 | avg_degree=22.78
+  progenitor cell of mammary luminal epithelium: 7,542 nodes | 110,896 edges | density=0.0039 | avg_degree=29.41
+  pulmonary alveolar type 1 cell: 10,618 nodes | 168,659 edges | density=0.0030 | avg_degree=31.77
+  pulmonary alveolar type 2 cell: 12,585 nodes | 209,187 edges | density=0.0026 | avg_degree=33.24
+  regular atrial cardiac myocyte: 10,819 nodes | 173,274 edges | density=0.0030 | avg_degree=32.03
+  regulatory T cell: 9,825 nodes | 153,144 edges | density=0.0032 | avg_degree=31.17
+  respiratory tract goblet cell: 12,033 nodes | 199,549 edges | density=0.0028 | avg_degree=33.17
+  retinal bipolar neuron: 12,569 nodes | 196,837 edges | density=0.0025 | avg_degree=31.32
+  retinal blood vessel endothelial cell: 10,678 nodes | 170,173 edges | density=0.0030 | avg_degree=31.87
+  retinal pigment epithelial cell: 7,968 nodes | 107,598 edges | density=0.0034 | avg_degree=27.01
+  salivary gland cell: 12,351 nodes | 204,244 edges | density=0.0027 | avg_degree=33.07
+  sebocyte: 12,233 nodes | 203,147 edges | density=0.0027 | avg_degree=33.21
+  serous cell of epithelium of trachea: 8,512 nodes | 121,877 edges | density=0.0034 | avg_degree=28.64
+  skeletal muscle satellite stem cell: 12,191 nodes | 197,143 edges | density=0.0027 | avg_degree=32.34
+  slow muscle cell: 8,099 nodes | 112,059 edges | density=0.0034 | avg_degree=27.67
+  small intestine goblet cell: 10,492 nodes | 159,628 edges | density=0.0029 | avg_degree=30.43
+  smooth muscle cell: 12,041 nodes | 197,351 edges | density=0.0027 | avg_degree=32.78
+  spermatid: 5,700 nodes | 51,971 edges | density=0.0032 | avg_degree=18.24
+  spermatocyte: 9,861 nodes | 135,342 edges | density=0.0028 | avg_degree=27.45
+  spermatogonium: 8,771 nodes | 125,888 edges | density=0.0033 | avg_degree=28.71
+  stratified squamous epithelial cell: 10,645 nodes | 172,039 edges | density=0.0030 | avg_degree=32.32
+  stromal cell: 13,280 nodes | 221,417 edges | density=0.0025 | avg_degree=33.35
+  stromal cell of ovary: 7,647 nodes | 106,520 edges | density=0.0036 | avg_degree=27.86
+  supporting cell of vestibular epithelium: 10,059 nodes | 152,874 edges | density=0.0030 | avg_degree=30.40
+  tendon cell: 10,694 nodes | 164,442 edges | density=0.0029 | avg_degree=30.75
+  theca cell: 10,903 nodes | 173,286 edges | density=0.0029 | avg_degree=31.79
+  thymic fibroblast type 1: 9,357 nodes | 141,304 edges | density=0.0032 | avg_degree=30.20
+  thymic fibroblast type 2: 9,443 nodes | 142,737 edges | density=0.0032 | avg_degree=30.23
+  thymocyte: 8,263 nodes | 117,755 edges | density=0.0034 | avg_degree=28.50
+  tissue-resident macrophage: 8,964 nodes | 130,173 edges | density=0.0032 | avg_degree=29.04
+  tongue muscle cell: 9,747 nodes | 148,336 edges | density=0.0031 | avg_degree=30.44
+  tracheal goblet cell: 11,626 nodes | 186,836 edges | density=0.0028 | avg_degree=32.14
+  transit amplifying cell of colon: 9,274 nodes | 144,077 edges | density=0.0034 | avg_degree=31.07
+  tuft cell of colon: 7,860 nodes | 100,479 edges | density=0.0033 | avg_degree=25.57
+  type B pancreatic cell: 10,262 nodes | 155,247 edges | density=0.0029 | avg_degree=30.26
+  vascular associated smooth muscle cell: 11,067 nodes | 175,311 edges | density=0.0029 | avg_degree=31.68
+  vein endothelial cell: 12,107 nodes | 198,801 edges | density=0.0027 | avg_degree=32.84
+  ventricular cardiac muscle cell: 9,968 nodes | 155,733 edges | density=0.0031 | avg_degree=31.25
+
+Total layers built: 156
+
+Saved 156 layers  →  new_ts/layers
+Statistics CSV  →  new_ts/layer_statistics.csv
+Metadata pickle →  new_ts/multiplex_metadata.pkl
+JSON summary    →  new_ts/multiplex_summary.json
+
+Multiplex totals: 16,438 unique genes | 24,192,071 edges
+
+Finished in 8559.8s
+Finished at: Mon Apr  6 03:51:16 PM CEST 2026

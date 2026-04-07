@@ -1,0 +1,101 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g01/tmp/slurm-2232734
+Running on host: node-g01.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Tue Apr  7 04:18:55 PM CEST 2026
+SLURM_JOB_ID: 2232734
+Requirement already satisfied: multixrank in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (0.3)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (3.6.1)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (2.3.5)
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (3.0.0)
+Requirement already satisfied: psutil in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (7.2.1)
+Requirement already satisfied: pyyaml in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (6.0.3)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from multixrank) (1.17.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas->multixrank) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas->multixrank) (1.17.0)
+
+================================================================================
+MULTIPLEX RWR EXECUTION - MultiXrank
+================================================================================
+MultiXrank directory: multixrank_sssetup
+Output directory: rwr_ss_results
+Restart probability: 0.7
+k (top genes): 200
+Aggregation: gmean
+================================================================================
+
+Loading configuration...
+  Layers: 21
+  Genes: 15424
+
+Loading seed genes...
+  Loaded 344 seed genes from multixrank_sssetup/seeds.txt
+  Total seed genes: 344
+
+Filtering seeds to network genes...
+  Seeds in network: 344 / 344
+
+Filtering seeds to genes in TSV files...
+  Genes in TSV files: 15301
+  Removed 4 seeds that aren't in TSV files (isolated nodes)
+  Seeds after TSV filtering: 340
+
+Updating seeds.txt to only include valid genes...
+  Updated seeds.txt with 340 genes
+
+Running MultiXrank Random Walk with Restart...
+  Working directory: /lisc/home/user/gerardursin/multiplex/multixrank_sssetup
+  Using config: /lisc/home/user/gerardursin/multiplex/multixrank_sssetup/config.yml
+  Initializing MultiXrank object...
+  Executing random walk...
+  RWR computation: 40.32 seconds
+  Results shape: (321321, 4)
+  Columns: ['multiplex', 'node', 'layer', 'score']
+
+  Sample results (first 10 rows):
+  multiplex    node                   layer         score
+0         1    A1BG  multiplex/1/B cell.tsv  1.177261e-09
+1         1    A1CF  multiplex/1/B cell.tsv  3.052781e-10
+2         1     A2M  multiplex/1/B cell.tsv  5.369352e-06
+3         1   A2ML1  multiplex/1/B cell.tsv  2.337602e-09
+4         1  A4GALT  multiplex/1/B cell.tsv  1.598680e-09
+5         1    AAAS  multiplex/1/B cell.tsv  8.961584e-08
+6         1    AACS  multiplex/1/B cell.tsv  1.125524e-08
+7         1   AADAC  multiplex/1/B cell.tsv  3.303391e-10
+8         1   AAGAB  multiplex/1/B cell.tsv  9.978567e-08
+9         1    AAK1  multiplex/1/B cell.tsv  6.874056e-08
+
+Processing MultiXrank results...
+  Result columns: ['multiplex', 'node', 'layer', 'score']
+  Using columns: node='node', score='score', layer='layer'
+  Processed scores for 15301 genes
+  Number of layers with results: 21
+
+Extracting disease module (k=200, aggregation=gmean)...
+  Disease module size: 540 genes
+  Seed genes: 340
+  Added genes: 200
+
+Saving results...
+  ✓ Saved raw MultiXrank results: rwr_ss_results/multixrank_raw_results.csv
+  ✓ Saved all gene scores: rwr_ss_results/multiplex_gene_scores.csv
+  ✓ Saved disease module: rwr_ss_results/multiplex_disease_module.csv
+  ✓ Saved 21 layer-specific score files
+  ✓ Saved summary: rwr_ss_results/multiplex_rwr_summary.txt
+
+  Results saved to: rwr_ss_results
+
+================================================================================
+MULTIPLEX RWR COMPLETE
+================================================================================
+Method: MultiXrank
+Layers: 21
+Genes scored: 15301
+Seed genes: 340
+  In network: 340
+Disease module size: 540
+  Seed genes: 340
+  Added genes: 200
+Execution time: 86.14 seconds
+Results: rwr_ss_results
+================================================================================
+Finished at: Tue Apr  7 04:20:28 PM CEST 2026

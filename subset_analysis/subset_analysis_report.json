@@ -1,299 +1,244 @@
 {
   "summary": {
-    "n_cell_types": 26,
-    "n_total_genes": 10790,
-    "n_total_edges": 460325,
-    "avg_genes_per_layer": 2287.576923076923,
-    "avg_edges_per_layer": 17704.80769230769,
-    "avg_density": 0.006142511842534374,
-    "avg_degree": 13.83557271502577
+    "n_cell_types": 21,
+    "n_total_genes": 15424,
+    "n_total_edges": 3418712,
+    "avg_genes_per_layer": 10379.333333333334,
+    "avg_edges_per_layer": 162795.80952380953,
+    "avg_density": 0.0030456593551450454,
+    "avg_degree": 30.98581615772818
   },
   "per_celltype": {
-    "adipocyte": {
-      "cell_type": "adipocyte",
-      "n_nodes": 3099,
-      "n_edges": 33261,
-      "density": 0.006928868326503625,
-      "avg_degree": 21.465634075508227,
-      "n_seed_genes": 30,
-      "seed_gene_pct": 7.352941176470589,
+    "B cell": {
+      "cell_type": "B cell",
+      "n_nodes": 10195,
+      "n_edges": 159622,
+      "density": 0.003071785488064169,
+      "avg_degree": 31.313781265326142,
+      "n_seed_genes": 161,
+      "seed_gene_pct": 39.46078431372549,
       "seed_genes_connected": false,
-      "n_seed_components": 24
+      "n_seed_components": 80
     },
-    "b_cell": {
-      "cell_type": "b_cell",
-      "n_nodes": 1179,
-      "n_edges": 7087,
-      "density": 0.01020547757804591,
-      "avg_degree": 12.022052586938083,
-      "n_seed_genes": 30,
-      "seed_gene_pct": 7.352941176470589,
+    "CD4-positive, alpha-beta T cell": {
+      "cell_type": "CD4-positive, alpha-beta T cell",
+      "n_nodes": 10564,
+      "n_edges": 169098,
+      "density": 0.003030768706310307,
+      "avg_degree": 32.014009844755776,
+      "n_seed_genes": 174,
+      "seed_gene_pct": 42.64705882352941,
       "seed_genes_connected": false,
-      "n_seed_components": 24
+      "n_seed_components": 80
     },
-    "cd1c-positive_myeloid_dendritic_cell": {
-      "cell_type": "cd1c-positive_myeloid_dendritic_cell",
-      "n_nodes": 3049,
-      "n_edges": 30173,
-      "density": 0.0064934589801397815,
-      "avg_degree": 19.792062971466056,
-      "n_seed_genes": 83,
-      "seed_gene_pct": 20.34313725490196,
+    "CD8-positive, alpha-beta T cell": {
+      "cell_type": "CD8-positive, alpha-beta T cell",
+      "n_nodes": 10557,
+      "n_edges": 170260,
+      "density": 0.0030556437647010007,
+      "avg_degree": 32.25537558018377,
+      "n_seed_genes": 180,
+      "seed_gene_pct": 44.11764705882353,
       "seed_genes_connected": false,
-      "n_seed_components": 36
+      "n_seed_components": 84
     },
-    "cd24_neutrophil": {
-      "cell_type": "cd24_neutrophil",
-      "n_nodes": 1837,
-      "n_edges": 6738,
-      "density": 0.003995573914559473,
-      "avg_degree": 7.335873707131192,
-      "n_seed_genes": 55,
-      "seed_gene_pct": 13.480392156862745,
+    "Langerhans cell": {
+      "cell_type": "Langerhans cell",
+      "n_nodes": 7967,
+      "n_edges": 115874,
+      "density": 0.0036515804696633214,
+      "avg_degree": 29.088490021338018,
+      "n_seed_genes": 135,
+      "seed_gene_pct": 33.088235294117645,
       "seed_genes_connected": false,
-      "n_seed_components": 27
+      "n_seed_components": 67
     },
-    "cd4-positive,_alpha-beta_memory_t_cell": {
-      "cell_type": "cd4-positive,_alpha-beta_memory_t_cell",
-      "n_nodes": 1066,
-      "n_edges": 6836,
-      "density": 0.01204273797884241,
-      "avg_degree": 12.825515947467167,
-      "n_seed_genes": 28,
-      "seed_gene_pct": 6.862745098039216,
+    "Schwann cell": {
+      "cell_type": "Schwann cell",
+      "n_nodes": 9284,
+      "n_edges": 138821,
+      "density": 0.003221526305561588,
+      "avg_degree": 29.905428694528222,
+      "n_seed_genes": 148,
+      "seed_gene_pct": 36.27450980392157,
       "seed_genes_connected": false,
-      "n_seed_components": 14
+      "n_seed_components": 76
     },
-    "cd4-positive_helper_t_cell": {
-      "cell_type": "cd4-positive_helper_t_cell",
-      "n_nodes": 1272,
-      "n_edges": 6509,
-      "density": 0.008052145341903814,
-      "avg_degree": 10.234276729559749,
-      "n_seed_genes": 30,
-      "seed_gene_pct": 7.352941176470589,
+    "activated CD8-positive, alpha-beta T cell": {
+      "cell_type": "activated CD8-positive, alpha-beta T cell",
+      "n_nodes": 6709,
+      "n_edges": 88281,
+      "density": 0.003923253707472754,
+      "avg_degree": 26.317185869727233,
+      "n_seed_genes": 98,
+      "seed_gene_pct": 24.019607843137255,
       "seed_genes_connected": false,
-      "n_seed_components": 16
+      "n_seed_components": 56
     },
-    "cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell": {
-      "cell_type": "cd8-positive,_alpha-beta_cytokine_secreting_effector_t_cell",
-      "n_nodes": 1772,
-      "n_edges": 7617,
-      "density": 0.00485435655717332,
-      "avg_degree": 8.59706546275395,
-      "n_seed_genes": 40,
-      "seed_gene_pct": 9.803921568627452,
+    "colon endothelial cell": {
+      "cell_type": "colon endothelial cell",
+      "n_nodes": 10734,
+      "n_edges": 168093,
+      "density": 0.0029180780484192323,
+      "avg_degree": 31.31973169368362,
+      "n_seed_genes": 191,
+      "seed_gene_pct": 46.81372549019608,
       "seed_genes_connected": false,
-      "n_seed_components": 20
+      "n_seed_components": 96
     },
-    "cd8-positive,_alpha-beta_cytotoxic_t_cell": {
-      "cell_type": "cd8-positive,_alpha-beta_cytotoxic_t_cell",
-      "n_nodes": 1854,
-      "n_edges": 7622,
-      "density": 0.00443724890567848,
-      "avg_degree": 8.222222222222221,
-      "n_seed_genes": 52,
-      "seed_gene_pct": 12.745098039215685,
+    "endothelial cell": {
+      "cell_type": "endothelial cell",
+      "n_nodes": 12022,
+      "n_edges": 195837,
+      "density": 0.002710237951991933,
+      "avg_degree": 32.579770420895024,
+      "n_seed_genes": 229,
+      "seed_gene_pct": 56.127450980392155,
       "seed_genes_connected": false,
-      "n_seed_components": 23
+      "n_seed_components": 116
     },
-    "dendritic_cell": {
-      "cell_type": "dendritic_cell",
-      "n_nodes": 2048,
-      "n_edges": 11816,
-      "density": 0.0056370603321934535,
-      "avg_degree": 11.5390625,
-      "n_seed_genes": 67,
-      "seed_gene_pct": 16.42156862745098,
+    "epithelial cell of uterus": {
+      "cell_type": "epithelial cell of uterus",
+      "n_nodes": 12072,
+      "n_edges": 199095,
+      "density": 0.002732548458729851,
+      "avg_degree": 32.98459244532803,
+      "n_seed_genes": 213,
+      "seed_gene_pct": 52.20588235294118,
       "seed_genes_connected": false,
-      "n_seed_components": 33
-    },
-    "endothelial_cell": {
-      "cell_type": "endothelial_cell",
-      "n_nodes": 3175,
-      "n_edges": 24602,
-      "density": 0.004882584383946335,
-      "avg_degree": 15.497322834645669,
-      "n_seed_genes": 76,
-      "seed_gene_pct": 18.627450980392158,
-      "seed_genes_connected": false,
-      "n_seed_components": 49
-    },
-    "epithelial_cell_of_uterus": {
-      "cell_type": "epithelial_cell_of_uterus",
-      "n_nodes": 3167,
-      "n_edges": 37386,
-      "density": 0.007457272675955313,
-      "avg_degree": 23.60972529207452,
-      "n_seed_genes": 56,
-      "seed_gene_pct": 13.725490196078432,
-      "seed_genes_connected": false,
-      "n_seed_components": 44
+      "n_seed_components": 108
     },
     "granulocyte": {
       "cell_type": "granulocyte",
-      "n_nodes": 3300,
-      "n_edges": 42358,
-      "density": 0.007781605077755427,
-      "avg_degree": 25.671515151515152,
-      "n_seed_genes": 47,
-      "seed_gene_pct": 11.519607843137255,
+      "n_nodes": 10860,
+      "n_edges": 171126,
+      "density": 0.002902193307585581,
+      "avg_degree": 31.514917127071822,
+      "n_seed_genes": 187,
+      "seed_gene_pct": 45.83333333333333,
       "seed_genes_connected": false,
-      "n_seed_components": 24
+      "n_seed_components": 84
     },
-    "gut_endothelial_cell": {
-      "cell_type": "gut_endothelial_cell",
-      "n_nodes": 1781,
-      "n_edges": 5477,
-      "density": 0.00345532430335186,
-      "avg_degree": 6.150477259966311,
-      "n_seed_genes": 64,
-      "seed_gene_pct": 15.686274509803921,
+    "keratocyte": {
+      "cell_type": "keratocyte",
+      "n_nodes": 10171,
+      "n_edges": 156134,
+      "density": 0.0030188593149571047,
+      "avg_degree": 30.701799233113753,
+      "n_seed_genes": 178,
+      "seed_gene_pct": 43.627450980392155,
       "seed_genes_connected": false,
-      "n_seed_components": 44
+      "n_seed_components": 86
     },
-    "immune_cell": {
-      "cell_type": "immune_cell",
-      "n_nodes": 1433,
-      "n_edges": 5985,
-      "density": 0.005833174143395697,
-      "avg_degree": 8.353105373342638,
-      "n_seed_genes": 61,
-      "seed_gene_pct": 14.950980392156863,
+    "leukocyte": {
+      "cell_type": "leukocyte",
+      "n_nodes": 12976,
+      "n_edges": 216673,
+      "density": 0.002573869886364986,
+      "avg_degree": 33.3959617755857,
+      "n_seed_genes": 265,
+      "seed_gene_pct": 64.95098039215686,
       "seed_genes_connected": false,
-      "n_seed_components": 32
-    },
-    "keratinocyte": {
-      "cell_type": "keratinocyte",
-      "n_nodes": 3217,
-      "n_edges": 35629,
-      "density": 0.006887577963462142,
-      "avg_degree": 22.15045073049425,
-      "n_seed_genes": 42,
-      "seed_gene_pct": 10.294117647058822,
-      "seed_genes_connected": false,
-      "n_seed_components": 35
-    },
-    "langerhans_cell": {
-      "cell_type": "langerhans_cell",
-      "n_nodes": 3065,
-      "n_edges": 31516,
-      "density": 0.006711843904267417,
-      "avg_degree": 20.565089722675367,
-      "n_seed_genes": 65,
-      "seed_gene_pct": 15.931372549019606,
-      "seed_genes_connected": false,
-      "n_seed_components": 42
+      "n_seed_components": 119
     },
     "macrophage": {
       "cell_type": "macrophage",
-      "n_nodes": 3112,
-      "n_edges": 22139,
-      "density": 0.004573496978546149,
-      "avg_degree": 14.228149100257069,
-      "n_seed_genes": 90,
-      "seed_gene_pct": 22.058823529411764,
+      "n_nodes": 11523,
+      "n_edges": 187090,
+      "density": 0.002818299462899217,
+      "avg_degree": 32.47244641152478,
+      "n_seed_genes": 213,
+      "seed_gene_pct": 52.20588235294118,
       "seed_genes_connected": false,
-      "n_seed_components": 37
+      "n_seed_components": 96
     },
-    "memory_b_cell": {
-      "cell_type": "memory_b_cell",
-      "n_nodes": 1920,
-      "n_edges": 15250,
-      "density": 0.008277965954490187,
-      "avg_degree": 15.885416666666666,
-      "n_seed_genes": 33,
-      "seed_gene_pct": 8.088235294117647,
+    "mesenchymal stem cell of adipose tissue": {
+      "cell_type": "mesenchymal stem cell of adipose tissue",
+      "n_nodes": 10587,
+      "n_edges": 166263,
+      "density": 0.002967022265703025,
+      "avg_degree": 31.40889770473222,
+      "n_seed_genes": 182,
+      "seed_gene_pct": 44.6078431372549,
       "seed_genes_connected": false,
-      "n_seed_components": 25
+      "n_seed_components": 88
     },
-    "microglial_cell": {
-      "cell_type": "microglial_cell",
-      "n_nodes": 2606,
-      "n_edges": 17095,
-      "density": 0.005036362270443373,
-      "avg_degree": 13.119723714504989,
-      "n_seed_genes": 76,
-      "seed_gene_pct": 18.627450980392158,
+    "microglial cell": {
+      "cell_type": "microglial cell",
+      "n_nodes": 12682,
+      "n_edges": 207195,
+      "density": 0.0025767246678752445,
+      "avg_degree": 32.675445513325975,
+      "n_seed_genes": 264,
+      "seed_gene_pct": 64.70588235294117,
       "seed_genes_connected": false,
-      "n_seed_components": 27
+      "n_seed_components": 116
     },
     "monocyte": {
       "cell_type": "monocyte",
-      "n_nodes": 2866,
-      "n_edges": 18725,
-      "density": 0.004560904825059766,
-      "avg_degree": 13.066992323796232,
-      "n_seed_genes": 82,
-      "seed_gene_pct": 20.098039215686274,
+      "n_nodes": 10905,
+      "n_edges": 173916,
+      "density": 0.0029252165453461042,
+      "avg_degree": 31.89656121045392,
+      "n_seed_genes": 201,
+      "seed_gene_pct": 49.26470588235294,
       "seed_genes_connected": false,
-      "n_seed_components": 31
+      "n_seed_components": 96
     },
-    "myeloid_dendritic_cell": {
-      "cell_type": "myeloid_dendritic_cell",
-      "n_nodes": 3258,
-      "n_edges": 38370,
-      "density": 0.007231909060015799,
-      "avg_degree": 23.554327808471456,
-      "n_seed_genes": 50,
-      "seed_gene_pct": 12.254901960784313,
+    "myeloid dendritic cell": {
+      "cell_type": "myeloid dendritic cell",
+      "n_nodes": 11662,
+      "n_edges": 187546,
+      "density": 0.002758220418528689,
+      "avg_degree": 32.16360830046304,
+      "n_seed_genes": 212,
+      "seed_gene_pct": 51.9607843137255,
       "seed_genes_connected": false,
-      "n_seed_components": 26
+      "n_seed_components": 101
     },
-    "nampt_neutrophil": {
-      "cell_type": "nampt_neutrophil",
-      "n_nodes": 1291,
-      "n_edges": 4073,
-      "density": 0.0048913467716270665,
-      "avg_degree": 6.309837335398916,
-      "n_seed_genes": 63,
-      "seed_gene_pct": 15.441176470588236,
+    "natural killer cell": {
+      "cell_type": "natural killer cell",
+      "n_nodes": 10824,
+      "n_edges": 173631,
+      "density": 0.0029642977210600813,
+      "avg_degree": 32.08259423503326,
+      "n_seed_genes": 179,
+      "seed_gene_pct": 43.872549019607845,
       "seed_genes_connected": false,
-      "n_seed_components": 32
+      "n_seed_components": 83
     },
-    "nk_cell": {
-      "cell_type": "nk_cell",
-      "n_nodes": 1456,
-      "n_edges": 5040,
-      "density": 0.004758128469468675,
-      "avg_degree": 6.923076923076923,
-      "n_seed_genes": 47,
-      "seed_gene_pct": 11.519607843137255,
+    "neutrophil": {
+      "cell_type": "neutrophil",
+      "n_nodes": 5765,
+      "n_edges": 64586,
+      "density": 0.0038872735217484727,
+      "avg_degree": 22.406244579358194,
+      "n_seed_genes": 113,
+      "seed_gene_pct": 27.696078431372552,
       "seed_genes_connected": false,
-      "n_seed_components": 22
+      "n_seed_components": 54
     },
-    "non-classical_monocyte": {
-      "cell_type": "non-classical_monocyte",
-      "n_nodes": 1393,
-      "n_edges": 4295,
-      "density": 0.0044299906758752715,
-      "avg_degree": 6.166547020818378,
-      "n_seed_genes": 66,
-      "seed_gene_pct": 16.176470588235293,
+    "non-classical monocyte": {
+      "cell_type": "non-classical monocyte",
+      "n_nodes": 10082,
+      "n_edges": 156427,
+      "density": 0.003078161515804507,
+      "avg_degree": 31.030946240825234,
+      "n_seed_genes": 182,
+      "seed_gene_pct": 44.6078431372549,
       "seed_genes_connected": false,
-      "n_seed_components": 30
+      "n_seed_components": 86
     },
-    "regulatory_t_cell": {
-      "cell_type": "regulatory_t_cell",
-      "n_nodes": 2246,
-      "n_edges": 14987,
-      "density": 0.005944544818107717,
-      "avg_degree": 13.345503116651825,
-      "n_seed_genes": 36,
-      "seed_gene_pct": 8.823529411764707,
+    "regulatory T cell": {
+      "cell_type": "regulatory T cell",
+      "n_nodes": 9825,
+      "n_edges": 153144,
+      "density": 0.0031732849292587712,
+      "avg_degree": 31.17435114503817,
+      "n_seed_genes": 160,
+      "seed_gene_pct": 39.21568627450981,
       "seed_genes_connected": false,
-      "n_seed_components": 22
-    },
-    "schwann_cell": {
-      "cell_type": "schwann_cell",
-      "n_nodes": 3015,
-      "n_edges": 19739,
-      "density": 0.004344347715085268,
-      "avg_degree": 13.093864013266998,
-      "n_seed_genes": 70,
-      "seed_gene_pct": 17.15686274509804,
-      "seed_genes_connected": false,
-      "n_seed_components": 37
+      "n_seed_components": 76
     }
   },
   "inter_layer_analysis": {

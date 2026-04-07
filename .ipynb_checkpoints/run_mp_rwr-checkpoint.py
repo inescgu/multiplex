@@ -130,6 +130,34 @@ def load_layer_info(multixrank_dir):
     
     return layer_info
 
+def prefilter_seeds_against_multixrank(abs_multixrank_dir):
+    """Remove seeds that aren't in any multiplex TSV as both src and dst."""
+    seeds_file = os.path.join(abs_multixrank_dir, 'seeds.txt')
+    multiplex_dir = os.path.join(abs_multixrank_dir, 'multiplex', '1')
+    
+    # Collect genes that appear in at least one TSV on BOTH sides of an edge
+    # MultiXrank drops nodes that only appear as isolated endpoints
+    edge_genes = set()
+    for fname in os.listdir(multiplex_dir):
+        if not fname.endswith('.tsv'):
+            continue
+        with open(os.path.join(multiplex_dir, fname)) as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                if len(parts) >= 2 and parts[0] != parts[1]:  # skip self-loops
+                    edge_genes.add(parts[0])
+                    edge_genes.add(parts[1])
+    
+    with open(seeds_file) as f:
+        seeds = [l.strip() for l in f if l.strip()]
+    
+    cleaned = [g for g in seeds if g in edge_genes]
+    removed = set(seeds) - set(cleaned)
+    if removed:
+        print(f"  Pre-filtering removed seeds not in any real edge: {removed}")
+        with open(seeds_file, 'w') as f:
+            f.write('\n'.join(cleaned) + '\n')
+    return cleaned
 
 def run_multixrank_rwr(multixrank_dir, restart_prob=0.7):
     """
@@ -146,6 +174,8 @@ def run_multixrank_rwr(multixrank_dir, restart_prob=0.7):
     
     # Get absolute path first - this is critical!
     abs_multixrank_dir = os.path.abspath(multixrank_dir)
+    prefilter_seeds_against_multixrank(abs_multixrank_dir)
+    
     print(f"  Working directory: {abs_multixrank_dir}")
     
     # Check for config file using absolute path
@@ -160,31 +190,33 @@ def run_multixrank_rwr(multixrank_dir, restart_prob=0.7):
     os.chdir(abs_multixrank_dir)
     
     try:
-        print("  Initializing MultiXrank object...")
-        # Note: wdir parameter is required in newer MultiXrank versions
-        # Pass just 'config.yml' since we're now in that directory
-        multixrank_obj = multixrank.Multixrank(config='config.yml', wdir=abs_multixrank_dir)
-        
-        # Run random walk with restart
-        print("  Executing random walk...")
-        start_time = time.time()
-        
         try:
+            print("  Initializing MultiXrank object...")
+            # Note: wdir parameter is required in newer MultiXrank versions
+            # Pass just 'config.yml' since we're now in that directory
+            multixrank_obj = multixrank.Multixrank(config='config.yml', wdir=abs_multixrank_dir)
+            # Run random walk with restart
+            print("  Executing random walk...")
+            start_time = time.time()
             # MultiXrank.random_walk_rank() runs the RWR and returns results
             ranking_df = multixrank_obj.random_walk_rank()
         except Exception as e:
             error_msg = str(e)
             # Check if it's just a warning about seeds not found
             if "seed nodes were not found in the network" in error_msg.lower():
-                print(f"\n  Note: Some seed genes not found in network layers")
-                print(f"  This can happen if genes aren't expressed in certain contexts")
-                print(f"  MultiXrank will continue with available seeds...")
-                # Try to continue anyway - some versions throw warning as exception
-                try:
-                    ranking_df = multixrank_obj.random_walk_rank()
-                except:
-                    # If it really fails, re-raise
-                    raise
+                import re
+                bad_seeds = set(re.findall(r"'([^']+)'", error_msg))
+                print(f"  Removing problematic seeds and retrying: {bad_seeds}")
+                # Rewrite seeds.txt without the bad genes
+                seeds_file = os.path.join(abs_multixrank_dir, 'seeds.txt')
+                with open(seeds_file, 'r') as f:
+                    current_seeds = [l.strip() for l in f if l.strip()]
+                cleaned = [g for g in current_seeds if g not in bad_seeds]
+                with open(seeds_file, 'w') as f:
+                    f.write('\n'.join(cleaned) + '\n')
+                print(f"  Retrying with {len(cleaned)} seeds...")
+                multixrank_obj = multixrank.Multixrank(config='config.yml', wdir=abs_multixrank_dir)
+                ranking_df = multixrank_obj.random_walk_rank()
             else:
                 raise
         

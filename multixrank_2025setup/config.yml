@@ -1,0 +1,52 @@
+multiplex:
+  1:
+    layers:
+    - multiplex/1/A-LTMR.TAC3.tsv
+    - multiplex/1/A-PEP.CHRNA7_SLC18A3.tsv
+    - multiplex/1/A-PEP.KIT.tsv
+    - multiplex/1/A-PEP.NTRK3_S100A16.tsv
+    - multiplex/1/A-PEP.SCGN_ADRA2C.tsv
+    - multiplex/1/A-Propr.EPHA3.tsv
+    - multiplex/1/A-Propr.HAPLN4.tsv
+    - multiplex/1/A-Propr.PCDH8.tsv
+    - multiplex/1/ATF3.tsv
+    - multiplex/1/Ab-LTMR.CCKAR.tsv
+    - multiplex/1/Ab-LTMR.ETV1.tsv
+    - multiplex/1/Ab-LTMR.LGI2.tsv
+    - multiplex/1/Ab-LTMR.NSG2.tsv
+    - multiplex/1/C-LTMR.CDH9.tsv
+    - multiplex/1/C-NP.MRGPRX1_GFRA2.tsv
+    - multiplex/1/C-NP.MRGPRX1_MRGPRX4.tsv
+    - multiplex/1/C-NP.SST.tsv
+    - multiplex/1/C-PEP.ADORA2B.tsv
+    - multiplex/1/C-PEP.TAC1_CACNG5.tsv
+    - multiplex/1/C-PEP.TAC1_CHRNA3.tsv
+    - multiplex/1/C-Thermo.RXFP1.tsv
+    - multiplex/1/C-Thermo.TRPM8.tsv
+    tau:
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+    - 0.045454545454545456
+seed: seeds.txt
+r: 0.7
+eta:
+- 1.0

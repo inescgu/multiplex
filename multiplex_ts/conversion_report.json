@@ -1,12 +1,12 @@
 {
   "summary": {
-    "n_cell_types": 157,
-    "genes_before": 18272,
-    "genes_after": 18272,
+    "n_cell_types": 156,
+    "genes_before": 13642,
+    "genes_after": 13642,
     "genes_lost": 0,
     "gene_retention_pct": 100.0,
-    "edges_before": 3296142,
-    "edges_after": 3296142,
+    "edges_before": 2915802,
+    "edges_after": 2915802,
     "edges_lost": 0,
     "edge_retention_pct": 100.0
   },
@@ -1636,19 +1636,6 @@
       "seed_genes_connected": false,
       "n_seed_components": 29
     },
-    "ppi": {
-      "ppi_genes_before": 17916,
-      "ppi_genes_after": 17916,
-      "ppi_genes_lost": 0,
-      "ppi_node_survival_pct": 100.0,
-      "ppi_edges_before": 380340,
-      "ppi_edges_after": 380340,
-      "ppi_edges_lost": 0,
-      "ppi_edge_survival_pct": 100.0,
-      "seed_gene_pct_of_layer": 2.2270596115204286,
-      "seed_genes_connected": false,
-      "n_seed_components": 100
-    },
     "pulmonary_ionocyte": {
       "ppi_genes_before": 2784,
       "ppi_genes_after": 2784,
@@ -2056,10 +2043,10 @@
   "seed_gene_analysis": {
     "summary": {
       "total_seed_genes": 408,
-      "seed_genes_in_ppi_before": 400,
-      "seed_genes_in_multiplex_after": 400,
+      "seed_genes_in_ppi_before": 350,
+      "seed_genes_in_multiplex_after": 350,
       "seed_genes_lost": 0,
-      "seed_gene_recovery_pct": 98.0392156862745
+      "seed_gene_recovery_pct": 85.7843137254902
     },
     "per_celltype": {
       "acinar_cell_of_salivary_gland": {
@@ -2811,12 +2798,6 @@
         "seed_genes_in_layer": 45,
         "seed_genes_lost": 0,
         "seed_gene_pct_of_total": 11.029411764705882
-      },
-      "ppi": {
-        "seed_genes_in_ppi": 399,
-        "seed_genes_in_layer": 399,
-        "seed_genes_lost": 0,
-        "seed_gene_pct_of_total": 97.79411764705883
       },
       "pulmonary_ionocyte": {
         "seed_genes_in_ppi": 49,
