@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/build_master_multiplex.py", line 437, in <module>
+    main()
+    ~~~~^^
+  File "/lisc/home/user/gerardursin/multiplex/build_master_multiplex.py", line 395, in main
+    ts_layers   = load_layers_from_folder(args.ts_layers_dir,   "tabula_sapiens")
+  File "/lisc/home/user/gerardursin/multiplex/build_master_multiplex.py", line 53, in load_layers_from_folder
+    raise FileNotFoundError(f"No *_layer.pkl files found in {layers_dir}")
+FileNotFoundError: No *_layer.pkl files found in ../multiplex_ts/layers

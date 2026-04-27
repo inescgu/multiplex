@@ -6,30 +6,30 @@ Top K genes compared: 200
 Score column used: GMean_Score
 
 GENE DISTRIBUTION:
-  In all 3 multiplexes: 43
-  In exactly 2 multiplexes: 164
+  In all 3 multiplexes: 71
+  In exactly 2 multiplexes: 122
   In exactly 1 multiplex: 143
-  Total unique genes: 350
+  Total unique genes: 336
 
 TOP GENES IN ALL MULTIPLEXES:
-   1. PTGER2          (mean rank: 18.3)
-   2. KIF1A           (mean rank: 47.7)
-   3. TRPM2           (mean rank: 54.0)
-   4. ADORA2A         (mean rank: 55.0)
-   5. P2RY1           (mean rank: 60.0)
-   6. SRD5A1          (mean rank: 60.3)
-   7. KCNJ6           (mean rank: 61.7)
-   8. PCSK6           (mean rank: 65.0)
-   9. ADCYAP1R1       (mean rank: 65.3)
-  10. CACNA1B         (mean rank: 66.0)
-  11. GABBR2          (mean rank: 69.3)
-  12. CNR1            (mean rank: 71.3)
-  13. P2RX4           (mean rank: 74.0)
-  14. CACNA1E         (mean rank: 77.3)
-  15. P2RY2           (mean rank: 81.7)
-  16. CD274           (mean rank: 83.7)
-  17. RASD2           (mean rank: 90.3)
-  18. LPAR1           (mean rank: 91.0)
-  19. TAC1            (mean rank: 92.7)
-  20. GRIK1           (mean rank: 93.0)
-  ... and 23 more
+   1. CNR1            (mean rank: 35.0)
+   2. ADCY8           (mean rank: 37.7)
+   3. CHRNB4          (mean rank: 40.3)
+   4. GLRA3           (mean rank: 40.7)
+   5. HOXB8           (mean rank: 49.0)
+   6. HCN2            (mean rank: 51.0)
+   7. SLC17A7         (mean rank: 53.0)
+   8. ADORA2A         (mean rank: 55.7)
+   9. GFRA2           (mean rank: 56.7)
+  10. ADRA2A          (mean rank: 61.7)
+  11. PENK            (mean rank: 66.7)
+  12. GABRG2          (mean rank: 67.0)
+  13. HCN1            (mean rank: 72.0)
+  14. GRIN1           (mean rank: 72.7)
+  15. KCNJ6           (mean rank: 75.0)
+  16. GABBR2          (mean rank: 76.7)
+  17. CACNA1B         (mean rank: 80.0)
+  18. ADCYAP1R1       (mean rank: 80.3)
+  19. CHRNB2          (mean rank: 80.3)
+  20. GRIA1           (mean rank: 81.3)
+  ... and 51 more

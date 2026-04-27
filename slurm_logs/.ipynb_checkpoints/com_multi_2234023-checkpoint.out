@@ -1,0 +1,12 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g02/tmp/slurm-2234023
+Running on host: node-g02.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Tue Apr  7 06:15:15 PM CEST 2026
+SLURM_JOB_ID: 2234023
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.0.0)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.5)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.6.1)
+Requirement already satisfied: pickly in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.0)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.17.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)

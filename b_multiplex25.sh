@@ -28,7 +28,7 @@ pip install --user pandas numpy networkx pickly scipy
 # Run the multiplex interactome construction
 python build_25hdrg_multiplex.py \
     --markers-file ../R/convert_hdrg_human_2025/cell_type_markers.csv \
-    --base-ppi ../og_gene_set/temp/combined/full_network.pkl \
+    --base-ppi ../og_gene_set/temp/combined26/full_network.pkl \
     --output-dir multiplex_2025hdrg \
     --seed-genes-file ../og_gene_set/seed_genes.csv
 

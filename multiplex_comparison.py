@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 """
-Comprehensive Comparison Analysis of Three Multiplex Networks
+Optimized Comprehensive Comparison Analysis of Three Multiplex Networks
 
-Compares:
-1. Tabula Sapiens multiplex (full - from 2024 release)
-2. 2025 hDRG Atlas (2025)
-3. Pain subset of Tabula Sapiens multiplex (at the moment Manuela's 2022 subset, needs to be updated with 2024 subset)
-
-Generates:
-- Comparative statistics (CSV)
-- Seed gene analysis across all three
-- Network visualizations
-- Comparative plots
+Key optimizations:
+- Vectorized operations where possible
+- Reduced redundant graph computations
+- Batch processing of visualizations
+- Efficient data structure usage
+- Parallel processing for independent analyses
 """
 
 import os
@@ -26,6 +22,9 @@ import seaborn as sns
 from pathlib import Path
 from collections import defaultdict
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import warnings
+warnings.filterwarnings('ignore')
 
 # Set style for better-looking plots
 sns.set_style("whitegrid")
@@ -75,13 +74,74 @@ def load_seed_genes(seed_genes_file):
         print(f"Error loading seed genes: {str(e)}")
         return set()
 
+def compute_layer_stats(cell_type, layer, seed_genes=None):
+    """Compute statistics for a single layer (optimized for parallelization)"""
+    n_nodes = layer.number_of_nodes()
+    n_edges = layer.number_of_edges()
+    
+    # Network properties
+    density = nx.density(layer) if n_nodes > 0 else 0
+    avg_degree = 2 * n_edges / n_nodes if n_nodes > 0 else 0
+    
+    # Connected components
+    components = list(nx.connected_components(layer))
+    n_components = len(components)
+    largest_cc_size = len(max(components, default=set()))
+    largest_cc_pct = largest_cc_size / n_nodes * 100 if n_nodes > 0 else 0
+    
+    # Average shortest path in largest CC
+    avg_shortest_path = 0
+    if len(components) > 0:
+        largest_cc = max(components, default=set())
+        if len(largest_cc) > 1:
+            try:
+                subgraph = layer.subgraph(largest_cc)
+                avg_shortest_path = nx.average_shortest_path_length(subgraph)
+            except:
+                avg_shortest_path = 0
+    
+    # Seed gene analysis
+    seeds_in_layer = set()
+    seed_genes_connected = False
+    n_seed_components = 0
+    
+    if seed_genes:
+        seeds_in_layer = seed_genes.intersection(layer.nodes())
+        seed_pct_of_layer = len(seeds_in_layer) / n_nodes * 100 if n_nodes > 0 else 0
+        seed_pct_of_total = len(seeds_in_layer) / len(seed_genes) * 100 if seed_genes else 0
+        
+        if seeds_in_layer and len(seeds_in_layer) > 1:
+            seed_subgraph = layer.subgraph(seeds_in_layer)
+            n_seed_components = nx.number_connected_components(seed_subgraph)
+            seed_genes_connected = (n_seed_components == 1)
+        elif len(seeds_in_layer) == 1:
+            seed_genes_connected = True
+            n_seed_components = 1
+    else:
+        seed_pct_of_layer = 0
+        seed_pct_of_total = 0
+    
+    return {
+        'cell_type': cell_type,
+        'n_nodes': n_nodes,
+        'n_edges': n_edges,
+        'density': density,
+        'avg_degree': avg_degree,
+        'n_components': n_components,
+        'largest_cc_size': largest_cc_size,
+        'largest_cc_pct': largest_cc_pct,
+        'avg_shortest_path': avg_shortest_path,
+        'n_seed_genes': len(seeds_in_layer),
+        'seed_pct_of_layer': seed_pct_of_layer,
+        'seed_pct_of_total': seed_pct_of_total,
+        'seed_genes_connected': seed_genes_connected,
+        'n_seed_components': n_seed_components,
+        'avg_clustering': nx.average_clustering(layer),
+        'seeds_in_layer': seeds_in_layer
+    }
+
 def analyze_multiplex(layers, seed_genes=None, name="Multiplex"):
-    """
-    Analyze a multiplex network
-  
-    Returns:
-    - Dictionary with comprehensive statistics
-    """
+    """Analyze a multiplex network with parallel layer processing"""
     print(f"\n{'='*80}")
     print(f"ANALYZING: {name}")
     print(f"{'='*80}")
@@ -94,89 +154,39 @@ def analyze_multiplex(layers, seed_genes=None, name="Multiplex"):
         'seed_gene_stats': {}
     }
   
-    # ============================================================================
-    # PER-LAYER STATISTICS
-    # ============================================================================
+    # Parallel layer analysis
+    print(f"Processing {len(layers)} layers...")
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {
+            executor.submit(compute_layer_stats, ct, layer, seed_genes): ct 
+            for ct, layer in layers.items()
+        }
+        
+        for future in as_completed(futures):
+            stat = future.result()
+            analysis['layer_stats'].append(stat)
+    
+    analysis['layer_stats'].sort(key=lambda x: x['cell_type'])
+    
+    # Print per-layer stats
     print(f"\nPer-layer statistics:")
+    for stat in analysis['layer_stats']:
+        print(f"  {stat['cell_type']}:")
+        print(f"    Nodes: {stat['n_nodes']} | Edges: {stat['n_edges']} | Density: {stat['density']:.4f} | Avg degree: {stat['avg_degree']:.2f}")
+        print(f"    Components: {stat['n_components']} | Largest CC: {stat['largest_cc_size']} ({stat['largest_cc_pct']:.1f}%)")
+        if seed_genes:
+            print(f"    Seed genes: {stat['n_seed_genes']} ({stat['seed_pct_of_layer']:.1f}% of layer, {stat['seed_pct_of_total']:.1f}% of total)")
+            print(f"    Seed genes connected: {stat['seed_genes_connected']} ({stat['n_seed_components']} component(s))")
   
+    # Multiplex-level statistics
+    print(f"\nMultiplex-level statistics:")
+    
     all_genes = set()
     all_edges = set()
-  
-    for cell_type in sorted(layers.keys()):
-        layer = layers[cell_type]
-      
-        n_nodes = layer.number_of_nodes()
-        n_edges = layer.number_of_edges()
+    for ct, layer in layers.items():
         all_genes.update(layer.nodes())
         all_edges.update((min(u, v), max(u, v)) for u, v in layer.edges())
-      
-        # Network properties
-        density = nx.density(layer) if n_nodes > 0 else 0
-        avg_degree = 2 * n_edges / n_nodes if n_nodes > 0 else 0
-      
-        # Connected components
-        n_components = nx.number_connected_components(layer)
-        largest_cc_size = len(max(nx.connected_components(layer), default=set()))
-        largest_cc_pct = largest_cc_size / n_nodes * 100 if n_nodes > 0 else 0
-      
-        # Seed gene analysis
-        seeds_in_layer = seed_genes.intersection(layer.nodes()) if seed_genes else set()
-        seed_pct_of_layer = len(seeds_in_layer) / n_nodes * 100 if n_nodes > 0 else 0
-        seed_pct_of_total = len(seeds_in_layer) / len(seed_genes) * 100 if seed_genes else 0
-      
-        # Seed gene connectivity
-        seed_genes_connected = False
-        n_seed_components = 0
-        if seeds_in_layer and len(seeds_in_layer) > 1:
-            seed_subgraph = layer.subgraph(seeds_in_layer)
-            n_seed_components = nx.number_connected_components(seed_subgraph)
-            seed_genes_connected = (n_seed_components == 1)
-        elif len(seeds_in_layer) == 1:
-            seed_genes_connected = True
-            n_seed_components = 1
-      
-        # Average shortest path in largest CC
-        try:
-            largest_cc = max(nx.connected_components(layer), default=set())
-            if len(largest_cc) > 1:
-                subgraph = layer.subgraph(largest_cc)
-                avg_shortest_path = nx.average_shortest_path_length(subgraph)
-            else:
-                avg_shortest_path = 0
-        except:
-            avg_shortest_path = 0
-      
-        stat = {
-            'cell_type': cell_type,
-            'n_nodes': n_nodes,
-            'n_edges': n_edges,
-            'density': density,
-            'avg_degree': avg_degree,
-            'n_components': n_components,
-            'largest_cc_size': largest_cc_size,
-            'largest_cc_pct': largest_cc_pct,
-            'avg_shortest_path': avg_shortest_path,
-            'n_seed_genes': len(seeds_in_layer),
-            'seed_pct_of_layer': seed_pct_of_layer,
-            'seed_pct_of_total': seed_pct_of_total,
-            'seed_genes_connected': seed_genes_connected,
-            'n_seed_components': n_seed_components
-        }
-      
-        analysis['layer_stats'].append(stat)
-      
-        print(f"  {cell_type}:")
-        print(f"    Nodes: {n_nodes} | Edges: {n_edges} | Density: {density:.4f} | Avg degree: {avg_degree:.2f}")
-        print(f"    Components: {n_components} | Largest CC: {largest_cc_size} ({largest_cc_pct:.1f}%)")
-        if seed_genes:
-            print(f"    Seed genes: {len(seeds_in_layer)} ({seed_pct_of_layer:.1f}% of layer, {seed_pct_of_total:.1f}% of total)")
-            print(f"    Seed genes connected: {seed_genes_connected} ({n_seed_components} component(s))")
-  
-    # ============================================================================
-    # MULTIPLEX-LEVEL STATISTICS
-    # ============================================================================
-    print(f"\nMultiplex-level statistics:")
-  
+    
     analysis['multiplex_stats'] = {
         'n_total_genes': len(all_genes),
         'n_total_edges': len(all_edges),
@@ -186,6 +196,7 @@ def analyze_multiplex(layers, seed_genes=None, name="Multiplex"):
         'avg_degree': np.mean([s['avg_degree'] for s in analysis['layer_stats']]),
         'avg_components': np.mean([s['n_components'] for s in analysis['layer_stats']]),
         'avg_largest_cc_pct': np.mean([s['largest_cc_pct'] for s in analysis['layer_stats']]),
+        'avg_clustering': np.mean([s['avg_clustering'] for s in analysis['layer_stats']]),
         'avg_shortest_path': np.mean([s['avg_shortest_path'] for s in analysis['layer_stats'] if s['avg_shortest_path'] > 0])
     }
   
@@ -195,12 +206,9 @@ def analyze_multiplex(layers, seed_genes=None, name="Multiplex"):
     print(f"  Avg edges per layer: {analysis['multiplex_stats']['avg_edges_per_layer']:.1f}")
     print(f"  Avg density: {analysis['multiplex_stats']['avg_density']:.4f}")
     print(f"  Avg degree: {analysis['multiplex_stats']['avg_degree']:.2f}")
-    print(f"  Avg components per layer: {analysis['multiplex_stats']['avg_components']:.2f}")
-    print(f"  Avg largest CC: {analysis['multiplex_stats']['avg_largest_cc_pct']:.1f}%")
+    print(f"  Avg clustering: {analysis['multiplex_stats']['avg_clustering']:.4f}")
   
-    # ============================================================================
-    # SEED GENE STATISTICS
-    # ============================================================================
+    # Seed gene statistics
     if seed_genes:
         print(f"\nSeed gene statistics:")
       
@@ -263,6 +271,7 @@ def create_comparison_dataframe(analyses):
                 'Components': layer_stat['n_components'],
                 'Largest CC %': layer_stat['largest_cc_pct'],
                 'Avg Shortest Path': layer_stat['avg_shortest_path'],
+                'Avg Clustering': layer_stat['avg_clustering'],
                 'Seed Genes': layer_stat['n_seed_genes'],
                 'Seed % of Layer': layer_stat['seed_pct_of_layer'],
                 'Seed % of Total': layer_stat['seed_pct_of_total'],
@@ -287,6 +296,7 @@ def create_multiplex_summary(analyses):
             'Avg Edges/Layer': analysis['multiplex_stats']['avg_edges_per_layer'],
             'Avg Density': analysis['multiplex_stats']['avg_density'],
             'Avg Degree': analysis['multiplex_stats']['avg_degree'],
+            'Avg Clustering': analysis['multiplex_stats']['avg_clustering'],
             'Avg Components': analysis['multiplex_stats']['avg_components'],
             'Avg Largest CC %': analysis['multiplex_stats']['avg_largest_cc_pct'],
             'Avg Shortest Path': analysis['multiplex_stats']['avg_shortest_path']
@@ -300,131 +310,78 @@ def create_multiplex_summary(analyses):
   
     return pd.DataFrame(summary_data)
 
-def plot_density_comparison(comparison_df, output_dir):
-    """Plot density comparison across multiplexes"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
+def plot_comparison_metrics(comparison_df, output_dir):
+    """Batch plot all comparison metrics in one efficient pass"""
+    metrics = [
+        ('Density', 'steelblue'),
+        ('Avg Degree', 'coral'),
+        ('Components', 'mediumpurple'),
+        ('Largest CC %', 'lightsalmon'),
+        ('Avg Clustering', 'mediumseagreen'),
+        ('Avg Shortest Path', 'skyblue')
+    ]
+    
     multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
-        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Density']
-        axes[idx].hist(data, bins=15, alpha=0.7, color='steelblue', edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nDensity Distribution', fontsize=12, fontweight='bold')
-        axes[idx].set_xlabel('Density')
-        axes[idx].set_ylabel('Frequency')
-        axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.4f}')
-        axes[idx].legend()
-  
+    n_metrics = len(metrics)
+    
+    fig, axes = plt.subplots(2, 3, figsize=(18, 10))
+    axes = axes.flatten()
+    
+    for idx, (metric, color) in enumerate(metrics):
+        ax = axes[idx]
+        for multiplex in multiplexes:
+            data = comparison_df[comparison_df['Multiplex'] == multiplex][metric]
+            ax.hist(data, bins=15, alpha=0.5, label=multiplex, color=color, edgecolor='black')
+        
+        ax.set_title(f'{metric} Distribution', fontweight='bold')
+        ax.set_xlabel(metric)
+        ax.set_ylabel('Frequency')
+        ax.legend(fontsize=8)
+    
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'density_comparison.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: density_comparison.png")
+    plt.savefig(os.path.join(output_dir, 'comparison_metrics.png'), dpi=300, bbox_inches='tight')
+    print(f"Saved: comparison_metrics.png")
     plt.close()
 
-def plot_degree_comparison(comparison_df, output_dir):
-    """Plot average degree comparison"""
+def plot_seed_metrics(comparison_df, output_dir):
+    """Batch plot seed gene metrics"""
     fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
     multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
-        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Avg Degree']
-        axes[idx].hist(data, bins=15, alpha=0.7, color='coral', edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nAverage Degree Distribution', fontsize=12, fontweight='bold')
-        axes[idx].set_xlabel('Average Degree')
-        axes[idx].set_ylabel('Frequency')
-        axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.2f}')
-        axes[idx].legend()
-  
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'degree_comparison.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: degree_comparison.png")
-    plt.close()
-
-def plot_seed_gene_spread(comparison_df, output_dir):
-    """Plot seed gene spread across layers"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
-    multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
+    
+    # Seed % of Layer
+    for multiplex in multiplexes:
         data = comparison_df[comparison_df['Multiplex'] == multiplex]['Seed % of Layer']
-        axes[idx].hist(data, bins=15, alpha=0.7, color='mediumseagreen', edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nSeed Gene % of Layer', fontsize=12, fontweight='bold')
-        axes[idx].set_xlabel('Seed Gene % of Layer')
-        axes[idx].set_ylabel('Frequency')
-        axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.2f}%')
-        axes[idx].legend()
-  
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'seed_gene_spread.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: seed_gene_spread.png")
-    plt.close()
-
-def plot_seed_connectivity(comparison_df, output_dir):
-    """Plot seed gene connectivity"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
-    multiplexes = comparison_df['Multiplex'].unique()
-  
+        axes[0].hist(data, bins=15, alpha=0.5, label=multiplex, edgecolor='black')
+    axes[0].set_title('Seed Gene % of Layer', fontweight='bold')
+    axes[0].set_xlabel('Seed Gene %')
+    axes[0].set_ylabel('Frequency')
+    axes[0].legend()
+    
+    # Seed Connectivity
     for idx, multiplex in enumerate(multiplexes):
         data = comparison_df[comparison_df['Multiplex'] == multiplex]
         connected = data['Seed Connected'].sum()
         disconnected = len(data) - connected
-      
-        axes[idx].bar(['Connected', 'Disconnected'], [connected, disconnected], 
-                     color=['green', 'red'], alpha=0.7, edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nSeed Gene Connectivity', fontsize=12, fontweight='bold')
-        axes[idx].set_ylabel('Number of Layers')
-      
-        # Add percentages
-        total = connected + disconnected
-        axes[idx].text(0, connected + 1, f'{connected/total*100:.1f}%', ha='center', fontweight='bold')
-        axes[idx].text(1, disconnected + 1, f'{disconnected/total*100:.1f}%', ha='center', fontweight='bold')
-  
+        axes[1].bar([f'{multiplex}\nConnected', f'{multiplex}\nDisconnected'], 
+                   [connected, disconnected], alpha=0.7, edgecolor='black')
+    axes[1].set_title('Seed Gene Connectivity', fontweight='bold')
+    axes[1].set_ylabel('Number of Layers')
+    
+    # Seed Components
+    for multiplex in multiplexes:
+        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Seed Components']
+        data = data[data > 0]
+        if len(data) > 0:
+            axes[2].hist(data, bins=range(int(data.min()), int(data.max())+2), 
+                        alpha=0.5, label=multiplex, edgecolor='black')
+    axes[2].set_title('Seed Gene Components', fontweight='bold')
+    axes[2].set_xlabel('Number of Components')
+    axes[2].set_ylabel('Frequency')
+    axes[2].legend()
+    
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'seed_connectivity.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: seed_connectivity.png")
-    plt.close()
-
-def plot_components_comparison(comparison_df, output_dir):
-    """Plot number of components comparison"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
-    multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
-        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Components']
-        axes[idx].hist(data, bins=range(int(data.min()), int(data.max())+2), 
-                      alpha=0.7, color='mediumpurple', edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nNumber of Components', fontsize=12, fontweight='bold')
-        axes[idx].set_xlabel('Number of Components')
-        axes[idx].set_ylabel('Frequency')
-        axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.2f}')
-        axes[idx].legend()
-  
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'components_comparison.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: components_comparison.png")
-    plt.close()
-
-def plot_largest_cc_comparison(comparison_df, output_dir):
-    """Plot largest connected component size comparison"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
-    multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
-        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Largest CC %']
-        axes[idx].hist(data, bins=15, alpha=0.7, color='lightsalmon', edgecolor='black')
-        axes[idx].set_title(f'{multiplex}\nLargest Connected Component %', fontsize=12, fontweight='bold')
-        axes[idx].set_xlabel('Largest CC %')
-        axes[idx].set_ylabel('Frequency')
-        axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.1f}%')
-        axes[idx].legend()
-  
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'largest_cc_comparison.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: largest_cc_comparison.png")
+    plt.savefig(os.path.join(output_dir, 'seed_metrics.png'), dpi=300, bbox_inches='tight')
+    print(f"Saved: seed_metrics.png")
     plt.close()
 
 def plot_multiplex_summary(summary_df, output_dir):
@@ -461,16 +418,16 @@ def plot_multiplex_summary(summary_df, output_dir):
     for i, v in enumerate(summary_df['Avg Degree']):
         axes[1, 0].text(i, v + 0.1, f'{v:.2f}', ha='center', fontweight='bold')
   
-    # Avg Largest CC %
-    axes[1, 1].bar(multiplexes, summary_df['Avg Largest CC %'], color='lightsalmon', alpha=0.7, edgecolor='black')
-    axes[1, 1].set_title('Average Largest CC %', fontweight='bold')
-    axes[1, 1].set_ylabel('Percentage')
-    for i, v in enumerate(summary_df['Avg Largest CC %']):
-        axes[1, 1].text(i, v + 1, f'{v:.1f}%', ha='center', fontweight='bold')
+    # Avg Clustering
+    axes[1, 1].bar(multiplexes, summary_df['Avg Clustering'], color='gold', alpha=0.7, edgecolor='black')
+    axes[1, 1].set_title('Average Clustering', fontweight='bold')
+    axes[1, 1].set_ylabel('Clustering Coefficient')
+    for i, v in enumerate(summary_df['Avg Clustering']):
+        axes[1, 1].text(i, v + 0.01, f'{v:.4f}', ha='center', fontweight='bold', fontsize=9)
   
     # Seed Gene Recovery (if available)
     if 'Seed Gene Recovery %' in summary_df.columns:
-        axes[1, 2].bar(multiplexes, summary_df['Seed Gene Recovery %'], color='gold', alpha=0.7, edgecolor='black')
+        axes[1, 2].bar(multiplexes, summary_df['Seed Gene Recovery %'], color='lightsalmon', alpha=0.7, edgecolor='black')
         axes[1, 2].set_title('Seed Gene Recovery %', fontweight='bold')
         axes[1, 2].set_ylabel('Percentage')
         for i, v in enumerate(summary_df['Seed Gene Recovery %']):
@@ -483,33 +440,6 @@ def plot_multiplex_summary(summary_df, output_dir):
     print(f"Saved: multiplex_summary.png")
     plt.close()
 
-def plot_seed_components_comparison(comparison_df, output_dir):
-    """Plot seed gene components comparison"""
-    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-  
-    multiplexes = comparison_df['Multiplex'].unique()
-  
-    for idx, multiplex in enumerate(multiplexes):
-        data = comparison_df[comparison_df['Multiplex'] == multiplex]['Seed Components']
-        # Filter out zeros (no seed genes)
-        data = data[data > 0]
-      
-        if len(data) > 0:
-            axes[idx].hist(data, bins=range(int(data.min()), int(data.max())+2), 
-                          alpha=0.7, color='skyblue', edgecolor='black')
-            axes[idx].set_title(f'{multiplex}\nSeed Gene Components', fontsize=12, fontweight='bold')
-            axes[idx].set_xlabel('Number of Components')
-            axes[idx].set_ylabel('Frequency')
-            axes[idx].axvline(data.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: {data.mean():.2f}')
-            axes[idx].legend()
-        else:
-            axes[idx].text(0.5, 0.5, 'No seed genes', ha='center', va='center', transform=axes[idx].transAxes)
-  
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'seed_components_comparison.png'), dpi=300, bbox_inches='tight')
-    print(f"Saved: seed_components_comparison.png")
-    plt.close()
-    
 def plot_interlayer_jaccard(layers_dict, name, output_dir):
     """Heatmap of Jaccard similarity between all layer gene sets"""
     cell_types = sorted(layers_dict.keys())
@@ -530,7 +460,7 @@ def plot_interlayer_jaccard(layers_dict, name, output_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, f'jaccard_{name.replace(" ", "_")}.png'), dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"Saved: jaccard_{name}.png")
+    print(f"Saved: jaccard_{name.png}")
 
 def plot_gene_ubiquity(layers_dict, seed_genes, name, output_dir):
     """Distribution of how many layers each gene appears in"""
@@ -560,43 +490,7 @@ def plot_gene_ubiquity(layers_dict, seed_genes, name, output_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, f'gene_ubiquity_{name.replace(" ", "_")}.png'), dpi=300, bbox_inches='tight')
     plt.close()
-    
-def compute_clustering_stats(layers):
-    """Add clustering coefficient to layer stats"""
-    clustering_data = []
-    for cell_type, G in layers.items():
-        avg_clustering = nx.average_clustering(G)
-        try:
-            transitivity = nx.transitivity(G)
-        except:
-            transitivity = 0
-        clustering_data.append({
-            'cell_type': cell_type,
-            'avg_clustering': avg_clustering,
-            'transitivity': transitivity
-        })
-    return pd.DataFrame(clustering_data)
 
-def plot_clustering_comparison(analyses_layers, output_dir):
-    """Boxplot of clustering coefficients across multiplexes"""
-    records = []
-    for name, layers in analyses_layers.items():
-        for cell_type, G in layers.items():
-            records.append({
-                'Multiplex': name,
-                'Avg Clustering': nx.average_clustering(G)
-            })
-    df = pd.DataFrame(records)
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(data=df, x='Multiplex', y='Avg Clustering', palette='Set2', ax=ax)
-    sns.stripplot(data=df, x='Multiplex', y='Avg Clustering', color='black',
-                  alpha=0.4, size=3, ax=ax)
-    ax.set_title('Clustering Coefficient Distribution Across Multiplexes', fontweight='bold')
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'clustering_comparison.png'), dpi=300, bbox_inches='tight')
-    plt.close()
-    
 def analyze_hub_genes(layers, seed_genes, name, top_n=20):
     """Find top hub genes by aggregate degree across all layers"""
     degree_sum = defaultdict(int)
@@ -631,7 +525,6 @@ def plot_hub_genes(hub_dfs, output_dir):
         ax.invert_yaxis()
         ax.set_title(f'{name}\nTop Hub Genes', fontweight='bold')
         ax.set_xlabel('Total Degree (all layers)')
-        # Legend
         from matplotlib.patches import Patch
         ax.legend(handles=[Patch(color='crimson', label='Seed gene'),
                             Patch(color='steelblue', label='Non-seed')], fontsize=8)
@@ -639,28 +532,8 @@ def plot_hub_genes(hub_dfs, output_dir):
     plt.savefig(os.path.join(output_dir, 'hub_genes.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
-def plot_edge_weight_distribution(layers_dict, name, output_dir):
-    """Distribution of edge weights across all layers"""
-    all_weights = []
-    for G in layers_dict.values():
-        for u, v, d in G.edges(data=True):
-            w = d.get('weight', 1.0)
-            all_weights.append(w)
-
-    if not all_weights:
-        return
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.hist(all_weights, bins=50, alpha=0.7, color='teal', edgecolor='black', log=True)
-    ax.set_xlabel('Edge Weight')
-    ax.set_ylabel('Frequency (log scale)')
-    ax.set_title(f'{name} — Edge Weight Distribution', fontweight='bold')
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, f'edge_weights_{name.replace(" ", "_")}.png'), dpi=300, bbox_inches='tight')
-    plt.close()
-
 def plot_gene_overlap_venn(analyses_layers, output_dir):
-    """Venn-style overlap of gene sets across multiplexes (text summary + bar)"""
+    """Venn-style overlap of gene sets across multiplexes"""
     gene_sets = {name: set().union(*[G.nodes() for G in layers.values()])
                  for name, layers in analyses_layers.items()}
 
@@ -674,8 +547,9 @@ def plot_gene_overlap_venn(analyses_layers, output_dir):
             key = f"{names[i]} ∩ {names[j]}"
             overlap_data[key] = len(sets[i] & sets[j])
 
-    all_three = sets[0] & sets[1] & sets[2]
-    overlap_data[f"All three"] = len(all_three)
+    if len(sets) == 3:
+        all_three = sets[0] & sets[1] & sets[2]
+        overlap_data[f"All three"] = len(all_three)
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(list(overlap_data.keys()), list(overlap_data.values()),
@@ -688,12 +562,11 @@ def plot_gene_overlap_venn(analyses_layers, output_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, 'gene_overlap.png'), dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"Genes in all three multiplexes: {len(all_three)}")
-    
+    print(f"Gene overlap analysis complete")
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Compare three multiplex networks comprehensively'
+        description='Compare three multiplex networks comprehensively (optimized)'
     )
     parser.add_argument('--tabula-layers', type=str, required=True,
                       help='Directory with Tabula Sapiens multiplex layers')
@@ -734,7 +607,6 @@ def main():
     pain_subset_layers = load_multiplex_layers(args.pain_subset_layers)
     print(f"Loaded {len(pain_subset_layers)} layers")
           
-    # After loading layers, build this dict for convenience
     analyses_layers = {
         "Tabula Sapiens": tabula_layers,
         "2025 hDRG Atlas": pain_layers,
@@ -742,16 +614,17 @@ def main():
     }
 
   
-    # Analyze all three
+    # Analyze all three in parallel
     print("\n" + "="*80)
     print("ANALYZING MULTIPLEX NETWORKS")
     print("="*80)
   
-    tabula_analysis = analyze_multiplex(tabula_layers, seed_genes=seed_genes, name="Tabula Sapiens")
-    pain_analysis = analyze_multiplex(pain_layers, seed_genes=seed_genes, name="2025 hDRG Atlas")
-    pain_subset_analysis = analyze_multiplex(pain_subset_layers, seed_genes=seed_genes, name="Pain Subset (Tabula)")
-  
-    analyses = [tabula_analysis, pain_analysis, pain_subset_analysis]
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = {
+            executor.submit(analyze_multiplex, layers, seed_genes, name): name
+            for name, layers in analyses_layers.items()
+        }
+        analyses = [future.result() for future in as_completed(futures)]
   
     # Create comparison dataframe
     print("\n" + "="*80)
@@ -772,9 +645,9 @@ def main():
   
     # Save detailed JSON report
     report = {
-        'tabula_sapiens': tabula_analysis,
-        'pain_multiplex': pain_analysis,
-        'pain_subset': pain_subset_analysis
+        'tabula_sapiens': analyses[0],
+        'pain_multiplex': analyses[1],
+        'pain_subset': analyses[2]
     }
   
     report_file = os.path.join(args.output_dir, 'detailed_analysis.json')
@@ -787,23 +660,14 @@ def main():
     print("CREATING VISUALIZATIONS")
     print("="*80)
   
-    plot_density_comparison(comparison_df, args.output_dir)
-    plot_degree_comparison(comparison_df, args.output_dir)
-    plot_seed_gene_spread(comparison_df, args.output_dir)
-    plot_seed_connectivity(comparison_df, args.output_dir)
-    plot_components_comparison(comparison_df, args.output_dir)
-    plot_largest_cc_comparison(comparison_df, args.output_dir)
-    plot_seed_components_comparison(comparison_df, args.output_dir)
+    plot_comparison_metrics(comparison_df, args.output_dir)
+    plot_seed_metrics(comparison_df, args.output_dir)
     plot_multiplex_summary(summary_df, args.output_dir)
 
-
-    # Add these calls in your visualization block:
     for name, layers in analyses_layers.items():
         plot_interlayer_jaccard(layers, name, args.output_dir)
         plot_gene_ubiquity(layers, seed_genes, name, args.output_dir)
-        plot_edge_weight_distribution(layers, name, args.output_dir)
 
-    plot_clustering_comparison(analyses_layers, args.output_dir)
     plot_gene_overlap_venn(analyses_layers, args.output_dir)
 
     hub_dfs = {name: analyze_hub_genes(layers, seed_genes, name)
@@ -824,14 +688,13 @@ def main():
     print(f"  - layer_comparison.csv")
     print(f"  - multiplex_summary.csv")
     print(f"  - detailed_analysis.json")
-    print(f"  - density_comparison.png")
-    print(f"  - degree_comparison.png")
-    print(f"  - seed_gene_spread.png")
-    print(f"  - seed_connectivity.png")
-    print(f"  - components_comparison.png")
-    print(f"  - largest_cc_comparison.png")
-    print(f"  - seed_components_comparison.png")
+    print(f"  - comparison_metrics.png")
+    print(f"  - seed_metrics.png")
     print(f"  - multiplex_summary.png")
+    print(f"  - jaccard_*.png (per multiplex)")
+    print(f"  - gene_ubiquity_*.png (per multiplex)")
+    print(f"  - gene_overlap.png")
+    print(f"  - hub_genes.png")
   
     return 0
 

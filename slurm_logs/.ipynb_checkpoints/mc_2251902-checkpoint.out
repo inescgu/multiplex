@@ -1,0 +1,235 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g06/tmp/slurm-2251902
+Running on host: node-g06.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed Apr  8 02:17:36 PM CEST 2026
+SLURM_JOB_ID: 2251902
+Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.0.0)
+Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.5)
+Requirement already satisfied: networkx in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.6.1)
+Requirement already satisfied: pickly in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.0)
+Requirement already satisfied: scipy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (1.17.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+
+================================================================================
+LOADING DATA
+================================================================================
+Loaded 408 seed genes
+
+Loading Tabula Sapiens multiplex...
+  [1/156] Loaded B cell: 10195 nodes, 159622 edges
+  [2/156] Loaded BEST4+ enterocyte: 8053 nodes, 109410 edges
+  [3/156] Loaded CD4-positive, alpha-beta T cell: 10564 nodes, 169098 edges
+  [4/156] Loaded CD4-positive, alpha-beta thymocyte: 9431 nodes, 145688 edges
+  [5/156] Loaded CD8-positive, alpha-beta T cell: 10557 nodes, 170260 edges
+  [6/156] Loaded CD8-positive, alpha-beta thymocyte: 10251 nodes, 159090 edges
+  [7/156] Loaded Langerhans cell: 7967 nodes, 115874 edges
+  [8/156] Loaded Mueller cell: 9637 nodes, 142195 edges
+  [9/156] Loaded Schwann cell: 9284 nodes, 138821 edges
+  [10/156] Loaded T cell: 10151 nodes, 161625 edges
+  [11/156] Loaded acinar cell of salivary gland: 11165 nodes, 179780 edges
+  [12/156] Loaded acinar cell: 7299 nodes, 93726 edges
+  [13/156] Loaded activated CD4-positive, alpha-beta T cell: 8720 nodes, 128714 edges
+  [14/156] Loaded activated CD8-positive, alpha-beta T cell: 6709 nodes, 88281 edges
+  [15/156] Loaded adventitial cell: 13551 nodes, 227959 edges
+  [16/156] Loaded alveolar adventitial fibroblast: 11753 nodes, 188593 edges
+  [17/156] Loaded basal cell of prostate epithelium: 11288 nodes, 182316 edges
+  [18/156] Loaded basal cell: 12970 nodes, 219682 edges
+  [19/156] Loaded basophil: 8361 nodes, 120830 edges
+  [20/156] Loaded bladder urothelial cell: 11727 nodes, 192640 edges
+  [21/156] Loaded blood vessel smooth muscle cell: 8885 nodes, 133393 edges
+  [22/156] Loaded bronchial smooth muscle cell: 9022 nodes, 132890 edges
+  [23/156] Loaded capillary endothelial cell: 11782 nodes, 190019 edges
+  [24/156] Loaded cardiac endothelial cell: 10369 nodes, 159852 edges
+  [25/156] Loaded ciliated epithelial cell: 10848 nodes, 170882 edges
+  [26/156] Loaded classical monocyte: 10141 nodes, 156095 edges
+  [27/156] Loaded club cell: 10994 nodes, 174242 edges
+  [28/156] Loaded colon endothelial cell: 10734 nodes, 168093 edges
+  [29/156] Loaded colon macrophage: 9491 nodes, 143802 edges
+  [30/156] Loaded common myeloid progenitor: 11638 nodes, 187680 edges
+  [31/156] Loaded conjunctival epithelial cell: 10599 nodes, 168555 edges
+  [32/156] Loaded connective tissue cell: 8326 nodes, 117835 edges
+  [33/156] Loaded corneal epithelial cell: 9749 nodes, 152657 edges
+  [34/156] Loaded duct epithelial cell: 11437 nodes, 185742 edges
+  [35/156] Loaded endothelial cell of arteriole: 9728 nodes, 147577 edges
+  [36/156] Loaded endothelial cell of artery: 11007 nodes, 174458 edges
+  [37/156] Loaded endothelial cell of lymphatic vessel: 11379 nodes, 184135 edges
+  [38/156] Loaded endothelial cell of vascular tree: 12888 nodes, 211803 edges
+  [39/156] Loaded endothelial cell of venule: 9281 nodes, 137926 edges
+  [40/156] Loaded endothelial cell: 12022 nodes, 195837 edges
+  [41/156] Loaded enterocyte of epithelium of large intestine: 12176 nodes, 196943 edges
+  [42/156] Loaded enterocyte of epithelium proper of duodenum: 8490 nodes, 120142 edges
+  [43/156] Loaded enterocyte of epithelium proper of ileum: 9178 nodes, 132899 edges
+  [44/156] Loaded enterocyte of epithelium proper of jejunum: 8128 nodes, 115545 edges
+  [45/156] Loaded enterocyte of epithelium proper of small intestine: 14003 nodes, 232158 edges
+  [46/156] Loaded enteroendocrine cell of small intestine: 11108 nodes, 169886 edges
+  [47/156] Loaded enteroglial cell: 8971 nodes, 130363 edges
+  [48/156] Loaded epithelial cell of uterus: 12072 nodes, 199095 edges
+  [49/156] Loaded epithelial cell: 9547 nodes, 144514 edges
+  [50/156] Loaded erythrocyte: 4470 nodes, 51311 edges
+  [51/156] Loaded erythroid progenitor cell: 11394 nodes, 183335 edges
+  [52/156] Loaded eye photoreceptor cell: 8733 nodes, 123089 edges
+  [53/156] Loaded fast muscle cell: 9460 nodes, 143523 edges
+  [54/156] Loaded fibroblast of breast: 9629 nodes, 145548 edges
+  [55/156] Loaded fibroblast of cardiac tissue: 10440 nodes, 161199 edges
+  [56/156] Loaded fibroblast: 12276 nodes, 201571 edges
+  [57/156] Loaded gamma-delta T cell: 7196 nodes, 99738 edges
+  [58/156] Loaded glandular secretory epithelial cell: 10571 nodes, 166732 edges
+  [59/156] Loaded granulocyte: 10860 nodes, 171126 edges
+  [60/156] Loaded hematopoietic cell: 6666 nodes, 83403 edges
+  [61/156] Loaded hematopoietic precursor cell: 9981 nodes, 157146 edges
+  [62/156] Loaded hematopoietic stem cell: 12279 nodes, 199851 edges
+  [63/156] Loaded hepatic stellate cell: 9188 nodes, 134038 edges
+  [64/156] Loaded hepatocyte: 8884 nodes, 125501 edges
+  [65/156] Loaded innate lymphoid cell: 12105 nodes, 196550 edges
+  [66/156] Loaded intermediate monocyte: 8790 nodes, 131837 edges
+  [67/156] Loaded interstitial cell of Cajal: 4914 nodes, 53586 edges
+  [68/156] Loaded intestinal crypt stem cell of colon: 9741 nodes, 150934 edges
+  [69/156] Loaded intestinal crypt stem cell of small intestine: 11504 nodes, 184410 edges
+  [70/156] Loaded intestinal tuft cell: 8255 nodes, 115208 edges
+  [71/156] Loaded intrahepatic cholangiocyte: 10729 nodes, 168318 edges
+  [72/156] Loaded ionocyte: 9670 nodes, 147396 edges
+  [73/156] Loaded keratocyte: 10171 nodes, 156134 edges
+  [74/156] Loaded kidney epithelial cell: 9501 nodes, 144447 edges
+  [75/156] Loaded large intestine goblet cell: 7661 nodes, 104217 edges
+  [76/156] Loaded leukocyte: 12976 nodes, 216673 edges
+  [77/156] Loaded luminal cell of prostate epithelium: 11479 nodes, 184799 edges
+  [78/156] Loaded luminal epithelial cell of mammary gland: 11087 nodes, 178317 edges
+  [79/156] Loaded lung multiciliated epithelial cell: 12054 nodes, 196250 edges
+  [80/156] Loaded macrophage: 11523 nodes, 187090 edges
+  [81/156] Loaded male germ cell: 9673 nodes, 139250 edges
+  [82/156] Loaded mast cell: 11147 nodes, 177652 edges
+  [83/156] Loaded mature NK T cell: 10943 nodes, 176044 edges
+  [84/156] Loaded melanocyte: 10334 nodes, 161778 edges
+  [85/156] Loaded mesenchymal stem cell of adipose tissue: 10587 nodes, 166263 edges
+  [86/156] Loaded mesenchymal stem cell: 12426 nodes, 200824 edges
+  [87/156] Loaded mesothelial cell: 11290 nodes, 181107 edges
+  [88/156] Loaded microglial cell: 12682 nodes, 207195 edges
+  [89/156] Loaded monocyte: 10905 nodes, 173916 edges
+  [90/156] Loaded mononuclear phagocyte: 8839 nodes, 129614 edges
+  [91/156] Loaded mucus secreting cell: 10530 nodes, 166877 edges
+  [92/156] Loaded multiciliated columnar cell of tracheobronchial tree: 12037 nodes, 196875 edges
+  [93/156] Loaded mural cell: 9485 nodes, 142867 edges
+  [94/156] Loaded muscle cell: 4802 nodes, 58759 edges
+  [95/156] Loaded myeloid cell: 10613 nodes, 163501 edges
+  [96/156] Loaded myeloid dendritic cell: 11662 nodes, 187546 edges
+  [97/156] Loaded myeloid leukocyte: 7516 nodes, 100682 edges
+  [98/156] Loaded myo-medullary thymic epithelial cell: 9253 nodes, 138188 edges
+  [99/156] Loaded myoepithelial cell: 9589 nodes, 145268 edges
+  [100/156] Loaded myofibroblast cell: 11283 nodes, 178700 edges
+  [101/156] Loaded myometrial cell: 8561 nodes, 124707 edges
+  [102/156] Loaded naive thymus-derived CD4-positive, alpha-beta T cell: 10040 nodes, 156627 edges
+  [103/156] Loaded naive thymus-derived CD8-positive, alpha-beta T cell: 7421 nodes, 104005 edges
+  [104/156] Loaded natural killer cell: 10824 nodes, 173631 edges
+  [105/156] Loaded neuro-medullary thymic epithelial cell: 9770 nodes, 121157 edges
+  [106/156] Loaded neuron: 6501 nodes, 76204 edges
+  [107/156] Loaded neutrophil: 5765 nodes, 64586 edges
+  [108/156] Loaded non-classical monocyte: 10082 nodes, 156427 edges
+  [109/156] Loaded ovarian surface epithelial cell: 9945 nodes, 154212 edges
+  [110/156] Loaded pancreatic acinar cell: 9978 nodes, 153947 edges
+  [111/156] Loaded pancreatic ductal cell: 10635 nodes, 166411 edges
+  [112/156] Loaded pancreatic stellate cell: 9895 nodes, 150726 edges
+  [113/156] Loaded paneth cell of colon: 12054 nodes, 195861 edges
+  [114/156] Loaded paneth cell of epithelium of small intestine: 12220 nodes, 196937 edges
+  [115/156] Loaded pericyte: 12204 nodes, 198322 edges
+  [116/156] Loaded peritubular myoid cell: 8683 nodes, 115887 edges
+  [117/156] Loaded plasma cell: 11532 nodes, 187804 edges
+  [118/156] Loaded plasmacytoid dendritic cell: 10069 nodes, 157954 edges
+  [119/156] Loaded platelet: 5788 nodes, 65927 edges
+  [120/156] Loaded progenitor cell of mammary luminal epithelium: 7542 nodes, 110896 edges
+  [121/156] Loaded pulmonary alveolar type 1 cell: 10618 nodes, 168659 edges
+  [122/156] Loaded pulmonary alveolar type 2 cell: 12585 nodes, 209187 edges
+  [123/156] Loaded regular atrial cardiac myocyte: 10819 nodes, 173274 edges
+  [124/156] Loaded regulatory T cell: 9825 nodes, 153144 edges
+  [125/156] Loaded respiratory tract goblet cell: 12033 nodes, 199549 edges
+  [126/156] Loaded retinal bipolar neuron: 12569 nodes, 196837 edges
+  [127/156] Loaded retinal blood vessel endothelial cell: 10678 nodes, 170173 edges
+  [128/156] Loaded retinal pigment epithelial cell: 7968 nodes, 107598 edges
+  [129/156] Loaded salivary gland cell: 12351 nodes, 204244 edges
+  [130/156] Loaded sebocyte: 12233 nodes, 203147 edges
+  [131/156] Loaded serous cell of epithelium of trachea: 8512 nodes, 121877 edges
+  [132/156] Loaded skeletal muscle satellite stem cell: 12191 nodes, 197143 edges
+  [133/156] Loaded slow muscle cell: 8099 nodes, 112059 edges
+  [134/156] Loaded small intestine goblet cell: 10492 nodes, 159628 edges
+  [135/156] Loaded smooth muscle cell: 12041 nodes, 197351 edges
+  [136/156] Loaded spermatid: 5700 nodes, 51971 edges
+  [137/156] Loaded spermatocyte: 9861 nodes, 135342 edges
+  [138/156] Loaded spermatogonium: 8771 nodes, 125888 edges
+  [139/156] Loaded stratified squamous epithelial cell: 10645 nodes, 172039 edges
+  [140/156] Loaded stromal cell of ovary: 7647 nodes, 106520 edges
+  [141/156] Loaded stromal cell: 13280 nodes, 221417 edges
+  [142/156] Loaded supporting cell of vestibular epithelium: 10059 nodes, 152874 edges
+  [143/156] Loaded tendon cell: 10694 nodes, 164442 edges
+  [144/156] Loaded theca cell: 10903 nodes, 173286 edges
+  [145/156] Loaded thymic fibroblast type 1: 9357 nodes, 141304 edges
+  [146/156] Loaded thymic fibroblast type 2: 9443 nodes, 142737 edges
+  [147/156] Loaded thymocyte: 8263 nodes, 117755 edges
+  [148/156] Loaded tissue-resident macrophage: 8964 nodes, 130173 edges
+  [149/156] Loaded tongue muscle cell: 9747 nodes, 148336 edges
+  [150/156] Loaded tracheal goblet cell: 11626 nodes, 186836 edges
+  [151/156] Loaded transit amplifying cell of colon: 9274 nodes, 144077 edges
+  [152/156] Loaded tuft cell of colon: 7860 nodes, 100479 edges
+  [153/156] Loaded type B pancreatic cell: 10262 nodes, 155247 edges
+  [154/156] Loaded vascular associated smooth muscle cell: 11067 nodes, 175311 edges
+  [155/156] Loaded vein endothelial cell: 12107 nodes, 198801 edges
+  [156/156] Loaded ventricular cardiac muscle cell: 9968 nodes, 155733 edges
+Total: 156 layers
+
+Loading 2025 hDRG Atlas...
+  [1/22] Loaded A-LTMR.TAC3: 5987 nodes, 33260 edges
+  [2/22] Loaded A-PEP.CHRNA7_SLC18A3: 1482 nodes, 1578 edges
+  [3/22] Loaded A-PEP.KIT: 3605 nodes, 11846 edges
+  [4/22] Loaded A-PEP.NTRK3_S100A16: 1849 nodes, 2438 edges
+  [5/22] Loaded A-PEP.SCGN_ADRA2C: 2018 nodes, 3869 edges
+  [6/22] Loaded A-Propr.EPHA3: 3175 nodes, 8031 edges
+  [7/22] Loaded A-Propr.HAPLN4: 2605 nodes, 5759 edges
+  [8/22] Loaded A-Propr.PCDH8: 3669 nodes, 12303 edges
+  [9/22] Loaded ATF3: 1913 nodes, 5424 edges
+  [10/22] Loaded Ab-LTMR.CCKAR: 1965 nodes, 2818 edges
+  [11/22] Loaded Ab-LTMR.ETV1: 3221 nodes, 9143 edges
+  [12/22] Loaded Ab-LTMR.LGI2: 3267 nodes, 8246 edges
+  [13/22] Loaded Ab-LTMR.NSG2: 2400 nodes, 4418 edges
+  [14/22] Loaded C-LTMR.CDH9: 2300 nodes, 4489 edges
+  [15/22] Loaded C-NP.MRGPRX1_GFRA2: 1452 nodes, 1492 edges
+  [16/22] Loaded C-NP.MRGPRX1_MRGPRX4: 1724 nodes, 2446 edges
+  [17/22] Loaded C-NP.SST: 1668 nodes, 1867 edges
+  [18/22] Loaded C-PEP.ADORA2B: 3413 nodes, 9253 edges
+  [19/22] Loaded C-PEP.TAC1_CACNG5: 1693 nodes, 2011 edges
+  [20/22] Loaded C-PEP.TAC1_CHRNA3: 2044 nodes, 3008 edges
+  [21/22] Loaded C-Thermo.RXFP1: 3694 nodes, 11193 edges
+  [22/22] Loaded C-Thermo.TRPM8: 1515 nodes, 1465 edges
+Total: 22 layers
+
+Loading Pain subset of Tabula multiplex...
+  [1/21] Loaded B cell: 10195 nodes, 159622 edges
+  [2/21] Loaded CD4-positive, alpha-beta T cell: 10564 nodes, 169098 edges
+  [3/21] Loaded CD8-positive, alpha-beta T cell: 10557 nodes, 170260 edges
+  [4/21] Loaded Langerhans cell: 7967 nodes, 115874 edges
+  [5/21] Loaded Schwann cell: 9284 nodes, 138821 edges
+  [6/21] Loaded activated CD8-positive, alpha-beta T cell: 6709 nodes, 88281 edges
+  [7/21] Loaded colon endothelial cell: 10734 nodes, 168093 edges
+  [8/21] Loaded endothelial cell: 12022 nodes, 195837 edges
+  [9/21] Loaded epithelial cell of uterus: 12072 nodes, 199095 edges
+  [10/21] Loaded granulocyte: 10860 nodes, 171126 edges
+  [11/21] Loaded keratocyte: 10171 nodes, 156134 edges
+  [12/21] Loaded leukocyte: 12976 nodes, 216673 edges
+  [13/21] Loaded macrophage: 11523 nodes, 187090 edges
+  [14/21] Loaded mesenchymal stem cell of adipose tissue: 10587 nodes, 166263 edges
+  [15/21] Loaded microglial cell: 12682 nodes, 207195 edges
+  [16/21] Loaded monocyte: 10905 nodes, 173916 edges
+  [17/21] Loaded myeloid dendritic cell: 11662 nodes, 187546 edges
+  [18/21] Loaded natural killer cell: 10824 nodes, 173631 edges
+  [19/21] Loaded neutrophil: 5765 nodes, 64586 edges
+  [20/21] Loaded non-classical monocyte: 10082 nodes, 156427 edges
+  [21/21] Loaded regulatory T cell: 9825 nodes, 153144 edges
+Total: 21 layers
+
+================================================================================
+ANALYZING NETWORKS
+================================================================================
+
+================================================================================
+ANALYZING: Tabula Sapiens
+================================================================================
+Processing 156 layers...
+Finished at: Wed Apr  8 02:19:59 PM CEST 2026

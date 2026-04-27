@@ -1,7 +1,7 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b14/tmp/slurm-2234023
-Running on host: node-b14.lisc
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d13/tmp/slurm-2234023
+Running on host: node-d13.lisc
 Current working directory: /lisc/home/user/gerardursin/multiplex
-Starting at: Tue Apr  7 05:12:04 PM CEST 2026
+Starting at: Tue Apr  7 07:21:41 PM CEST 2026
 SLURM_JOB_ID: 2234023
 Requirement already satisfied: pandas in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (3.0.0)
 Requirement already satisfied: numpy in /lisc/home/user/gerardursin/.local/lib/python3.13/site-packages (2.3.5)
