@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job2270663/slurm_script: line 29: 3362021 Killed                  python venn_multiplex_comparison.py --tabula-layers ./new_ts/layers --pain-layers ./multiplex_2025hdrg/layers --pain-subset-layers ./subset_analysis/layers --output-dir comparison_results
-[2026-04-09T10:04:33.311] error: Detected 1 oom_kill event in StepId=2270663.batch. Some of the step tasks have been OOM Killed.
