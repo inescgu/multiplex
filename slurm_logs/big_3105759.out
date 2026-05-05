@@ -1,0 +1,691 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c04/tmp/slurm-3105759
+Running on host: node-c04.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed Apr 29 09:32:34 PM CEST 2026
+SLURM_JOB_ID: 3105759
+
+============================================================
+STEP 1: LOADING LAYERS
+============================================================
+[tabula_sapiens] Found 156 layer file(s)
+  tabula_sapiens | B cell: 10,195 nodes, 159,622 edges
+  tabula_sapiens | BEST4+ enterocyte: 8,053 nodes, 109,410 edges
+  tabula_sapiens | CD4-positive, alpha-beta T cell: 10,564 nodes, 169,098 edges
+  tabula_sapiens | CD4-positive, alpha-beta thymocyte: 9,431 nodes, 145,688 edges
+  tabula_sapiens | CD8-positive, alpha-beta T cell: 10,557 nodes, 170,260 edges
+  tabula_sapiens | CD8-positive, alpha-beta thymocyte: 10,251 nodes, 159,090 edges
+  tabula_sapiens | Langerhans cell: 7,967 nodes, 115,874 edges
+  tabula_sapiens | Mueller cell: 9,637 nodes, 142,195 edges
+  tabula_sapiens | Schwann cell: 9,284 nodes, 138,821 edges
+  tabula_sapiens | T cell: 10,151 nodes, 161,625 edges
+  tabula_sapiens | acinar cell of salivary gland: 11,165 nodes, 179,780 edges
+  tabula_sapiens | acinar cell: 7,299 nodes, 93,726 edges
+  tabula_sapiens | activated CD4-positive, alpha-beta T cell: 8,720 nodes, 128,714 edges
+  tabula_sapiens | activated CD8-positive, alpha-beta T cell: 6,709 nodes, 88,281 edges
+  tabula_sapiens | adventitial cell: 13,551 nodes, 227,959 edges
+  tabula_sapiens | alveolar adventitial fibroblast: 11,753 nodes, 188,593 edges
+  tabula_sapiens | basal cell of prostate epithelium: 11,288 nodes, 182,316 edges
+  tabula_sapiens | basal cell: 12,970 nodes, 219,682 edges
+  tabula_sapiens | basophil: 8,361 nodes, 120,830 edges
+  tabula_sapiens | bladder urothelial cell: 11,727 nodes, 192,640 edges
+  tabula_sapiens | blood vessel smooth muscle cell: 8,885 nodes, 133,393 edges
+  tabula_sapiens | bronchial smooth muscle cell: 9,022 nodes, 132,890 edges
+  tabula_sapiens | capillary endothelial cell: 11,782 nodes, 190,019 edges
+  tabula_sapiens | cardiac endothelial cell: 10,369 nodes, 159,852 edges
+  tabula_sapiens | ciliated epithelial cell: 10,848 nodes, 170,882 edges
+  tabula_sapiens | classical monocyte: 10,141 nodes, 156,095 edges
+  tabula_sapiens | club cell: 10,994 nodes, 174,242 edges
+  tabula_sapiens | colon endothelial cell: 10,734 nodes, 168,093 edges
+  tabula_sapiens | colon macrophage: 9,491 nodes, 143,802 edges
+  tabula_sapiens | common myeloid progenitor: 11,638 nodes, 187,680 edges
+  tabula_sapiens | conjunctival epithelial cell: 10,599 nodes, 168,555 edges
+  tabula_sapiens | connective tissue cell: 8,326 nodes, 117,835 edges
+  tabula_sapiens | corneal epithelial cell: 9,749 nodes, 152,657 edges
+  tabula_sapiens | duct epithelial cell: 11,437 nodes, 185,742 edges
+  tabula_sapiens | endothelial cell of arteriole: 9,728 nodes, 147,577 edges
+  tabula_sapiens | endothelial cell of artery: 11,007 nodes, 174,458 edges
+  tabula_sapiens | endothelial cell of lymphatic vessel: 11,379 nodes, 184,135 edges
+  tabula_sapiens | endothelial cell of vascular tree: 12,888 nodes, 211,803 edges
+  tabula_sapiens | endothelial cell of venule: 9,281 nodes, 137,926 edges
+  tabula_sapiens | endothelial cell: 12,022 nodes, 195,837 edges
+  tabula_sapiens | enterocyte of epithelium of large intestine: 12,176 nodes, 196,943 edges
+  tabula_sapiens | enterocyte of epithelium proper of duodenum: 8,490 nodes, 120,142 edges
+  tabula_sapiens | enterocyte of epithelium proper of ileum: 9,178 nodes, 132,899 edges
+  tabula_sapiens | enterocyte of epithelium proper of jejunum: 8,128 nodes, 115,545 edges
+  tabula_sapiens | enterocyte of epithelium proper of small intestine: 14,003 nodes, 232,158 edges
+  tabula_sapiens | enteroendocrine cell of small intestine: 11,108 nodes, 169,886 edges
+  tabula_sapiens | enteroglial cell: 8,971 nodes, 130,363 edges
+  tabula_sapiens | epithelial cell of uterus: 12,072 nodes, 199,095 edges
+  tabula_sapiens | epithelial cell: 9,547 nodes, 144,514 edges
+  tabula_sapiens | erythrocyte: 4,470 nodes, 51,311 edges
+  tabula_sapiens | erythroid progenitor cell: 11,394 nodes, 183,335 edges
+  tabula_sapiens | eye photoreceptor cell: 8,733 nodes, 123,089 edges
+  tabula_sapiens | fast muscle cell: 9,460 nodes, 143,523 edges
+  tabula_sapiens | fibroblast of breast: 9,629 nodes, 145,548 edges
+  tabula_sapiens | fibroblast of cardiac tissue: 10,440 nodes, 161,199 edges
+  tabula_sapiens | fibroblast: 12,276 nodes, 201,571 edges
+  tabula_sapiens | gamma-delta T cell: 7,196 nodes, 99,738 edges
+  tabula_sapiens | glandular secretory epithelial cell: 10,571 nodes, 166,732 edges
+  tabula_sapiens | granulocyte: 10,860 nodes, 171,126 edges
+  tabula_sapiens | hematopoietic cell: 6,666 nodes, 83,403 edges
+  tabula_sapiens | hematopoietic precursor cell: 9,981 nodes, 157,146 edges
+  tabula_sapiens | hematopoietic stem cell: 12,279 nodes, 199,851 edges
+  tabula_sapiens | hepatic stellate cell: 9,188 nodes, 134,038 edges
+  tabula_sapiens | hepatocyte: 8,884 nodes, 125,501 edges
+  tabula_sapiens | innate lymphoid cell: 12,105 nodes, 196,550 edges
+  tabula_sapiens | intermediate monocyte: 8,790 nodes, 131,837 edges
+  tabula_sapiens | interstitial cell of Cajal: 4,914 nodes, 53,586 edges
+  tabula_sapiens | intestinal crypt stem cell of colon: 9,741 nodes, 150,934 edges
+  tabula_sapiens | intestinal crypt stem cell of small intestine: 11,504 nodes, 184,410 edges
+  tabula_sapiens | intestinal tuft cell: 8,255 nodes, 115,208 edges
+  tabula_sapiens | intrahepatic cholangiocyte: 10,729 nodes, 168,318 edges
+  tabula_sapiens | ionocyte: 9,670 nodes, 147,396 edges
+  tabula_sapiens | keratocyte: 10,171 nodes, 156,134 edges
+  tabula_sapiens | kidney epithelial cell: 9,501 nodes, 144,447 edges
+  tabula_sapiens | large intestine goblet cell: 7,661 nodes, 104,217 edges
+  tabula_sapiens | leukocyte: 12,976 nodes, 216,673 edges
+  tabula_sapiens | luminal cell of prostate epithelium: 11,479 nodes, 184,799 edges
+  tabula_sapiens | luminal epithelial cell of mammary gland: 11,087 nodes, 178,317 edges
+  tabula_sapiens | lung multiciliated epithelial cell: 12,054 nodes, 196,250 edges
+  tabula_sapiens | macrophage: 11,523 nodes, 187,090 edges
+  tabula_sapiens | male germ cell: 9,673 nodes, 139,250 edges
+  tabula_sapiens | mast cell: 11,147 nodes, 177,652 edges
+  tabula_sapiens | mature NK T cell: 10,943 nodes, 176,044 edges
+  tabula_sapiens | melanocyte: 10,334 nodes, 161,778 edges
+  tabula_sapiens | mesenchymal stem cell of adipose tissue: 10,587 nodes, 166,263 edges
+  tabula_sapiens | mesenchymal stem cell: 12,426 nodes, 200,824 edges
+  tabula_sapiens | mesothelial cell: 11,290 nodes, 181,107 edges
+  tabula_sapiens | microglial cell: 12,682 nodes, 207,195 edges
+  tabula_sapiens | monocyte: 10,905 nodes, 173,916 edges
+  tabula_sapiens | mononuclear phagocyte: 8,839 nodes, 129,614 edges
+  tabula_sapiens | mucus secreting cell: 10,530 nodes, 166,877 edges
+  tabula_sapiens | multiciliated columnar cell of tracheobronchial tree: 12,037 nodes, 196,875 edges
+  tabula_sapiens | mural cell: 9,485 nodes, 142,867 edges
+  tabula_sapiens | muscle cell: 4,802 nodes, 58,759 edges
+  tabula_sapiens | myeloid cell: 10,613 nodes, 163,501 edges
+  tabula_sapiens | myeloid dendritic cell: 11,662 nodes, 187,546 edges
+  tabula_sapiens | myeloid leukocyte: 7,516 nodes, 100,682 edges
+  tabula_sapiens | myo-medullary thymic epithelial cell: 9,253 nodes, 138,188 edges
+  tabula_sapiens | myoepithelial cell: 9,589 nodes, 145,268 edges
+  tabula_sapiens | myofibroblast cell: 11,283 nodes, 178,700 edges
+  tabula_sapiens | myometrial cell: 8,561 nodes, 124,707 edges
+  tabula_sapiens | naive thymus-derived CD4-positive, alpha-beta T cell: 10,040 nodes, 156,627 edges
+  tabula_sapiens | naive thymus-derived CD8-positive, alpha-beta T cell: 7,421 nodes, 104,005 edges
+  tabula_sapiens | natural killer cell: 10,824 nodes, 173,631 edges
+  tabula_sapiens | neuro-medullary thymic epithelial cell: 9,770 nodes, 121,157 edges
+  tabula_sapiens | neuron: 6,501 nodes, 76,204 edges
+  tabula_sapiens | neutrophil: 5,765 nodes, 64,586 edges
+  tabula_sapiens | non-classical monocyte: 10,082 nodes, 156,427 edges
+  tabula_sapiens | ovarian surface epithelial cell: 9,945 nodes, 154,212 edges
+  tabula_sapiens | pancreatic acinar cell: 9,978 nodes, 153,947 edges
+  tabula_sapiens | pancreatic ductal cell: 10,635 nodes, 166,411 edges
+  tabula_sapiens | pancreatic stellate cell: 9,895 nodes, 150,726 edges
+  tabula_sapiens | paneth cell of colon: 12,054 nodes, 195,861 edges
+  tabula_sapiens | paneth cell of epithelium of small intestine: 12,220 nodes, 196,937 edges
+  tabula_sapiens | pericyte: 12,204 nodes, 198,322 edges
+  tabula_sapiens | peritubular myoid cell: 8,683 nodes, 115,887 edges
+  tabula_sapiens | plasma cell: 11,532 nodes, 187,804 edges
+  tabula_sapiens | plasmacytoid dendritic cell: 10,069 nodes, 157,954 edges
+  tabula_sapiens | platelet: 5,788 nodes, 65,927 edges
+  tabula_sapiens | progenitor cell of mammary luminal epithelium: 7,542 nodes, 110,896 edges
+  tabula_sapiens | pulmonary alveolar type 1 cell: 10,618 nodes, 168,659 edges
+  tabula_sapiens | pulmonary alveolar type 2 cell: 12,585 nodes, 209,187 edges
+  tabula_sapiens | regular atrial cardiac myocyte: 10,819 nodes, 173,274 edges
+  tabula_sapiens | regulatory T cell: 9,825 nodes, 153,144 edges
+  tabula_sapiens | respiratory tract goblet cell: 12,033 nodes, 199,549 edges
+  tabula_sapiens | retinal bipolar neuron: 12,569 nodes, 196,837 edges
+  tabula_sapiens | retinal blood vessel endothelial cell: 10,678 nodes, 170,173 edges
+  tabula_sapiens | retinal pigment epithelial cell: 7,968 nodes, 107,598 edges
+  tabula_sapiens | salivary gland cell: 12,351 nodes, 204,244 edges
+  tabula_sapiens | sebocyte: 12,233 nodes, 203,147 edges
+  tabula_sapiens | serous cell of epithelium of trachea: 8,512 nodes, 121,877 edges
+  tabula_sapiens | skeletal muscle satellite stem cell: 12,191 nodes, 197,143 edges
+  tabula_sapiens | slow muscle cell: 8,099 nodes, 112,059 edges
+  tabula_sapiens | small intestine goblet cell: 10,492 nodes, 159,628 edges
+  tabula_sapiens | smooth muscle cell: 12,041 nodes, 197,351 edges
+  tabula_sapiens | spermatid: 5,700 nodes, 51,971 edges
+  tabula_sapiens | spermatocyte: 9,861 nodes, 135,342 edges
+  tabula_sapiens | spermatogonium: 8,771 nodes, 125,888 edges
+  tabula_sapiens | stratified squamous epithelial cell: 10,645 nodes, 172,039 edges
+  tabula_sapiens | stromal cell of ovary: 7,647 nodes, 106,520 edges
+  tabula_sapiens | stromal cell: 13,280 nodes, 221,417 edges
+  tabula_sapiens | supporting cell of vestibular epithelium: 10,059 nodes, 152,874 edges
+  tabula_sapiens | tendon cell: 10,694 nodes, 164,442 edges
+  tabula_sapiens | theca cell: 10,903 nodes, 173,286 edges
+  tabula_sapiens | thymic fibroblast type 1: 9,357 nodes, 141,304 edges
+  tabula_sapiens | thymic fibroblast type 2: 9,443 nodes, 142,737 edges
+  tabula_sapiens | thymocyte: 8,263 nodes, 117,755 edges
+  tabula_sapiens | tissue-resident macrophage: 8,964 nodes, 130,173 edges
+  tabula_sapiens | tongue muscle cell: 9,747 nodes, 148,336 edges
+  tabula_sapiens | tracheal goblet cell: 11,626 nodes, 186,836 edges
+  tabula_sapiens | transit amplifying cell of colon: 9,274 nodes, 144,077 edges
+  tabula_sapiens | tuft cell of colon: 7,860 nodes, 100,479 edges
+  tabula_sapiens | type B pancreatic cell: 10,262 nodes, 155,247 edges
+  tabula_sapiens | vascular associated smooth muscle cell: 11,067 nodes, 175,311 edges
+  tabula_sapiens | vein endothelial cell: 12,107 nodes, 198,801 edges
+  tabula_sapiens | ventricular cardiac muscle cell: 9,968 nodes, 155,733 edges
+[tabula_sapiens] Loaded 156 layers
+
+[hrdg] Found 22 layer file(s)
+  hrdg | A-LTMR.TAC3: 6,389 nodes, 58,818 edges
+  hrdg | A-PEP.CHRNA7_SLC18A3: 1,573 nodes, 2,650 edges
+  hrdg | A-PEP.KIT: 3,850 nodes, 20,489 edges
+  hrdg | A-PEP.NTRK3_S100A16: 1,960 nodes, 4,566 edges
+  hrdg | A-PEP.SCGN_ADRA2C: 2,127 nodes, 6,433 edges
+  hrdg | A-Propr.EPHA3: 3,330 nodes, 13,971 edges
+  hrdg | A-Propr.HAPLN4: 2,752 nodes, 9,295 edges
+  hrdg | A-Propr.PCDH8: 3,885 nodes, 21,547 edges
+  hrdg | ATF3: 2,015 nodes, 6,394 edges
+  hrdg | Ab-LTMR.CCKAR: 2,076 nodes, 4,771 edges
+  hrdg | Ab-LTMR.ETV1: 3,390 nodes, 16,560 edges
+  hrdg | Ab-LTMR.LGI2: 3,464 nodes, 16,141 edges
+  hrdg | Ab-LTMR.NSG2: 2,547 nodes, 7,370 edges
+  hrdg | C-LTMR.CDH9: 2,475 nodes, 8,123 edges
+  hrdg | C-NP.MRGPRX1_GFRA2: 1,532 nodes, 2,692 edges
+  hrdg | C-NP.MRGPRX1_MRGPRX4: 1,837 nodes, 4,272 edges
+  hrdg | C-NP.SST: 1,792 nodes, 3,585 edges
+  hrdg | C-PEP.ADORA2B: 3,639 nodes, 16,638 edges
+  hrdg | C-PEP.TAC1_CACNG5: 1,825 nodes, 3,624 edges
+  hrdg | C-PEP.TAC1_CHRNA3: 2,179 nodes, 5,452 edges
+  hrdg | C-Thermo.RXFP1: 3,987 nodes, 19,226 edges
+  hrdg | C-Thermo.TRPM8: 1,628 nodes, 2,659 edges
+[hrdg] Loaded 22 layers
+
+============================================================
+STEP 2: PATHWAY INDEX
+============================================================
+Loading UniProt→symbol map from ../og_gene_set/ppi_chloe/d_uniprot_to_symbol_20251120.csv ...
+  165,580 UniProt→symbol entries loaded
+
+Loading pathway data from ./pathway_distance/reactome_interactions_with_pathways.csv ...
+  854 rows with common_pathway
+
+  Pathways before size filter : 232
+  Pathways excluded (>300 genes): 0
+  Pathways kept               : 232
+  Genes with pathway annotations: 188
+
+No KEGG CSV provided — using Reactome only.
+
+============================================================
+STEP 3: LIGAND-RECEPTOR PAIRS
+============================================================
+Loading ligand-receptor pairs from ./pathway_distance/lr_pairs.csv ...
+  3,097 LR pairs loaded
+  894 unique ligands, 1,034 unique receptors
+
+============================================================
+STEP 4: ASSEMBLING MULTIPLEX
+============================================================
+Adding intra-layer PPI nodes and edges ...
+  Nodes     : 1,631,682
+  PPI edges : 24,447,347
+
+Adding pathway inter-layer edges (chunked) ...
+  Processed 50/232 pathways | pathway edges so far: 2,097,017
+  Pathway edges added : 4,291,402
+
+Adding ligand-receptor inter-layer edges ...
+  LR edges added : 16,904,374
+
+============================================================
+INTEGRATED MULTIPLEX SUMMARY
+============================================================
+  Total nodes : 1,631,682
+  Total edges : 45,643,123
+    ligand_receptor     : 16,904,374
+    pathway             : 4,291,402
+    ppi                 : 24,447,347
+============================================================
+
+============================================================
+STEP 5: SAVING OUTPUTS
+============================================================
+Saved node registry → integrated_multiplex_output/node_registry.csv
+Saved multiplex graph → integrated_multiplex_output/integrated_multiplex.pkl
+Saved edge list → integrated_multiplex_output/integrated_multiplex_edges.csv
+Saved summary JSON → integrated_multiplex_output/integrated_multiplex_summary.json
+
+Saved layer stats → integrated_multiplex_output/layer_statistics.csv
+        source                                            cell_type  n_nodes  n_ppi  n_pathway   n_lr
+          hrdg                                          A-LTMR.TAC3     6389  58818      40186 119167
+          hrdg                                 A-PEP.CHRNA7_SLC18A3     1573   2650       9704  43098
+          hrdg                                            A-PEP.KIT     3850  20489      29481  82939
+          hrdg                                  A-PEP.NTRK3_S100A16     1960   4566       6781  53488
+          hrdg                                    A-PEP.SCGN_ADRA2C     2127   6433      12401  64125
+          hrdg                                        A-Propr.EPHA3     3330  13971      16276  99342
+          hrdg                                       A-Propr.HAPLN4     2752   9295      24734  82474
+          hrdg                                        A-Propr.PCDH8     3885  21547      16113  94080
+          hrdg                                                 ATF3     2015   6394       9229  75094
+          hrdg                                        Ab-LTMR.CCKAR     2076   4771      18163  61229
+          hrdg                                         Ab-LTMR.ETV1     3390  16560      25152  89169
+          hrdg                                         Ab-LTMR.LGI2     3464  16141      15415  94998
+          hrdg                                         Ab-LTMR.NSG2     2547   7370      23295  73834
+          hrdg                                          C-LTMR.CDH9     2475   8123      15876  84162
+          hrdg                                   C-NP.MRGPRX1_GFRA2     1532   2692       5171  55297
+          hrdg                                 C-NP.MRGPRX1_MRGPRX4     1837   4272      19597  68913
+          hrdg                                             C-NP.SST     1792   3585      13250  71355
+          hrdg                                        C-PEP.ADORA2B     3639  16638      23937  78607
+          hrdg                                    C-PEP.TAC1_CACNG5     1825   3624      12228  63565
+          hrdg                                    C-PEP.TAC1_CHRNA3     2179   5452      11104  64002
+          hrdg                                       C-Thermo.RXFP1     3987  19226      30192  97678
+          hrdg                                       C-Thermo.TRPM8     1628   2659       4709  56492
+tabula_sapiens                                               B cell    10195 159622      53649 173314
+tabula_sapiens                                    BEST4+ enterocyte     8053 109410      45240 152140
+tabula_sapiens                      CD4-positive, alpha-beta T cell    10564 169098      55902 189526
+tabula_sapiens                   CD4-positive, alpha-beta thymocyte     9431 145688      50812 140327
+tabula_sapiens                      CD8-positive, alpha-beta T cell    10557 170260      55274 195756
+tabula_sapiens                   CD8-positive, alpha-beta thymocyte    10251 159090      51413 166684
+tabula_sapiens                                      Langerhans cell     7967 115874      49122 148503
+tabula_sapiens                                         Mueller cell     9637 142195      50547 185425
+tabula_sapiens                                         Schwann cell     9284 138821      50269 201565
+tabula_sapiens                                               T cell    10151 161625      55189 213852
+tabula_sapiens                                          acinar cell     7299  93726      40228 167624
+tabula_sapiens                        acinar cell of salivary gland    11165 179780      55958 224582
+tabula_sapiens            activated CD4-positive, alpha-beta T cell     8720 128714      48243 140993
+tabula_sapiens            activated CD8-positive, alpha-beta T cell     6709  88281      40619  93705
+tabula_sapiens                                     adventitial cell    13551 227959      62606 318094
+tabula_sapiens                      alveolar adventitial fibroblast    11753 188593      59225 272763
+tabula_sapiens                                           basal cell    12970 219682      60259 306819
+tabula_sapiens                    basal cell of prostate epithelium    11288 182316      56729 233532
+tabula_sapiens                                             basophil     8361 120830      47804 134118
+tabula_sapiens                              bladder urothelial cell    11727 192640      57302 251105
+tabula_sapiens                      blood vessel smooth muscle cell     8885 133393      49657 201863
+tabula_sapiens                         bronchial smooth muscle cell     9022 132890      47126 214919
+tabula_sapiens                           capillary endothelial cell    11782 190019      57733 262707
+tabula_sapiens                             cardiac endothelial cell    10369 159852      53550 203204
+tabula_sapiens                             ciliated epithelial cell    10848 170882      53637 222525
+tabula_sapiens                                   classical monocyte    10141 156095      53813 198007
+tabula_sapiens                                            club cell    10994 174242      55363 232421
+tabula_sapiens                               colon endothelial cell    10734 168093      55429 244602
+tabula_sapiens                                     colon macrophage     9491 143802      54057 179924
+tabula_sapiens                            common myeloid progenitor    11638 187680      56295 207755
+tabula_sapiens                         conjunctival epithelial cell    10599 168555      55128 222182
+tabula_sapiens                               connective tissue cell     8326 117835      51130 174674
+tabula_sapiens                              corneal epithelial cell     9749 152657      54561 194814
+tabula_sapiens                                 duct epithelial cell    11437 185742      56253 238159
+tabula_sapiens                                     endothelial cell    12022 195837      58616 280654
+tabula_sapiens                        endothelial cell of arteriole     9728 147577      51928 211660
+tabula_sapiens                           endothelial cell of artery    11007 174458      54806 236232
+tabula_sapiens                 endothelial cell of lymphatic vessel    11379 184135      57764 241982
+tabula_sapiens                    endothelial cell of vascular tree    12888 211803      59665 289020
+tabula_sapiens                           endothelial cell of venule     9281 137926      49852 182764
+tabula_sapiens          enterocyte of epithelium of large intestine    12176 196943      55987 259058
+tabula_sapiens          enterocyte of epithelium proper of duodenum     8490 120142      47406 149614
+tabula_sapiens             enterocyte of epithelium proper of ileum     9178 132899      50333 164299
+tabula_sapiens           enterocyte of epithelium proper of jejunum     8128 115545      45756 139284
+tabula_sapiens   enterocyte of epithelium proper of small intestine    14003 232158      61000 327529
+tabula_sapiens              enteroendocrine cell of small intestine    11108 169886      53193 216732
+tabula_sapiens                                     enteroglial cell     8971 130363      49012 192213
+tabula_sapiens                                      epithelial cell     9547 144514      50456 189356
+tabula_sapiens                            epithelial cell of uterus    12072 199095      57824 262347
+tabula_sapiens                                          erythrocyte     4470  51311      34736  77378
+tabula_sapiens                            erythroid progenitor cell    11394 183335      56689 197363
+tabula_sapiens                               eye photoreceptor cell     8733 123089      47177 118951
+tabula_sapiens                                     fast muscle cell     9460 143523      52644 198590
+tabula_sapiens                                           fibroblast    12276 201571      60171 293930
+tabula_sapiens                                 fibroblast of breast     9629 145548      54396 206006
+tabula_sapiens                         fibroblast of cardiac tissue    10440 161199      54777 223906
+tabula_sapiens                                   gamma-delta T cell     7196  99738      45307  98026
+tabula_sapiens                  glandular secretory epithelial cell    10571 166732      56884 228016
+tabula_sapiens                                          granulocyte    10860 171126      56651 217956
+tabula_sapiens                                   hematopoietic cell     6666  83403      42544 148128
+tabula_sapiens                         hematopoietic precursor cell     9981 157146      53267 166342
+tabula_sapiens                              hematopoietic stem cell    12279 199851      58002 236343
+tabula_sapiens                                hepatic stellate cell     9188 134038      50424 235552
+tabula_sapiens                                           hepatocyte     8884 125501      47369 163982
+tabula_sapiens                                 innate lymphoid cell    12105 196550      59131 245032
+tabula_sapiens                                intermediate monocyte     8790 131837      52327 165515
+tabula_sapiens                           interstitial cell of Cajal     4914  53586      32548 142708
+tabula_sapiens                  intestinal crypt stem cell of colon     9741 150934      53265 168898
+tabula_sapiens        intestinal crypt stem cell of small intestine    11504 184410      54542 207284
+tabula_sapiens                                 intestinal tuft cell     8255 115208      45125 148683
+tabula_sapiens                           intrahepatic cholangiocyte    10729 168318      55505 216017
+tabula_sapiens                                             ionocyte     9670 147396      52792 191919
+tabula_sapiens                                           keratocyte    10171 156134      54494 238671
+tabula_sapiens                               kidney epithelial cell     9501 144447      51816 151836
+tabula_sapiens                          large intestine goblet cell     7661 104217      45069 153769
+tabula_sapiens                                            leukocyte    12976 216673      60378 310638
+tabula_sapiens                  luminal cell of prostate epithelium    11479 184799      57698 222130
+tabula_sapiens             luminal epithelial cell of mammary gland    11087 178317      56396 229577
+tabula_sapiens                   lung multiciliated epithelial cell    12054 196250      56420 252653
+tabula_sapiens                                           macrophage    11523 187090      57428 262581
+tabula_sapiens                                       male germ cell     9673 139250      48047 171667
+tabula_sapiens                                            mast cell    11147 177652      56569 217338
+tabula_sapiens                                     mature NK T cell    10943 176044      56993 236354
+tabula_sapiens                                           melanocyte    10334 161778      53551 214852
+tabula_sapiens                                mesenchymal stem cell    12426 200824      59879 288057
+tabula_sapiens              mesenchymal stem cell of adipose tissue    10587 166263      58306 241210
+tabula_sapiens                                     mesothelial cell    11290 181107      58124 249884
+tabula_sapiens                                      microglial cell    12682 207195      59481 303596
+tabula_sapiens                                             monocyte    10905 173916      56742 235416
+tabula_sapiens                                mononuclear phagocyte     8839 129614      49642 163974
+tabula_sapiens                                 mucus secreting cell    10530 166877      55101 208608
+tabula_sapiens multiciliated columnar cell of tracheobronchial tree    12037 196875      57620 242664
+tabula_sapiens                                           mural cell     9485 142867      53905 230018
+tabula_sapiens                                          muscle cell     4802  58759      39118  55497
+tabula_sapiens                                         myeloid cell    10613 163501      53067 220308
+tabula_sapiens                               myeloid dendritic cell    11662 187546      59760 250757
+tabula_sapiens                                    myeloid leukocyte     7516 100682      44916 153953
+tabula_sapiens                 myo-medullary thymic epithelial cell     9253 138188      52385 163977
+tabula_sapiens                                   myoepithelial cell     9589 145268      52829 215996
+tabula_sapiens                                   myofibroblast cell    11283 178700      56359 266099
+tabula_sapiens                                      myometrial cell     8561 124707      49261 198968
+tabula_sapiens naive thymus-derived CD4-positive, alpha-beta T cell    10040 156627      53234 148785
+tabula_sapiens naive thymus-derived CD8-positive, alpha-beta T cell     7421 104005      44055  99302
+tabula_sapiens                                  natural killer cell    10824 173631      55843 186908
+tabula_sapiens               neuro-medullary thymic epithelial cell     9770 121157      42282 264658
+tabula_sapiens                                               neuron     6501  76204      37088 145519
+tabula_sapiens                                           neutrophil     5765  64586      40013 132124
+tabula_sapiens                               non-classical monocyte    10082 156427      54130 189083
+tabula_sapiens                      ovarian surface epithelial cell     9945 154212      53714 225910
+tabula_sapiens                               pancreatic acinar cell     9978 153947      53571 184858
+tabula_sapiens                               pancreatic ductal cell    10635 166411      56463 206150
+tabula_sapiens                             pancreatic stellate cell     9895 150726      54711 225012
+tabula_sapiens                                 paneth cell of colon    12054 195861      56117 233977
+tabula_sapiens         paneth cell of epithelium of small intestine    12220 196937      57213 235003
+tabula_sapiens                                             pericyte    12204 198322      58196 288800
+tabula_sapiens                               peritubular myoid cell     8683 115887      43346 190476
+tabula_sapiens                                          plasma cell    11532 187804      56967 236753
+tabula_sapiens                          plasmacytoid dendritic cell    10069 157954      54182 183476
+tabula_sapiens                                             platelet     5788  65927      40805 117813
+tabula_sapiens        progenitor cell of mammary luminal epithelium     7542 110896      46316 196754
+tabula_sapiens                       pulmonary alveolar type 1 cell    10618 168659      56063 227986
+tabula_sapiens                       pulmonary alveolar type 2 cell    12585 209187      59629 283968
+tabula_sapiens                       regular atrial cardiac myocyte    10819 173274      55208 240486
+tabula_sapiens                                    regulatory T cell     9825 153144      54304 147045
+tabula_sapiens                        respiratory tract goblet cell    12033 199549      57951 256725
+tabula_sapiens                               retinal bipolar neuron    12569 196837      54415 286970
+tabula_sapiens                retinal blood vessel endothelial cell    10678 170173      55630 235439
+tabula_sapiens                      retinal pigment epithelial cell     7968 107598      45498 144822
+tabula_sapiens                                  salivary gland cell    12351 204244      59056 290528
+tabula_sapiens                                             sebocyte    12233 203147      59475 265415
+tabula_sapiens                 serous cell of epithelium of trachea     8512 121877      45438 187069
+tabula_sapiens                  skeletal muscle satellite stem cell    12191 197143      60159 285063
+tabula_sapiens                                     slow muscle cell     8099 112059      50244 148888
+tabula_sapiens                          small intestine goblet cell    10492 159628      51160 202180
+tabula_sapiens                                   smooth muscle cell    12041 197351      58012 273824
+tabula_sapiens                                            spermatid     5700  51971      28584  89693
+tabula_sapiens                                         spermatocyte     9861 135342      46378 154454
+tabula_sapiens                                       spermatogonium     8771 125888      44536 111632
+tabula_sapiens                  stratified squamous epithelial cell    10645 172039      55342 191269
+tabula_sapiens                                         stromal cell    13280 221417      59527 312433
+tabula_sapiens                                stromal cell of ovary     7647 106520      45147 165882
+tabula_sapiens             supporting cell of vestibular epithelium    10059 152874      53738 196505
+tabula_sapiens                                          tendon cell    10694 164442      55219 247700
+tabula_sapiens                                           theca cell    10903 173286      53959 218778
+tabula_sapiens                             thymic fibroblast type 1     9357 141304      53002 192136
+tabula_sapiens                             thymic fibroblast type 2     9443 142737      53436 189464
+tabula_sapiens                                            thymocyte     8263 117755      44176 117062
+tabula_sapiens                           tissue-resident macrophage     8964 130173      50651 201150
+tabula_sapiens                                   tongue muscle cell     9747 148336      51692 235225
+tabula_sapiens                                 tracheal goblet cell    11626 186836      56187 242753
+tabula_sapiens                     transit amplifying cell of colon     9274 144077      52779 150639
+tabula_sapiens                                   tuft cell of colon     7860 100479      44178 165251
+tabula_sapiens                               type B pancreatic cell    10262 155247      52768 159171
+tabula_sapiens               vascular associated smooth muscle cell    11067 175311      55126 251125
+tabula_sapiens                                vein endothelial cell    12107 198801      58002 271878
+tabula_sapiens                      ventricular cardiac muscle cell     9968 155733      53548 205171
+
+============================================================
+STEP 6: STATISTICS REPORT
+============================================================
+======================================================================
+EDGE STATISTICS REPORT
+======================================================================
+
+--- PPI EDGES BY LAYER ---
+  tabula_sapiens            enterocyte of epithelium proper of small intestine    232,158 edges
+  tabula_sapiens            adventitial cell                  227,959 edges
+  tabula_sapiens            stromal cell                      221,417 edges
+  tabula_sapiens            basal cell                        219,682 edges
+  tabula_sapiens            leukocyte                         216,673 edges
+  tabula_sapiens            endothelial cell of vascular tree    211,803 edges
+  tabula_sapiens            pulmonary alveolar type 2 cell    209,187 edges
+  tabula_sapiens            microglial cell                   207,195 edges
+  tabula_sapiens            salivary gland cell               204,244 edges
+  tabula_sapiens            sebocyte                          203,147 edges
+  tabula_sapiens            fibroblast                        201,571 edges
+  tabula_sapiens            mesenchymal stem cell             200,824 edges
+  tabula_sapiens            hematopoietic stem cell           199,851 edges
+  tabula_sapiens            respiratory tract goblet cell     199,549 edges
+  tabula_sapiens            epithelial cell of uterus         199,095 edges
+  tabula_sapiens            vein endothelial cell             198,801 edges
+  tabula_sapiens            pericyte                          198,322 edges
+  tabula_sapiens            smooth muscle cell                197,351 edges
+  tabula_sapiens            skeletal muscle satellite stem cell    197,143 edges
+  tabula_sapiens            enterocyte of epithelium of large intestine    196,943 edges
+  tabula_sapiens            paneth cell of epithelium of small intestine    196,937 edges
+  tabula_sapiens            multiciliated columnar cell of tracheobronchial tree    196,875 edges
+  tabula_sapiens            retinal bipolar neuron            196,837 edges
+  tabula_sapiens            innate lymphoid cell              196,550 edges
+  tabula_sapiens            lung multiciliated epithelial cell    196,250 edges
+  tabula_sapiens            paneth cell of colon              195,861 edges
+  tabula_sapiens            endothelial cell                  195,837 edges
+  tabula_sapiens            bladder urothelial cell           192,640 edges
+  tabula_sapiens            capillary endothelial cell        190,019 edges
+  tabula_sapiens            alveolar adventitial fibroblast    188,593 edges
+  tabula_sapiens            plasma cell                       187,804 edges
+  tabula_sapiens            common myeloid progenitor         187,680 edges
+  tabula_sapiens            myeloid dendritic cell            187,546 edges
+  tabula_sapiens            macrophage                        187,090 edges
+  tabula_sapiens            tracheal goblet cell              186,836 edges
+  tabula_sapiens            duct epithelial cell              185,742 edges
+  tabula_sapiens            luminal cell of prostate epithelium    184,799 edges
+  tabula_sapiens            intestinal crypt stem cell of small intestine    184,410 edges
+  tabula_sapiens            endothelial cell of lymphatic vessel    184,135 edges
+  tabula_sapiens            erythroid progenitor cell         183,335 edges
+  tabula_sapiens            basal cell of prostate epithelium    182,316 edges
+  tabula_sapiens            mesothelial cell                  181,107 edges
+  tabula_sapiens            acinar cell of salivary gland     179,780 edges
+  tabula_sapiens            myofibroblast cell                178,700 edges
+  tabula_sapiens            luminal epithelial cell of mammary gland    178,317 edges
+  tabula_sapiens            mast cell                         177,652 edges
+  tabula_sapiens            mature NK T cell                  176,044 edges
+  tabula_sapiens            vascular associated smooth muscle cell    175,311 edges
+  tabula_sapiens            endothelial cell of artery        174,458 edges
+  tabula_sapiens            club cell                         174,242 edges
+  tabula_sapiens            monocyte                          173,916 edges
+  tabula_sapiens            natural killer cell               173,631 edges
+  tabula_sapiens            theca cell                        173,286 edges
+  tabula_sapiens            regular atrial cardiac myocyte    173,274 edges
+  tabula_sapiens            stratified squamous epithelial cell    172,039 edges
+  tabula_sapiens            granulocyte                       171,126 edges
+  tabula_sapiens            ciliated epithelial cell          170,882 edges
+  tabula_sapiens            CD8-positive, alpha-beta T cell    170,260 edges
+  tabula_sapiens            retinal blood vessel endothelial cell    170,173 edges
+  tabula_sapiens            enteroendocrine cell of small intestine    169,886 edges
+  tabula_sapiens            CD4-positive, alpha-beta T cell    169,098 edges
+  tabula_sapiens            pulmonary alveolar type 1 cell    168,659 edges
+  tabula_sapiens            conjunctival epithelial cell      168,555 edges
+  tabula_sapiens            intrahepatic cholangiocyte        168,318 edges
+  tabula_sapiens            colon endothelial cell            168,093 edges
+  tabula_sapiens            mucus secreting cell              166,877 edges
+  tabula_sapiens            glandular secretory epithelial cell    166,732 edges
+  tabula_sapiens            pancreatic ductal cell            166,411 edges
+  tabula_sapiens            mesenchymal stem cell of adipose tissue    166,263 edges
+  tabula_sapiens            tendon cell                       164,442 edges
+  tabula_sapiens            myeloid cell                      163,501 edges
+  tabula_sapiens            melanocyte                        161,778 edges
+  tabula_sapiens            T cell                            161,625 edges
+  tabula_sapiens            fibroblast of cardiac tissue      161,199 edges
+  tabula_sapiens            cardiac endothelial cell          159,852 edges
+  tabula_sapiens            small intestine goblet cell       159,628 edges
+  tabula_sapiens            B cell                            159,622 edges
+  tabula_sapiens            CD8-positive, alpha-beta thymocyte    159,090 edges
+  tabula_sapiens            plasmacytoid dendritic cell       157,954 edges
+  tabula_sapiens            hematopoietic precursor cell      157,146 edges
+  tabula_sapiens            naive thymus-derived CD4-positive, alpha-beta T cell    156,627 edges
+  tabula_sapiens            non-classical monocyte            156,427 edges
+  tabula_sapiens            keratocyte                        156,134 edges
+  tabula_sapiens            classical monocyte                156,095 edges
+  tabula_sapiens            ventricular cardiac muscle cell    155,733 edges
+  tabula_sapiens            type B pancreatic cell            155,247 edges
+  tabula_sapiens            ovarian surface epithelial cell    154,212 edges
+  tabula_sapiens            pancreatic acinar cell            153,947 edges
+  tabula_sapiens            regulatory T cell                 153,144 edges
+  tabula_sapiens            supporting cell of vestibular epithelium    152,874 edges
+  tabula_sapiens            corneal epithelial cell           152,657 edges
+  tabula_sapiens            intestinal crypt stem cell of colon    150,934 edges
+  tabula_sapiens            pancreatic stellate cell          150,726 edges
+  tabula_sapiens            tongue muscle cell                148,336 edges
+  tabula_sapiens            endothelial cell of arteriole     147,577 edges
+  tabula_sapiens            ionocyte                          147,396 edges
+  tabula_sapiens            CD4-positive, alpha-beta thymocyte    145,688 edges
+  tabula_sapiens            fibroblast of breast              145,548 edges
+  tabula_sapiens            myoepithelial cell                145,268 edges
+  tabula_sapiens            epithelial cell                   144,514 edges
+  tabula_sapiens            kidney epithelial cell            144,447 edges
+  tabula_sapiens            transit amplifying cell of colon    144,077 edges
+  tabula_sapiens            colon macrophage                  143,802 edges
+  tabula_sapiens            fast muscle cell                  143,523 edges
+  tabula_sapiens            mural cell                        142,867 edges
+  tabula_sapiens            thymic fibroblast type 2          142,737 edges
+  tabula_sapiens            Mueller cell                      142,195 edges
+  tabula_sapiens            thymic fibroblast type 1          141,304 edges
+  tabula_sapiens            male germ cell                    139,250 edges
+  tabula_sapiens            Schwann cell                      138,821 edges
+  tabula_sapiens            myo-medullary thymic epithelial cell    138,188 edges
+  tabula_sapiens            endothelial cell of venule        137,926 edges
+  tabula_sapiens            spermatocyte                      135,342 edges
+  tabula_sapiens            hepatic stellate cell             134,038 edges
+  tabula_sapiens            blood vessel smooth muscle cell    133,393 edges
+  tabula_sapiens            enterocyte of epithelium proper of ileum    132,899 edges
+  tabula_sapiens            bronchial smooth muscle cell      132,890 edges
+  tabula_sapiens            intermediate monocyte             131,837 edges
+  tabula_sapiens            enteroglial cell                  130,363 edges
+  tabula_sapiens            tissue-resident macrophage        130,173 edges
+  tabula_sapiens            mononuclear phagocyte             129,614 edges
+  tabula_sapiens            activated CD4-positive, alpha-beta T cell    128,714 edges
+  tabula_sapiens            spermatogonium                    125,888 edges
+  tabula_sapiens            hepatocyte                        125,501 edges
+  tabula_sapiens            myometrial cell                   124,707 edges
+  tabula_sapiens            eye photoreceptor cell            123,089 edges
+  tabula_sapiens            serous cell of epithelium of trachea    121,877 edges
+  tabula_sapiens            neuro-medullary thymic epithelial cell    121,157 edges
+  tabula_sapiens            basophil                          120,830 edges
+  tabula_sapiens            enterocyte of epithelium proper of duodenum    120,142 edges
+  tabula_sapiens            connective tissue cell            117,835 edges
+  tabula_sapiens            thymocyte                         117,755 edges
+  tabula_sapiens            peritubular myoid cell            115,887 edges
+  tabula_sapiens            Langerhans cell                   115,874 edges
+  tabula_sapiens            enterocyte of epithelium proper of jejunum    115,545 edges
+  tabula_sapiens            intestinal tuft cell              115,208 edges
+  tabula_sapiens            slow muscle cell                  112,059 edges
+  tabula_sapiens            progenitor cell of mammary luminal epithelium    110,896 edges
+  tabula_sapiens            BEST4+ enterocyte                 109,410 edges
+  tabula_sapiens            retinal pigment epithelial cell    107,598 edges
+  tabula_sapiens            stromal cell of ovary             106,520 edges
+  tabula_sapiens            large intestine goblet cell       104,217 edges
+  tabula_sapiens            naive thymus-derived CD8-positive, alpha-beta T cell    104,005 edges
+  tabula_sapiens            myeloid leukocyte                 100,682 edges
+  tabula_sapiens            tuft cell of colon                100,479 edges
+  tabula_sapiens            gamma-delta T cell                 99,738 edges
+  tabula_sapiens            acinar cell                        93,726 edges
+  tabula_sapiens            activated CD8-positive, alpha-beta T cell     88,281 edges
+  tabula_sapiens            hematopoietic cell                 83,403 edges
+  tabula_sapiens            neuron                             76,204 edges
+  tabula_sapiens            platelet                           65,927 edges
+  tabula_sapiens            neutrophil                         64,586 edges
+  hrdg                      A-LTMR.TAC3                        58,818 edges
+  tabula_sapiens            muscle cell                        58,759 edges
+  tabula_sapiens            interstitial cell of Cajal         53,586 edges
+  tabula_sapiens            spermatid                          51,971 edges
+  tabula_sapiens            erythrocyte                        51,311 edges
+  hrdg                      A-Propr.PCDH8                      21,547 edges
+  hrdg                      A-PEP.KIT                          20,489 edges
+  hrdg                      C-Thermo.RXFP1                     19,226 edges
+  hrdg                      C-PEP.ADORA2B                      16,638 edges
+  hrdg                      Ab-LTMR.ETV1                       16,560 edges
+  hrdg                      Ab-LTMR.LGI2                       16,141 edges
+  hrdg                      A-Propr.EPHA3                      13,971 edges
+  hrdg                      A-Propr.HAPLN4                      9,295 edges
+  hrdg                      C-LTMR.CDH9                         8,123 edges
+  hrdg                      Ab-LTMR.NSG2                        7,370 edges
+  hrdg                      A-PEP.SCGN_ADRA2C                   6,433 edges
+  hrdg                      ATF3                                6,394 edges
+  hrdg                      C-PEP.TAC1_CHRNA3                   5,452 edges
+  hrdg                      Ab-LTMR.CCKAR                       4,771 edges
+  hrdg                      A-PEP.NTRK3_S100A16                 4,566 edges
+  hrdg                      C-NP.MRGPRX1_MRGPRX4                4,272 edges
+  hrdg                      C-PEP.TAC1_CACNG5                   3,624 edges
+  hrdg                      C-NP.SST                            3,585 edges
+  hrdg                      C-NP.MRGPRX1_GFRA2                  2,692 edges
+  hrdg                      C-Thermo.TRPM8                      2,659 edges
+  hrdg                      A-PEP.CHRNA7_SLC18A3                2,650 edges
+
+--- INTRA vs INTER LAYER BREAKDOWN ---
+  ppi                  intra=24,447,347  inter=         0  total=24,447,347
+  pathway              intra= 3,927,754  inter=   363,648  total= 4,291,402
+  ligand_receptor      intra=15,325,414  inter= 1,578,960  total=16,904,374
+
+--- EDGES BY SOURCE PAIR AND TYPE ---
+  hrdg <-> hrdg                             ppi=255,276  pathway=9,673  ligand_receptor=47,074
+  hrdg <-> tabula_sapiens                   pathway=363,648  ligand_receptor=1,578,960
+  tabula_sapiens <-> tabula_sapiens         ppi=24,192,071  pathway=3,918,081  ligand_receptor=15,278,340
+
+--- PATHWAY EDGES BY SOURCE PAIR (all DBs) ---
+  tabula_sapiens <-> tabula_sapiens         3,918,081 edges
+  hrdg <-> tabula_sapiens                     363,648 edges
+  hrdg <-> hrdg                                 9,673 edges
+
+--- PATHWAY EDGES BY DATABASE AND SOURCE PAIR ---
+  [KEGG      ] tabula_sapiens <-> tabula_sapiens    2,374,649 edges
+  [Reactome  ] tabula_sapiens <-> tabula_sapiens    1,543,432 edges
+  [KEGG      ] hrdg <-> tabula_sapiens                213,469 edges
+  [Reactome  ] hrdg <-> tabula_sapiens                150,179 edges
+  [KEGG      ] hrdg <-> hrdg                            6,031 edges
+  [Reactome  ] hrdg <-> hrdg                            3,642 edges
+
+--- PATHWAY EDGES ANNOTATED ONTO EXISTING EDGES ---
+  tabula_sapiens <-> tabula_sapiens         5,303,734
+  hrdg <-> tabula_sapiens                     497,585
+  hrdg <-> hrdg                                14,766
+
+--- PATHWAY EDGES SKIPPED ---
+  same layer                         38,519  (same layer (intra-layer pathway edges disabled))
+
+--- EXCLUDED PATHWAYS (size filter) ---
+  Total excluded: 0
+  → Full list saved to stats_excluded_pathways.csv
+
+--- TOP 20 PATHWAYS BY EDGES CONTRIBUTED ---
+  [Reactome  ] Aerobic respiration and respiratory electron transport|Complex I biogenesis|Metabolism|Respiratory electron transport  982,489 edges
+  [KEGG      ] Aerobic respiration and respiratory electron transport|Complex III assembly|Metabolism|Respiratory electron transport  330,151 edges
+  [KEGG      ] Aerobic respiration and respiratory electron transport|Alzheimer disease - Homo sapiens (human)|Amyotrophic lateral sclerosis - Homo sapiens (human)|Cardiac muscle contraction - Homo sapiens (human)|Chemical carcinogenesis - reactive oxygen species - Homo sapiens (human)|Complex III assembly|Diabetic cardiomyopathy - Homo sapiens (human)|Huntington disease - Homo sapiens (human)|Metabolic pathways - Homo sapiens (human)|Metabolism|Non-alcoholic fatty liver disease - Homo sapiens (human)|Oxidative phosphorylation - Homo sapiens (human)|Parkinson disease - Homo sapiens (human)|Pathways of neurodegeneration - multiple diseases - Homo sapiens (human)|Prion disease - Homo sapiens (human)|Respiratory electron transport|Thermogenesis - Homo sapiens (human)  162,382 edges
+  [KEGG      ] Autophagy|Autophagy - animal - Homo sapiens (human)|Macroautophagy|Signal Transduction|mTOR signaling pathway - Homo sapiens (human)  154,104 edges
+  [KEGG      ] Signal Transduction|Signaling by BMP|Signaling by TGFB family members|TGF-beta signaling pathway - Homo sapiens (human)  112,598 edges
+  [Reactome  ] Aerobic respiration and respiratory electron transport|Metabolism|Pyruvate metabolism|Regulation of pyruvate metabolism  112,114 edges
+  [Reactome  ] Activation of HOX genes during differentiation|Activation of anterior HOX genes in hindbrain development during early embryogenesis|Developmental Biology|Epigenetic regulation by WDR5-containing histone modifying complexes|Epigenetic regulation of adipogenesis genes by MLL3 and MLL4 complexes|Epigenetic regulation of gene expression|Epigenetic regulation of gene expression by MLL3 and MLL4 complexes|Formation of WDR5-containing histone-modifying complexes|Gene expression (Transcription)|MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis   92,729 edges
+  [KEGG      ] Autophagy|Macroautophagy|Mitophagy|Mitophagy - animal - Homo sapiens (human)|Receptor Mediated Mitophagy|Selective autophagy   86,327 edges
+  [Reactome  ] Metabolism of proteins|Neddylation|Post-translational protein modification   77,097 edges
+  [KEGG      ] Chromatin modifying enzymes|Chromatin organization|Epigenetic regulation by WDR5-containing histone modifying complexes|Epigenetic regulation of gene expression|Formation of WDR5-containing histone-modifying complexes|Gene expression (Transcription)|Generic Transcription Pathway|PKMTs methylate histone lysines|RNA Polymerase II Transcription|RUNX1 regulates genes involved in megakaryocyte differentiation and platelet function|Transcriptional regulation by RUNX1   63,112 edges
+  [Reactome  ] Aerobic respiration and respiratory electron transport|Cellular response to chemical stress|Cellular responses to stimuli|Cellular responses to stress|Complex IV assembly|Cytoprotection by HMOX1|Gene expression (Transcription)|Generic Transcription Pathway|Metabolism|Metabolism of proteins|Mitochondrial translation|Mitochondrial translation termination|RNA Polymerase II Transcription|Respiratory electron transport|TP53 Regulates Metabolic Genes|Transcriptional Regulation by TP53|Translation   55,114 edges
+  [Reactome  ] Aerobic respiration and respiratory electron transport|Cellular response to chemical stress|Cellular responses to stimuli|Cellular responses to stress|Complex IV assembly|Cytoprotection by HMOX1|Gene expression (Transcription)|Generic Transcription Pathway|Metabolism|RNA Polymerase II Transcription|Respiratory electron transport|TP53 Regulates Metabolic Genes|Transcriptional Regulation by TP53   53,797 edges
+  [Reactome  ] Gene expression (Transcription)|RNA Polymerase II Transcription|RNA polymerase II transcribes snRNA genes   53,470 edges
+  [KEGG      ] Aberrant regulation of mitotic G1/S transition in cancer due to RB1 defects|Aberrant regulation of mitotic cell cycle due to RB1 defects|Breast cancer - Homo sapiens (human)|Cell Cycle|Cell Cycle, Mitotic|Cell cycle - Homo sapiens (human)|Cellular Senescence|Cellular responses to stimuli|Cellular responses to stress|Cellular senescence - Homo sapiens (human)|Chronic myeloid leukemia - Homo sapiens (human)|Cushing syndrome - Homo sapiens (human)|Cyclin D associated events in G1|Defective binding of RB1 mutants to E2F1,(E2F2, E2F3)|Disease|Diseases of mitotic cell cycle|Epstein-Barr virus infection - Homo sapiens (human)|G1 Phase|Gene expression (Transcription)|Generic Transcription Pathway|Glioma - Homo sapiens (human)|Hepatitis C - Homo sapiens (human)|Hepatocellular carcinoma - Homo sapiens (human)|Human cytomegalovirus infection - Homo sapiens (human)|Human papillomavirus infection - Homo sapiens (human)|Kaposi sarcoma-associated herpesvirus infection - Homo sapiens (human)|Melanoma - Homo sapiens (human)|MicroRNAs in cancer - Homo sapiens (human)|Mitotic G1 phase and G1/S transition|Non-small cell lung cancer - Homo sapiens (human)|PI3K-Akt signaling pathway - Homo sapiens (human)|Pancreatic cancer - Homo sapiens (human)|Pathways in cancer - Homo sapiens (human)|RNA Polymerase II Transcription|Senescence-Associated Secretory Phenotype (SASP)|Small cell lung cancer - Homo sapiens (human)|Viral carcinogenesis - Homo sapiens (human)|p53 signaling pathway - Homo sapiens (human)   50,258 edges
+  [KEGG      ] Disease|Immune System|Innate Immune System|MyD88:MAL(TIRAP) cascade initiated on plasma membrane|Toll Like Receptor 2 (TLR2) Cascade|Toll Like Receptor 4 (TLR4) Cascade|Toll Like Receptor TLR1:TLR2 Cascade|Toll Like Receptor TLR6:TLR2 Cascade|Toll-like Receptor Cascades   48,893 edges
+  [Reactome  ] Metabolism of RNA|rRNA modification in the nucleus and cytosol|rRNA processing|rRNA processing in the nucleus and cytosol   48,678 edges
+  [KEGG      ] Autophagy|Macroautophagy|Mitophagy|Mitophagy - animal - Homo sapiens (human)|PINK1-PRKN Mediated Mitophagy|Selective autophagy   47,435 edges
+  [KEGG      ] Amino acids regulate mTORC1|Autophagy|Cellular response to starvation|Cellular responses to stimuli|Cellular responses to stress|Energy dependent regulation of mTOR by LKB1-AMPK|Gene expression (Transcription)|Generic Transcription Pathway|Immune System|Innate Immune System|Intracellular signaling by second messengers|Lysosome biogenesis - Homo sapiens (human)|MAP2K and MAPK activation|MAPK family signaling cascades|MAPK1/MAPK3 signaling|MTOR signalling|Macroautophagy|Neutrophil degranulation|PIP3 activates AKT signaling|PTEN Regulation|RAF/MAP kinase cascade|RNA Polymerase II Transcription|Regulation of PTEN gene transcription|Signal Transduction|TP53 Regulates Metabolic Genes|Transcriptional Regulation by TP53|mTOR signaling pathway - Homo sapiens (human)|mTORC1-mediated signalling   46,821 edges
+  [KEGG      ] ATP-dependent chromatin remodeling - Homo sapiens (human)|B-WICH complex positively regulates rRNA expression|DNA Double Strand Break Response|DNA Double-Strand Break Repair|DNA Repair|Epigenetic regulation of gene expression|Gene expression (Transcription)|Positive epigenetic regulation of rRNA expression|Recruitment and ATM-mediated phosphorylation of repair and signaling proteins at DNA double strand breaks   46,218 edges
+  [Reactome  ] Metabolism of proteins|Post-translational protein modification|Proteasome assembly   45,913 edges
+  → Full list saved to stats_pathway_edges_by_pathway.csv
+
+--- LR EDGES BY SOURCE PAIR ---
+  tabula_sapiens <-> tabula_sapiens        15,278,340 edges
+  hrdg <-> tabula_sapiens                   1,578,960 edges
+  hrdg <-> hrdg                                47,074 edges
+  LR edges skipped (same layer): 110,018
+
+--- LR GENES ABSENT FROM GRAPH ---
+  Ligands  not found in any layer: 117
+  Receptors not found in any layer: 124
+  → Full list saved to stats_lr_genes_absent_from_graph.csv
+
+======================================================================
+
+Statistics report saved → integrated_multiplex_output/edge_statistics_report.txt
+
+Done in 15190.7s
+Finished at: Thu Apr 30 01:47:31 AM CEST 2026

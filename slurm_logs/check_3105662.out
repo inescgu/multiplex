@@ -1,0 +1,19 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c04/tmp/slurm-3105662
+Loading uniprot map...
+  165,580 entries
+
+Loading first 500 rows of reactome CSV...
+  498 rows with common_pathway
+
+  Raw UniProt IDs seen : 271
+  Resolved to symbols  : 271
+  Resolution rate      : 100.0%
+
+  DB label counts (from pathway_sources column):
+    Reactome           496 rows
+    KEGG               359 rows
+
+  Sample resolved symbols: ['ACADL', 'ACAT2', 'ACOT12', 'ACOT13', 'ACVR2A', 'ADH1A', 'ADIPOR2', 'ADSS2', 'AKR7A3', 'ALDH4A1']
+
+✅ PASS: Symbols resolved correctly. Pathway fix should work.
+Finished at: Wed Apr 29 09:28:45 PM CEST 2026

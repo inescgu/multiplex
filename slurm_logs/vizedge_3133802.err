@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/visualize_edge_overlaps.py", line 595, in <module>
+    main()
+    ~~~~^^
+  File "/lisc/home/user/gerardursin/multiplex/visualize_edge_overlaps.py", line 568, in main
+    plot_upset_edge_types(metadata, output_dir)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/visualize_edge_overlaps.py", line 107, in plot_upset_edge_types
+    UpSet(upset_data, show_counts=True, element_size=100).plot(ax=ax)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+TypeError: UpSet.plot() got an unexpected keyword argument 'ax'

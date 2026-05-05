@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=build_2025
-#SBATCH --output=slurm_logs/bm_%j.out
-#SBATCH --error=slurm_logs/bm_%j.err
+#SBATCH --job-name=buildcoex
+#SBATCH --output=slurm_logs/bcoex_%j.out
+#SBATCH --error=slurm_logs/bcoex_%j.err
 #SBATCH --time=12:00:00
 #SBATCH --mem=10G
 #SBATCH --ntasks=1
@@ -10,8 +10,7 @@
 cd /lisc/home/user/gerardursin/multiplex/
 
 # Create necessary directories
-mkdir -p multiplex_2025hdrg
-mkdir -p slurm_logs
+mkdir -p multiplex_2025hdrg_coex
 
 
 # Print job information
@@ -22,6 +21,8 @@ echo "SLURM_JOB_ID: $SLURM_JOB_ID"
 
 # Load required modules
 module load Python/3.13.5-GCCcore-14.3.0
+source /lisc/data/scratch/menche/ines/multi_env/bin/activate
+
 pip install --user pandas numpy networkx pickly scipy 
 
 

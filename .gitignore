@@ -29,3 +29,7 @@
 *.log
 *.sql
 *.sqlite
+pathway_distance/reactome_interactions_human.txt
+pathway_distance/ncbi_to_pathways.txt
+pathway_distance/ensembl_to_pathways.txt
+pathway_distance/uniprot_to_pathways.txt
