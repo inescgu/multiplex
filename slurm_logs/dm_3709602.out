@@ -1,0 +1,80 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-3709602
+Running on host: node-c05.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 03:44:17 PM CEST 2026
+SLURM_JOB_ID: 3709602
+Loading RWR scores from multixrank_results/gene_rwr_scores.csv ...
+  17,051 ranked genes
+Loading reference graph from multixrank_input/gene_reference_graph.pkl ...
+  17,051 nodes, 304,859 edges
+Loading seeds from multixrank_input/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 137 components, largest CC = 219
+
+Initial module: 372 seeds + 200 top-ranked = 572 genes
+Module not connected — adding bridging genes...
+  +100 bridges, 14 components
+  +200 bridges, 11 components
+  +300 bridges, 3 components
+  +400 bridges, 3 components
+  +500 bridges, 3 components
+  +600 bridges, 3 components
+  +700 bridges, 3 components
+  +800 bridges, 2 components
+  +900 bridges, 2 components
+  +1000 bridges, 2 components
+Applying LCC fallback...
+  LCC has 1569 genes (dropped 3)
+Saved disease module CSV → disease_module_output/disease_module.csv
+Saved module graph → disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 304,859
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing from ref : 0
+
+--- SEED-ONLY SUBGRAPH (before RWR-driven expansion) ---
+Connected components among seeds : 137
+Largest seed-only CC size        : 219
+Seed-only subgraph edges         : 350
+Isolated seeds (in ref but no edges to other seeds): 128
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H', 'CACNA2D1', 'CALB1']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 200
+Max bridging genes allowed : 1000
+Bridging genes added       : 1000
+Full module size           : 1572
+Full module fully connected: False
+  Components in full module: 2
+
+--- FINAL MODULE (after LCC fallback if needed) ---
+Final module size       : 1569
+Final module edges      : 17117
+Used LCC fallback       : True
+Seeds in final module   : 371 / 372
+Seeds dropped by LCC    : 1
+  Dropped seeds: ['NPPC']
+
+======================================================================
+⚠ MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Your seeds split into 137 components even on the full reference graph. This suggests biologically distinct seed subgroups. Consider: (a) reviewing whether all seeds belong to the same disease module, (b) running RWR separately per seed subgroup, or (c) increasing --k to give the walker more room to bridge them.
+• 128 seeds have no edges to other seeds in the reference graph. These are likely poorly connected genes — check whether they should remain as seeds or be moved to a validation set.
+• Bridging hit the cap (--max-bridge=1000). Try increasing it (e.g., --max-bridge 2000).
+• LCC fallback was used — non-LCC components were discarded. If you want to preserve all genes, set --no-lcc-fallback and report the module as multi-component.
+• Consider lowering MultiXrank's restart probability `r` (more diffusion) or tuning `delta` (more inter-layer jumping) in script 1, then re-running.
+• Check that pathway and LR layers are well-populated: sparse inter-layer edges limit the walker's ability to bridge disconnected seed clusters.
+
+======================================================================
+
+Diagnostics saved → disease_module_output/module_diagnostics.txt
+Finished at: Fri May 15 03:44:22 PM CEST 2026

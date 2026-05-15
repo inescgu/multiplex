@@ -1,0 +1,28 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-3708029
+Running on host: node-c03.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 03:03:36 PM CEST 2026
+SLURM_JOB_ID: 3708029
+Loading multiplex graph from integrated_multiplex_output/integrated_multiplex.pkl ...
+  1,648,733 nodes, 46,432,464 edges
+Loading node registry from integrated_multiplex_output/node_registry.csv ...
+  1,648,733 registry entries
+Loaded 408 seed gene symbols
+
+Edge-type filter: ['ppi']
+Mode            : per-layer
+Degree scope    : layer
+
+Analysing 179 layer(s)
+
+--- Analysing: global_ppi__full_network ---
+  eval graph: 17,051 nodes, 302,553 edges
+  pool graph: 17,051 nodes, 302,553 edges
+  seeds mapped to 372 node IDs
+  observed LCC=200, p=0, z=5.086
+Memory usage: 17946.96 MB
+
+--- Analysing: hrdg__A-LTMR.TAC3 ---
+  eval graph: 6,170 nodes, 58,818 edges
+  pool graph: 6,170 nodes, 58,818 edges
+  seeds mapped to 133 node IDs

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/dm2_run_multixrank.py", line 20, in <module>
+    import multixrank
+ModuleNotFoundError: No module named 'multixrank'

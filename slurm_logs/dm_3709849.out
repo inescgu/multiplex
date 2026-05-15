@@ -1,0 +1,66 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-3709849
+Running on host: node-c02.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 03:50:18 PM CEST 2026
+SLURM_JOB_ID: 3709849
+Loading RWR scores from multixrank_results/gene_rwr_scores.csv ...
+  17,051 ranked genes
+Loading reference graph from multixrank_input/gene_reference_graph.pkl ...
+  17,051 nodes, 304,859 edges
+Loading seeds from multixrank_input/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 137 components, largest CC = 219
+
+Initial module: 372 seeds + 500 top-ranked = 872 genes
+Module not connected — adding bridging genes...
+  +100 bridges, 3 components
+  +200 bridges, 3 components
+  +300 bridges, 3 components
+  +400 bridges, 3 components
+  +500 bridges, 2 components
+  +600 bridges, 2 components
+  +700 bridges, 2 components
+  +800 bridges, 2 components
+  +900 bridges, 2 components
+  +1000 bridges, 1 components
+Saved disease module CSV → disease_module_output/disease_module.csv
+Saved module graph → disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 304,859
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing from ref : 0
+
+--- SEED-ONLY SUBGRAPH (before RWR-driven expansion) ---
+Connected components among seeds : 137
+Largest seed-only CC size        : 219
+Seed-only subgraph edges         : 350
+Isolated seeds (in ref but no edges to other seeds): 128
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H', 'CACNA2D1', 'CALB1']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 500
+Max bridging genes allowed : 2000
+Bridging genes added       : 1000
+Full module size           : 1872
+Full module fully connected: True
+
+--- FINAL MODULE (after LCC fallback if needed) ---
+Final module size       : 1872
+Final module edges      : 23594
+Used LCC fallback       : False
+Seeds in final module   : 372 / 372
+Seeds dropped by LCC    : 0
+
+======================================================================
+
+Diagnostics saved → disease_module_output/module_diagnostics.txt
+Finished at: Fri May 15 03:50:23 PM CEST 2026

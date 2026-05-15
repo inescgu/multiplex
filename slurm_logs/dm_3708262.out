@@ -1,0 +1,18 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-3708262
+Running on host: node-c03.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 03:09:07 PM CEST 2026
+SLURM_JOB_ID: 3708262
+============================================================
+Running MultiXrank
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/multixrank_input
+Config file : multixrank_input/config.yml
+Output dir  : multixrank_results
+============================================================
+
+
+RWR complete in 4.8s
+
+Raw MultiXrank output saved → multixrank_results/multixrank_raw_output
+Finished at: Fri May 15 03:09:21 PM CEST 2026

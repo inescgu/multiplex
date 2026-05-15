@@ -1,0 +1,72 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-3709935
+Running on host: node-c01.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 03:53:49 PM CEST 2026
+SLURM_JOB_ID: 3709935
+Loading RWR scores from multixrank_results/gene_rwr_scores.csv ...
+  17,051 ranked genes
+Loading reference graph from multixrank_input/gene_reference_graph.pkl ...
+  17,051 nodes, 304,859 edges
+Loading seeds from multixrank_input/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 137 components, largest CC = 219
+
+Initial module: 372 seeds
+Seeds not connected — adding ranked genes one by one...
+  +100 genes, 42 components, connected=False
+  +200 genes, 20 components, connected=False
+  +300 genes, 14 components, connected=False
+  +400 genes, 11 components, connected=False
+  +500 genes, 3 components, connected=False
+  +600 genes, 3 components, connected=False
+  +700 genes, 3 components, connected=False
+  +800 genes, 3 components, connected=False
+  +900 genes, 3 components, connected=False
+  +1000 genes, 2 components, connected=False
+  +1100 genes, 2 components, connected=False
+  +1200 genes, 2 components, connected=False
+  +1300 genes, 2 components, connected=False
+  +1400 genes, 2 components, connected=False
+  +1476 genes, 1 components, connected=True
+Connected after adding 1476 genes!
+Saved disease module CSV → disease_module_output/disease_module.csv
+Saved module graph → disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 304,859
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing from ref : 0
+
+--- SEED-ONLY SUBGRAPH (before RWR-driven expansion) ---
+Connected components among seeds : 137
+Largest seed-only CC size        : 219
+Seed-only subgraph edges         : 350
+Isolated seeds (in ref but no edges to other seeds): 128
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H', 'CACNA2D1', 'CALB1']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 300
+Max bridging genes allowed : 2000
+Genes added                : 1476
+Full module size           : 1848
+Full module fully connected: True
+
+--- FINAL MODULE (after LCC fallback if needed) ---
+Final module size       : 1848
+Final module edges      : 23032
+Used LCC fallback       : False
+Seeds in final module   : 372 / 372
+Seeds dropped by LCC    : 0
+
+======================================================================
+
+Diagnostics saved → disease_module_output/module_diagnostics.txt
+Finished at: Fri May 15 03:57:33 PM CEST 2026

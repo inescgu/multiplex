@@ -1,0 +1,18 @@
+seed: seeds/seeds.txt
+self_loops: 0
+r: 0.7
+multiplex:
+  gene_multiplex:
+    layers:
+    - multiplex/gene_multiplex/ppi_layer.tsv
+    - multiplex/gene_multiplex/pathway_layer.tsv
+    - multiplex/gene_multiplex/ligand_receptor_layer.tsv
+    graph_type:
+    - '00'
+    - '00'
+    - '00'
+    delta: 0.5
+    tau:
+    - 0.333333
+    - 0.333333
+    - 0.333333

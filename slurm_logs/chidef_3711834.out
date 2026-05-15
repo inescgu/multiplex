@@ -1,0 +1,10 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-3711834
+Started at: Fri May 15 05:08:45 PM CEST 2026
+Running HiDeF clustering...
+Loaded graph: 1,848 nodes, 23,032 edges
+Loaded registry: 1,648,733 entries
+
+1 candidate layers under scheme 'hybrid'
+
+--- Layer ('unknown',): 23,032 edges ---
+Finished at: Fri May 15 05:08:54 PM CEST 2026

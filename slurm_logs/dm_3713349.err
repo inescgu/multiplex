@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/dm1_build_multixrank_inputs.py", line 240, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/dm1_build_multixrank_inputs.py", line 199, in main
+    save_edge_type_metadata(edges_by_type, metadata_path)
+  File "/lisc/home/user/gerardursin/multiplex/dm1_build_multixrank_inputs.py", line 100, in save_edge_type_metadata
+    json.dump(metadata, f, indent=2)
+    ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'?
+/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/multixrank/TransitionMatrix.py:124: FutureWarning: Input has data type int64, but the output has been cast to float64.  In the future, the output data type will match the input. To avoid this warning, set the `dtype` parameter to `None` to have the output dtype match the input, or set it to the desired output data type.
+  Normalization_matrix_up = scipy.sparse.diags(diago_up, format = "coo")
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/dm3_build_disease_module.py", line 344, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/dm3_build_disease_module.py", line 266, in main
+    scores, H, seeds = load_inputs(args.scores, ref_path, seeds_path, input_dir=args.input_dir)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/dm3_build_disease_module.py", line 40, in load_inputs
+    metadata = json.load(f)
+               ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'?
