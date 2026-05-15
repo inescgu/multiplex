@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job3134284/slurm_script: line 34: 1719899 Killed                  python build_25drg_altcoex.py --markers-file ../R/convert_hdrg_human_2025/cell_type_markers.csv --expr-matrix ../R/convert_hdrg_human_2025/expression_matrix.pkl --output-dir multiplex_2025hdrg --seed-genes-file ../og_gene_set/seed_genes.csv
-[2026-04-30T11:21:52.068] error: Detected 1 oom_kill event in StepId=3134284.batch. Some of the step tasks have been OOM Killed.

@@ -23,6 +23,14 @@ from itertools import combinations
 import pandas as pd
 import networkx as nx
 
+def load_base_ppi(ppi_file: str) -> nx.Graph:
+    """Load full base PPI network and normalise node names to uppercase."""
+    print(f"Loading base PPI from {ppi_file} ...")
+    with open(ppi_file, "rb") as f:
+        G = pickle.load(f)
+    G = nx.relabel_nodes(G, {n: str(n).strip().upper() for n in G.nodes()})
+    print(f"  Base PPI: {G.number_of_nodes():,} nodes, {G.number_of_edges():,} edges\n")
+    return G
 
 # ============================================================================
 # SECTION 1 — LAYER LOADING
@@ -947,6 +955,8 @@ def main():
     parser.add_argument("--max-pathway-size",    type=int, default=300)
     parser.add_argument("--pathway-chunk-size",  type=int, default=50)
     parser.add_argument("--cross-source-only",   action="store_true")
+    parser.add_argument("--base-ppi", default=None,
+                    help="Path to full PPI network .pkl to add as a dedicated layer")
     args = parser.parse_args()
 
     t0 = time.time()
@@ -956,7 +966,13 @@ def main():
     print("=" * 60)
     ts_layers   = load_layers_from_folder(args.ts_layers_dir,   "tabula_sapiens")
     hrdg_layers = load_layers_from_folder(args.hrdg_layers_dir, "hrdg")
-
+    
+    if args.base_ppi:
+        print("Loading full base PPI layer ...")
+        base_ppi_graph = load_base_ppi(args.base_ppi)
+        hrdg_layers[("global_ppi", "full_network")] = base_ppi_graph
+        print("  Added base PPI as layer: source='global_ppi', cell_type='full_network'\n")
+    
     print("=" * 60)
     print("STEP 2: PATHWAY INDEX")
     print("=" * 60)

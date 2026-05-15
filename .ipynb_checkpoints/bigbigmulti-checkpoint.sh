@@ -30,8 +30,10 @@ python build_master_multiplex.py \
   --lr-csv          ./pathway_distance/lr_pairs.csv \
   --output-dir      integrated_multiplex_output\
   --uniprot-map ../og_gene_set/ppi_chloe/d_uniprot_to_symbol_20251120.csv \
+  --base-ppi ../og_gene_set/temp/combined26/full_network.pkl \
   --max-pathway-size   300 \
-  --pathway-chunk-size 50 \
+  --pathway-chunk-size 50
+
   
 # End time
 echo "Finished at: $(date)"

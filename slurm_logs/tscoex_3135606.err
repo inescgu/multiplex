@@ -1,3 +1,0 @@
-The "stable" release is currently 2025-11-08. Specify 'census_version="2025-11-08"' in future calls to open_soma() to ensure data consistency.
-/var/spool/slurm/slurmd/job3135606/slurm_script: line 32: 699570 Killed                  python ts_altcoex.py --output-dir new_ts_coex --seed-genes ../og_gene_set/seed_genes.csv --expression-threshold 0.1
-[2026-04-30T12:34:09.780] error: Detected 1 oom_kill event in StepId=3135606.batch. Some of the step tasks have been OOM Killed.
