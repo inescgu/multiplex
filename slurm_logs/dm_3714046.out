@@ -3,3 +3,142 @@ Running on host: node-c05.lisc
 Current working directory: /lisc/home/user/gerardursin/multiplex
 Starting at: Fri May 15 06:04:27 PM CEST 2026
 SLURM_JOB_ID: 3714046
+Loading integrated multiplex from integrated_multiplex_output/integrated_multiplex.pkl ...
+  1,648,733 nodes, 46,432,464 edges
+
+Gene-level projection:
+  Total unique genes: 17,051
+  ppi                     302,553 unique gene-pair edges
+  ligand_receptor           2,647 unique gene-pair edges
+  pathway                     204 unique gene-pair edges
+
+  Wrote ppi                  layer: 302,553 edges → multixrank_input/multiplex/gene_multiplex/ppi_layer.tsv
+  Wrote pathway              layer: 204 edges → multixrank_input/multiplex/gene_multiplex/pathway_layer.tsv
+  Wrote ligand_receptor      layer: 2,647 edges → multixrank_input/multiplex/gene_multiplex/ligand_receptor_layer.tsv
+
+Saved edge type metadata → multixrank_input/edge_type_metadata.json
+
+Saved gene reference graph → multixrank_input/gene_reference_graph.pkl
+  17,051 nodes, 304,859 edges
+
+Saved PPI-only reference graph → multixrank_input/gene_ppi_reference_graph.pkl
+  17,051 nodes, 302,553 edges
+
+Seeds: 408 provided, 372 in multiplex, 36 missing
+  Missing seeds (first 10): ['EPHX2', 'KCNT1', 'PTGER2', 'P2RX3', 'DRGX', 'ADORA3', 'LPAR5', 'BDKRB1', 'CHRM1', 'CACNA1G']
+  Saved 372 seeds → multixrank_input/seeds/seeds.txt
+
+Saved MultiXrank config → multixrank_input/config.yml
+  restart (r)   : 0.7
+  delta         : 0.5
+  tau per layer : 0.333333 (3 layers)
+
+============================================================
+MultiXrank inputs ready
+============================================================
+Working directory for MultiXrank: /lisc/home/user/gerardursin/multiplex/multixrank_input
+Config file: multixrank_input/config.yml
+Run script 2 with: --wdir multixrank_input --config config.yml
+============================================================
+============================================================
+Running MultiXrank
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/multixrank_input
+Config file : multixrank_input/config.yml
+Output dir  : multixrank_results
+============================================================
+
+
+RWR complete in 5.7s
+
+Raw MultiXrank output saved → multixrank_results/multixrank_raw_output
+         node                                              layer         score
+0        A1BG             multiplex/gene_multiplex/ppi_layer.tsv  1.517287e-06
+1        A1CF             multiplex/gene_multiplex/ppi_layer.tsv  7.812413e-07
+2         A2M             multiplex/gene_multiplex/ppi_layer.tsv  5.984931e-05
+3       A2ML1             multiplex/gene_multiplex/ppi_layer.tsv  1.565172e-05
+4      A4GALT             multiplex/gene_multiplex/ppi_layer.tsv  7.632486e-07
+...       ...                                                ...           ...
+51148  ZYG11A  multiplex/gene_multiplex/ligand_receptor_layer...  3.634554e-09
+51149  ZYG11B  multiplex/gene_multiplex/ligand_receptor_layer...  3.647369e-08
+51150     ZYX  multiplex/gene_multiplex/ligand_receptor_layer...  1.380962e-08
+51151   ZZEF1  multiplex/gene_multiplex/ligand_receptor_layer...  3.753198e-08
+51152    ZZZ3  multiplex/gene_multiplex/ligand_receptor_layer...  8.374313e-09
+
+[51153 rows x 3 columns]
+
+Saved gene-level RWR scores → multixrank_results/gene_rwr_scores.csv
+  Genes ranked     : 17,051
+  Top score        : 1.222295e-03
+  Median score     : 1.850198e-06
+  Non-zero scores  : 17,051
+
+Next step: run script 3 (build_disease_module.py)
+Loading RWR scores from multixrank_results/gene_rwr_scores.csv ...
+  17,051 ranked genes
+Loading reference graph from multixrank_input/gene_reference_graph.pkl ...
+  17,051 nodes, 304,859 edges
+  Edge types: ppi, ligand_receptor, pathway
+Loading seeds from multixrank_input/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 137 components, largest CC = 219
+
+Initial module: 372 seeds
+Seeds not connected — adding ranked genes one by one...
+  +100 genes, 42 components, connected=False
+  +200 genes, 20 components, connected=False
+  +300 genes, 14 components, connected=False
+  +400 genes, 11 components, connected=False
+  +500 genes, 3 components, connected=False
+  +600 genes, 3 components, connected=False
+  +700 genes, 3 components, connected=False
+  +800 genes, 3 components, connected=False
+  +900 genes, 3 components, connected=False
+  +1000 genes, 2 components, connected=False
+  +1100 genes, 2 components, connected=False
+  +1200 genes, 2 components, connected=False
+  +1300 genes, 2 components, connected=False
+  +1400 genes, 2 components, connected=False
+  +1476 genes, 1 components, connected=True
+Connected after adding 1476 genes!
+Saved disease module CSV → disease_module_output/disease_module.csv
+Saved module graph → disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 304,859
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing from ref : 0
+
+--- SEED-ONLY SUBGRAPH (before RWR-driven expansion) ---
+Connected components among seeds : 137
+Largest seed-only CC size        : 219
+Seed-only subgraph edges         : 350
+Isolated seeds (in ref but no edges to other seeds): 128
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H', 'CACNA2D1', 'CALB1']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 300
+Max bridging genes allowed : 2000
+Genes added                : 1476
+Full module size           : 1848
+Full module fully connected: True
+
+--- FINAL MODULE (after LCC fallback if needed) ---
+Final module size       : 1848
+Final module edges      : 23032
+Used LCC fallback       : False
+Seeds in final module   : 372 / 372
+Seeds dropped by LCC    : 0
+
+======================================================================
+
+Diagnostics saved → disease_module_output/module_diagnostics.txt
+Finished at: Fri May 15 06:12:07 PM CEST 2026

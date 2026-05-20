@@ -1,0 +1,114 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-3728773
+Running on host: node-c01.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Mon May 18 10:58:43 AM CEST 2026
+SLURM_JOB_ID: 3728773
+============================================================
+Running MultiXrank (cell-type layers)
+============================================================
+Working dir   : /lisc/home/user/gerardursin/multiplex/multixrank_input
+Config file   : multixrank_input/config.yml
+Output dir    : multixrank_results
+Aggregation   : max
+============================================================
+
+Cell-type layers (179): ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'B cell', 'BEST4+ enterocyte', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'CD4-positive, alpha-beta T cell', 'CD4-positive, alpha-beta thymocyte', 'CD8-positive, alpha-beta T cell', 'CD8-positive, alpha-beta thymocyte', 'Langerhans cell', 'Mueller cell', 'Schwann cell', 'T cell', 'acinar cell', 'acinar cell of salivary gland', 'activated CD4-positive, alpha-beta T cell', 'activated CD8-positive, alpha-beta T cell', 'adventitial cell', 'alveolar adventitial fibroblast', 'basal cell', 'basal cell of prostate epithelium', 'basophil', 'bladder urothelial cell', 'blood vessel smooth muscle cell', 'bronchial smooth muscle cell', 'capillary endothelial cell', 'cardiac endothelial cell', 'ciliated epithelial cell', 'classical monocyte', 'club cell', 'colon endothelial cell', 'colon macrophage', 'common myeloid progenitor', 'conjunctival epithelial cell', 'connective tissue cell', 'corneal epithelial cell', 'duct epithelial cell', 'endothelial cell', 'endothelial cell of arteriole', 'endothelial cell of artery', 'endothelial cell of lymphatic vessel', 'endothelial cell of vascular tree', 'endothelial cell of venule', 'enterocyte of epithelium of large intestine', 'enterocyte of epithelium proper of duodenum', 'enterocyte of epithelium proper of ileum', 'enterocyte of epithelium proper of jejunum', 'enterocyte of epithelium proper of small intestine', 'enteroendocrine cell of small intestine', 'enteroglial cell', 'epithelial cell', 'epithelial cell of uterus', 'erythrocyte', 'erythroid progenitor cell', 'eye photoreceptor cell', 'fast muscle cell', 'fibroblast', 'fibroblast of breast', 'fibroblast of cardiac tissue', 'full_network', 'gamma-delta T cell', 'glandular secretory epithelial cell', 'granulocyte', 'hematopoietic cell', 'hematopoietic precursor cell', 'hematopoietic stem cell', 'hepatic stellate cell', 'hepatocyte', 'innate lymphoid cell', 'intermediate monocyte', 'interstitial cell of Cajal', 'intestinal crypt stem cell of colon', 'intestinal crypt stem cell of small intestine', 'intestinal tuft cell', 'intrahepatic cholangiocyte', 'ionocyte', 'keratocyte', 'kidney epithelial cell', 'large intestine goblet cell', 'leukocyte', 'luminal cell of prostate epithelium', 'luminal epithelial cell of mammary gland', 'lung multiciliated epithelial cell', 'macrophage', 'male germ cell', 'mast cell', 'mature NK T cell', 'melanocyte', 'mesenchymal stem cell', 'mesenchymal stem cell of adipose tissue', 'mesothelial cell', 'microglial cell', 'monocyte', 'mononuclear phagocyte', 'mucus secreting cell', 'multiciliated columnar cell of tracheobronchial tree', 'mural cell', 'muscle cell', 'myeloid cell', 'myeloid dendritic cell', 'myeloid leukocyte', 'myo-medullary thymic epithelial cell', 'myoepithelial cell', 'myofibroblast cell', 'myometrial cell', 'naive thymus-derived CD4-positive, alpha-beta T cell', 'naive thymus-derived CD8-positive, alpha-beta T cell', 'natural killer cell', 'neuro-medullary thymic epithelial cell', 'neuron', 'neutrophil', 'non-classical monocyte', 'ovarian surface epithelial cell', 'pancreatic acinar cell', 'pancreatic ductal cell', 'pancreatic stellate cell', 'paneth cell of colon', 'paneth cell of epithelium of small intestine', 'pericyte', 'peritubular myoid cell', 'plasma cell', 'plasmacytoid dendritic cell', 'platelet', 'progenitor cell of mammary luminal epithelium', 'pulmonary alveolar type 1 cell', 'pulmonary alveolar type 2 cell', 'regular atrial cardiac myocyte', 'regulatory T cell', 'respiratory tract goblet cell', 'retinal bipolar neuron', 'retinal blood vessel endothelial cell', 'retinal pigment epithelial cell', 'salivary gland cell', 'sebocyte', 'serous cell of epithelium of trachea', 'skeletal muscle satellite stem cell', 'slow muscle cell', 'small intestine goblet cell', 'smooth muscle cell', 'spermatid', 'spermatocyte', 'spermatogonium', 'stratified squamous epithelial cell', 'stromal cell', 'stromal cell of ovary', 'supporting cell of vestibular epithelium', 'tendon cell', 'theca cell', 'thymic fibroblast type 1', 'thymic fibroblast type 2', 'thymocyte', 'tissue-resident macrophage', 'tongue muscle cell', 'tracheal goblet cell', 'transit amplifying cell of colon', 'tuft cell of colon', 'type B pancreatic cell', 'vascular associated smooth muscle cell', 'vein endothelial cell', 'ventricular cardiac muscle cell']
+
+
+RWR complete in 13329.7s
+
+Raw MultiXrank output saved → multixrank_results/multixrank_raw_output
+
+Per-cell-type score matrix:
+  Genes    : 3,052,129
+  Layers   : ['layer_0']
+      layer_0
+gene         
+0         0.0
+1         0.0
+10        0.0
+100       0.0
+1000      0.0
+
+Saved per-cell-type scores → multixrank_results/per_celltype_scores.csv
+Saved aggregated RWR scores → multixrank_results/gene_rwr_scores.csv
+  Aggregation method : max
+  Genes ranked       : 3,052,129
+  Top score          : 0.000000e+00
+  Median score       : 0.000000e+00
+  Non-zero scores    : 0
+
+Next step: run script 3 (build_disease_module.py)
+  --scores multixrank_results/gene_rwr_scores.csv
+  --per-celltype-scores multixrank_results/per_celltype_scores.csv
+Loading RWR scores from multixrank_results/gene_rwr_scores.csv ...
+  3,052,129 ranked genes
+Loading reference graph from multixrank_input/gene_reference_graph.pkl ...
+  17,051 nodes, 302,553 edges
+  Cell types: ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'B cell', 'BEST4+ enterocyte', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'CD4-positive, alpha-beta T cell', 'CD4-positive, alpha-beta thymocyte', 'CD8-positive, alpha-beta T cell', 'CD8-positive, alpha-beta thymocyte', 'Langerhans cell', 'Mueller cell', 'Schwann cell', 'T cell', 'acinar cell', 'acinar cell of salivary gland', 'activated CD4-positive, alpha-beta T cell', 'activated CD8-positive, alpha-beta T cell', 'adventitial cell', 'alveolar adventitial fibroblast', 'basal cell', 'basal cell of prostate epithelium', 'basophil', 'bladder urothelial cell', 'blood vessel smooth muscle cell', 'bronchial smooth muscle cell', 'capillary endothelial cell', 'cardiac endothelial cell', 'ciliated epithelial cell', 'classical monocyte', 'club cell', 'colon endothelial cell', 'colon macrophage', 'common myeloid progenitor', 'conjunctival epithelial cell', 'connective tissue cell', 'corneal epithelial cell', 'duct epithelial cell', 'endothelial cell', 'endothelial cell of arteriole', 'endothelial cell of artery', 'endothelial cell of lymphatic vessel', 'endothelial cell of vascular tree', 'endothelial cell of venule', 'enterocyte of epithelium of large intestine', 'enterocyte of epithelium proper of duodenum', 'enterocyte of epithelium proper of ileum', 'enterocyte of epithelium proper of jejunum', 'enterocyte of epithelium proper of small intestine', 'enteroendocrine cell of small intestine', 'enteroglial cell', 'epithelial cell', 'epithelial cell of uterus', 'erythrocyte', 'erythroid progenitor cell', 'eye photoreceptor cell', 'fast muscle cell', 'fibroblast', 'fibroblast of breast', 'fibroblast of cardiac tissue', 'full_network', 'gamma-delta T cell', 'glandular secretory epithelial cell', 'granulocyte', 'hematopoietic cell', 'hematopoietic precursor cell', 'hematopoietic stem cell', 'hepatic stellate cell', 'hepatocyte', 'innate lymphoid cell', 'intermediate monocyte', 'interstitial cell of Cajal', 'intestinal crypt stem cell of colon', 'intestinal crypt stem cell of small intestine', 'intestinal tuft cell', 'intrahepatic cholangiocyte', 'ionocyte', 'keratocyte', 'kidney epithelial cell', 'large intestine goblet cell', 'leukocyte', 'luminal cell of prostate epithelium', 'luminal epithelial cell of mammary gland', 'lung multiciliated epithelial cell', 'macrophage', 'male germ cell', 'mast cell', 'mature NK T cell', 'melanocyte', 'mesenchymal stem cell', 'mesenchymal stem cell of adipose tissue', 'mesothelial cell', 'microglial cell', 'monocyte', 'mononuclear phagocyte', 'mucus secreting cell', 'multiciliated columnar cell of tracheobronchial tree', 'mural cell', 'muscle cell', 'myeloid cell', 'myeloid dendritic cell', 'myeloid leukocyte', 'myo-medullary thymic epithelial cell', 'myoepithelial cell', 'myofibroblast cell', 'myometrial cell', 'naive thymus-derived CD4-positive, alpha-beta T cell', 'naive thymus-derived CD8-positive, alpha-beta T cell', 'natural killer cell', 'neuro-medullary thymic epithelial cell', 'neuron', 'neutrophil', 'non-classical monocyte', 'ovarian surface epithelial cell', 'pancreatic acinar cell', 'pancreatic ductal cell', 'pancreatic stellate cell', 'paneth cell of colon', 'paneth cell of epithelium of small intestine', 'pericyte', 'peritubular myoid cell', 'plasma cell', 'plasmacytoid dendritic cell', 'platelet', 'progenitor cell of mammary luminal epithelium', 'pulmonary alveolar type 1 cell', 'pulmonary alveolar type 2 cell', 'regular atrial cardiac myocyte', 'regulatory T cell', 'respiratory tract goblet cell', 'retinal bipolar neuron', 'retinal blood vessel endothelial cell', 'retinal pigment epithelial cell', 'salivary gland cell', 'sebocyte', 'serous cell of epithelium of trachea', 'skeletal muscle satellite stem cell', 'slow muscle cell', 'small intestine goblet cell', 'smooth muscle cell', 'spermatid', 'spermatocyte', 'spermatogonium', 'stratified squamous epithelial cell', 'stromal cell', 'stromal cell of ovary', 'supporting cell of vestibular epithelium', 'tendon cell', 'theca cell', 'thymic fibroblast type 1', 'thymic fibroblast type 2', 'thymocyte', 'tissue-resident macrophage', 'tongue muscle cell', 'tracheal goblet cell', 'transit amplifying cell of colon', 'tuft cell of colon', 'type B pancreatic cell', 'vascular associated smooth muscle cell', 'vein endothelial cell', 'ventricular cardiac muscle cell']
+  Per-cell-type scores loaded: (3052129, 1)
+Loading seeds from multixrank_input/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 154 components, largest CC = 200
+
+Initial module: 372 seeds in reference graph
+Seeds not fully connected — expanding with ranked genes ...
+Reached limit of 0 genes without full connectivity
+Applying LCC fallback ...
+  LCC: 200 genes (dropped 172)
+Saved disease module CSV → disease_module_output/disease_module.csv
+  dominant_cell_type distribution:
+    layer_0                                200 genes
+Saved module graph → disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 302,553
+Cell types             : ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'B cell', 'BEST4+ enterocyte', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'CD4-positive, alpha-beta T cell', 'CD4-positive, alpha-beta thymocyte', 'CD8-positive, alpha-beta T cell', 'CD8-positive, alpha-beta thymocyte', 'Langerhans cell', 'Mueller cell', 'Schwann cell', 'T cell', 'acinar cell', 'acinar cell of salivary gland', 'activated CD4-positive, alpha-beta T cell', 'activated CD8-positive, alpha-beta T cell', 'adventitial cell', 'alveolar adventitial fibroblast', 'basal cell', 'basal cell of prostate epithelium', 'basophil', 'bladder urothelial cell', 'blood vessel smooth muscle cell', 'bronchial smooth muscle cell', 'capillary endothelial cell', 'cardiac endothelial cell', 'ciliated epithelial cell', 'classical monocyte', 'club cell', 'colon endothelial cell', 'colon macrophage', 'common myeloid progenitor', 'conjunctival epithelial cell', 'connective tissue cell', 'corneal epithelial cell', 'duct epithelial cell', 'endothelial cell', 'endothelial cell of arteriole', 'endothelial cell of artery', 'endothelial cell of lymphatic vessel', 'endothelial cell of vascular tree', 'endothelial cell of venule', 'enterocyte of epithelium of large intestine', 'enterocyte of epithelium proper of duodenum', 'enterocyte of epithelium proper of ileum', 'enterocyte of epithelium proper of jejunum', 'enterocyte of epithelium proper of small intestine', 'enteroendocrine cell of small intestine', 'enteroglial cell', 'epithelial cell', 'epithelial cell of uterus', 'erythrocyte', 'erythroid progenitor cell', 'eye photoreceptor cell', 'fast muscle cell', 'fibroblast', 'fibroblast of breast', 'fibroblast of cardiac tissue', 'full_network', 'gamma-delta T cell', 'glandular secretory epithelial cell', 'granulocyte', 'hematopoietic cell', 'hematopoietic precursor cell', 'hematopoietic stem cell', 'hepatic stellate cell', 'hepatocyte', 'innate lymphoid cell', 'intermediate monocyte', 'interstitial cell of Cajal', 'intestinal crypt stem cell of colon', 'intestinal crypt stem cell of small intestine', 'intestinal tuft cell', 'intrahepatic cholangiocyte', 'ionocyte', 'keratocyte', 'kidney epithelial cell', 'large intestine goblet cell', 'leukocyte', 'luminal cell of prostate epithelium', 'luminal epithelial cell of mammary gland', 'lung multiciliated epithelial cell', 'macrophage', 'male germ cell', 'mast cell', 'mature NK T cell', 'melanocyte', 'mesenchymal stem cell', 'mesenchymal stem cell of adipose tissue', 'mesothelial cell', 'microglial cell', 'monocyte', 'mononuclear phagocyte', 'mucus secreting cell', 'multiciliated columnar cell of tracheobronchial tree', 'mural cell', 'muscle cell', 'myeloid cell', 'myeloid dendritic cell', 'myeloid leukocyte', 'myo-medullary thymic epithelial cell', 'myoepithelial cell', 'myofibroblast cell', 'myometrial cell', 'naive thymus-derived CD4-positive, alpha-beta T cell', 'naive thymus-derived CD8-positive, alpha-beta T cell', 'natural killer cell', 'neuro-medullary thymic epithelial cell', 'neuron', 'neutrophil', 'non-classical monocyte', 'ovarian surface epithelial cell', 'pancreatic acinar cell', 'pancreatic ductal cell', 'pancreatic stellate cell', 'paneth cell of colon', 'paneth cell of epithelium of small intestine', 'pericyte', 'peritubular myoid cell', 'plasma cell', 'plasmacytoid dendritic cell', 'platelet', 'progenitor cell of mammary luminal epithelium', 'pulmonary alveolar type 1 cell', 'pulmonary alveolar type 2 cell', 'regular atrial cardiac myocyte', 'regulatory T cell', 'respiratory tract goblet cell', 'retinal bipolar neuron', 'retinal blood vessel endothelial cell', 'retinal pigment epithelial cell', 'salivary gland cell', 'sebocyte', 'serous cell of epithelium of trachea', 'skeletal muscle satellite stem cell', 'slow muscle cell', 'small intestine goblet cell', 'smooth muscle cell', 'spermatid', 'spermatocyte', 'spermatogonium', 'stratified squamous epithelial cell', 'stromal cell', 'stromal cell of ovary', 'supporting cell of vestibular epithelium', 'tendon cell', 'theca cell', 'thymic fibroblast type 1', 'thymic fibroblast type 2', 'thymocyte', 'tissue-resident macrophage', 'tongue muscle cell', 'tracheal goblet cell', 'transit amplifying cell of colon', 'tuft cell of colon', 'type B pancreatic cell', 'vascular associated smooth muscle cell', 'vein endothelial cell', 'ventricular cardiac muscle cell']
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components : 154
+Largest seed CC size : 200
+Seed subgraph edges  : 314
+Isolated seeds       : 140
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'ANO1', 'AQP4', 'AVPR1A', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 300
+Max bridging genes allowed : 2000
+Genes added                : 0
+Full module size           : 372
+Fully connected            : False
+  Components in full module: 154
+
+--- FINAL MODULE ---
+Final module size       : 200
+Final module edges      : 295
+Used LCC fallback       : True
+Seeds in final module   : 200 / 372
+Seeds dropped by LCC    : 172
+  Dropped: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADCYAP1', 'ADCYAP1R1', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'ALOX5', 'ANO1', 'AQP4', 'AVPR1A', 'BACE1', 'BAMBI', 'BDKRB2']
+
+--- DOMINANT CELL TYPE DISTRIBUTION (module genes) ---
+  layer_0                                200 genes
+
+======================================================================
+⚠ MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Seeds split into 154 components on the reference graph. Consider (a) reviewing whether all seeds belong to the same module, (b) running RWR per seed subgroup, or (c) increasing --k.
+• LCC fallback used — non-LCC components discarded. Set --no-lcc-fallback to keep all genes.
+• Cell-type layers may be sparse. Check that each layer has enough edges to allow the walker to bridge between seed clusters.
+
+======================================================================
+
+Diagnostics saved → disease_module_output/module_diagnostics.txt
+Finished at: Mon May 18 02:42:09 PM CEST 2026

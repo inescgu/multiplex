@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/dm_%j.out
 #SBATCH --error=slurm_logs/dm_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=30G
+#SBATCH --mem=60G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -23,10 +23,10 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
   
 # Step 1
-python dm1_build_multixrank_inputs.py \
-    --multiplex-pkl integrated_multiplex_output/integrated_multiplex.pkl \
-    --seed-csv ../og_gene_set/seed_genes.csv \
-    --output-dir multixrank_input
+# python dm1_build_multixrank_inputs.py \
+#     --multiplex-pkl integrated_multiplex_output/integrated_multiplex.pkl \
+#     --seed-csv ../og_gene_set/seed_genes.csv \
+#     --output-dir multixrank_input
 
 # Step 2
 python dm2_run_multixrank.py \
@@ -37,6 +37,7 @@ python dm2_run_multixrank.py \
 # Step 3
 python dm3_build_disease_module.py \
     --scores multixrank_results/gene_rwr_scores.csv \
+    --per-celltype-scores multixrank_results/per_celltype_scores.csv \
     --input-dir multixrank_input \
     --output-dir disease_module_output \
     --connectivity all \

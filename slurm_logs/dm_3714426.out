@@ -1,0 +1,397 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-3714426
+Running on host: node-c05.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri May 15 06:18:01 PM CEST 2026
+SLURM_JOB_ID: 3714426
+Loading multiplex from integrated_multiplex_output/integrated_multiplex.pkl ...
+  1,648,733 nodes, 46,432,464 edges
+
+Cell-type layer projection:
+  Total unique genes : 17,051
+  A-LTMR.TAC3                                  58,818 unique gene-pair edges
+  A-PEP.CHRNA7_SLC18A3                          2,650 unique gene-pair edges
+  A-PEP.KIT                                    20,489 unique gene-pair edges
+  A-PEP.NTRK3_S100A16                           4,566 unique gene-pair edges
+  A-PEP.SCGN_ADRA2C                             6,433 unique gene-pair edges
+  A-Propr.EPHA3                                13,971 unique gene-pair edges
+  A-Propr.HAPLN4                                9,295 unique gene-pair edges
+  A-Propr.PCDH8                                21,547 unique gene-pair edges
+  ATF3                                          6,394 unique gene-pair edges
+  Ab-LTMR.CCKAR                                 4,771 unique gene-pair edges
+  Ab-LTMR.ETV1                                 16,560 unique gene-pair edges
+  Ab-LTMR.LGI2                                 16,141 unique gene-pair edges
+  Ab-LTMR.NSG2                                  7,370 unique gene-pair edges
+  B cell                                      159,622 unique gene-pair edges
+  BEST4+ enterocyte                           109,410 unique gene-pair edges
+  C-LTMR.CDH9                                   8,123 unique gene-pair edges
+  C-NP.MRGPRX1_GFRA2                            2,692 unique gene-pair edges
+  C-NP.MRGPRX1_MRGPRX4                          4,272 unique gene-pair edges
+  C-NP.SST                                      3,585 unique gene-pair edges
+  C-PEP.ADORA2B                                16,638 unique gene-pair edges
+  C-PEP.TAC1_CACNG5                             3,624 unique gene-pair edges
+  C-PEP.TAC1_CHRNA3                             5,452 unique gene-pair edges
+  C-Thermo.RXFP1                               19,226 unique gene-pair edges
+  C-Thermo.TRPM8                                2,659 unique gene-pair edges
+  CD4-positive, alpha-beta T cell             169,098 unique gene-pair edges
+  CD4-positive, alpha-beta thymocyte          145,688 unique gene-pair edges
+  CD8-positive, alpha-beta T cell             170,260 unique gene-pair edges
+  CD8-positive, alpha-beta thymocyte          159,090 unique gene-pair edges
+  Langerhans cell                             115,874 unique gene-pair edges
+  Mueller cell                                142,195 unique gene-pair edges
+  Schwann cell                                138,821 unique gene-pair edges
+  T cell                                      161,625 unique gene-pair edges
+  (intercellular — not written as a layer)      2,851 unique gene-pair edges
+  acinar cell                                  93,726 unique gene-pair edges
+  acinar cell of salivary gland               179,780 unique gene-pair edges
+  activated CD4-positive, alpha-beta T cell    128,714 unique gene-pair edges
+  activated CD8-positive, alpha-beta T cell     88,281 unique gene-pair edges
+  adventitial cell                            227,959 unique gene-pair edges
+  alveolar adventitial fibroblast             188,593 unique gene-pair edges
+  basal cell                                  219,682 unique gene-pair edges
+  basal cell of prostate epithelium           182,316 unique gene-pair edges
+  basophil                                    120,830 unique gene-pair edges
+  bladder urothelial cell                     192,640 unique gene-pair edges
+  blood vessel smooth muscle cell             133,393 unique gene-pair edges
+  bronchial smooth muscle cell                132,890 unique gene-pair edges
+  capillary endothelial cell                  190,019 unique gene-pair edges
+  cardiac endothelial cell                    159,852 unique gene-pair edges
+  ciliated epithelial cell                    170,882 unique gene-pair edges
+  classical monocyte                          156,095 unique gene-pair edges
+  club cell                                   174,242 unique gene-pair edges
+  colon endothelial cell                      168,093 unique gene-pair edges
+  colon macrophage                            143,802 unique gene-pair edges
+  common myeloid progenitor                   187,680 unique gene-pair edges
+  conjunctival epithelial cell                168,555 unique gene-pair edges
+  connective tissue cell                      117,835 unique gene-pair edges
+  corneal epithelial cell                     152,657 unique gene-pair edges
+  duct epithelial cell                        185,742 unique gene-pair edges
+  endothelial cell                            195,837 unique gene-pair edges
+  endothelial cell of arteriole               147,577 unique gene-pair edges
+  endothelial cell of artery                  174,458 unique gene-pair edges
+  endothelial cell of lymphatic vessel        184,135 unique gene-pair edges
+  endothelial cell of vascular tree           211,803 unique gene-pair edges
+  endothelial cell of venule                  137,926 unique gene-pair edges
+  enterocyte of epithelium of large intestine    196,943 unique gene-pair edges
+  enterocyte of epithelium proper of duodenum    120,142 unique gene-pair edges
+  enterocyte of epithelium proper of ileum    132,899 unique gene-pair edges
+  enterocyte of epithelium proper of jejunum    115,545 unique gene-pair edges
+  enterocyte of epithelium proper of small intestine    232,158 unique gene-pair edges
+  enteroendocrine cell of small intestine     169,886 unique gene-pair edges
+  enteroglial cell                            130,363 unique gene-pair edges
+  epithelial cell                             144,514 unique gene-pair edges
+  epithelial cell of uterus                   199,095 unique gene-pair edges
+  erythrocyte                                  51,311 unique gene-pair edges
+  erythroid progenitor cell                   183,335 unique gene-pair edges
+  eye photoreceptor cell                      123,089 unique gene-pair edges
+  fast muscle cell                            143,523 unique gene-pair edges
+  fibroblast                                  201,571 unique gene-pair edges
+  fibroblast of breast                        145,548 unique gene-pair edges
+  fibroblast of cardiac tissue                161,199 unique gene-pair edges
+  full_network                                302,553 unique gene-pair edges
+  gamma-delta T cell                           99,738 unique gene-pair edges
+  glandular secretory epithelial cell         166,732 unique gene-pair edges
+  granulocyte                                 171,126 unique gene-pair edges
+  hematopoietic cell                           83,403 unique gene-pair edges
+  hematopoietic precursor cell                157,146 unique gene-pair edges
+  hematopoietic stem cell                     199,851 unique gene-pair edges
+  hepatic stellate cell                       134,038 unique gene-pair edges
+  hepatocyte                                  125,501 unique gene-pair edges
+  innate lymphoid cell                        196,550 unique gene-pair edges
+  intermediate monocyte                       131,837 unique gene-pair edges
+  interstitial cell of Cajal                   53,586 unique gene-pair edges
+  intestinal crypt stem cell of colon         150,934 unique gene-pair edges
+  intestinal crypt stem cell of small intestine    184,410 unique gene-pair edges
+  intestinal tuft cell                        115,208 unique gene-pair edges
+  intrahepatic cholangiocyte                  168,318 unique gene-pair edges
+  ionocyte                                    147,396 unique gene-pair edges
+  keratocyte                                  156,134 unique gene-pair edges
+  kidney epithelial cell                      144,447 unique gene-pair edges
+  large intestine goblet cell                 104,217 unique gene-pair edges
+  leukocyte                                   216,673 unique gene-pair edges
+  luminal cell of prostate epithelium         184,799 unique gene-pair edges
+  luminal epithelial cell of mammary gland    178,317 unique gene-pair edges
+  lung multiciliated epithelial cell          196,250 unique gene-pair edges
+  macrophage                                  187,090 unique gene-pair edges
+  male germ cell                              139,250 unique gene-pair edges
+  mast cell                                   177,652 unique gene-pair edges
+  mature NK T cell                            176,044 unique gene-pair edges
+  melanocyte                                  161,778 unique gene-pair edges
+  mesenchymal stem cell                       200,824 unique gene-pair edges
+  mesenchymal stem cell of adipose tissue     166,263 unique gene-pair edges
+  mesothelial cell                            181,107 unique gene-pair edges
+  microglial cell                             207,195 unique gene-pair edges
+  monocyte                                    173,916 unique gene-pair edges
+  mononuclear phagocyte                       129,614 unique gene-pair edges
+  mucus secreting cell                        166,877 unique gene-pair edges
+  multiciliated columnar cell of tracheobronchial tree    196,875 unique gene-pair edges
+  mural cell                                  142,867 unique gene-pair edges
+  muscle cell                                  58,759 unique gene-pair edges
+  myeloid cell                                163,501 unique gene-pair edges
+  myeloid dendritic cell                      187,546 unique gene-pair edges
+  myeloid leukocyte                           100,682 unique gene-pair edges
+  myo-medullary thymic epithelial cell        138,188 unique gene-pair edges
+  myoepithelial cell                          145,268 unique gene-pair edges
+  myofibroblast cell                          178,700 unique gene-pair edges
+  myometrial cell                             124,707 unique gene-pair edges
+  naive thymus-derived CD4-positive, alpha-beta T cell    156,627 unique gene-pair edges
+  naive thymus-derived CD8-positive, alpha-beta T cell    104,005 unique gene-pair edges
+  natural killer cell                         173,631 unique gene-pair edges
+  neuro-medullary thymic epithelial cell      121,157 unique gene-pair edges
+  neuron                                       76,204 unique gene-pair edges
+  neutrophil                                   64,586 unique gene-pair edges
+  non-classical monocyte                      156,427 unique gene-pair edges
+  ovarian surface epithelial cell             154,212 unique gene-pair edges
+  pancreatic acinar cell                      153,947 unique gene-pair edges
+  pancreatic ductal cell                      166,411 unique gene-pair edges
+  pancreatic stellate cell                    150,726 unique gene-pair edges
+  paneth cell of colon                        195,861 unique gene-pair edges
+  paneth cell of epithelium of small intestine    196,937 unique gene-pair edges
+  pericyte                                    198,322 unique gene-pair edges
+  peritubular myoid cell                      115,887 unique gene-pair edges
+  plasma cell                                 187,804 unique gene-pair edges
+  plasmacytoid dendritic cell                 157,954 unique gene-pair edges
+  platelet                                     65,927 unique gene-pair edges
+  progenitor cell of mammary luminal epithelium    110,896 unique gene-pair edges
+  pulmonary alveolar type 1 cell              168,659 unique gene-pair edges
+  pulmonary alveolar type 2 cell              209,187 unique gene-pair edges
+  regular atrial cardiac myocyte              173,274 unique gene-pair edges
+  regulatory T cell                           153,144 unique gene-pair edges
+  respiratory tract goblet cell               199,549 unique gene-pair edges
+  retinal bipolar neuron                      196,837 unique gene-pair edges
+  retinal blood vessel endothelial cell       170,173 unique gene-pair edges
+  retinal pigment epithelial cell             107,598 unique gene-pair edges
+  salivary gland cell                         204,244 unique gene-pair edges
+  sebocyte                                    203,147 unique gene-pair edges
+  serous cell of epithelium of trachea        121,877 unique gene-pair edges
+  skeletal muscle satellite stem cell         197,143 unique gene-pair edges
+  slow muscle cell                            112,059 unique gene-pair edges
+  small intestine goblet cell                 159,628 unique gene-pair edges
+  smooth muscle cell                          197,351 unique gene-pair edges
+  spermatid                                    51,971 unique gene-pair edges
+  spermatocyte                                135,342 unique gene-pair edges
+  spermatogonium                              125,888 unique gene-pair edges
+  stratified squamous epithelial cell         172,039 unique gene-pair edges
+  stromal cell                                221,417 unique gene-pair edges
+  stromal cell of ovary                       106,520 unique gene-pair edges
+  supporting cell of vestibular epithelium    152,874 unique gene-pair edges
+  tendon cell                                 164,442 unique gene-pair edges
+  theca cell                                  173,286 unique gene-pair edges
+  thymic fibroblast type 1                    141,304 unique gene-pair edges
+  thymic fibroblast type 2                    142,737 unique gene-pair edges
+  thymocyte                                   117,755 unique gene-pair edges
+  tissue-resident macrophage                  130,173 unique gene-pair edges
+  tongue muscle cell                          148,336 unique gene-pair edges
+  tracheal goblet cell                        186,836 unique gene-pair edges
+  transit amplifying cell of colon            144,077 unique gene-pair edges
+  tuft cell of colon                          100,479 unique gene-pair edges
+  type B pancreatic cell                      155,247 unique gene-pair edges
+  vascular associated smooth muscle cell      175,311 unique gene-pair edges
+  vein endothelial cell                       198,801 unique gene-pair edges
+  ventricular cardiac muscle cell             155,733 unique gene-pair edges
+
+  Wrote layer [A-LTMR.TAC3]: 58,818 edges → multixrank_input/multiplex/gene_multiplex/A-LTMR.TAC3_layer.tsv
+  Wrote layer [A-PEP.CHRNA7_SLC18A3]: 2,650 edges → multixrank_input/multiplex/gene_multiplex/A-PEP.CHRNA7_SLC18A3_layer.tsv
+  Wrote layer [A-PEP.KIT]: 20,489 edges → multixrank_input/multiplex/gene_multiplex/A-PEP.KIT_layer.tsv
+  Wrote layer [A-PEP.NTRK3_S100A16]: 4,566 edges → multixrank_input/multiplex/gene_multiplex/A-PEP.NTRK3_S100A16_layer.tsv
+  Wrote layer [A-PEP.SCGN_ADRA2C]: 6,433 edges → multixrank_input/multiplex/gene_multiplex/A-PEP.SCGN_ADRA2C_layer.tsv
+  Wrote layer [A-Propr.EPHA3]: 13,971 edges → multixrank_input/multiplex/gene_multiplex/A-Propr.EPHA3_layer.tsv
+  Wrote layer [A-Propr.HAPLN4]: 9,295 edges → multixrank_input/multiplex/gene_multiplex/A-Propr.HAPLN4_layer.tsv
+  Wrote layer [A-Propr.PCDH8]: 21,547 edges → multixrank_input/multiplex/gene_multiplex/A-Propr.PCDH8_layer.tsv
+  Wrote layer [ATF3]: 6,394 edges → multixrank_input/multiplex/gene_multiplex/ATF3_layer.tsv
+  Wrote layer [Ab-LTMR.CCKAR]: 4,771 edges → multixrank_input/multiplex/gene_multiplex/Ab-LTMR.CCKAR_layer.tsv
+  Wrote layer [Ab-LTMR.ETV1]: 16,560 edges → multixrank_input/multiplex/gene_multiplex/Ab-LTMR.ETV1_layer.tsv
+  Wrote layer [Ab-LTMR.LGI2]: 16,141 edges → multixrank_input/multiplex/gene_multiplex/Ab-LTMR.LGI2_layer.tsv
+  Wrote layer [Ab-LTMR.NSG2]: 7,370 edges → multixrank_input/multiplex/gene_multiplex/Ab-LTMR.NSG2_layer.tsv
+  Wrote layer [B cell]: 159,622 edges → multixrank_input/multiplex/gene_multiplex/B_cell_layer.tsv
+  Wrote layer [BEST4+ enterocyte]: 109,410 edges → multixrank_input/multiplex/gene_multiplex/BEST4+_enterocyte_layer.tsv
+  Wrote layer [C-LTMR.CDH9]: 8,123 edges → multixrank_input/multiplex/gene_multiplex/C-LTMR.CDH9_layer.tsv
+  Wrote layer [C-NP.MRGPRX1_GFRA2]: 2,692 edges → multixrank_input/multiplex/gene_multiplex/C-NP.MRGPRX1_GFRA2_layer.tsv
+  Wrote layer [C-NP.MRGPRX1_MRGPRX4]: 4,272 edges → multixrank_input/multiplex/gene_multiplex/C-NP.MRGPRX1_MRGPRX4_layer.tsv
+  Wrote layer [C-NP.SST]: 3,585 edges → multixrank_input/multiplex/gene_multiplex/C-NP.SST_layer.tsv
+  Wrote layer [C-PEP.ADORA2B]: 16,638 edges → multixrank_input/multiplex/gene_multiplex/C-PEP.ADORA2B_layer.tsv
+  Wrote layer [C-PEP.TAC1_CACNG5]: 3,624 edges → multixrank_input/multiplex/gene_multiplex/C-PEP.TAC1_CACNG5_layer.tsv
+  Wrote layer [C-PEP.TAC1_CHRNA3]: 5,452 edges → multixrank_input/multiplex/gene_multiplex/C-PEP.TAC1_CHRNA3_layer.tsv
+  Wrote layer [C-Thermo.RXFP1]: 19,226 edges → multixrank_input/multiplex/gene_multiplex/C-Thermo.RXFP1_layer.tsv
+  Wrote layer [C-Thermo.TRPM8]: 2,659 edges → multixrank_input/multiplex/gene_multiplex/C-Thermo.TRPM8_layer.tsv
+  Wrote layer [CD4-positive, alpha-beta T cell]: 169,098 edges → multixrank_input/multiplex/gene_multiplex/CD4-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [CD4-positive, alpha-beta thymocyte]: 145,688 edges → multixrank_input/multiplex/gene_multiplex/CD4-positive,_alpha-beta_thymocyte_layer.tsv
+  Wrote layer [CD8-positive, alpha-beta T cell]: 170,260 edges → multixrank_input/multiplex/gene_multiplex/CD8-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [CD8-positive, alpha-beta thymocyte]: 159,090 edges → multixrank_input/multiplex/gene_multiplex/CD8-positive,_alpha-beta_thymocyte_layer.tsv
+  Wrote layer [Langerhans cell]: 115,874 edges → multixrank_input/multiplex/gene_multiplex/Langerhans_cell_layer.tsv
+  Wrote layer [Mueller cell]: 142,195 edges → multixrank_input/multiplex/gene_multiplex/Mueller_cell_layer.tsv
+  Wrote layer [Schwann cell]: 138,821 edges → multixrank_input/multiplex/gene_multiplex/Schwann_cell_layer.tsv
+  Wrote layer [T cell]: 161,625 edges → multixrank_input/multiplex/gene_multiplex/T_cell_layer.tsv
+  Wrote layer [acinar cell]: 93,726 edges → multixrank_input/multiplex/gene_multiplex/acinar_cell_layer.tsv
+  Wrote layer [acinar cell of salivary gland]: 179,780 edges → multixrank_input/multiplex/gene_multiplex/acinar_cell_of_salivary_gland_layer.tsv
+  Wrote layer [activated CD4-positive, alpha-beta T cell]: 128,714 edges → multixrank_input/multiplex/gene_multiplex/activated_CD4-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [activated CD8-positive, alpha-beta T cell]: 88,281 edges → multixrank_input/multiplex/gene_multiplex/activated_CD8-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [adventitial cell]: 227,959 edges → multixrank_input/multiplex/gene_multiplex/adventitial_cell_layer.tsv
+  Wrote layer [alveolar adventitial fibroblast]: 188,593 edges → multixrank_input/multiplex/gene_multiplex/alveolar_adventitial_fibroblast_layer.tsv
+  Wrote layer [basal cell]: 219,682 edges → multixrank_input/multiplex/gene_multiplex/basal_cell_layer.tsv
+  Wrote layer [basal cell of prostate epithelium]: 182,316 edges → multixrank_input/multiplex/gene_multiplex/basal_cell_of_prostate_epithelium_layer.tsv
+  Wrote layer [basophil]: 120,830 edges → multixrank_input/multiplex/gene_multiplex/basophil_layer.tsv
+  Wrote layer [bladder urothelial cell]: 192,640 edges → multixrank_input/multiplex/gene_multiplex/bladder_urothelial_cell_layer.tsv
+  Wrote layer [blood vessel smooth muscle cell]: 133,393 edges → multixrank_input/multiplex/gene_multiplex/blood_vessel_smooth_muscle_cell_layer.tsv
+  Wrote layer [bronchial smooth muscle cell]: 132,890 edges → multixrank_input/multiplex/gene_multiplex/bronchial_smooth_muscle_cell_layer.tsv
+  Wrote layer [capillary endothelial cell]: 190,019 edges → multixrank_input/multiplex/gene_multiplex/capillary_endothelial_cell_layer.tsv
+  Wrote layer [cardiac endothelial cell]: 159,852 edges → multixrank_input/multiplex/gene_multiplex/cardiac_endothelial_cell_layer.tsv
+  Wrote layer [ciliated epithelial cell]: 170,882 edges → multixrank_input/multiplex/gene_multiplex/ciliated_epithelial_cell_layer.tsv
+  Wrote layer [classical monocyte]: 156,095 edges → multixrank_input/multiplex/gene_multiplex/classical_monocyte_layer.tsv
+  Wrote layer [club cell]: 174,242 edges → multixrank_input/multiplex/gene_multiplex/club_cell_layer.tsv
+  Wrote layer [colon endothelial cell]: 168,093 edges → multixrank_input/multiplex/gene_multiplex/colon_endothelial_cell_layer.tsv
+  Wrote layer [colon macrophage]: 143,802 edges → multixrank_input/multiplex/gene_multiplex/colon_macrophage_layer.tsv
+  Wrote layer [common myeloid progenitor]: 187,680 edges → multixrank_input/multiplex/gene_multiplex/common_myeloid_progenitor_layer.tsv
+  Wrote layer [conjunctival epithelial cell]: 168,555 edges → multixrank_input/multiplex/gene_multiplex/conjunctival_epithelial_cell_layer.tsv
+  Wrote layer [connective tissue cell]: 117,835 edges → multixrank_input/multiplex/gene_multiplex/connective_tissue_cell_layer.tsv
+  Wrote layer [corneal epithelial cell]: 152,657 edges → multixrank_input/multiplex/gene_multiplex/corneal_epithelial_cell_layer.tsv
+  Wrote layer [duct epithelial cell]: 185,742 edges → multixrank_input/multiplex/gene_multiplex/duct_epithelial_cell_layer.tsv
+  Wrote layer [endothelial cell]: 195,837 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_layer.tsv
+  Wrote layer [endothelial cell of arteriole]: 147,577 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_of_arteriole_layer.tsv
+  Wrote layer [endothelial cell of artery]: 174,458 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_of_artery_layer.tsv
+  Wrote layer [endothelial cell of lymphatic vessel]: 184,135 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_of_lymphatic_vessel_layer.tsv
+  Wrote layer [endothelial cell of vascular tree]: 211,803 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_of_vascular_tree_layer.tsv
+  Wrote layer [endothelial cell of venule]: 137,926 edges → multixrank_input/multiplex/gene_multiplex/endothelial_cell_of_venule_layer.tsv
+  Wrote layer [enterocyte of epithelium of large intestine]: 196,943 edges → multixrank_input/multiplex/gene_multiplex/enterocyte_of_epithelium_of_large_intestine_layer.tsv
+  Wrote layer [enterocyte of epithelium proper of duodenum]: 120,142 edges → multixrank_input/multiplex/gene_multiplex/enterocyte_of_epithelium_proper_of_duodenum_layer.tsv
+  Wrote layer [enterocyte of epithelium proper of ileum]: 132,899 edges → multixrank_input/multiplex/gene_multiplex/enterocyte_of_epithelium_proper_of_ileum_layer.tsv
+  Wrote layer [enterocyte of epithelium proper of jejunum]: 115,545 edges → multixrank_input/multiplex/gene_multiplex/enterocyte_of_epithelium_proper_of_jejunum_layer.tsv
+  Wrote layer [enterocyte of epithelium proper of small intestine]: 232,158 edges → multixrank_input/multiplex/gene_multiplex/enterocyte_of_epithelium_proper_of_small_intestine_layer.tsv
+  Wrote layer [enteroendocrine cell of small intestine]: 169,886 edges → multixrank_input/multiplex/gene_multiplex/enteroendocrine_cell_of_small_intestine_layer.tsv
+  Wrote layer [enteroglial cell]: 130,363 edges → multixrank_input/multiplex/gene_multiplex/enteroglial_cell_layer.tsv
+  Wrote layer [epithelial cell]: 144,514 edges → multixrank_input/multiplex/gene_multiplex/epithelial_cell_layer.tsv
+  Wrote layer [epithelial cell of uterus]: 199,095 edges → multixrank_input/multiplex/gene_multiplex/epithelial_cell_of_uterus_layer.tsv
+  Wrote layer [erythrocyte]: 51,311 edges → multixrank_input/multiplex/gene_multiplex/erythrocyte_layer.tsv
+  Wrote layer [erythroid progenitor cell]: 183,335 edges → multixrank_input/multiplex/gene_multiplex/erythroid_progenitor_cell_layer.tsv
+  Wrote layer [eye photoreceptor cell]: 123,089 edges → multixrank_input/multiplex/gene_multiplex/eye_photoreceptor_cell_layer.tsv
+  Wrote layer [fast muscle cell]: 143,523 edges → multixrank_input/multiplex/gene_multiplex/fast_muscle_cell_layer.tsv
+  Wrote layer [fibroblast]: 201,571 edges → multixrank_input/multiplex/gene_multiplex/fibroblast_layer.tsv
+  Wrote layer [fibroblast of breast]: 145,548 edges → multixrank_input/multiplex/gene_multiplex/fibroblast_of_breast_layer.tsv
+  Wrote layer [fibroblast of cardiac tissue]: 161,199 edges → multixrank_input/multiplex/gene_multiplex/fibroblast_of_cardiac_tissue_layer.tsv
+  Wrote layer [full_network]: 302,553 edges → multixrank_input/multiplex/gene_multiplex/full_network_layer.tsv
+  Wrote layer [gamma-delta T cell]: 99,738 edges → multixrank_input/multiplex/gene_multiplex/gamma-delta_T_cell_layer.tsv
+  Wrote layer [glandular secretory epithelial cell]: 166,732 edges → multixrank_input/multiplex/gene_multiplex/glandular_secretory_epithelial_cell_layer.tsv
+  Wrote layer [granulocyte]: 171,126 edges → multixrank_input/multiplex/gene_multiplex/granulocyte_layer.tsv
+  Wrote layer [hematopoietic cell]: 83,403 edges → multixrank_input/multiplex/gene_multiplex/hematopoietic_cell_layer.tsv
+  Wrote layer [hematopoietic precursor cell]: 157,146 edges → multixrank_input/multiplex/gene_multiplex/hematopoietic_precursor_cell_layer.tsv
+  Wrote layer [hematopoietic stem cell]: 199,851 edges → multixrank_input/multiplex/gene_multiplex/hematopoietic_stem_cell_layer.tsv
+  Wrote layer [hepatic stellate cell]: 134,038 edges → multixrank_input/multiplex/gene_multiplex/hepatic_stellate_cell_layer.tsv
+  Wrote layer [hepatocyte]: 125,501 edges → multixrank_input/multiplex/gene_multiplex/hepatocyte_layer.tsv
+  Wrote layer [innate lymphoid cell]: 196,550 edges → multixrank_input/multiplex/gene_multiplex/innate_lymphoid_cell_layer.tsv
+  Wrote layer [intermediate monocyte]: 131,837 edges → multixrank_input/multiplex/gene_multiplex/intermediate_monocyte_layer.tsv
+  Wrote layer [interstitial cell of Cajal]: 53,586 edges → multixrank_input/multiplex/gene_multiplex/interstitial_cell_of_Cajal_layer.tsv
+  Wrote layer [intestinal crypt stem cell of colon]: 150,934 edges → multixrank_input/multiplex/gene_multiplex/intestinal_crypt_stem_cell_of_colon_layer.tsv
+  Wrote layer [intestinal crypt stem cell of small intestine]: 184,410 edges → multixrank_input/multiplex/gene_multiplex/intestinal_crypt_stem_cell_of_small_intestine_layer.tsv
+  Wrote layer [intestinal tuft cell]: 115,208 edges → multixrank_input/multiplex/gene_multiplex/intestinal_tuft_cell_layer.tsv
+  Wrote layer [intrahepatic cholangiocyte]: 168,318 edges → multixrank_input/multiplex/gene_multiplex/intrahepatic_cholangiocyte_layer.tsv
+  Wrote layer [ionocyte]: 147,396 edges → multixrank_input/multiplex/gene_multiplex/ionocyte_layer.tsv
+  Wrote layer [keratocyte]: 156,134 edges → multixrank_input/multiplex/gene_multiplex/keratocyte_layer.tsv
+  Wrote layer [kidney epithelial cell]: 144,447 edges → multixrank_input/multiplex/gene_multiplex/kidney_epithelial_cell_layer.tsv
+  Wrote layer [large intestine goblet cell]: 104,217 edges → multixrank_input/multiplex/gene_multiplex/large_intestine_goblet_cell_layer.tsv
+  Wrote layer [leukocyte]: 216,673 edges → multixrank_input/multiplex/gene_multiplex/leukocyte_layer.tsv
+  Wrote layer [luminal cell of prostate epithelium]: 184,799 edges → multixrank_input/multiplex/gene_multiplex/luminal_cell_of_prostate_epithelium_layer.tsv
+  Wrote layer [luminal epithelial cell of mammary gland]: 178,317 edges → multixrank_input/multiplex/gene_multiplex/luminal_epithelial_cell_of_mammary_gland_layer.tsv
+  Wrote layer [lung multiciliated epithelial cell]: 196,250 edges → multixrank_input/multiplex/gene_multiplex/lung_multiciliated_epithelial_cell_layer.tsv
+  Wrote layer [macrophage]: 187,090 edges → multixrank_input/multiplex/gene_multiplex/macrophage_layer.tsv
+  Wrote layer [male germ cell]: 139,250 edges → multixrank_input/multiplex/gene_multiplex/male_germ_cell_layer.tsv
+  Wrote layer [mast cell]: 177,652 edges → multixrank_input/multiplex/gene_multiplex/mast_cell_layer.tsv
+  Wrote layer [mature NK T cell]: 176,044 edges → multixrank_input/multiplex/gene_multiplex/mature_NK_T_cell_layer.tsv
+  Wrote layer [melanocyte]: 161,778 edges → multixrank_input/multiplex/gene_multiplex/melanocyte_layer.tsv
+  Wrote layer [mesenchymal stem cell]: 200,824 edges → multixrank_input/multiplex/gene_multiplex/mesenchymal_stem_cell_layer.tsv
+  Wrote layer [mesenchymal stem cell of adipose tissue]: 166,263 edges → multixrank_input/multiplex/gene_multiplex/mesenchymal_stem_cell_of_adipose_tissue_layer.tsv
+  Wrote layer [mesothelial cell]: 181,107 edges → multixrank_input/multiplex/gene_multiplex/mesothelial_cell_layer.tsv
+  Wrote layer [microglial cell]: 207,195 edges → multixrank_input/multiplex/gene_multiplex/microglial_cell_layer.tsv
+  Wrote layer [monocyte]: 173,916 edges → multixrank_input/multiplex/gene_multiplex/monocyte_layer.tsv
+  Wrote layer [mononuclear phagocyte]: 129,614 edges → multixrank_input/multiplex/gene_multiplex/mononuclear_phagocyte_layer.tsv
+  Wrote layer [mucus secreting cell]: 166,877 edges → multixrank_input/multiplex/gene_multiplex/mucus_secreting_cell_layer.tsv
+  Wrote layer [multiciliated columnar cell of tracheobronchial tree]: 196,875 edges → multixrank_input/multiplex/gene_multiplex/multiciliated_columnar_cell_of_tracheobronchial_tree_layer.tsv
+  Wrote layer [mural cell]: 142,867 edges → multixrank_input/multiplex/gene_multiplex/mural_cell_layer.tsv
+  Wrote layer [muscle cell]: 58,759 edges → multixrank_input/multiplex/gene_multiplex/muscle_cell_layer.tsv
+  Wrote layer [myeloid cell]: 163,501 edges → multixrank_input/multiplex/gene_multiplex/myeloid_cell_layer.tsv
+  Wrote layer [myeloid dendritic cell]: 187,546 edges → multixrank_input/multiplex/gene_multiplex/myeloid_dendritic_cell_layer.tsv
+  Wrote layer [myeloid leukocyte]: 100,682 edges → multixrank_input/multiplex/gene_multiplex/myeloid_leukocyte_layer.tsv
+  Wrote layer [myo-medullary thymic epithelial cell]: 138,188 edges → multixrank_input/multiplex/gene_multiplex/myo-medullary_thymic_epithelial_cell_layer.tsv
+  Wrote layer [myoepithelial cell]: 145,268 edges → multixrank_input/multiplex/gene_multiplex/myoepithelial_cell_layer.tsv
+  Wrote layer [myofibroblast cell]: 178,700 edges → multixrank_input/multiplex/gene_multiplex/myofibroblast_cell_layer.tsv
+  Wrote layer [myometrial cell]: 124,707 edges → multixrank_input/multiplex/gene_multiplex/myometrial_cell_layer.tsv
+  Wrote layer [naive thymus-derived CD4-positive, alpha-beta T cell]: 156,627 edges → multixrank_input/multiplex/gene_multiplex/naive_thymus-derived_CD4-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [naive thymus-derived CD8-positive, alpha-beta T cell]: 104,005 edges → multixrank_input/multiplex/gene_multiplex/naive_thymus-derived_CD8-positive,_alpha-beta_T_cell_layer.tsv
+  Wrote layer [natural killer cell]: 173,631 edges → multixrank_input/multiplex/gene_multiplex/natural_killer_cell_layer.tsv
+  Wrote layer [neuro-medullary thymic epithelial cell]: 121,157 edges → multixrank_input/multiplex/gene_multiplex/neuro-medullary_thymic_epithelial_cell_layer.tsv
+  Wrote layer [neuron]: 76,204 edges → multixrank_input/multiplex/gene_multiplex/neuron_layer.tsv
+  Wrote layer [neutrophil]: 64,586 edges → multixrank_input/multiplex/gene_multiplex/neutrophil_layer.tsv
+  Wrote layer [non-classical monocyte]: 156,427 edges → multixrank_input/multiplex/gene_multiplex/non-classical_monocyte_layer.tsv
+  Wrote layer [ovarian surface epithelial cell]: 154,212 edges → multixrank_input/multiplex/gene_multiplex/ovarian_surface_epithelial_cell_layer.tsv
+  Wrote layer [pancreatic acinar cell]: 153,947 edges → multixrank_input/multiplex/gene_multiplex/pancreatic_acinar_cell_layer.tsv
+  Wrote layer [pancreatic ductal cell]: 166,411 edges → multixrank_input/multiplex/gene_multiplex/pancreatic_ductal_cell_layer.tsv
+  Wrote layer [pancreatic stellate cell]: 150,726 edges → multixrank_input/multiplex/gene_multiplex/pancreatic_stellate_cell_layer.tsv
+  Wrote layer [paneth cell of colon]: 195,861 edges → multixrank_input/multiplex/gene_multiplex/paneth_cell_of_colon_layer.tsv
+  Wrote layer [paneth cell of epithelium of small intestine]: 196,937 edges → multixrank_input/multiplex/gene_multiplex/paneth_cell_of_epithelium_of_small_intestine_layer.tsv
+  Wrote layer [pericyte]: 198,322 edges → multixrank_input/multiplex/gene_multiplex/pericyte_layer.tsv
+  Wrote layer [peritubular myoid cell]: 115,887 edges → multixrank_input/multiplex/gene_multiplex/peritubular_myoid_cell_layer.tsv
+  Wrote layer [plasma cell]: 187,804 edges → multixrank_input/multiplex/gene_multiplex/plasma_cell_layer.tsv
+  Wrote layer [plasmacytoid dendritic cell]: 157,954 edges → multixrank_input/multiplex/gene_multiplex/plasmacytoid_dendritic_cell_layer.tsv
+  Wrote layer [platelet]: 65,927 edges → multixrank_input/multiplex/gene_multiplex/platelet_layer.tsv
+  Wrote layer [progenitor cell of mammary luminal epithelium]: 110,896 edges → multixrank_input/multiplex/gene_multiplex/progenitor_cell_of_mammary_luminal_epithelium_layer.tsv
+  Wrote layer [pulmonary alveolar type 1 cell]: 168,659 edges → multixrank_input/multiplex/gene_multiplex/pulmonary_alveolar_type_1_cell_layer.tsv
+  Wrote layer [pulmonary alveolar type 2 cell]: 209,187 edges → multixrank_input/multiplex/gene_multiplex/pulmonary_alveolar_type_2_cell_layer.tsv
+  Wrote layer [regular atrial cardiac myocyte]: 173,274 edges → multixrank_input/multiplex/gene_multiplex/regular_atrial_cardiac_myocyte_layer.tsv
+  Wrote layer [regulatory T cell]: 153,144 edges → multixrank_input/multiplex/gene_multiplex/regulatory_T_cell_layer.tsv
+  Wrote layer [respiratory tract goblet cell]: 199,549 edges → multixrank_input/multiplex/gene_multiplex/respiratory_tract_goblet_cell_layer.tsv
+  Wrote layer [retinal bipolar neuron]: 196,837 edges → multixrank_input/multiplex/gene_multiplex/retinal_bipolar_neuron_layer.tsv
+  Wrote layer [retinal blood vessel endothelial cell]: 170,173 edges → multixrank_input/multiplex/gene_multiplex/retinal_blood_vessel_endothelial_cell_layer.tsv
+  Wrote layer [retinal pigment epithelial cell]: 107,598 edges → multixrank_input/multiplex/gene_multiplex/retinal_pigment_epithelial_cell_layer.tsv
+  Wrote layer [salivary gland cell]: 204,244 edges → multixrank_input/multiplex/gene_multiplex/salivary_gland_cell_layer.tsv
+  Wrote layer [sebocyte]: 203,147 edges → multixrank_input/multiplex/gene_multiplex/sebocyte_layer.tsv
+  Wrote layer [serous cell of epithelium of trachea]: 121,877 edges → multixrank_input/multiplex/gene_multiplex/serous_cell_of_epithelium_of_trachea_layer.tsv
+  Wrote layer [skeletal muscle satellite stem cell]: 197,143 edges → multixrank_input/multiplex/gene_multiplex/skeletal_muscle_satellite_stem_cell_layer.tsv
+  Wrote layer [slow muscle cell]: 112,059 edges → multixrank_input/multiplex/gene_multiplex/slow_muscle_cell_layer.tsv
+  Wrote layer [small intestine goblet cell]: 159,628 edges → multixrank_input/multiplex/gene_multiplex/small_intestine_goblet_cell_layer.tsv
+  Wrote layer [smooth muscle cell]: 197,351 edges → multixrank_input/multiplex/gene_multiplex/smooth_muscle_cell_layer.tsv
+  Wrote layer [spermatid]: 51,971 edges → multixrank_input/multiplex/gene_multiplex/spermatid_layer.tsv
+  Wrote layer [spermatocyte]: 135,342 edges → multixrank_input/multiplex/gene_multiplex/spermatocyte_layer.tsv
+  Wrote layer [spermatogonium]: 125,888 edges → multixrank_input/multiplex/gene_multiplex/spermatogonium_layer.tsv
+  Wrote layer [stratified squamous epithelial cell]: 172,039 edges → multixrank_input/multiplex/gene_multiplex/stratified_squamous_epithelial_cell_layer.tsv
+  Wrote layer [stromal cell]: 221,417 edges → multixrank_input/multiplex/gene_multiplex/stromal_cell_layer.tsv
+  Wrote layer [stromal cell of ovary]: 106,520 edges → multixrank_input/multiplex/gene_multiplex/stromal_cell_of_ovary_layer.tsv
+  Wrote layer [supporting cell of vestibular epithelium]: 152,874 edges → multixrank_input/multiplex/gene_multiplex/supporting_cell_of_vestibular_epithelium_layer.tsv
+  Wrote layer [tendon cell]: 164,442 edges → multixrank_input/multiplex/gene_multiplex/tendon_cell_layer.tsv
+  Wrote layer [theca cell]: 173,286 edges → multixrank_input/multiplex/gene_multiplex/theca_cell_layer.tsv
+  Wrote layer [thymic fibroblast type 1]: 141,304 edges → multixrank_input/multiplex/gene_multiplex/thymic_fibroblast_type_1_layer.tsv
+  Wrote layer [thymic fibroblast type 2]: 142,737 edges → multixrank_input/multiplex/gene_multiplex/thymic_fibroblast_type_2_layer.tsv
+  Wrote layer [thymocyte]: 117,755 edges → multixrank_input/multiplex/gene_multiplex/thymocyte_layer.tsv
+  Wrote layer [tissue-resident macrophage]: 130,173 edges → multixrank_input/multiplex/gene_multiplex/tissue-resident_macrophage_layer.tsv
+  Wrote layer [tongue muscle cell]: 148,336 edges → multixrank_input/multiplex/gene_multiplex/tongue_muscle_cell_layer.tsv
+  Wrote layer [tracheal goblet cell]: 186,836 edges → multixrank_input/multiplex/gene_multiplex/tracheal_goblet_cell_layer.tsv
+  Wrote layer [transit amplifying cell of colon]: 144,077 edges → multixrank_input/multiplex/gene_multiplex/transit_amplifying_cell_of_colon_layer.tsv
+  Wrote layer [tuft cell of colon]: 100,479 edges → multixrank_input/multiplex/gene_multiplex/tuft_cell_of_colon_layer.tsv
+  Wrote layer [type B pancreatic cell]: 155,247 edges → multixrank_input/multiplex/gene_multiplex/type_B_pancreatic_cell_layer.tsv
+  Wrote layer [vascular associated smooth muscle cell]: 175,311 edges → multixrank_input/multiplex/gene_multiplex/vascular_associated_smooth_muscle_cell_layer.tsv
+  Wrote layer [vein endothelial cell]: 198,801 edges → multixrank_input/multiplex/gene_multiplex/vein_endothelial_cell_layer.tsv
+  Wrote layer [ventricular cardiac muscle cell]: 155,733 edges → multixrank_input/multiplex/gene_multiplex/ventricular_cardiac_muscle_cell_layer.tsv
+
+Saved cell-type metadata → multixrank_input/cell_type_metadata.json
+
+Saved gene reference graph → multixrank_input/gene_reference_graph.pkl
+  17,051 nodes, 302,553 edges
+
+Saved PPI-only reference graph → multixrank_input/gene_ppi_reference_graph.pkl
+  17,051 nodes, 302,553 edges
+
+Seeds: 408 provided, 372 in multiplex, 36 missing
+  Missing seeds (first 10): ['EPHX2', 'KCNT1', 'PTGER2', 'P2RX3', 'DRGX', 'ADORA3', 'LPAR5', 'BDKRB1', 'CHRM1', 'CACNA1G']
+  Saved 372 seeds → multixrank_input/seeds/seeds.txt
+
+Saved MultiXrank config → multixrank_input/config.yml
+  restart (r)      : 0.7
+  delta            : 0.5
+  tau per layer    : 0.005587  (179 cell-type layers)
+  Layers           : ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'B cell', 'BEST4+ enterocyte', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'CD4-positive, alpha-beta T cell', 'CD4-positive, alpha-beta thymocyte', 'CD8-positive, alpha-beta T cell', 'CD8-positive, alpha-beta thymocyte', 'Langerhans cell', 'Mueller cell', 'Schwann cell', 'T cell', 'acinar cell', 'acinar cell of salivary gland', 'activated CD4-positive, alpha-beta T cell', 'activated CD8-positive, alpha-beta T cell', 'adventitial cell', 'alveolar adventitial fibroblast', 'basal cell', 'basal cell of prostate epithelium', 'basophil', 'bladder urothelial cell', 'blood vessel smooth muscle cell', 'bronchial smooth muscle cell', 'capillary endothelial cell', 'cardiac endothelial cell', 'ciliated epithelial cell', 'classical monocyte', 'club cell', 'colon endothelial cell', 'colon macrophage', 'common myeloid progenitor', 'conjunctival epithelial cell', 'connective tissue cell', 'corneal epithelial cell', 'duct epithelial cell', 'endothelial cell', 'endothelial cell of arteriole', 'endothelial cell of artery', 'endothelial cell of lymphatic vessel', 'endothelial cell of vascular tree', 'endothelial cell of venule', 'enterocyte of epithelium of large intestine', 'enterocyte of epithelium proper of duodenum', 'enterocyte of epithelium proper of ileum', 'enterocyte of epithelium proper of jejunum', 'enterocyte of epithelium proper of small intestine', 'enteroendocrine cell of small intestine', 'enteroglial cell', 'epithelial cell', 'epithelial cell of uterus', 'erythrocyte', 'erythroid progenitor cell', 'eye photoreceptor cell', 'fast muscle cell', 'fibroblast', 'fibroblast of breast', 'fibroblast of cardiac tissue', 'full_network', 'gamma-delta T cell', 'glandular secretory epithelial cell', 'granulocyte', 'hematopoietic cell', 'hematopoietic precursor cell', 'hematopoietic stem cell', 'hepatic stellate cell', 'hepatocyte', 'innate lymphoid cell', 'intermediate monocyte', 'interstitial cell of Cajal', 'intestinal crypt stem cell of colon', 'intestinal crypt stem cell of small intestine', 'intestinal tuft cell', 'intrahepatic cholangiocyte', 'ionocyte', 'keratocyte', 'kidney epithelial cell', 'large intestine goblet cell', 'leukocyte', 'luminal cell of prostate epithelium', 'luminal epithelial cell of mammary gland', 'lung multiciliated epithelial cell', 'macrophage', 'male germ cell', 'mast cell', 'mature NK T cell', 'melanocyte', 'mesenchymal stem cell', 'mesenchymal stem cell of adipose tissue', 'mesothelial cell', 'microglial cell', 'monocyte', 'mononuclear phagocyte', 'mucus secreting cell', 'multiciliated columnar cell of tracheobronchial tree', 'mural cell', 'muscle cell', 'myeloid cell', 'myeloid dendritic cell', 'myeloid leukocyte', 'myo-medullary thymic epithelial cell', 'myoepithelial cell', 'myofibroblast cell', 'myometrial cell', 'naive thymus-derived CD4-positive, alpha-beta T cell', 'naive thymus-derived CD8-positive, alpha-beta T cell', 'natural killer cell', 'neuro-medullary thymic epithelial cell', 'neuron', 'neutrophil', 'non-classical monocyte', 'ovarian surface epithelial cell', 'pancreatic acinar cell', 'pancreatic ductal cell', 'pancreatic stellate cell', 'paneth cell of colon', 'paneth cell of epithelium of small intestine', 'pericyte', 'peritubular myoid cell', 'plasma cell', 'plasmacytoid dendritic cell', 'platelet', 'progenitor cell of mammary luminal epithelium', 'pulmonary alveolar type 1 cell', 'pulmonary alveolar type 2 cell', 'regular atrial cardiac myocyte', 'regulatory T cell', 'respiratory tract goblet cell', 'retinal bipolar neuron', 'retinal blood vessel endothelial cell', 'retinal pigment epithelial cell', 'salivary gland cell', 'sebocyte', 'serous cell of epithelium of trachea', 'skeletal muscle satellite stem cell', 'slow muscle cell', 'small intestine goblet cell', 'smooth muscle cell', 'spermatid', 'spermatocyte', 'spermatogonium', 'stratified squamous epithelial cell', 'stromal cell', 'stromal cell of ovary', 'supporting cell of vestibular epithelium', 'tendon cell', 'theca cell', 'thymic fibroblast type 1', 'thymic fibroblast type 2', 'thymocyte', 'tissue-resident macrophage', 'tongue muscle cell', 'tracheal goblet cell', 'transit amplifying cell of colon', 'tuft cell of colon', 'type B pancreatic cell', 'vascular associated smooth muscle cell', 'vein endothelial cell', 'ventricular cardiac muscle cell']
+
+============================================================
+MultiXrank inputs ready
+============================================================
+Working directory : /lisc/home/user/gerardursin/multiplex/multixrank_input
+Layers            : ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'B cell', 'BEST4+ enterocyte', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'CD4-positive, alpha-beta T cell', 'CD4-positive, alpha-beta thymocyte', 'CD8-positive, alpha-beta T cell', 'CD8-positive, alpha-beta thymocyte', 'Langerhans cell', 'Mueller cell', 'Schwann cell', 'T cell', 'acinar cell', 'acinar cell of salivary gland', 'activated CD4-positive, alpha-beta T cell', 'activated CD8-positive, alpha-beta T cell', 'adventitial cell', 'alveolar adventitial fibroblast', 'basal cell', 'basal cell of prostate epithelium', 'basophil', 'bladder urothelial cell', 'blood vessel smooth muscle cell', 'bronchial smooth muscle cell', 'capillary endothelial cell', 'cardiac endothelial cell', 'ciliated epithelial cell', 'classical monocyte', 'club cell', 'colon endothelial cell', 'colon macrophage', 'common myeloid progenitor', 'conjunctival epithelial cell', 'connective tissue cell', 'corneal epithelial cell', 'duct epithelial cell', 'endothelial cell', 'endothelial cell of arteriole', 'endothelial cell of artery', 'endothelial cell of lymphatic vessel', 'endothelial cell of vascular tree', 'endothelial cell of venule', 'enterocyte of epithelium of large intestine', 'enterocyte of epithelium proper of duodenum', 'enterocyte of epithelium proper of ileum', 'enterocyte of epithelium proper of jejunum', 'enterocyte of epithelium proper of small intestine', 'enteroendocrine cell of small intestine', 'enteroglial cell', 'epithelial cell', 'epithelial cell of uterus', 'erythrocyte', 'erythroid progenitor cell', 'eye photoreceptor cell', 'fast muscle cell', 'fibroblast', 'fibroblast of breast', 'fibroblast of cardiac tissue', 'full_network', 'gamma-delta T cell', 'glandular secretory epithelial cell', 'granulocyte', 'hematopoietic cell', 'hematopoietic precursor cell', 'hematopoietic stem cell', 'hepatic stellate cell', 'hepatocyte', 'innate lymphoid cell', 'intermediate monocyte', 'interstitial cell of Cajal', 'intestinal crypt stem cell of colon', 'intestinal crypt stem cell of small intestine', 'intestinal tuft cell', 'intrahepatic cholangiocyte', 'ionocyte', 'keratocyte', 'kidney epithelial cell', 'large intestine goblet cell', 'leukocyte', 'luminal cell of prostate epithelium', 'luminal epithelial cell of mammary gland', 'lung multiciliated epithelial cell', 'macrophage', 'male germ cell', 'mast cell', 'mature NK T cell', 'melanocyte', 'mesenchymal stem cell', 'mesenchymal stem cell of adipose tissue', 'mesothelial cell', 'microglial cell', 'monocyte', 'mononuclear phagocyte', 'mucus secreting cell', 'multiciliated columnar cell of tracheobronchial tree', 'mural cell', 'muscle cell', 'myeloid cell', 'myeloid dendritic cell', 'myeloid leukocyte', 'myo-medullary thymic epithelial cell', 'myoepithelial cell', 'myofibroblast cell', 'myometrial cell', 'naive thymus-derived CD4-positive, alpha-beta T cell', 'naive thymus-derived CD8-positive, alpha-beta T cell', 'natural killer cell', 'neuro-medullary thymic epithelial cell', 'neuron', 'neutrophil', 'non-classical monocyte', 'ovarian surface epithelial cell', 'pancreatic acinar cell', 'pancreatic ductal cell', 'pancreatic stellate cell', 'paneth cell of colon', 'paneth cell of epithelium of small intestine', 'pericyte', 'peritubular myoid cell', 'plasma cell', 'plasmacytoid dendritic cell', 'platelet', 'progenitor cell of mammary luminal epithelium', 'pulmonary alveolar type 1 cell', 'pulmonary alveolar type 2 cell', 'regular atrial cardiac myocyte', 'regulatory T cell', 'respiratory tract goblet cell', 'retinal bipolar neuron', 'retinal blood vessel endothelial cell', 'retinal pigment epithelial cell', 'salivary gland cell', 'sebocyte', 'serous cell of epithelium of trachea', 'skeletal muscle satellite stem cell', 'slow muscle cell', 'small intestine goblet cell', 'smooth muscle cell', 'spermatid', 'spermatocyte', 'spermatogonium', 'stratified squamous epithelial cell', 'stromal cell', 'stromal cell of ovary', 'supporting cell of vestibular epithelium', 'tendon cell', 'theca cell', 'thymic fibroblast type 1', 'thymic fibroblast type 2', 'thymocyte', 'tissue-resident macrophage', 'tongue muscle cell', 'tracheal goblet cell', 'transit amplifying cell of colon', 'tuft cell of colon', 'type B pancreatic cell', 'vascular associated smooth muscle cell', 'vein endothelial cell', 'ventricular cardiac muscle cell']
+Run script 2 with : --wdir multixrank_input --config config.yml
+============================================================
+Finished at: Fri May 15 06:30:34 PM CEST 2026
