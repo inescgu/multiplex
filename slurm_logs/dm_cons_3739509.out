@@ -1,0 +1,168 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b13/tmp/slurm-3739509
+Running on host: node-b13.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu May 21 03:01:17 PM CEST 2026
+SLURM_JOB_ID: 3739509
+
+==========================================
+Step 3: Build disease module
+==========================================
+Loading RWR scores from multixrank_results_v2/gene_rwr_scores.csv ...
+  17,051 ranked genes
+
+Loading reference graph from multixrank_input_consolidated/gene_reference_graph.pkl ...
+  17,051 nodes, 302,553 edges
+  Per-cell-type scores: 17,051 genes × 69 layers
+
+Loading seeds from multixrank_input_consolidated/seeds/seeds.txt ...
+  372 seed genes
+
+Seed-only subgraph: 154 components, largest CC = 200
+
+Seeds in reference graph : 372 / 372
+Ranked non-seed genes available: 16,679
+Seeds not fully connected — expanding with ranked genes ...
+  +  200 genes → 572 nodes, 21 component(s)
+  +  400 genes → 772 nodes, 9 component(s)
+  +  600 genes → 972 nodes, 4 component(s)
+  +  800 genes → 1172 nodes, 3 component(s)
+  + 1000 genes → 1372 nodes, 3 component(s)
+  + 1200 genes → 1572 nodes, 3 component(s)
+  + 1400 genes → 1772 nodes, 3 component(s)
+  + 1600 genes → 1972 nodes, 3 component(s)
+  + 1800 genes → 2172 nodes, 3 component(s)
+  + 2000 genes → 2372 nodes, 3 component(s)
+Reached limit of 2001 genes. Connected=False, components=3
+Applying LCC fallback ...
+  LCC: 2369 genes (dropped 4)
+
+Cell-type annotation:
+  Genes annotated : 2,369
+  All-zero genes  : 0
+  Unique dominant : 68
+
+Saved disease module → disease_module_output_v2/disease_module.csv
+  2,369 genes, 370 seeds
+Saved module graph → disease_module_output_v2/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input_consolidated/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 302,553
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds excluded         : 0
+  Excluded list        : []
+Seeds after exclusion  : 372
+Seeds in reference     : 372
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 154
+Largest seed CC size   : 200
+Seed subgraph edges    : 314
+Isolated seeds         : 140
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'ANO1', 'AQP4', 'AVPR1A', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 1
+Max bridging genes allowed : 2000
+Genes added                : 2001
+Full module size           : 2373
+Fully connected            : False
+  Components in full module: 3
+
+--- FINAL MODULE ---
+Final module size       : 2369
+Final module edges      : 32486
+Used LCC fallback       : True
+Seeds in final module   : 370 / 372
+Seeds dropped by LCC    : 2
+  Dropped: ['NPPC', 'SSTR4']
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  thymic_merged                               102 genes
+  C-NP.MRGPRX1_GFRA2                           83 genes
+  A-Propr.EPHA3                                82 genes
+  A-Propr.PCDH8                                73 genes
+  C-NP.SST                                     71 genes
+  interstitial_cell_of_Cajal                   68 genes
+  platelet                                     67 genes
+  C-Thermo.TRPM8                               66 genes
+  A-PEP.KIT                                    65 genes
+  C-LTMR.CDH9                                  63 genes
+  C-PEP.ADORA2B                                63 genes
+  sperm_merged                                 60 genes
+  enterocyte_merged                            60 genes
+  C-NP.MRGPRX1_MRGPRX4                         59 genes
+  Ab-LTMR.CCKAR                                56 genes
+  paneth_intestinal_crypt_merged               56 genes
+  C-PEP.TAC1_CHRNA3                            56 genes
+  C-PEP.TAC1_CACNG5                            54 genes
+  Ab-LTMR.LGI2                                 51 genes
+  C-Thermo.RXFP1                               50 genes
+  fibroblast_stromal_merged                    49 genes
+  A-PEP.NTRK3_S100A16                          49 genes
+  retinal_merged                               48 genes
+  A-Propr.HAPLN4                               47 genes
+  A-LTMR.TAC3                                  44 genes
+  ATF3                                         44 genes
+  hematopoietic_progenitor_merged              41 genes
+  Ab-LTMR.NSG2                                 38 genes
+  A-PEP.CHRNA7_SLC18A3                         38 genes
+  microglial_cell                              37 genes
+  A-PEP.SCGN_ADRA2C                            34 genes
+  neuron                                       33 genes
+  peritubular_myoid_cell                       32 genes
+  T_cell_merged                                31 genes
+  myeloid_merged                               31 genes
+  Ab-LTMR.ETV1                                 31 genes
+  erythrocyte                                  30 genes
+  cardiac_merged                               28 genes
+  smooth_muscle_merged                         28 genes
+  progenitor_cell_of_mammary_luminal_epithelium     26 genes
+  skeletal_muscle_merged                       25 genes
+  acinar_merged                                22 genes
+  goblet_secretory_merged                      21 genes
+  endothelial_merged                           21 genes
+  NK_cell_merged                               19 genes
+  macrophage_monocyte_merged                   19 genes
+  dendritic_cell_merged                        16 genes
+  Schwann_cell                                 15 genes
+  epithelial_merged                            14 genes
+  lung_epithelial_merged                       14 genes
+  keratocyte                                   13 genes
+  B_cell                                       12 genes
+  pancreatic_stellate_cell                     11 genes
+  hepatocyte                                   11 genes
+  type_B_pancreatic_cell                       11 genes
+  kidney_epithelial_cell                       10 genes
+  luminal_epithelial_cell_of_mammary_gland      9 genes
+  supporting_cell_of_vestibular_epithelium      8 genes
+  myoepithelial_cell                            8 genes
+  duct_epithelial_cell                          8 genes
+  melanocyte                                    7 genes
+  plasma_cell                                   6 genes
+  mesothelial_cell                              6 genes
+  theca_cell                                    6 genes
+  ionocyte                                      5 genes
+  luminal_cell_of_prostate_epithelium           4 genes
+  sebocyte                                      2 genes
+  intrahepatic_cholangiocyte                    2 genes
+
+======================================================================
+⚠  MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Seeds split into 154 components. Consider increasing --k or reviewing seed list.
+• Hit --max-bridge cap (2000). Try increasing it.
+• LCC fallback used. Use --no-lcc-fallback to keep all genes.
+======================================================================
+
+Diagnostics saved → disease_module_output_v2/module_diagnostics.txt
+
+==========================================
+Finished at: Thu May 21 03:08:44 PM CEST 2026
+==========================================

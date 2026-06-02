@@ -1,32 +1,13 @@
 #!/usr/bin/env python3
 """
 Run MultiXrank (Edge-Driven Inter-Layer Architecture)
-=======================================================
-Executes MultiXrank RWR on edge-driven inter-layer inputs and produces:
-  1. Per-cell-type gene scores (from intra-layer contributions)
-  2. Aggregated gene scores across all layers
-
-Outputs
--------
-<output-dir>/
-├── gene_rwr_scores.csv            # gene, rwr_score  (aggregated)
-├── per_celltype_scores.csv        # gene × cell_type score matrix
-├── per_celltype_scores_detailed.csv  # includes inter-layer contributions
-└── multixrank_raw_output/         # raw MultiXrank output
 """
-
 import argparse
 import json
 import time
 from pathlib import Path
-
 import pandas as pd
 import multixrank
-
-
-# ---------------------------------------------------------------------------
-# Aggregation strategies
-# ---------------------------------------------------------------------------
 
 AGG_FUNCTIONS = {
     "max":  lambda df: df.max(axis=1),
@@ -34,133 +15,186 @@ AGG_FUNCTIONS = {
     "sum":  lambda df: df.sum(axis=1),
 }
 
-
 def load_layer_info(wdir: Path) -> dict:
-    """
-    Read layer_info.json to understand which layers are intra vs inter.
-
-    Returns
-    -------
-    dict mapping layer_name -> {"type": "intra"|"inter", "cell_types": [...], ...}
-    """
     info_path = wdir / "layer_info.json"
     if info_path.exists():
         with open(info_path) as f:
             return json.load(f)
     return {}
 
-
 def load_cell_type_metadata(wdir: Path) -> dict:
-    """Read cell_type_metadata.json for cell type list."""
     meta_path = wdir / "cell_type_metadata.json"
     if meta_path.exists():
         with open(meta_path) as f:
             return json.load(f)
     return {}
 
-
 def parse_multixrank_result(
-    rwr_result: dict,
+    rwr_result,
     layer_info: dict,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Convert MultiXrank's output into:
-      1. per_celltype_scores: gene × cell_type matrix (intra-layer only)
-      2. all_layer_scores: gene × all_layers matrix (for debugging)
-
-    MultiXrank returns:
-        rwr_result["multiplex"]["gene_multiplex"]  → DataFrame with cols
-            [multiplex, layer, node, score]
+    Parse MultiXrank output into per-layer pivot table.
+    
+    MultiXrank returns a LIST of DataFrames (one per multiplex network).
+    Each DataFrame has columns: multiplex, layer, node, score
     """
-    # ---- locate the gene_multiplex table ----
-    raw = rwr_result.get("multiplex", rwr_result)
-    if isinstance(raw, dict):
-        raw = raw.get("gene_multiplex", next(iter(raw.values())))
+    # -----------------------------------------------------------
+    # Step 1: extract the raw DataFrame
+    # -----------------------------------------------------------
+    if isinstance(rwr_result, list):
+        # Standard MultiXrank output: list of DataFrames
+        if len(rwr_result) == 0:
+            raise ValueError("MultiXrank returned empty list!")
+        raw = pd.concat(rwr_result, ignore_index=True)
+        print(f"  rwr_result is a list of {len(rwr_result)} DataFrame(s)")
+    elif isinstance(rwr_result, pd.DataFrame):
+        raw = rwr_result.copy()
+        print("  rwr_result is a single DataFrame")
+    elif isinstance(rwr_result, dict):
+        # Fallback: old dict-based format
+        frames = []
+        for key, val in rwr_result.items():
+            if isinstance(val, pd.DataFrame):
+                frames.append(val)
+            elif isinstance(val, dict):
+                for k2, v2 in val.items():
+                    if isinstance(v2, pd.DataFrame):
+                        frames.append(v2)
+        if not frames:
+            raise ValueError(f"Could not extract DataFrame from dict keys: "
+                             f"{list(rwr_result.keys())}")
+        raw = pd.concat(frames, ignore_index=True)
+        print(f"  rwr_result is dict, extracted {len(frames)} DataFrame(s)")
+    else:
+        raise TypeError(f"Unexpected rwr_result type: {type(rwr_result)}")
 
-    if hasattr(raw, "to_frame"):          # it's a Series
-        raw = raw.reset_index()
-        raw.columns = ["node", "score"]
-        raw["layer"] = "layer_0"
+    print(f"  Raw shape: {raw.shape}")
+    print(f"  Raw columns: {list(raw.columns)}")
+    print(f"  Raw head:\n{raw.head(3).to_string()}")
 
-    # Normalise column names
-    raw = raw.reset_index(drop=True)
+    # -----------------------------------------------------------
+    # Step 2: normalise column names
+    # -----------------------------------------------------------
     col_map = {}
     for c in raw.columns:
-        lc = str(c).lower()
-        if "node" in lc or "gene" in lc:
+        lc = str(c).lower().strip()
+        if lc in ("node", "gene", "gene_name"):
             col_map[c] = "node"
-        elif "score" in lc or "rank" in lc:
+        elif lc in ("score", "rwr_score", "rank_score"):
             col_map[c] = "score"
-        elif "layer" in lc:
+        elif lc in ("layer", "layer_name", "layer_id"):
             col_map[c] = "layer"
+        elif lc in ("multiplex", "network", "multiplex_name"):
+            col_map[c] = "multiplex"
     raw = raw.rename(columns=col_map)
-    raw["score"] = pd.to_numeric(raw["score"], errors="coerce").fillna(0.0)
-    raw["node"] = raw["node"].astype(str).str.strip().str.upper()
 
-    # ---- pivot to gene × layer ----
+    # If still no 'node' column, try positional assignment
+    if "node" not in raw.columns:
+        print(f"  WARNING: no 'node' column found, columns are: {list(raw.columns)}")
+        # MultiXrank v1 format: columns may be positional
+        if raw.shape[1] >= 3:
+            raw.columns = ["multiplex", "layer", "node", "score"] + \
+                          list(raw.columns[4:])
+        elif raw.shape[1] == 2:
+            raw.columns = ["node", "score"]
+
+    raw["score"] = pd.to_numeric(raw["score"], errors="coerce").fillna(0.0)
+    raw["node"]  = raw["node"].astype(str).str.strip().str.upper()
+
+    # -----------------------------------------------------------
+    # Step 3: sanity check scores
+    # -----------------------------------------------------------
+    n_nonzero = (raw["score"] > 0).sum()
+    print(f"  Non-zero scores in raw: {n_nonzero:,} / {len(raw):,}")
+    if n_nonzero == 0:
+        print("  *** ALL SCORES ARE ZERO — check seeds file and config! ***")
+
+    # -----------------------------------------------------------
+    # Step 4: pivot to gene × layer
+    # -----------------------------------------------------------
     if "layer" in raw.columns:
-        all_layers_pivot = raw.pivot_table(index="node", columns="layer",
-                                           values="score", aggfunc="max")
+        # Extract just the stem of the layer path for matching
+        # e.g. "multiplex/gene_multiplex/T_cell_merged.tsv" -> "T_cell_merged"
+        raw["layer_stem"] = (
+            raw["layer"]
+            .astype(str)
+            .apply(lambda x: Path(x).stem if "/" in x or "\\" in x else x)
+        )
+        all_layers_pivot = raw.pivot_table(
+            index="node",
+            columns="layer_stem",
+            values="score",
+            aggfunc="max",
+        )
     else:
+        print("  WARNING: no 'layer' column — single-column pivot")
         all_layers_pivot = raw.set_index("node")[["score"]]
-        all_layers_pivot.columns = ["layer_0"]
+        all_layers_pivot.columns = ["all_layers"]
 
     all_layers_pivot.index.name = "gene"
     all_layers_pivot.columns.name = None
+    all_layers_pivot = all_layers_pivot.fillna(0.0)
 
-    # ---- extract intra-layer scores only ----
-    # Map layer names to cell types
+    print(f"  Pivot shape: {all_layers_pivot.shape}")
+    print(f"  Pivot columns (first 5): {list(all_layers_pivot.columns)[:5]}")
+    print(f"  Non-zero cells in pivot: "
+          f"{(all_layers_pivot > 0).any(axis=1).sum():,} genes with any score")
+
+    # -----------------------------------------------------------
+    # Step 5: map layer stems to cell types via layer_info
+    # -----------------------------------------------------------
+    # layer_info keys are stems like "T_cell_merged"
+    # pivot columns are also stems after our normalisation above
+    excluded_types = {"special", "inter"}
     layer_to_celltype = {}
+
     for layer_name, info in layer_info.items():
-        if info.get("type") == "intra":
+        if info.get("type") not in excluded_types:
             cell_types = info.get("cell_types", [])
             if cell_types:
                 layer_to_celltype[layer_name] = cell_types[0]
 
-    # Filter to intra-layer columns only
-    intra_cols = [col for col in all_layers_pivot.columns if col in layer_to_celltype]
-    if intra_cols:
+    print(f"  layer_to_celltype entries: {len(layer_to_celltype)}")
+
+    intra_cols = [col for col in all_layers_pivot.columns
+                  if col in layer_to_celltype]
+
+    print(f"  Matched intra columns: {len(intra_cols)} / "
+          f"{len(all_layers_pivot.columns)}")
+
+    if not intra_cols:
+        # Fallback: use ALL columns (better than nothing)
+        print("  WARNING: no layer_info matches — using ALL layers as cell types")
+        print(f"  Pivot cols: {list(all_layers_pivot.columns)[:10]}")
+        print(f"  layer_info keys: {list(layer_info.keys())[:10]}")
+        celltype_pivot = all_layers_pivot.copy()
+    else:
         celltype_pivot = all_layers_pivot[intra_cols].copy()
         celltype_pivot.columns = [layer_to_celltype[col] for col in intra_cols]
-    else:
-        # Fallback: use all columns
-        celltype_pivot = all_layers_pivot.copy()
 
     return celltype_pivot.fillna(0.0), all_layers_pivot.fillna(0.0)
 
 
-def aggregate_scores(
-    pivot: pd.DataFrame,
-    method: str,
-) -> pd.Series:
+def aggregate_scores(pivot: pd.DataFrame, method: str) -> pd.Series:
     agg_fn = AGG_FUNCTIONS.get(method)
     if agg_fn is None:
-        raise ValueError(f"Unknown aggregation method '{method}'. "
-                         f"Choose from: {list(AGG_FUNCTIONS)}")
+        raise ValueError(f"Unknown aggregation '{method}'. "
+                         f"Choose: {list(AGG_FUNCTIONS)}")
     return agg_fn(pivot).rename("rwr_score")
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run MultiXrank RWR (edge-driven inter-layer) and emit per-cell-type + aggregated scores"
-    )
-    parser.add_argument("--wdir", required=True,
-                        help="MultiXrank working directory (output of script 1)")
-    parser.add_argument("--config", default="config.yml",
-                        help="Config filename relative to wdir (default: config.yml)")
-    parser.add_argument("--output-dir", required=True,
-                        help="Directory to save processed RWR results")
-    parser.add_argument("--aggregation", choices=list(AGG_FUNCTIONS), default="max",
-                        help="How to collapse per-layer scores into one ranking "
-                             "(default: max)")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--wdir",        required=True)
+    parser.add_argument("--config",      default="config.yml")
+    parser.add_argument("--output-dir",  required=True)
+    parser.add_argument("--aggregation", choices=list(AGG_FUNCTIONS),
+                        default="max")
     args = parser.parse_args()
 
-    wdir = Path(args.wdir).resolve()
-    out  = Path(args.output_dir)
+    wdir    = Path(args.wdir).resolve()
+    out     = Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
     raw_out = out / "multixrank_raw_output"
     raw_out.mkdir(exist_ok=True)
@@ -168,83 +202,93 @@ def main():
     print("=" * 60)
     print("Running MultiXrank (edge-driven inter-layer)")
     print("=" * 60)
-    print(f"Working dir   : {wdir}")
-    print(f"Config file   : {args.config}")
-    print(f"Output dir    : {out}")
-    print(f"Aggregation   : {args.aggregation}")
+    print(f"Working dir : {wdir}")
+    print(f"Config      : {args.config}")
+    print(f"Output dir  : {out}")
+    print(f"Aggregation : {args.aggregation}")
     print("=" * 60 + "\n")
 
-    # Read layer info
-    layer_info = load_layer_info(wdir)
+    layer_info     = load_layer_info(wdir)
     cell_type_meta = load_cell_type_metadata(wdir)
 
     if layer_info:
-        intra_count = sum(1 for info in layer_info.values() if info.get("type") == "intra")
-        inter_count = sum(1 for info in layer_info.values() if info.get("type") == "inter")
-        print(f"Layer structure:")
-        print(f"  Intra-layers (PPI within cell types) : {intra_count}")
-        print(f"  Inter-layers (between cell types)    : {inter_count}")
-        print(f"  Total layers                         : {intra_count + inter_count}\n")
+        intra = sum(1 for v in layer_info.values() if v.get("type") == "intra")
+        inter = sum(1 for v in layer_info.values() if v.get("type") == "inter")
+        print(f"Layer structure: {intra} intra, {inter} inter, "
+              f"{len(layer_info)} total\n")
 
-    if cell_type_meta:
-        cell_types = cell_type_meta.get("cell_types", [])
-        print(f"Cell types: {cell_types}\n")
-
+    # ------------------------------------------------------------------
     # Run RWR
+    # ------------------------------------------------------------------
     t0 = time.time()
-    config_path = wdir / args.config if not Path(args.config).is_absolute() else args.config
-    mxr = multixrank.Multixrank(config=str(config_path), wdir=str(wdir))
+    config_path = (wdir / args.config
+                   if not Path(args.config).is_absolute()
+                   else Path(args.config))
+
+    print(f"Config path : {config_path}")
+    print(f"Config exists: {config_path.exists()}\n")
+
+    mxr        = multixrank.Multixrank(config=str(config_path), wdir=str(wdir))
     rwr_result = mxr.random_walk_rank()
-    print(f"\nRWR complete in {time.time() - t0:.1f}s\n")
 
-    mxr.write_ranking(rwr_result, path=str(raw_out))
-    print(f"Raw MultiXrank output saved → {raw_out}\n")
-
-    # Parse into per-cell-type and all-layers matrices
-    celltype_pivot, all_layers_pivot = parse_multixrank_result(rwr_result, layer_info)
-
-    print("Per-cell-type score matrix (intra-layer only):")
-    print(f"  Genes    : {len(celltype_pivot):,}")
-    print(f"  Cell types : {list(celltype_pivot.columns)}")
-    print(celltype_pivot.head(5).to_string())
+    print(f"\nRWR complete in {time.time() - t0:.1f}s")
+    print(f"Result type : {type(rwr_result)}")
+    if isinstance(rwr_result, list):
+        print(f"Result len  : {len(rwr_result)}")
+        for i, df in enumerate(rwr_result):
+            if hasattr(df, "shape"):
+                print(f"  [{i}] shape={df.shape}, "
+                      f"cols={list(df.columns)}, "
+                      f"nonzero={(df.select_dtypes('number') > 0).any(axis=1).sum()}")
     print()
 
-    # Save per-cell-type scores
-    ct_path = out / "per_celltype_scores.csv"
-    celltype_pivot.reset_index().to_csv(ct_path, index=False)
-    print(f"Saved per-cell-type scores → {ct_path}")
+    mxr.write_ranking(rwr_result, path=str(raw_out))
+    print(f"Raw output saved → {raw_out}\n")
 
-    # Save all-layer scores (for debugging/reference)
+    # ------------------------------------------------------------------
+    # Parse & save
+    # ------------------------------------------------------------------
+    celltype_pivot, all_layers_pivot = parse_multixrank_result(
+        rwr_result, layer_info
+    )
+
+    print(f"\nPer-cell-type matrix: "
+          f"{len(celltype_pivot):,} genes × {len(celltype_pivot.columns)} cell types")
+    print(f"Non-zero genes: "
+          f"{(celltype_pivot > 0).any(axis=1).sum():,}")
+    print(celltype_pivot[celltype_pivot.max(axis=1) > 0].head(5).to_string())
+    print()
+
+    ct_path  = out / "per_celltype_scores.csv"
     all_path = out / "per_celltype_scores_detailed.csv"
+    celltype_pivot.reset_index().to_csv(ct_path,  index=False)
     all_layers_pivot.reset_index().to_csv(all_path, index=False)
-    print(f"Saved all-layer scores (detailed) → {all_path}")
+    print(f"Saved per-celltype  → {ct_path}")
+    print(f"Saved all-layers    → {all_path}")
 
-    # Aggregate intra-layer scores only
     agg_scores = aggregate_scores(celltype_pivot, args.aggregation)
     gene_scores = (
         agg_scores
         .reset_index()
-        .rename(columns={"index": "gene"})
+        .rename(columns={"node": "gene", "index": "gene"})
         .sort_values("rwr_score", ascending=False)
         .reset_index(drop=True)
     )
-
-    # Tidy: make sure gene column has the right name
     if "gene" not in gene_scores.columns:
-        gene_scores = gene_scores.rename(columns={gene_scores.columns[0]: "gene"})
+        gene_scores.columns = ["gene", "rwr_score"]
 
     scores_path = out / "gene_rwr_scores.csv"
     gene_scores.to_csv(scores_path, index=False)
 
-    print(f"Saved aggregated RWR scores → {scores_path}")
-    print(f"  Aggregation method : {args.aggregation}")
-    print(f"  Genes ranked       : {len(gene_scores):,}")
-    print(f"  Top score          : {gene_scores['rwr_score'].iloc[0]:.6e}")
-    print(f"  Median score       : {gene_scores['rwr_score'].median():.6e}")
-    print(f"  Non-zero scores    : {(gene_scores['rwr_score'] > 0).sum():,}")
-    print("\nNext step: run script 3 (build_disease_module.py)")
-    print(f"  --scores {scores_path}")
-    print(f"  --per-celltype-scores {ct_path}")
+    print(f"\nAggregated scores   → {scores_path}")
+    print(f"  Method      : {args.aggregation}")
+    print(f"  Genes ranked: {len(gene_scores):,}")
+    print(f"  Non-zero    : {(gene_scores['rwr_score'] > 0).sum():,}")
+    if len(gene_scores) > 0:
+        print(f"  Top score   : {gene_scores['rwr_score'].iloc[0]:.6e}")
+        print(f"  Median      : {gene_scores['rwr_score'].median():.6e}")
+    print(f"\nTop 20 genes:\n"
+          f"{gene_scores.head(20).to_string(index=False)}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,90 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d14/tmp/slurm-3738957
+Running on host: node-d14.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu May 21 01:56:01 PM CEST 2026
+SLURM_JOB_ID: 3738957
+
+==========================================
+Step 2: Run MultiXrank (v2)
+==========================================
+============================================================
+Running MultiXrank (edge-driven inter-layer)
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/multixrank_input_consolidated
+Config      : config.yml
+Output dir  : multixrank_results_v2
+Aggregation : max
+============================================================
+
+Layer structure: 69 intra, 0 inter, 72 total
+
+Config path : /lisc/home/user/gerardursin/multiplex/multixrank_input_consolidated/config.yml
+Config exists: True
+
+
+RWR complete in 836.9s
+Result type : <class 'pandas.DataFrame'>
+
+Raw output saved → multixrank_results_v2/multixrank_raw_output
+
+  rwr_result is a single DataFrame
+  Raw shape: (1227672, 4)
+  Raw columns: ['multiplex', 'node', 'layer', 'score']
+  Raw head:
+        multiplex  node                                           layer         score
+0  gene_multiplex  A1BG  multiplex/gene_multiplex/A-LTMR.TAC3_layer.tsv  4.128269e-10
+1  gene_multiplex  A1CF  multiplex/gene_multiplex/A-LTMR.TAC3_layer.tsv  1.342784e-10
+2  gene_multiplex   A2M  multiplex/gene_multiplex/A-LTMR.TAC3_layer.tsv  4.737827e-09
+  Non-zero scores in raw: 1,227,672 / 1,227,672
+  Pivot shape: (17051, 72)
+  Pivot columns (first 5): ['A-LTMR.TAC3_layer', 'A-PEP.CHRNA7_SLC18A3_layer', 'A-PEP.KIT_layer', 'A-PEP.NTRK3_S100A16_layer', 'A-PEP.SCGN_ADRA2C_layer']
+  Non-zero cells in pivot: 17,051 genes with any score
+  layer_to_celltype entries: 69
+  Matched intra columns: 69 / 72
+
+Per-cell-type matrix: 17,051 genes × 69 cell types
+Non-zero genes: 17,051
+         A-LTMR.TAC3  A-PEP.CHRNA7_SLC18A3     A-PEP.KIT  A-PEP.NTRK3_S100A16  A-PEP.SCGN_ADRA2C  A-Propr.EPHA3  A-Propr.HAPLN4  A-Propr.PCDH8          ATF3  Ab-LTMR.CCKAR  Ab-LTMR.ETV1  Ab-LTMR.LGI2  Ab-LTMR.NSG2        B_cell   C-LTMR.CDH9  C-NP.MRGPRX1_GFRA2  C-NP.MRGPRX1_MRGPRX4      C-NP.SST  C-PEP.ADORA2B  C-PEP.TAC1_CACNG5  C-PEP.TAC1_CHRNA3  C-Thermo.RXFP1  C-Thermo.TRPM8  NK_cell_merged  Schwann_cell  T_cell_merged  acinar_merged  cardiac_merged  dendritic_cell_merged  duct_epithelial_cell  endothelial_merged  enterocyte_merged  epithelial_merged   erythrocyte  fibroblast_stromal_merged  goblet_secretory_merged  hematopoietic_progenitor_merged    hepatocyte  interstitial_cell_of_Cajal  intrahepatic_cholangiocyte      ionocyte    keratocyte  kidney_epithelial_cell  luminal_cell_of_prostate_epithelium  luminal_epithelial_cell_of_mammary_gland  lung_epithelial_merged  macrophage_monocyte_merged    melanocyte  mesothelial_cell  microglial_cell  myeloid_merged  myoepithelial_cell        neuron  pancreatic_ductal_cell  pancreatic_stellate_cell  paneth_intestinal_crypt_merged  peritubular_myoid_cell   plasma_cell      platelet  progenitor_cell_of_mammary_luminal_epithelium  retinal_merged      sebocyte  skeletal_muscle_merged  smooth_muscle_merged  sperm_merged  supporting_cell_of_vestibular_epithelium    theca_cell  thymic_merged  type_B_pancreatic_cell
+gene                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+A1BG    4.128269e-10          4.128269e-10  4.128269e-10         4.128269e-10       4.128269e-10   4.128269e-10    4.128269e-10   4.128269e-10  4.128269e-10   4.128269e-10  4.128269e-10  4.128269e-10  4.128269e-10  4.128269e-10  4.128269e-10        4.128269e-10          4.128269e-10  4.128269e-10   4.128269e-10       4.128269e-10       4.128269e-10    4.128269e-10    4.128269e-10    6.507460e-08  4.128269e-10   6.928906e-08   4.128269e-10    4.128269e-10           3.785589e-08          4.128269e-10        4.128269e-10       5.318337e-08       4.128269e-10  4.128269e-10               5.801117e-08             4.128269e-10                     4.100988e-08  1.132453e-08                4.128269e-10                4.128269e-10  4.128269e-10  4.128269e-10            4.128269e-10                         5.284103e-08                              4.128269e-10            6.751424e-08                2.640260e-08  1.550651e-08      4.128269e-10     7.773801e-08    7.413950e-08        4.128269e-10  4.128269e-10            4.128269e-10              4.128269e-10                    6.032899e-08            4.128269e-10  5.487027e-08  2.834247e-08                                   4.128269e-10    8.004694e-08  4.128269e-10            4.128269e-10          5.736447e-08  4.128269e-10                              2.380080e-08  4.128269e-10   4.128269e-10            4.128269e-10
+A1CF    1.342784e-10          1.342784e-10  1.342784e-10         1.342784e-10       1.342784e-10   1.342784e-10    1.342784e-10   1.342784e-10  1.342784e-10   1.342784e-10  1.342784e-10  1.342784e-10  1.342784e-10  1.342784e-10  1.342784e-10        1.342784e-10          1.342784e-10  1.342784e-10   1.342784e-10       1.342784e-10       1.342784e-10    1.342784e-10    1.342784e-10    1.342784e-10  1.342784e-10   1.342784e-10   1.474472e-08    1.342784e-10           1.342784e-10          1.342784e-10        1.342784e-10       2.558248e-08       2.049674e-08  1.342784e-10               3.184342e-08             2.263195e-08                     1.342784e-10  8.714046e-09                1.342784e-10                1.032145e-08  1.342784e-10  1.342784e-10            1.523813e-08                         1.342784e-10                              1.342784e-10            1.342784e-10                1.342784e-10  1.342784e-10      1.342784e-10     2.575289e-08    2.651862e-08        1.342784e-10  1.342784e-10            1.672670e-08              1.342784e-10                    2.899661e-08            1.342784e-10  1.342784e-10  1.342784e-10                                   1.342784e-10    1.731141e-08  1.342784e-10            2.356816e-08          1.342784e-10  1.342784e-10                              1.342784e-10  1.342784e-10   1.819939e-08            1.726866e-08
+A2M     4.737827e-09          4.737827e-09  3.861505e-07         4.737827e-09       4.737827e-09   4.737827e-09    4.533424e-07   4.737827e-09  5.621905e-07   4.737827e-09  4.737827e-09  8.561797e-07  4.737827e-09  1.562661e-06  4.737827e-09        4.737827e-09          4.737827e-09  4.737827e-09   4.737827e-09       4.737827e-09       4.737827e-09    4.737827e-09    4.737827e-09    3.299734e-06  5.196692e-07   3.037630e-06   1.459429e-06    4.822832e-07           1.323897e-06          4.737827e-09        3.080486e-06       4.737827e-09       1.418979e-06  4.737827e-09               1.335221e-06             1.340501e-06                     1.403984e-06  4.716408e-07                6.931046e-07                5.183766e-07  4.737827e-09  5.870120e-07            4.737827e-09                         4.737827e-09                              4.777785e-07            2.643557e-06                1.386713e-06  1.521579e-06      4.427507e-07     1.442265e-06    2.833369e-06        5.144909e-07  4.586038e-07            5.207007e-07              6.413804e-07                    1.391100e-06            5.744096e-07  5.541262e-07  4.737827e-09                                   4.663889e-07    1.576678e-06  5.141311e-07            5.610288e-07          1.623515e-06  5.222653e-07                              4.737827e-09  5.003789e-07   5.511109e-07            4.737827e-09
+A2ML1   8.317885e-10          8.317885e-10  8.317885e-10         8.317885e-10       8.317885e-10   8.317885e-10    8.317885e-10   8.317885e-10  8.317885e-10   8.317885e-10  8.317885e-10  8.317885e-10  8.317885e-10  8.317885e-10  8.317885e-10        8.317885e-10          8.317885e-10  8.317885e-10   8.317885e-10       8.317885e-10       8.317885e-10    8.317885e-10    8.317885e-10    8.317885e-10  8.317885e-10   8.317885e-10   3.966132e-07    8.317885e-10           8.317885e-10          8.317885e-10        3.789223e-07       4.218798e-07       3.748898e-07  8.317885e-10               6.432589e-07             4.445687e-07                     4.993171e-07  8.317885e-10                8.317885e-10                5.688318e-07  8.317885e-10  8.317885e-10            8.317885e-10                         8.317885e-10                              8.317885e-10            4.468037e-07                1.577178e-07  8.317885e-10      8.317885e-10     7.928295e-07    1.773743e-07        8.317885e-10  8.317885e-10            8.317885e-10              8.317885e-10                    1.179721e-07            1.151775e-06  8.317885e-10  8.317885e-10                                   8.317885e-10    7.308103e-07  8.317885e-10            4.000745e-07          8.317885e-10  1.088292e-07                              8.317885e-10  8.317885e-10   8.155359e-07            8.317885e-10
+A4GALT  5.632066e-08          1.061027e-09  1.061027e-09         3.985784e-09       1.061027e-09   7.541347e-08    2.991133e-09   8.745499e-08  1.061027e-09   1.061027e-09  7.195878e-09  1.471673e-08  5.408385e-09  1.061027e-09  1.061027e-09        6.929508e-08          2.665284e-08  1.061027e-09   1.061027e-09       1.061027e-09       1.061027e-09    1.061027e-09    1.061027e-09    2.567243e-08  1.061027e-09   3.569242e-08   4.783894e-08    2.442667e-08           1.061027e-09          2.309071e-08        2.756526e-08       1.061027e-09       2.818698e-08  1.061027e-09               3.600976e-08             3.372520e-08                     3.764747e-08  1.061027e-09                1.061027e-09                1.909730e-08  2.287013e-08  2.202571e-08            2.298528e-08                         2.403144e-08                              1.936656e-08            3.251635e-08                2.111188e-08  1.061027e-09      2.120380e-08     3.388220e-08    4.268124e-08        1.061027e-09  1.061027e-09            1.061027e-09              2.176444e-08                    4.270845e-08            1.061027e-09  1.061027e-09  1.061027e-09                                   9.672939e-09    4.507639e-08  2.515869e-08            2.725550e-08          2.143933e-08  1.061027e-09                              2.350161e-08  1.928756e-08   4.022113e-08            1.061027e-09
+
+Saved per-celltype  → multixrank_results_v2/per_celltype_scores.csv
+Saved all-layers    → multixrank_results_v2/per_celltype_scores_detailed.csv
+
+Aggregated scores   → multixrank_results_v2/gene_rwr_scores.csv
+  Method      : max
+  Genes ranked: 17,051
+  Non-zero    : 17,051
+  Top score   : 4.654588e-05
+  Median      : 9.029392e-08
+
+Top 20 genes:
+   gene  rwr_score
+  PICK1   0.000047
+   CNR1   0.000042
+  HTR2A   0.000041
+ADORA2A   0.000041
+  KCNJ6   0.000041
+   DLG4   0.000041
+   DRD2   0.000041
+ ADRA2C   0.000040
+ CAMK2A   0.000040
+   HCN1   0.000039
+ CACNG2   0.000039
+ CHRNA4   0.000039
+   HRH3   0.000039
+ CHRNB4   0.000039
+  GRIN1   0.000039
+  KCNJ5   0.000038
+    NMU   0.000038
+  NTSR1   0.000038
+ ADRA2A   0.000038
+  GLRA3   0.000038
+
+==========================================
+Finished at: Thu May 21 02:10:30 PM CEST 2026
+==========================================

@@ -1,0 +1,39 @@
+seed: seeds/seeds.txt
+self_loops: 0
+r: 0.85
+multiplex:
+  gene_multiplex:
+    layers:
+    - multiplex/gene_multiplex/A-LTMR.TAC3_layer.tsv
+    - multiplex/gene_multiplex/A-Propr.PCDH8_layer.tsv
+    - multiplex/gene_multiplex/C-NP.MRGPRX1_GFRA2_layer.tsv
+    - multiplex/gene_multiplex/C-Thermo.TRPM8_layer.tsv
+    - multiplex/gene_multiplex/endothelial_merged.tsv
+    - multiplex/gene_multiplex/hepatocyte_layer.tsv
+    - multiplex/gene_multiplex/lung_epithelial_merged.tsv
+    - multiplex/gene_multiplex/neuron_layer.tsv
+    - multiplex/gene_multiplex/retinal_merged.tsv
+    - multiplex/gene_multiplex/type_B_pancreatic_cell_layer.tsv
+    graph_type:
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    - '00'
+    delta: 0.2
+    tau:
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1

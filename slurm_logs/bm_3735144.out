@@ -1,0 +1,36 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d10/tmp/slurm-3735144
+Running on host: node-d10.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed May 20 03:49:30 PM CEST 2026
+SLURM_JOB_ID: 3735144
+
+=======================================================
+MEMORY ESTIMATE
+=======================================================
+  Layers            : 69
+  Total edges       : 8,544,730
+  Unique genes      : 16,439
+  Avg nodes/layer   : 8,282
+  Max nodes/layer   : 14,757
+
+  Memory components:
+    Adjacency matrices  : 26.36 GB
+    Transition matrices : 26.36 GB
+    Score vectors       : 0.01 GB
+    NetworkX overhead   : 1.20 GB
+    Loading peak        : 0.80 GB
+    Python baseline     : 0.49 GB
+
+  Estimated steady-state RAM : 54.41 GB
+  Estimated peak RAM         : 55.20 GB
+  With 1.5× safety margin    : 83 GB  → request --mem=84G
+  With 2.0× safety margin    : 110 GB  → request --mem=112G
+  With 2.5× safety margin    : 138 GB  → request --mem=140G
+=======================================================
+
+RECOMMENDATION:
+  #SBATCH --mem=112G
+
+  (2× safety margin, rounded to nearest 4 GB)
+  If job gets OOM-killed, double this value.
+Finished at: Wed May 20 03:49:40 PM CEST 2026

@@ -1,0 +1,235 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d14/tmp/slurm-3739242
+Running on host: node-d14.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu May 21 02:26:24 PM CEST 2026
+SLURM_JOB_ID: 3739242
+
+==========================================
+Step 3: Build disease module
+==========================================
+Loading RWR scores from multixrank_results_v2/gene_rwr_scores.csv ...
+  17,051 ranked genes
+  Top 5:
+   gene  rwr_score
+  PICK1   0.000047
+   CNR1   0.000042
+  HTR2A   0.000041
+ADORA2A   0.000041
+  KCNJ6   0.000041
+
+Loading reference graph from multixrank_input_consolidated/gene_reference_graph.pkl ...
+  17,051 nodes, 302,553 edges
+  Loaded layer_info: 72 layers
+  Per-cell-type scores: 17,051 genes × 69 layers
+  Layer columns (first 5): ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C']
+
+Loading seeds from multixrank_input_consolidated/seeds/seeds.txt ...
+  372 seed genes
+
+Reference graph node sample: ['BYSL', 'RPS9', 'FBXW7', 'RELB', 'AARSD1']
+Seeds sample: ['SLC12A5', 'IAPP', 'NTS', 'F2R', 'GRIN2B']
+Seeds in reference graph: 372/372
+
+Seed-only subgraph: 154 components, largest CC = 200
+
+Seeds in reference graph : 372 / 372
+Ranked non-seed genes available: 16,679
+Seeds not fully connected — expanding with ranked genes ...
+  +  200 genes → 572 nodes, 21 component(s)
+  +  400 genes → 772 nodes, 9 component(s)
+  +  600 genes → 972 nodes, 4 component(s)
+  +  800 genes → 1172 nodes, 3 component(s)
+  + 1000 genes → 1372 nodes, 3 component(s)
+  + 1200 genes → 1572 nodes, 3 component(s)
+  + 1400 genes → 1772 nodes, 3 component(s)
+  + 1600 genes → 1972 nodes, 3 component(s)
+  + 1800 genes → 2172 nodes, 3 component(s)
+  + 2000 genes → 2372 nodes, 3 component(s)
+  + 2200 genes → 2572 nodes, 2 component(s)
+  + 2400 genes → 2772 nodes, 2 component(s)
+  + 2600 genes → 2972 nodes, 2 component(s)
+  + 2800 genes → 3172 nodes, 2 component(s)
+  + 3000 genes → 3372 nodes, 2 component(s)
+  + 3200 genes → 3572 nodes, 2 component(s)
+  + 3400 genes → 3772 nodes, 2 component(s)
+  + 3600 genes → 3972 nodes, 2 component(s)
+  + 3800 genes → 4172 nodes, 2 component(s)
+  + 4000 genes → 4372 nodes, 2 component(s)
+  + 4200 genes → 4572 nodes, 2 component(s)
+  + 4400 genes → 4772 nodes, 2 component(s)
+  + 4600 genes → 4972 nodes, 2 component(s)
+  + 4800 genes → 5172 nodes, 2 component(s)
+  + 5000 genes → 5372 nodes, 2 component(s)
+  + 5200 genes → 5572 nodes, 2 component(s)
+  + 5400 genes → 5772 nodes, 2 component(s)
+  + 5600 genes → 5972 nodes, 2 component(s)
+  + 5800 genes → 6172 nodes, 2 component(s)
+  + 6000 genes → 6372 nodes, 2 component(s)
+  + 6200 genes → 6572 nodes, 2 component(s)
+  + 6400 genes → 6772 nodes, 2 component(s)
+  + 6600 genes → 6972 nodes, 2 component(s)
+  + 6800 genes → 7172 nodes, 2 component(s)
+  + 7000 genes → 7372 nodes, 2 component(s)
+  + 7200 genes → 7572 nodes, 2 component(s)
+  + 7400 genes → 7772 nodes, 2 component(s)
+  + 7600 genes → 7972 nodes, 2 component(s)
+  + 7800 genes → 8172 nodes, 2 component(s)
+  + 8000 genes → 8372 nodes, 2 component(s)
+  + 8200 genes → 8572 nodes, 2 component(s)
+  + 8400 genes → 8772 nodes, 2 component(s)
+  + 8600 genes → 8972 nodes, 2 component(s)
+  + 8800 genes → 9172 nodes, 2 component(s)
+  + 9000 genes → 9372 nodes, 2 component(s)
+  + 9200 genes → 9572 nodes, 2 component(s)
+  + 9400 genes → 9772 nodes, 2 component(s)
+  + 9600 genes → 9972 nodes, 2 component(s)
+  + 9800 genes → 10172 nodes, 2 component(s)
+  +10000 genes → 10372 nodes, 2 component(s)
+  +10200 genes → 10572 nodes, 2 component(s)
+Reached limit of 10300 genes. Connected=False, components=2
+
+Cell-type annotation:
+  Genes annotated  : 10,672
+  All-zero genes   : 0
+  Unique dominant  : 69
+
+Saved disease module → disease_module_output_v2/disease_module.csv
+  10,672 genes, 372 seeds
+
+  Dominant cell type distribution:
+    thymic_merged                              487 genes
+    fibroblast_stromal_merged                  431 genes
+    enterocyte_merged                          410 genes
+    A-PEP.KIT                                  323 genes
+    A-Propr.EPHA3                              323 genes
+    retinal_merged                             316 genes
+    A-Propr.PCDH8                              314 genes
+    platelet                                   309 genes
+    paneth_intestinal_crypt_merged             281 genes
+    interstitial_cell_of_Cajal                 277 genes
+    sperm_merged                               273 genes
+    myeloid_merged                             262 genes
+    A-LTMR.TAC3                                248 genes
+    hematopoietic_progenitor_merged            238 genes
+    C-Thermo.RXFP1                             234 genes
+
+Saved module graph → disease_module_output_v2/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input_consolidated/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 302,553
+Cell types             : 179 types
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds in reference     : 372
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 154
+Largest seed CC size   : 200
+Seed subgraph edges    : 314
+Isolated seeds         : 140
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'ANO1', 'AQP4', 'AVPR1A', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 300
+Max bridging genes allowed : 10000
+Genes added                : 10300
+Full module size           : 10672
+Fully connected            : False
+  Components in full module: 2
+
+--- FINAL MODULE ---
+Final module size       : 10672
+Final module edges      : 243209
+Used LCC fallback       : False
+Seeds in final module   : 372 / 372
+Seeds dropped by LCC    : 0
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  thymic_merged                               487 genes
+  fibroblast_stromal_merged                   431 genes
+  enterocyte_merged                           410 genes
+  A-PEP.KIT                                   323 genes
+  A-Propr.EPHA3                               323 genes
+  retinal_merged                              316 genes
+  A-Propr.PCDH8                               314 genes
+  platelet                                    309 genes
+  paneth_intestinal_crypt_merged              281 genes
+  interstitial_cell_of_Cajal                  277 genes
+  sperm_merged                                273 genes
+  myeloid_merged                              262 genes
+  A-LTMR.TAC3                                 248 genes
+  hematopoietic_progenitor_merged             238 genes
+  C-Thermo.RXFP1                              234 genes
+  Ab-LTMR.LGI2                                232 genes
+  microglial_cell                             228 genes
+  C-NP.SST                                    222 genes
+  C-LTMR.CDH9                                 216 genes
+  C-NP.MRGPRX1_GFRA2                          206 genes
+  C-PEP.ADORA2B                               200 genes
+  peritubular_myoid_cell                      191 genes
+  C-PEP.TAC1_CHRNA3                           190 genes
+  A-Propr.HAPLN4                              189 genes
+  C-NP.MRGPRX1_MRGPRX4                        183 genes
+  skeletal_muscle_merged                      176 genes
+  C-Thermo.TRPM8                              176 genes
+  C-PEP.TAC1_CACNG5                           169 genes
+  erythrocyte                                 158 genes
+  progenitor_cell_of_mammary_luminal_epithelium    156 genes
+  T_cell_merged                               153 genes
+  Ab-LTMR.CCKAR                               140 genes
+  Ab-LTMR.ETV1                                137 genes
+  pancreatic_stellate_cell                    134 genes
+  endothelial_merged                          129 genes
+  ATF3                                        126 genes
+  A-PEP.NTRK3_S100A16                         126 genes
+  goblet_secretory_merged                     125 genes
+  Ab-LTMR.NSG2                                116 genes
+  neuron                                      115 genes
+  A-PEP.CHRNA7_SLC18A3                        107 genes
+  hepatocyte                                  103 genes
+  B_cell                                      102 genes
+  cardiac_merged                              101 genes
+  macrophage_monocyte_merged                  100 genes
+  dendritic_cell_merged                        94 genes
+  NK_cell_merged                               91 genes
+  A-PEP.SCGN_ADRA2C                            91 genes
+  epithelial_merged                            89 genes
+  smooth_muscle_merged                         83 genes
+  acinar_merged                                72 genes
+  lung_epithelial_merged                       68 genes
+  type_B_pancreatic_cell                       60 genes
+  Schwann_cell                                 59 genes
+  keratocyte                                   59 genes
+  myoepithelial_cell                           58 genes
+  kidney_epithelial_cell                       57 genes
+  plasma_cell                                  48 genes
+  luminal_epithelial_cell_of_mammary_gland     41 genes
+  melanocyte                                   39 genes
+  theca_cell                                   39 genes
+  luminal_cell_of_prostate_epithelium          35 genes
+  ionocyte                                     33 genes
+  supporting_cell_of_vestibular_epithelium     32 genes
+  sebocyte                                     23 genes
+  mesothelial_cell                             21 genes
+  duct_epithelial_cell                         19 genes
+  intrahepatic_cholangiocyte                   18 genes
+  pancreatic_ductal_cell                       11 genes
+
+======================================================================
+⚠  MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Seeds split into 154 components. Consider increasing --k or reviewing seed list.
+• Hit --max-bridge cap (10000). Try increasing it.
+======================================================================
+
+Diagnostics saved → disease_module_output_v2/module_diagnostics.txt
+
+==========================================
+Finished at: Thu May 21 02:27:45 PM CEST 2026
+==========================================

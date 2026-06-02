@@ -1,0 +1,42 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d10/tmp/slurm-3735142
+Running on host: node-d10.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed May 20 03:46:57 PM CEST 2026
+SLURM_JOB_ID: 3735142
+Full problem: 69 layers, 8,544,730 edges
+Benchmark config: 10 layers, 45,351 edges, 50 seeds
+Written to: multixrank_input_consolidated/_benchmark_tmp
+
+Running benchmark RWR...
+Benchmark completed in 4.9s
+
+============================================================
+BENCHMARK RESULTS
+============================================================
+  Benchmark layers     : 10
+  Benchmark edges      : 45,351
+  Wall-clock time      : 4.92s
+
+  Assumed RWR iterations: 50
+  Edge-iterations done  : 22,675,500
+  Actual speed          : 4.61M edge-iter/s
+  (diagnostic assumed 1.0M edge-iter/s)
+
+============================================================
+FULL RUN ESTIMATE (calibrated)
+============================================================
+  Full total edges     : 8,544,730
+  Full layers          : 69
+  Full edge-iterations : 29,479,318,500
+  Estimated runtime    : 107 minutes
+  Estimated runtime    : 1.8 hours
+
+  To achieve each target, max total edges:
+    < 30 min (ideal)          max    2,403,246 edges (28% of current)
+    < 2 hours (ok)            max    9,612,982 edges (113% of current)
+    < 8 hours (slurm)         max   38,451,929 edges (450% of current)
+    < 24 hours (slurm)        max  115,355,787 edges (1350% of current)
+
+Next steps based on estimate:
+  ✓ Should be fine — run directly on SLURM
+Finished at: Wed May 20 03:47:09 PM CEST 2026

@@ -1,0 +1,9 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d14/tmp/slurm-3739288
+Running on host: node-d14.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu May 21 02:31:24 PM CEST 2026
+SLURM_JOB_ID: 3739288
+
+==========================================
+Step 3: Build disease module
+==========================================
