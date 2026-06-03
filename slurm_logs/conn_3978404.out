@@ -1,0 +1,143 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-3978404
+Running on host: node-c03.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Tue Jun  2 03:02:43 PM CEST 2026
+SLURM_JOB_ID: 3978404
+Retained 63 cell types
+  Loaded 870 receptor_gname → human_receptor mappings
+
+========================================================================
+  Building gene → cell-type index
+========================================================================
+  Cell types found    : 63
+  Cell types missing  : 0
+  Unique genes indexed: 15,591
+
+========================================================================
+  Loading pathway / LR edges
+========================================================================
+  pathway_layer.tsv (pathway) : 204 edges
+  ligand_receptor_layer.tsv (LR)      : 2,647 edges  | labelled=2,489  unlabelled=158
+
+  Total edges loaded  : 2,851
+  Unique edge labels  : 766
+
+========================================================================
+  Mapping edges to cell-type pairs
+========================================================================
+  Skipped (gene not in any layer) : 275
+  Skipped (same cell type)        : 30,923
+  Retained connection rows        : 1,485,372
+  Unique cell-type pairs  : 1,953
+  Unique labels           : 709
+
+========================================================================
+  Building summary tables (group = 'category')
+========================================================================
+  Cell-type pair rows  : 406,452
+  Group pair rows      : 7,347
+  Label × group matrix : (709, 4)
+
+========================================================================
+  Generating heatmaps
+========================================================================
+  Saved → connectivity_output/heatmap_celltype_connections.pdf
+  Saved → connectivity_output/heatmap_celltype_connections.png
+  Saved → connectivity_output/heatmap_category_group_connections.pdf
+  Saved → connectivity_output/heatmap_category_group_connections.png
+  Saved → connectivity_output/heatmap_label_vs_category_group.pdf
+  Saved → connectivity_output/heatmap_label_vs_category_group.png
+
+========================================================================
+  Generating bar charts
+========================================================================
+  Saved → connectivity_output/bar_top_labels_overall.pdf
+  Saved → connectivity_output/bar_top_labels_overall.png
+  Saved → connectivity_output/bar_top_labels_per_group_pair.pdf
+  Saved → connectivity_output/bar_top_labels_per_group_pair.png
+  Saved → connectivity_output/bar_connections_per_category_group.pdf
+  Saved → connectivity_output/bar_connections_per_category_group.png
+
+========================================================================
+  Generating networks
+========================================================================
+  Saved → connectivity_output/network_celltype_all.pdf
+  Saved → connectivity_output/network_celltype_all.png
+  Saved → connectivity_output/network_category_all.pdf
+  Saved → connectivity_output/network_category_all.png
+  Saved → connectivity_output/network_celltype_pathway.pdf
+  Saved → connectivity_output/network_celltype_pathway.png
+  Saved → connectivity_output/network_category_pathway.pdf
+  Saved → connectivity_output/network_category_pathway.png
+  Saved → connectivity_output/network_celltype_LR.pdf
+  Saved → connectivity_output/network_celltype_LR.png
+  Saved → connectivity_output/network_category_LR.pdf
+  Saved → connectivity_output/network_category_LR.png
+
+========================================================================
+  Saving tables
+========================================================================
+  → table_celltype_pair_labels.csv   (406,452 rows)
+  → table_group_pair_labels.csv      (7,347 rows)
+  → table_label_group_matrix.csv     (709, 4)
+  → table_top_labels_per_group_pair.csv
+  → table_group_pair_summary.csv     (28 rows)
+  → table_label_summary.csv          (709 rows)
+
+========================================================================
+  DONE
+========================================================================
+  Output directory       : /lisc/home/user/gerardursin/multiplex/connectivity_output
+  Cell types analysed    : 63
+  Total edges loaded     : 2,851
+  Connection rows        : 1,485,372
+  Unique labels          : 709
+  Unique cell-type pairs : 1,953
+  Unique category pairs  : 14
+
+  Files generated:
+    bar_connections_per_Broad_Category_-_ai_group.pdf
+    bar_connections_per_Broad_Category_-_ai_group.png
+    bar_connections_per_category_group.pdf
+    bar_connections_per_category_group.png
+    bar_top_labels_overall.pdf
+    bar_top_labels_overall.png
+    bar_top_labels_per_group_pair.pdf
+    bar_top_labels_per_group_pair.png
+    heatmap_ai_group_connections.pdf
+    heatmap_ai_group_connections.png
+    heatmap_broad_group_connections.pdf
+    heatmap_broad_group_connections.png
+    heatmap_category_group_connections.pdf
+    heatmap_category_group_connections.png
+    heatmap_celltype_connections.pdf
+    heatmap_celltype_connections.png
+    heatmap_label_vs_broad_group.pdf
+    heatmap_label_vs_broad_group.png
+    heatmap_label_vs_category_group.pdf
+    heatmap_label_vs_category_group.png
+    network_broad_LR.pdf
+    network_broad_LR.png
+    network_broad_all.pdf
+    network_broad_all.png
+    network_broad_pathway.pdf
+    network_broad_pathway.png
+    network_category_LR.pdf
+    network_category_LR.png
+    network_category_all.pdf
+    network_category_all.png
+    network_category_pathway.pdf
+    network_category_pathway.png
+    network_celltype_LR.pdf
+    network_celltype_LR.png
+    network_celltype_all.pdf
+    network_celltype_all.png
+    network_celltype_pathway.pdf
+    network_celltype_pathway.png
+    table_celltype_pair_labels.csv
+    table_group_pair_labels.csv
+    table_group_pair_summary.csv
+    table_label_group_matrix.csv
+    table_label_summary.csv
+    table_top_labels_per_group_pair.csv
+Finished at: Tue Jun  2 03:04:14 PM CEST 2026

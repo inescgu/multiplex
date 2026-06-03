@@ -1,0 +1,76 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-3978553
+Running on host: node-c03.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Tue Jun  2 04:49:25 PM CEST 2026
+SLURM_JOB_ID: 3978553
+Reading 66 layer TSV(s) from config …
+  A-LTMR.TAC3_layer                                     6,170 genes
+  A-PEP.CHRNA7_SLC18A3_layer                            1,232 genes
+  A-PEP.KIT_layer                                       3,566 genes
+  A-PEP.NTRK3_S100A16_layer                             1,606 genes
+  A-PEP.SCGN_ADRA2C_layer                               1,824 genes
+  A-Propr.EPHA3_layer                                   3,022 genes
+  A-Propr.HAPLN4_layer                                  2,427 genes
+  A-Propr.PCDH8_layer                                   3,606 genes
+  ATF3_layer                                            1,655 genes
+  Ab-LTMR.CCKAR_layer                                   1,685 genes
+  Ab-LTMR.ETV1_layer                                    3,106 genes
+  Ab-LTMR.LGI2_layer                                    3,134 genes
+  Ab-LTMR.NSG2_layer                                    2,164 genes
+  B_cell_layer                                         10,062 genes
+  C-LTMR.CDH9_layer                                     2,140 genes
+  C-NP.MRGPRX1_GFRA2_layer                              1,184 genes
+  C-NP.MRGPRX1_MRGPRX4_layer                            1,492 genes
+  C-NP.SST_layer                                        1,432 genes
+  C-PEP.ADORA2B_layer                                   3,285 genes
+  C-PEP.TAC1_CACNG5_layer                               1,435 genes
+  C-PEP.TAC1_CHRNA3_layer                               1,814 genes
+  C-Thermo.RXFP1_layer                                  3,636 genes
+  C-Thermo.TRPM8_layer                                  1,227 genes
+  CD4-positive,_alpha-beta_T_cell_layer                10,441 genes
+  CD8-positive,_alpha-beta_T_cell_layer                10,424 genes
+  Langerhans_cell_layer                                 7,838 genes
+  Schwann_cell_layer                                    9,167 genes
+  T_cell_layer                                         10,037 genes
+  activated_CD4-positive,_alpha-beta_T_cell_layer       8,577 genes
+  activated_CD8-positive,_alpha-beta_T_cell_layer       6,545 genes
+  basophil_layer                                        8,206 genes
+  classical_monocyte_layer                              9,997 genes
+  colon_macrophage_layer                                9,346 genes
+  common_myeloid_progenitor_layer                      11,497 genes
+  enteroglial_cell_layer                                8,828 genes
+  erythroid_progenitor_cell_layer                      11,254 genes
+  gamma-delta_T_cell_layer                              7,067 genes
+  granulocyte_layer                                    10,726 genes
+  hematopoietic_cell_layer                              6,534 genes
+  hematopoietic_precursor_cell_layer                    9,855 genes
+  hematopoietic_stem_cell_layer                        12,149 genes
+  innate_lymphoid_cell_layer                           11,966 genes
+  intermediate_monocyte_layer                           8,670 genes
+  leukocyte_layer                                      12,864 genes
+  ligand_receptor_layer                                 1,581 genes
+  macrophage_layer                                     11,393 genes
+  mast_cell_layer                                      11,008 genes
+  mature_NK_T_cell_layer                               10,822 genes
+  microglial_cell_layer                                12,537 genes
+  monocyte_layer                                       10,762 genes
+  mononuclear_phagocyte_layer                           8,712 genes
+  myeloid_cell_layer                                   10,452 genes
+  myeloid_dendritic_cell_layer                         11,522 genes
+  myeloid_leukocyte_layer                               7,383 genes
+  naive_thymus-derived_CD4-positive,_alpha-beta_T_cell_layer    9,897 genes
+  naive_thymus-derived_CD8-positive,_alpha-beta_T_cell_layer    7,281 genes
+  natural_killer_cell_layer                            10,683 genes
+  neuron_layer                                          6,329 genes
+  neutrophil_layer                                      5,587 genes
+  non-classical_monocyte_layer                          9,939 genes
+  pathway_layer                                           179 genes
+  plasma_cell_layer                                    11,414 genes
+  plasmacytoid_dendritic_cell_layer                     9,949 genes
+  ppi_layer                                            17,051 genes
+  regulatory_T_cell_layer                               9,678 genes
+  tissue-resident_macrophage_layer                      8,830 genes
+
+Gene universe: 17,051 unique genes
+
+Finished at: Tue Jun  2 04:49:42 PM CEST 2026

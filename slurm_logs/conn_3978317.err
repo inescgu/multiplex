@@ -1,0 +1,14 @@
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+WARNING: Cache entry deserialization failed, entry ignored
+
+[notice] A new release of pip is available: 26.1.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 60, in <module>
+    import seaborn as sns
+ModuleNotFoundError: No module named 'seaborn'

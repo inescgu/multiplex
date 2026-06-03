@@ -1,0 +1,7 @@
+
+[notice] A new release of pip is available: 26.1.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+usage: pathway_connection_analysis.py [-h] --wdir WDIR [--csv CSV] [--lr-csv LR_CSV] [--pathway-stems PATHWAY_STEMS [PATHWAY_STEMS ...]] [--lr-stems LR_STEMS [LR_STEMS ...]]
+                                      [--group-col {broad,ai}] [--output-dir OUTPUT_DIR] [--top-n-labels TOP_N_LABELS] [--min-edge-weight MIN_EDGE_WEIGHT]
+                                      [--exclude-broad EXCLUDE_BROAD [EXCLUDE_BROAD ...]] [--exclude-ai EXCLUDE_AI [EXCLUDE_AI ...]]
+pathway_connection_analysis.py: error: unrecognized arguments: --lr_csv ./pathway_distance/human_lr_pairs.csv

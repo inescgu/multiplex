@@ -1,0 +1,111 @@
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : multixrank_input_consolidated/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 304,859
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds excluded         : 0
+  Excluded list        : []
+Seeds after exclusion  : 372
+Seeds in reference     : 372
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 137
+Largest seed CC size   : 219
+Seed subgraph edges    : 350
+Isolated seeds         : 128
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H', 'CACNA2D1', 'CALB1']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 400
+Max bridging genes allowed : 400
+Genes added                : 800
+Full module size           : 1172
+Fully connected            : False
+  Components in full module: 4
+
+--- FINAL MODULE ---
+Final module size       : 1167
+Final module edges      : 9828
+Used LCC fallback       : True
+Seeds in final module   : 369 / 372
+Seeds dropped by LCC    : 3
+  Dropped: ['NPPC', 'SRD5A1', 'SSTR4']
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  microglial_cell                              57 genes
+  A-Propr.EPHA3                                50 genes
+  C-NP.MRGPRX1_GFRA2                           46 genes
+  C-PEP.ADORA2B                                44 genes
+  leukocyte                                    43 genes
+  C-NP.SST                                     42 genes
+  C-Thermo.TRPM8                               42 genes
+  A-LTMR.TAC3                                  42 genes
+  C-NP.MRGPRX1_MRGPRX4                         39 genes
+  ATF3                                         38 genes
+  Ab-LTMR.CCKAR                                34 genes
+  C-PEP.TAC1_CACNG5                            33 genes
+  neutrophil                                   32 genes
+  A-PEP.NTRK3_S100A16                          32 genes
+  C-LTMR.CDH9                                  32 genes
+  Ab-LTMR.LGI2                                 30 genes
+  A-PEP.KIT                                    30 genes
+  A-Propr.PCDH8                                29 genes
+  C-PEP.TAC1_CHRNA3                            25 genes
+  A-Propr.HAPLN4                               23 genes
+  A-PEP.CHRNA7_SLC18A3                         23 genes
+  C-Thermo.RXFP1                               22 genes
+  hematopoietic_stem_cell                      22 genes
+  A-PEP.SCGN_ADRA2C                            21 genes
+  Ab-LTMR.NSG2                                 20 genes
+  Ab-LTMR.ETV1                                 18 genes
+  erythroid_progenitor_cell                    15 genes
+  myeloid_leukocyte                            15 genes
+  enteroglial_cell                             15 genes
+  tissue-resident_macrophage                   14 genes
+  hematopoietic_cell                           14 genes
+  T_cell                                       13 genes
+  myeloid_cell                                 13 genes
+  mast_cell                                    13 genes
+  neuron                                       12 genes
+  activated_CD8-positive,_alpha-beta_T_cell     12 genes
+  myeloid_dendritic_cell                       11 genes
+  innate_lymphoid_cell                         11 genes
+  Langerhans_cell                              11 genes
+  activated_CD4-positive,_alpha-beta_T_cell     10 genes
+  common_myeloid_progenitor                    10 genes
+  mature_NK_T_cell                             10 genes
+  granulocyte                                   8 genes
+  gamma-delta_T_cell                            8 genes
+  classical_monocyte                            8 genes
+  Schwann_cell                                  8 genes
+  hematopoietic_precursor_cell                  6 genes
+  regulatory_T_cell                             6 genes
+  naive_thymus-derived_CD8-positive,_alpha-beta_T_cell      6 genes
+  basophil                                      6 genes
+  plasmacytoid_dendritic_cell                   6 genes
+  natural_killer_cell                           5 genes
+  plasma_cell                                   5 genes
+  CD8-positive,_alpha-beta_T_cell               5 genes
+  colon_macrophage                              4 genes
+  naive_thymus-derived_CD4-positive,_alpha-beta_T_cell      4 genes
+  monocyte                                      3 genes
+  non-classical_monocyte                        3 genes
+  B_cell                                        2 genes
+  CD4-positive,_alpha-beta_T_cell               2 genes
+  intermediate_monocyte                         2 genes
+  macrophage                                    1 genes
+  mononuclear_phagocyte                         1 genes
+
+======================================================================
+⚠  MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Seeds split into 137 components. Consider increasing --k or reviewing seed list.
+• Hit --max-bridge cap (400). Try increasing it.
+• LCC fallback used. Use --no-lcc-fallback to keep all genes.
+======================================================================

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1262, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1185, in main
+    plot_heatmap_celltype_pairs(conn_df, out)
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 529, in plot_heatmap_celltype_pairs
+    mat_all = _symmetric_matrix(pivot_total, top_cts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 515, in _symmetric_matrix
+    np.fill_diagonal(mat.values, 0)
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/numpy/lib/_index_tricks_impl.py", line 923, in fill_diagonal
+    a.flat[:end:step] = val
+    ~~~~~~^^^^^^^^^^^
+ValueError: underlying array is read-only

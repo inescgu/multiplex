@@ -1,0 +1,27 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-3978225
+Running on host: node-c05.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex/pathway_distance
+Starting at: Tue Jun  2 01:41:27 PM CEST 2026
+SLURM_JOB_ID: 3978225
+Collecting requests
+  Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting charset_normalizer<4,>=2 (from requests)
+  Downloading charset_normalizer-3.4.7-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting idna<4,>=2.5 (from requests)
+  Downloading idna-3.17-py3-none-any.whl.metadata (6.4 kB)
+Collecting urllib3<3,>=1.26 (from requests)
+  Using cached urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2023.5.7 (from requests)
+  Downloading certifi-2026.5.20-py3-none-any.whl.metadata (2.5 kB)
+Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.4.7-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (215 kB)
+Downloading idna-3.17-py3-none-any.whl (65 kB)
+Using cached urllib3-2.7.0-py3-none-any.whl (131 kB)
+Downloading certifi-2026.5.20-py3-none-any.whl (134 kB)
+Installing collected packages: urllib3, idna, charset_normalizer, certifi, requests
+
+Successfully installed certifi-2026.5.20 charset_normalizer-3.4.7 idna-3.17 requests-2.34.2 urllib3-2.7.0
+2026-06-02 13:41:32,759 - INFO - Reading input file: lr_pairs.csv
+2026-06-02 13:41:32,785 - INFO - Loaded 3098 LR pairs
+2026-06-02 13:41:32,785 - INFO - Columns: ['ligand_gname,ligand_description,receptor_gname,receptor_description']
+Finished at: Tue Jun  2 01:41:32 PM CEST 2026
