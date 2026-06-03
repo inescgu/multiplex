@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/dm_cons_%j.out
 #SBATCH --error=slurm_logs/dm_cons_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=40G
+#SBATCH --mem=35G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -45,28 +45,28 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 #     --original-pkl  integrated_multiplex_output/integrated_multiplex.pkl
 # echo ""
 
-# echo "=========================================="
-# echo "Step 2: Run MultiXrank"
-# echo "=========================================="
-# python dm2_run_multixrank_v2.py \
-#     --wdir          multixrank_input_consolidated \
-#     --config        config.yml \
-#     --output-dir    multixrank_results_consolidated
-# echo ""
-
 echo "=========================================="
-echo "Step 3: Build disease module"
+echo "Step 2: Run MultiXrank"
 echo "=========================================="
-python dm3_build_disease_module.py \
-    --scores                multixrank_results_consolidated/gene_rwr_scores.csv \
-    --per-celltype-scores   multixrank_results_consolidated/per_celltype_scores.csv \
-    --input-dir             multixrank_input_consolidated \
-    --output-dir            disease_module_output_consolidated \
-    --connectivity          all \
-    --k                     400 \
-    --max-bridge            400 \
-#     --exclude-seeds         SSTR4
+python dm2_run_multixrank_v2.py \
+    --wdir          multixrank_input_consolidated \
+    --config        config.yml \
+    --output-dir    multixrank_results_consolidated
 echo ""
+
+# echo "=========================================="
+# echo "Step 3: Build disease module"
+# echo "=========================================="
+# python dm3_build_disease_module.py \
+#     --scores                multixrank_results_consolidated/gene_rwr_scores.csv \
+#     --per-celltype-scores   multixrank_results_consolidated/per_celltype_scores.csv \
+#     --input-dir             multixrank_input_consolidated \
+#     --output-dir            disease_module_output_consolidated \
+#     --connectivity          all \
+#     --k                     400 \
+#     --max-bridge            400 \
+# #     --exclude-seeds         SSTR4
+# echo ""
 
 # echo "=========================================="
 # echo "Finished at: $(date)"

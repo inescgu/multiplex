@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job3983951/slurm_script: line 35: 3187513 Killed                  python pathway_connection_analysis.py --wdir multixrank_input_consolidated --reactome-csv ./pathway_distance/reactome_interactions_with_pathways.csv --uniprot-symbol-csv ../og_gene_set/ppi_chloe/d_uniprot_to_symbol_20251120.csv --lr-csv ./pathway_distance/human_lr_pairs.csv --csv layers_categories.csv
+[2026-06-03T12:42:58.543] error: Detected 1 oom_kill event in StepId=3983951.batch. Some of the step tasks have been OOM Killed.

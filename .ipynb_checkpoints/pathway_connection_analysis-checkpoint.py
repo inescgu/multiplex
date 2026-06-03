@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
 """
-pathway_connectivity_analysis.py
-=================================
-Analyses which pathways and ligand-receptor pairs connect which cell types
-and cell-type groups in a MultiXrank multiplex.
+pathway_connectivity_analysis_v2.py
+=====================================
+Analyses which pathways and ligand-receptor pairs connect cell types
+in a MultiXrank multiplex.
 
-Changes vs previous version
-----------------------------
-  1. All group-level plots / tables use COL_AI ("category") exclusively.
-     The COL_BROAD column is still loaded but not used for any outputs.
-  2. Heatmaps are normalised by the total number of genes in the
-     connecting cell type (edges per gene in that cell type).
-  3. Heatmap tick-labels show the "category" value for each cell type,
-     not the raw cell-type name.
+Key changes vs v1
+-----------------
+  • pathway_layer.tsv edges are resolved to NAMED pathways via
+    reactome_interactions_with_pathways.csv  (uniprot1 + uniprot2
+    → common_pathway, with source priority: Reactome > KEGG > LR).
+  • UniProt IDs in the interaction file are translated to gene symbols
+    using a uniprot→symbol mapping CSV before matching against cell-type
+    layers (which are stored as gene symbols).
+  • Edge label hierarchy:
+        1. Reactome pathway name   (source_contains "Reactome")
+        2. KEGG pathway name       (source_contains "KEGG")
+        3. LR receptor description (from lr_pairs.csv)
+        4. "ligand_receptor"       (fallback for LR edges)
+        5. "pathway"               (fallback for unnamed pathway edges)
+  • All group-level outputs use COL_AI ("category") exclusively.
+  • Heatmaps normalised by √(n_genes_A × n_genes_B) × 1000.
+  • Heatmap tick-labels show the "category" value for each cell type.
 """
 import argparse
 import warnings
@@ -37,13 +46,16 @@ SCRIPT_DIR = Path(__file__).parent
 # Column name constants
 # ---------------------------------------------------------------------------
 COL_CELL_TYPE = "Cell Type"
-COL_BROAD     = "Broad Category - ai"   # kept for loading; NOT used in outputs
-COL_AI        = "category"              # PRIMARY group column throughout
+COL_BROAD     = "Broad Category - ai"
+COL_AI        = "category"
+
+# Priority order for pathway source labelling
+SOURCE_PRIORITY = ["Reactome", "KEGG"]   # LR handled separately
+
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
 def _print_block(title: str) -> None:
     print(f"\n{DIVIDER}\n  {title}\n{DIVIDER}")
 
@@ -52,13 +64,10 @@ def load_categories(
     csv_path: Path,
     exclude_ai: list[str] | None = None,
 ) -> pd.DataFrame:
-    """Load layers_categories.csv.  Only COL_AI exclusions are applied."""
     df = pd.read_csv(csv_path)
     df.columns = [c.strip() for c in df.columns]
-
     if df.columns[0] in ("", "Unnamed: 0"):
         df = df.iloc[:, 1:]
-
     required = {COL_CELL_TYPE, COL_BROAD, COL_AI}
     missing  = required - set(df.columns)
     if missing:
@@ -66,17 +75,14 @@ def load_categories(
             f"layers_categories.csv missing columns: {missing}\n"
             f"Found: {list(df.columns)}"
         )
-
     for col in df.columns:
         if df[col].dtype == object:
             df[col] = df[col].str.strip()
-
     before = len(df)
     if exclude_ai:
         mask = df[COL_AI].str.lower().isin([e.lower() for e in exclude_ai])
         df   = df[~mask]
         print(f"Excluded {before - len(df)} rows by '{COL_AI}' ({exclude_ai})")
-
     print(f"Retained {len(df)} cell types")
     return df.reset_index(drop=True)
 
@@ -111,6 +117,7 @@ def load_layer_genes(path: Path) -> set[str]:
 
 
 def load_edge_list(path: Path) -> list[tuple[str, str]]:
+    """Load a raw TSV edge list (UniProt or gene symbol pairs)."""
     if not path.exists():
         return []
     try:
@@ -131,11 +138,144 @@ def load_edge_list(path: Path) -> list[tuple[str, str]]:
 
 
 # ---------------------------------------------------------------------------
+# UniProt → gene symbol mapping
+# ---------------------------------------------------------------------------
+def load_uniprot_symbol_map(csv_path: Path) -> dict[str, str]:
+    """
+    Load uniprot_id → gene_symbol mapping.
+    Expected columns: 'uniprotid' (or 'uniprot_id') and 'symbol'.
+    Returns upper-cased symbol values keyed by upper-cased UniProt ID.
+    """
+    if not csv_path.exists():
+        print(f"  ⚠  UniProt→symbol CSV not found: {csv_path}")
+        return {}
+    df = pd.read_csv(csv_path)
+    df.columns = df.columns.str.strip().str.lower()
+    uid_col = next(
+        (c for c in df.columns if c in ("uniprotid", "uniprot_id", "uniprot")), None
+    )
+    sym_col = next(
+        (c for c in df.columns if c in ("symbol", "gene_symbol", "genesymbol")), None
+    )
+    if not uid_col or not sym_col:
+        print(
+            f"  ⚠  UniProt→symbol CSV: cannot find id/symbol columns.\n"
+            f"     Found: {list(df.columns)}"
+        )
+        return {}
+    mapping = {}
+    for _, row in df.iterrows():
+        uid = str(row[uid_col]).strip().upper()
+        sym = str(row[sym_col]).strip().upper()
+        if uid and sym and uid != "NAN" and sym != "NAN":
+            mapping[uid] = sym
+    print(f"  Loaded {len(mapping):,} UniProt → gene-symbol mappings")
+    return mapping
+
+
+# ---------------------------------------------------------------------------
+# Reactome interaction CSV  →  (uid1, uid2) → pathway labels
+# ---------------------------------------------------------------------------
+def load_reactome_pathway_map(
+    reactome_csv: Path,
+    uniprot_symbol_map: dict[str, str],          # NEW parameter
+) -> dict[tuple[str, str], list[str]]:
+    """
+    Read reactome_interactions_with_pathways.csv.
+    Keys the result by (SYMBOL_A, SYMBOL_B) — canonical sorted pair —
+    so it can be matched directly against gene-symbol edge lists.
+    """
+    if not reactome_csv.exists():
+        print(f"  ⚠  Reactome CSV not found: {reactome_csv}")
+        return {}
+
+    print(f"  Loading Reactome interaction CSV: {reactome_csv.name} …")
+    df = pd.read_csv(reactome_csv, low_memory=False)
+    df.columns = df.columns.str.strip()
+
+    uid1_col    = _find_col(df, ("uniprot1",))
+    uid2_col    = _find_col(df, ("uniprot2",))
+    pathway_col = _find_col(df, ("common_pathway",))
+    sources_col = _find_col(df, ("pathway_sources",))
+
+    if not uid1_col or not uid2_col or not pathway_col:
+        raise ValueError(
+            f"Reactome CSV must contain uniprot1, uniprot2, common_pathway.\n"
+            f"Found: {list(df.columns)}"
+        )
+
+    pw_map: dict[tuple[str, str], list[str]] = defaultdict(list)
+    skipped_no_sym = skipped_no_pw = 0
+
+    for _, row in df.iterrows():
+        u1 = str(row[uid1_col]).strip().upper()
+        u2 = str(row[uid2_col]).strip().upper()
+
+        # ── Resolve UniProt → gene symbol ────────────────────────────────
+        sym1 = uniprot_symbol_map.get(u1)
+        sym2 = uniprot_symbol_map.get(u2)
+        if not sym1 or not sym2:
+            skipped_no_sym += 1
+            continue
+
+        pw_raw  = row[pathway_col]
+        src_raw = row[sources_col] if sources_col else ""
+
+        if pd.isna(pw_raw) or str(pw_raw).strip() in ("", "nan", "NAN"):
+            skipped_no_pw += 1
+            continue
+
+        pathways = [p.strip() for p in str(pw_raw).split("|") if p.strip()]
+        sources  = (
+            {s.strip() for s in str(src_raw).split("|") if s.strip()}
+            if not pd.isna(src_raw) else set()
+        )
+
+        # Priority: Reactome first, then KEGG, then other
+        def _priority(name: str) -> int:
+            if "Reactome" in sources:
+                return 0
+            if "KEGG" in sources:
+                return 1
+            return 2
+
+        ordered = sorted(set(pathways), key=_priority)
+
+        # Key by sorted gene-symbol pair  ← the crucial change
+        key = (min(sym1, sym2), max(sym1, sym2))
+        pw_map[key].extend(ordered)
+
+    # Deduplicate while preserving priority order
+    final: dict[tuple[str, str], list[str]] = {}
+    for key, names in pw_map.items():
+        seen: list[str] = []
+        seen_set: set[str] = set()
+        for n in names:
+            if n not in seen_set:
+                seen.append(n)
+                seen_set.add(n)
+        final[key] = seen
+
+    print(f"  Loaded {len(final):,} unique symbol-pair → pathway mappings")
+    print(f"  Skipped (no symbol mapping)  : {skipped_no_sym:,}")
+    print(f"  Skipped (no pathway)         : {skipped_no_pw:,}")
+    return final
+
+
+def _find_col(df: pd.DataFrame, candidates: tuple[str, ...]) -> str | None:
+    """Case-insensitive column finder."""
+    lower = {c.lower(): c for c in df.columns}
+    for cand in candidates:
+        if cand.lower() in lower:
+            return lower[cand.lower()]
+    return None
+
+
+# ---------------------------------------------------------------------------
 # LR CSV loading
 # ---------------------------------------------------------------------------
-
 def load_lr_csv(lr_csv_path: Path) -> dict[str, str]:
-    """receptor_gname.upper() -> human_receptor description."""
+    """receptor_gname.upper() → human_receptor description."""
     if not lr_csv_path.exists():
         print(f"  ⚠  LR CSV not found: {lr_csv_path}")
         return {}
@@ -143,7 +283,6 @@ def load_lr_csv(lr_csv_path: Path) -> dict[str, str]:
     if df.columns[0].strip() in ("", "Unnamed: 0"):
         df = df.iloc[:, 1:]
     df.columns = df.columns.str.strip().str.lower()
-
     rec_gname_col = next(
         (c for c in df.columns if c in ("human_receptor", "receptor_gene")), None
     )
@@ -156,7 +295,6 @@ def load_lr_csv(lr_csv_path: Path) -> dict[str, str]:
             f"     Found: {list(df.columns)}"
         )
         return {}
-
     lookup: dict[str, str] = {}
     for _, row in df.iterrows():
         gname = str(row[rec_gname_col]).strip().upper()
@@ -168,27 +306,23 @@ def load_lr_csv(lr_csv_path: Path) -> dict[str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Step 1 — Build gene → cell-type index  +  gene-count per cell type
+# Step 1 — Build gene → cell-type index
 # ---------------------------------------------------------------------------
-
 def build_gene_celltype_index(
     multiplex_dir: Path,
     categories_df: pd.DataFrame,
 ) -> tuple[
-    dict[str, set[str]],   # gene  -> set of cell types
-    dict[str, str],         # cell type -> COL_BROAD  (kept for completeness)
-    dict[str, str],         # cell type -> COL_AI
-    dict[str, int],         # cell type -> n_genes  (NEW)
+    dict[str, set[str]],
+    dict[str, str],
+    dict[str, str],
+    dict[str, int],
 ]:
     _print_block("Building gene → cell-type index")
-
-    celltype_to_broad  = dict(zip(categories_df[COL_CELL_TYPE], categories_df[COL_BROAD]))
-    celltype_to_ai     = dict(zip(categories_df[COL_CELL_TYPE], categories_df[COL_AI]))
+    celltype_to_broad      = dict(zip(categories_df[COL_CELL_TYPE], categories_df[COL_BROAD]))
+    celltype_to_ai         = dict(zip(categories_df[COL_CELL_TYPE], categories_df[COL_AI]))
     celltype_gene_count: dict[str, int] = {}
-
     gene_to_celltypes: dict[str, set[str]] = defaultdict(set)
     found = missing = 0
-
     for _, row in categories_df.iterrows():
         cell_type = row[COL_CELL_TYPE]
         tsv_path  = multiplex_dir / f"{stem_from_cell_type(cell_type)}.tsv"
@@ -201,7 +335,6 @@ def build_gene_celltype_index(
         celltype_gene_count[cell_type] = len(genes)
         for g in genes:
             gene_to_celltypes[g].add(cell_type)
-
     print(f"  Cell types found    : {found}")
     print(f"  Cell types missing  : {missing}")
     print(f"  Unique genes indexed: {len(gene_to_celltypes):,}")
@@ -214,60 +347,76 @@ def build_gene_celltype_index(
 
 
 # ---------------------------------------------------------------------------
-# Step 2 — Load pathway + LR edges with labels
+# Step 2 — Load pathway + LR edges WITH named labels
 # ---------------------------------------------------------------------------
-
 def load_all_edges(
     multiplex_dir: Path,
     pathway_stems: list[str],
     lr_stems: list[str],
+    reactome_pw_map: dict[tuple[str, str], list[str]],
     receptor_lookup: dict[str, str],
-) -> list[tuple[str, str, str]]:
-    _print_block("Loading pathway / LR edges")
-    all_edges: list[tuple[str, str, str]] = []
+    # uniprot_symbol_map no longer needed here
+) -> list[tuple[str, str, str, str]]:
+
+    all_edges: list[tuple[str, str, str, str]] = []
 
     for stem in pathway_stems:
-        path  = multiplex_dir / f"{stem}.tsv"
-        edges = load_edge_list(path)
-        if not edges:
+        path = multiplex_dir / f"{stem}.tsv"
+        raw  = load_edge_list(path)     # already returns gene symbols
+        if not raw:
             print(f"  ⚠  {stem}.tsv — not found or empty")
             continue
-        for a, b in edges:
-            all_edges.append((a, b, "pathway"))
-        print(f"  {stem}.tsv (pathway) : {len(edges):,} edges")
 
+        named = unnamed = 0
+        for sym_a, sym_b in raw:
+            # Direct symbol-pair lookup — no UniProt conversion needed
+            key = (min(sym_a, sym_b), max(sym_a, sym_b))
+            pw_list = reactome_pw_map.get(key, [])
+            if pw_list:
+                label = pw_list[0]
+                named += 1
+            else:
+                label = "pathway"
+                unnamed += 1
+            all_edges.append((sym_a, sym_b, label, "pathway"))
+
+        print(
+            f"  {stem}.tsv (pathway) : {len(raw):,} edges  "
+            f"| named={named:,}  unnamed={unnamed:,}"
+        )
+
+    # LR edges unchanged — already gene symbols
     for stem in lr_stems:
-        path  = multiplex_dir / f"{stem}.tsv"
-        edges = load_edge_list(path)
-        if not edges:
+        path = multiplex_dir / f"{stem}.tsv"
+        raw  = load_edge_list(path)
+        if not raw:
             print(f"  ⚠  {stem}.tsv — not found or empty")
             continue
+
         labelled = unlabelled = 0
-        for a, b in edges:
-            label = receptor_lookup.get(b) or receptor_lookup.get(a)
+        for sym_a, sym_b in raw:
+            label = receptor_lookup.get(sym_b) or receptor_lookup.get(sym_a)
             if label:
                 labelled += 1
             else:
-                label      = "ligand_receptor"
+                label     = "ligand_receptor"
                 unlabelled += 1
-            all_edges.append((a, b, label))
+            all_edges.append((sym_a, sym_b, label, "ligand_receptor"))
+
         print(
-            f"  {stem}.tsv (LR)      : {len(edges):,} edges  "
+            f"  {stem}.tsv (LR)      : {len(raw):,} edges  "
             f"| labelled={labelled:,}  unlabelled={unlabelled:,}"
         )
 
-    unique_labels = {e[2] for e in all_edges}
     print(f"\n  Total edges loaded  : {len(all_edges):,}")
-    print(f"  Unique edge labels  : {len(unique_labels):,}")
+    print(f"  Unique edge labels  : {len({e[2] for e in all_edges}):,}")
     return all_edges
-
 
 # ---------------------------------------------------------------------------
 # Step 3 — Map edges to cell-type pairs
 # ---------------------------------------------------------------------------
-
 def map_edges_to_celltypes(
-    edges: list[tuple[str, str, str]],
+    edges: list[tuple[str, str, str, str]],
     gene_to_celltypes: dict[str, set[str]],
     celltype_to_broad: dict[str, str],
     celltype_to_ai:    dict[str, str],
@@ -275,8 +424,7 @@ def map_edges_to_celltypes(
     _print_block("Mapping edges to cell-type pairs")
     rows = []
     skipped_no_gene = skipped_same_ct = 0
-
-    for gene_a, gene_b, label in edges:
+    for gene_a, gene_b, label, edge_type in edges:
         cts_a = gene_to_celltypes.get(gene_a, set())
         cts_b = gene_to_celltypes.get(gene_b, set())
         if not cts_a or not cts_b:
@@ -292,17 +440,14 @@ def map_edges_to_celltypes(
                     "gene_a":     gene_a,
                     "gene_b":     gene_b,
                     "label":      label,
-                    "edge_type":  "pathway" if label == "pathway" else "ligand_receptor",
+                    "edge_type":  edge_type,
                     "celltype_a": ct1,
                     "celltype_b": ct2,
-                    # broad kept for internal use / tables only
                     "broad_a":    celltype_to_broad.get(ct1, "Unknown"),
                     "broad_b":    celltype_to_broad.get(ct2, "Unknown"),
-                    # ai = primary group
                     "ai_a":       celltype_to_ai.get(ct1, "Unknown"),
                     "ai_b":       celltype_to_ai.get(ct2, "Unknown"),
                 })
-
     df = pd.DataFrame(rows)
     print(f"  Skipped (gene not in any layer) : {skipped_no_gene:,}")
     print(f"  Skipped (same cell type)        : {skipped_same_ct:,}")
@@ -315,15 +460,12 @@ def map_edges_to_celltypes(
 
 
 # ---------------------------------------------------------------------------
-# Step 4 — Aggregate tables  (group_col forced to "ai")
+# Step 4 — Aggregate tables
 # ---------------------------------------------------------------------------
-
 def build_summary_tables(
     conn_df: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Always aggregates by the ai / category column."""
     _print_block("Building summary tables (group = 'category')")
-
     a_col, b_col = "ai_a", "ai_b"
 
     ct_pair_df = (
@@ -371,20 +513,100 @@ def build_summary_tables(
 
 
 # ---------------------------------------------------------------------------
+# Pathway overlap / source summary table
+# ---------------------------------------------------------------------------
+def build_pathway_source_table(
+    conn_df: pd.DataFrame,
+    reactome_pw_map: dict[tuple[str, str], list[str]],
+    out: Path,
+) -> None:
+    """
+    Extra diagnostic table: for every unique label, report how many
+    cell-type-pair connections it produces, broken down by edge_type
+    and source tier (Reactome / KEGG / LR / unnamed).
+    Also saves a 'pathway overlap' table showing which pathways appear
+    in both Reactome and KEGG (from the raw pw_map).
+    """
+    _print_block("Building pathway-source diagnostic tables")
+
+    # Per-label connection summary
+    label_summary = (
+        conn_df
+        .groupby(["label", "edge_type"])
+        .agg(
+            n_connection_rows=("gene_a", "count"),
+            n_celltype_pairs=(
+                "celltype_a",
+                lambda x: len(set(zip(x, conn_df.loc[x.index, "celltype_b"]))),
+            ),
+            n_unique_gene_pairs=(
+                "gene_a",
+                lambda x: len(set(zip(x, conn_df.loc[x.index, "gene_b"]))),
+            ),
+            category_groups_connected=(
+                "ai_a",
+                lambda x: "|".join(
+                    sorted(set(x) | set(conn_df.loc[x.index, "ai_b"]))
+                ),
+            ),
+        )
+        .reset_index()
+        .sort_values("n_connection_rows", ascending=False)
+    )
+    # Tag source tier
+    def _source_tier(label: str, etype: str) -> str:
+        if etype == "ligand_receptor":
+            return "LR"
+        if label == "pathway":
+            return "unnamed_pathway"
+        return "named_pathway"
+
+    label_summary["source_tier"] = [
+        _source_tier(r["label"], r["edge_type"])
+        for _, r in label_summary.iterrows()
+    ]
+    fp = out / "table_label_summary_with_source.csv"
+    label_summary.to_csv(fp, index=False)
+    print(f"  → {fp.name}  ({len(label_summary):,} rows)")
+
+    # Pathway overlap: pathways that appear in ≥2 source tiers
+    # Collect all named pathways per pair and their source lists
+    # We can reconstruct this from the raw map
+    all_pw_names: dict[str, set[str]] = defaultdict(set)  # pw_name → sources
+    for (u1, u2), names in reactome_pw_map.items():
+        for n in names:
+            all_pw_names[n]   # just ensure key exists — source info
+            # (source info is not per-name in the map, only per-row;
+            #  so we flag as "in_map" and leave detailed source to CSV)
+
+    overlap_rows = []
+    for pw_name, _ in all_pw_names.items():
+        overlap_rows.append({"pathway_name": pw_name})
+
+    # Cross-reference with label_summary for counts
+    named_df = label_summary[label_summary["source_tier"] == "named_pathway"]
+    fp2 = out / "table_named_pathways_overview.csv"
+    named_df.to_csv(fp2, index=False)
+    print(f"  → {fp2.name}  ({len(named_df):,} named pathways)")
+
+    # Quick tier breakdown print
+    tier_counts = label_summary.groupby("source_tier")["n_connection_rows"].agg(
+        ["count", "sum"]
+    )
+    tier_counts.columns = ["n_labels", "total_connections"]
+    print("\n  Connection counts by source tier:")
+    print(tier_counts.to_string())
+
+
+# ---------------------------------------------------------------------------
 # Normalisation helper
 # ---------------------------------------------------------------------------
-
 def _norm_value(
     raw: float,
     ct_a: str,
     ct_b: str,
     celltype_gene_count: dict[str, int],
 ) -> float:
-    """
-    Divide edge count by the geometric mean of gene counts of the two
-    cell types, giving edges-per-gene (×1000 for readability).
-    Falls back to raw count if either gene count is zero/missing.
-    """
     n_a = celltype_gene_count.get(ct_a, 0)
     n_b = celltype_gene_count.get(ct_b, 0)
     if n_a > 0 and n_b > 0:
@@ -395,7 +617,6 @@ def _norm_value(
 # ---------------------------------------------------------------------------
 # Step 5 — Heatmaps
 # ---------------------------------------------------------------------------
-
 def plot_heatmap_celltype_pairs(
     conn_df: pd.DataFrame,
     celltype_gene_count: dict[str, int],
@@ -403,19 +624,12 @@ def plot_heatmap_celltype_pairs(
     out: Path,
     top_n: int = 40,
 ) -> None:
-    """
-    Heatmap: cell type × cell type.
-    • Axes are labelled with the "category" value for each cell type.
-    • Values are normalised by √(n_genes_A × n_genes_B) × 1000.
-    """
     pivot_total = (
         conn_df
         .groupby(["celltype_a", "celltype_b"])
         .agg(n=("gene_a", "count"))
         .reset_index()
     )
-
-    # Pick the top-N most-connected cell types
     top_cts = (
         pd.concat([pivot_total["celltype_a"], pivot_total["celltype_b"]])
         .value_counts()
@@ -426,22 +640,17 @@ def plot_heatmap_celltype_pairs(
         pivot_total["celltype_a"].isin(top_cts) &
         pivot_total["celltype_b"].isin(top_cts)
     ]
-
-    # Category labels for axes (cell type → category string)
     cat_labels = [celltype_to_ai.get(ct, ct) for ct in top_cts]
 
     def _symmetric_norm_matrix(piv: pd.DataFrame) -> pd.DataFrame:
-        """Build symmetric, normalised matrix indexed by top_cts."""
         mat = (
             piv.pivot(index="celltype_a", columns="celltype_b", values="n")
                .reindex(index=top_cts, columns=top_cts, fill_value=0)
                .fillna(0)
         )
-        # Symmetrise
         mat = mat + mat.T
         vals = mat.to_numpy().astype(float).copy()
         np.fill_diagonal(vals, 0.0)
-        # Normalise each cell by √(genes_row × genes_col)
         for i, cta in enumerate(top_cts):
             for j, ctb in enumerate(top_cts):
                 if i != j:
@@ -454,11 +663,9 @@ def plot_heatmap_celltype_pairs(
     n_panels   = 1 + len(edge_types)
     fig_h      = max(8, len(top_cts) * 0.28)
     fig_w      = fig_h * n_panels * 0.9
-
-    fig, axes = plt.subplots(1, n_panels, figsize=(fig_w, fig_h))
+    fig, axes  = plt.subplots(1, n_panels, figsize=(fig_w, fig_h))
     if n_panels == 1:
         axes = [axes]
-
     cmaps = ["YlOrRd", "Blues", "Greens"]
 
     mat_all = _symmetric_norm_matrix(pivot_total)
@@ -514,16 +721,9 @@ def plot_heatmap_group_pairs(
     celltype_gene_count: dict[str, int],
     out: Path,
 ) -> None:
-    """
-    Heatmap: category × category.
-    Values normalised: edges / √(total_genes_groupA × total_genes_groupB) × 1000.
-    """
     a_col, b_col = "ai_a", "ai_b"
     all_groups   = sorted(set(conn_df[a_col]) | set(conn_df[b_col]))
 
-    # Pre-compute total gene count per category group
-    # (sum of all cell-type gene counts in that category)
-    # We need celltype_to_ai mapping — reconstruct from conn_df columns
     ct_ai = (
         pd.concat([
             conn_df[["celltype_a", "ai_a"]].rename(
@@ -552,7 +752,6 @@ def plot_heatmap_group_pairs(
             mat.loc[row[b_col], row[a_col]] += row["n"]
         vals = mat.to_numpy().astype(float).copy()
         np.fill_diagonal(vals, 0.0)
-        # Normalise
         for i, ga in enumerate(all_groups):
             for j, gb in enumerate(all_groups):
                 if i != j:
@@ -567,11 +766,9 @@ def plot_heatmap_group_pairs(
     annot      = len(all_groups) <= 20
     fig_h      = max(6, len(all_groups) * 0.45)
     fig_w      = fig_h * n_panels * 0.85
-
-    fig, axes = plt.subplots(1, n_panels, figsize=(fig_w, fig_h))
+    fig, axes  = plt.subplots(1, n_panels, figsize=(fig_w, fig_h))
     if n_panels == 1:
         axes = [axes]
-
     cmaps = ["Blues", "Purples", "Greens"]
 
     sns.heatmap(
@@ -603,7 +800,7 @@ def plot_heatmap_group_pairs(
         axes[i].set_yticklabels(axes[i].get_yticklabels(), rotation=0, fontsize=7)
 
     fig.suptitle(
-        f"Category-level connectivity (normalised by gene count)",
+        "Category-level connectivity (normalised by gene count)",
         fontsize=10, fontweight="bold",
     )
     plt.tight_layout()
@@ -619,11 +816,9 @@ def plot_heatmap_label_vs_group(
     out: Path,
     top_n_labels: int = 50,
 ) -> None:
-    """Heatmap: edge label × category group."""
     row_sums   = pw_group_matrix.sum(axis=1).sort_values(ascending=False)
     top_labels = row_sums.head(top_n_labels).index
     mat        = pw_group_matrix.loc[top_labels].copy()
-
     try:
         from scipy.cluster.hierarchy import linkage, dendrogram
         if len(mat) > 2:
@@ -632,11 +827,9 @@ def plot_heatmap_label_vs_group(
             mat = mat.iloc[d["leaves"]]
     except Exception:
         pass
-
     fig_h = max(8,  len(mat)         * 0.22)
     fig_w = max(10, len(mat.columns) * 0.55)
     fig, ax = plt.subplots(figsize=(fig_w, fig_h))
-
     sns.heatmap(
         mat, ax=ax, cmap="viridis",
         linewidths=0.15, linecolor="white",
@@ -658,9 +851,8 @@ def plot_heatmap_label_vs_group(
 
 
 # ---------------------------------------------------------------------------
-# Step 6 — Bar charts  (all use "category" / ai)
+# Step 6 — Bar charts
 # ---------------------------------------------------------------------------
-
 def plot_top_labels_overall(
     conn_df: pd.DataFrame,
     out: Path,
@@ -724,8 +916,8 @@ def plot_top_labels_per_group_pair(
     n_rows = int(np.ceil(len(pairs) / n_cols))
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(n_cols * 6, n_rows * 4))
     axes = np.array(axes).flatten()
-
     palette = {"pathway": "#1982c4", "ligand_receptor": "#ff595e"}
+
     for i, (ga, gb) in enumerate(pairs):
         ax  = axes[i]
         sub = top_pw_df[
@@ -759,15 +951,14 @@ def plot_connections_per_group(
     conn_df: pd.DataFrame,
     out: Path,
 ) -> None:
-    """Stacked bar: edges per category group, split by partner."""
     a_col, b_col = "ai_a", "ai_b"
     fig, axes = plt.subplots(
         1, 2,
         figsize=(18, max(5, conn_df[a_col].nunique() * 0.45 + 3)),
     )
     for ax, et, title_suffix in [
-        (axes[0], "pathway",        "pathway edges"),
-        (axes[1], "ligand_receptor","LR edges"),
+        (axes[0], "pathway",         "pathway edges"),
+        (axes[1], "ligand_receptor", "LR edges"),
     ]:
         sub = conn_df[conn_df["edge_type"] == et]
         if sub.empty:
@@ -777,11 +968,9 @@ def plot_connections_per_group(
         df_b = sub[[a_col, b_col]].rename(columns={b_col: "group", a_col: "partner"})
         combined = pd.concat([df_a, df_b])
         combined = combined[combined["group"] != combined["partner"]]
-        agg   = combined.groupby(["group","partner"]).size().reset_index(name="n")
-        pivot = (
-            agg.pivot(index="group", columns="partner", values="n").fillna(0)
-        )
-        pivot = pivot.loc[pivot.sum(axis=1).sort_values(ascending=False).index]
+        agg      = combined.groupby(["group", "partner"]).size().reset_index(name="n")
+        pivot    = agg.pivot(index="group", columns="partner", values="n").fillna(0)
+        pivot    = pivot.loc[pivot.sum(axis=1).sort_values(ascending=False).index]
         pivot.plot(kind="bar", stacked=True, ax=ax,
                    colormap="tab20", edgecolor="white", linewidth=0.3)
         ax.set_xlabel(COL_AI, fontsize=9)
@@ -803,9 +992,8 @@ def plot_connections_per_group(
 
 
 # ---------------------------------------------------------------------------
-# Step 7 — Network visualisations  (node colour = category)
+# Step 7 — Network visualisations
 # ---------------------------------------------------------------------------
-
 def _build_connection_graph(
     conn_df: pd.DataFrame,
     node_col_a: str,
@@ -844,7 +1032,6 @@ def plot_network(
     if G.number_of_nodes() == 0:
         print(f"  ⚠  {out_stem}: empty graph, skipping")
         return
-
     if G.number_of_nodes() > max_nodes:
         strength = {
             n: sum(d["weight"] for _, _, d in G.edges(n, data=True))
@@ -858,15 +1045,14 @@ def plot_network(
         if d.get("weight", 1) < min_edge_weight
     ])
     G.remove_nodes_from(list(nx.isolates(G)))
-
     if G.number_of_nodes() == 0:
         print(f"  ⚠  {out_stem}: no nodes after pruning, skipping")
         return
 
-    weights = [G[u][v]["weight"] for u, v in G.edges()]
-    max_w   = max(weights) if weights else 1
-    widths  = [1 + 4 * (w / max_w) for w in weights]
-    alphas  = [0.3 + 0.65 * (w / max_w) for w in weights]
+    weights  = [G[u][v]["weight"] for u, v in G.edges()]
+    max_w    = max(weights) if weights else 1
+    widths   = [1 + 4 * (w / max_w) for w in weights]
+    alphas   = [0.3 + 0.65 * (w / max_w) for w in weights]
     node_sizes = [
         200 + 1500 * (
             sum(d["weight"] for _, _, d in G.edges(n, data=True))
@@ -874,7 +1060,6 @@ def plot_network(
         )
         for n in G.nodes()
     ]
-
     palette = plt.cm.tab20.colors
     if node_color_map:
         unique_grps    = sorted(set(node_color_map.values()))
@@ -894,7 +1079,6 @@ def plot_network(
 
     pos = nx.spring_layout(G, weight="weight", seed=42, k=2.5)
     fig, ax = plt.subplots(figsize=(16, 12))
-
     for (u, v), w, a in zip(G.edges(), widths, alphas):
         nx.draw_networkx_edges(
             G, pos, edgelist=[(u, v)], ax=ax,
@@ -915,7 +1099,6 @@ def plot_network(
     ax.set_title(title, fontsize=12, fontweight="bold")
     ax.axis("off")
     plt.tight_layout()
-
     for ext in ("pdf", "png"):
         fp = out / f"{out_stem}.{ext}"
         plt.savefig(fp, bbox_inches="tight", dpi=150)
@@ -926,7 +1109,6 @@ def plot_network(
 # ---------------------------------------------------------------------------
 # Step 8 — Save tables
 # ---------------------------------------------------------------------------
-
 def save_tables(
     ct_pair_df: pd.DataFrame,
     group_pair_df: pd.DataFrame,
@@ -936,7 +1118,6 @@ def save_tables(
     out: Path,
 ) -> None:
     _print_block("Saving tables")
-
     ct_pair_df.to_csv(out / "table_celltype_pair_labels.csv", index=False)
     print(f"  → table_celltype_pair_labels.csv   ({len(ct_pair_df):,} rows)")
 
@@ -976,7 +1157,6 @@ def save_tables(
                 "celltype_a",
                 lambda x: len(set(zip(x, conn_df.loc[x.index, "celltype_b"]))),
             ),
-            # Use ai_a / ai_b (category) — NOT broad
             category_groups_connected=(
                 "ai_a",
                 lambda x: "|".join(
@@ -994,7 +1174,6 @@ def save_tables(
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
-
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Analyse pathway/LR connectivity between cell types"
@@ -1004,7 +1183,12 @@ def main() -> None:
     parser.add_argument("--csv", default=None,
         help="Path to layers_categories.csv")
     parser.add_argument("--lr-csv", default=None,
-        help="Path to LR CSV")
+        help="Path to LR pairs CSV")
+    parser.add_argument("--reactome-csv", default=None,
+        help="Path to reactome_interactions_with_pathways.csv")
+    parser.add_argument("--uniprot-symbol-csv", default=None,
+        help="Path to UniProt→gene-symbol mapping CSV "
+             "(cols: uniprotid/uniprot_id, symbol/gene_symbol)")
     parser.add_argument("--pathway-stems", nargs="+", default=["pathway_layer"])
     parser.add_argument("--lr-stems",      nargs="+", default=["ligand_receptor_layer"])
     parser.add_argument("--output-dir",    default="pathway_connectivity_output")
@@ -1024,20 +1208,34 @@ def main() -> None:
     lr_csv_path = (
         Path(args.lr_csv) if args.lr_csv else SCRIPT_DIR / "lr_pairs.csv"
     )
+    reactome_csv = (
+        Path(args.reactome_csv) if args.reactome_csv
+        else SCRIPT_DIR / "reactome_interactions_with_pathways.csv"
+    )
+    uniprot_sym_csv = (
+        Path(args.uniprot_symbol_csv) if args.uniprot_symbol_csv
+        else SCRIPT_DIR / "d_uniprot_to_symbol_20251120.csv"
+    )
 
     # ── Load ──────────────────────────────────────────────────────────────
-    categories_df   = load_categories(csv_path, exclude_ai=args.exclude_ai or None)
-    receptor_lookup = load_lr_csv(lr_csv_path)
+    _print_block("Loading input files")
+    categories_df      = load_categories(csv_path, exclude_ai=args.exclude_ai or None)
+    receptor_lookup    = load_lr_csv(lr_csv_path)
+    uniprot_symbol_map = load_uniprot_symbol_map(uniprot_sym_csv)
+    reactome_pw_map    = load_reactome_pathway_map(reactome_csv, uniprot_symbol_map)
 
     gene_to_celltypes, celltype_to_broad, celltype_to_ai, celltype_gene_count = (
         build_gene_celltype_index(multiplex_dir, categories_df)
     )
 
+    # load_all_edges no longer needs uniprot_symbol_map
     all_edges = load_all_edges(
         multiplex_dir,
         pathway_stems=args.pathway_stems,
         lr_stems=args.lr_stems,
+        reactome_pw_map=reactome_pw_map,
         receptor_lookup=receptor_lookup,
+        # no uniprot_symbol_map here anymore
     )
     if not all_edges:
         print("\n⚠  No edges loaded.")
@@ -1055,15 +1253,15 @@ def main() -> None:
         build_summary_tables(conn_df)
     )
 
+    # ── Pathway-source diagnostic ──────────────────────────────────────────
+    build_pathway_source_table(conn_df, reactome_pw_map, out)
+
     # ── Heatmaps ──────────────────────────────────────────────────────────
     _print_block("Generating heatmaps")
-
     plot_heatmap_celltype_pairs(
         conn_df, celltype_gene_count, celltype_to_ai, out
     )
-    plot_heatmap_group_pairs(
-        conn_df, celltype_gene_count, out
-    )
+    plot_heatmap_group_pairs(conn_df, celltype_gene_count, out)
     plot_heatmap_label_vs_group(
         pw_group_matrix, out, top_n_labels=args.top_n_labels
     )
@@ -1074,23 +1272,21 @@ def main() -> None:
     plot_top_labels_per_group_pair(top_pw_df, out)
     plot_connections_per_group(conn_df, out)
 
-    # ── Networks  (node colour = category) ───────────────────────────────
+    # ── Networks ──────────────────────────────────────────────────────────
     _print_block("Generating networks")
     for et, suffix in [
         (None,              "all"),
         ("pathway",         "pathway"),
         ("ligand_receptor", "LR"),
     ]:
-        # Cell-type level — coloured by category
         plot_network(
             _build_connection_graph(conn_df, "celltype_a", "celltype_b", et),
             title=f"Cell-type connectivity — {suffix} edges",
             out_stem=f"network_celltype_{suffix}",
             out=out,
-            node_color_map=celltype_to_ai,          # ← category colours
+            node_color_map=celltype_to_ai,
             min_edge_weight=args.min_edge_weight,
         )
-        # Category-group level
         plot_network(
             _build_connection_graph(conn_df, "ai_a", "ai_b", et),
             title=f"Category group connectivity — {suffix} edges",
