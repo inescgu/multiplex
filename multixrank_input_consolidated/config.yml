@@ -29,22 +29,15 @@ multiplex:
     - multiplex/gene_multiplex/C-Thermo.TRPM8_layer.tsv
     - multiplex/gene_multiplex/CD4-positive,_alpha-beta_T_cell_layer.tsv
     - multiplex/gene_multiplex/CD8-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/Langerhans_cell_layer.tsv
     - multiplex/gene_multiplex/Schwann_cell_layer.tsv
     - multiplex/gene_multiplex/T_cell_layer.tsv
     - multiplex/gene_multiplex/activated_CD4-positive,_alpha-beta_T_cell_layer.tsv
     - multiplex/gene_multiplex/activated_CD8-positive,_alpha-beta_T_cell_layer.tsv
     - multiplex/gene_multiplex/basophil_layer.tsv
     - multiplex/gene_multiplex/classical_monocyte_layer.tsv
-    - multiplex/gene_multiplex/colon_macrophage_layer.tsv
-    - multiplex/gene_multiplex/common_myeloid_progenitor_layer.tsv
     - multiplex/gene_multiplex/enteroglial_cell_layer.tsv
-    - multiplex/gene_multiplex/erythroid_progenitor_cell_layer.tsv
     - multiplex/gene_multiplex/gamma-delta_T_cell_layer.tsv
     - multiplex/gene_multiplex/granulocyte_layer.tsv
-    - multiplex/gene_multiplex/hematopoietic_cell_layer.tsv
-    - multiplex/gene_multiplex/hematopoietic_precursor_cell_layer.tsv
-    - multiplex/gene_multiplex/hematopoietic_stem_cell_layer.tsv
     - multiplex/gene_multiplex/innate_lymphoid_cell_layer.tsv
     - multiplex/gene_multiplex/intermediate_monocyte_layer.tsv
     - multiplex/gene_multiplex/leukocyte_layer.tsv
@@ -58,8 +51,6 @@ multiplex:
     - multiplex/gene_multiplex/myeloid_cell_layer.tsv
     - multiplex/gene_multiplex/myeloid_dendritic_cell_layer.tsv
     - multiplex/gene_multiplex/myeloid_leukocyte_layer.tsv
-    - multiplex/gene_multiplex/naive_thymus-derived_CD4-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/naive_thymus-derived_CD8-positive,_alpha-beta_T_cell_layer.tsv
     - multiplex/gene_multiplex/natural_killer_cell_layer.tsv
     - multiplex/gene_multiplex/neuron_layer.tsv
     - multiplex/gene_multiplex/neutrophil_layer.tsv
@@ -128,80 +119,62 @@ multiplex:
     - '00'
     - '00'
     - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
     delta: 0.5
     tau:
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
-    - 0.015152
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
+    - 0.017544
