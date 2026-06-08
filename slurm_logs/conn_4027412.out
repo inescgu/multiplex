@@ -1,0 +1,213 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-4027412
+Running on host: node-c01.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Fri Jun  5 09:37:59 AM CEST 2026
+SLURM_JOB_ID: 4027412
+
+========================================================================
+  Loading input files
+========================================================================
+Retained 63 cell types
+  Loaded 870 receptor_gname → human_receptor mappings
+  Loaded 165,580 UniProt → gene-symbol mappings
+  Loading Reactome interaction CSV: reactome_interactions_with_pathways_v2.csv …
+  CSV columns: ['uniprot1', 'uniprot2', 'symbol1', 'symbol2', 'common_pathway', 'pathway_sources', 'reactome_p1', 'reactome_p2', 'kegg_p1', 'kegg_p2']
+  CSV shape:   (65005, 10)
+  Sample common_pathway values:
+['Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport', 'Adaptive Immune System|Anchoring fibril formation|Assembly of collagen fibrils and other multimeric structures|Binding and Uptake of Ligands by Scavenger Receptors|Cell surface interactions at the vascular wall|Collagen biosynthesis and modifying enzymes|Collagen chain trimerization|Collagen degradation|Collagen formation|Crosslinking of collagen fibrils|Defective VWF binding to collagen type I|Defective VWF cleavage by ADAMTS13 variant|Defective binding of VWF variant to GPIb:IX:V|Defects of platelet adhesion to exposed collagen|Degradation of the extracellular matrix|Developmental Biology|Developmental Cell Lineages|Developmental Cell Lineages of the Exocrine Pancreas|Developmental Lineage of Pancreatic Ductal Cells|Disease|Diseases of hemostasis|ECM proteoglycans|Enhanced binding of GP1BA variant to VWF multimer:collagen|Enhanced cleavage of VWF variant by ADAMTS13|Extracellular matrix organization|Fibronectin matrix formation|GP1b-IX-V activation signalling|GPVI-mediated activation cascade|Gene expression (Transcription)|Generic Transcription Pathway|Hemostasis|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell|Integrin cell surface interactions|MET activates PTK2 signaling|MET promotes cell motility|Non-integrin membrane-ECM interactions|Platelet Adhesion to exposed collagen|Platelet Aggregation (Plug Formation)|Platelet activation, signaling and aggregation|RNA Polymerase II Transcription|Scavenging by Class A Receptors|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases|Syndecan interactions|Vesicle-mediated transport']
+  symbol1 sample: ['COL1A2', 'COL1A2', 'COL1A2', 'COL1A2', 'COL1A2']
+  Rows with null symbols: 0 / 65,005
+  Using symbol1/symbol2 columns directly (no UniProt conversion needed)
+  Loaded 20,101 unique symbol-pair → pathway mappings
+  Skipped (no symbol)          : 0
+  Skipped (no pathway)         : 1,353
+
+========================================================================
+  Building gene → cell-type index
+========================================================================
+  Cell types found    : 63
+  Cell types missing  : 0
+  Unique genes indexed: 15,591
+  pathway_layer.tsv (pathway) : 39,909 edges  | named=20,101  unnamed=19,808
+
+  First 20 UNMATCHED edges (sym_a, sym_b, key):
+    ('AAAS', 'NDC1', ('AAAS', 'NDC1'))
+    ('AAAS', 'NUP35', ('AAAS', 'NUP35'))
+    ('AARS1', 'GARS1', ('AARS1', 'GARS1'))
+    ('AARS1', 'IARS1', ('AARS1', 'IARS1'))
+    ('AARS2', 'IARS2', ('AARS2', 'IARS2'))
+    ('AARS2', 'QRSL1', ('AARS2', 'QRSL1'))
+    ('AARS2', 'RARS2', ('AARS2', 'RARS2'))
+    ('AARS2', 'YARS2', ('AARS2', 'YARS2'))
+    ('AASDHPPT', 'GLO1', ('AASDHPPT', 'GLO1'))
+    ('ABAT', 'ALDH7A1', ('ABAT', 'ALDH7A1'))
+    ('ABAT', 'FAHD1', ('ABAT', 'FAHD1'))
+    ('ABAT', 'PGM2', ('ABAT', 'PGM2'))
+    ('ABCA1', 'CDC42', ('ABCA1', 'CDC42'))
+    ('ABCA10', 'ABCA6', ('ABCA10', 'ABCA6'))
+    ('ABCA10', 'ABCA9', ('ABCA10', 'ABCA9'))
+    ('ABCA2', 'ABCA6', ('ABCA2', 'ABCA6'))
+    ('ABCA2', 'ABCB9', ('ABCA2', 'ABCB9'))
+    ('ABCA2', 'ABCD4', ('ABCA2', 'ABCD4'))
+    ('ABCA6', 'ABCA8', ('ABCA6', 'ABCA8'))
+    ('ABCB1', 'BCL2', ('ABCB1', 'BCL2'))
+
+  First 20 keys IN reactome_pw_map:
+    ('COL1A1', 'COL1A2')  →  Adaptive Immune System
+    ('EFNB1', 'EFNB3')  →  Nervous system development
+    ('EFNB2', 'EFNB3')  →  Nervous system development
+    ('EFNB1', 'EFNB2')  →  Nervous system development
+    ('ACTA2', 'ACTG2')  →  Cell-cell junction organization
+    ('ACTB', 'ACTC1')  →  Cell-cell junction organization
+    ('ACTA2', 'ACTB')  →  Cell-cell junction organization
+    ('ACTB', 'ACTG2')  →  Cell-cell junction organization
+    ('ACTA1', 'ACTG1')  →  Cell-cell junction organization
+    ('ACTA2', 'ACTC1')  →  Cell-cell junction organization
+    ('ACTC1', 'ACTG1')  →  Cell-cell junction organization
+    ('ACTB', 'ACTG1')  →  Cell-cell junction organization
+    ('ACTG1', 'ACTG2')  →  Cell-cell junction organization
+    ('ACTA1', 'ACTA2')  →  Cell-cell junction organization
+    ('ACTA1', 'ACTC1')  →  Cell-cell junction organization
+    ('ACTA2', 'ACTG1')  →  Cell-cell junction organization
+    ('ACTC1', 'ACTG2')  →  Cell-cell junction organization
+    ('ACTA1', 'ACTB')  →  Cell-cell junction organization
+    ('ACTA1', 'ACTG2')  →  Cell-cell junction organization
+    ('FCER1A', 'IGKC')  →  FCERI mediated NF-kB activation
+
+  Spot-check: do any miss keys appear in map at all?
+    ('AAAS', 'NDC1'): forward=False, reverse=False
+    ('AAAS', 'NUP35'): forward=False, reverse=False
+    ('AARS1', 'GARS1'): forward=False, reverse=False
+    ('AARS1', 'IARS1'): forward=False, reverse=False
+    ('AARS2', 'IARS2'): forward=False, reverse=False
+
+  PATHWAY COVERAGE SUMMARY:
+  Total pathway edges : 39,909
+  Named (not fallback): 20,101
+  Fallback 'pathway'  : 19,808
+  Coverage rate       : 50%
+  ligand_receptor_layer.tsv (LR)      : 2,647 edges  | labelled=2,489  unlabelled=158
+
+  Total edges loaded  : 42,556
+  Unique edge labels  : 1,508
+
+========================================================================
+  Mapping edges to cell-type pairs
+========================================================================
+  Skipped (gene not in any layer) : 1,822
+  Skipped (same cell type)        : 1,134,578
+  Retained connection rows        : 54,013,329
+  Unique cell-type pairs  : 1,953
+  Unique labels           : 1,441
+
+========================================================================
+  Building summary tables (group = 'category')
+========================================================================
+  Cell-type pair rows  : 1,357,101
+  Group pair rows      : 16,891
+  Label × group matrix : (1441, 4)
+
+========================================================================
+  Building pathway-source diagnostic tables
+========================================================================
+  → table_label_summary_with_source.csv  (1,441 rows)
+  → table_named_pathways_overview.csv  (732 named pathways)
+
+  Connection counts by source tier:
+                 n_labels  total_connections
+source_tier                                 
+LR                    708            1228391
+named_pathway         732           24589147
+unnamed_pathway         1           28195791
+
+========================================================================
+  Generating heatmaps
+========================================================================
+  Saved → pathway_connectivity_output/heatmap_celltype_connections.pdf
+  Saved → pathway_connectivity_output/heatmap_celltype_connections.png
+  Saved → pathway_connectivity_output/heatmap_category_group_connections.pdf
+  Saved → pathway_connectivity_output/heatmap_category_group_connections.png
+  Saved → pathway_connectivity_output/heatmap_label_vs_category_group.pdf
+  Saved → pathway_connectivity_output/heatmap_label_vs_category_group.png
+
+========================================================================
+  Generating bar charts
+========================================================================
+  Saved → pathway_connectivity_output/bar_top_labels_overall.pdf
+  Saved → pathway_connectivity_output/bar_top_labels_overall.png
+  Saved → pathway_connectivity_output/bar_top_labels_per_group_pair.pdf
+  Saved → pathway_connectivity_output/bar_top_labels_per_group_pair.png
+  Saved → pathway_connectivity_output/bar_connections_per_category_group.pdf
+  Saved → pathway_connectivity_output/bar_connections_per_category_group.png
+
+========================================================================
+  Generating networks
+========================================================================
+  Saved → pathway_connectivity_output/network_celltype_all.pdf
+  Saved → pathway_connectivity_output/network_celltype_all.png
+  Saved → pathway_connectivity_output/network_category_all.pdf
+  Saved → pathway_connectivity_output/network_category_all.png
+  Saved → pathway_connectivity_output/network_celltype_pathway.pdf
+  Saved → pathway_connectivity_output/network_celltype_pathway.png
+  Saved → pathway_connectivity_output/network_category_pathway.pdf
+  Saved → pathway_connectivity_output/network_category_pathway.png
+  Saved → pathway_connectivity_output/network_celltype_LR.pdf
+  Saved → pathway_connectivity_output/network_celltype_LR.png
+  Saved → pathway_connectivity_output/network_category_LR.pdf
+  Saved → pathway_connectivity_output/network_category_LR.png
+
+========================================================================
+  Saving tables
+========================================================================
+  → table_celltype_pair_labels.csv   (1,357,101 rows)
+  → table_group_pair_labels.csv      (16,891 rows)
+  → table_label_group_matrix.csv     (1441, 4)
+  → table_top_labels_per_group_pair.csv
+  → table_group_pair_summary.csv     (28 rows)
+  → table_label_summary.csv          (1,441 rows)
+
+========================================================================
+  DONE
+========================================================================
+  Output directory       : /lisc/home/user/gerardursin/multiplex/pathway_connectivity_output
+  Cell types analysed    : 63
+  Total edges loaded     : 42,556
+  Connection rows        : 54,013,329
+  Unique labels          : 1,441
+  Unique cell-type pairs : 1,953
+  Unique category pairs  : 14
+
+  Files generated:
+    bar_connections_per_category_group.pdf
+    bar_connections_per_category_group.png
+    bar_top_labels_overall.pdf
+    bar_top_labels_overall.png
+    bar_top_labels_per_group_pair.pdf
+    bar_top_labels_per_group_pair.png
+    heatmap_category_group_connections.pdf
+    heatmap_category_group_connections.png
+    heatmap_celltype_connections.pdf
+    heatmap_celltype_connections.png
+    heatmap_label_vs_category_group.pdf
+    heatmap_label_vs_category_group.png
+    network_category_LR.pdf
+    network_category_LR.png
+    network_category_all.pdf
+    network_category_all.png
+    network_category_pathway.pdf
+    network_category_pathway.png
+    network_celltype_LR.pdf
+    network_celltype_LR.png
+    network_celltype_all.pdf
+    network_celltype_all.png
+    network_celltype_pathway.pdf
+    network_celltype_pathway.png
+    table_celltype_pair_labels.csv
+    table_group_pair_labels.csv
+    table_group_pair_summary.csv
+    table_label_group_matrix.csv
+    table_label_summary.csv
+    table_label_summary_with_source.csv
+    table_named_pathways_overview.csv
+    table_top_labels_per_group_pair.csv
+Finished at: Fri Jun  5 10:02:18 AM CEST 2026

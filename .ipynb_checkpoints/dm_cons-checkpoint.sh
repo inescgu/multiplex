@@ -37,22 +37,22 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 #     --sep           $'\t'
 # echo ""
 
-# echo "=========================================="
-# echo "Step 0c: Rebuild reference graphs"        # ← NEW
-# echo "=========================================="
-# python rebuild_reference_graphs.py \
-#     --wdir          multixrank_input_consolidated \
-#     --original-pkl  integrated_multiplex_output/integrated_multiplex.pkl
-# echo ""
-
 echo "=========================================="
-echo "Step 2: Run MultiXrank"
+echo "Step 0c: Rebuild reference graphs"        # ← NEW
 echo "=========================================="
-python dm2_run_multixrank_v2.py \
+python rebuild_reference_graphs.py \
     --wdir          multixrank_input_consolidated \
-    --config        config.yml \
-    --output-dir    multixrank_results_consolidated
+    --original-pkl  integrated_multiplex_output/integrated_multiplex.pkl
 echo ""
+
+# echo "=========================================="
+# echo "Step 2: Run MultiXrank"
+# echo "=========================================="
+# python dm2_run_multixrank_v2.py \
+#     --wdir          multixrank_input_consolidated \
+#     --config        config.yml \
+#     --output-dir    multixrank_results_consolidated
+# echo ""
 
 # echo "=========================================="
 # echo "Step 3: Build disease module"

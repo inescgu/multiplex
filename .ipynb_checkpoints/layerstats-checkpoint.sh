@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/bm_%j.out
 #SBATCH --error=slurm_logs/bm_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=10G
+#SBATCH --mem=5G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -27,8 +27,8 @@ python layer_stats.py \
     --wdir multixrank_input_consolidated \
     --csv  layers_categories.csv \
     --output-dir topology_output \
-    --top-n-eigen 15 \
-    --min-edges 5
+    --top-n-eigen 5 \
+    --min-edges 1
   
 # End time
 echo "Finished at: $(date)"

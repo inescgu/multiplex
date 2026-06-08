@@ -1,0 +1,184 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-4019354
+Running on host: node-c02.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu Jun  4 05:44:19 PM CEST 2026
+SLURM_JOB_ID: 4019354
+
+========================================================================
+  Loading input files
+========================================================================
+Retained 63 cell types
+
+========================================================================
+  Computing per-layer topology metrics
+========================================================================
+  TSV files in multiplex dir : 66
+  A-LTMR.TAC3_layer                                       N= 6,170  E= 58,818  dens=0.00309  clust=0.1225  LCC=0.999
+  A-PEP.CHRNA7_SLC18A3_layer                              N= 1,232  E=  2,650  dens=0.00349  clust=0.0550  LCC=0.970
+  A-PEP.KIT_layer                                         N= 3,566  E= 20,489  dens=0.00322  clust=0.1148  LCC=0.996
+  A-PEP.NTRK3_S100A16_layer                               N= 1,606  E=  4,566  dens=0.00354  clust=0.0683  LCC=0.991
+  A-PEP.SCGN_ADRA2C_layer                                 N= 1,824  E=  6,433  dens=0.00387  clust=0.1114  LCC=0.993
+  A-Propr.EPHA3_layer                                     N= 3,022  E= 13,971  dens=0.00306  clust=0.0944  LCC=0.997
+  A-Propr.HAPLN4_layer                                    N= 2,427  E=  9,295  dens=0.00316  clust=0.0894  LCC=0.996
+  A-Propr.PCDH8_layer                                     N= 3,606  E= 21,547  dens=0.00331  clust=0.1025  LCC=0.999
+  ATF3_layer                                              N= 1,655  E=  6,394  dens=0.00467  clust=0.1026  LCC=0.990
+  Ab-LTMR.CCKAR_layer                                     N= 1,685  E=  4,771  dens=0.00336  clust=0.0763  LCC=0.984
+  Ab-LTMR.ETV1_layer                                      N= 3,106  E= 16,560  dens=0.00343  clust=0.1009  LCC=0.998
+  Ab-LTMR.LGI2_layer                                      N= 3,134  E= 16,141  dens=0.00329  clust=0.0928  LCC=0.999
+  Ab-LTMR.NSG2_layer                                      N= 2,164  E=  7,370  dens=0.00315  clust=0.0795  LCC=0.990
+  B_cell_layer                                            N=10,062  E=159,622  dens=0.00315  clust=0.1256  LCC=1.000
+  C-LTMR.CDH9_layer                                       N= 2,140  E=  8,123  dens=0.00355  clust=0.0846  LCC=0.998
+  C-NP.MRGPRX1_GFRA2_layer                                N= 1,184  E=  2,692  dens=0.00384  clust=0.0743  LCC=0.967
+  C-NP.MRGPRX1_MRGPRX4_layer                              N= 1,492  E=  4,272  dens=0.00384  clust=0.0806  LCC=0.985
+  C-NP.SST_layer                                          N= 1,432  E=  3,585  dens=0.00350  clust=0.0674  LCC=0.985
+  C-PEP.ADORA2B_layer                                     N= 3,285  E= 16,638  dens=0.00309  clust=0.1070  LCC=0.997
+  C-PEP.TAC1_CACNG5_layer                                 N= 1,435  E=  3,624  dens=0.00352  clust=0.0659  LCC=0.989
+  C-PEP.TAC1_CHRNA3_layer                                 N= 1,814  E=  5,452  dens=0.00332  clust=0.0731  LCC=0.990
+  C-Thermo.RXFP1_layer                                    N= 3,636  E= 19,226  dens=0.00291  clust=0.1007  LCC=0.999
+  C-Thermo.TRPM8_layer                                    N= 1,227  E=  2,659  dens=0.00353  clust=0.0482  LCC=0.982
+  CD4-positive,_alpha-beta_T_cell_layer                   N=10,441  E=169,098  dens=0.00310  clust=0.1248  LCC=1.000
+  CD8-positive,_alpha-beta_T_cell_layer                   N=10,424  E=170,260  dens=0.00313  clust=0.1250  LCC=1.000
+  Langerhans_cell_layer                                   N= 7,838  E=115,874  dens=0.00377  clust=0.1412  LCC=1.000
+  Schwann_cell_layer                                      N= 9,167  E=138,821  dens=0.00330  clust=0.1330  LCC=1.000
+  T_cell_layer                                            N=10,037  E=161,625  dens=0.00321  clust=0.1243  LCC=1.000
+  activated_CD4-positive,_alpha-beta_T_cell_layer         N= 8,577  E=128,714  dens=0.00350  clust=0.1359  LCC=1.000
+  activated_CD8-positive,_alpha-beta_T_cell_layer         N= 6,545  E= 88,281  dens=0.00412  clust=0.1515  LCC=1.000
+  basophil_layer                                          N= 8,206  E=120,830  dens=0.00359  clust=0.1378  LCC=1.000
+  classical_monocyte_layer                                N= 9,997  E=156,095  dens=0.00312  clust=0.1255  LCC=1.000
+  colon_macrophage_layer                                  N= 9,346  E=143,802  dens=0.00329  clust=0.1293  LCC=1.000
+  common_myeloid_progenitor_layer                         N=11,497  E=187,680  dens=0.00284  clust=0.1177  LCC=1.000
+  enteroglial_cell_layer                                  N= 8,828  E=130,363  dens=0.00335  clust=0.1313  LCC=1.000
+  erythroid_progenitor_cell_layer                         N=11,254  E=183,335  dens=0.00290  clust=0.1182  LCC=1.000
+  gamma-delta_T_cell_layer                                N= 7,067  E= 99,738  dens=0.00400  clust=0.1486  LCC=1.000
+  granulocyte_layer                                       N=10,726  E=171,126  dens=0.00298  clust=0.1211  LCC=1.000
+  hematopoietic_cell_layer                                N= 6,534  E= 83,403  dens=0.00391  clust=0.1489  LCC=1.000
+  hematopoietic_precursor_cell_layer                      N= 9,855  E=157,146  dens=0.00324  clust=0.1279  LCC=1.000
+  hematopoietic_stem_cell_layer                           N=12,149  E=199,851  dens=0.00271  clust=0.1132  LCC=1.000
+  innate_lymphoid_cell_layer                              N=11,966  E=196,550  dens=0.00275  clust=0.1138  LCC=1.000
+  intermediate_monocyte_layer                             N= 8,670  E=131,837  dens=0.00351  clust=0.1329  LCC=1.000
+  leukocyte_layer                                         N=12,864  E=216,673  dens=0.00262  clust=0.1093  LCC=1.000
+  ligand_receptor_layer                                   N= 1,581  E=  2,647  dens=0.00212  clust=0.0112  LCC=0.793
+  macrophage_layer                                        N=11,393  E=187,090  dens=0.00288  clust=0.1165  LCC=1.000
+  mast_cell_layer                                         N=11,008  E=177,652  dens=0.00293  clust=0.1198  LCC=1.000
+  mature_NK_T_cell_layer                                  N=10,822  E=176,044  dens=0.00301  clust=0.1205  LCC=1.000
+  microglial_cell_layer                                   N=12,537  E=207,195  dens=0.00264  clust=0.1098  LCC=1.000
+  monocyte_layer                                          N=10,762  E=173,916  dens=0.00300  clust=0.1203  LCC=1.000
+  mononuclear_phagocyte_layer                             N= 8,712  E=129,614  dens=0.00342  clust=0.1308  LCC=1.000
+  myeloid_cell_layer                                      N=10,452  E=163,501  dens=0.00299  clust=0.1193  LCC=1.000
+  myeloid_dendritic_cell_layer                            N=11,522  E=187,546  dens=0.00283  clust=0.1164  LCC=1.000
+  myeloid_leukocyte_layer                                 N= 7,383  E=100,682  dens=0.00369  clust=0.1384  LCC=1.000
+  naive_thymus-derived_CD4-positive,_alpha-beta_T_cell_layer N= 9,897  E=156,627  dens=0.00320  clust=0.1280  LCC=1.000
+  naive_thymus-derived_CD8-positive,_alpha-beta_T_cell_layer N= 7,281  E=104,005  dens=0.00392  clust=0.1490  LCC=1.000
+  natural_killer_cell_layer                               N=10,683  E=173,631  dens=0.00304  clust=0.1224  LCC=1.000
+  neuron_layer                                            N= 6,329  E= 76,204  dens=0.00380  clust=0.1450  LCC=1.000
+  neutrophil_layer                                        N= 5,587  E= 64,586  dens=0.00414  clust=0.1368  LCC=1.000
+  non-classical_monocyte_layer                            N= 9,939  E=156,427  dens=0.00317  clust=0.1255  LCC=1.000
+  pathway_layer                                           N= 7,254  E= 39,909  dens=0.00152  clust=0.3886  LCC=0.935
+  plasma_cell_layer                                       N=11,414  E=187,804  dens=0.00288  clust=0.1173  LCC=1.000
+  plasmacytoid_dendritic_cell_layer                       N= 9,949  E=157,954  dens=0.00319  clust=0.1260  LCC=1.000
+  ppi_layer                                               N=17,051  E=302,553  dens=0.00208  clust=0.0955  LCC=1.000
+  regulatory_T_cell_layer                                 N= 9,678  E=153,144  dens=0.00327  clust=0.1298  LCC=1.000
+  tissue-resident_macrophage_layer                        N= 8,830  E=130,173  dens=0.00334  clust=0.1316  LCC=1.000
+
+  Layers analysed : 66
+  Layers skipped  : 0  (< 1 edges)
+
+========================================================================
+  Aggregating metrics by category
+========================================================================
+     category  n_layers  total_nodes  total_edges  mean_nodes  mean_edges  mean_density  mean_clustering  mean_lcc_frac  mean_deg_mean  mean_deg_max  pct_connected
+       immune        28       273716      4290213   9775.5714 153221.8929        0.0032           0.1267         0.9999        30.9816     1346.5000      75.000000
+immune tissue         9        85651      1331723   9516.7778 147969.2222        0.0033           0.1304         1.0000        30.6790     1353.4444      88.888889
+      nervous         4        36861       552583   9215.2500 138145.7500        0.0033           0.1298         1.0000        29.2388     1296.0000      75.000000
+       neuron        22        52842       255276   2401.9091  11603.4545        0.0034           0.0869         0.9907         8.0270      260.8182       0.000000
+
+========================================================================
+  Saving output tables
+========================================================================
+  → table_layer_metrics.csv  (66 rows)
+  → table_category_summary.csv  (4 rows)
+  → table_top_eigen_genes.csv  (330 rows)
+  → table_category_metric_stats.csv  (4 rows)
+
+========================================================================
+  Generating plots
+========================================================================
+
+========================================================================
+  Plotting per-layer metric bar charts
+========================================================================
+  Saved → topology_output/bar_per_layer_metrics.pdf
+  Saved → topology_output/bar_per_layer_metrics.png
+
+========================================================================
+  Plotting metrics heatmap (layers × metrics)
+========================================================================
+  Saved → topology_output/heatmap_layer_metrics.pdf
+  Saved → topology_output/heatmap_layer_metrics.png
+
+========================================================================
+  Plotting category-level metric distributions
+========================================================================
+  Saved → topology_output/violin_category_metrics.pdf
+  Saved → topology_output/violin_category_metrics.png
+
+========================================================================
+  Plotting category summary bar charts
+========================================================================
+  Saved → topology_output/bar_category_summary_metrics.pdf
+  Saved → topology_output/bar_category_summary_metrics.png
+
+========================================================================
+  Plotting scatter plots
+========================================================================
+  Saved → topology_output/scatter_layer_topology.pdf
+  Saved → topology_output/scatter_layer_topology.png
+
+========================================================================
+  Plotting top eigen-centrality genes per category
+========================================================================
+  Saved → topology_output/bar_top_eigen_per_category.pdf
+  Saved → topology_output/bar_top_eigen_per_category.png
+
+========================================================================
+  Plotting LCC heatmap (category × broad)
+========================================================================
+  Saved → topology_output/heatmap_lcc_category_broad.pdf
+  Saved → topology_output/heatmap_lcc_category_broad.png
+
+========================================================================
+  Plotting degree distributions per category
+========================================================================
+  Saved → topology_output/degree_distribution_per_category.pdf
+  Saved → topology_output/degree_distribution_per_category.png
+
+========================================================================
+  DONE
+========================================================================
+  Working dir      : /lisc/home/user/gerardursin/multiplex/multixrank_input_consolidated
+  Output dir       : /lisc/home/user/gerardursin/multiplex/topology_output
+  Layers analysed  : 66
+  Categories found : 4
+
+  Output files:
+    bar_category_summary_metrics.pdf                            25.1 KB
+    bar_category_summary_metrics.png                           146.0 KB
+    bar_per_layer_metrics.pdf                                   38.6 KB
+    bar_per_layer_metrics.png                                  219.9 KB
+    bar_top_eigen_per_category.pdf                              26.8 KB
+    bar_top_eigen_per_category.png                              68.4 KB
+    degree_distribution_per_category.pdf                        84.0 KB
+    degree_distribution_per_category.png                       145.0 KB
+    heatmap_layer_metrics.pdf                                   36.0 KB
+    heatmap_layer_metrics.png                                  131.5 KB
+    heatmap_lcc_category_broad.pdf                              25.1 KB
+    heatmap_lcc_category_broad.png                             105.4 KB
+    scatter_layer_topology.pdf                                  31.2 KB
+    scatter_layer_topology.png                                 105.1 KB
+    table_category_metric_stats.csv                              1.3 KB
+    table_category_summary.csv                                   0.5 KB
+    table_layer_metrics.csv                                      8.9 KB
+    table_top_eigen_genes.csv                                   27.9 KB
+    violin_category_metrics.pdf                                 83.9 KB
+    violin_category_metrics.png                                319.3 KB
+Finished at: Thu Jun  4 05:59:02 PM CEST 2026

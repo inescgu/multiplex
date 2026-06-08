@@ -178,42 +178,73 @@ def load_uniprot_symbol_map(csv_path: Path) -> dict[str, str]:
 # ---------------------------------------------------------------------------
 def load_reactome_pathway_map(
     reactome_csv: Path,
-    uniprot_symbol_map: dict[str, str],          # NEW parameter
+    uniprot_symbol_map: dict[str, str],
 ) -> dict[tuple[str, str], list[str]]:
-    """
-    Read reactome_interactions_with_pathways.csv.
-    Keys the result by (SYMBOL_A, SYMBOL_B) — canonical sorted pair —
-    so it can be matched directly against gene-symbol edge lists.
-    """
     if not reactome_csv.exists():
         print(f"  ⚠  Reactome CSV not found: {reactome_csv}")
         return {}
 
     print(f"  Loading Reactome interaction CSV: {reactome_csv.name} …")
     df = pd.read_csv(reactome_csv, low_memory=False)
+    
+    # # Add at top of load_reactome_pathway_map after reading df:
+    # use_direct_symbols = (sym1_col is not None and sym2_col is not None)
+    # print(f"  use_direct_symbols = {use_direct_symbols}")
+    # print(f"  sym1_col = {sym1_col}, sym2_col = {sym2_col}")
+    # After pd.read_csv in load_reactome_pathway_map, add:
+    print(f"  CSV columns: {list(df.columns)}")
+    print(f"  CSV shape:   {df.shape}")
+    print(f"  Sample common_pathway values:")
+    print(df['common_pathway'].dropna().head(10).tolist())
+
+    # Check if symbol columns exist
+    if 'symbol1' in df.columns:
+        print(f"  symbol1 sample: {df['symbol1'].dropna().head(5).tolist()}")
+        null_sym = (df['symbol1'].isna() | df['symbol2'].isna()).sum()
+        print(f"  Rows with null symbols: {null_sym:,} / {len(df):,}")
+
     df.columns = df.columns.str.strip()
 
     uid1_col    = _find_col(df, ("uniprot1",))
     uid2_col    = _find_col(df, ("uniprot2",))
+    sym1_col    = _find_col(df, ("symbol1",))   # ← NEW
+    sym2_col    = _find_col(df, ("symbol2",))   # ← NEW
     pathway_col = _find_col(df, ("common_pathway",))
     sources_col = _find_col(df, ("pathway_sources",))
 
-    if not uid1_col or not uid2_col or not pathway_col:
+    if not pathway_col:
         raise ValueError(
-            f"Reactome CSV must contain uniprot1, uniprot2, common_pathway.\n"
+            f"Reactome CSV must contain common_pathway.\n"
             f"Found: {list(df.columns)}"
+        )
+
+    # Decide resolution strategy
+    use_direct_symbols = (sym1_col is not None and sym2_col is not None)
+    if use_direct_symbols:
+        print("  Using symbol1/symbol2 columns directly (no UniProt conversion needed)")
+    elif uid1_col and uid2_col:
+        print("  Falling back to UniProt→symbol conversion via uniprot_symbol_map")
+    else:
+        raise ValueError(
+            f"Cannot find symbol OR uniprot columns.\nFound: {list(df.columns)}"
         )
 
     pw_map: dict[tuple[str, str], list[str]] = defaultdict(list)
     skipped_no_sym = skipped_no_pw = 0
 
     for _, row in df.iterrows():
-        u1 = str(row[uid1_col]).strip().upper()
-        u2 = str(row[uid2_col]).strip().upper()
+        # ── Resolve to gene symbols ──────────────────────────────────────
+        if use_direct_symbols:
+            raw1 = str(row[sym1_col]).strip().upper()
+            raw2 = str(row[sym2_col]).strip().upper()
+            sym1 = raw1 if raw1 not in ("", "NAN", "NONE") else None
+            sym2 = raw2 if raw2 not in ("", "NAN", "NONE") else None
+        else:
+            u1   = str(row[uid1_col]).strip().upper()
+            u2   = str(row[uid2_col]).strip().upper()
+            sym1 = uniprot_symbol_map.get(u1)
+            sym2 = uniprot_symbol_map.get(u2)
 
-        # ── Resolve UniProt → gene symbol ────────────────────────────────
-        sym1 = uniprot_symbol_map.get(u1)
-        sym2 = uniprot_symbol_map.get(u2)
         if not sym1 or not sym2:
             skipped_no_sym += 1
             continue
@@ -231,7 +262,6 @@ def load_reactome_pathway_map(
             if not pd.isna(src_raw) else set()
         )
 
-        # Priority: Reactome first, then KEGG, then other
         def _priority(name: str) -> int:
             if "Reactome" in sources:
                 return 0
@@ -240,8 +270,6 @@ def load_reactome_pathway_map(
             return 2
 
         ordered = sorted(set(pathways), key=_priority)
-
-        # Key by sorted gene-symbol pair  ← the crucial change
         key = (min(sym1, sym2), max(sym1, sym2))
         pw_map[key].extend(ordered)
 
@@ -257,8 +285,15 @@ def load_reactome_pathway_map(
         final[key] = seen
 
     print(f"  Loaded {len(final):,} unique symbol-pair → pathway mappings")
-    print(f"  Skipped (no symbol mapping)  : {skipped_no_sym:,}")
+    print(f"  Skipped (no symbol)          : {skipped_no_sym:,}")
     print(f"  Skipped (no pathway)         : {skipped_no_pw:,}")
+
+    # ── Diagnostic: check for literal 'pathway' in names ────────────────
+    bad = sum(1 for names in final.values() for n in names
+              if n.strip().lower() == "pathway")
+    if bad > 0:
+        print(f"  ⚠  WARNING: {bad:,} entries have literal 'pathway' as name")
+    
     return final
 
 
@@ -355,21 +390,20 @@ def load_all_edges(
     lr_stems: list[str],
     reactome_pw_map: dict[tuple[str, str], list[str]],
     receptor_lookup: dict[str, str],
-    # uniprot_symbol_map no longer needed here
 ) -> list[tuple[str, str, str, str]]:
-
     all_edges: list[tuple[str, str, str, str]] = []
 
     for stem in pathway_stems:
         path = multiplex_dir / f"{stem}.tsv"
-        raw  = load_edge_list(path)     # already returns gene symbols
+        raw  = load_edge_list(path)
         if not raw:
             print(f"  ⚠  {stem}.tsv — not found or empty")
             continue
 
         named = unnamed = 0
+        miss_examples = []   # ← NEW
+
         for sym_a, sym_b in raw:
-            # Direct symbol-pair lookup — no UniProt conversion needed
             key = (min(sym_a, sym_b), max(sym_a, sym_b))
             pw_list = reactome_pw_map.get(key, [])
             if pw_list:
@@ -378,6 +412,8 @@ def load_all_edges(
             else:
                 label = "pathway"
                 unnamed += 1
+                if len(miss_examples) < 20:          # ← NEW
+                    miss_examples.append((sym_a, sym_b, key))   # ← NEW
             all_edges.append((sym_a, sym_b, label, "pathway"))
 
         print(
@@ -385,6 +421,34 @@ def load_all_edges(
             f"| named={named:,}  unnamed={unnamed:,}"
         )
 
+        # ── NEW: show misses and map samples ──────────────────────────
+        print(f"\n  First 20 UNMATCHED edges (sym_a, sym_b, key):")
+        for ex in miss_examples:
+            print(f"    {ex}")
+
+        print(f"\n  First 20 keys IN reactome_pw_map:")
+        for k in list(reactome_pw_map.keys())[:20]:
+            print(f"    {k}  →  {reactome_pw_map[k][0][:60]}")
+
+        # Check if the miss keys exist in any form
+        print(f"\n  Spot-check: do any miss keys appear in map at all?")
+        for sym_a, sym_b, key in miss_examples[:5]:
+            forward = reactome_pw_map.get(key)
+            reverse = reactome_pw_map.get((key[1], key[0]))
+            print(f"    {key}: forward={forward is not None}, "
+                  f"reverse={reverse is not None}")
+        # ── END NEW ───────────────────────────────────────────────────
+        
+    # After processing all pathway stems, add:
+    total_pathway_edges = sum(1 for e in all_edges if e[3] == "pathway")
+    named_pathway_edges = sum(1 for e in all_edges 
+                              if e[3] == "pathway" and e[2] != "pathway")
+    print(f"\n  PATHWAY COVERAGE SUMMARY:")
+    print(f"  Total pathway edges : {total_pathway_edges:,}")
+    print(f"  Named (not fallback): {named_pathway_edges:,}")
+    print(f"  Fallback 'pathway'  : {total_pathway_edges - named_pathway_edges:,}")
+    print(f"  Coverage rate       : {100*named_pathway_edges//max(total_pathway_edges,1)}%")
+    
     # LR edges unchanged — already gene symbols
     for stem in lr_stems:
         path = multiplex_dir / f"{stem}.tsv"
@@ -1185,7 +1249,7 @@ def main() -> None:
     parser.add_argument("--lr-csv", default=None,
         help="Path to LR pairs CSV")
     parser.add_argument("--reactome-csv", default=None,
-        help="Path to reactome_interactions_with_pathways.csv")
+        help="Path to reactome_interactions_with_pathways_v2.csv")
     parser.add_argument("--uniprot-symbol-csv", default=None,
         help="Path to UniProt→gene-symbol mapping CSV "
              "(cols: uniprotid/uniprot_id, symbol/gene_symbol)")
@@ -1206,11 +1270,11 @@ def main() -> None:
         Path(args.csv) if args.csv else SCRIPT_DIR / "layers_categories.csv"
     )
     lr_csv_path = (
-        Path(args.lr_csv) if args.lr_csv else SCRIPT_DIR / "lr_pairs.csv"
+        Path(args.lr_csv) if args.lr_csv else SCRIPT_DIR / "human_lr_pairs.csv"
     )
     reactome_csv = (
         Path(args.reactome_csv) if args.reactome_csv
-        else SCRIPT_DIR / "reactome_interactions_with_pathways.csv"
+        else SCRIPT_DIR / "reactome_interactions_with_pathways_v2.csv"
     )
     uniprot_sym_csv = (
         Path(args.uniprot_symbol_csv) if args.uniprot_symbol_csv

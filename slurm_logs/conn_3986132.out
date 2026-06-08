@@ -1,0 +1,162 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b12/tmp/slurm-3986132
+Running on host: node-b12.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Wed Jun  3 04:09:04 PM CEST 2026
+SLURM_JOB_ID: 3986132
+
+========================================================================
+  Loading input files
+========================================================================
+Retained 63 cell types
+  Loaded 870 receptor_gname → human_receptor mappings
+  Loaded 165,580 UniProt → gene-symbol mappings
+  Loading Reactome interaction CSV: reactome_interactions_with_pathways_v2.csv …
+  CSV columns: ['uniprot1', 'uniprot2', 'symbol1', 'symbol2', 'common_pathway', 'pathway_sources', 'reactome_p1', 'reactome_p2', 'kegg_p1', 'kegg_p2']
+  CSV shape:   (72113, 10)
+  Sample common_pathway values:
+['Amyloid fiber formation|Metabolism of proteins', 'Alzheimer disease - Homo sapiens (human)|Amyloid fiber formation|Antimicrobial mechanism of IFN-stimulated genes|Cytokine Signaling in Immune system|Immune System|Interferon Signaling|Metabolism of proteins|PKR-mediated signaling|Parkinson disease - Homo sapiens (human)|Pathways of neurodegeneration - multiple diseases - Homo sapiens (human)', 'Advanced glycosylation endproduct receptor signaling|Amyloid fiber formation|Binding and Uptake of Ligands by Scavenger Receptors|Class A/1 (Rhodopsin-like receptors)|Cytokine Signaling in Immune system|DDX58/IFIH1-mediated induction of interferon-alpha/beta|Formyl peptide receptors bind formyl peptides and many other ligands|G alpha (i) signalling events|G alpha (q) signalling events|GPCR downstream signalling|GPCR ligand binding|Immune System|Innate Immune System|Interleukin-1 family signaling|Interleukin-1 signaling|Interleukin-4 and Interleukin-13 signaling|Metabolism of proteins|MyD88 cascade initiated on plasma membrane|MyD88 dependent cascade initiated on endosome|MyD88-independent TLR4 cascade|MyD88:MAL(TIRAP) cascade initiated on plasma membrane|Peptide ligand-binding receptors|Scavenging by Class B Receptors|Signal Transduction|Signaling by GPCR|Signaling by Interleukins|TAK1-dependent IKK and NF-kappa-B activation|TRAF6 mediated NF-kB activation|TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation|TRIF (TICAM1)-mediated TLR4 signaling|Toll Like Receptor 10 (TLR10) Cascade|Toll Like Receptor 2 (TLR2) Cascade|Toll Like Receptor 3 (TLR3) Cascade|Toll Like Receptor 4 (TLR4) Cascade|Toll Like Receptor 5 (TLR5) Cascade|Toll Like Receptor 7/8 (TLR7/8) Cascade|Toll Like Receptor 9 (TLR9) Cascade|Toll Like Receptor TLR1:TLR2 Cascade|Toll Like Receptor TLR6:TLR2 Cascade|Toll-like Receptor Cascades|Vesicle-mediated transport', 'Amyloid fiber formation|Assembly of active LPL and LIPC lipase complexes|Cholesterol metabolism - Homo sapiens (human)|Chylomicron assembly|Chylomicron remodeling|Fat digestion and absorption - Homo sapiens (human)|Lipid and atherosclerosis - Homo sapiens (human)|Metabolism|Metabolism of fat-soluble vitamins|Metabolism of proteins|Metabolism of vitamins and cofactors|Plasma lipoprotein assembly|Plasma lipoprotein assembly, remodeling, and clearance|Plasma lipoprotein remodeling|Retinoid metabolism and transport|Sensory Perception|Transport of small molecules|Visual phototransduction|Vitamin digestion and absorption - Homo sapiens (human)', 'African trypanosomiasis - Homo sapiens (human)|Aldosterone synthesis and secretion - Homo sapiens (human)|Amyloid fiber formation|Cardiac conduction|Gene expression (Transcription)|Generic Transcription Pathway|HIF-1 signaling pathway - Homo sapiens (human)|Hormone signaling - Homo sapiens (human)|Metabolism of proteins|Muscle contraction|Oxytocin signaling pathway - Homo sapiens (human)|Physiological factors|RNA Polymerase II Transcription|Regulation of lipolysis in adipocytes - Homo sapiens (human)|Renin secretion - Homo sapiens (human)|Thermogenesis - Homo sapiens (human)|Vascular smooth muscle contraction - Homo sapiens (human)|YAP1- and WWTR1 (TAZ)-stimulated gene expression|cAMP signaling pathway - Homo sapiens (human)|cGMP-PKG signaling pathway - Homo sapiens (human)', 'Adaptive Immune System|Antigen Presentation: Folding, assembly and peptide loading of class I MHC|Apoptosis|Apoptotic cleavage of cellular proteins|Apoptotic execution phase|Class I MHC mediated antigen processing & presentation|Disease|Human papillomavirus infection - Homo sapiens (human)|Immune System|Infectious disease|Programmed Cell Death|Protein processing in endoplasmic reticulum - Homo sapiens (human)|RHO GTPase cycle|RHOA GTPase cycle|RSV-host interactions|Respiratory Syncytial Virus Infection Pathway|Signal Transduction|Signaling by Rho GTPases|Signaling by Rho GTPases, Miro GTPases and RHOBTB3|Viral Infection Pathways', 'Activation of NF-kappaB in B cells|Adaptive Immune System|B cell receptor signaling pathway - Homo sapiens (human)|C-type lectin receptor signaling pathway - Homo sapiens (human)|C-type lectin receptors (CLRs)|CLEC7A (Dectin-1) signaling|Downstream TCR signaling|Downstream signaling events of B Cell Receptor (BCR)|E3 ubiquitin ligases ubiquitinate target proteins|FCERI mediated NF-kB activation|Fc epsilon receptor (FCERI) signaling|Immune System|Innate Immune System|Metabolism of proteins|NF-kappa B signaling pathway - Homo sapiens (human)|Post-translational protein modification|Protein ubiquitination|Shigellosis - Homo sapiens (human)|Signaling by the B Cell Receptor (BCR)|T cell receptor signaling pathway - Homo sapiens (human)|TCR signaling|Tuberculosis - Homo sapiens (human)', "Advanced glycosylation endproduct receptor signaling|Aggregated Î²-amyloid induces FXII autocatalysis|Aggregated Î²-amyloid interacts with fibrinogen|Amyloid fiber formation|Cell recruitment (pro-inflammatory response)|Class A/1 (Rhodopsin-like receptors)|Coagulation pathway|Cytokine Signaling in Immune system|DDX58/IFIH1-mediated induction of interferon-alpha/beta|Defective Intrinsic Pathway for Apoptosis|Defects of Coagulation cascade|Defects of contact activation system and kallikrein-kinin system|Deregulated CDK5 triggers multiple neurodegenerative pathways in Alzheimer's disease models|Disease|Diseases of Immune System|Diseases of hemostasis|Diseases of programmed cell death|ECM proteoglycans|Extracellular matrix organization|Formyl peptide receptors bind formyl peptides and many other ligands|G alpha (i) signalling events|G alpha (q) signalling events|GPCR downstream signalling|GPCR ligand binding|Hemostasis|Immune System|Infectious disease|Inflammasomes|Innate Immune System|Insertion of tail-anchored proteins into the endoplasmic reticulum membrane|Interleukin-1 family signaling|Interleukin-1 signaling|Leishmania infection|Lysosome Vesicle Biogenesis|Membrane Trafficking|Metabolism of proteins|MyD88 cascade initiated on plasma membrane|MyD88 dependent cascade initiated on endosome|MyD88-independent TLR4 cascade|MyD88:MAL(TIRAP) cascade initiated on plasma membrane|Neurodegenerative Diseases|Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways|Parasitic Infection Pathways|Peptide ligand-binding receptors|Platelet activation, signaling and aggregation|Platelet degranulation|Post-translational protein modification|Post-translational protein phosphorylation|Protein localization|Purinergic signaling in leishmaniasis infection|Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)|Regulation of clotting cascade|Response to elevated platelet cytosolic Ca2+|Signal Transduction|Signaling by GPCR|Signaling by Interleukins|TAK1-dependent IKK and NF-kappa-B activation|TRAF6 mediated NF-kB activation|TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation|TRIF (TICAM1)-mediated TLR4 signaling|The NLRP3 inflammasome|Toll Like Receptor 10 (TLR10) Cascade|Toll Like Receptor 2 (TLR2) Cascade|Toll Like Receptor 3 (TLR3) Cascade|Toll Like Receptor 4 (TLR4) Cascade|Toll Like Receptor 5 (TLR5) Cascade|Toll Like Receptor 7/8 (TLR7/8) Cascade|Toll Like Receptor 9 (TLR9) Cascade|Toll Like Receptor TLR1:TLR2 Cascade|Toll Like Receptor TLR6:TLR2 Cascade|Toll-like Receptor Cascades|Vesicle-mediated transport|trans-Golgi Network Vesicle Budding", "Advanced glycosylation endproduct receptor signaling|Aggregated Î²-amyloid induces FXII autocatalysis|Aggregated Î²-amyloid interacts with fibrinogen|Amyloid fiber formation|Cell recruitment (pro-inflammatory response)|Class A/1 (Rhodopsin-like receptors)|Coagulation pathway|Cytokine Signaling in Immune system|DDX58/IFIH1-mediated induction of interferon-alpha/beta|Defective Intrinsic Pathway for Apoptosis|Defects of Coagulation cascade|Defects of contact activation system and kallikrein-kinin system|Deregulated CDK5 triggers multiple neurodegenerative pathways in Alzheimer's disease models|Disease|Diseases of Immune System|Diseases of hemostasis|Diseases of programmed cell death|ECM proteoglycans|Extracellular matrix organization|Formyl peptide receptors bind formyl peptides and many other ligands|G alpha (i) signalling events|G alpha (q) signalling events|GPCR downstream signalling|GPCR ligand binding|Hemostasis|Immune System|Infectious disease|Inflammasomes|Innate Immune System|Insertion of tail-anchored proteins into the endoplasmic reticulum membrane|Interleukin-1 family signaling|Interleukin-1 signaling|Leishmania infection|Lysosome Vesicle Biogenesis|Membrane Trafficking|Metabolism of proteins|MyD88 cascade initiated on plasma membrane|MyD88 dependent cascade initiated on endosome|MyD88-independent TLR4 cascade|MyD88:MAL(TIRAP) cascade initiated on plasma membrane|Neurodegenerative Diseases|Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways|Parasitic Infection Pathways|Peptide ligand-binding receptors|Platelet activation, signaling and aggregation|Platelet degranulation|Post-translational protein modification|Post-translational protein phosphorylation|Protein localization|Purinergic signaling in leishmaniasis infection|Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)|Regulation of clotting cascade|Response to elevated platelet cytosolic Ca2+|Signal Transduction|Signaling by GPCR|Signaling by Interleukins|TAK1-dependent IKK and NF-kappa-B activation|TRAF6 mediated NF-kB activation|TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation|TRIF (TICAM1)-mediated TLR4 signaling|The NLRP3 inflammasome|Toll Like Receptor 10 (TLR10) Cascade|Toll Like Receptor 2 (TLR2) Cascade|Toll Like Receptor 3 (TLR3) Cascade|Toll Like Receptor 4 (TLR4) Cascade|Toll Like Receptor 5 (TLR5) Cascade|Toll Like Receptor 7/8 (TLR7/8) Cascade|Toll Like Receptor 9 (TLR9) Cascade|Toll Like Receptor TLR1:TLR2 Cascade|Toll Like Receptor TLR6:TLR2 Cascade|Toll-like Receptor Cascades|Vesicle-mediated transport|trans-Golgi Network Vesicle Budding", "Advanced glycosylation endproduct receptor signaling|Aggregated Î²-amyloid induces FXII autocatalysis|Aggregated Î²-amyloid interacts with fibrinogen|Amyloid fiber formation|Cell recruitment (pro-inflammatory response)|Class A/1 (Rhodopsin-like receptors)|Coagulation pathway|Cytokine Signaling in Immune system|DDX58/IFIH1-mediated induction of interferon-alpha/beta|Defective Intrinsic Pathway for Apoptosis|Defects of Coagulation cascade|Defects of contact activation system and kallikrein-kinin system|Deregulated CDK5 triggers multiple neurodegenerative pathways in Alzheimer's disease models|Disease|Diseases of Immune System|Diseases of hemostasis|Diseases of programmed cell death|ECM proteoglycans|Extracellular matrix organization|Formyl peptide receptors bind formyl peptides and many other ligands|G alpha (i) signalling events|G alpha (q) signalling events|GPCR downstream signalling|GPCR ligand binding|Hemostasis|Immune System|Infectious disease|Inflammasomes|Innate Immune System|Insertion of tail-anchored proteins into the endoplasmic reticulum membrane|Interleukin-1 family signaling|Interleukin-1 signaling|Leishmania infection|Lysosome Vesicle Biogenesis|Membrane Trafficking|Metabolism of proteins|MyD88 cascade initiated on plasma membrane|MyD88 dependent cascade initiated on endosome|MyD88-independent TLR4 cascade|MyD88:MAL(TIRAP) cascade initiated on plasma membrane|Neurodegenerative Diseases|Nucleotide-binding domain, leucine rich repeat containing receptor (NLR) signaling pathways|Parasitic Infection Pathways|Peptide ligand-binding receptors|Platelet activation, signaling and aggregation|Platelet degranulation|Post-translational protein modification|Post-translational protein phosphorylation|Protein localization|Purinergic signaling in leishmaniasis infection|Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)|Regulation of clotting cascade|Response to elevated platelet cytosolic Ca2+|Signal Transduction|Signaling by GPCR|Signaling by Interleukins|TAK1-dependent IKK and NF-kappa-B activation|TRAF6 mediated NF-kB activation|TRAF6 mediated induction of NFkB and MAP kinases upon TLR7/8 or 9 activation|TRIF (TICAM1)-mediated TLR4 signaling|The NLRP3 inflammasome|Toll Like Receptor 10 (TLR10) Cascade|Toll Like Receptor 2 (TLR2) Cascade|Toll Like Receptor 3 (TLR3) Cascade|Toll Like Receptor 4 (TLR4) Cascade|Toll Like Receptor 5 (TLR5) Cascade|Toll Like Receptor 7/8 (TLR7/8) Cascade|Toll Like Receptor 9 (TLR9) Cascade|Toll Like Receptor TLR1:TLR2 Cascade|Toll Like Receptor TLR6:TLR2 Cascade|Toll-like Receptor Cascades|Vesicle-mediated transport|trans-Golgi Network Vesicle Budding"]
+  symbol1 sample: ['ITM2B', 'SNCA', 'SAA1', 'APOA4', 'NPPA']
+  Rows with null symbols: 0 / 72,113
+  Using symbol1/symbol2 columns directly (no UniProt conversion needed)
+  Loaded 22,057 unique symbol-pair → pathway mappings
+  Skipped (no symbol)          : 0
+  Skipped (no pathway)         : 1,370
+
+========================================================================
+  Building gene → cell-type index
+========================================================================
+  Cell types found    : 63
+  Cell types missing  : 0
+  Unique genes indexed: 15,591
+  pathway_layer.tsv (pathway) : 39,909 edges  | named=20,101  unnamed=19,808
+
+  PATHWAY COVERAGE SUMMARY:
+  Total pathway edges : 39,909
+  Named (not fallback): 20,101
+  Fallback 'pathway'  : 19,808
+  Coverage rate       : 50%
+  ligand_receptor_layer.tsv (LR)      : 2,647 edges  | labelled=2,489  unlabelled=158
+
+  Total edges loaded  : 42,556
+  Unique edge labels  : 1,471
+
+========================================================================
+  Mapping edges to cell-type pairs
+========================================================================
+  Skipped (gene not in any layer) : 1,822
+  Skipped (same cell type)        : 1,134,578
+  Retained connection rows        : 54,013,329
+  Unique cell-type pairs  : 1,953
+  Unique labels           : 1,404
+
+========================================================================
+  Building summary tables (group = 'category')
+========================================================================
+  Cell-type pair rows  : 1,335,617
+  Group pair rows      : 16,515
+  Label × group matrix : (1404, 4)
+
+========================================================================
+  Building pathway-source diagnostic tables
+========================================================================
+  → table_label_summary_with_source.csv  (1,404 rows)
+  → table_named_pathways_overview.csv  (695 named pathways)
+
+  Connection counts by source tier:
+                 n_labels  total_connections
+source_tier                                 
+LR                    708            1228391
+named_pathway         695           24589147
+unnamed_pathway         1           28195791
+
+========================================================================
+  Generating heatmaps
+========================================================================
+  Saved → pathway_connectivity_output/heatmap_celltype_connections.pdf
+  Saved → pathway_connectivity_output/heatmap_celltype_connections.png
+  Saved → pathway_connectivity_output/heatmap_category_group_connections.pdf
+  Saved → pathway_connectivity_output/heatmap_category_group_connections.png
+  Saved → pathway_connectivity_output/heatmap_label_vs_category_group.pdf
+  Saved → pathway_connectivity_output/heatmap_label_vs_category_group.png
+
+========================================================================
+  Generating bar charts
+========================================================================
+  Saved → pathway_connectivity_output/bar_top_labels_overall.pdf
+  Saved → pathway_connectivity_output/bar_top_labels_overall.png
+  Saved → pathway_connectivity_output/bar_top_labels_per_group_pair.pdf
+  Saved → pathway_connectivity_output/bar_top_labels_per_group_pair.png
+  Saved → pathway_connectivity_output/bar_connections_per_category_group.pdf
+  Saved → pathway_connectivity_output/bar_connections_per_category_group.png
+
+========================================================================
+  Generating networks
+========================================================================
+  Saved → pathway_connectivity_output/network_celltype_all.pdf
+  Saved → pathway_connectivity_output/network_celltype_all.png
+  Saved → pathway_connectivity_output/network_category_all.pdf
+  Saved → pathway_connectivity_output/network_category_all.png
+  Saved → pathway_connectivity_output/network_celltype_pathway.pdf
+  Saved → pathway_connectivity_output/network_celltype_pathway.png
+  Saved → pathway_connectivity_output/network_category_pathway.pdf
+  Saved → pathway_connectivity_output/network_category_pathway.png
+  Saved → pathway_connectivity_output/network_celltype_LR.pdf
+  Saved → pathway_connectivity_output/network_celltype_LR.png
+  Saved → pathway_connectivity_output/network_category_LR.pdf
+  Saved → pathway_connectivity_output/network_category_LR.png
+
+========================================================================
+  Saving tables
+========================================================================
+  → table_celltype_pair_labels.csv   (1,335,617 rows)
+  → table_group_pair_labels.csv      (16,515 rows)
+  → table_label_group_matrix.csv     (1404, 4)
+  → table_top_labels_per_group_pair.csv
+  → table_group_pair_summary.csv     (28 rows)
+  → table_label_summary.csv          (1,404 rows)
+
+========================================================================
+  DONE
+========================================================================
+  Output directory       : /lisc/home/user/gerardursin/multiplex/pathway_connectivity_output
+  Cell types analysed    : 63
+  Total edges loaded     : 42,556
+  Connection rows        : 54,013,329
+  Unique labels          : 1,404
+  Unique cell-type pairs : 1,953
+  Unique category pairs  : 14
+
+  Files generated:
+    bar_connections_per_category_group.pdf
+    bar_connections_per_category_group.png
+    bar_top_labels_overall.pdf
+    bar_top_labels_overall.png
+    bar_top_labels_per_group_pair.pdf
+    bar_top_labels_per_group_pair.png
+    heatmap_category_group_connections.pdf
+    heatmap_category_group_connections.png
+    heatmap_celltype_connections.pdf
+    heatmap_celltype_connections.png
+    heatmap_label_vs_category_group.pdf
+    heatmap_label_vs_category_group.png
+    network_category_LR.pdf
+    network_category_LR.png
+    network_category_all.pdf
+    network_category_all.png
+    network_category_pathway.pdf
+    network_category_pathway.png
+    network_celltype_LR.pdf
+    network_celltype_LR.png
+    network_celltype_all.pdf
+    network_celltype_all.png
+    network_celltype_pathway.pdf
+    network_celltype_pathway.png
+    table_celltype_pair_labels.csv
+    table_group_pair_labels.csv
+    table_group_pair_summary.csv
+    table_label_group_matrix.csv
+    table_label_summary.csv
+    table_label_summary_with_source.csv
+    table_named_pathways_overview.csv
+    table_top_labels_per_group_pair.csv
+Finished at: Wed Jun  3 04:28:01 PM CEST 2026

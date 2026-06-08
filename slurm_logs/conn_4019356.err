@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1387, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1289, in main
+    reactome_pw_map    = load_reactome_pathway_map(reactome_csv, uniprot_symbol_map)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 191, in load_reactome_pathway_map
+    use_direct_symbols = (sym1_col is not None and sym2_col is not None)
+                          ^^^^^^^^
+UnboundLocalError: cannot access local variable 'sym1_col' where it is not associated with a value

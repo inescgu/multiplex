@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/bm_%j.out
 #SBATCH --error=slurm_logs/bm_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=10G
+#SBATCH --mem=5G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -23,7 +23,7 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
   
 
-python diagnose.py \
+python diagnose_pathway_labels.py \
     --wdir multixrank_input_consolidated
   
 # End time
