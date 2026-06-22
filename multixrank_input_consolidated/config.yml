@@ -17,7 +17,6 @@ multiplex:
     - multiplex/gene_multiplex/Ab-LTMR.ETV1_layer.tsv
     - multiplex/gene_multiplex/Ab-LTMR.LGI2_layer.tsv
     - multiplex/gene_multiplex/Ab-LTMR.NSG2_layer.tsv
-    - multiplex/gene_multiplex/B_cell_layer.tsv
     - multiplex/gene_multiplex/C-LTMR.CDH9_layer.tsv
     - multiplex/gene_multiplex/C-NP.MRGPRX1_GFRA2_layer.tsv
     - multiplex/gene_multiplex/C-NP.MRGPRX1_MRGPRX4_layer.tsv
@@ -27,73 +26,10 @@ multiplex:
     - multiplex/gene_multiplex/C-PEP.TAC1_CHRNA3_layer.tsv
     - multiplex/gene_multiplex/C-Thermo.RXFP1_layer.tsv
     - multiplex/gene_multiplex/C-Thermo.TRPM8_layer.tsv
-    - multiplex/gene_multiplex/CD4-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/CD8-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/Schwann_cell_layer.tsv
-    - multiplex/gene_multiplex/T_cell_layer.tsv
-    - multiplex/gene_multiplex/activated_CD4-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/activated_CD8-positive,_alpha-beta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/basophil_layer.tsv
-    - multiplex/gene_multiplex/classical_monocyte_layer.tsv
-    - multiplex/gene_multiplex/enteroglial_cell_layer.tsv
-    - multiplex/gene_multiplex/gamma-delta_T_cell_layer.tsv
-    - multiplex/gene_multiplex/granulocyte_layer.tsv
-    - multiplex/gene_multiplex/innate_lymphoid_cell_layer.tsv
-    - multiplex/gene_multiplex/intermediate_monocyte_layer.tsv
-    - multiplex/gene_multiplex/leukocyte_layer.tsv
     - multiplex/gene_multiplex/ligand_receptor_layer.tsv
-    - multiplex/gene_multiplex/macrophage_layer.tsv
-    - multiplex/gene_multiplex/mast_cell_layer.tsv
-    - multiplex/gene_multiplex/mature_NK_T_cell_layer.tsv
-    - multiplex/gene_multiplex/microglial_cell_layer.tsv
-    - multiplex/gene_multiplex/monocyte_layer.tsv
-    - multiplex/gene_multiplex/mononuclear_phagocyte_layer.tsv
-    - multiplex/gene_multiplex/myeloid_cell_layer.tsv
-    - multiplex/gene_multiplex/myeloid_dendritic_cell_layer.tsv
-    - multiplex/gene_multiplex/myeloid_leukocyte_layer.tsv
-    - multiplex/gene_multiplex/natural_killer_cell_layer.tsv
-    - multiplex/gene_multiplex/neuron_layer.tsv
-    - multiplex/gene_multiplex/neutrophil_layer.tsv
-    - multiplex/gene_multiplex/non-classical_monocyte_layer.tsv
     - multiplex/gene_multiplex/pathway_layer.tsv
-    - multiplex/gene_multiplex/plasma_cell_layer.tsv
-    - multiplex/gene_multiplex/plasmacytoid_dendritic_cell_layer.tsv
     - multiplex/gene_multiplex/ppi_layer.tsv
-    - multiplex/gene_multiplex/regulatory_T_cell_layer.tsv
-    - multiplex/gene_multiplex/tissue-resident_macrophage_layer.tsv
     graph_type:
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
-    - '00'
     - '00'
     - '00'
     - '00'
@@ -121,60 +57,28 @@ multiplex:
     - '00'
     delta: 0.5
     tau:
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
-    - 0.017544
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04
+    - 0.04

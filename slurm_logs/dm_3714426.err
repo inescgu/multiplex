@@ -1,5 +1,0 @@
-/var/spool/slurm/slurmd/job3714426/slurm_script: line 35: 1890842 Killed                  python dm2_run_multixrank.py --wdir multixrank_input --config multixrank_input/config.yml --output-dir multixrank_results
-usage: dm3_build_disease_module.py [-h] --scores SCORES [--per-celltype-scores PER_CELLTYPE_SCORES] --input-dir INPUT_DIR --output-dir OUTPUT_DIR [--connectivity {all,ppi}] [--k K] [--max-bridge MAX_BRIDGE] [--no-lcc-fallback]
-dm3_build_disease_module.py: error: the following arguments are required: --input-dir, --output-dir
-/var/spool/slurm/slurmd/job3714426/slurm_script: line 41: --input-dir: command not found
-[2026-05-15T18:30:34.521] error: Detected 1 oom_kill event in StepId=3714426.batch. Some of the step tasks have been OOM Killed.

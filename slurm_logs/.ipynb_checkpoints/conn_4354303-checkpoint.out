@@ -1,0 +1,52 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g06/tmp/slurm-4354303
+Running on host: node-g06.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Mon Jun 22 12:18:23 PM CEST 2026
+SLURM_JOB_ID: 4354303
+Excluded 41 rows by ai category (['immune tissue', 'immune', 'nervous'])
+Retained 22 cell types from CSV
+
+Merge-by=none → keeping every cell type as individual layer
+
+Input layers : 57
+CSV-allowed  : 22 cell-type stems
+
+Copying individual layers…
+  Kept : A-LTMR.TAC3_layer
+  Kept : A-PEP.CHRNA7_SLC18A3_layer
+  Kept : A-PEP.KIT_layer
+  Kept : A-PEP.NTRK3_S100A16_layer
+  Kept : A-PEP.SCGN_ADRA2C_layer
+  Kept : A-Propr.EPHA3_layer
+  Kept : A-Propr.HAPLN4_layer
+  Kept : A-Propr.PCDH8_layer
+  Kept : ATF3_layer
+  Kept : Ab-LTMR.CCKAR_layer
+  Kept : Ab-LTMR.ETV1_layer
+  Kept : Ab-LTMR.LGI2_layer
+  Kept : Ab-LTMR.NSG2_layer
+  Kept : C-LTMR.CDH9_layer
+  Kept : C-NP.MRGPRX1_GFRA2_layer
+  Kept : C-NP.MRGPRX1_MRGPRX4_layer
+  Kept : C-NP.SST_layer
+  Kept : C-PEP.ADORA2B_layer
+  Kept : C-PEP.TAC1_CACNG5_layer
+  Kept : C-PEP.TAC1_CHRNA3_layer
+  Kept : C-Thermo.RXFP1_layer
+  Kept : C-Thermo.TRPM8_layer
+  Kept : ligand_receptor_layer ← extra_keep
+  Kept : pathway_layer ← extra_keep
+  Kept : ppi_layer ← extra_keep
+Rebuilt layer_info.json → multixrank_input_consolidated/layer_info.json
+  22 intra layers, 3 special layers
+
+✓  All 372 seeds covered by consolidated layers
+
+============================================================
+Consolidation complete
+  Input layers  : 57
+  Output layers : 25
+  Reduction     : 32 layers removed
+  New config    → multixrank_input_consolidated/config.yml
+============================================================
+Finished at: Mon Jun 22 12:18:29 PM CEST 2026

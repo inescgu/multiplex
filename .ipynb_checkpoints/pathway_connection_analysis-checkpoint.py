@@ -1256,7 +1256,7 @@ def main() -> None:
     parser.add_argument("--pathway-stems", nargs="+", default=["pathway_layer"])
     parser.add_argument("--lr-stems",      nargs="+", default=["ligand_receptor_layer"])
     parser.add_argument("--output-dir",    default="pathway_connectivity_output")
-    parser.add_argument("--top-n-labels",  type=int, default=50)
+    parser.add_argument("--top-n-labels",  type=int, default=20)
     parser.add_argument("--min-edge-weight", type=int, default=2)
     parser.add_argument("--exclude-ai",    nargs="+", default=[])
     args = parser.parse_args()

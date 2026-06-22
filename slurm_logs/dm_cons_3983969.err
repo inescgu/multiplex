@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job3983969/slurm_script: line 45: 2404798 Killed                  python rebuild_reference_graphs.py --wdir multixrank_input_consolidated --original-pkl integrated_multiplex_output/integrated_multiplex.pkl
-[2026-06-03T13:00:24.158] error: Detected 1 oom_kill event in StepId=3983969.batch. Some of the step tasks have been OOM Killed.

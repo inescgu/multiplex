@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/filter_lr_pairs.py", line 364, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/filter_lr_pairs.py", line 327, in main
+    df_filtered = filter_lr_pairs(
+                  ^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/filter_lr_pairs.py", line 170, in filter_lr_pairs
+    raise ValueError(
+ValueError: Column 'human_ligand' not found in pathway_distance/human_lr_pairs.csv.
+Available columns: ['ligand_gname,human_ligand,ligand_description,receptor_gname,human_receptor,receptor_description']

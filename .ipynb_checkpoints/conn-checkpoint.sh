@@ -27,18 +27,20 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 #     --lr-csv ./pathway_distance/human_lr_pairs.csv \
 #     --output-dir connectivity_output
 
+# 25 g required
 python pathway_connection_analysis.py \
   --wdir multixrank_input_consolidated \
   --reactome-csv ./pathway_distance/reactome_interactions_with_pathways_v2.csv \
   --uniprot-symbol-csv ../og_gene_set/ppi_chloe/d_uniprot_to_symbol_20251120.csv \
   --lr-csv ./pathway_distance/human_lr_pairs.csv \
-  --exclude-ai "immune tissue" \
+  --exclude-ai "immune tissue" "immune" "nervous" \
   --csv layers_categories.csv
-  
+
+## < 5g required
 # python consolidate_layers.py \
 #     --wdir multixrank_input_consolidated \
 #     --output-wdir multixrank_input_consolidated \
-#     --exclude-ai    "immune tissue" 
+#     --exclude-ai    "immune tissue" "immune" "nervous"
   
 # End time
 echo "Finished at: $(date)"

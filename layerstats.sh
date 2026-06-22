@@ -28,7 +28,7 @@ python layer_stats.py \
     --csv  layers_categories.csv \
     --output-dir topology_output \
     --top-n-eigen 5 \
-    --exclude-ai "immune tissue" \
+    --exclude-ai "immune tissue" "immune" "nervous"\
     --min-edges 1
   
 # End time

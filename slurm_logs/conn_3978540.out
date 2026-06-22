@@ -1,9 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-3978540
-Running on host: node-c03.lisc
-Current working directory: /lisc/home/user/gerardursin/multiplex
-Starting at: Tue Jun  2 04:43:23 PM CEST 2026
-SLURM_JOB_ID: 3978540
-Retained 63 cell types from CSV
-
-Merge-by=none → keeping every cell type as individual layer
-Finished at: Tue Jun  2 04:43:24 PM CEST 2026

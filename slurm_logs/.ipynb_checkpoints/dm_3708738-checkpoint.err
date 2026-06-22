@@ -1,9 +1,0 @@
-/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/multixrank/TransitionMatrix.py:124: FutureWarning: Input has data type int64, but the output has been cast to float64.  In the future, the output data type will match the input. To avoid this warning, set the `dtype` parameter to `None` to have the output dtype match the input, or set it to the desired output data type.
-  Normalization_matrix_up = scipy.sparse.diags(diago_up, format = "coo")
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/dm2_run_multixrank.py", line 95, in <module>
-    main()
-  File "/lisc/home/user/gerardursin/multiplex/dm2_run_multixrank.py", line 65, in main
-    df_list = [df.copy() for df in rwr_result.values()]
-                                   ^^^^^^^^^^^^^^^^^^^
-TypeError: 'numpy.ndarray' object is not callable

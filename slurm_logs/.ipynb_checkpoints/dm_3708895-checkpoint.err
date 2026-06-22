@@ -1,2 +1,0 @@
-/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/multixrank/TransitionMatrix.py:124: FutureWarning: Input has data type int64, but the output has been cast to float64.  In the future, the output data type will match the input. To avoid this warning, set the `dtype` parameter to `None` to have the output dtype match the input, or set it to the desired output data type.
-  Normalization_matrix_up = scipy.sparse.diags(diago_up, format = "coo")

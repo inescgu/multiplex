@@ -162,7 +162,7 @@ def filter_lr_pairs(
       - pairs dropped because receptor missing
       - pairs dropped because both missing
     """
-    df = pd.read_csv(lr_path, sep=sep)
+    df = pd.read_csv(lr_path)
 
     # Validate columns
     for col in [ligand_col, receptor_col]:

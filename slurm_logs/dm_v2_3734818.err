@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job3734818/slurm_script: line 39: 756809 Killed                  python dm2_run_multixrank_v2.py --wdir multixrank_input_v2 --config config.yml --output-dir multixrank_results_v2
-[2026-05-20T18:09:07.822] error: Detected 1 oom_kill event in StepId=3734818.batch. Some of the step tasks have been OOM Killed.

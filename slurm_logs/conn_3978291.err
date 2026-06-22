@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 53, in <module>
-    import matplotlib
-ModuleNotFoundError: No module named 'matplotlib'

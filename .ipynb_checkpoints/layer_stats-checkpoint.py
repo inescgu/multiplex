@@ -405,8 +405,8 @@ def plot_metrics_heatmap(
         xticklabels=[METRIC_LABELS[c] for c in scalar_cols],
         yticklabels=True,
     )
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right", fontsize=8)
-    ax.set_yticklabels(ax.get_yticklabels(), rotation=0, fontsize=5)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right", fontsize=10)
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=0, fontsize=10)
     ax.set_title(
         f"Layer topology metrics (Z-scored, top {max_layers})",
         fontsize=11, fontweight="bold",
@@ -468,9 +468,9 @@ def plot_category_distributions(
             ax=ax,
             jitter=True,
         )
-        ax.set_xlabel("Category", fontsize=8)
-        ax.set_ylabel(label, fontsize=8)
-        ax.set_title(label, fontsize=9, fontweight="bold")
+        ax.set_xlabel("Category", fontsize=10)
+        ax.set_ylabel(label, fontsize=10)
+        ax.set_title(label, fontsize=10, fontweight="bold")
         ax.tick_params(axis="x", rotation=40, labelsize=7)
         ax.tick_params(axis="y", labelsize=7)
     for j in range(n_m, len(axes)):
@@ -513,9 +513,9 @@ def plot_category_summary_bars(
             color=[palette[c] for c in sorted_df["category"]],
             edgecolor="white", linewidth=0.5,
         )
-        ax.set_xlabel("Category", fontsize=8)
-        ax.set_ylabel(label, fontsize=8)
-        ax.set_title(label, fontsize=9, fontweight="bold")
+        ax.set_xlabel("Category", fontsize=10)
+        ax.set_ylabel(label, fontsize=10)
+        ax.set_title(label, fontsize=10, fontweight="bold")
         ax.tick_params(axis="x", rotation=45, labelsize=7)
         ax.tick_params(axis="y", labelsize=7)
         for bar, val in zip(ax.patches, sorted_df[col]):
@@ -523,7 +523,7 @@ def plot_category_summary_bars(
                 bar.get_x() + bar.get_width() / 2,
                 bar.get_height() + bar.get_height() * 0.02,
                 f"{val:.3g}",
-                ha="center", va="bottom", fontsize=5.5,
+                ha="center", va="bottom", fontsize=10,
             )
     for j in range(n_m, len(axes)):
         axes[j].set_visible(False)
@@ -562,16 +562,16 @@ def plot_scatter_density_clustering(
                 color=palette[cat],
                 s=35, alpha=0.75, edgecolors="white", linewidths=0.4,
             )
-        ax.set_xlabel(xl, fontsize=9)
-        ax.set_ylabel(yl, fontsize=9)
-        ax.set_title(f"{xl} vs {yl}", fontsize=9, fontweight="bold")
+        ax.set_xlabel(xl, fontsize=10)
+        ax.set_ylabel(yl, fontsize=10)
+        ax.set_title(f"{xl} vs {yl}", fontsize=10, fontweight="bold")
         ax.tick_params(labelsize=7)
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(
         handles, labels,
-        loc="lower center", ncol=5, fontsize=7,
+        loc="lower center", ncol=5, fontsize=10,
         bbox_to_anchor=(0.5, -0.04), framealpha=0.9,
-        title="category", title_fontsize=7,
+        title="category", title_fontsize=10,
     )
     fig.suptitle(
         "Layer topology scatter plots (coloured by category)",
@@ -627,8 +627,8 @@ def plot_top_eigen_per_category(
             color=palette[cat], edgecolor="white", linewidth=0.4,
         )
         ax.invert_yaxis()
-        ax.set_title(cat, fontsize=8, fontweight="bold", color=palette[cat])
-        ax.set_xlabel("Mean eigen-centrality", fontsize=7)
+        ax.set_title(cat, fontsize=10, fontweight="bold", color=palette[cat])
+        ax.set_xlabel("Mean eigen-centrality", fontsize=10)
         ax.tick_params(axis="y", labelsize=6)
         ax.tick_params(axis="x", labelsize=6)
     for j in range(len(categories), len(axes_flat)):
@@ -675,8 +675,8 @@ def plot_lcc_heatmap_category_broad(
         linewidths=0.4, linecolor="white",
         cbar_kws={"label": "Mean LCC fraction", "shrink": 0.6},
     )
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right", fontsize=8)
-    ax.set_yticklabels(ax.get_yticklabels(), rotation=0, fontsize=8)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=40, ha="right", fontsize=10)
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=0, fontsize=10)
     ax.set_title(
         "Mean LCC fraction — category × broad category",
         fontsize=11, fontweight="bold",
@@ -737,11 +737,11 @@ def plot_degree_distributions(
                 label=ct_display[:22],
                 color=palette[cat],
             )
-        ax.set_xlabel("Degree (log)", fontsize=7)
-        ax.set_ylabel("P(K ≥ k) (log)", fontsize=7)
-        ax.set_title(cat, fontsize=8, fontweight="bold", color=palette[cat])
+        ax.set_xlabel("Degree (log)", fontsize=10)
+        ax.set_ylabel("P(K ≥ k) (log)", fontsize=10)
+        ax.set_title(cat, fontsize=10, fontweight="bold", color=palette[cat])
         ax.tick_params(labelsize=6)
-        ax.legend(fontsize=4.5, loc="lower left")
+        ax.legend(fontsize=10, loc="lower left")
     for j in range(len(categories), len(axes_flat)):
         axes_flat[j].set_visible(False)
     fig.suptitle(

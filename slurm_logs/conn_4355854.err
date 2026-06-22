@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1387, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1337, in main
+    plot_connections_per_group(conn_df, out)
+  File "/lisc/home/user/gerardursin/multiplex/pathway_connection_analysis.py", line 1038, in plot_connections_per_group
+    pivot.plot(kind="bar", stacked=True, ax=ax,
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/plotting/_core.py", line 1185, in __call__
+    return plot_backend.plot(data, kind=kind, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/plotting/_matplotlib/__init__.py", line 71, in plot
+    plot_obj.generate()
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/plotting/_matplotlib/core.py", line 516, in generate
+    self._compute_plot_data()
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/plotting/_matplotlib/core.py", line 716, in _compute_plot_data
+    raise TypeError("no numeric data to plot")
+TypeError: no numeric data to plot
