@@ -1,0 +1,20 @@
+Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Python/3.14.4-weekly"
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
+
+
+
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step10b_layer_lcc_analysis.py", line 537, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step10b_layer_lcc_analysis.py", line 471, in main
+    G_full, reg = load_multiplex(args.multiplex_pkl, args.node_registry)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/step10b_layer_lcc_analysis.py", line 230, in load_multiplex
+    with open(graph_path, "rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '03_integrated/integrated_multiplex.pkl'

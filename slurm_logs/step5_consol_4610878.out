@@ -1,0 +1,49 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-4610878
+Step 5: Consolidating layers
+Running on host: node-c05.lisc
+Starting at: Tue Jun 30 01:35:45 PM CEST 2026
+Retained 23 cell types from CSV
+
+Merge-by=none → keeping every cell type as individual layer
+
+Input layers : 15931
+CSV-allowed  : 23 cell-type stems
+
+Copying individual layers…
+  Kept : A-LTMR.TAC3_ppi_layer
+  Kept : A-PEP.CHRNA7_SLC18A3_ppi_layer
+  Kept : A-PEP.KIT_ppi_layer
+  Kept : A-PEP.NTRK3_S100A16_ppi_layer
+  Kept : A-PEP.SCGN_ADRA2C_ppi_layer
+  Kept : A-Propr.EPHA3_ppi_layer
+  Kept : A-Propr.HAPLN4_ppi_layer
+  Kept : A-Propr.PCDH8_ppi_layer
+  Kept : ATF3_ppi_layer
+  Kept : Ab-LTMR.CCKAR_ppi_layer
+  Kept : Ab-LTMR.ETV1_ppi_layer
+  Kept : Ab-LTMR.LGI2_ppi_layer
+  Kept : Ab-LTMR.NSG2_ppi_layer
+  Kept : C-LTMR.CDH9_ppi_layer
+  Kept : C-NP.MRGPRX1_GFRA2_ppi_layer
+  Kept : C-NP.MRGPRX1_MRGPRX4_ppi_layer
+  Kept : C-NP.SST_ppi_layer
+  Kept : C-PEP.ADORA2B_ppi_layer
+  Kept : C-PEP.TAC1_CACNG5_ppi_layer
+  Kept : C-PEP.TAC1_CHRNA3_ppi_layer
+  Kept : C-Thermo.RXFP1_ppi_layer
+  Kept : C-Thermo.TRPM8_ppi_layer
+  Kept : neuron_ppi_layer
+Rebuilt layer_info.json → 04_multixrank_prep/multixrank_input_consolidated/layer_info.json
+  23 intra layers, 0 special layers
+
+⚠  WARNING: Seeds NOT covered by any layer: {'KLF11', 'NOS3', 'THBS4', 'AQP4', 'IRF8', 'DRD3', 'HRH3', 'OPRK1', 'DRD2', 'PRLHR', 'ADM', 'SLC17A8', 'DBH', 'CD40', 'CASP1', 'GABRD', 'GALR1', 'TACR1', 'IL18', 'IL1R1', 'LCN2', 'IKBKE', 'TLR3', 'ALOX12', 'HLA-DQB1', 'TLR2', 'PIK3CG', 'SRR', 'TAC1', 'PROK2', 'RAG1', 'GABRR1', 'CCR2', 'RAG2', 'GRIN2A', 'ACP3', 'GLRA2', 'VIP', 'GRIN3A', 'IDO1', 'HTR1B', 'ESR2', 'NPPC', 'PNOC', 'GRM5', 'GRIN2B', 'CHRNA5', 'CD4', 'FOSB', 'CNR2', 'NTF4', 'NTS', 'STOML3', 'NPY', 'SLC6A1', 'IFNG', 'POMC', 'IL6', 'LEP', 'OSM', 'ALOX5', 'ABCC3', 'PTPN6', 'SLC6A6', 'F2RL1', 'F2R', 'MAP3K8', 'AGER', 'NTSR1', 'TH', 'CCR5', 'SLC32A1', 'LMX1B', 'PRLR', 'NMU', 'PRX', 'AGTR2', 'SLC6A2', 'HDC', 'PCSK2', 'FOXN1', 'TLR5', 'SLC6A4', 'PTH2', 'GRM2', 'KCNJ5', 'NOS2', 'ADRB2', 'TYRP1', 'AVPR1A', 'CASP6', 'MYD88', 'MMP9', 'GPR3', 'GAD2', 'CYBB', 'PDYN', 'ADCY1', 'TNF', 'CARD16', 'NOX4', 'LYN', 'TNFRSF1B', 'GFAP', 'SLC12A5', 'IL1RL1', 'PTH2R', 'IAPP', 'P2RX2', 'ESR1', 'IL17A', 'HLA-DQB2', 'IL4', 'GFRA2', 'PRL', 'NOX1', 'NMUR2', 'TLR4', 'HCRT', 'IL10', 'CNGA3', 'CSF2', 'OXT', 'SSTR4', 'CXCR3', 'CD38', 'CALB1', 'SRD5A1', 'PTGS1', 'HTR1A', 'CX3CR1', 'PER2', 'GPR55', 'CCR1', 'BAMBI', 'DAO', 'HRH1', 'TRPV4', 'NPB', 'COL9A1', 'PTGS2', 'C5AR1', 'DPP4', 'TRPV3', 'MC1R'}
+   → They will cause MultiXrank errors.
+
+============================================================
+Consolidation complete
+  Input layers  : 15931
+  Output layers : 23
+  Reduction     : 15908 layers removed
+  New config    → 04_multixrank_prep/multixrank_input_consolidated/config.yml
+============================================================
+Finished at: Tue Jun 30 01:35:58 PM CEST 2026

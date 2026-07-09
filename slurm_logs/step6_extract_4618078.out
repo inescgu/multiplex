@@ -1,0 +1,27 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d02/tmp/slurm-4618078
+Step 6: Extracting LR & Reactome edges
+Running on host: node-d02.lisc
+Starting at: Tue Jun 30 04:26:14 PM CEST 2026
+============================================================
+Step 6: Extract LR + Reactome edges
+============================================================
+
+Loading integrated multiplex...
+  1,631,682 nodes, 39,419,087 edges
+
+Gene universe: 16,508 genes
+LR edges (from multiplex): 2,227
+
+Reactome edges (from multiplex): 0
+⚠ No pathway edges in multiplex, loading from CSV...
+
+Loading Reactome from CSV: pathway_prep/reactome_interactions_with_pathways_v2.csv
+Reactome edges (after universe filter): 4,275
+
+✓ Wrote 2,227 LR pairs → ligand_receptor_layer.tsv
+✓ Wrote 4,275 Reactome pairs → reactome_layer.tsv
+
+============================================================
+Done!
+============================================================
+Finished at: Tue Jun 30 04:29:46 PM CEST 2026

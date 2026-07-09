@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job4606346/slurm_script: line 29: 1948049 Killed                  python step12_multiplex_marchenko_pastur.py --graph 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl --registry 03_integrated/integrated_multiplex_output/node_registry.csv --out-dir 08_marchenko_pastur --sample-p 0.4 --omega 1.0 --n-eigs 400 --min-neg-layers 2 --seed 42
+[2026-06-30T14:41:07.254] error: Detected 1 oom_kill event in StepId=4606346.batch. Some of the step tasks have been OOM Killed.

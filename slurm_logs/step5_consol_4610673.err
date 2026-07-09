@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 458, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 426, in main
+    df = load_categories(
+         ^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 52, in load_categories
+    raise ValueError(
+ValueError: layers_categories.csv is missing columns: {'category', 'Cell Type', 'Broad Category - ai'}
+Found: ['A-LTMR.TAC3', 'Sensory Nervous System', 'neuron']

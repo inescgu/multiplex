@@ -1,0 +1,2 @@
+usage: step6_filter_lr_pairs.py [-h] --ppi-pkl PPI_PKL --integrated-multiplex INTEGRATED_MULTIPLEX --reactome-csv REACTOME_CSV --wdir WDIR
+step6_filter_lr_pairs.py: error: the following arguments are required: --wdir

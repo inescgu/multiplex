@@ -1,0 +1,384 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-4610894
+Step 6: Filtering LR pairs to consolidated multiplex
+Running on host: node-c05.lisc
+Starting at: Tue Jun 30 01:36:45 PM CEST 2026
+Reading 23 layer TSV(s) from config …
+  A-LTMR.TAC3_ppi_layer                                 6,170 genes
+  A-PEP.CHRNA7_SLC18A3_ppi_layer                        1,232 genes
+  A-PEP.KIT_ppi_layer                                   3,566 genes
+  A-PEP.NTRK3_S100A16_ppi_layer                         1,606 genes
+  A-PEP.SCGN_ADRA2C_ppi_layer                           1,824 genes
+  A-Propr.EPHA3_ppi_layer                               3,022 genes
+  A-Propr.HAPLN4_ppi_layer                              2,427 genes
+  A-Propr.PCDH8_ppi_layer                               3,606 genes
+  ATF3_ppi_layer                                        1,655 genes
+  Ab-LTMR.CCKAR_ppi_layer                               1,685 genes
+  Ab-LTMR.ETV1_ppi_layer                                3,106 genes
+  Ab-LTMR.LGI2_ppi_layer                                3,134 genes
+  Ab-LTMR.NSG2_ppi_layer                                2,164 genes
+  C-LTMR.CDH9_ppi_layer                                 2,140 genes
+  C-NP.MRGPRX1_GFRA2_ppi_layer                          1,184 genes
+  C-NP.MRGPRX1_MRGPRX4_ppi_layer                        1,492 genes
+  C-NP.SST_ppi_layer                                    1,432 genes
+  C-PEP.ADORA2B_ppi_layer                               3,285 genes
+  C-PEP.TAC1_CACNG5_ppi_layer                           1,435 genes
+  C-PEP.TAC1_CHRNA3_ppi_layer                           1,814 genes
+  C-Thermo.RXFP1_ppi_layer                              3,636 genes
+  C-Thermo.TRPM8_ppi_layer                              1,227 genes
+  neuron_ppi_layer                                      6,329 genes
+
+Gene universe: 10,261 unique genes
+
+============================================================
+LR-pair filtering report
+============================================================
+Input pairs              :    2,491
+Kept (both in universe)  :      735
+Dropped — ligand missing :      638
+Dropped — receptor miss  :      409
+Dropped — both missing   :      709
+Total dropped            :    1,756
+
+Ligand genes NOT in universe (436 unique):
+  ['AANAT', 'ACKR1', 'ADAM2', 'ADAM28', 'ADIPOQ', 'ADM', 'ADM2', 'AGRP', 'AHSG', 'ALB', 'ALOX5AP', 'AMBN', 'AMELX', 'AMH', 'ANGPT4', 'ANGPTL1', 'ANGPTL2', 'ANGPTL3', 'ANGPTL4', 'APLN'] …
+
+Receptor genes NOT in universe (469 unique):
+  ['ACKR2', 'ACKR4', 'ACVR1C', 'ACVRL1', 'ADCY1', 'ADRA2B', 'ADRB2', 'ADRB3', 'AGR2', 'AGRP', 'AGTR2', 'ALOX5', 'AMELX', 'AMHR2', 'AMTN', 'APLNR', 'ART1', 'ASGR1', 'ASGR2', 'ASPG'] …
+
+Filtered LR pairs saved → 04_multixrank_prep/multixrank_input_consolidated/multiplex/gene_multiplex/ligand_receptor_layer.tsv
+  735 pairs retained out of 2,491
+
+Seed LR-coverage check:
+  Seeds total         : 371
+  Seeds with LR edge  : 59
+  Seeds with NO LR    : 312
+  ⚠  Seeds with no LR connection after filter:
+       ABCB1
+       ABCC3
+       ABCC4
+       ACHE
+       ACP3
+       ADAM11
+       ADCY1
+       ADCY5
+       ADM
+       ADORA2A
+       ADRA1D
+       ADRA2C
+       ADRB2
+       AGER
+       AGTR2
+       ALOX12
+       ALOX5
+       AQP1
+       AQP4
+       ARRB2
+       AVPR1A
+       BACE1
+       BAMBI
+       BBS1
+       BBS4
+       C5AR1
+       CACNA1A
+       CACNA1B
+       CACNA1H
+       CACNA2D1
+       CACNB3
+       CACNG2
+       CALB1
+       CAMK2A
+       CAMK4
+       CARD16
+       CASP1
+       CASP6
+       CCR1
+       CCR2
+       CCR5
+       CD274
+       CD38
+       CD4
+       CD40
+       CDK5
+       CDK5R1
+       CHRNA5
+       CHRNA7
+       CHRNB2
+       CHRNB4
+       CNGA3
+       CNR2
+       COL9A1
+       CRIP2
+       CSF2
+       CSK
+       CTSB
+       CTSS
+       CX3CR1
+       CXCR3
+       CYBB
+       CYP19A1
+       DAB1
+       DAO
+       DBH
+       DICER1
+       DISC1
+       DLG2
+       DPP4
+       DRD2
+       DRD3
+       DTNB
+       DTNBP1
+       DUSP6
+       EGR1
+       ESR1
+       ESR2
+       F2R
+       F2RL1
+       FMR1
+       FOSB
+       FOXN1
+       FRMPD4
+       FSTL1
+       GABBR1
+       GABBR2
+       GABRB3
+       GABRD
+       GABRG2
+       GABRR1
+       GAD2
+       GAL
+       GALR1
+       GFAP
+       GFRA2
+       GJA1
+       GLA
+       GLRA2
+       GLRA3
+       GNAZ
+       GPR3
+       GPR55
+       GRIA2
+       GRIK1
+       GRIN2A
+       GRIN2B
+       GRIN3A
+       GRK5
+       GRK6
+       GRM2
+       GRM4
+       GRM5
+       HCN1
+       HCN2
+       HCRT
+       HDAC4
+       HDC
+       HINT1
+       HLA-DQB1
+       HLA-DQB2
+       HMOX2
+       HOXB8
+       HRH1
+       HRH3
+       HTR1A
+       HTR1B
+       HTR3A
+       IAPP
+       ICA1
+       IDO1
+       IFNG
+       IFNGR1
+       IKBKE
+       IL10
+       IL17A
+       IL18
+       IL1R1
+       IL1RAP
+       IL1RL1
+       IL4
+       IL6
+       IL6ST
+       IRF8
+       ITPR1
+       KCNA1
+       KCND2
+       KCNIP3
+       KCNJ3
+       KCNJ5
+       KCNJ6
+       KCNJ9
+       KCNK18
+       KCNK3
+       KIF1A
+       KIT
+       KLF11
+       KLF7
+       LCN2
+       LEP
+       LGALS1
+       LMX1B
+       LXN
+       LYN
+       LYST
+       MAP2K1
+       MAP2K3
+       MAP3K8
+       MAPK1
+       MAPK10
+       MAPK3
+       MAPK8
+       MAPK9
+       MAPT
+       MC1R
+       MIF
+       MME
+       MMP24
+       MMP9
+       MYD88
+       NAV2
+       NBL1
+       NDN
+       NEDD4L
+       NF1
+       NFE2L2
+       NFKB1
+       NMU
+       NMUR2
+       NOS1
+       NOS2
+       NOS3
+       NOX1
+       NOX4
+       NPB
+       NPEPPS
+       NPPC
+       NPTX1
+       NPY
+       NR1H2
+       NR2C2
+       NR2F6
+       NRG1
+       NTF4
+       NTS
+       NTSR1
+       OPRK1
+       OPRL1
+       OSM
+       OXT
+       P2RX2
+       P2RX4
+       P2RX7
+       P2RY1
+       P2RY2
+       PCSK2
+       PCSK6
+       PDYN
+       PER1
+       PER2
+       PICK1
+       PIK3CG
+       PIP5K1A
+       PIP5K1C
+       PLCB3
+       PLCB4
+       PLP1
+       PNOC
+       POMC
+       POR
+       PPP1R9B
+       PRKAA2
+       PRKAR1B
+       PRKCA
+       PRKCB
+       PRKCD
+       PRKCE
+       PRKG1
+       PRL
+       PRLHR
+       PRLR
+       PRNP
+       PROK2
+       PRX
+       PTAFR
+       PTGDS
+       PTGER3
+       PTGER4
+       PTGES
+       PTGFR
+       PTGS1
+       PTGS2
+       PTH2
+       PTH2R
+       PTPN6
+       RABGGTA
+       RAG1
+       RAG2
+       RASD2
+       RET
+       RGS4
+       RGS9
+       RUNX1
+       S100A10
+       S100B
+       SCN2B
+       SCN9A
+       SESN2
+       SHC1
+       SLC12A2
+       SLC12A5
+       SLC12A6
+       SLC15A2
+       SLC17A8
+       SLC32A1
+       SLC6A1
+       SLC6A2
+       SLC6A4
+       SLC6A6
+       SOD2
+       SPARC
+       SPHK2
+       SRD5A1
+       SRR
+       SSTR4
+       ST8SIA1
+       STARD13
+       STK39
+       STOML3
+       STX1A
+       SYN2
+       TAC1
+       TACR1
+       TH
+       THBS4
+       TLR2
+       TLR3
+       TLR4
+       TLR5
+       TNF
+       TNFRSF1A
+       TNFRSF1B
+       TRPM2
+       TRPM3
+       TRPV3
+       TRPV4
+       TYRP1
+       UCHL1
+       UCP2
+       VIP
+       YY1
+       ZEB2
+
+============================================================
+Next steps
+============================================================
+  Filtered lr_pairs  → 04_multixrank_prep/multixrank_input_consolidated/multiplex/gene_multiplex/ligand_receptor_layer.tsv
+  Pass this file to whatever rebuilds the multiplex pkl
+  before re-running dm_step1.py
+
+  dm_step1.py and dm_step2.py will auto-regenerate:
+    multiplex/*.tsv
+    layer_info.json
+    cell_type_metadata.json
+    config.yml
+    gene_reference_graph.pkl
+    seeds/seeds.txt
+============================================================
+Finished at: Tue Jun 30 01:36:51 PM CEST 2026

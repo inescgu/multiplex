@@ -1,0 +1,60 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c04/tmp/slurm-4610927
+Step 7: Rebuilding reference graphs
+Running on host: node-c04.lisc
+Starting at: Tue Jun 30 01:38:11 PM CEST 2026
+Loading 23 surviving layer(s) …
+  A-LTMR.TAC3_ppi_layer                                     58,818 edges
+  A-PEP.CHRNA7_SLC18A3_ppi_layer                             2,650 edges
+  A-PEP.KIT_ppi_layer                                       20,489 edges
+  A-PEP.NTRK3_S100A16_ppi_layer                              4,566 edges
+  A-PEP.SCGN_ADRA2C_ppi_layer                                6,433 edges
+  A-Propr.EPHA3_ppi_layer                                   13,971 edges
+  A-Propr.HAPLN4_ppi_layer                                   9,295 edges
+  A-Propr.PCDH8_ppi_layer                                   21,547 edges
+  ATF3_ppi_layer                                             6,394 edges
+  Ab-LTMR.CCKAR_ppi_layer                                    4,771 edges
+  Ab-LTMR.ETV1_ppi_layer                                    16,560 edges
+  Ab-LTMR.LGI2_ppi_layer                                    16,141 edges
+  Ab-LTMR.NSG2_ppi_layer                                     7,370 edges
+  C-LTMR.CDH9_ppi_layer                                      8,123 edges
+  C-NP.MRGPRX1_GFRA2_ppi_layer                               2,692 edges
+  C-NP.MRGPRX1_MRGPRX4_ppi_layer                             4,272 edges
+  C-NP.SST_ppi_layer                                         3,585 edges
+  C-PEP.ADORA2B_ppi_layer                                   16,638 edges
+  C-PEP.TAC1_CACNG5_ppi_layer                                3,624 edges
+  C-PEP.TAC1_CHRNA3_ppi_layer                                5,452 edges
+  C-Thermo.RXFP1_ppi_layer                                  19,226 edges
+  C-Thermo.TRPM8_ppi_layer                                   2,659 edges
+  neuron_ppi_layer                                          76,204 edges
+
+Total surviving layers: 23
+
+Gene universe (consolidated): 10,261 unique genes
+
+Layer classification (from layer_info.json):
+  PPI layers   : 23
+  Inter layers : 0
+
+gene_reference_graph     : 10,261 nodes, 129,028 edges
+gene_ppi_reference_graph : 10,261 nodes, 129,028 edges
+
+Saved gene_reference_graph     → 04_multixrank_prep/multixrank_input_consolidated/gene_reference_graph.pkl
+Saved gene_ppi_reference_graph → 04_multixrank_prep/multixrank_input_consolidated/gene_ppi_reference_graph.pkl
+
+Loading original multiplex pkl: 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl …
+  Original: 1,631,682 nodes, 39,419,087 edges
+  Filtered: 1,324,505 nodes, 26,812,920 edges
+  Removed : 307,177 nodes
+
+Saved filtered multiplex pkl → 04_multixrank_prep/multixrank_input_consolidated/integrated_multiplex_filtered.pkl
+
+============================================================
+Reference graphs rebuilt successfully
+============================================================
+  gene_reference_graph     → 04_multixrank_prep/multixrank_input_consolidated/gene_reference_graph.pkl
+  gene_ppi_reference_graph → 04_multixrank_prep/multixrank_input_consolidated/gene_ppi_reference_graph.pkl
+  filtered multiplex pkl   → 04_multixrank_prep/multixrank_input_consolidated/integrated_multiplex_filtered.pkl
+
+Next: run dm2 then dm3
+============================================================
+Finished at: Tue Jun 30 01:45:09 PM CEST 2026

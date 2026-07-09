@@ -1,0 +1,20 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-4798286
+Step 8: Running MultiXrank
+Running on host: node-c03.lisc
+Starting at: Fri Jul  3 09:54:20 AM CEST 2026
+============================================================
+Running MultiXrank (edge-driven inter-layer)
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_input_consolidated
+Config      : config.yml
+Output dir  : 05_multixrank_results/multixrank_results_consolidated
+Aggregation : max
+============================================================
+
+Seeds file not found: /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_input_consolidated/seeds.txt
+Layer structure: 23 intra, 0 inter, 23 total
+
+Config path : /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_input_consolidated/config.yml
+Config exists: True
+
+Finished at: Fri Jul  3 09:54:38 AM CEST 2026

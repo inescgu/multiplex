@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job4611604/slurm_script: line 23: 1181709 Killed                  python step6_filter_lr_pairs.py --wdir 04_multixrank_prep/multixrank_input_consolidated --original-multiplex-pkl 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl --output-dir 04_multixrank_prep/multixrank_input_consolidated
+[2026-06-30T13:57:03.025] error: Detected 1 oom_kill event in StepId=4611604.batch. Some of the step tasks have been OOM Killed.

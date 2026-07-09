@@ -1,0 +1,25 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-4613082
+Step 6: Filtering LR pairs to consolidated multiplex
+Running on host: node-c05.lisc
+Starting at: Tue Jun 30 02:24:55 PM CEST 2026
+============================================================
+Filtering LR pairs AND Reactome to consolidated multiplex
+============================================================
+
+Gene universe (consolidated): 10,261 genes
+
+Loading original multiplex from 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl...
+  1,631,682 nodes, 39,419,087 edges
+
+Extracted from original:
+  LR edges:       14,971,740
+  Reactome edges: 0
+
+LR pairs: 14971740 → 8483187 kept (56.7%)
+Wrote 8,483,187 LR pairs → 04_multixrank_prep/multixrank_input_consolidated/multiplex/gene_multiplex/ligand_receptor_layer.tsv
+
+============================================================
+Next: Add these layers to config.yml manually, or re-run
+      the consolidation script to regenerate everything
+============================================================
+Finished at: Tue Jun 30 02:30:17 PM CEST 2026

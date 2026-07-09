@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step6_filter_lr_pairs.py", line 183, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step6_filter_lr_pairs.py", line 57, in main
+    print(f"\nLoading integrated multiplex for LR: {args.integrated-multiplex}")
+                                                    ^^^^^^^^^^^^^^^
+AttributeError: 'Namespace' object has no attribute 'integrated'

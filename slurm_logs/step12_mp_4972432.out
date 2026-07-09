@@ -1,0 +1,4 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b06/tmp/slurm-4972432
+Step 12: Marchenko-Pastur analysis
+Running on host: node-b06.lisc
+Starting at: Thu Jul  9 02:18:25 PM CEST 2026

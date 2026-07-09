@@ -1,0 +1,78 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b02/tmp/slurm-4609198
+Step 5: Consolidating layers
+Running on host: node-b02.lisc
+Starting at: Tue Jun 30 12:52:45 PM CEST 2026
+Retained 63 cell types from CSV
+
+Merge-by=none → keeping every cell type as individual layer
+
+Input layers : 15931
+CSV-allowed  : 63 cell-type stems
+
+⚠  63 CSV stems not found in input multiplex (they will be silently skipped):
+     A-LTMR.TAC3_layer
+     A-PEP.CHRNA7_SLC18A3_layer
+     A-PEP.KIT_layer
+     A-PEP.NTRK3_S100A16_layer
+     A-PEP.SCGN_ADRA2C_layer
+     A-Propr.EPHA3_layer
+     A-Propr.HAPLN4_layer
+     A-Propr.PCDH8_layer
+     ATF3_layer
+     Ab-LTMR.CCKAR_layer
+     Ab-LTMR.ETV1_layer
+     Ab-LTMR.LGI2_layer
+     Ab-LTMR.NSG2_layer
+     B_cell_layer
+     C-LTMR.CDH9_layer
+     C-NP.MRGPRX1_GFRA2_layer
+     C-NP.MRGPRX1_MRGPRX4_layer
+     C-NP.SST_layer
+     C-PEP.ADORA2B_layer
+     C-PEP.TAC1_CACNG5_layer
+     C-PEP.TAC1_CHRNA3_layer
+     C-Thermo.RXFP1_layer
+     C-Thermo.TRPM8_layer
+     CD4-positive,_alpha-beta_T_cell_layer
+     CD8-positive,_alpha-beta_T_cell_layer
+     Langerhans_cell_layer
+     Schwann_cell_layer
+     T_cell_layer
+     activated_CD4-positive,_alpha-beta_T_cell_layer
+     activated_CD8-positive,_alpha-beta_T_cell_layer
+     basophil_layer
+     classical_monocyte_layer
+     colon_macrophage_layer
+     common_myeloid_progenitor_layer
+     enteroglial_cell_layer
+     erythroid_progenitor_cell_layer
+     gamma-delta_T_cell_layer
+     granulocyte_layer
+     hematopoietic_cell_layer
+     hematopoietic_precursor_cell_layer
+     hematopoietic_stem_cell_layer
+     innate_lymphoid_cell_layer
+     intermediate_monocyte_layer
+     leukocyte_layer
+     macrophage_layer
+     mast_cell_layer
+     mature_NK_T_cell_layer
+     microglial_cell_layer
+     monocyte_layer
+     mononuclear_phagocyte_layer
+     myeloid_cell_layer
+     myeloid_dendritic_cell_layer
+     myeloid_leukocyte_layer
+     naive_thymus-derived_CD4-positive,_alpha-beta_T_cell_layer
+     naive_thymus-derived_CD8-positive,_alpha-beta_T_cell_layer
+     natural_killer_cell_layer
+     neuron_layer
+     neutrophil_layer
+     non-classical_monocyte_layer
+     plasma_cell_layer
+     plasmacytoid_dendritic_cell_layer
+     regulatory_T_cell_layer
+     tissue-resident_macrophage_layer
+
+Copying individual layers…
+Finished at: Tue Jun 30 12:52:52 PM CEST 2026

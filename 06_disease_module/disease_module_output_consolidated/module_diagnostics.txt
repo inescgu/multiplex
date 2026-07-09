@@ -1,0 +1,62 @@
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : 04_multixrank_prep/multixrank_input_consolidated/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 307,511
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds excluded         : 9
+  Excluded list        : ['SSTR4', 'RGS9', 'NPPC', 'THBS4', 'IL4', 'IDO1', 'HCRT', 'BAMBI', 'SRD5A1']
+Seeds after exclusion  : 363
+Seeds in reference     : 363
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 111
+Largest seed CC size   : 245
+Seed subgraph edges    : 395
+Isolated seeds         : 105
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'AQP4', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CALB1', 'CAMK4', 'CCR2', 'CD38']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 1000
+Max bridging genes allowed : 4000
+Genes added                : 2513
+Full module size           : 2876
+Fully connected            : True
+
+--- FINAL MODULE ---
+Final module size       : 2876
+Final module edges      : 40466
+Used LCC fallback       : False
+Seeds in final module   : 363 / 363
+Seeds dropped by LCC    : 0
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  A-LTMR.TAC3_ppi                             299 genes
+  neuron_ppi                                  251 genes
+  A-Propr.EPHA3_ppi                           188 genes
+  A-PEP.KIT_ppi                               164 genes
+  A-Propr.PCDH8_ppi                           148 genes
+  C-PEP.ADORA2B_ppi                           139 genes
+  C-LTMR.CDH9_ppi                             133 genes
+  Ab-LTMR.LGI2_ppi                            130 genes
+  C-NP.SST_ppi                                127 genes
+  C-Thermo.RXFP1_ppi                          116 genes
+  C-NP.MRGPRX1_GFRA2_ppi                      116 genes
+  C-Thermo.TRPM8_ppi                          107 genes
+  C-NP.MRGPRX1_MRGPRX4_ppi                    104 genes
+  A-PEP.NTRK3_S100A16_ppi                     104 genes
+  C-PEP.TAC1_CHRNA3_ppi                       101 genes
+  A-Propr.HAPLN4_ppi                           97 genes
+  C-PEP.TAC1_CACNG5_ppi                        96 genes
+  ATF3_ppi                                     94 genes
+  Ab-LTMR.CCKAR_ppi                            91 genes
+  Ab-LTMR.ETV1_ppi                             81 genes
+  Ab-LTMR.NSG2_ppi                             76 genes
+  A-PEP.CHRNA7_SLC18A3_ppi                     69 genes
+  A-PEP.SCGN_ADRA2C_ppi                        45 genes
+======================================================================
