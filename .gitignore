@@ -34,3 +34,5 @@ pathway_distance/ncbi_to_pathways.txt
 pathway_distance/ensembl_to_pathways.txt
 pathway_distance/uniprot_to_pathways.txt
 pathway_prep/uniprot_to_pathways.txt
+pathway_prep/.ipynb_checkpoints/
+*.ipynb_checkpoints/
