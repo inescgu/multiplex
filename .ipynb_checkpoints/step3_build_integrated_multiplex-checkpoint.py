@@ -119,45 +119,70 @@ def build_pathway_index_from_csv(
     gene_to_pathways   : gene -> set of (pathway_name, db_label)
     pathway_to_genes   : (pathway_name, db_label) -> set of gene symbols
     excluded_pathways  : dict with keys 'oversized' -> list of (pathway, size)
+
+    Column handling
+    ---------------
+    Prefers 'symbol1'/'symbol2' columns directly if the CSV has them — these
+    are already gene symbols and need no translation, so this is the most
+    robust path. Only falls back to 'uniprot1'/'uniprot2' + a uniprot_to_symbol
+    map if symbol columns aren't present. (Silently trusting raw UniProt IDs
+    as if they were gene symbols, with no mapping applied, produces a graph
+    with zero real pathway edges — this is what happened before this fix.)
     """
     print(f"Loading pathway data from {csv_path} ...")
-    
-    # Check if pathway_sources column exists to determine if we need special parsing
+
     df_temp = pd.read_csv(csv_path, nrows=5)
-    has_source_col = "pathway_sources" in df_temp.columns
+    cols = set(df_temp.columns)
+    use_symbol_cols = {"symbol1", "symbol2"}.issubset(cols)
+    # Accept both 'pathway_source' (singular) and 'pathway_sources' (plural)
+    source_col = "pathway_sources" if "pathway_sources" in cols else (
+        "pathway_source" if "pathway_source" in cols else None)
+    has_source_col = source_col is not None
     del df_temp
-    
-    # Load full data
-    usecols = ["uniprot1", "uniprot2", "common_pathway"]
+
+    id_cols = ["symbol1", "symbol2"] if use_symbol_cols else ["uniprot1", "uniprot2"]
+    usecols = id_cols + ["common_pathway"]
     if has_source_col:
-        usecols.append("pathway_sources")
-        
+        usecols.append(source_col)
+
     df = pd.read_csv(csv_path, low_memory=False, usecols=usecols)
 
     pathway_df = df.dropna(subset=["common_pathway"]).copy()
     del df
     gc.collect()
-    print(f"  {len(pathway_df):,} rows with common_pathway\n")
+    print(f"  {len(pathway_df):,} rows with common_pathway")
+    print(f"  Using {'symbol1/symbol2 columns directly' if use_symbol_cols else 'uniprot1/uniprot2 + uniprot_to_symbol map'}")
+    if has_source_col:
+        print(f"  Pathway source column detected: '{source_col}'")
+    else:
+        print(f"  ⚠ No pathway source column found — all pathways will be labeled '{db_label}'")
+    print()
 
     gene_to_pathways: dict[str, set] = defaultdict(set)
     # Key is now (pathway_name, specific_db_label)
     pathway_to_genes: dict[tuple, set] = defaultdict(set)
 
     u2s = uniprot_to_symbol or {}
+    id_col1, id_col2 = id_cols
 
     for _, row in pathway_df.iterrows():
-        raw1    = str(row["uniprot1"]).strip().upper()
-        raw2    = str(row["uniprot2"]).strip().upper()
+        raw1    = str(row[id_col1]).strip().upper()
+        raw2    = str(row[id_col2]).strip().upper()
         pathway = str(row["common_pathway"]).strip()
 
         if not pathway or pathway.lower() == "nan":
             continue
 
-        # Translate UniProt → symbol if mapping provided
-        sym1 = u2s.get(raw1, u2s.get(raw1.lower(), raw1))
-        sym2 = u2s.get(raw2, u2s.get(raw2.lower(), raw2))
-        sym1 = sym1.strip().upper() if sym1 else raw1
-        sym2 = sym2.strip().upper() if sym2 else raw2
+        if use_symbol_cols:
+            # Already gene symbols — no translation needed.
+            sym1, sym2 = raw1, raw2
+        else:
+            # Translate UniProt → symbol via mapping (falls back to raw ID
+            # — and raw untranslated UniProt IDs) if no mapping provided.
+            sym1 = u2s.get(raw1, u2s.get(raw1.lower(), raw1))
+            sym2 = u2s.get(raw2, u2s.get(raw2.lower(), raw2))
+            sym1 = sym1.strip().upper() if sym1 else raw1
+            sym2 = sym2.strip().upper() if sym2 else raw2
 
         # Skip self-loops
         if sym1 == sym2:
@@ -166,7 +191,7 @@ def build_pathway_index_from_csv(
         # Determine DB labels
         db_labels = []
         if has_source_col:
-            sources_str = str(row.get("pathway_sources", "")).strip()
+            sources_str = str(row.get(source_col, "")).strip()
             if sources_str and sources_str.lower() != "nan":
                 # Split by pipe if multiple sources e.g. "KEGG|Reactome"
                 db_labels = [s.strip() for s in sources_str.split("|") if s.strip()]
@@ -202,6 +227,41 @@ def build_pathway_index_from_csv(
     print(f"  Genes with pathway annotations: {len(gene_to_pathways):,}\n")
 
     return dict(gene_to_pathways), kept_pathway_to_genes, excluded_pathways
+
+
+def validate_pathway_gene_overlap(
+    gene_to_pathways: dict,
+    gene_universe: set,
+    label: str = "pathway",
+    min_overlap_fraction: float = 0.05,
+) -> None:
+    """
+    Fail fast if a pathway/KEGG gene index barely overlaps the actual node
+    gene universe — this is exactly the failure mode that silently produced
+    zero pathway edges before (raw UniProt IDs being compared against gene
+    symbols). Better to abort in seconds here than discover it after a
+    multi-hour run with an empty pathway layer.
+    """
+    pathway_genes = set(gene_to_pathways.keys())
+    overlap = pathway_genes & gene_universe
+    frac = len(overlap) / max(len(pathway_genes), 1)
+
+    print(f"  [{label}] gene universe check: {len(pathway_genes):,} pathway-annotated genes, "
+          f"{len(overlap):,} overlap with the {len(gene_universe):,} genes in your layers "
+          f"({100*frac:.1f}%)")
+
+    if frac < min_overlap_fraction:
+        raise SystemExit(
+            f"\n{'='*70}\n"
+            f"ABORTING: {label} gene index has only {100*frac:.2f}% overlap with the "
+            f"actual gene universe in your layers (threshold: {100*min_overlap_fraction:.0f}%).\n"
+            f"This almost always means the ID space doesn't match — e.g. raw UniProt "
+            f"accessions being compared against gene symbols with no translation applied. "
+            f"Check that your --{label}-csv uses gene symbols (or pass --uniprot-map with a "
+            f"correct 'uniprotid,symbol' CSV) before re-running this multi-hour job.\n"
+            f"{'='*70}\n"
+        )
+    print()
 
 
 # ============================================================================
@@ -372,9 +432,17 @@ def build_integrated_multiplex(
     cross_source_only:  bool = True,
     max_pathway_size:   int  = 300,
     pathway_chunk_size: int  = 50,
+    ppi_reference_edges: set | None = None,
 ) -> tuple[nx.Graph, NodeRegistry, dict]:
     """
     Returns G, registry, and an edge_stats dict for reporting.
+
+    ppi_reference_edges : optional set of frozenset({geneA, geneB}) pairs from
+        a reference PPI network. When provided, pathway AND ligand-receptor
+        edges are only added if the same gene pair is ALSO a physical PPI
+        edge — i.e. only add pathway/LR/Reactome connections that are
+        corroborated by your highest-confidence PPI source. PPI (intra-layer)
+        edges themselves are never filtered by this (they ARE the PPI source).
     """
     all_layers = {**ts_layers, **hdrg_layers}
     registry   = NodeRegistry()
@@ -397,6 +465,8 @@ def build_integrated_multiplex(
         "pathway_skipped_same_source"   : defaultdict(int),
         # skipped: same layer
         "pathway_skipped_same_layer"    : 0,
+        # skipped: not corroborated by reference PPI network
+        "pathway_skipped_no_ppi_support": 0,
         # annotated onto existing edges
         "pathway_annotated_existing"    : defaultdict(int),
 
@@ -405,6 +475,7 @@ def build_integrated_multiplex(
         "lr_pairs_no_ligand_nodes"      : [],
         "lr_pairs_no_receptor_nodes"    : [],
         "lr_skipped_same_layer"         : 0,
+        "lr_skipped_no_ppi_support"     : 0,
 
         # ---- Intra vs Inter layer breakdown ----
         "intra_inter_by_edge_type"      : {
@@ -479,6 +550,12 @@ def build_integrated_multiplex(
                     edge_stats["pathway_skipped_same_source"][src_pair] += 1
                     continue
 
+                if ppi_reference_edges is not None:
+                    gene_pair = frozenset((di["gene"], dj["gene"]))
+                    if gene_pair not in ppi_reference_edges:
+                        edge_stats["pathway_skipped_no_ppi_support"] += 1
+                        continue
+
                 src_pair = tuple(sorted([di["source"], dj["source"]]))
                 db_src_key = (db_label,) + src_pair
 
@@ -513,7 +590,11 @@ def build_integrated_multiplex(
             print(f"  Processed {done:,}/{len(pathways):,} pathways | "
                   f"pathway edges so far: {n_pathway:,}")
 
-    print(f"  Pathway edges added : {n_pathway:,}\n")
+    print(f"  Pathway edges added : {n_pathway:,}")
+    if ppi_reference_edges is not None:
+        print(f"  Pathway edges skipped (no PPI support) : "
+              f"{edge_stats['pathway_skipped_no_ppi_support']:,}")
+    print()
     gc.collect()
 
     # -----------------------------------------------------------------------
@@ -556,6 +637,12 @@ def build_integrated_multiplex(
                     edge_stats["lr_skipped_same_layer"] += 1
                     continue
 
+                if ppi_reference_edges is not None:
+                    gene_pair = frozenset((lig_gene, rec_gene))
+                    if gene_pair not in ppi_reference_edges:
+                        edge_stats["lr_skipped_no_ppi_support"] += 1
+                        continue
+
                 src_pair = tuple(sorted([dl["source"], dr["source"]]))
 
                 if not G.has_edge(lig_nid, rec_nid):
@@ -574,7 +661,10 @@ def build_integrated_multiplex(
                 else:
                     G[lig_nid][rec_nid]["lr_pair"] = (lig_gene, rec_gene)
 
-    print(f"  LR edges added : {n_lr:,}\n")
+    print(f"  LR edges added : {n_lr:,}")
+    if ppi_reference_edges is not None:
+        print(f"  LR edges skipped (no PPI support) : {edge_stats['lr_skipped_no_ppi_support']:,}")
+    print()
     gc.collect()
 
     # -----------------------------------------------------------------------
@@ -884,17 +974,17 @@ def save_multiplex(G: nx.Graph, registry: NodeRegistry, output_dir: str) -> None
         })
         if len(chunk) >= chunk_size:
             df = pd.DataFrame(chunk)
-            df.to_csv(edges_path, mode="a",
-                      header=not header_written, index=False)
+            # df.to_csv(edges_path, mode="a",
+            #           header=not header_written, index=False)
             header_written = True
             chunk = []
             gc.collect()
 
     if chunk:
-        pd.DataFrame(chunk).to_csv(edges_path, mode="a",
-                                   header=not header_written, index=False)
+        # pd.DataFrame(chunk).to_csv(edges_path, mode="a",
+                                   # header=not header_written, index=False)
 
-    print(f"Saved edge list → {edges_path}")
+    # print(f"Saved edge list → {edges_path}")
 
     edge_type_counts = defaultdict(int)
     for _, _, d in G.edges(data=True):
@@ -957,6 +1047,14 @@ def main():
     parser.add_argument("--cross-source-only",   action="store_true")
     parser.add_argument("--base-ppi", default=None,
                     help="Path to full PPI network .pkl to add as a dedicated layer")
+    parser.add_argument("--validate-against-ppi", action="store_true",
+                    help="Only add pathway/Reactome and ligand-receptor inter-layer edges "
+                         "if the same gene pair is ALSO an edge in a reference PPI network "
+                         "(your highest-confidence source of real protein-protein interaction). "
+                         "Requires --base-ppi or --ppi-validation-pkl.")
+    parser.add_argument("--ppi-validation-pkl", default=None,
+                    help="PPI network .pkl to validate pathway/LR edges against. Defaults to "
+                         "--base-ppi if not given, so you don't have to load the same file twice.")
     args = parser.parse_args()
 
     t0 = time.time()
@@ -966,12 +1064,30 @@ def main():
     print("=" * 60)
     ts_layers   = load_layers_from_folder(args.ts_layers_dir,   "tabula_sapiens")
     hdrg_layers = load_layers_from_folder(args.hdrg_layers_dir, "hdrg")
-    
+
+    base_ppi_graph = None
     if args.base_ppi:
         print("Loading full base PPI layer ...")
         base_ppi_graph = load_base_ppi(args.base_ppi)
         hdrg_layers[("global_ppi", "full_network")] = base_ppi_graph
         print("  Added base PPI as layer: source='global_ppi', cell_type='full_network'\n")
+
+    ppi_reference_edges = None
+    if args.validate_against_ppi:
+        validation_path = args.ppi_validation_pkl or args.base_ppi
+        if not validation_path:
+            parser.error("--validate-against-ppi requires --base-ppi or --ppi-validation-pkl")
+        if args.ppi_validation_pkl and args.ppi_validation_pkl != args.base_ppi:
+            ppi_for_validation = load_base_ppi(args.ppi_validation_pkl)
+        elif base_ppi_graph is not None:
+            ppi_for_validation = base_ppi_graph  # reuse, avoid loading twice
+        else:
+            ppi_for_validation = load_base_ppi(validation_path)
+        ppi_reference_edges = {frozenset((u, v)) for u, v in ppi_for_validation.edges()}
+        print(f"PPI validation ENABLED: {len(ppi_reference_edges):,} reference PPI edges "
+              f"loaded from {validation_path}")
+        print("  Pathway/Reactome and ligand-receptor edges will only be added if the same "
+              "gene pair is also a PPI edge.\n")
     
     print("=" * 60)
     print("STEP 2: PATHWAY INDEX")
@@ -1003,6 +1119,21 @@ def main():
         pathway_to_genes  = reactome_p2g
         excluded_pathways = reactome_excl
 
+    # ------------------------------------------------------------------
+    # GUARDRAIL: fail fast if the pathway gene ID space doesn't match the
+    # actual layer gene universe (this is exactly the failure mode that
+    # previously produced a graph with zero real pathway edges after a
+    # multi-hour run). Cheap to check now, before STEP 4's expensive
+    # combinatorial edge assembly.
+    # ------------------------------------------------------------------
+    gene_universe_check = set()
+    for g in ts_layers.values():
+        gene_universe_check.update(g.nodes())
+    for g in hdrg_layers.values():
+        gene_universe_check.update(g.nodes())
+    print("Sanity-checking pathway gene overlap against layer gene universe ...")
+    validate_pathway_gene_overlap(gene_to_pathways, gene_universe_check, label="pathway")
+
     print("=" * 60)
     print("STEP 3: LIGAND-RECEPTOR PAIRS")
     print("=" * 60)
@@ -1018,6 +1149,7 @@ def main():
         cross_source_only=args.cross_source_only,
         max_pathway_size=args.max_pathway_size,
         pathway_chunk_size=args.pathway_chunk_size,
+        ppi_reference_edges=ppi_reference_edges,
     )
 
     print("=" * 60)

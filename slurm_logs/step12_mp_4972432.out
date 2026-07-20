@@ -2,3 +2,12 @@
 Step 12: Marchenko-Pastur analysis
 Running on host: node-b06.lisc
 Starting at: Thu Jul  9 02:18:25 PM CEST 2026
+1,648,733 nodes, layers: {'ppi': 49499800, 'ligand_receptor': 30672648}
+
+[1] Per-layer Marchenko–Pastur fits
+
+[2] Sum-of-Squared adjacency MP fit
+
+[3] Supra-Laplacian spectrum (ω=1.0)
+Not enough memory to perform factorization.
+Finished at: Thu Jul  9 06:44:17 PM CEST 2026

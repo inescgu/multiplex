@@ -252,7 +252,7 @@ def load_categories(
     return df.reset_index(drop=True)
 
 def stem_from_cell_type(cell_type: str) -> str:
-    return cell_type.replace(" ", "_") + "_layer"
+    return cell_type.replace(" ", "_") + "_ppi_layer"
 
 def load_graph_from_tsv(path: Path) -> nx.Graph:
     """Load a two-column TSV edge list into an undirected NetworkX graph."""
@@ -567,6 +567,12 @@ def plot_per_layer_metrics(
     _print_block("Plotting per-layer metric bar charts (colored by major category)")
     
     cell_df = metrics_df[metrics_df["major_category"] != "special"].copy()
+    
+    # Check if we have data to plot
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for per-layer metrics plot (skipping)")
+        return
+    
     cell_df = cell_df.sort_values("n_edges", ascending=False).head(max_layers)
     
     palette  = _major_category_palette()
@@ -575,6 +581,12 @@ def plot_per_layer_metrics(
     #              zip(cell_df["cell_type"], cell_df["minor_category"])]
     y_labels = cell_df["cell_type"].tolist()
     metrics_to_plot = list(METRIC_LABELS.keys())
+    
+    # Check if we have metrics to plot
+    if not metrics_to_plot:
+        print("  ⚠  No metrics available for per-layer plot (skipping)")
+        return
+    
     n_m = len(metrics_to_plot)
     
     fig, axes = plt.subplots(
@@ -630,6 +642,7 @@ def plot_metrics_heatmap(
 ) -> None:
     _print_block("Plotting metrics heatmap (layers × metrics)")
     
+    # Filter and get top layers
     cell_df = (
         metrics_df[metrics_df["major_category"] != "special"]
         .sort_values("n_edges", ascending=False)
@@ -637,9 +650,39 @@ def plot_metrics_heatmap(
         .copy()
     )
     
+    # Check if we have data to plot
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for heatmap (skipping)")
+        return
+    
     scalar_cols = list(METRIC_LABELS.keys())
+    if not scalar_cols:
+        print("  ⚠  No metrics available for heatmap (skipping)")
+        return
+    
+    # Check if all required columns exist
+    missing_cols = [col for col in scalar_cols if col not in cell_df.columns]
+    if missing_cols:
+        print(f"  ⚠  Missing metric columns: {missing_cols} (skipping)")
+        return
+    
+    # Build matrix
     mat = cell_df.set_index("cell_type")[scalar_cols].copy().astype(float)
-    mat_norm = (mat - mat.mean()) / (mat.std() + 1e-12)
+    
+    # Check if matrix is empty or all NaN
+    if mat.empty or mat.isna().all().all():
+        print("  ⚠  Metric matrix is empty or all NaN (skipping)")
+        return
+    
+    # Normalize (handle case where std is 0)
+    mat_std = mat.std()
+    mat_std[mat_std == 0] = 1  # Avoid division by zero
+    mat_norm = (mat - mat.mean()) / (mat_std + 1e-12)
+    
+    # Check if normalized matrix has any valid (non-NaN) data
+    if mat_norm.isna().all().all():
+        print("  ⚠  All metrics are NaN after normalization (skipping)")
+        return
     
     # Create row colors based on major category
     palette = _major_category_palette()
@@ -650,17 +693,22 @@ def plot_metrics_heatmap(
     fig_w = max(10, len(scalar_cols) * 1.2)
     fig, ax = plt.subplots(figsize=(fig_w, fig_h))
     
-    sns.heatmap(
-        mat_norm,
-        ax=ax,
-        cmap="RdYlBu_r",
-        center=0,
-        linewidths=0.2,
-        linecolor="white",
-        cbar_kws={"label": "Z-score", "shrink": 0.6},
-        xticklabels=[METRIC_LABELS[c] for c in scalar_cols],
-        yticklabels=True,
-    )
+    try:
+        sns.heatmap(
+            mat_norm,
+            ax=ax,
+            cmap="RdYlBu_r",
+            center=0,
+            linewidths=0.2,
+            linecolor="white",
+            cbar_kws={"label": "Z-score", "shrink": 0.6},
+            xticklabels=[METRIC_LABELS[c] for c in scalar_cols],
+            yticklabels=True,
+        )
+    except ValueError as e:
+        print(f"  ⚠  Heatmap rendering failed: {e} (skipping)")
+        plt.close(fig)
+        return
     
     # Add row-side color bar
     for i, color in enumerate(row_colors):
@@ -689,6 +737,12 @@ def plot_category_distributions(
     _print_block("Plotting category-level metric distributions")
     
     cell_df  = metrics_df[metrics_df["major_category"] != "special"].copy()
+    
+    # Check if we have data
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for category distributions (skipping)")
+        return
+    
     palette  = _major_category_palette()
     
     # Order by major category, then by mean edges within minor category
@@ -764,6 +818,11 @@ def plot_major_category_summary(
 ) -> None:
     _print_block("Plotting major category summary bars")
     
+    # Check if we have data
+    if cat_agg_df.empty:
+        print("  ⚠  No category summary data available (skipping)")
+        return
+    
     palette = _major_category_palette()
     metrics_to_plot = [
         ("mean_nodes",      "Mean node count"),
@@ -824,6 +883,12 @@ def plot_scatter_density_clustering(
     _print_block("Plotting scatter plots (colored by major category)")
     
     cell_df = metrics_df[metrics_df["major_category"] != "special"].copy()
+    
+    # Check if we have data
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for scatter plots (skipping)")
+        return
+    
     palette = _major_category_palette()
     
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
@@ -883,6 +948,11 @@ def plot_top_eigen_per_category(
     
     cell_eigen = eigen_df[eigen_df["major_category"] != "special"].copy()
     
+    # Check if we have cell-type eigen data
+    if cell_eigen.empty:
+        print("  ⚠  No cell-type eigen data (all marked as 'special'), skipping")
+        return
+    
     cat_gene_agg = (
         cell_eigen
         .groupby(["major_category", "gene"])
@@ -893,7 +963,18 @@ def plot_top_eigen_per_category(
         .reset_index()
     )
     
+    # Check if aggregation produced any data
+    if cat_gene_agg.empty:
+        print("  ⚠  No genes found in eigen data, skipping")
+        return
+    
     categories = sorted(cat_gene_agg["major_category"].unique())
+    
+    # Check if we have categories
+    if not categories or len(categories) == 0:
+        print("  ⚠  No categories found in eigen data, skipping")
+        return
+    
     palette    = _major_category_palette()
     
     n_cols = min(2, len(categories))
@@ -955,7 +1036,18 @@ def plot_degree_distributions(
         stem_to_ct[stem_from_cell_type(row[COL_CELL_TYPE])] = row[COL_CELL_TYPE]
 
     cell_df    = metrics_df[metrics_df["major_category"] != "special"].copy()
+    
+    # Check if we have data
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for degree distributions (skipping)")
+        return
+    
     categories = sorted(cell_df["major_category"].unique())
+    
+    # Check if categories list is empty
+    if not categories or len(categories) == 0:
+        print("  ⚠  No categories found for degree distributions (skipping)")
+        return
 
     n_cols = min(2, len(categories))
     n_rows = int(np.ceil(len(categories) / n_cols))
@@ -1026,6 +1118,11 @@ def plot_lcc_heatmap_hierarchical(
     
     cell_df = metrics_df[metrics_df["major_category"] != "special"].copy()
     
+    # Check if we have data
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for LCC heatmap (skipping)")
+        return
+    
     pivot = (
         cell_df
         .groupby(["major_category", "minor_category"])
@@ -1080,6 +1177,11 @@ def plot_drg_hierarchy_summary(
     
     cell_df = metrics_df[metrics_df["major_category"] != "special"].copy()
     
+    # Check if we have data
+    if cell_df.empty:
+        print("  ⚠  No cell-type layers available for hierarchy summary (skipping)")
+        return
+    
     # Count layers per major/minor category
     hier = (
         cell_df
@@ -1087,6 +1189,10 @@ def plot_drg_hierarchy_summary(
         .agg(n_layers=("layer", "count"))
         .reset_index()
     )
+    
+    if hier.empty:
+        print("  ⚠  No hierarchy data available (skipping)")
+        return
     
     palette = _major_category_palette()
     
@@ -1179,26 +1285,42 @@ def save_tables(
     scalar_cols = list(METRIC_LABELS.keys())
     stats_rows = []
     
-    for major_cat, major_grp in cell_df.groupby("major_category"):
-        for minor_cat, minor_grp in major_grp.groupby("minor_category"):
-            row = {
-                "major_category": major_cat,
-                "minor_category": minor_cat,
-                "n_layers": len(minor_grp),
-            }
-            for col in scalar_cols:
-                row[f"{col}_mean"] = round(minor_grp[col].mean(), 5)
-                row[f"{col}_std"]  = round(minor_grp[col].std(),  5)
-                row[f"{col}_min"]  = round(minor_grp[col].min(),  5)
-                row[f"{col}_max"]  = round(minor_grp[col].max(),  5)
-            stats_rows.append(row)
+    if not cell_df.empty and scalar_cols:
+        for major_cat, major_grp in cell_df.groupby("major_category"):
+            for minor_cat, minor_grp in major_grp.groupby("minor_category"):
+                row = {
+                    "major_category": major_cat,
+                    "minor_category": minor_cat,
+                    "n_layers": len(minor_grp),
+                }
+                for col in scalar_cols:
+                    row[f"{col}_mean"] = round(minor_grp[col].mean(), 5)
+                    row[f"{col}_std"]  = round(minor_grp[col].std(),  5)
+                    row[f"{col}_min"]  = round(minor_grp[col].min(),  5)
+                    row[f"{col}_max"]  = round(minor_grp[col].max(),  5)
+                stats_rows.append(row)
+        
+        stats_df = pd.DataFrame(stats_rows)
+        # Only sort if we have data
+        if not stats_df.empty and "major_category" in stats_df.columns:
+            stats_df = stats_df.sort_values(
+                ["major_category", "n_layers"], ascending=[True, False]
+            )
+    else:
+        # Create empty dataframe - no cell-type layers to analyze
+        stats_df = pd.DataFrame()
+        if cell_df.empty:
+            print(f"  ⚠  Warning: No cell-type layers found (all layers are marked as 'special')")
+        if not scalar_cols:
+            print(f"  ⚠  Warning: No scalar metrics available in METRIC_LABELS")
     
-    stats_df = pd.DataFrame(stats_rows).sort_values(
-        ["major_category", "n_layers"], ascending=[True, False]
-    )
-    out_path4 = out / "05_table_hierarchical_metric_stats.csv"
-    stats_df.to_csv(out_path4, index=False)
-    print(f"  → {out_path4.name}  ({len(stats_df):,} rows)")
+    # Only save and report if we have data
+    if not stats_df.empty:
+        out_path4 = out / "05_table_hierarchical_metric_stats.csv"
+        stats_df.to_csv(out_path4, index=False)
+        print(f"  → {out_path4.name}  ({len(stats_df):,} rows)")
+    else:
+        print(f"  ⚠  No hierarchical statistics table generated (insufficient data)")
 
 # ---------------------------------------------------------------------------
 # Main

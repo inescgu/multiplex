@@ -1,0 +1,30 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-4997185
+Running Layer LCC Analysis
+Host: node-c03.lisc
+Start: Sat Jul 11 11:33:28 AM CEST 2026
+================================================================================
+MULTIPLEX LAYER LCC SIGNIFICANCE ANALYSIS
+================================================================================
+Loading multiplex from 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl ...
+  1,648,733 nodes, 40,086,224 edges
+Loading node registry from 03_integrated/integrated_multiplex_output/node_registry.csv ...
+  1,648,733 registry entries
+
+Loaded 408 seed gene symbols
+
+Extracting layers from multiplex...
+Found 179 layers
+
+Preparing analysis tasks...
+Prepared 179 tasks
+
+Analyzing LCC significance in parallel:
+Using 63 workers
+
+
+  global_ppi__full_network
+    nodes: 17,051 | edges: 302,553 | seeds: 372
+
+  hdrg__A-LTMR.TAC3
+    nodes: 6,389 | edges: 58,818 | seeds: 139
+End: Sat Jul 11 11:41:33 AM CEST 2026

@@ -6,6 +6,7 @@ and Auto-Filter Seed Genes.
 import argparse
 import pickle
 import json
+import shutil
 import pandas as pd
 import yaml
 from pathlib import Path
@@ -17,6 +18,10 @@ def main():
     parser.add_argument("--integrated-multiplex", required=True)
     parser.add_argument("--reactome-csv", required=True)
     parser.add_argument("--wdir", required=True)
+    parser.add_argument("--validate-against-ppi", action="store_true",
+                        help="Only keep ligand-receptor and Reactome edges whose gene pair "
+                             "is ALSO an edge in the comprehensive PPI network (--ppi-pkl) — "
+                             "your highest-confidence source of real protein-protein interaction.")
     args = parser.parse_args()
 
     wdir = Path(args.wdir)
@@ -59,6 +64,7 @@ def main():
         G_int = pickle.load(f)
 
     lr_edges = set()
+    lr_edges_dropped_no_ppi = 0
     for u, v, d in G_int.edges(data=True):
         if d.get("edge_type") == "ligand_receptor":
             du = G_int.nodes[u]
@@ -66,11 +72,17 @@ def main():
             gu = str(du.get("gene", "")).strip().upper()
             gv = str(dv.get("gene", "")).strip().upper()
             if gu and gv and gu != gv:
-                lr_edges.add(tuple(sorted([gu, gv])))
+                pair = tuple(sorted([gu, gv]))
+                if args.validate_against_ppi and pair not in ppi_edges:
+                    lr_edges_dropped_no_ppi += 1
+                    continue
+                lr_edges.add(pair)
 
     lr_path = mul_dir / "ligand_receptor_layer.tsv"
     pd.DataFrame(sorted(lr_edges), columns=["g1", "g2"]).to_csv(lr_path, sep="\t", index=False, header=False)
     print(f"✓ Wrote Ligand-Receptor Layer ({len(lr_edges):,} edges)")
+    if args.validate_against_ppi:
+        print(f"  (dropped {lr_edges_dropped_no_ppi:,} LR edges not corroborated by PPI network)")
 
     # ---------------------------------------------------------
     # 3. Process Reactome Layer
@@ -78,16 +90,23 @@ def main():
     print(f"\nLoading Reactome pairs: {args.reactome_csv}")
     df_react = pd.read_csv(args.reactome_csv)
     react_edges = set()
+    react_edges_dropped_no_ppi = 0
     for _, row in df_react.iterrows():
         g1 = str(row.get("symbol1", "")).strip().upper()
         g2 = str(row.get("symbol2", "")).strip().upper()
         if g1 and g2 and g1 != g2 and g1 != "NAN" and g2 != "NAN":
             if g1 in gene_universe and g2 in gene_universe:
-                react_edges.add(tuple(sorted([g1, g2])))
+                pair = tuple(sorted([g1, g2]))
+                if args.validate_against_ppi and pair not in ppi_edges:
+                    react_edges_dropped_no_ppi += 1
+                    continue
+                react_edges.add(pair)
 
     react_path = mul_dir / "reactome_layer.tsv"
     pd.DataFrame(sorted(react_edges), columns=["g1", "g2"]).to_csv(react_path, sep="\t", index=False, header=False)
     print(f"✓ Wrote Reactome Layer ({len(react_edges):,} edges)")
+    if args.validate_against_ppi:
+        print(f"  (dropped {react_edges_dropped_no_ppi:,} Reactome edges not corroborated by PPI network)")
 
     # ---------------------------------------------------------
     # 4. Update configuration

@@ -1,0 +1,71 @@
+================================================================================
+INTER-LAYER EDGE ANALYSIS REPORT (layer = source::cell_type)
+================================================================================
+
+OVERALL SUMMARY
+--------------------------------------------------------------------------------
+  Total inter-layer layer-pairs    : 15931
+  Total inter-layer edges          : 15,336,324
+  Edge types:
+    ligand_receptor           15,336,324 ( 100.0%)
+
+TOP 10 LAYER PAIRS BY VOLUME
+--------------------------------------------------------------------------------
+  global_ppi::full_network            <-> tabula_sapiens::enterocyte of epithelium proper of small intestine
+    PPI:      0  |  Pathway:      0  |  L-R:  3,542  |  Total:    3,542
+  global_ppi::full_network            <-> tabula_sapiens::adventitial cell   
+    PPI:      0  |  Pathway:      0  |  L-R:  3,496  |  Total:    3,496
+  global_ppi::full_network            <-> tabula_sapiens::stromal cell       
+    PPI:      0  |  Pathway:      0  |  L-R:  3,443  |  Total:    3,443
+  global_ppi::full_network            <-> tabula_sapiens::basal cell         
+    PPI:      0  |  Pathway:      0  |  L-R:  3,357  |  Total:    3,357
+  global_ppi::full_network            <-> tabula_sapiens::leukocyte          
+    PPI:      0  |  Pathway:      0  |  L-R:  3,344  |  Total:    3,344
+  global_ppi::full_network            <-> tabula_sapiens::microglial cell    
+    PPI:      0  |  Pathway:      0  |  L-R:  3,279  |  Total:    3,279
+  global_ppi::full_network            <-> tabula_sapiens::fibroblast         
+    PPI:      0  |  Pathway:      0  |  L-R:  3,229  |  Total:    3,229
+  global_ppi::full_network            <-> tabula_sapiens::pericyte           
+    PPI:      0  |  Pathway:      0  |  L-R:  3,167  |  Total:    3,167
+  global_ppi::full_network            <-> tabula_sapiens::salivary gland cell
+    PPI:      0  |  Pathway:      0  |  L-R:  3,163  |  Total:    3,163
+  global_ppi::full_network            <-> tabula_sapiens::mesenchymal stem cell
+    PPI:      0  |  Pathway:      0  |  L-R:  3,160  |  Total:    3,160
+
+TOP 10 PATHWAYS BY INVOLVEMENT
+--------------------------------------------------------------------------------
+
+TOP 10 GENES BY INTER-LAYER INVOLVEMENT
+--------------------------------------------------------------------------------
+   1. GNAI2                                                        (15811 layer pairs)
+   2. CD44                                                         (15811 layer pairs)
+   3. GNAS                                                         (15810 layer pairs)
+   4. ITGB1                                                        (15760 layer pairs)
+   5. ITGAV                                                        (15741 layer pairs)
+   6. APP                                                          (15721 layer pairs)
+   7. NECTIN2                                                      (15654 layer pairs)
+   8. CTNNB1                                                       (15537 layer pairs)
+   9. CTNNA1                                                       (15537 layer pairs)
+  10. IGF1R                                                        (15510 layer pairs)
+
+DENSITY METRICS (Top 5 by Edge Count)
+--------------------------------------------------------------------------------
+  global_ppi::full_network            <-> tabula_sapiens::enterocyte of epithelium proper of small intestine
+    Actual edges:  3,542 / 238,765,153 possible
+    Density:  0.001%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  global_ppi::full_network            <-> tabula_sapiens::adventitial cell   
+    Actual edges:  3,496 / 231,058,101 possible
+    Density:  0.002%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  global_ppi::full_network            <-> tabula_sapiens::stromal cell       
+    Actual edges:  3,443 / 226,437,280 possible
+    Density:  0.002%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  global_ppi::full_network            <-> tabula_sapiens::basal cell         
+    Actual edges:  3,357 / 221,151,470 possible
+    Density:  0.002%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  global_ppi::full_network            <-> tabula_sapiens::leukocyte          
+    Actual edges:  3,344 / 221,253,776 possible
+    Density:  0.002%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+
+================================================================================
+End of report
+================================================================================

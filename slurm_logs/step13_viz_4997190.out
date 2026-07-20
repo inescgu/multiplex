@@ -1,0 +1,6 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c04/tmp/slurm-4997190
+========================================
+Step 13: QUICK VIZ (spring layout)
+========================================
+Expected runtime: 2-5 minutes
+

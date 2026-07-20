@@ -1,0 +1,21 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c04/tmp/slurm-5060769
+Step 14: Analyzing inter-layer edges
+Running on host: node-c04.lisc
+Starting at: Mon Jul 13 09:34:54 AM CEST 2026
+
+================================================================================
+STEP 14 (v3): INTER-LAYER EDGE ANALYSIS
+================================================================================
+
+Loading multiplex from 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl ...
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step14_interlayerfaster.py", line 1032, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step14_interlayerfaster.py", line 933, in main
+    G = load_multiplex(args.multiplex_pkl)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/step14_interlayerfaster.py", line 231, in load_multiplex
+    G = pickle.load(f)
+        ^^^^^^^^^^^^^^
+EOFError: Ran out of input
+Finished at: Mon Jul 13 09:35:32 AM CEST 2026

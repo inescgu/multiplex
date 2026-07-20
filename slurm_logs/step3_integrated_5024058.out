@@ -1,0 +1,4 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-5024058
+Step 3: Building integrated multiplex with inter-layer edges
+Running on host: node-c01.lisc
+Starting at: Sun Jul 12 11:33:18 AM CEST 2026

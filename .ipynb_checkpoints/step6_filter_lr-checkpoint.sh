@@ -2,7 +2,7 @@
 #SBATCH --job-name=step6_extract
 #SBATCH --output=slurm_logs/step6_extract_%j.out
 #SBATCH --error=slurm_logs/step6_extract_%j.err
-#SBATCH --time=2:00:00
+#SBATCH --time=12:00:00
 #SBATCH --mem=30G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -20,5 +20,7 @@ python step6_filter_lr_pairs.py \
     --ppi-pkl 00_inputs/ppi_network.pkl \
     --integrated-multiplex 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
     --reactome-csv pathway_prep/reactome_interactions_with_pathways_v2.csv \
-    --wdir 04_multixrank_prep/multixrank_input_consolidated
+    --wdir 04_multixrank_prep/multixrank_input_consolidated \
+    --validate-against-ppi
+    
 echo "Finished at: $(date)"

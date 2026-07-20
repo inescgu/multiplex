@@ -2,7 +2,7 @@
 #SBATCH --job-name=step11_spectral
 #SBATCH --output=slurm_logs/step11_spectral_%j.out
 #SBATCH --error=slurm_logs/step11_spectral_%j.err
-#SBATCH --time=36:00:00
+#SBATCH --time=72:00:00
 #SBATCH --mem=40G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1

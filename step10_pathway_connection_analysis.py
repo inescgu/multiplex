@@ -611,14 +611,62 @@ def plot_network_group_with_labels(conn_df: pd.DataFrame, out: Path, edge_type_f
 # ---------------------------------------------------------------------------
 # Save Tables
 # ---------------------------------------------------------------------------
-def save_tables(ct_pair_df: pd.DataFrame, group_pair_df: pd.DataFrame, pw_group_matrix: pd.DataFrame, top_pw_df: pd.DataFrame, conn_df: pd.DataFrame, out: Path):
-    ct_pair_df.to_csv(out / "table_celltype_pair_labels.csv", index=False)
-    group_pair_df.to_csv(out / "table_group_pair_labels.csv", index=False)
-    pw_group_matrix.to_csv(out / "table_label_group_matrix.csv")
-    top_pw_df.to_csv(out / "table_top_labels_per_group_pair.csv", index=False)
-    
-    conn_df.groupby(["label", "edge_type"]).agg(n_edges=("gene_a", "count")).reset_index().sort_values("n_edges", ascending=False).to_csv(out / "table_label_summary.csv", index=False)
+def aggregate_by_category(metrics_df: pd.DataFrame, category_col: str) -> pd.DataFrame:
+    """Aggregate metrics by category, skipping if category column doesn't exist."""
+    if category_col not in metrics_df.columns:
+        print(f"  ⚠  Column '{category_col}' not found in layer metrics (skipping)")
+        return pd.DataFrame()
 
+    grouped = metrics_df.groupby(category_col).agg({
+        "n_nodes": "sum",
+        "n_edges": "sum",
+        "density": "mean",
+        "clustering": "mean",
+        "lcc_frac": "mean",
+        "mean_degree": "mean",
+        "max_degree": "mean",
+        "pct_connected": "mean",
+    }).reset_index()
+    grouped.columns = [category_col if c == "index" else c for c in grouped.columns]
+    grouped.insert(1, "n_layers", metrics_df.groupby(category_col).size().values)
+    return grouped
+
+def save_tables(metrics_df, major_agg_df, minor_agg_df, eigen_df, out):
+    """Save output tables with proper error handling."""
+    out.mkdir(parents=True, exist_ok=True)
+
+    # Save main metrics
+    metrics_df.to_csv(out / "01_table_layer_metrics.csv", index=False)
+
+    # Save category aggregations only if they have data
+    if not major_agg_df.empty:
+        major_agg_df.to_csv(out / "02_table_major_category_summary.csv", index=False)
+    else:
+        pd.DataFrame().to_csv(out / "02_table_major_category_summary.csv")
+
+    if not minor_agg_df.empty:
+        minor_agg_df.to_csv(out / "03_table_minor_category_summary.csv", index=False)
+    else:
+        pd.DataFrame().to_csv(out / "03_table_minor_category_summary.csv")
+
+    # Create per-layer stats (this is what's failing)
+    stats_rows = []
+    for _, row in metrics_df.iterrows():
+        stats_rows.append({
+            "layer_name": row.get("layer_name", "unknown"),
+            "n_nodes": row.get("n_nodes", 0),
+            "n_edges": row.get("n_edges", 0),
+            "density": row.get("density", 0),
+        })
+
+    if stats_rows:
+        stats_df = pd.DataFrame(stats_rows)
+        stats_df.to_csv(out / "layer_stats_detail.csv", index=False)
+
+    # Save eigen genes
+    eigen_df.to_csv(out / "04_table_top_eigen_genes.csv", index=False)
+    print(f"✅ Saved tables to {out}")
+    
 def save_celltype_group_tables(conn_df: pd.DataFrame, celltype_gene_count: dict, out: Path):
     conn_df_copy = conn_df.copy()
     conn_df_copy["group_a"] = [CELLTYPE_TO_GROUP.get(x, "Other") for x in conn_df_copy["celltype_a"]]

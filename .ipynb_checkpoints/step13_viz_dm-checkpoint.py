@@ -2,6 +2,7 @@
 """
 Multiplex-aware disease module visualization.
 Shows: (1) full multiplex, (2) seeds, (3) seeds+neighbors, (4) final module
+Iteratively developed version: Spectral analysis optional.
 """
 import networkx as nx
 import pandas as pd
@@ -59,18 +60,23 @@ def get_dominant_layer(G, node):
     return max(layer_degree, key=layer_degree.get) if layer_degree else None
 
 # ─────────────────────────────────────────────────────────────────────
-# LOAD DATA (UPDATED PATHS)
+# LOAD DATA (CORRECTED PATHS & FLEXIBLE SPECTRAL)
 # ─────────────────────────────────────────────────────────────────────
 
-def load_data(graph_pkl, dm_csv, seed_csv, out_dir):
-    """Load multiplex graph, disease module, seeds."""
+def load_data(graph_pkl, dm_csv, seed_csv, spectral_pkl=None, out_dir=None):
+    """
+    Load multiplex graph, disease module, seeds.
+    Spectral data is OPTIONAL (can pass None or nonexistent path).
+    """
     print("Loading data...")
     
     # Full multiplex
+    print(f"  Loading multiplex from: {graph_pkl}")
     with open(graph_pkl, 'rb') as f:
         G_full = pickle.load(f)
     
     # Disease module genes
+    print(f"  Loading disease module from: {dm_csv}")
     dm_df = pd.read_csv(dm_csv)
     disease_module = set(dm_df['gene'].str.upper())
     seed_genes_in_net = set(dm_df[dm_df['is_seed']]['gene'].str.upper())
@@ -79,33 +85,63 @@ def load_data(graph_pkl, dm_csv, seed_csv, out_dir):
     # All other genes
     other_genes = set(G_full.nodes()) - disease_module
     
-    # Special nodes (from prioritization analysis)
-    # These would come from spectral clustering or MP analysis
-    fiedler_set = set()  # TODO: load from spectral analysis
-    hub_set = set()      # TODO: load from spectral analysis
+    # Spectral data (optional)
+    fiedler_set = set()
+    hub_set = set()
+    spectral_note = "not loaded (optional)"
+    
+    if spectral_pkl and Path(spectral_pkl).exists():
+        try:
+            print(f"  Loading spectral data from: {spectral_pkl}")
+            with open(spectral_pkl, 'rb') as f:
+                spectral_data = pickle.load(f)
+            fiedler_set = set(spectral_data.get('fiedler_nodes', []))
+            hub_set = set(spectral_data.get('hub_nodes', []))
+            spectral_note = f"loaded: {len(fiedler_set)} fiedler, {len(hub_set)} hubs"
+        except Exception as e:
+            print(f"  ⚠ Could not load spectral data: {e}")
+            spectral_note = f"failed to load ({str(e)[:50]})"
     
     print(f"  Full multiplex: {G_full.number_of_nodes():,} nodes, {G_full.number_of_edges():,} edges")
     print(f"  Disease module: {len(disease_module):,} genes ({len(seed_genes_in_net):,} seeds)")
-    print(f"  Layers: {get_layers(G_full)}")
+    print(f"  Spectral analysis: {spectral_note}")
+    print(f"  Layers: {get_layers(G_full)}\n")
     
     return G_full, disease_module, seed_genes_in_net, neighbor_genes, other_genes, fiedler_set, hub_set
 
 # ─────────────────────────────────────────────────────────────────────
-# LAYOUT (UMAP)
+# LAYOUT (UMAP WITH CACHING)
 # ─────────────────────────────────────────────────────────────────────
 
-def compute_layout(G, layers, cache_path=None):
-    """Compute UMAP layout, with caching."""
+def compute_layout(G, layers, cache_path=None, use_spring=False):
+    """
+    Compute layout with caching.
+    - use_spring=False: tries UMAP (slower but prettier)
+    - use_spring=True: uses spring layout (faster, for quick iterations)
+    """
     if cache_path and cache_path.exists():
-        print(f"Loading cached layout...")
+        print(f"Loading cached layout from {cache_path}...")
         return pickle.load(open(cache_path, 'rb'))
     
-    print("\nComputing UMAP layout...")
+    if use_spring or G.number_of_nodes() > 5000:
+        print(f"Graph has {G.number_of_nodes():,} nodes → using spring layout (faster)")
+        print("  Computing spring layout (Fruchterman-Reingold)...")
+        pos = nx.spring_layout(G, k=0.5, iterations=20, seed=42)
+        # Scale to [0, 100]
+        for node in pos:
+            pos[node] = tuple(x * 100 for x in pos[node])
+        if cache_path:
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            pickle.dump(pos, open(cache_path, 'wb'))
+            print(f"  Cached layout to {cache_path}")
+        return pos
+    
+    print("Computing UMAP layout (this may take a few minutes)...")
     try:
         import umap
     except ImportError:
-        print("  WARNING: umap not installed, using spring layout instead")
-        return nx.spring_layout(G, k=0.5, iterations=50, seed=42)
+        print("  ⚠ umap not installed, falling back to spring layout")
+        return nx.spring_layout(G, k=0.5, iterations=20, seed=42)
     
     nodes = list(G.nodes())
     
@@ -138,7 +174,9 @@ def compute_layout(G, layers, cache_path=None):
     pos = {node: embedding[i] for i, node in enumerate(nodes)}
     
     if cache_path:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
         pickle.dump(pos, open(cache_path, 'wb'))
+        print(f"  Cached layout to {cache_path}")
     
     return pos
 
@@ -232,11 +270,16 @@ def draw_panel(ax, G, pos, layers, panel_type, disease_module,
 # ─────────────────────────────────────────────────────────────────────
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--graph",   required=True, help="integrated_multiplex.pkl")
-    ap.add_argument("--dm-csv",  required=True, help="disease_module.csv")
-    ap.add_argument("--seed-csv", required=True, help="seed_genes.csv")
-    ap.add_argument("--out-dir", required=True)
+    ap = argparse.ArgumentParser(
+        description="Visualize disease module across 4 panels with optional spectral highlights"
+    )
+    ap.add_argument("--graph",      required=True, help="integrated multiplex .pkl")
+    ap.add_argument("--dm-csv",     required=True, help="disease_module.csv")
+    ap.add_argument("--seed-csv",   required=True, help="seed_genes.csv")
+    ap.add_argument("--spectral",   default=None,  help="spectral_analysis.pkl (optional)")
+    ap.add_argument("--out-dir",    required=True)
+    ap.add_argument("--use-umap",   action="store_true", 
+                   help="Use UMAP layout (slow but prettier). Default: spring layout (fast)")
     args = ap.parse_args()
     
     out = Path(args.out_dir)
@@ -244,10 +287,12 @@ def main():
     
     # Load
     G, disease_module, seeds, neighbors, others, fiedler, hubs = \
-        load_data(args.graph, args.dm_csv, args.seed_csv, out)
+        load_data(args.graph, args.dm_csv, args.seed_csv, args.spectral, out)
     
     layers = get_layers(G)
-    pos = compute_layout(G, layers, out / 'layout.pkl')
+    use_spring = not args.use_umap
+    print(f"Layout method: {'spring (fast)' if use_spring else 'UMAP (slower, prettier)'}\n")
+    pos = compute_layout(G, layers, out / 'layout.pkl', use_spring=use_spring)
     
     # Draw 4 panels
     fig, axes = plt.subplots(2, 2, figsize=(20, 20))
@@ -270,14 +315,8 @@ def main():
     
     plt.tight_layout()
     plt.savefig(out / 'disease_module_visualization.png', dpi=150, bbox_inches='tight')
-    print(f"Saved visualization to {out / 'disease_module_visualization.png'}")
+    print(f"✓ Saved visualization to {out / 'disease_module_visualization.png'}")
     plt.close()
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--graph",   required=True)
-    ap.add_argument("--dm-csv",  required=True)
-    ap.add_argument("--seed-csv", required=True)
-    ap.add_argument("--out-dir", required=True)
-    args = ap.parse_args()
     main()

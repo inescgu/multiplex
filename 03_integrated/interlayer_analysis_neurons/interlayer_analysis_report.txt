@@ -1,0 +1,103 @@
+================================================================================
+INTER-LAYER EDGE ANALYSIS REPORT (layer = source::cell_type)
+================================================================================
+
+OVERALL SUMMARY
+--------------------------------------------------------------------------------
+  Total inter-layer layer-pairs    : 231
+  Total inter-layer edges          : 216,134
+  Edge types:
+    pathway                      182,599 (  84.5%)
+    ligand_receptor               33,535 (  15.5%)
+
+TOP 10 LAYER PAIRS BY VOLUME
+--------------------------------------------------------------------------------
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-Propr.PCDH8                
+    PPI:      0  |  Pathway:  1,770  |  L-R:    287  |  Total:    2,057
+  hdrg::A-LTMR.TAC3                   <-> hdrg::Ab-LTMR.LGI2                 
+    PPI:      0  |  Pathway:  1,765  |  L-R:    272  |  Total:    2,037
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-Propr.EPHA3                
+    PPI:      0  |  Pathway:  1,689  |  L-R:    287  |  Total:    1,976
+  hdrg::A-LTMR.TAC3                   <-> hdrg::Ab-LTMR.ETV1                 
+    PPI:      0  |  Pathway:  1,556  |  L-R:    264  |  Total:    1,820
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-PEP.KIT                    
+    PPI:      0  |  Pathway:  1,553  |  L-R:    238  |  Total:    1,791
+  hdrg::A-Propr.EPHA3                 <-> hdrg::A-Propr.PCDH8                
+    PPI:      0  |  Pathway:  1,523  |  L-R:    266  |  Total:    1,789
+  hdrg::A-Propr.PCDH8                 <-> hdrg::Ab-LTMR.LGI2                 
+    PPI:      0  |  Pathway:  1,483  |  L-R:    244  |  Total:    1,727
+  hdrg::A-LTMR.TAC3                   <-> hdrg::C-Thermo.RXFP1               
+    PPI:      0  |  Pathway:  1,423  |  L-R:    274  |  Total:    1,697
+  hdrg::A-Propr.EPHA3                 <-> hdrg::Ab-LTMR.LGI2                 
+    PPI:      0  |  Pathway:  1,445  |  L-R:    236  |  Total:    1,681
+  hdrg::A-LTMR.TAC3                   <-> hdrg::C-PEP.ADORA2B                
+    PPI:      0  |  Pathway:  1,441  |  L-R:    240  |  Total:    1,681
+
+FIBER-TYPE LEVEL BREAKDOWN (A-fiber / C-fiber / Non-classified)
+--------------------------------------------------------------------------------
+  A-fiber              <-> C-fiber               total:   99,124   (PPI 0 | Pathway 83,824 | L-R 15,300)
+  A-fiber              <-> A-fiber               total:   71,573   (PPI 0 | Pathway 60,814 | L-R 10,759)
+  C-fiber              <-> C-fiber               total:   28,400   (PPI 0 | Pathway 23,982 | L-R 4,418)
+  A-fiber              <-> Non-classified        total:   10,408   (PPI 0 | Pathway 8,591 | L-R 1,817)
+  C-fiber              <-> Non-classified        total:    6,629   (PPI 0 | Pathway 5,388 | L-R 1,241)
+
+TOP 10 SUBCATEGORY PAIRS BY VOLUME
+--------------------------------------------------------------------------------
+  A-beta LTMR            <-> Proprioceptors          total:   15,387
+  A-beta LTMR            <-> A-peptidergic           total:   13,036
+  A-beta LTMR            <-> C-peptidergic           total:   11,549
+  A-peptidergic          <-> Proprioceptors          total:   11,244
+  C-peptidergic          <-> Proprioceptors          total:   10,040
+  A-peptidergic          <-> C-peptidergic           total:    8,739
+  A-beta LTMR            <-> C-thermosensitive       total:    7,533
+  A-beta LTMR            <-> A-beta LTMR             total:    6,725
+  C-thermosensitive      <-> Proprioceptors          total:    6,633
+  A-LTMR                 <-> A-beta LTMR             total:    6,430
+
+TOP 10 PATHWAYS BY INVOLVEMENT
+--------------------------------------------------------------------------------
+   1. Extracellular matrix organization|Formation of the dystrophin-glycoprotein complex (DGC)|Non-integrin membrane-ECM interactions (Reactome) (231 layer pairs)
+   2. Cell-Cell communication|Nephrin family interactions (Reactome) (231 layer pairs)
+   3. Muscle contraction|Smooth Muscle Contraction (Reactome)      (231 layer pairs)
+   4. Degradation of the extracellular matrix|Extracellular matrix organization (Reactome) (231 layer pairs)
+   5. Degradation of the extracellular matrix|Extracellular matrix organization|Signal Transduction (Reactome) (231 layer pairs)
+   6. Cytokine Signaling in Immune system|IL-6-type cytokine receptor ligand interactions|Immune System|Interleukin-6 family signaling|Signaling by Interleukins (Reactome) (231 layer pairs)
+   7. Axonal growth inhibition (RHOA activation)|Death Receptor Signaling|Signal Transduction|p75 NTR receptor-mediated signalling|p75NTR regulates axonogenesis (Reactome) (231 layer pairs)
+   8. Neurexins and neuroligins|Neuronal System|Protein-protein interactions at synapses (Reactome) (231 layer pairs)
+   9. Cellular responses to mechanical stimuli|Cellular responses to stimuli|Extracellular matrix organization|Integrin cell surface interactions|Mechanical load activates signaling by PIEZO1 and integrins in osteocytes|Signal Transduction|Signaling by Receptor Tyrosine Kinases (Reactome) (231 layer pairs)
+  10. Axon guidance|Developmental Biology|MAPK family signaling cascades|MAPK1/MAPK3 signaling|NCAM signaling for neurite out-growth|NCAM1 interactions|Nervous system development|RAF/MAP kinase cascade|RET signaling|Signal Transduction (Reactome) (231 layer pairs)
+
+TOP 10 GENES BY INTER-LAYER INVOLVEMENT
+--------------------------------------------------------------------------------
+   1. SGCD                                                         (231 layer pairs)
+   2. ANXA1                                                        (231 layer pairs)
+   3. SPP1                                                         (231 layer pairs)
+   4. GFRA2                                                        (231 layer pairs)
+   5. NTRK2                                                        (231 layer pairs)
+   6. ADCYAP1                                                      (231 layer pairs)
+   7. RBP4                                                         (231 layer pairs)
+   8. AGT                                                          (231 layer pairs)
+   9. NMB                                                          (231 layer pairs)
+  10. IL31RA                                                       (230 layer pairs)
+
+DENSITY METRICS (Top 5 by Edge Count)
+--------------------------------------------------------------------------------
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-Propr.PCDH8                
+    Actual edges:  2,057 / 24,821,265 possible
+    Density:  0.008%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  hdrg::A-LTMR.TAC3                   <-> hdrg::Ab-LTMR.LGI2                 
+    Actual edges:  2,037 / 22,131,496 possible
+    Density:  0.009%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-Propr.EPHA3                
+    Actual edges:  1,976 / 21,275,370 possible
+    Density:  0.009%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  hdrg::A-LTMR.TAC3                   <-> hdrg::Ab-LTMR.ETV1                 
+    Actual edges:  1,820 / 21,658,710 possible
+    Density:  0.008%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+  hdrg::A-LTMR.TAC3                   <-> hdrg::A-PEP.KIT                    
+    Actual edges:  1,791 / 24,597,650 possible
+    Density:  0.007%   Pathway density:  0.000% (of 0 pathway-annotated pairs)
+
+================================================================================
+End of report
+================================================================================

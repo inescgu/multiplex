@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 1398, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 1379, in main
+    plot_top_eigen_per_category(eigen_df, out)
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 965, in plot_top_eigen_per_category
+    n_rows = int(np.ceil(len(categories) / n_cols))
+                         ~~~~~~~~~~~~~~~~^~~~~~~~
+ZeroDivisionError: division by zero

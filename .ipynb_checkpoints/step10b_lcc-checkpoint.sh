@@ -2,10 +2,10 @@
 #SBATCH --job-name=step10b_lcc
 #SBATCH --output=slurm_logs/step10b_lcc_%j.out
 #SBATCH --error=slurm_logs/step10b_lcc_%j.err
-#SBATCH --time=02:00:00
-#SBATCH --mem=30G
+#SBATCH --time=36:00:00
+#SBATCH --mem=100G
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
 echo "Running Layer LCC Analysis"

@@ -1,0 +1,12 @@
+Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Python/3.14.4-weekly"
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
+
+
+
+Layers analyzed:   0%|          | 0/179 [00:00<?, ?it/s]/var/spool/slurm/slurmd/job5040774/slurm_script: line 24: 1512628 Killed                  python step10b_layer_lcc_analysis.py --multiplex-pkl 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl --node-registry 03_integrated/integrated_multiplex_output/node_registry.csv --seed-genes 00_inputs/seed_genes.csv --output-dir 10b_layer_lcc_analysis --plots-dir 10b_layer_lcc_analysis/plots --per-component
+[2026-07-12T18:32:05.864] error: Detected 1 oom_kill event in StepId=5040774.batch. Some of the step tasks have been OOM Killed.

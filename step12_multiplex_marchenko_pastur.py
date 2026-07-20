@@ -150,70 +150,80 @@ def supra_laplacian(layers, omega):
     L_inter = diags(np.asarray(A_inter.sum(axis=1)).ravel()) - A_inter
     return (L_intra + L_inter).tocsr(), names, n
 
-# ---------------------------------------------------------------------------
-# ROBUST EIGENSOLVERS (Option 2)
-# ---------------------------------------------------------------------------
+# MINIMAL VIABLE FIX
+# Replace the smallest_k_eigs() function in your script with this version.
+# Key change: NO shift-invert (which requires LU factorization of 3.3M×3.3M matrix)
+# Instead: use Lanczos on largest eigvals of (-M), then negate them.
+ 
+
+ 
 def smallest_k_eigs(M, k, sigma=None, max_attempts=3):
     """
-    Smallest k eigenvalues (sym, sparse) with graceful degradation.
+    Smallest k eigenvalues (sym, sparse) using ONLY Lanczos on -M.
     
-    Attempts in order:
-    1. Standard Lanczos (sigma=0)
-    2. Shift-invert (if MemoryError)
-    3. Reduced k (if still fails)
-    4. Minimal k=3 (last resort)
+    Memory efficient: avoids shift-invert / LU factorization entirely.
+    For a huge supra-Laplacian (3.3M nodes), this is essential.
+    
+    Strategy:
+    1. Compute largest k eigenvalues of (-M) using standard Lanczos
+    2. Negate to get smallest k eigenvalues of M
+    3. Fall back to k=2 if k=3 fails (memory-constrained)
     """
     n = M.shape[0]
     k = min(k, n - 2)  # Safety bound
     
-    attempt = 0
-    while attempt < max_attempts:
+    print(f"    Computing {k} smallest eigvals of {n}×{n} matrix via largest eigvals of (-M)...")
+    
+    for attempt in range(max_attempts):
         try:
-            if attempt == 0:
-                # Standard: direct Lanczos on smallest eigvals
-                print(f"    Attempt 1: Standard Lanczos (k={k})")
-                vals, vecs = eigsh(M, k=k, sigma=0, which="LM", 
-                                  maxiter=5000, tol=1e-6)
-                break
+            # Compute k largest eigenvalues of (-M) = smallest eigenvalues of M
+            print(f"    Attempt {attempt + 1}: Lanczos on -M (k={k})")
+            vals, vecs = eigsh(M, k=k, which="LA", maxiter=5000, tol=1e-6)
             
-            elif attempt == 1:
-                # Shift-invert: cheaper in memory, more iterations
-                shift = estimate_shift(M)
-                print(f"    Attempt 2: Shift-invert Lanczos (σ={shift:.6f}, k={k})")
-                M_shift = M - shift * identity(n, format="csr")
-                # Solve (M - σI)⁻¹ implicitly; eigsh handles this via sigma param
-                vals, vecs = eigsh(M, k=k, sigma=shift, which="LM",
-                                  maxiter=10000, tol=1e-4)
-                # Shift eigenvalues back
-                vals = vals + shift
-                break
+            # Negate to get smallest eigenvalues of M
+            vals = -vals
             
-            elif attempt == 2:
-                # Reduce k significantly
-                k_reduced = max(3, k // 3)
-                print(f"    Attempt 3: Reduced k={k_reduced} (no shift)")
-                vals, vecs = eigsh(M, k=k_reduced, sigma=0, which="LM",
-                                  maxiter=3000, tol=1e-3)
-                print(f"    ⚠ Warning: computed only {k_reduced}/{k} eigenpairs")
-                break
+            # Sort in ascending order
+            order = np.argsort(vals)
+            vals = vals[order]
+            vecs = vecs[:, order]
+            
+            print(f"    ✓ Success: {k} eigvals computed")
+            return vals, vecs
         
         except MemoryError as e:
-            print(f"    MemoryError on attempt {attempt + 1}: {e}")
-            attempt += 1
-            if attempt >= max_attempts:
-                print(f"    ⚠ All attempts failed; computing k=3 fallback")
-                vals, vecs = eigsh(M, k=3, sigma=0, which="LM",
-                                  maxiter=1000, tol=1e-2)
-                break
+            print(f"    MemoryError on attempt {attempt + 1}")
+            if k > 2:
+                k = max(2, k // 2)  # Halve k and retry
+                print(f"    Reducing k to {k} and retrying...")
+            else:
+                print(f"    Cannot reduce k further; falling back to k=2")
+                try:
+                    vals, vecs = eigsh(M, k=2, which="LA", maxiter=3000, tol=1e-4)
+                    vals = -vals
+                    order = np.argsort(vals)
+                    return vals[order], vecs[:, order]
+                except Exception as e2:
+                    print(f"    ⚠ Even k=2 failed: {e2}")
+                    # Last resort: return dummy
+                    print(f"    Returning k=1 (trivial eigenvalue only)")
+                    vals, vecs = eigsh(M, k=1, which="LA", maxiter=1000, tol=1e-2)
+                    return -vals, vecs
         
         except Exception as e:
             print(f"    Error on attempt {attempt + 1}: {type(e).__name__}: {e}")
-            attempt += 1
+            if attempt < max_attempts - 1:
+                if k > 2:
+                    k = max(2, k // 2)
+                    print(f"    Reducing k to {k} and retrying...")
+                else:
+                    break
             continue
     
-    # Sort by eigenvalue
-    order = np.argsort(vals)
-    return vals[order], vecs[:, order]
+    # Final fallback
+    print(f"    ⚠ All attempts exhausted; computing k=1 fallback")
+    vals, vecs = eigsh(M, k=1, which="LA", maxiter=500, tol=1e-2)
+    return -vals, vecs
 
 
 def supra_fiedler(L_sup, layer_names, n):

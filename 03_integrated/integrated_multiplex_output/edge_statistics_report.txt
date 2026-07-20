@@ -185,39 +185,70 @@ EDGE STATISTICS REPORT
 
 --- INTRA vs INTER LAYER BREAKDOWN ---
   ppi                  intra=24,749,900  inter=         0  total=24,749,900
-  pathway              intra=         0  inter=         0  total=         0
-  ligand_receptor      intra=13,559,129  inter= 1,777,195  total=15,336,324
+  pathway              intra=         0  inter= 7,593,676  total= 7,593,676
+  ligand_receptor      intra=13,559,129  inter= 1,410,461  total=14,969,590
 
 --- EDGES BY SOURCE PAIR AND TYPE ---
   global_ppi <-> global_ppi                 ppi=302,553
-  global_ppi <-> hdrg                       ligand_receptor=18,216
-  global_ppi <-> tabula_sapiens             ligand_receptor=346,368
+  global_ppi <-> hdrg                       pathway=71,390  ligand_receptor=14,237
+  global_ppi <-> tabula_sapiens             pathway=1,430,124  ligand_receptor=275,855
   hdrg <-> hdrg                             ppi=255,276  ligand_receptor=42,394
-  hdrg <-> tabula_sapiens                   ligand_receptor=1,412,611
+  hdrg <-> tabula_sapiens                   pathway=6,092,162  ligand_receptor=1,120,369
   tabula_sapiens <-> tabula_sapiens         ppi=24,192,071  ligand_receptor=13,516,735
 
 --- PATHWAY EDGES BY SOURCE PAIR (all DBs) ---
+  hdrg <-> tabula_sapiens                   6,092,162 edges
+  global_ppi <-> tabula_sapiens             1,430,124 edges
+  global_ppi <-> hdrg                          71,390 edges
 
 --- PATHWAY EDGES BY DATABASE AND SOURCE PAIR ---
+  [Reactome  ] hdrg <-> tabula_sapiens              6,092,162 edges
+  [Reactome  ] global_ppi <-> tabula_sapiens        1,430,124 edges
+  [Reactome  ] global_ppi <-> hdrg                     71,390 edges
 
 --- PATHWAY EDGES ANNOTATED ONTO EXISTING EDGES ---
+  hdrg <-> tabula_sapiens                   3,933,231
+  global_ppi <-> tabula_sapiens               759,149
+  global_ppi <-> hdrg                          34,923
 
 --- PATHWAY EDGES SKIPPED ---
-  same layer                              0  (same layer (intra-layer pathway edges disabled))
+  tabula_sapiens <-> tabula_sapiens 104,659,443  (same source (cross_source_only=True))
+  hdrg <-> hdrg                     321,936  (same source (cross_source_only=True))
+  same layer                        546,562  (same layer (intra-layer pathway edges disabled))
 
 --- EXCLUDED PATHWAYS (size filter) ---
   Total excluded: 0
   → Full list saved to stats_excluded_pathways.csv
 
 --- TOP 20 PATHWAYS BY EDGES CONTRIBUTED ---
+  [Reactome  ] Adaptive Immune System|Immune System|Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell  409,515 edges
+  [Reactome  ] Degradation of the extracellular matrix|Extracellular matrix organization  317,340 edges
+  [Reactome  ] Extracellular matrix organization|Formation of the dystrophin-glycoprotein complex (DGC)|Non-integrin membrane-ECM interactions  316,802 edges
+  [Reactome  ] Complement cascade|Immune System|Innate Immune System|Regulation of Complement cascade  180,107 edges
+  [Reactome  ] Axon guidance|Developmental Biology|Nervous system development|Other semaphorin interactions|Semaphorin interactions  145,124 edges
+  [Reactome  ] Neurexins and neuroligins|Neuronal System|Protein-protein interactions at synapses  123,409 edges
+  [Reactome  ] Adaptive Immune System|Immune System|MHC class II antigen presentation  101,419 edges
+  [Reactome  ] Cell-Cell communication|Nephrin family interactions  100,593 edges
+  [Reactome  ] ECM proteoglycans|Extracellular matrix organization   98,324 edges
+  [Reactome  ] Signal Transduction|Signaling by Receptor Tyrosine Kinases|Signaling by VEGF|VEGFA-VEGFR2 Pathway   79,753 edges
+  [Reactome  ] Axon guidance|Developmental Biology|Nervous system development|Signaling by ROBO receptors   79,559 edges
+  [Reactome  ] Axon guidance|Developmental Biology|EPH-Ephrin signaling|EPHB-mediated forward signaling|Nervous system development   73,884 edges
+  [Reactome  ] Miscellaneous transport and binding events|Transport of small molecules   73,378 edges
+  [Reactome  ] Axon guidance|Developmental Biology|L1CAM interactions|Nervous system development   72,188 edges
+  [Reactome  ] Axon guidance|Developmental Biology|Interaction between L1 and Ankyrins|L1CAM interactions|Nervous system development   68,525 edges
+  [Reactome  ] Cell surface interactions at the vascular wall|Hemostasis   62,806 edges
+  [Reactome  ] Axon guidance|CRMPs in Sema3A signaling|Developmental Biology|Nervous system development|SEMA3A-Plexin repulsion signaling by inhibiting Integrin adhesion|Sema3A PAK dependent Axon repulsion|Semaphorin interactions   59,816 edges
+  [Reactome  ] Degradation of the extracellular matrix|Extracellular matrix organization|Signal Transduction   58,328 edges
+  [Reactome  ] Class A/1 (Rhodopsin-like receptors)|G alpha (q) signalling events|GPCR downstream signalling|GPCR ligand binding|Peptide ligand-binding receptors|Signal Transduction|Signaling by GPCR   56,238 edges
+  [Reactome  ] Signal Transduction|Signaling by BMP|Signaling by TGFB family members   55,332 edges
   → Full list saved to stats_pathway_edges_by_pathway.csv
 
 --- LR EDGES BY SOURCE PAIR ---
   tabula_sapiens <-> tabula_sapiens        13,516,735 edges
-  hdrg <-> tabula_sapiens                   1,412,611 edges
-  global_ppi <-> tabula_sapiens               346,368 edges
+  hdrg <-> tabula_sapiens                   1,120,369 edges
+  global_ppi <-> tabula_sapiens               275,855 edges
   hdrg <-> hdrg                                42,394 edges
-  global_ppi <-> hdrg                          18,216 edges
+  global_ppi <-> hdrg                          14,237 edges
   LR edges skipped (same layer): 99,910
 
 --- LR GENES ABSENT FROM GRAPH ---

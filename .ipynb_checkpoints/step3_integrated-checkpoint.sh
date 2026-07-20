@@ -2,7 +2,7 @@
 #SBATCH --job-name=step3_integrated
 #SBATCH --output=slurm_logs/step3_integrated_%j.out
 #SBATCH --error=slurm_logs/step3_integrated_%j.err
-#SBATCH --time=16:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=80G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -23,7 +23,6 @@ python step3_build_integrated_multiplex.py \
     --reactome-csv pathway_prep/reactome_interactions_with_pathways_v2.csv \
     --lr-csv pathway_prep/lr_pairs_with_pathways.csv \
     --base-ppi 00_inputs/ppi_network.pkl \
-    --output-dir 03_integrated/integrated_multiplex_output \
-    --cross-source-only
+    --output-dir 03_integrated/integrated_multiplex_output
 
 echo "Finished at: $(date)"

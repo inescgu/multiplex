@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 1303, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 1276, in main
+    save_tables(metrics_df, major_agg_df, minor_agg_df, eigen_df, out)
+  File "/lisc/home/user/gerardursin/multiplex/step10_layer_stats.py", line 1196, in save_tables
+    stats_df = pd.DataFrame(stats_rows).sort_values(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/frame.py", line 7194, in sort_values
+    keys = [self._get_label_or_level_values(x, axis=axis) for x in by]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/generic.py", line 1914, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'major_category'

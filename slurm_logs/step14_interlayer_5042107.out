@@ -1,0 +1,5 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-5042107
+Step 14: Analyzing inter-layer edges
+Running on host: node-c05.lisc
+Starting at: Sun Jul 12 07:21:46 PM CEST 2026
+Finished at: Sun Jul 12 07:44:59 PM CEST 2026
