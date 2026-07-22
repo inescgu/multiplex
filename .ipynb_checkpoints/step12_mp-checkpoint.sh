@@ -19,8 +19,8 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 mkdir -p 08_marchenko_pastur
 
 python step12_multiplex_marchenko_pastur.py \
-    --graph 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
-    --registry 03_integrated/integrated_multiplex_output/node_registry.csv \
+    --graph 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl \
+    --registry 03_integrated/integrated_multiplex_output_LR/node_registry.csv \
     --out-dir 08_marchenko_pastur \
     --sample-p 0.4 \
     --omega 1.0 \

@@ -228,10 +228,22 @@ def merge_layers(
 
     existing_layers: list[str] = cfg["multiplex"]["gene_multiplex"]["layers"]
 
-    # stem → absolute path
-    layer_file_map: dict[str, Path] = {
-        Path(p).stem: wdir / p for p in existing_layers
-    }
+    # stem → absolute path (only for files that still exist on disk)
+    layer_file_map: dict[str, Path] = {}
+    missing_on_disk: list[str] = []
+    for p in existing_layers:
+        stem = Path(p).stem
+        full_path = wdir / p
+        if full_path.exists():
+            layer_file_map[stem] = full_path
+        else:
+            missing_on_disk.append(stem)
+
+    if missing_on_disk:
+        print(
+            f"\n⚠  {len(missing_on_disk)} layer(s) listed in config.yml but "
+            f"missing on disk (skipped): {missing_on_disk}"
+        )
 
     print(f"\nInput layers : {len(existing_layers)}")
     print(f"CSV-allowed  : {len(allowed_stems)} cell-type stems")
@@ -379,8 +391,8 @@ def merge_layers(
 DEFAULT_EXTRA_KEEP = [
     "ppi_layer",
     "ligand_receptor_layer",
-    "pathway_layer",
-    "reactome_layer",
+    # "pathway_layer",
+    # "reactome_layer",
 ]
 
 

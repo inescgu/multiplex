@@ -1,0 +1,38 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-5551064
+Running Layer LCC Analysis
+Host: node-c02.lisc
+Start: Wed Jul 22 01:29:14 PM CEST 2026
+================================================================================
+MULTIPLEX LAYER LCC SIGNIFICANCE ANALYSIS
+================================================================================
+Loading multiplex from 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl ...
+  1,648,733 nodes, 27,798,744 edges
+Loading node registry from 03_integrated/integrated_multiplex_output_LR/node_registry.csv ...
+  1,648,733 registry entries
+
+Loaded 408 seed gene symbols
+
+Extracting layers from multiplex...
+Found 179 layers
+
+Computing degree sequence of full multiplex (for null model pool)...
+  degree dict: 1,648,733 entries (~83.9 MB shallow)
+Extracting per-layer subgraphs...
+Prepared 179 tasks
+
+  Memory: 16.46 GB
+Using 4 workers
+
+Analyzing LCC significance in parallel:
+
+  hdrg__A-PEP.CHRNA7_SLC18A3
+    nodes: 1,573 | edges: 2,650 | seeds: 61
+
+  hdrg__A-PEP.KIT
+    nodes: 3,850 | edges: 20,489 | seeds: 110
+
+  hdrg__A-LTMR.TAC3
+    nodes: 6,389 | edges: 58,818 | seeds: 139
+
+  global_ppi__full_network
+    nodes: 17,051 | edges: 302,553 | seeds: 372

@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step6_extract_%j.out
 #SBATCH --error=slurm_logs/step6_extract_%j.err
 #SBATCH --time=12:00:00
-#SBATCH --mem=30G
+#SBATCH --mem=20G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -18,8 +18,7 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step6_filter_lr_pairs.py \
     --ppi-pkl 00_inputs/ppi_network.pkl \
-    --integrated-multiplex 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
-    --reactome-csv pathway_prep/reactome_interactions_with_pathways_v2.csv \
+    --integrated-multiplex 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl \
     --wdir 04_multixrank_prep/multixrank_input_consolidated \
     --validate-against-ppi
     

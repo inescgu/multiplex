@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step9_dm_%j.out
 #SBATCH --error=slurm_logs/step9_dm_%j.err
 #SBATCH --time=6:00:00
-#SBATCH --mem=35G
+#SBATCH --mem=10G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 
@@ -23,8 +23,8 @@ python step9_build_disease_module.py \
     --output-dir 06_disease_module/disease_module_output_consolidated \
     --connectivity all \
     --k 1000 \
-    --max-bridge 4000 \
-    --exclude-seeds SSTR4 RGS9 NPPC THBS4 IL4 IDO1 HCRT BAMBI SRD5A1 \
+    --max-bridge 10000 \
     --lcc-per-layer
 
 echo "Finished at: $(date)"
+#    --exclude-seeds SSTR4 RGS9 NPPC THBS4 IL4 IDO1 HCRT BAMBI SRD5A1 \

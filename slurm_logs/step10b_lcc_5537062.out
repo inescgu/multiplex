@@ -1,0 +1,51 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b13/tmp/slurm-5537062
+Running Layer LCC Analysis
+Host: node-b13.lisc
+Start: Tue Jul 21 04:59:38 PM CEST 2026
+================================================================================
+MULTIPLEX LAYER LCC SIGNIFICANCE ANALYSIS
+================================================================================
+Loading multiplex from 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl ...
+  1,648,733 nodes, 27,798,744 edges
+Loading node registry from 03_integrated/integrated_multiplex_output_LR/node_registry.csv ...
+  1,648,733 registry entries
+
+Loaded 408 seed gene symbols
+
+Extracting layers from multiplex...
+Found 179 layers
+
+Preparing analysis tasks...
+Prepared 179 tasks
+
+Analyzing LCC significance in parallel:
+Using 39 workers
+
+
+  global_ppi__full_network
+    nodes: 17,051 | edges: 302,553 | seeds: 372
+
+  hdrg__A-LTMR.TAC3
+    nodes: 6,389 | edges: 58,818 | seeds: 139
+
+  hdrg__A-PEP.CHRNA7_SLC18A3
+    nodes: 1,573 | edges: 2,650 | seeds: 61
+
+  hdrg__A-PEP.KIT
+    nodes: 3,850 | edges: 20,489 | seeds: 110
+
+  hdrg__A-PEP.NTRK3_S100A16
+    nodes: 1,960 | edges: 4,566 | seeds: 85
+
+  hdrg__A-PEP.SCGN_ADRA2C
+    nodes: 2,127 | edges: 6,433 | seeds: 72
+
+  hdrg__A-Propr.EPHA3
+    nodes: 3,330 | edges: 13,971 | seeds: 120
+
+  hdrg__A-Propr.HAPLN4
+    nodes: 2,752 | edges: 9,295 | seeds: 103
+
+  hdrg__A-Propr.PCDH8
+    nodes: 3,885 | edges: 21,547 | seeds: 129
+End: Tue Jul 21 05:24:09 PM CEST 2026

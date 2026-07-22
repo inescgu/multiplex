@@ -20,8 +20,8 @@ pip install scikit-learn
 mkdir -p 08_spectral_analysis
 
 python step11_multiplex_spectral_clustering.py \
-    --graph 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
-    --registry 03_integrated/integrated_multiplex_output/node_registry.csv \
+    --graph 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl \
+    --registry 03_integrated/integrated_multiplex_output_LR/node_registry.csv \
     --out-dir 08_spectral_analysis \
     --mode sos \
     --sample-p 0.4 \

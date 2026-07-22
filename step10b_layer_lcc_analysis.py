@@ -10,6 +10,24 @@ Pipeline integration:
   - Analyzes per-layer (source + cell_type) LCC significance
   - Reports which layers are structurally important
   - Per-component metrics for understanding layer organization
+
+MEMORY-OPTIMIZED VERSION
+------------------------
+Changes vs. the original:
+  1. Worker processes never receive the full multiplex graph. The "pool"
+     used for the degree-normalized null model only ever needs node
+     degrees (never edges), so we ship a tiny {node: degree} dict instead
+     of the whole graph object.
+  2. Per-layer subgraphs are extracted ONCE in the main process and only
+     the (small) layer subgraph is sent to each worker task - not the
+     full graph.
+  3. The full graph is freed (`del G_full`) before the worker pool starts,
+     so it isn't held in memory alongside the worker copies.
+  4. Worker count is derived from the SLURM allocation (SLURM_CPUS_PER_TASK)
+     rather than mp.cpu_count(), which reports the whole node's cores and
+     has nothing to do with what you were actually allocated.
+  5. The degree dict is sent once per worker via the pool initializer,
+     not once per task.
 """
 import os
 import sys
@@ -20,15 +38,13 @@ import random
 import argparse
 import traceback
 import warnings
-from collections import defaultdict
 from pathlib import Path
-from concurrent.futures import ProcessPoolExecutor, as_completed  # ← NEW
-import multiprocessing as mp  # ← NEW
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import multiprocessing as mp
 import numpy as np
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-from scipy import stats
 from tqdm import tqdm
 warnings.filterwarnings("ignore")
 
@@ -40,6 +56,32 @@ try:
 except ImportError:
     def print_memory_usage():
         pass
+
+# ============================================================================
+# LIGHTWEIGHT DEGREE-ONLY "GRAPH" FOR THE NULL MODEL POOL
+# ============================================================================
+class DegreeOnlyGraph:
+    """
+    Stand-in for the full multiplex when all that's needed is node
+    membership + degree (never edges). Used as `pool_graph` in the null
+    model so we never have to ship the full graph (with edges) to workers.
+    """
+    __slots__ = ("_deg",)
+
+    def __init__(self, degree_dict):
+        self._deg = degree_dict
+
+    def nodes(self):
+        return self._deg.keys()
+
+    def degree(self, n):
+        return self._deg[n]
+
+    def __contains__(self, n):
+        return n in self._deg
+
+    def __len__(self):
+        return len(self._deg)
 
 # ============================================================================
 # DEGREE-NORMALIZED LCC SIGNIFICANCE
@@ -57,7 +99,8 @@ def size_lcc(G):
     return max((len(c) for c in nx.connected_components(G)), default=0)
 
 def getDict_degree2nodeNames(G, nodeList=None, numBins=None, binLimit=None):
-    """Map degree → [node names] with optional binning."""
+    """Map degree → [node names] with optional binning. Only needs
+    G.nodes() / G.degree(n) / `in G`, so works with DegreeOnlyGraph too."""
     deg2nodes = {}
     nodes = nodeList if nodeList is not None else G.nodes()
     nodes = [n for n in nodes if n in G]
@@ -112,7 +155,7 @@ def randSubgraph_preserveDegree(pool_graph, target_dist, eval_graph):
     return eval_graph.subgraph(sampled_in_eval)
 
 # ============================================================================
-# NEW: ADAPTIVE SIGNIFICANCE TESTING
+# ADAPTIVE SIGNIFICANCE TESTING
 # ============================================================================
 def sig_lccOfSubgraph_adaptive(eval_graph, pool_graph, seed_nodes,
                                numBins=10, numSimulations=1000, desc=""):
@@ -121,7 +164,10 @@ def sig_lccOfSubgraph_adaptive(eval_graph, pool_graph, seed_nodes,
     - First 200 simulations
     - If p > 0.15, stop (unlikely to be significant)
     - Otherwise continue to full numSimulations
-    
+
+    `pool_graph` only ever needs .nodes()/.degree(n)/`in` - pass a
+    DegreeOnlyGraph, not the full multiplex.
+
     Returns dict with:
       lcc, pVal, zScore, simResults, mean, std, n_seeds_in_graph
     """
@@ -130,30 +176,30 @@ def sig_lccOfSubgraph_adaptive(eval_graph, pool_graph, seed_nodes,
         return {"lcc": 0, "pVal": 1.0, "zScore": 0.0,
                 "simResults": [], "mean": 0.0, "std": 0.0,
                 "n_seeds_in_graph": 0}
-    
+
     seeds_in_pool = [n for n in seed_nodes if n in pool_graph]
     if not seeds_in_pool:
         return {"lcc": size_lcc(eval_graph.subgraph(seed_nodes)),
                 "pVal": 1.0, "zScore": 0.0,
                 "simResults": [], "mean": 0.0, "std": 0.0,
                 "n_seeds_in_graph": len(seed_nodes)}
-    
+
     # Degree distribution of seed nodes in pool
     target_dist = getDict_degree2numNodes(pool_graph, nodeList=seeds_in_pool,
                                           numBins=numBins)
     obs_lcc = size_lcc(eval_graph.subgraph(seed_nodes))
-    
+
     sim_sizes = []
-    
+
     # FIRST PASS: 200 simulations (quick screen)
     for _ in tqdm(range(200), desc=desc or "LCC sims (phase 1)", leave=False):
         gsim = randSubgraph_preserveDegree(pool_graph, target_dist, eval_graph)
         sim_sizes.append(size_lcc(gsim))
-    
+
     # Check interim p-value
     arr_interim = np.array(sim_sizes)
     p_interim = float(np.mean(arr_interim >= obs_lcc))
-    
+
     # EARLY STOPPING: if clearly non-significant, don't waste compute
     if p_interim > 0.15:
         arr = arr_interim
@@ -163,11 +209,11 @@ def sig_lccOfSubgraph_adaptive(eval_graph, pool_graph, seed_nodes,
             gsim = randSubgraph_preserveDegree(pool_graph, target_dist, eval_graph)
             sim_sizes.append(size_lcc(gsim))
         arr = np.array(sim_sizes)
-    
+
     pVal = float(np.mean(arr >= obs_lcc))
     mu, sd = float(arr.mean()), float(arr.std())
     z = (obs_lcc - mu) / sd if sd > 0 else 0.0
-    
+
     return {"lcc": obs_lcc, "pVal": pVal, "zScore": z,
             "simResults": sim_sizes, "mean": mu, "std": sd,
             "n_seeds_in_graph": len(seed_nodes)}
@@ -278,14 +324,6 @@ def load_seed_genes(path):
 # ============================================================================
 # LAYER EXTRACTION
 # ============================================================================
-def extract_layer(G, source, cell_type):
-    """Extract subgraph for specific source/cell_type layer."""
-    layer_nodes = [n for n, d in G.nodes(data=True)
-                   if d.get("source") == source and d.get("cell_type") == cell_type]
-    if not layer_nodes:
-        return nx.Graph()
-    return G.subgraph(layer_nodes).copy()
-
 def get_all_layers(G):
     """Get all unique (source, cell_type) pairs."""
     layers = set()
@@ -309,18 +347,17 @@ def map_seeds_to_node_ids(G, seed_symbols, restrict_nodes=None):
 # ============================================================================
 # ANALYSIS
 # ============================================================================
-def analyze_layer(G_full, layer_nodes, layer_name, seed_symbols,
+def analyze_layer(eval_graph, pool_degree, layer_name, seed_symbols,
                   num_bins=10, num_simulations=1000):
-    """Analyze a single layer for LCC significance."""
-    if not layer_nodes or len(layer_nodes) == 0:
-        return None
+    """
+    Analyze a single layer for LCC significance.
 
-    eval_graph = G_full.subgraph(layer_nodes).copy()
-    if eval_graph.number_of_nodes() == 0:
+    eval_graph   : the already-extracted subgraph for this layer (small)
+    pool_degree  : DegreeOnlyGraph built from the FULL multiplex's degrees
+                   (small - no edges)
+    """
+    if eval_graph is None or eval_graph.number_of_nodes() == 0:
         return None
-
-    # Use full multiplex as pool for degree distribution
-    pool_graph = G_full
 
     # Map seeds to node IDs in this layer
     seed_nodes = map_seeds_to_node_ids(eval_graph, seed_symbols)
@@ -333,8 +370,7 @@ def analyze_layer(G_full, layer_nodes, layer_name, seed_symbols,
           f"edges: {eval_graph.number_of_edges():,} | "
           f"seeds: {len(seed_nodes)}")
 
-    # LCC significance (UPDATED: uses adaptive version)
-    sig = sig_lccOfSubgraph_adaptive(eval_graph, pool_graph, seed_nodes,
+    sig = sig_lccOfSubgraph_adaptive(eval_graph, pool_degree, seed_nodes,
                                      numBins=num_bins, numSimulations=num_simulations,
                                      desc=f"LCC [{layer_name}]")
 
@@ -361,16 +397,26 @@ def analyze_layer(G_full, layer_nodes, layer_name, seed_symbols,
     }
 
 # ============================================================================
-# NEW: WRAPPER FOR MULTIPROCESSING
+# MULTIPROCESSING: WORKER INITIALIZER + WRAPPER
 # ============================================================================
+# Populated once per worker process via the Pool initializer - NOT sent
+# per-task. This is what keeps memory bounded: each worker holds exactly
+# one small degree dict, never a copy of the full graph.
+_POOL_DEGREE = None
+
+def init_worker(degree_dict):
+    global _POOL_DEGREE
+    _POOL_DEGREE = DegreeOnlyGraph(degree_dict)
+
 def analyze_layer_worker(args):
     """
     Wrapper function for multiprocessing.
-    Takes tuple of arguments and runs analyze_layer.
+    Takes tuple of (eval_graph, layer_name, seed_symbols, num_bins, num_simulations).
+    Uses the per-worker _POOL_DEGREE set up by init_worker.
     """
-    G_full, layer_nodes, layer_name, seed_symbols, num_bins, num_simulations = args
+    eval_graph, layer_name, seed_symbols, num_bins, num_simulations = args
     try:
-        return analyze_layer(G_full, layer_nodes, layer_name, seed_symbols,
+        return analyze_layer(eval_graph, _POOL_DEGREE, layer_name, seed_symbols,
                             num_bins=num_bins, num_simulations=num_simulations)
     except Exception as e:
         print(f"ERROR on {layer_name}: {e}")
@@ -501,6 +547,9 @@ def main():
                     help="Plots directory (default: 10b_layer_lcc_analysis/plots)")
     ap.add_argument("--per-component", action="store_true",
                     help="Compute per-component metrics (entropy, etc.)")
+    ap.add_argument("--max-workers", type=int, default=None,
+                    help="Cap on worker processes. Defaults to "
+                         "SLURM_CPUS_PER_TASK (or 1 if not running under SLURM).")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -521,38 +570,68 @@ def main():
     layers = get_all_layers(G_full)
     print(f"Found {len(layers)} layers\n")
 
-    # ========================================================================
-    # NEW: PREPARE TASKS FOR PARALLEL EXECUTION
-    # ========================================================================
-    print(f"Preparing analysis tasks...")
+    # ------------------------------------------------------------------
+    # Build the lightweight degree dict ONCE from the full graph.
+    # This (not the full graph) is what gets sent to each worker.
+    # ------------------------------------------------------------------
+    print("Computing degree sequence of full multiplex (for null model pool)...")
+    degree_dict = dict(G_full.degree())
+    print(f"  degree dict: {len(degree_dict):,} entries "
+          f"(~{sys.getsizeof(degree_dict) / 1e6:.1f} MB shallow)")
+
+    # ------------------------------------------------------------------
+    # Extract each layer's subgraph ONCE, here in the main process.
+    # These are small (only that layer's nodes+edges) - safe to keep
+    # around and hand out to workers individually.
+    # ------------------------------------------------------------------
+    print("Extracting per-layer subgraphs...")
     tasks = []
     for source, cell_type in layers:
         layer_nodes = [n for n, d in G_full.nodes(data=True)
                       if d.get("source") == source and d.get("cell_type") == cell_type]
-        if layer_nodes:
-            layer_name = f"{source}__{cell_type}"
-            tasks.append((G_full, layer_nodes, layer_name, seed_symbols,
-                         args.num_bins, args.num_simulations))
+        if not layer_nodes:
+            continue
+        layer_name = f"{source}__{cell_type}"
+        eval_graph = G_full.subgraph(layer_nodes).copy()
+        if eval_graph.number_of_nodes() == 0:
+            continue
+        tasks.append((eval_graph, layer_name, seed_symbols,
+                      args.num_bins, args.num_simulations))
 
     print(f"Prepared {len(tasks)} tasks\n")
 
-    # ========================================================================
-    # NEW: PARALLEL EXECUTION
-    # ========================================================================
+    # ------------------------------------------------------------------
+    # Free the full graph now - workers get the degree dict via the
+    # pool initializer, and each task already carries its own small
+    # per-layer subgraph. We no longer need G_full in this process.
+    # ------------------------------------------------------------------
+    del G_full
+    gc.collect()
+    print_memory_usage()
+
+    # ------------------------------------------------------------------
+    # Worker count: respect the SLURM allocation, not the node's total
+    # core count. mp.cpu_count() reports the whole node and has nothing
+    # to do with what your job was actually granted.
+    # ------------------------------------------------------------------
+    if args.max_workers is not None:
+        n_workers = args.max_workers
+    else:
+        n_workers = int(os.environ.get("SLURM_CPUS_PER_TASK",
+                                        os.environ.get("SLURM_JOB_CPUS_PER_NODE", 1)))
+    n_workers = min(max(1, n_workers), len(tasks)) if tasks else 1
+    print(f"Using {n_workers} workers\n")
+
     print(f"Analyzing LCC significance in parallel:")
     results = []
-    
-    # Determine number of workers (use all but 1 CPU)
-    n_workers = min(max(1, mp.cpu_count() - 1), len(tasks))
-    print(f"Using {n_workers} workers\n")
-    
-    with ProcessPoolExecutor(max_workers=n_workers) as executor:
-        # Submit all tasks
-        futures = {executor.submit(analyze_layer_worker, task): task[2] 
+
+    with ProcessPoolExecutor(max_workers=n_workers,
+                             initializer=init_worker,
+                             initargs=(degree_dict,)) as executor:
+        futures = {executor.submit(analyze_layer_worker, task): task[1]
                   for task in tasks}
-        
-        # Collect results as they complete
-        for future in tqdm(as_completed(futures), total=len(futures), 
+
+        for future in tqdm(as_completed(futures), total=len(futures),
                           desc="Layers analyzed"):
             result = future.result()
             if result:
@@ -570,18 +649,15 @@ def main():
     write_summary(results, args.output_dir)
     plot_lcc_results(results, args.plots_dir)
 
-    # ========================================================================
-    # UPDATED: Per-component metrics (significant layers only)
-    # ========================================================================
+    # Per-component metrics (significant layers only)
     if args.per_component:
         print("\nComputing per-component metrics (significant layers only)...")
         comp_dir = Path(args.output_dir) / "components"
         comp_dir.mkdir(exist_ok=True)
 
-        # Only analyze significant layers + top 3 non-significant for comparison
         sig_results = [r for r in results if r["significant_lcc"]]
         nonsig_sample = [r for r in results if not r["significant_lcc"]][:3]
-        
+
         for r in sig_results + nonsig_sample:
             comp = compute_per_component_metrics(
                 r["layer"], r["eval_graph"], r["seed_nodes"]
@@ -590,7 +666,7 @@ def main():
                 comp["components_df"].to_csv(
                     comp_dir / f"components_{r['layer']}.csv", index=False
                 )
-        
+
         print(f"Saved per-component data → {comp_dir}")
 
     print(f"\nCompleted in {time.time() - t0:.1f}s\n")

@@ -1,0 +1,118 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-5551177
+Step 9: Investigating Disease Module Structure
+Running on host: node-b01.lisc
+Starting at: Wed Jul 22 02:09:35 PM CEST 2026
+Loaded module graph  : 06_disease_module/disease_module_output_consolidated/module_graph.pkl
+  10,649 nodes, 164,058 edges
+Loaded module table   : 06_disease_module/disease_module_output_consolidated/disease_module.csv (10,649 rows)
+Loaded seed list      : 04_multixrank_prep/multixrank_input_consolidated/seeds/seeds.txt (372 lines)
+Loaded layer_info.json: 04_multixrank_prep/multixrank_input_consolidated/layer_info.json (25 layer stems)
+
+======================================================================
+MODULE OVERVIEW
+======================================================================
+Total nodes           : 10,649
+Total edges           : 164,058
+Layers represented    : 24
+  - A-LTMR.TAC3_ppi_layer  (A-LTMR.TAC3_ppi)
+  - A-PEP.CHRNA7_SLC18A3_ppi_layer  (A-PEP.CHRNA7_SLC18A3_ppi)
+  - A-PEP.KIT_ppi_layer  (A-PEP.KIT_ppi)
+  - A-PEP.NTRK3_S100A16_ppi_layer  (A-PEP.NTRK3_S100A16_ppi)
+  - A-PEP.SCGN_ADRA2C_ppi_layer  (A-PEP.SCGN_ADRA2C_ppi)
+  - A-Propr.EPHA3_ppi_layer  (A-Propr.EPHA3_ppi)
+  - A-Propr.HAPLN4_ppi_layer  (A-Propr.HAPLN4_ppi)
+  - A-Propr.PCDH8_ppi_layer  (A-Propr.PCDH8_ppi)
+  - ATF3_ppi_layer  (ATF3_ppi)
+  - Ab-LTMR.CCKAR_ppi_layer  (Ab-LTMR.CCKAR_ppi)
+  - Ab-LTMR.ETV1_ppi_layer  (Ab-LTMR.ETV1_ppi)
+  - Ab-LTMR.LGI2_ppi_layer  (Ab-LTMR.LGI2_ppi)
+  - Ab-LTMR.NSG2_ppi_layer  (Ab-LTMR.NSG2_ppi)
+  - C-LTMR.CDH9_ppi_layer  (C-LTMR.CDH9_ppi)
+  - C-NP.MRGPRX1_GFRA2_ppi_layer  (C-NP.MRGPRX1_GFRA2_ppi)
+  - C-NP.MRGPRX1_MRGPRX4_ppi_layer  (C-NP.MRGPRX1_MRGPRX4_ppi)
+  - C-NP.SST_ppi_layer  (C-NP.SST_ppi)
+  - C-PEP.ADORA2B_ppi_layer  (C-PEP.ADORA2B_ppi)
+  - C-PEP.TAC1_CACNG5_ppi_layer  (C-PEP.TAC1_CACNG5_ppi)
+  - C-PEP.TAC1_CHRNA3_ppi_layer  (C-PEP.TAC1_CHRNA3_ppi)
+  - C-Thermo.RXFP1_ppi_layer  (C-Thermo.RXFP1_ppi)
+  - C-Thermo.TRPM8_ppi_layer  (C-Thermo.TRPM8_ppi)
+  - neuron_ppi_layer  (neuron_ppi)
+  - ppi_layer  (ppi_layer)
+
+Isolated nodes (degree 0, whole module): 0
+  of which are seeds                    : 0
+
+----------------------------------------------------------------------
+PER-LAYER STATS (sorted by node count, largest first)
+----------------------------------------------------------------------
+                    layer_stem       layer_display_name  n_nodes  n_edges  pct_of_module_nodes  n_seeds  seed_fraction_of_layer
+                     ppi_layer                ppi_layer    10649   164058               100.00      372                  0.0349
+              neuron_ppi_layer               neuron_ppi     6300    76175                59.16       97                  0.0154
+         A-LTMR.TAC3_ppi_layer          A-LTMR.TAC3_ppi     6156    58805                57.81      133                  0.0216
+      C-Thermo.RXFP1_ppi_layer       C-Thermo.RXFP1_ppi     3629    19220                34.08       91                  0.0251
+       A-Propr.PCDH8_ppi_layer        A-Propr.PCDH8_ppi     3602    21544                33.82      117                  0.0325
+           A-PEP.KIT_ppi_layer            A-PEP.KIT_ppi     3559    20484                33.42      100                  0.0281
+       C-PEP.ADORA2B_ppi_layer        C-PEP.ADORA2B_ppi     3274    16628                30.74       87                  0.0266
+        Ab-LTMR.LGI2_ppi_layer         Ab-LTMR.LGI2_ppi     3132    16140                29.41      109                  0.0348
+        Ab-LTMR.ETV1_ppi_layer         Ab-LTMR.ETV1_ppi     3101    16556                29.12      103                  0.0332
+       A-Propr.EPHA3_ppi_layer        A-Propr.EPHA3_ppi     3017    13967                28.33      109                  0.0361
+      A-Propr.HAPLN4_ppi_layer       A-Propr.HAPLN4_ppi     2423     9292                22.75       85                  0.0351
+        Ab-LTMR.NSG2_ppi_layer         Ab-LTMR.NSG2_ppi     2164     7370                20.32       73                  0.0337
+         C-LTMR.CDH9_ppi_layer          C-LTMR.CDH9_ppi     2139     8122                20.09       77                  0.0360
+   A-PEP.SCGN_ADRA2C_ppi_layer    A-PEP.SCGN_ADRA2C_ppi     1823     6432                17.12       58                  0.0318
+   C-PEP.TAC1_CHRNA3_ppi_layer    C-PEP.TAC1_CHRNA3_ppi     1814     5452                17.03       72                  0.0397
+       Ab-LTMR.CCKAR_ppi_layer        Ab-LTMR.CCKAR_ppi     1684     4770                15.81       66                  0.0392
+                ATF3_ppi_layer                 ATF3_ppi     1652     6392                15.51       54                  0.0327
+ A-PEP.NTRK3_S100A16_ppi_layer  A-PEP.NTRK3_S100A16_ppi     1605     4565                15.07       63                  0.0393
+C-NP.MRGPRX1_MRGPRX4_ppi_layer C-NP.MRGPRX1_MRGPRX4_ppi     1490     4270                13.99       70                  0.0470
+   C-PEP.TAC1_CACNG5_ppi_layer    C-PEP.TAC1_CACNG5_ppi     1434     3623                13.47       61                  0.0425
+            C-NP.SST_ppi_layer             C-NP.SST_ppi     1428     3582                13.41       75                  0.0525
+A-PEP.CHRNA7_SLC18A3_ppi_layer A-PEP.CHRNA7_SLC18A3_ppi     1231     2649                11.56       49                  0.0398
+      C-Thermo.TRPM8_ppi_layer       C-Thermo.TRPM8_ppi     1225     2657                11.50       61                  0.0498
+  C-NP.MRGPRX1_GFRA2_ppi_layer   C-NP.MRGPRX1_GFRA2_ppi     1183     2691                11.11       65                  0.0549
+
+Largest layer: ppi_layer (10,649 nodes, 100.0% of module)
+Coefficient of variation of layer sizes: 0.74 (uneven representation across layers)
+
+----------------------------------------------------------------------
+SEED DIAGNOSTICS
+----------------------------------------------------------------------
+Seed lines in seeds.txt      : 372
+Unique seed genes            : 372
+Duplicate lines in seeds.txt : none
+
+Seeds present in final module     : 372 / 372
+Seeds missing from final module   : 0
+Seeds isolated in final module    : 0
+Seeds spanning >1 layer in module : 226
+
+Seed counts by layer (seeds present & connected within that layer):
+  ppi_layer                       372 seeds (3.5% of layer's nodes)
+  neuron_ppi                       97 seeds (1.5% of layer's nodes)
+  A-LTMR.TAC3_ppi                 133 seeds (2.2% of layer's nodes)
+  C-Thermo.RXFP1_ppi               91 seeds (2.5% of layer's nodes)
+  A-Propr.PCDH8_ppi               117 seeds (3.2% of layer's nodes)
+  A-PEP.KIT_ppi                   100 seeds (2.8% of layer's nodes)
+  C-PEP.ADORA2B_ppi                87 seeds (2.7% of layer's nodes)
+  Ab-LTMR.LGI2_ppi                109 seeds (3.5% of layer's nodes)
+  Ab-LTMR.ETV1_ppi                103 seeds (3.3% of layer's nodes)
+  A-Propr.EPHA3_ppi               109 seeds (3.6% of layer's nodes)
+  A-Propr.HAPLN4_ppi               85 seeds (3.5% of layer's nodes)
+  Ab-LTMR.NSG2_ppi                 73 seeds (3.4% of layer's nodes)
+  C-LTMR.CDH9_ppi                  77 seeds (3.6% of layer's nodes)
+  A-PEP.SCGN_ADRA2C_ppi            58 seeds (3.2% of layer's nodes)
+  C-PEP.TAC1_CHRNA3_ppi            72 seeds (4.0% of layer's nodes)
+  Ab-LTMR.CCKAR_ppi                66 seeds (3.9% of layer's nodes)
+  ATF3_ppi                         54 seeds (3.3% of layer's nodes)
+  A-PEP.NTRK3_S100A16_ppi          63 seeds (3.9% of layer's nodes)
+  C-NP.MRGPRX1_MRGPRX4_ppi         70 seeds (4.7% of layer's nodes)
+  C-PEP.TAC1_CACNG5_ppi            61 seeds (4.2% of layer's nodes)
+  C-NP.SST_ppi                     75 seeds (5.2% of layer's nodes)
+  A-PEP.CHRNA7_SLC18A3_ppi         49 seeds (4.0% of layer's nodes)
+  C-Thermo.TRPM8_ppi               61 seeds (5.0% of layer's nodes)
+  C-NP.MRGPRX1_GFRA2_ppi           65 seeds (5.5% of layer's nodes)
+
+Saved: module_exploratory_per_layer.csv
+Saved: module_exploratory_seed_membership.csv
+Saved: module_exploratory_summary.txt
+Finished at: Wed Jul 22 02:09:46 PM CEST 2026

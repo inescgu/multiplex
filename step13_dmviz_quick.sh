@@ -26,7 +26,7 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 mkdir -p 08_dm_visualization
 
 python step13_viz_dm.py \
-    --graph 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
+    --graph 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl \
     --dm-csv 06_disease_module/disease_module_output_consolidated/disease_module.csv \
     --seed-csv 00_inputs/seed_genes.csv \
     --out-dir 08_dm_visualization

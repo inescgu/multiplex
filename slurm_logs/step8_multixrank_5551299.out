@@ -1,0 +1,142 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b11/tmp/slurm-5551299
+Step 8: Running MultiXrank
+Running on host: node-b11.lisc
+Starting at: Wed Jul 22 02:57:25 PM CEST 2026
+============================================================
+Running MultiXrank (edge-driven inter-layer)
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_input_consolidated
+Config      : config.yml
+Output dir  : 05_multixrank_results/multixrank_results_consolidated
+Aggregation : max
+============================================================
+
+
+Checking 372 seeds against network LCC...
+============================================================
+Found 24 layer files
+
+  A-LTMR.TAC3_ppi_layer         : 133/372 in LCC ( 35.8%) | 133 in full graph ( 35.8%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACP3', 'ADCY1', 'ADCY5']...
+  A-PEP.CHRNA7_SLC18A3_ppi_layer:  49/372 in LCC ( 13.2%) |  49 in full graph ( 13.2%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  A-PEP.KIT_ppi_layer           : 100/372 in LCC ( 26.9%) | 100 in full graph ( 26.9%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ABCC4', 'ACP3', 'ADAM11']...
+  A-PEP.NTRK3_S100A16_ppi_layer :  62/372 in LCC ( 16.7%) |  63 in full graph ( 16.9%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  A-PEP.SCGN_ADRA2C_ppi_layer   :  58/372 in LCC ( 15.6%) |  58 in full graph ( 15.6%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  A-Propr.EPHA3_ppi_layer       : 109/372 in LCC ( 29.3%) | 109 in full graph ( 29.3%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ABCC4', 'ACP3', 'ADCY1']...
+  A-Propr.HAPLN4_ppi_layer      :  84/372 in LCC ( 22.6%) |  85 in full graph ( 22.8%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  A-Propr.PCDH8_ppi_layer       : 117/372 in LCC ( 31.5%) | 117 in full graph ( 31.5%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ABCC4', 'ACHE', 'ACP3']...
+  ATF3_ppi_layer                :  52/372 in LCC ( 14.0%) |  54 in full graph ( 14.5%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  Ab-LTMR.CCKAR_ppi_layer       :  64/372 in LCC ( 17.2%) |  66 in full graph ( 17.7%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  Ab-LTMR.ETV1_ppi_layer        : 103/372 in LCC ( 27.7%) | 103 in full graph ( 27.7%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADAM11']...
+  Ab-LTMR.LGI2_ppi_layer        : 109/372 in LCC ( 29.3%) | 109 in full graph ( 29.3%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  Ab-LTMR.NSG2_ppi_layer        :  72/372 in LCC ( 19.4%) |  73 in full graph ( 19.6%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  C-LTMR.CDH9_ppi_layer         :  77/372 in LCC ( 20.7%) |  77 in full graph ( 20.7%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ABCC4', 'ACHE', 'ACP3']...
+  C-NP.MRGPRX1_GFRA2_ppi_layer  :  62/372 in LCC ( 16.7%) |  65 in full graph ( 17.5%)
+      → Not in LCC: ['ABCC3', 'ACHE', 'ACP3', 'ADAM11', 'ADCY1']...
+  C-NP.MRGPRX1_MRGPRX4_ppi_layer:  67/372 in LCC ( 18.0%) |  70 in full graph ( 18.8%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  C-NP.SST_ppi_layer            :  74/372 in LCC ( 19.9%) |  75 in full graph ( 20.2%)
+      → Not in LCC: ['ABCC3', 'ACHE', 'ACP3', 'ADCY1', 'ADCY5']...
+  C-PEP.ADORA2B_ppi_layer       :  86/372 in LCC ( 23.1%) |  87 in full graph ( 23.4%)
+      → Not in LCC: ['ABCC3', 'ABCC4', 'ACHE', 'ACP3', 'ADCY1']...
+  C-PEP.TAC1_CACNG5_ppi_layer   :  60/372 in LCC ( 16.1%) |  61 in full graph ( 16.4%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ACHE', 'ACP3', 'ADCY1']...
+  C-PEP.TAC1_CHRNA3_ppi_layer   :  71/372 in LCC ( 19.1%) |  72 in full graph ( 19.4%)
+      → Not in LCC: ['ABCC3', 'ACHE', 'ACP3', 'ADCY1', 'ADCY5']...
+  C-Thermo.RXFP1_ppi_layer      :  91/372 in LCC ( 24.5%) |  91 in full graph ( 24.5%)
+      → Not in LCC: ['ABCC3', 'ABCC4', 'ACHE', 'ACP3', 'ADCY1']...
+  C-Thermo.TRPM8_ppi_layer      :  60/372 in LCC ( 16.1%) |  61 in full graph ( 16.4%)
+      → Not in LCC: ['ABCC3', 'ABCC4', 'ACHE', 'ACP3', 'ADAM11']...
+  ligand_receptor_layer         :  12/372 in LCC (  3.2%) |  68 in full graph ( 18.3%)
+      → Not in LCC: ['ABCB1', 'ABCC3', 'ABCC4', 'ACHE', 'ACP3']...
+  ppi_layer                     : 372/372 in LCC (100.0%) | 372 in full graph (100.0%)
+
+============================================================
+SUMMARY:
+  Total seeds:        372
+  Found in ≥1 LCC:    372 (100.0%)
+  Missing from all:   0
+============================================================
+
+Layer structure: 22 intra, 0 inter, 24 total
+
+Config path : /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_input_consolidated/config.yml
+Config exists: True
+
+
+RWR complete in 175.5s
+Result type : <class 'pandas.core.frame.DataFrame'>
+
+Raw output saved → 05_multixrank_results/multixrank_results_consolidated/multixrank_raw_output
+
+  rwr_result is a single DataFrame
+  Raw shape: (409224, 4)
+  Raw columns: ['multiplex', 'node', 'layer', 'score']
+  Raw head:
+        multiplex  node                                               layer         score
+0  gene_multiplex  A1BG  multiplex/gene_multiplex/A-LTMR.TAC3_ppi_layer.tsv  2.275080e-10
+1  gene_multiplex  A1CF  multiplex/gene_multiplex/A-LTMR.TAC3_ppi_layer.tsv  7.099165e-11
+2  gene_multiplex   A2M  multiplex/gene_multiplex/A-LTMR.TAC3_ppi_layer.tsv  8.117712e-09
+  Non-zero scores in raw: 409,224 / 409,224
+  Pivot shape: (17051, 24)
+  Pivot columns (first 5): ['A-LTMR.TAC3_ppi_layer', 'A-PEP.CHRNA7_SLC18A3_ppi_layer', 'A-PEP.KIT_ppi_layer', 'A-PEP.NTRK3_S100A16_ppi_layer', 'A-PEP.SCGN_ADRA2C_ppi_layer']
+  Non-zero cells in pivot: 17,051 genes with any score
+  layer_to_celltype entries: 22
+  Matched intra columns: 22 / 24
+
+Per-cell-type matrix: 17,051 genes × 22 cell types
+Non-zero genes: 17,051
+        A-LTMR.TAC3_ppi  A-PEP.CHRNA7_SLC18A3_ppi  A-PEP.KIT_ppi  A-PEP.NTRK3_S100A16_ppi  A-PEP.SCGN_ADRA2C_ppi  A-Propr.EPHA3_ppi  A-Propr.HAPLN4_ppi  A-Propr.PCDH8_ppi      ATF3_ppi  Ab-LTMR.CCKAR_ppi  Ab-LTMR.ETV1_ppi  Ab-LTMR.LGI2_ppi  Ab-LTMR.NSG2_ppi  C-LTMR.CDH9_ppi  C-NP.MRGPRX1_GFRA2_ppi  C-NP.MRGPRX1_MRGPRX4_ppi  C-NP.SST_ppi  C-PEP.ADORA2B_ppi  C-PEP.TAC1_CACNG5_ppi  C-PEP.TAC1_CHRNA3_ppi  C-Thermo.RXFP1_ppi  C-Thermo.TRPM8_ppi
+gene                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+A1BG       2.275080e-10              2.275080e-10   2.275080e-10             2.275080e-10           2.275080e-10       2.275080e-10        2.275080e-10       2.275080e-10  2.275080e-10       2.275080e-10      2.275080e-10      2.275080e-10      2.275080e-10     2.275080e-10            2.275080e-10              2.275080e-10  2.275080e-10       2.275080e-10           2.275080e-10           2.275080e-10        2.275080e-10        2.275080e-10
+A1CF       7.099165e-11              7.099165e-11   7.099165e-11             7.099165e-11           7.099165e-11       7.099165e-11        7.099165e-11       7.099165e-11  7.099165e-11       7.099165e-11      7.099165e-11      7.099165e-11      7.099165e-11     7.099165e-11            7.099165e-11              7.099165e-11  7.099165e-11       7.099165e-11           7.099165e-11           7.099165e-11        7.099165e-11        7.099165e-11
+A2M        8.117712e-09              8.117712e-09   1.180117e-06             8.117712e-09           8.117712e-09       8.117712e-09        1.356849e-06       8.117712e-09  1.669199e-06       8.117712e-09      8.117712e-09      2.762530e-06      8.117712e-09     8.117712e-09            8.117712e-09              8.117712e-09  8.117712e-09       8.117712e-09           8.117712e-09           8.117712e-09        8.117712e-09        8.117712e-09
+A2ML1      3.709374e-10              3.709374e-10   3.709374e-10             3.709374e-10           3.709374e-10       3.709374e-10        3.709374e-10       3.709374e-10  3.709374e-10       3.709374e-10      3.709374e-10      3.709374e-10      3.709374e-10     3.709374e-10            3.709374e-10              3.709374e-10  3.709374e-10       3.709374e-10           3.709374e-10           3.709374e-10        3.709374e-10        3.709374e-10
+A4GALT     1.783502e-07              5.563716e-09   5.563716e-09             1.482493e-08           5.563716e-09       2.134646e-07        1.179543e-08       2.559088e-07  5.563716e-09       5.563716e-09      2.451003e-08      4.772853e-08      1.819457e-08     5.563716e-09            2.282146e-07              8.950038e-08  5.563716e-09       5.563716e-09           5.563716e-09           5.563716e-09        5.563716e-09        5.563716e-09
+
+Saved per-celltype  → 05_multixrank_results/multixrank_results_consolidated/per_celltype_scores.csv
+Saved all-layers    → 05_multixrank_results/multixrank_results_consolidated/per_celltype_scores_detailed.csv
+
+Aggregated scores   → 05_multixrank_results/multixrank_results_consolidated/gene_rwr_scores.csv
+  Method      : max
+  Genes ranked: 17,051
+  Non-zero    : 17,051
+  Top score   : 1.367763e-04
+  Median      : 2.821382e-08
+
+Top 20 genes:
+     gene  rwr_score
+     DLG4   0.000137
+     CNR1   0.000130
+    HTR2A   0.000129
+    KCNJ6   0.000128
+    PICK1   0.000123
+   LGALS1   0.000123
+   ADRA2C   0.000122
+   GABBR1   0.000122
+     HCN1   0.000121
+   CHRNB4   0.000119
+   ADRA2A   0.000119
+  ADORA2A   0.000119
+  S100A10   0.000118
+     MAPT   0.000118
+    GLRA3   0.000118
+     CD14   0.000118
+    GRIA1   0.000116
+ADCYAP1R1   0.000116
+    MAPK1   0.000115
+    PTGDS   0.000115
+Finished at: Wed Jul 22 03:00:53 PM CEST 2026

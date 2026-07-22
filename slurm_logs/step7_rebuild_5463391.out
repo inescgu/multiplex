@@ -1,0 +1,9 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g07/tmp/slurm-5463391
+Step 7: Rebuilding reference graphs
+Running on host: node-g07.lisc
+Starting at: Mon Jul 20 02:46:33 PM CEST 2026
+Loading 25 surviving layers…
+✓ Rebuilt Reference Graphs:
+  Reference: 17,051 nodes | 302,553 edges
+  PPI-Only:  17,051 nodes | 302,553 edges
+Finished at: Mon Jul 20 02:46:54 PM CEST 2026

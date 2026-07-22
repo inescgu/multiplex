@@ -21,8 +21,8 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 # you want the PNG plots too - they add matplotlib/seaborn overhead but the
 # core analysis (edge counts, annotations, density) is unaffected either way.
 python step14_analyze_interlayer_edges.py \
-    --multiplex-pkl 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl \
-    --node-registry-csv 03_integrated/integrated_multiplex_output/node_registry.csv \
+    --multiplex-pkl 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl \
+    --node-registry-csv 03_integrated/integrated_multiplex_output_LR/node_registry.csv \
     --exclude-sources ts \
     --cell-types-csv neurons_only.csv \
     --output-dir 03_integrated/interlayer_analysis_neurons \

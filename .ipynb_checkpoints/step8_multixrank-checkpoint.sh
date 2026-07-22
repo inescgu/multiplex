@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step8_multixrank_%j.out
 #SBATCH --error=slurm_logs/step8_multixrank_%j.err
 #SBATCH --time=8:00:00
-#SBATCH --mem=50G
+#SBATCH --mem=10G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 

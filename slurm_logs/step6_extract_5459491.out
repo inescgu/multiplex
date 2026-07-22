@@ -1,0 +1,33 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d08/tmp/slurm-5459491
+Step 6: Extract LR + Reactome from CSV
+Running on host: node-d08.lisc
+Starting at: Mon Jul 20 02:10:23 PM CEST 2026
+============================================================
+Step 6: Extracting & Merging Special Layers
+============================================================
+
+Loading PPI network from: 00_inputs/ppi_network.pkl
+✓ Wrote Comprehensive PPI Layer (302,553 edges)
+
+Loading integrated multiplex for LR: 03_integrated/integrated_multiplex_output_LR/integrated_multiplex.pkl
+✓ Wrote Ligand-Receptor Layer (423 edges)
+  (dropped 0 LR edges not corroborated by PPI network)
+
+Loading Reactome pairs: pathway_prep/reactome_interactions_with_pathways_v2.csv
+✓ Wrote Reactome Layer (893 edges)
+  (dropped 3,443 Reactome edges not corroborated by PPI network)
+
+✓ Updated config.yml. Total layers: 26 (New Tau: 0.038462)
+
+========================================
+Executing Seed-Gene Universe Scan...
+========================================
+Total Seeds Loaded:        372
+Seeds Present in Network:  372 (100.0%)
+Seeds Missing (REMOVED):   0
+✓ Overwrote active clean seeds file: 04_multixrank_prep/multixrank_input_consolidated/seeds/seeds.txt
+
+============================================================
+Special Layers & Seed Filtering completed successfully!
+============================================================
+Finished at: Mon Jul 20 02:11:33 PM CEST 2026

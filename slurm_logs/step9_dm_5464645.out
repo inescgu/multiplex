@@ -1,0 +1,175 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b07/tmp/slurm-5464645
+Step 9: Building disease module
+Running on host: node-b07.lisc
+Starting at: Mon Jul 20 03:00:49 PM CEST 2026
+Loading RWR scores from 05_multixrank_results/multixrank_results_consolidated/gene_rwr_scores.csv ...
+  17,051 ranked genes
+
+Loading reference graph from 04_multixrank_prep/multixrank_input_consolidated/gene_reference_graph.pkl ...
+  17,051 nodes, 302,553 edges
+  Per-cell-type scores: 17,051 genes × 23 layers
+
+Loading seeds from 04_multixrank_prep/multixrank_input_consolidated/seeds/seeds.txt ...
+  372 seed genes
+
+
+Filtering each layer to its largest connected component ...
+  [lcc-per-layer] Layer 'A-LTMR.TAC3_ppi_layer': 6,170 → 6,166 nodes (dropped 4)
+  [lcc-per-layer] Layer 'A-PEP.CHRNA7_SLC18A3_ppi_layer': 1,232 → 1,195 nodes (dropped 37)
+  [lcc-per-layer] Layer 'A-PEP.KIT_ppi_layer': 3,566 → 3,552 nodes (dropped 14)
+  [lcc-per-layer] Layer 'A-PEP.NTRK3_S100A16_ppi_layer': 1,606 → 1,592 nodes (dropped 14)
+  [lcc-per-layer] Layer 'A-PEP.SCGN_ADRA2C_ppi_layer': 1,824 → 1,811 nodes (dropped 13)
+  [lcc-per-layer] Layer 'A-Propr.EPHA3_ppi_layer': 3,022 → 3,014 nodes (dropped 8)
+  [lcc-per-layer] Layer 'A-Propr.HAPLN4_ppi_layer': 2,427 → 2,418 nodes (dropped 9)
+  [lcc-per-layer] Layer 'A-Propr.PCDH8_ppi_layer': 3,606 → 3,602 nodes (dropped 4)
+  [lcc-per-layer] Layer 'ATF3_ppi_layer': 1,655 → 1,639 nodes (dropped 16)
+  [lcc-per-layer] Layer 'Ab-LTMR.CCKAR_ppi_layer': 1,685 → 1,658 nodes (dropped 27)
+  [lcc-per-layer] Layer 'Ab-LTMR.ETV1_ppi_layer': 3,106 → 3,100 nodes (dropped 6)
+  [lcc-per-layer] Layer 'Ab-LTMR.LGI2_ppi_layer': 3,134 → 3,130 nodes (dropped 4)
+  [lcc-per-layer] Layer 'Ab-LTMR.NSG2_ppi_layer': 2,164 → 2,142 nodes (dropped 22)
+  [lcc-per-layer] Layer 'C-LTMR.CDH9_ppi_layer': 2,140 → 2,136 nodes (dropped 4)
+  [lcc-per-layer] Layer 'C-NP.MRGPRX1_GFRA2_ppi_layer': 1,184 → 1,145 nodes (dropped 39)
+  [lcc-per-layer] Layer 'C-NP.MRGPRX1_MRGPRX4_ppi_layer': 1,492 → 1,470 nodes (dropped 22)
+  [lcc-per-layer] Layer 'C-NP.SST_ppi_layer': 1,432 → 1,410 nodes (dropped 22)
+  [lcc-per-layer] Layer 'C-PEP.ADORA2B_ppi_layer': 3,285 → 3,275 nodes (dropped 10)
+  [lcc-per-layer] Layer 'C-PEP.TAC1_CACNG5_ppi_layer': 1,435 → 1,419 nodes (dropped 16)
+  [lcc-per-layer] Layer 'C-PEP.TAC1_CHRNA3_ppi_layer': 1,814 → 1,796 nodes (dropped 18)
+  [lcc-per-layer] Layer 'C-Thermo.RXFP1_ppi_layer': 3,636 → 3,632 nodes (dropped 4)
+  [lcc-per-layer] Layer 'C-Thermo.TRPM8_ppi_layer': 1,227 → 1,205 nodes (dropped 22)
+  [lcc-per-layer] Layer 'neuron_ppi_layer': 6,329 → 6,329 nodes (dropped 0)
+  [lcc-per-layer] Layer 'ppi_layer': 17,051 → 17,051 nodes (dropped 0)
+
+  [lcc-per-layer] Total: 17,051 → 17,051 nodes, 302,553 → 302,553 edges
+
+Seed-only subgraph: 154 components, largest CC = 200
+
+Ranked non-seed genes available: 16,679
+Seeds not fully connected — expanding with ranked genes ...
+  +  200 genes → 572 nodes, 53 component(s)
+  +  400 genes → 772 nodes, 38 component(s)
+  +  600 genes → 972 nodes, 29 component(s)
+  +  800 genes → 1172 nodes, 28 component(s)
+  + 1000 genes → 1372 nodes, 26 component(s)
+  + 1200 genes → 1572 nodes, 25 component(s)
+  + 1400 genes → 1772 nodes, 21 component(s)
+  + 1600 genes → 1972 nodes, 21 component(s)
+  + 1800 genes → 2172 nodes, 21 component(s)
+  + 2000 genes → 2372 nodes, 21 component(s)
+  + 2200 genes → 2572 nodes, 20 component(s)
+  + 2400 genes → 2772 nodes, 19 component(s)
+  + 2600 genes → 2972 nodes, 17 component(s)
+  + 2800 genes → 3172 nodes, 17 component(s)
+  + 3000 genes → 3372 nodes, 17 component(s)
+  + 3200 genes → 3572 nodes, 16 component(s)
+  + 3400 genes → 3772 nodes, 15 component(s)
+  + 3600 genes → 3972 nodes, 15 component(s)
+  + 3800 genes → 4172 nodes, 14 component(s)
+  + 4000 genes → 4372 nodes, 14 component(s)
+  + 4200 genes → 4572 nodes, 14 component(s)
+  + 4400 genes → 4772 nodes, 14 component(s)
+  + 4600 genes → 4972 nodes, 14 component(s)
+  + 4800 genes → 5172 nodes, 14 component(s)
+  + 5000 genes → 5372 nodes, 14 component(s)
+Reached limit of 5000 genes. Connected=False, components=14
+
+Component size breakdown (before LCC):
+  Component 1:  5,359 genes, 359 seeds  → seeds: ['PTPN6', 'KCNJ5', 'TNFRSF1A', 'LGALS1', 'IL1RL1', 'LEP', 'MAPT', 'SLC17A8', 'UCP2', 'DICER1', 'ESR2', 'ACP3', 'TLR2', 'PDYN', 'GABRR1', 'NOS3', 'P2RX2', 'ADAM11', 'EDNRB', 'CACNA1B', 'LRP1', 'LMX1B', 'PTH2', 'NOX1', 'MAP2K1', 'PRKAA2', 'OPRD1', 'IL1R1', 'CAMK2A', 'TRPM8', 'NAV2', 'MAP2K3', 'PTGS2', 'CHRNA5', 'PRKCA', 'NOS2', 'OPRK1', 'LYN', 'P2RY2', 'GFAP', 'CSF2', 'PTGFR', 'ANXA1', 'TRPM2', 'ITPR1', 'SLC6A4', 'ABCC4', 'NFE2L2', 'CYBB', 'CRIP2', 'RET', 'PLCB4', 'CHRNA7', 'FOXN1', 'KCNK3', 'BBS4', 'CYP19A1', 'GRIN3A', 'HTR2A', 'NGF', 'FYN', 'CCKBR', 'GLRA3', 'P2RX7', 'GRIN2A', 'LYST', 'CASP6', 'S100A10', 'PPARA', 'HCN1', 'EDNRA', 'PTGES', 'GRIA1', 'BBS1', 'CD40', 'YY1', 'FMR1', 'GRN', 'ADORA1', 'SCN9A', 'CSK', 'S1PR3', 'AGTR2', 'KCND2', 'ADRB2', 'TH', 'BACE1', 'FAAH', 'HTR1A', 'NDN', 'LPAR3', 'DRD3', 'ADRA1D', 'GRIA2', 'AQP4', 'GRK5', 'CTSB', 'DAB1', 'CHRNB4', 'ADORA2A', 'DISC1', 'HLA-DQB1', 'TLR5', 'ANO1', 'KCNA1', 'P2RY12', 'NPEPPS', 'POMC', 'PER2', 'KCNJ3', 'ABCC3', 'MAPK9', 'ADCY8', 'IAPP', 'CNGA3', 'PTGIR', 'SRR', 'IL6', 'BDKRB2', 'MAPK1', 'PRKAR1B', 'SLC32A1', 'DBH', 'NFKB1', 'ESR1', 'OXT', 'VIP', 'CDK5', 'PTH2R', 'PRX', 'CASP1', 'SYN2', 'GABBR2', 'CHRNA4', 'TLR3', 'HMOX2', 'SLC6A2', 'OPRL1', 'SLC12A6', 'TRPM3', 'ZEB2', 'COL9A1', 'LEPR', 'EGR1', 'NGFR', 'MAP3K8', 'CAMK4', 'DRD2', 'PTAFR', 'RABGGTA', 'NR1H2', 'NTRK1', 'CACNG2', 'SLC17A7', 'HRH3', 'DLG4', 'CACNA2D1', 'PIP5K1C', 'SLC6A1', 'GRM4', 'C5AR1', 'NPY', 'PRNP', 'POR', 'MMP9', 'PTN', 'GNAZ', 'RAG2', 'PRL', 'CX3CR1', 'TLR4', 'CXCR3', 'TRPV4', 'FRMPD4', 'ADRA2A', 'TLR9', 'IL17A', 'PRLR', 'CNR1', 'GRM2', 'MMP24', 'NTF4', 'MGLL', 'AGER', 'GAD2', 'PIP5K1A', 'PLP1', 'ALOX5', 'NTSR1', 'AQP1', 'KCNK18', 'S100B', 'GPR55', 'PRKCE', 'IL18', 'GRIK1', 'NTS', 'NRG1', 'PICK1', 'PRKCB', 'RGS4', 'RELN', 'SCN2B', 'IL10', 'PLCB3', 'MAPK8', 'HDAC4', 'IFNG', 'HINT1', 'PROK2', 'NEDD4L', 'ARRB2', 'GJA1', 'STARD13', 'CACNB3', 'SPARC', 'RAMP1', 'GRIN2B', 'PIK3CG', 'IFNGR1', 'PPP1R9B', 'MME', 'F2RL1', 'NOS1', 'TNF', 'IKBKE', 'DLG2', 'KLF7', 'KIT', 'SOD2', 'SLC15A2', 'KLF11', 'CLOCK', 'PTGDR', 'IL6ST', 'TAC1', 'CACNA1A', 'NR2C2', 'PMP22', 'PTGS1', 'NPB', 'CD14', 'NMU', 'GAL', 'SPHK2', 'DPP4', 'PLCB1', 'RGS9', 'FOSB', 'HCN2', 'LCN2', 'PTPRZ1', 'LAMA4', 'GABRG2', 'GLA', 'MIF', 'PRKG1', 'KIF1A', 'SPP1', 'NMUR2', 'CALCA', 'LPAR1', 'DTNB', 'PCSK6', 'CCR5', 'L1CAM', 'CACNA1H', 'BAMBI', 'MAPK3', 'CTSS', 'PTGER4', 'TACR1', 'PTGER3', 'NBL1', 'GLRA2', 'OSM', 'NPTX1', 'PTGDS', 'CDK5R1', 'NLGN2', 'FSTL1', 'TYRP1', 'BDNF', 'NF1', 'GRK6', 'GABRD', 'CD38', 'ADCYAP1R1', 'TNFRSF1B', 'DTNBP1', 'ST8SIA1', 'ALOX12', 'GPR3', 'APOE', 'PNOC', 'PER1', 'MYD88', 'GRM5', 'PENK', 'ACHE', 'STOML3', 'OPRM1', 'MC1R', 'HTR3A', 'ADRA2C', 'P2RX4', 'SESN2', 'GABRB3', 'KCNQ2', 'UCHL1', 'RASD2', 'PRLHR', 'P2RY1', 'SLC12A2', 'MAPK10', 'IL1RAP', 'CNR2', 'ADCY5', 'DUSP6', 'KCNIP3', 'SLC12A5', 'CHRNB2', 'STX1A', 'NOX4', 'CD274', 'NT5E', 'STK39', 'RAG1', 'KCNJ6', 'CCR2', 'KCNJ9', 'IRF8', 'TRPV3', 'EFNB1', 'THBS4', 'CD4', 'RUNX1', 'PRKCD', 'CCR1', 'PCSK2', 'NCAM1', 'NR2F6', 'SHC1', 'ADCYAP1', 'EFNB2', 'HLA-DQB2', 'ABCB1', 'HOXB8', 'SLC6A6', 'GABBR1', 'DAO', 'HTR1B', 'GRIN1', 'F2R', 'CARD16', 'ICA1', 'CALB1', 'LXN', 'TRPV1']
+  Component 2:      1 genes,   1 seeds  → seeds: ['AVPR1A']
+  Component 3:      1 genes,   1 seeds  → seeds: ['IDO1']
+  Component 4:      1 genes,   1 seeds  → seeds: ['SRD5A1']
+  Component 5:      1 genes,   1 seeds  → seeds: ['HDC']
+  Component 6:      1 genes,   1 seeds  → seeds: ['ADCY1']
+  Component 7:      1 genes,   1 seeds  → seeds: ['ADM']
+  Component 8:      1 genes,   1 seeds  → seeds: ['NPPC']
+  Component 9:      1 genes,   1 seeds  → seeds: ['GFRA2']
+  Component 10:      1 genes,   1 seeds  → seeds: ['SSTR4']
+  Component 11:      1 genes,   1 seeds  → seeds: ['GALR1']
+  Component 12:      1 genes,   1 seeds  → seeds: ['HCRT']
+  Component 13:      1 genes,   1 seeds  → seeds: ['HRH1']
+  Component 14:      1 genes,   1 seeds  → seeds: ['IL4']
+
+Applying LCC fallback ...
+  LCC: 5359 genes (dropped 13)
+
+Cell-type annotation:
+  Genes annotated : 5,359
+  All-zero genes  : 0
+  Unique dominant : 23
+
+Saved disease module → 06_disease_module/disease_module_output_consolidated/disease_module.csv
+  5,359 genes, 359 seeds
+Saved module graph → 06_disease_module/disease_module_output_consolidated/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS  (cell-type-aware)
+======================================================================
+Connectivity mode      : all
+Reference graph        : 04_multixrank_prep/multixrank_input_consolidated/gene_reference_graph.pkl
+  nodes                : 17,051
+  edges                : 302,553
+
+--- SEEDS ---
+Seeds provided         : 372
+Seeds excluded         : 0
+  Excluded list        : []
+Seeds after exclusion  : 372
+Seeds in reference     : 372
+Seeds missing          : 0
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 154
+Largest seed CC size   : 200
+Seed subgraph edges    : 314
+Isolated seeds         : 140
+  Examples: ['ABCB1', 'ABCC3', 'ACHE', 'ADAM11', 'ADCY1', 'ADCY5', 'ADCY8', 'ADM', 'ADRA1D', 'AGTR2', 'ALOX12', 'ANO1', 'AQP4', 'AVPR1A', 'BAMBI', 'BDKRB2', 'C5AR1', 'CACNA1A', 'CACNA1B', 'CACNA1H']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 1000
+Max bridging genes allowed : 4000
+Genes added                : 5000
+Full module size           : 5372
+Fully connected            : False
+  Components in full module: 14
+
+--- FINAL MODULE ---
+Final module size       : 5359
+Final module edges      : 94131
+Used LCC fallback       : True
+Seeds in final module   : 359 / 372
+Seeds dropped by LCC    : 13
+  Dropped: ['ADCY1', 'ADM', 'AVPR1A', 'GALR1', 'GFRA2', 'HCRT', 'HDC', 'HRH1', 'IDO1', 'IL4', 'NPPC', 'SRD5A1', 'SSTR4']
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  A-LTMR.TAC3_ppi                             580 genes
+  neuron_ppi                                  569 genes
+  A-PEP.KIT_ppi                               360 genes
+  A-Propr.EPHA3_ppi                           352 genes
+  A-Propr.PCDH8_ppi                           342 genes
+  C-Thermo.RXFP1_ppi                          282 genes
+  Ab-LTMR.LGI2_ppi                            270 genes
+  C-LTMR.CDH9_ppi                             232 genes
+  C-PEP.ADORA2B_ppi                           218 genes
+  C-NP.SST_ppi                                203 genes
+  C-NP.MRGPRX1_MRGPRX4_ppi                    192 genes
+  C-NP.MRGPRX1_GFRA2_ppi                      186 genes
+  A-Propr.HAPLN4_ppi                          181 genes
+  C-PEP.TAC1_CHRNA3_ppi                       180 genes
+  C-Thermo.TRPM8_ppi                          175 genes
+  C-PEP.TAC1_CACNG5_ppi                       152 genes
+  Ab-LTMR.ETV1_ppi                            148 genes
+  Ab-LTMR.CCKAR_ppi                           147 genes
+  A-PEP.NTRK3_S100A16_ppi                     143 genes
+  ATF3_ppi                                    138 genes
+  Ab-LTMR.NSG2_ppi                            124 genes
+  A-PEP.CHRNA7_SLC18A3_ppi                    103 genes
+  A-PEP.SCGN_ADRA2C_ppi                        82 genes
+
+======================================================================
+⚠  MODULE NOT FULLY CONNECTED — SUGGESTIONS
+======================================================================
+• Seeds split into 154 components. Consider increasing --k or reviewing seed list.
+• Hit --max-bridge cap (4000). Try increasing it.
+• LCC fallback used. Use --no-lcc-fallback to keep all genes.
+======================================================================
+
+Diagnostics saved → 06_disease_module/disease_module_output_consolidated/module_diagnostics.txt
+Finished at: Mon Jul 20 03:36:55 PM CEST 2026

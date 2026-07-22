@@ -16,7 +16,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--ppi-pkl", required=True)
     parser.add_argument("--integrated-multiplex", required=True)
-    parser.add_argument("--reactome-csv", required=True)
+    parser.add_argument("--reactome-csv", required=False, default=None,
+                        help="Optional. If omitted, the Reactome layer is skipped entirely "
+                             "(no reactome_layer.tsv is written, and it is not added to "
+                             "config.yml or layer_info.json).")
     parser.add_argument("--wdir", required=True)
     parser.add_argument("--validate-against-ppi", action="store_true",
                         help="Only keep ligand-receptor and Reactome edges whose gene pair "
@@ -85,28 +88,34 @@ def main():
         print(f"  (dropped {lr_edges_dropped_no_ppi:,} LR edges not corroborated by PPI network)")
 
     # ---------------------------------------------------------
-    # 3. Process Reactome Layer
+    # 3. Process Reactome Layer (optional)
     # ---------------------------------------------------------
-    print(f"\nLoading Reactome pairs: {args.reactome_csv}")
-    df_react = pd.read_csv(args.reactome_csv)
-    react_edges = set()
-    react_edges_dropped_no_ppi = 0
-    for _, row in df_react.iterrows():
-        g1 = str(row.get("symbol1", "")).strip().upper()
-        g2 = str(row.get("symbol2", "")).strip().upper()
-        if g1 and g2 and g1 != g2 and g1 != "NAN" and g2 != "NAN":
-            if g1 in gene_universe and g2 in gene_universe:
-                pair = tuple(sorted([g1, g2]))
-                if args.validate_against_ppi and pair not in ppi_edges:
-                    react_edges_dropped_no_ppi += 1
-                    continue
-                react_edges.add(pair)
+    include_reactome = args.reactome_csv is not None
+    react_path = None
 
-    react_path = mul_dir / "reactome_layer.tsv"
-    pd.DataFrame(sorted(react_edges), columns=["g1", "g2"]).to_csv(react_path, sep="\t", index=False, header=False)
-    print(f"✓ Wrote Reactome Layer ({len(react_edges):,} edges)")
-    if args.validate_against_ppi:
-        print(f"  (dropped {react_edges_dropped_no_ppi:,} Reactome edges not corroborated by PPI network)")
+    if include_reactome:
+        print(f"\nLoading Reactome pairs: {args.reactome_csv}")
+        df_react = pd.read_csv(args.reactome_csv)
+        react_edges = set()
+        react_edges_dropped_no_ppi = 0
+        for _, row in df_react.iterrows():
+            g1 = str(row.get("symbol1", "")).strip().upper()
+            g2 = str(row.get("symbol2", "")).strip().upper()
+            if g1 and g2 and g1 != g2 and g1 != "NAN" and g2 != "NAN":
+                if g1 in gene_universe and g2 in gene_universe:
+                    pair = tuple(sorted([g1, g2]))
+                    if args.validate_against_ppi and pair not in ppi_edges:
+                        react_edges_dropped_no_ppi += 1
+                        continue
+                    react_edges.add(pair)
+
+        react_path = mul_dir / "reactome_layer.tsv"
+        pd.DataFrame(sorted(react_edges), columns=["g1", "g2"]).to_csv(react_path, sep="\t", index=False, header=False)
+        print(f"✓ Wrote Reactome Layer ({len(react_edges):,} edges)")
+        if args.validate_against_ppi:
+            print(f"  (dropped {react_edges_dropped_no_ppi:,} Reactome edges not corroborated by PPI network)")
+    else:
+        print("\nSkipping Reactome layer (--reactome-csv not provided)")
 
     # ---------------------------------------------------------
     # 4. Update configuration
@@ -119,8 +128,10 @@ def main():
     added_layers = [
         "multiplex/gene_multiplex/ppi_layer.tsv",
         "multiplex/gene_multiplex/ligand_receptor_layer.tsv",
-        "multiplex/gene_multiplex/reactome_layer.tsv"
     ]
+    if include_reactome:
+        added_layers.append("multiplex/gene_multiplex/reactome_layer.tsv")
+
     for layer in added_layers:
         if layer not in layers:
             layers.append(layer)
@@ -142,7 +153,8 @@ def main():
 
     layer_info["ppi_layer"] = {"type": "special", "cell_types": [], "edge_type": "ppi"}
     layer_info["ligand_receptor_layer"] = {"type": "special", "cell_types": [], "edge_type": "ligand_receptor"}
-    layer_info["reactome_layer"] = {"type": "special", "cell_types": [], "edge_type": "reactome"}
+    if include_reactome:
+        layer_info["reactome_layer"] = {"type": "special", "cell_types": [], "edge_type": "reactome"}
 
     with open(layer_info_path, "w") as f:
         json.dump(layer_info, f, indent=2)

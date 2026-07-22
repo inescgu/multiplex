@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step7_rebuild_%j.out
 #SBATCH --error=slurm_logs/step7_rebuild_%j.err
 #SBATCH --time=4:00:00
-#SBATCH --mem=30G
+#SBATCH --mem=10G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 

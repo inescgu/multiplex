@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 483, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 472, in main
+    merge_layers(
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 315, in merge_layers
+    safe_copy(path, abs_path)
+  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 115, in safe_copy
+    shutil.copy(src, dst)
+  File "/lisc/opt/sw/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/shutil.py", line 435, in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/lisc/opt/sw/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '04_multixrank_prep/multixrank_input/multiplex/gene_multiplex/neuron_ppi_layer.tsv'
