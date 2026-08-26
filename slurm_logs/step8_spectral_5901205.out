@@ -1,0 +1,85 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-5901205
+Step 8: Spectral clustering
+Running on host: node-c05.lisc
+Requested cores: 12
+Starting at: Fri Aug 14 12:34:38 PM CEST 2026
+Requirement already satisfied: scikit-learn in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.9.0)
+Requirement already satisfied: joblib in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.24.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.4.4)
+Requirement already satisfied: scipy>=1.10.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (1.17.1)
+Requirement already satisfied: narwhals>=2.0.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.22.1)
+Requirement already satisfied: threadpoolctl>=3.5.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (3.6.0)
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  layer 'ppi': nnz = 19,170
+  layer 'inter': nnz = 5,796
+  WARNING: cached embedding params don't match this run.
+    cached:   {'mode': 'sos', 'n_nodes': 4685, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': []}
+    expected: {'mode': 'sos', 'n_nodes': 4685, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': [], 'degree_normalize': True, 'reg_tau': None}
+  Recomputing.
+
+[mode=sos] randomized SoS embedding (K=12, p=0.4)
+  degree-normalized 'ppi' (tau=mean-degree)
+  squared+accumulated 'ppi'
+  degree-normalized 'inter' (tau=mean-degree)
+  squared+accumulated 'inter'
+  randomized SVD: n=4685, K=12, oversample=10
+
+Embedding shape: (4685, 12)
+
+Silhouette sweep:
+  → optimal k = 9  (sampled silhouette=0.9910, exact silhouette=0.9910)
+  → optimal k = 9
+Saved gene/cluster table → 08_spectral_analysis/module_with_ppi/spectral_clusters.csv
+
+Done in 24.1s — outputs in 08_spectral_analysis/module_with_ppi
+  k=13  silhouette=0.9841  inertia=0.72
+  k=23  silhouette=0.9278  inertia=0.18
+  k=32  silhouette=0.9159  inertia=0.10
+  k=38  silhouette=0.8742  inertia=0.07
+  k=12  silhouette=0.9835  inertia=1.34
+  k=25  silhouette=0.9248  inertia=0.16
+  k=37  silhouette=0.8808  inertia=0.07
+  k= 3  silhouette=0.9902  inertia=10.00
+  k=16  silhouette=0.9778  inertia=0.39
+  k=28  silhouette=0.9257  inertia=0.13
+  k=40  silhouette=0.8713  inertia=0.06
+  k= 8  silhouette=0.9909  inertia=5.06
+  k=24  silhouette=0.9278  inertia=0.17
+  k=39  silhouette=0.8706  inertia=0.07
+  k= 5  silhouette=0.9905  inertia=8.01
+  k=22  silhouette=0.9275  inertia=0.20
+  k=33  silhouette=0.9195  inertia=0.09
+  k=43  silhouette=0.8631  inertia=0.06
+  k= 2  silhouette=0.9901  inertia=10.99
+  k=18  silhouette=0.9756  inertia=0.30
+  k=27  silhouette=0.9283  inertia=0.14
+  k=42  silhouette=0.8758  inertia=0.06
+  k=11  silhouette=0.9828  inertia=2.23
+  k=21  silhouette=0.9259  inertia=0.21
+  k=35  silhouette=0.9231  inertia=0.09
+  k=45  silhouette=0.8780  inertia=0.05
+  k= 6  silhouette=0.9906  inertia=7.04
+  k=15  silhouette=0.9777  inertia=0.47
+  k=29  silhouette=0.9285  inertia=0.12
+  k=47  silhouette=0.8792  inertia=0.05
+  k= 4  silhouette=0.9903  inertia=9.02
+  k=14  silhouette=0.9774  inertia=0.57
+  k=26  silhouette=0.9279  inertia=0.15
+  k=36  silhouette=0.8757  inertia=0.08
+  k=46  silhouette=0.8764  inertia=0.05
+  k=10  silhouette=0.9796  inertia=3.15
+  k=20  silhouette=0.9608  inertia=0.23
+  k=34  silhouette=0.9109  inertia=0.09
+  k=48  silhouette=0.8745  inertia=0.04
+  k= 7  silhouette=0.9908  inertia=6.04
+  k=19  silhouette=0.9607  inertia=0.26
+  k=30  silhouette=0.9284  inertia=0.11
+  k=41  silhouette=0.8747  inertia=0.06
+  k=49  silhouette=0.8696  inertia=0.04
+  k= 9  silhouette=0.9910  inertia=4.09
+  k=17  silhouette=0.9754  inertia=0.33
+  k=31  silhouette=0.9257  inertia=0.11
+  k=44  silhouette=0.8779  inertia=0.05
+  k=50  silhouette=0.8601  inertia=0.04
+Finished at: Fri Aug 14 12:35:11 PM CEST 2026

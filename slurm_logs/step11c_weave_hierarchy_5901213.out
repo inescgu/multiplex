@@ -1,0 +1,14 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c03/tmp/slurm-5901213
+Step 11c: Weaving partition ensemble into a HiDeF persistent hierarchy (hidef.weaver)
+Running on host: node-c03.lisc
+Starting at: Fri Aug 14 12:42:57 PM CEST 2026
+Loaded ensemble: 30 partitions, 140139 nodes
+
+Raw clusters across 30 partitions: 271,653
+  dropped by --min-cluster-size 5: 108,210 -> 163,443 remain
+  after deduplication: 5,917 unique clusters (dedup enabled)
+Estimated dense O(n^2) pairwise-matrix memory: 590.4 GB (raw) -> 213.7 GB (size-filtered) -> 0.3 GB (size-filtered + deduped)
+Weaving 5,917 clusters (cutoff=0.75) ...
+Weave complete.
+  Example hierarchy node: (5916, 0) -> attrs: ['index', 'level', 'label', 'depth']
+Finished at: Sat Aug 15 11:35:41 PM CEST 2026

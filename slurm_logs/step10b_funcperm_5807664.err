@@ -1,0 +1,4 @@
+
+[notice] A new release of pip is available: 26.1.2 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+[2026-08-08T11:23:50.034] error: *** JOB 5807664 ON node-c05 CANCELLED AT 2026-08-08T11:23:50 DUE TO TIME LIMIT ***

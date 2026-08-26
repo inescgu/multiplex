@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job4608452/slurm_script: line 24: 1042787 Killed                  python step4_build_multixrank_inputs.py --multiplex-pkl 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl --seed-csv 00_inputs/seed_genes.csv --output-dir 04_multixrank_prep/multixrank_input --restart 0.7 --delta 0.5
-[2026-06-30T12:27:59.684] error: Detected 1 oom_kill event in StepId=4608452.batch. Some of the step tasks have been OOM Killed.

@@ -1,0 +1,33 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b10/tmp/slurm-5823525
+Step 9: Marchenko-Pastur analysis
+Running on host: node-b10.lisc
+Starting at: Mon Aug 10 10:16:15 AM CEST 2026
+Global Fiedler sign split (from raw values in this CSV): 4,045 negative (94.5%), 235 positive (5.5%)
+  Minority sign: positive -- testing MINORITY-side consistency, not literal negativity.
+Loaded 1,172 genes x 22 cell types from 09_marchenko_pastur/multiplex_bridges.csv
+488 / 1,172 genes present in >= 3 cell types (testable); 684 excluded as insufficient_data
+Running 10,000 permutations ...
+  1,000/10,000 permutations done
+  2,000/10,000 permutations done
+  3,000/10,000 permutations done
+  4,000/10,000 permutations done
+  5,000/10,000 permutations done
+  6,000/10,000 permutations done
+  7,000/10,000 permutations done
+  8,000/10,000 permutations done
+  9,000/10,000 permutations done
+  10,000/10,000 permutations done
+
+Saved per-gene results -> 09_marchenko_pastur/permutation_test/bridge_permutation_results.csv
+
+=== SUMMARY ===
+Testable genes (>= 3 cell types present): 488
+Raw flagged bridges from input CSV (frac >= 0.6, no significance test): 0
+Genes significant at FDR <= 0.05: 1
+  (for reference, at FDR <= 0.01: 0)
+  (for reference, at FDR <= 0.1: 1)
+
+Saved null-distribution plot -> 09_marchenko_pastur/permutation_test/permutation_null_diagram.png
+Global empirical p-value (observed flagged-count vs. null): 1.0000
+Saved summary -> 09_marchenko_pastur/permutation_test/permutation_test_summary.json
+Finished at: Mon Aug 10 10:16:30 AM CEST 2026

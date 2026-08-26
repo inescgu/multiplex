@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'node_id'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step9_multiplex_marchenko_pastur.py", line 497, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step9_multiplex_marchenko_pastur.py", line 465, in main
+    bridge_nodes = bridges_df.loc[bridges_df["is_multiplex_bridge"], "node_id"].tolist()
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexing.py", line 1185, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexing.py", line 1369, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexing.py", line 1066, in _getitem_lowerdim
+    section = self._getitem_axis(key, axis=i)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexing.py", line 1432, in _getitem_axis
+    return self._get_label(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexing.py", line 1382, in _get_label
+    return self.obj.xs(label, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/generic.py", line 4309, in xs
+    return self[key]
+           ~~~~^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/frame.py", line 4113, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'node_id'

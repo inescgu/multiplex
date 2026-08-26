@@ -1,0 +1,43 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d05/tmp/slurm-5832716
+Step 8: Spectral clustering
+Running on host: node-d05.lisc
+Requested cores: 16
+Starting at: Tue Aug 11 11:03:35 AM CEST 2026
+Requirement already satisfied: scikit-learn in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.9.0)
+Requirement already satisfied: joblib in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.24.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.4.4)
+Requirement already satisfied: scipy>=1.10.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (1.17.1)
+Requirement already satisfied: narwhals>=2.0.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.22.1)
+Requirement already satisfied: threadpoolctl>=3.5.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (3.6.0)
+Loading reference graph from 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  78,890 nodes, 628,034 edges (557,829 ppi-tagged, 70,205 inter-tagged)
+  layer 'ppi': nnz = 1,115,658
+  layer 'inter': nnz = 140,410
+
+[mode=sos] randomized SoS embedding (K=12, p=0.4)
+  squared+accumulated 'ppi'
+  squared+accumulated 'inter'
+  randomized SVD: n=78890, K=12, oversample=10
+
+Embedding shape: (78890, 12)
+
+Silhouette sweep:
+  → optimal k = 5  (sampled silhouette=0.8974, exact silhouette=0.8905)
+  → optimal k = 5
+Saved gene/cluster table → 08_spectral_analysis/spectral_clusters.csv
+
+Done in 168.6s — outputs in 08_spectral_analysis
+  k= 8  silhouette=0.8479  inertia=6.74
+  k=15  silhouette=0.8216  inertia=3.72
+  k= 5  silhouette=0.8974  inertia=8.83
+  k= 6  silhouette=0.8407  inertia=8.18
+  k= 4  silhouette=0.8773  inertia=9.49
+  k=12  silhouette=0.8658  inertia=4.55
+  k= 7  silhouette=0.8851  inertia=7.42
+  k=10  silhouette=0.8537  inertia=5.57
+  k= 9  silhouette=0.8517  inertia=6.09
+  k=11  silhouette=0.8604  inertia=5.05
+  k=14  silhouette=0.8684  inertia=3.89
+  k=13  silhouette=0.8684  inertia=4.18
+  k=16  silhouette=0.8199  inertia=3.55
+Finished at: Tue Aug 11 11:06:44 AM CEST 2026

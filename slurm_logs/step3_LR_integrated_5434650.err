@@ -1,4 +1,0 @@
-  File "/lisc/home/user/gerardursin/multiplex/step3_fastertest.py", line 775
-    global _W_LIGAND_NODE_IDS, _W_RECEPTOR_NODE_IDS
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-SyntaxError: name '_W_LIGAND_NODE_IDS' is assigned to before global declaration

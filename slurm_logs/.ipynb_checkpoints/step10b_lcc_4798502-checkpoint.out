@@ -1,9 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-4798502
-Running Layer LCC Analysis
-Host: node-c02.lisc
-Start: Fri Jul  3 10:41:16 AM CEST 2026
-================================================================================
-MULTIPLEX LAYER LCC SIGNIFICANCE ANALYSIS
-================================================================================
-Loading multiplex from 03_integrated/integrated_multiplex.pkl ...
-End: Fri Jul  3 10:41:22 AM CEST 2026

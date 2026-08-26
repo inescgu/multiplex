@@ -1,0 +1,46 @@
+/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py:782: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+joblib.externals.loky.process_executor._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py", line 490, in _process_worker
+    r = call_item()
+        ^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py", line 291, in __call__
+    return self.fn(*self.args, **self.kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 607, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/step8f_null_models.py", line 200, in _one_population_rep
+    sub_G = sample_population_subgraph(full_G, target_degrees, n_bins, seed)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/home/user/gerardursin/multiplex/step8f_null_models.py", line 192, in sample_population_subgraph
+    sampled.extend(chosen.tolist())
+                   ^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'tolist'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step8f_null_models.py", line 396, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step8f_null_models.py", line 360, in main
+    pop_results = Parallel(n_jobs=args.n_jobs)(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 2072, in __call__
+    return output if self.return_generator else list(output)
+                                                ^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 1682, in _get_outputs
+    yield from self._retrieve()
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 1784, in _retrieve
+    self._raise_error_fast()
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 1859, in _raise_error_fast
+    error_job.get_result(self.timeout)
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 758, in get_result
+    return self._return_or_raise()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/joblib/parallel.py", line 773, in _return_or_raise
+    raise self._result
+AttributeError: 'list' object has no attribute 'tolist'

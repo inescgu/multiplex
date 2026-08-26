@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-4610673
-Step 5: Consolidating layers
-Running on host: node-c02.lisc
-Starting at: Tue Jun 30 01:28:55 PM CEST 2026
-Finished at: Tue Jun 30 01:29:00 PM CEST 2026

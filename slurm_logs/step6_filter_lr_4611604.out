@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-4611604
-Step 6: Filtering LR pairs to consolidated multiplex
-Running on host: node-c05.lisc
-Starting at: Tue Jun 30 01:56:20 PM CEST 2026
-Finished at: Tue Jun 30 01:57:02 PM CEST 2026

@@ -1,0 +1,53 @@
+======================================================================
+MODULE EXPLORATORY DIAGNOSTICS
+======================================================================
+Total nodes: 4,685   Total edges: 12,483
+Cell types represented: 23
+
+Per-cell-type breakdown:
+           cell_type major_category  n_nodes  n_intra_celltype_edges  pct_of_module_nodes  n_seeds  seed_fraction_of_celltype  n_isolated_nodes  n_isolated_seeds
+A-PEP.CHRNA7_SLC18A3        A-fiber      238                     411                 5.08       49                     0.2059                 0                 0
+                ATF3 Non-classified      238                     579                 5.08       52                     0.2185                 0                 0
+   A-PEP.SCGN_ADRA2C        A-fiber      235                     560                 5.02       58                     0.2468                 0                 0
+  C-NP.MRGPRX1_GFRA2        C-fiber      233                     495                 4.97       62                     0.2661                 0                 0
+          global_ppi        unknown      226                     318                 4.82      209                     0.9248                 0                 0
+   C-PEP.TAC1_CACNG5        C-fiber      218                     463                 4.65       60                     0.2752                 0                 0
+         C-LTMR.CDH9        C-fiber      215                     503                 4.59       77                     0.3581                 0                 0
+ A-PEP.NTRK3_S100A16        A-fiber      214                     455                 4.57       62                     0.2897                 0                 0
+       Ab-LTMR.CCKAR        A-fiber      212                     434                 4.53       64                     0.3019                 0                 0
+   C-PEP.TAC1_CHRNA3        C-fiber      210                     430                 4.48       71                     0.3381                 0                 0
+            C-NP.SST        C-fiber      209                     443                 4.46       74                     0.3541                 0                 0
+      C-Thermo.TRPM8        C-fiber      209                     371                 4.46       60                     0.2871                 0                 0
+       C-PEP.ADORA2B        C-fiber      209                     542                 4.46       86                     0.4115                 0                 0
+C-NP.MRGPRX1_MRGPRX4        C-fiber      208                     464                 4.44       67                     0.3221                 0                 0
+      A-Propr.HAPLN4        A-fiber      201                     536                 4.29       84                     0.4179                 0                 0
+        Ab-LTMR.NSG2        A-fiber      201                     389                 4.29       72                     0.3582                 0                 0
+        Ab-LTMR.ETV1        A-fiber      183                     360                 3.91      103                     0.5628                 0                 0
+           A-PEP.KIT        A-fiber      181                     411                 3.86      100                     0.5525                 0                 0
+       A-Propr.EPHA3        A-fiber      176                     324                 3.76      109                     0.6193                 0                 0
+        Ab-LTMR.LGI2        A-fiber      174                     301                 3.71      109                     0.6264                 0                 0
+       A-Propr.PCDH8        A-fiber      169                     303                 3.61      117                     0.6923                 0                 0
+      C-Thermo.RXFP1        C-fiber      169                     274                 3.61       91                     0.5385                 0                 0
+         A-LTMR.TAC3        A-fiber      157                     219                 3.35      133                     0.8471                 0                 0
+
+Isolated nodes overall: 0 (of which seeds: 0)
+Seed lines in seeds.txt: 2150  | unique: 2150  | duplicate lines: none
+Seeds in final module: 1969 / 2150
+Seeds isolated in module: 0
+Seed genes seeded under >1 cell type: 1991
+
+Full seed-level table -> 06_disease_module/disease_module_output/module_exploratory_seed_membership.csv
+Full per-cell-type table -> 06_disease_module/disease_module_output/module_exploratory_per_celltype.csv
+
+Seed distribution by cell type plot -> 06_disease_module/disease_module_output/module_exploratory_seed_pct_by_celltype.png
+Module composition by cell type plot -> 06_disease_module/disease_module_output/module_exploratory_module_pct_by_celltype.png
+Top seed genes plot -> 06_disease_module/disease_module_output/module_exploratory_top_seed_genes.png
+
+Interaction-type breakdown (LR-inference method / NeuronChat ligand_type):
+  Candidate scored-LR edges (post step2 filtering): 197,688
+  Of those, present in final module                : 1,898
+  [candidate / source] table -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_source.csv | plot -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_source.png
+  [candidate / ligand_type] table -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_ligand_type.csv | plot -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_ligand_type.png
+  [module / source] table -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_source.csv | plot -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_source.png
+  [module / ligand_type] table -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_ligand_type.csv | plot -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_ligand_type.png
+======================================================================

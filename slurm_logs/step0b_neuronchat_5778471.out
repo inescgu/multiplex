@@ -1,0 +1,12 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-5778471
+Step 0b: Running NeuronChat (R)
+Running on host: node-c02.lisc
+Starting at: Fri Jul 31 11:26:20 AM CEST 2026
+Loading Seurat object from ../R/convert_hdrg_human_2025/seurat_hdrg/seurat_object_preprint_release.Rds ...
+  53596 cells x 61277 genes (after dropping DEPRECATED- placeholders); 22 cell types
+
+Creating NeuronChat object and running pairwise communication ...
+Time difference of 5.478959 mins
+Flattening to long format ...
+Wrote 4252 long-format LR rows -> pathway_prep/lr_sources/neuronchat_long.csv
+Finished at: Fri Jul 31 11:37:12 AM CEST 2026

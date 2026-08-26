@@ -1,0 +1,3 @@
+usage: step11c_weave.py [-h] --ensemble ENSEMBLE --output-dir OUTPUT_DIR [--cutoff CUTOFF]
+                        [--max-size MAX_SIZE]
+step11c_weave.py: error: unrecognized arguments: --min-cluster-size 5

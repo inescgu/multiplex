@@ -1,0 +1,87 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b09/tmp/slurm-6165971
+Step 8: Spectral clustering + component diagnostics
+Running on host: node-b09.lisc
+Requested cores: 5
+Starting at: Wed Aug 26 12:04:35 PM CEST 2026
+
+=== Step 8d: module_with_ppi ===
+=== Duplicate embedding groups: with_ppi ===
+  nodes in a group of size >= 2: 1,452 / 4,685
+  number of such groups: 59
+  group size distribution: min=2, median=2, max=1305
+  loading 06_disease_module/disease_module_output/module_graph.pkl for neighbor lookup ...
+  saved full duplicate group table -> 08_spectral_analysis/module_with_ppi/diagnostics/duplicate_groups_with_ppi.csv
+  groups where ALL members share >=1 common neighbor: 37 / 59 (62.7%) -- these are the clean 'attach to the same hub(s)' cases
+  groups with NO common neighbor across all members: 22 -- these collapsed for some other structural reason (e.g. shared 2-hop neighborhoods, isolated pairs, or the squared-adjacency embedding picking up longer-range equivalence)
+
+  top 20 largest groups:
+    group 1844: 1305 genes [ABCC4;ACHE;ANKRD13C;BBS1;BDKRB2;CACNA1B;CACNG2;CD99L2;DICER1;GABRG2;GINM1;GLA;GN...], cell types=A-LTMR.TAC3;A-PEP.CHRNA7_SLC18A3;A-PEP.KIT;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.EPHA3;A-Propr.HAPLN4;A-Propr.PCDH8;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.ETV1;Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.MRGPRX1_MRGPRX4;C-NP.SST;C-PEP.ADORA2B;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1;C-Thermo.TRPM8;global_ppi, shared neighbor(s)=(none / not computed)
+    group 1831: 7 genes [ATP6V0A2;KDM1A;PRKCD;CBS;GRIA2;SHISAL1;AQP1], cell types=A-PEP.CHRNA7_SLC18A3;ATF3;Ab-LTMR.CCKAR;C-NP.MRGPRX1_MRGPRX4;C-Thermo.RXFP1;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1857: 7 genes [GRAMD1A;RNF31;STAT3;DLG2;PTGDR;FMR1;TMEM14B], cell types=Ab-LTMR.CCKAR;Ab-LTMR.LGI2;C-LTMR.CDH9;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1, shared neighbor(s)=(none / not computed)
+    group 1843: 6 genes [CHD3;CWF19L2;PCSK6;EDNRA;UCP2;MKLN1], cell types=A-PEP.SCGN_ADRA2C;ATF3;C-PEP.ADORA2B;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 1861: 5 genes [PPP1R9B;OPRD1;SEC63;ASPH;PIM1], cell types=A-Propr.HAPLN4;C-NP.MRGPRX1_MRGPRX4;C-PEP.ADORA2B;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1783: 4 genes [CYFIP2;EIF1AX;ELOVL7;EXOC4], cell types=C-NP.MRGPRX1_GFRA2, shared neighbor(s)=C-NP.MRGPRX1_GFRA2::DTNBP1
+    group 1840: 4 genes [COG5;SPARC;SEC22A;KCNA2], cell types=ATF3;Ab-LTMR.ETV1;C-PEP.ADORA2B;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1845: 4 genes [DMD;ITPR2;PCSK6;NPTX1], cell types=A-PEP.SCGN_ADRA2C;C-NP.SST;C-PEP.TAC1_CHRNA3;global_ppi, shared neighbor(s)=(none / not computed)
+    group 1839: 4 genes [KCNJ9;ORMDL2;ANKHD1;CYBC1], cell types=A-Propr.EPHA3;Ab-LTMR.NSG2;C-LTMR.CDH9, shared neighbor(s)=(none / not computed)
+    group 1830: 3 genes [INTS4;NRSN1;ANKHD1], cell types=A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C, shared neighbor(s)=(none / not computed)
+    group 814: 3 genes [ADAM11;ADAM11;ADAM11], cell types=A-LTMR.TAC3;A-PEP.SCGN_ADRA2C;Ab-LTMR.LGI2, shared neighbor(s)=global_ppi::ADAM11
+    group 1880: 3 genes [CNTN1;ATR;HIP1R], cell types=A-PEP.NTRK3_S100A16;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1860: 3 genes [TNK2;TMEM179B;SLC16A2], cell types=ATF3;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 1829: 3 genes [FAAH;GRIN1;IPO11], cell types=A-PEP.CHRNA7_SLC18A3;Ab-LTMR.LGI2;C-NP.MRGPRX1_MRGPRX4, shared neighbor(s)=(none / not computed)
+    group 3165: 3 genes [TRPM3;TRPM3;TRPM3], cell types=A-Propr.EPHA3;Ab-LTMR.LGI2;C-NP.SST, shared neighbor(s)=global_ppi::TRPM3
+    group 1758: 2 genes [ORMDL3;VEGFA], cell types=A-Propr.EPHA3, shared neighbor(s)=A-Propr.EPHA3::TMEM237
+    group 1749: 2 genes [RUNX1;OPRD1], cell types=A-PEP.CHRNA7_SLC18A3;Ab-LTMR.NSG2, shared neighbor(s)=(none / not computed)
+    group 1680: 2 genes [EFHC1;PTGER3], cell types=C-Thermo.RXFP1, shared neighbor(s)=C-Thermo.RXFP1::TCF4
+    group 593: 2 genes [RGS4;RGS4], cell types=Ab-LTMR.ETV1;C-PEP.TAC1_CHRNA3, shared neighbor(s)=global_ppi::RGS4
+    group 199: 2 genes [FSTL1;FSTL1], cell types=A-PEP.SCGN_ADRA2C;C-NP.SST, shared neighbor(s)=global_ppi::FSTL1
+
+=== Step 8d: module_no_ppi ===
+=== Duplicate embedding groups: no_ppi ===
+  nodes in a group of size >= 2: 2,295 / 4,459
+  number of such groups: 135
+  group size distribution: min=2, median=2, max=1788
+  loading 06_disease_module/disease_module_output/module_graph.pkl for neighbor lookup ...
+  saved full duplicate group table -> 08_spectral_analysis/module_no_ppi/diagnostics/duplicate_groups_no_ppi.csv
+  groups where ALL members share >=1 common neighbor: 38 / 135 (28.1%) -- these are the clean 'attach to the same hub(s)' cases
+  groups with NO common neighbor across all members: 97 -- these collapsed for some other structural reason (e.g. shared 2-hop neighborhoods, isolated pairs, or the squared-adjacency embedding picking up longer-range equivalence)
+
+  top 20 largest groups:
+    group 835: 1788 genes [ABCC4;ACHE;ADAM11;ANKRD13C;BBS1;BDKRB2;CACNA1B;CACNA1H;CACNA2D1;CACNG2;CD99L2;CD...], cell types=A-LTMR.TAC3;A-PEP.CHRNA7_SLC18A3;A-PEP.KIT;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.EPHA3;A-Propr.HAPLN4;A-Propr.PCDH8;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.ETV1;Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.MRGPRX1_MRGPRX4;C-NP.SST;C-PEP.ADORA2B;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 836: 29 genes [RGS4;CLU;DTNBP1;FOXP1;IBTK;PRKCB;RFFL;RNF31;RPL35A;RUNX1T1;RUSF1;S100B;SEMA4C;SH...], cell types=A-Propr.HAPLN4;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.SST;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 834: 27 genes [GNAI1;SPPL2B;AQP1;PIP5K1A;PLCB3;MGST3;RBCK1;CACNG2;NSF;ATP11C;ATP2B2;CEP70;CLTC;...], cell types=A-Propr.HAPLN4;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 780: 24 genes [ANXA2;BLOC1S6;CCM2;CD14;COQ9;CREB3L1;DDIT3;FHL2;FTL;HINT1;JUND;KCNIP3;LRRC59;LYS...], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 781: 22 genes [BRK1;CACNA1C;CSGALNACT1;DCX;DICER1;DNAJB6;GNAO1;GRIP1;GSTM3;HLA-A;IFITM3;ITGB8;N...], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 837: 16 genes [ARRDC1;GAP43;LMO2;PCSK6;ATP5F1B;CYFIP2;EIF1AX;ELOVL7;EXOC4;ADAM23;RDH13;HIF1A;TR...], cell types=Ab-LTMR.CCKAR;Ab-LTMR.ETV1;C-NP.MRGPRX1_GFRA2;C-NP.SST;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 853: 15 genes [ACTN1;AQP3;CREB3L1;NAAA;STARD13;GAL;GPAT3;KCNA2;NOS1;TMEM74;CPNE5;PLP1;DCX;MCAM;...], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.HAPLN4;Ab-LTMR.NSG2;C-PEP.ADORA2B, shared neighbor(s)=(none / not computed)
+    group 460: 14 genes [DGUOK;NOS1;PRKAR1B;COMTD1;CREB3L1;HTR3A;PLXDC2;RUNX1T1;SOD2;SPARC;VEGFA;ATP5PB;B...], cell types=A-LTMR.TAC3;A-PEP.SCGN_ADRA2C;Ab-LTMR.CCKAR, shared neighbor(s)=(none / not computed)
+    group 832: 9 genes [CLTC;KRIT1;CLU;MAPK8;NRG1;VEGFA;ITCH;MFSD14B;RUNX1], cell types=Ab-LTMR.NSG2;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1013: 8 genes [LAMA4;ADNP;GNAO1;MAP2K1;NDN;RICTOR;OPRM1;CD274], cell types=Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-PEP.ADORA2B;C-Thermo.RXFP1, shared neighbor(s)=(none / not computed)
+    group 1012: 8 genes [BRAF;IMPDH1;MYC;NHERF2;PRKD1;RB1;UBC;JUN], cell types=Ab-LTMR.NSG2;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1437: 8 genes [COG3;CREB3L1;GPRASP1;IBTK;PRKCA;PRKCD;STRN3;TTYH3], cell types=Ab-LTMR.CCKAR, shared neighbor(s)=(none / not computed)
+    group 958: 8 genes [HDAC4;HPCAL1;KDM1A;PTGDS;RNF31;RUNX1;CALCA;SLC20A2], cell types=A-PEP.NTRK3_S100A16;A-Propr.PCDH8;Ab-LTMR.LGI2, shared neighbor(s)=(none / not computed)
+    group 134: 8 genes [CDC42;EDNRA;GGH;MAPK8;NPM1;PDIA4;TIAM1;YWHAB], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 833: 7 genes [ZNF444;GNAQ;MAGED1;NSMCE3;B3GNT2;CNIH1;MAPK3], cell types=Ab-LTMR.NSG2;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1666: 6 genes [ADCY9;APBA1;GPRASP1;GRIP1;HIPK2;PLXDC2], cell types=A-PEP.CHRNA7_SLC18A3, shared neighbor(s)=(none / not computed)
+    group 874: 5 genes [CAPN2;CBS;CERS2;DIP2A;TMEM97], cell types=A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 865: 5 genes [ATR;FLNA;WLS;ATE1;GRIN1], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 857: 5 genes [RUNX1;STX3;THADA;SLC20A2;TLE5], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 840: 5 genes [FMR1;S100B;EZR;NHERF1;PDCD4], cell types=C-PEP.TAC1_CHRNA3;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+
+=== Step 8e: module_with_ppi (cluster sizes + forced k=2 only, no single-layer comparison yet) ===
+
+=== Step 8e: module_no_ppi (cluster sizes + forced k=2 only, no single-layer comparison yet) ===
+
+=== Step 8g: module with ppi ===
+Loading module graph: 06_disease_module/disease_module_output/module_graph.pkl
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  [exclude-celltypes] Removed cell type(s) ['GLOBAL_PPI']: 226 nodes dropped -> 4,459 nodes, 10,016 edges remain (was 4,685 nodes, 12,483 edges)
+
+=== Step 8g: module no ppi ===
+Loading module graph: 06_disease_module/disease_module_output/module_graph.pkl
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  [exclude-celltypes] Removed cell type(s) ['GLOBAL_PPI']: 226 nodes dropped -> 4,459 nodes, 10,016 edges remain (was 4,685 nodes, 12,483 edges)
+
+Finished at: Wed Aug 26 12:04:59 PM CEST 2026

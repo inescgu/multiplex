@@ -1,0 +1,78 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d06/tmp/slurm-6108625
+Requirement already satisfied: pyarrow in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (25.0.0)
+Requirement already satisfied: pip in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (26.2.1)
+
+======================================================================
+Functional Permutation Test (heterogeneous multiplex) -- seed/neighbor decomposition + rewired-network + fixed-seed nulls
+  Reference graph: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  Disease module dir: 06_disease_module/
+  N permutations (seed null): 200 | k: 200
+  Worker processes: 6
+  Disease EFOs: 74 IDs
+======================================================================
+
+Loading full reference graph...
+  78,890 nodes, 628,034 edges
+
+Applying --lcc-per-layer filter (matching step6) ...
+  [lcc-per-layer] Cell type 'A-LTMR.TAC3': 6,170 -> 6,166 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'A-PEP.CHRNA7_SLC18A3': 1,232 -> 1,195 nodes (dropped 37)
+  [lcc-per-layer] Cell type 'A-PEP.KIT': 3,566 -> 3,552 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'A-PEP.NTRK3_S100A16': 1,606 -> 1,592 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'A-PEP.SCGN_ADRA2C': 1,824 -> 1,811 nodes (dropped 13)
+  [lcc-per-layer] Cell type 'A-Propr.EPHA3': 3,022 -> 3,014 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'A-Propr.HAPLN4': 2,427 -> 2,418 nodes (dropped 9)
+  [lcc-per-layer] Cell type 'A-Propr.PCDH8': 3,606 -> 3,602 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'ATF3': 1,655 -> 1,639 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'Ab-LTMR.CCKAR': 1,685 -> 1,658 nodes (dropped 27)
+  [lcc-per-layer] Cell type 'Ab-LTMR.ETV1': 3,106 -> 3,100 nodes (dropped 6)
+  [lcc-per-layer] Cell type 'Ab-LTMR.LGI2': 3,134 -> 3,130 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'Ab-LTMR.NSG2': 2,164 -> 2,142 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-LTMR.CDH9': 2,140 -> 2,136 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_GFRA2': 1,184 -> 1,145 nodes (dropped 39)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_MRGPRX4': 1,492 -> 1,470 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-NP.SST': 1,432 -> 1,410 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-PEP.ADORA2B': 3,285 -> 3,275 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CACNG5': 1,435 -> 1,419 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CHRNA3': 1,814 -> 1,796 nodes (dropped 18)
+  [lcc-per-layer] Cell type 'C-Thermo.RXFP1': 3,636 -> 3,632 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'C-Thermo.TRPM8': 1,227 -> 1,205 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'global_ppi': 17,051 -> 17,051 nodes (dropped 0)
+
+  [lcc-per-layer] Total: 78,890 -> 69,558 nodes, 628,034 -> 615,171 edges
+
+Building sparse adjacency (reused across Null 1 permutations)...
+  Adjacency: 69,558 x 69,558, nnz=1,230,342
+
+Loading true disease module...
+  209 seed(s) marked is_excluded_seed=True -- excluded from the anchor set here too, matching step6's own behavior.
+True seeds in graph: 1760
+True module size (namespaced nodes): 4685
+True module size (unique genes): 1192
+True RWR-added neighbor nodes: 2925
+
+Initialising functional scorers...
+  ✓ DrugTargetScorer — any indication + 74 disease EFOs
+  – GOEnrichmentScorer skipped (--no-go)
+  ✓ PainPhenotypeScorer (../expression_data/human_pain_genes_database.csv)
+
+Scoring true disease module...
+  [DrugTargetScorer] 1,520 drug-target gene symbols (any indication)
+  [DrugTargetScorer] 207 drug-target gene symbols across 74 disease EFOs
+  [PainPhenotypeScorer] 289 pain-phenotype genes
+True module functional metrics (combined module, gene-level):
+  drug_target_fraction_any                     : 0.198826
+  drug_target_fraction_disease                 : 0.035235
+  pain_phenotype_fraction                      : 0.038591
+
+True module functional metrics (seed vs. neighbor decomposition, gene-level):
+  drug_target_fraction_any__seeds              : 0.469194
+  drug_target_fraction_any__neighbors          : 0.140673
+  drug_target_fraction_disease__seeds          : 0.104265
+  drug_target_fraction_disease__neighbors      : 0.020387
+  pain_phenotype_fraction__seeds               : 0.127962
+  pain_phenotype_fraction__neighbors           : 0.019368
+
+  Disease-EFO drug-target genes in true module (42): ['ABCB1', 'ACE', 'ACHE', 'ADORA1', 'ADORA2A', 'ADORA2B', 'ADRA1D', 'ADRA2A', 'ADRA2C', 'ADRB2', 'AR', 'CACNA1B', 'CACNA1C', 'CACNA1H', 'CACNA2D1', 'CALCRL', 'CHRNA4', 'CHRNB2', 'CNR1', 'DRD2'] ...
+
+[Null 1/3] Degree-matched random seeds — 200 permutations across 6 workers...

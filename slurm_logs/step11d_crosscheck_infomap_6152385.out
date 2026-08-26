@@ -1,0 +1,25 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6152385
+Step 11d: Cross-checking persistent communities against Infomap on the supra-graph
+Running on host: node-c01.lisc
+Starting at: Tue Aug 25 10:11:21 AM CEST 2026
+Collecting infomap
+  Downloading infomap-2.9.2.tar.gz (268 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: infomap
+  Building wheel for infomap (pyproject.toml): started
+  Building wheel for infomap (pyproject.toml): still running...
+  Building wheel for infomap (pyproject.toml): still running...
+  Building wheel for infomap (pyproject.toml): finished with status 'done'
+  Created wheel for infomap: filename=infomap-2.9.2-cp310-cp310-linux_x86_64.whl size=7792377 sha256=b05f8179e7966dab109651a5bb4eb27ef6b70a8f35b43e06d281446964c64553
+  Stored in directory: /lisc/home/user/gerardursin/.cache/pip/wheels/2a/61/00/7fd3ef96f4bdea00ce21ceba82e101eaad1ae8de8ffe9aed5a
+Successfully built infomap
+Installing collected packages: infomap
+Successfully installed infomap-2.9.2
+Infomap version 2.9.2 compiled with OpenMP
+Usage: Infomap out_directory [options]. Run with option '-h' for more information.
+Finished at: Tue Aug 25 10:14:12 AM CEST 2026

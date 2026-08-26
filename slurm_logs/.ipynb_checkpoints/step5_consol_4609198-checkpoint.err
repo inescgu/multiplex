@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 454, in <module>
-    main()
-  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 443, in main
-    merge_layers(
-  File "/lisc/home/user/gerardursin/multiplex/step5_consolidate_layers.py", line 315, in merge_layers
-    tau_value = round(1.0 / n_new, 6)
-                      ~~~~^~~~~~~
-ZeroDivisionError: float division by zero

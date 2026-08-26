@@ -1,10 +1,0 @@
-Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
-
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "Python/3.14.4-weekly"
-
-Also make sure that all modulefiles written in TCL start with the string #%Module
-
-
-Layers analyzed:   0%|          | 0/179 [00:00<?, ?it/s]LCC [hdrg__A-PEP.CHRNA7_SLC18A3]:   0%|          | 0/200 [00:00<?, ?it/s]LCC [hdrg__A-PEP.KIT]:   0%|          | 0/200 [00:00<?, ?it/s]LCC [hdrg__A-LTMR.TAC3]:   0%|          | 0/200 [00:00<?, ?it/s]LCC [global_ppi__full_network]:   0%|          | 0/200 [00:00<?, ?it/s]LCC [global_ppi__full_network]:   0%|          | 1/200 [1:21:53<271:38:04, 4913.99s/it]LCC [hdrg__A-LTMR.TAC3]:   0%|          | 1/200 [1:22:17<272:55:16, 4937.27s/it]LCC [hdrg__A-PEP.CHRNA7_SLC18A3]:   0%|          | 1/200 [1:22:33<273:48:05, 4953.20s/it]LCC [hdrg__A-PEP.KIT]:   0%|          | 1/200 [1:22:35<273:57:14, 4955.95s/it]

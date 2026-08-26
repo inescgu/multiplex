@@ -1,0 +1,13 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b02/tmp/slurm-6153282
+Step 8: Spectral clustering + component diagnostics
+Running on host: node-b02.lisc
+Requested cores: 1
+Starting at: Tue Aug 25 10:55:06 AM CEST 2026
+Requirement already satisfied: scikit-learn in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.9.0)
+Requirement already satisfied: joblib in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.24.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.4.4)
+Requirement already satisfied: scipy>=1.10.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (1.17.1)
+Requirement already satisfied: narwhals>=2.0.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.22.1)
+Requirement already satisfied: threadpoolctl>=3.5.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (3.6.0)
+
+=== [1/2] Spectral clustering: module_with_ppi ===

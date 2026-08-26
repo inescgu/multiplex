@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step13_viz_dm.py", line 276, in <module>
-    ap = argparse.ArgumentParser()
-         ^^^^^^^^
-NameError: name 'argparse' is not defined. Did you forget to import 'argparse'?

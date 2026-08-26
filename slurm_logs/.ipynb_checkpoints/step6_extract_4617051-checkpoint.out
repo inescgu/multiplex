@@ -1,4 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-4617051
-Step 6: Extracting LR & Reactome edges
-Running on host: node-b01.lisc
-Starting at: Tue Jun 30 03:57:13 PM CEST 2026

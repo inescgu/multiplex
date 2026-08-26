@@ -1,0 +1,26 @@
+/lisc/home/user/gerardursin/multiplex/step8g_seed_core_periphery_null.py:1: SyntaxWarning: invalid escape sequence '\ '
+  """
+/lisc/home/user/gerardursin/multiplex/step8g_seed_core_periphery_null.py:1: SyntaxWarning: invalid escape sequence '\ '
+  """
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step8g_seed_core_periphery_null.py", line 394, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step8g_seed_core_periphery_null.py", line 326, in main
+    df = pd.read_csv(args.clusters_csv)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '08_spectral_analysis/module_no_ppi/diagnostics/spectral_clusters_k2_with_ppi.csv'

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step11c_weave.py", line 189, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step11c_weave.py", line 177, in main
+    wv = weave_hierarchy(P, node_names, args.cutoff)
+  File "/lisc/home/user/gerardursin/multiplex/step11c_weave.py", line 60, in weave_hierarchy
+    wv = hidef_weaver.Weaver(terminals=node_names)
+TypeError: Weaver.__init__() got an unexpected keyword argument 'terminals'

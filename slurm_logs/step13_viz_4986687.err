@@ -1,2 +1,0 @@
-/var/spool/slurm/slurmd/job4986687/slurm_script: line 32: 1156395 Killed                  python step13_viz_dm.py --graph 03_integrated/integrated_multiplex_output/integrated_multiplex.pkl --dm-csv 06_disease_module/disease_module_output_consolidated/disease_module.csv --seed-csv 00_inputs/seed_genes.csv --out-dir 08_dm_visualization
-[2026-07-10T16:05:12.017] error: Detected 1 oom_kill event in StepId=4986687.batch. Some of the step tasks have been OOM Killed.

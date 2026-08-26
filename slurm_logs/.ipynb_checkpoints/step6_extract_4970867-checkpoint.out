@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-4970867
-Step 6: Extract LR + Reactome from CSV
-Running on host: node-c01.lisc
-Starting at: Thu Jul  9 10:45:57 AM CEST 2026
-Finished at: Thu Jul  9 10:46:03 AM CEST 2026

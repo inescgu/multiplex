@@ -1,0 +1,20 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-5808625
+Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph
+Running on host: node-c05.lisc
+Starting at: Thu Aug  6 02:06:14 PM CEST 2026
+Loaded supra-graph: 140,139 nodes, 695,209 edges
+
+Resolution grid (30 values): 0.01 ... 10
+Coupling (omega) grid: [1.0]
+Restarts per setting: 1
+Partition type: RB
+
+  [10/30] gamma=0.08532 omega=1 restart=0 -> 9034 communities (122.9s elapsed)
+  [20/30] gamma=0.9237 omega=1 restart=0 -> 9047 communities (344.3s elapsed)
+  [30/30] gamma=10 omega=1 restart=0 -> 9186 communities (1316.5s elapsed)
+
+============================================================
+Step 3b complete: 30 partitions across 30 resolution(s) x 1 coupling weight(s) x 1 restart(s)
+  -> 11_hidef_hetero/ensemble.pkl
+============================================================
+Finished at: Thu Aug  6 02:28:26 PM CEST 2026

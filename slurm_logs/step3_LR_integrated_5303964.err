@@ -1,5 +1,0 @@
-usage: step3_fastertest.py [-h] --ts-layers-dir TS_LAYERS_DIR --hdrg-layers-dir HDRG_LAYERS_DIR --reactome-csv REACTOME_CSV [--kegg-csv KEGG_CSV] [--uniprot-map UNIPROT_MAP] --lr-csv LR_CSV
-                           [--output-dir OUTPUT_DIR] [--max-pathway-size MAX_PATHWAY_SIZE] [--pathway-chunk-size PATHWAY_CHUNK_SIZE] [--cross-source-only] [--base-ppi BASE_PPI]
-                           [--validate-against-ppi] [--ppi-validation-pkl PPI_VALIDATION_PKL] [--n-workers N_WORKERS] [--skip-pathways]
-step3_fastertest.py: error: the following arguments are required: --reactome-csv, --lr-csv
-/var/spool/slurm/slurmd/job5303964/slurm_script: line 20: --lr-csv: command not found

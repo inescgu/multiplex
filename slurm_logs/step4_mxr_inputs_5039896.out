@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b03/tmp/slurm-5039896
-Step 4: Building MultiXrank inputs
-Running on host: node-b03.lisc
-Starting at: Sun Jul 12 05:41:52 PM CEST 2026
-Finished at: Sun Jul 12 05:43:09 PM CEST 2026

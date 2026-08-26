@@ -1,0 +1,156 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b14/tmp/slurm-5779057
+Step 7b: Per-cell-type LCC significance analysis
+Host: node-b14.lisc
+Start: Fri Jul 31 02:35:13 PM CEST 2026
+================================================================================
+CELL-TYPE LCC SIGNIFICANCE ANALYSIS
+================================================================================
+Loading per-cell-type PPI layers from 04_multixrank_prep/multixrank_hetero_input/multiplex ...
+  A-LTMR.TAC3: 6,170 nodes, 58,818 edges
+  A-PEP.CHRNA7_SLC18A3: 1,232 nodes, 2,650 edges
+  A-PEP.KIT: 3,566 nodes, 20,489 edges
+  A-PEP.NTRK3_S100A16: 1,606 nodes, 4,566 edges
+  A-PEP.SCGN_ADRA2C: 1,824 nodes, 6,433 edges
+  A-Propr.EPHA3: 3,022 nodes, 13,971 edges
+  A-Propr.HAPLN4: 2,427 nodes, 9,295 edges
+  A-Propr.PCDH8: 3,606 nodes, 21,547 edges
+  ATF3: 1,655 nodes, 6,394 edges
+  Ab-LTMR.CCKAR: 1,685 nodes, 4,771 edges
+  Ab-LTMR.ETV1: 3,106 nodes, 16,560 edges
+  Ab-LTMR.LGI2: 3,134 nodes, 16,141 edges
+  Ab-LTMR.NSG2: 2,164 nodes, 7,370 edges
+  C-LTMR.CDH9: 2,140 nodes, 8,123 edges
+  C-NP.MRGPRX1_GFRA2: 1,184 nodes, 2,692 edges
+  C-NP.MRGPRX1_MRGPRX4: 1,492 nodes, 4,272 edges
+  C-NP.SST: 1,432 nodes, 3,585 edges
+  C-PEP.ADORA2B: 3,285 nodes, 16,638 edges
+  C-PEP.TAC1_CACNG5: 1,435 nodes, 3,624 edges
+  C-PEP.TAC1_CHRNA3: 1,814 nodes, 5,452 edges
+  C-Thermo.RXFP1: 3,636 nodes, 19,226 edges
+  C-Thermo.TRPM8: 1,227 nodes, 2,659 edges
+  global_ppi: 17,051 nodes, 302,553 edges
+  23 cell type(s) loaded
+
+Loaded 408 seed gene symbols
+  e.g.: ['ABCB1', 'ABCC3', 'ABCC4', 'ACHE', 'ACP3', 'ADAM11', 'ADAMTS5', 'ADCY1', 'ADCY5', 'ADCY8']
+
+Loading combined reference graph for null-model pool: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  Reference graph: 78,890 nodes (shared pool degree dict for every cell type)
+
+Seed/layer overlap check: 372 / 408 seed genes found in the union of all 23 cell-type PPI layers (69,893 distinct genes)
+  372 / 408 seed genes found in the null-model pool
+
+Preparing per-cell-type tasks ...
+Prepared 23 tasks
+
+  Memory: 0.33 GB
+Using 4 workers
+
+Analyzing LCC significance:
+
+  A-PEP.CHRNA7_SLC18A3
+    nodes: 1,232 | edges: 2,650 | seeds: 49
+
+  A-PEP.NTRK3_S100A16
+    nodes: 1,606 | edges: 4,566 | seeds: 63
+
+  A-PEP.KIT
+    nodes: 3,566 | edges: 20,489 | seeds: 100
+
+  A-LTMR.TAC3
+    nodes: 6,170 | edges: 58,818 | seeds: 133
+    LCC: 53 | p=0 | z=106.77 | significant: YES ✓
+
+  A-PEP.SCGN_ADRA2C
+    nodes: 1,824 | edges: 6,433 | seeds: 58
+    LCC: 3 | p=0 | z=4.99 | significant: YES ✓
+
+  A-Propr.EPHA3
+    nodes: 3,022 | edges: 13,971 | seeds: 109
+    LCC: 22 | p=0 | z=98.87 | significant: YES ✓
+
+  A-Propr.HAPLN4
+    nodes: 2,427 | edges: 9,295 | seeds: 85
+    LCC: 6 | p=0 | z=14.08 | significant: YES ✓
+
+  A-Propr.PCDH8
+    nodes: 3,606 | edges: 21,547 | seeds: 117
+    LCC: 2 | p=0.003 | z=3.16 | significant: YES ✓
+
+  ATF3
+    nodes: 1,655 | edges: 6,394 | seeds: 54
+    LCC: 32 | p=0 | z=119.32 | significant: YES ✓
+
+  Ab-LTMR.CCKAR
+    nodes: 1,685 | edges: 4,771 | seeds: 66
+    LCC: 39 | p=0 | z=216.19 | significant: YES ✓
+
+  Ab-LTMR.ETV1
+    nodes: 3,106 | edges: 16,560 | seeds: 103
+    LCC: 46 | p=0 | z=205.06 | significant: YES ✓
+
+  Ab-LTMR.LGI2
+    nodes: 3,134 | edges: 16,141 | seeds: 109
+    LCC: 6 | p=0 | z=11.81 | significant: YES ✓
+
+  Ab-LTMR.NSG2
+    nodes: 2,164 | edges: 7,370 | seeds: 73
+    LCC: 12 | p=0 | z=27.83 | significant: YES ✓
+
+  C-LTMR.CDH9
+    nodes: 2,140 | edges: 8,123 | seeds: 77
+    LCC: 29 | p=0 | z=161.87 | significant: YES ✓
+
+  C-NP.MRGPRX1_GFRA2
+    nodes: 1,184 | edges: 2,692 | seeds: 65
+    LCC: 28 | p=0 | z=158.72 | significant: YES ✓
+
+  C-NP.MRGPRX1_MRGPRX4
+    nodes: 1,492 | edges: 4,272 | seeds: 70
+    LCC: 23 | p=0 | z=72.55 | significant: YES ✓
+
+  C-NP.SST
+    nodes: 1,432 | edges: 3,585 | seeds: 75
+    LCC: 19 | p=0 | z=61.94 | significant: YES ✓
+
+  C-PEP.ADORA2B
+    nodes: 3,285 | edges: 16,638 | seeds: 87
+    LCC: 4 | p=0 | z=7.70 | significant: YES ✓
+
+  C-PEP.TAC1_CACNG5
+    nodes: 1,435 | edges: 3,624 | seeds: 61
+    LCC: 11 | p=0 | z=26.43 | significant: YES ✓
+
+  C-PEP.TAC1_CHRNA3
+    nodes: 1,814 | edges: 5,452 | seeds: 72
+    LCC: 14 | p=0 | z=35.38 | significant: YES ✓
+
+  C-Thermo.RXFP1
+    nodes: 3,636 | edges: 19,226 | seeds: 91
+    LCC: 12 | p=0 | z=75.92 | significant: YES ✓
+
+  C-Thermo.TRPM8
+    nodes: 1,227 | edges: 2,659 | seeds: 61
+    LCC: 8 | p=0 | z=18.01 | significant: YES ✓
+
+  global_ppi
+    nodes: 17,051 | edges: 302,553 | seeds: 372
+    LCC: 9 | p=0 | z=22.97 | significant: YES ✓
+    LCC: 30 | p=0 | z=148.31 | significant: YES ✓
+    LCC: 4 | p=0 | z=7.65 | significant: YES ✓
+    LCC: 200 | p=0 | z=8.02 | significant: YES ✓
+
+================================================================================
+RESULTS
+================================================================================
+Saved summary -> 07b_layer_lcc_analysis/lcc_summary.csv
+Saved report -> 07b_layer_lcc_analysis/lcc_summary.txt
+
+Saved plot -> 07b_layer_lcc_analysis/plots/lcc_significance_by_celltype.png
+
+Computing per-component metrics (significant cell types only)...
+Saved per-component data -> 07b_layer_lcc_analysis/components
+
+Completed in 33626.7s
+
+End: Fri Jul 31 11:55:44 PM CEST 2026

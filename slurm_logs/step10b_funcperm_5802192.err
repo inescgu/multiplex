@@ -1,0 +1,12 @@
+Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Python/3.14.4-weekly"
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
+
+
+
+[notice] A new release of pip is available: 26.1.2 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip

@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job5825966/slurm_script: line 19: 3626698 Killed                  python step11c_weave.py --ensemble 11_hidef_hetero/ensemble.pkl --output-dir 11_hidef_results --cutoff 0.75 --max-size 4680
+[2026-08-10T17:42:13.872] error: Detected 1 oom_kill event in StepId=5825966.batch. Some of the step tasks have been OOM Killed.

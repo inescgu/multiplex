@@ -1,0 +1,73 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d05/tmp/slurm-6152403
+Step 8: Spectral clustering + component diagnostics
+Running on host: node-d05.lisc
+Requested cores: 12
+Starting at: Tue Aug 25 10:13:23 AM CEST 2026
+Requirement already satisfied: scikit-learn in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.9.0)
+Requirement already satisfied: joblib in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.24.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.4.4)
+Requirement already satisfied: scipy>=1.10.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (1.17.1)
+Requirement already satisfied: narwhals>=2.0.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.22.1)
+Requirement already satisfied: threadpoolctl>=3.5.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (3.6.0)
+
+=== [1/2] Embedding diagnostic: module_with_ppi ===
+
+=== Degree distribution: with_ppi ===
+  nodes: 4,685  (raw degree = sum of ['deg_ppi', 'deg_inter'])
+  degree <= 0: 0 nodes (0.0%)
+  degree <= 1: 444 nodes (9.5%)
+  degree <= 2: 1,310 nodes (28.0%)
+  degree <= 5: 3,151 nodes (67.3%)
+  median degree: 4.0, mean degree: 5.33, max: 62
+  saved degree histogram -> 08_spectral_analysis/module_with_ppi/diagnostics/degree_distribution_with_ppi.png
+
+=== Embedding geometry: with_ppi ===
+  embedding shape: (4685, 12)
+  unique rows @ 6 decimals: 3,292 / 4,685 (70.3% unique)
+  rows sharing their rounded position with >=1 other row: 1,452 (31.0%)
+  nearest-neighbor distance: min=0.00e+00, 1st pct=0.00e+00, median=9.70e-06, mean=2.68e-03
+  saved nearest-neighbor distance histogram -> 08_spectral_analysis/module_with_ppi/diagnostics/nn_distance_distribution_with_ppi.png
+  Spearman correlation(degree, nearest-neighbor distance): rho=0.5710 (p=0.00e+00)
+    positive rho = low-degree nodes tend to sit closer to their nearest neighbor (collapsing toward each other) — consistent with the 'low-degree nodes become near-duplicate points' theory
+
+=== Eigenvalue spectrum: with_ppi ===
+  top-12 eigenvalues: [2.049, 1.863, 1.741, 1.695, 1.64, 1.6, 1.498, 1.493, 1.474, 1.431, 1.411, 1.401]
+  fraction of total captured by top-1: 0.106
+  fraction of total captured by top-2: 0.203
+  participation ratio (effective rank): 11.83 out of 12 dimensions
+    PR much smaller than K = most of the embedding's spread lives in a few dimensions, with the rest doing little work -- consistent with most nodes collapsing together along those remaining directions
+  saved eigenvalue spectrum plot -> 08_spectral_analysis/module_with_ppi/diagnostics/eigval_spectrum_with_ppi.png
+
+Saved combined summary -> 08_spectral_analysis/module_with_ppi/diagnostics/embedding_diagnostic_summary_with_ppi.json
+
+=== [2/2] Embedding diagnostic: module_no_ppi ===
+
+=== Degree distribution: no_ppi ===
+  nodes: 4,459  (raw degree = sum of ['deg_ppi', 'deg_inter'])
+  degree <= 0: 63 nodes (1.4%)
+  degree <= 1: 812 nodes (18.2%)
+  degree <= 2: 1,618 nodes (36.3%)
+  degree <= 5: 3,258 nodes (73.1%)
+  median degree: 3.0, mean degree: 4.49, max: 59
+  saved degree histogram -> 08_spectral_analysis/module_no_ppi/diagnostics/degree_distribution_no_ppi.png
+
+=== Embedding geometry: no_ppi ===
+  embedding shape: (4459, 12)
+  unique rows @ 6 decimals: 2,299 / 4,459 (51.6% unique)
+  rows sharing their rounded position with >=1 other row: 2,295 (51.5%)
+  nearest-neighbor distance: min=0.00e+00, 1st pct=0.00e+00, median=4.07e-07, mean=2.22e-03
+  saved nearest-neighbor distance histogram -> 08_spectral_analysis/module_no_ppi/diagnostics/nn_distance_distribution_no_ppi.png
+  Spearman correlation(degree, nearest-neighbor distance): rho=0.5850 (p=0.00e+00)
+    positive rho = low-degree nodes tend to sit closer to their nearest neighbor (collapsing toward each other) — consistent with the 'low-degree nodes become near-duplicate points' theory
+
+=== Eigenvalue spectrum: no_ppi ===
+  top-12 eigenvalues: [1.987, 1.931, 1.615, 1.56, 1.557, 1.471, 1.368, 1.3, 1.188, 1.121, 1.07, 1.047]
+  fraction of total captured by top-1: 0.115
+  fraction of total captured by top-2: 0.228
+  participation ratio (effective rank): 11.50 out of 12 dimensions
+    PR much smaller than K = most of the embedding's spread lives in a few dimensions, with the rest doing little work -- consistent with most nodes collapsing together along those remaining directions
+  saved eigenvalue spectrum plot -> 08_spectral_analysis/module_no_ppi/diagnostics/eigval_spectrum_no_ppi.png
+
+Saved combined summary -> 08_spectral_analysis/module_no_ppi/diagnostics/embedding_diagnostic_summary_no_ppi.json
+
+Finished at: Tue Aug 25 10:13:46 AM CEST 2026

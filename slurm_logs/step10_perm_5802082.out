@@ -1,0 +1,22 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b06/tmp/slurm-5802082
+Step 10: Permutation test for disease module
+Running on host: node-b06.lisc
+Starting at: Wed Aug  5 11:13:12 AM CEST 2026
+
+======================================================================
+step14: Permutation Test for Disease Module (heterogeneous pipeline)
+  Disease module dir: 06_disease_module
+  Reference graph   : 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  N permutations: 1000 | k: 200
+  Restart: 0.7 | Scaling: 0
+======================================================================
+
+Loading full reference graph...
+  Reference graph: 78,890 nodes, 628,034 edges
+
+Building sparse transition matrix...
+  Transition matrix: 78,890 x 78,890, nnz=1,256,068
+
+Loading true disease module...
+ERROR: 06_disease_module/disease_module.csv not found
+Finished at: Wed Aug  5 11:13:33 AM CEST 2026

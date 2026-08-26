@@ -1,0 +1,75 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-5901197
+Step 8: Spectral clustering
+Running on host: node-c05.lisc
+Requested cores: 12
+Starting at: Fri Aug 14 12:32:17 PM CEST 2026
+Requirement already satisfied: scikit-learn in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.9.0)
+Requirement already satisfied: joblib in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.24.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.4.4)
+Requirement already satisfied: scipy>=1.10.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (1.17.1)
+Requirement already satisfied: narwhals>=2.0.1 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (2.22.1)
+Requirement already satisfied: threadpoolctl>=3.5.0 in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (from scikit-learn) (3.6.0)
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  layer 'ppi': nnz = 19,170
+  layer 'inter': nnz = 5,796
+Loading cached embedding from 08_spectral_analysis/module_with_ppi/embedding.npy
+
+Embedding shape: (4685, 12)
+
+Silhouette sweep:
+  → optimal k = 3  (sampled silhouette=0.9241, exact silhouette=0.9241)
+  → optimal k = 3
+Saved gene/cluster table → 08_spectral_analysis/module_with_ppi/spectral_clusters.csv
+
+Done in 27.8s — outputs in 08_spectral_analysis/module_with_ppi
+  k= 9  silhouette=0.8923  inertia=5.82
+  k=20  silhouette=0.8728  inertia=2.10
+  k=29  silhouette=0.8785  inertia=1.33
+  k=40  silhouette=0.8566  inertia=0.92
+  k= 8  silhouette=0.9135  inertia=6.65
+  k=25  silhouette=0.8827  inertia=1.57
+  k=37  silhouette=0.8584  inertia=0.98
+  k= 6  silhouette=0.9183  inertia=8.04
+  k=22  silhouette=0.8802  inertia=1.79
+  k=31  silhouette=0.8632  inertia=1.18
+  k=43  silhouette=0.8192  inertia=0.82
+  k= 4  silhouette=0.9196  inertia=9.52
+  k=14  silhouette=0.9045  inertia=3.32
+  k=28  silhouette=0.8773  inertia=1.35
+  k=39  silhouette=0.8347  inertia=0.92
+  k=11  silhouette=0.9021  inertia=4.52
+  k=16  silhouette=0.9079  inertia=2.76
+  k=27  silhouette=0.8718  inertia=1.42
+  k=41  silhouette=0.8613  inertia=0.87
+  k= 5  silhouette=0.8748  inertia=8.81
+  k=17  silhouette=0.9078  inertia=2.63
+  k=34  silhouette=0.8541  inertia=1.09
+  k=44  silhouette=0.8615  inertia=0.79
+  k= 7  silhouette=0.8895  inertia=7.36
+  k=23  silhouette=0.8802  inertia=1.71
+  k=35  silhouette=0.8617  inertia=1.07
+  k=46  silhouette=0.8275  inertia=0.75
+  k=13  silhouette=0.9039  inertia=3.61
+  k=24  silhouette=0.8811  inertia=1.63
+  k=36  silhouette=0.8621  inertia=1.02
+  k=45  silhouette=0.8380  inertia=0.76
+  k= 3  silhouette=0.9241  inertia=10.39
+  k=19  silhouette=0.8730  inertia=2.18
+  k=32  silhouette=0.8547  inertia=1.16
+  k=47  silhouette=0.8339  inertia=0.74
+  k= 2  silhouette=0.9199  inertia=11.10
+  k=21  silhouette=0.8786  inertia=1.90
+  k=33  silhouette=0.8606  inertia=1.12
+  k=48  silhouette=0.8606  inertia=0.72
+  k=12  silhouette=0.9036  inertia=3.96
+  k=18  silhouette=0.8795  inertia=2.37
+  k=30  silhouette=0.8816  inertia=1.25
+  k=42  silhouette=0.8381  inertia=0.84
+  k=49  silhouette=0.8375  inertia=0.69
+  k=10  silhouette=0.8952  inertia=5.26
+  k=15  silhouette=0.9067  inertia=3.06
+  k=26  silhouette=0.8825  inertia=1.48
+  k=38  silhouette=0.8586  inertia=0.94
+  k=50  silhouette=0.7788  inertia=0.66
+Finished at: Fri Aug 14 12:32:54 PM CEST 2026

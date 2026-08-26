@@ -1,0 +1,833 @@
+multiplex:
+  A-LTMR.TAC3:
+    layers:
+    - multiplex/A-LTMR.TAC3/ppi_layer.tsv
+  A-PEP.CHRNA7_SLC18A3:
+    layers:
+    - multiplex/A-PEP.CHRNA7_SLC18A3/ppi_layer.tsv
+  A-PEP.KIT:
+    layers:
+    - multiplex/A-PEP.KIT/ppi_layer.tsv
+  A-PEP.NTRK3_S100A16:
+    layers:
+    - multiplex/A-PEP.NTRK3_S100A16/ppi_layer.tsv
+  A-PEP.SCGN_ADRA2C:
+    layers:
+    - multiplex/A-PEP.SCGN_ADRA2C/ppi_layer.tsv
+  A-Propr.EPHA3:
+    layers:
+    - multiplex/A-Propr.EPHA3/ppi_layer.tsv
+  A-Propr.HAPLN4:
+    layers:
+    - multiplex/A-Propr.HAPLN4/ppi_layer.tsv
+  A-Propr.PCDH8:
+    layers:
+    - multiplex/A-Propr.PCDH8/ppi_layer.tsv
+  ATF3:
+    layers:
+    - multiplex/ATF3/ppi_layer.tsv
+  Ab-LTMR.CCKAR:
+    layers:
+    - multiplex/Ab-LTMR.CCKAR/ppi_layer.tsv
+  Ab-LTMR.ETV1:
+    layers:
+    - multiplex/Ab-LTMR.ETV1/ppi_layer.tsv
+  Ab-LTMR.LGI2:
+    layers:
+    - multiplex/Ab-LTMR.LGI2/ppi_layer.tsv
+  Ab-LTMR.NSG2:
+    layers:
+    - multiplex/Ab-LTMR.NSG2/ppi_layer.tsv
+  C-LTMR.CDH9:
+    layers:
+    - multiplex/C-LTMR.CDH9/ppi_layer.tsv
+  C-NP.MRGPRX1_GFRA2:
+    layers:
+    - multiplex/C-NP.MRGPRX1_GFRA2/ppi_layer.tsv
+  C-NP.MRGPRX1_MRGPRX4:
+    layers:
+    - multiplex/C-NP.MRGPRX1_MRGPRX4/ppi_layer.tsv
+  C-NP.SST:
+    layers:
+    - multiplex/C-NP.SST/ppi_layer.tsv
+  C-PEP.ADORA2B:
+    layers:
+    - multiplex/C-PEP.ADORA2B/ppi_layer.tsv
+  C-PEP.TAC1_CACNG5:
+    layers:
+    - multiplex/C-PEP.TAC1_CACNG5/ppi_layer.tsv
+  C-PEP.TAC1_CHRNA3:
+    layers:
+    - multiplex/C-PEP.TAC1_CHRNA3/ppi_layer.tsv
+  C-Thermo.RXFP1:
+    layers:
+    - multiplex/C-Thermo.RXFP1/ppi_layer.tsv
+  C-Thermo.TRPM8:
+    layers:
+    - multiplex/C-Thermo.TRPM8/ppi_layer.tsv
+  global_ppi:
+    layers:
+    - multiplex/global_ppi/ppi_layer.tsv
+bipartite:
+  bipartite/A-LTMR.TAC3__A-PEP.CHRNA7_SLC18A3.tsv:
+    source: A-LTMR.TAC3
+    target: A-PEP.CHRNA7_SLC18A3
+  bipartite/A-LTMR.TAC3__A-PEP.KIT.tsv:
+    source: A-LTMR.TAC3
+    target: A-PEP.KIT
+  bipartite/A-LTMR.TAC3__A-PEP.NTRK3_S100A16.tsv:
+    source: A-LTMR.TAC3
+    target: A-PEP.NTRK3_S100A16
+  bipartite/A-LTMR.TAC3__A-PEP.SCGN_ADRA2C.tsv:
+    source: A-LTMR.TAC3
+    target: A-PEP.SCGN_ADRA2C
+  bipartite/A-LTMR.TAC3__A-Propr.EPHA3.tsv:
+    source: A-LTMR.TAC3
+    target: A-Propr.EPHA3
+  bipartite/A-LTMR.TAC3__A-Propr.HAPLN4.tsv:
+    source: A-LTMR.TAC3
+    target: A-Propr.HAPLN4
+  bipartite/A-LTMR.TAC3__A-Propr.PCDH8.tsv:
+    source: A-LTMR.TAC3
+    target: A-Propr.PCDH8
+  bipartite/A-LTMR.TAC3__ATF3.tsv:
+    source: A-LTMR.TAC3
+    target: ATF3
+  bipartite/A-LTMR.TAC3__Ab-LTMR.CCKAR.tsv:
+    source: A-LTMR.TAC3
+    target: Ab-LTMR.CCKAR
+  bipartite/A-LTMR.TAC3__Ab-LTMR.ETV1.tsv:
+    source: A-LTMR.TAC3
+    target: Ab-LTMR.ETV1
+  bipartite/A-LTMR.TAC3__Ab-LTMR.LGI2.tsv:
+    source: A-LTMR.TAC3
+    target: Ab-LTMR.LGI2
+  bipartite/A-LTMR.TAC3__Ab-LTMR.NSG2.tsv:
+    source: A-LTMR.TAC3
+    target: Ab-LTMR.NSG2
+  bipartite/A-LTMR.TAC3__C-LTMR.CDH9.tsv:
+    source: A-LTMR.TAC3
+    target: C-LTMR.CDH9
+  bipartite/A-LTMR.TAC3__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-LTMR.TAC3
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-LTMR.TAC3__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-LTMR.TAC3
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-LTMR.TAC3__C-NP.SST.tsv:
+    source: A-LTMR.TAC3
+    target: C-NP.SST
+  bipartite/A-LTMR.TAC3__C-PEP.ADORA2B.tsv:
+    source: A-LTMR.TAC3
+    target: C-PEP.ADORA2B
+  bipartite/A-LTMR.TAC3__C-PEP.TAC1_CACNG5.tsv:
+    source: A-LTMR.TAC3
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-LTMR.TAC3__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-LTMR.TAC3
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-LTMR.TAC3__C-Thermo.RXFP1.tsv:
+    source: A-LTMR.TAC3
+    target: C-Thermo.RXFP1
+  bipartite/A-LTMR.TAC3__C-Thermo.TRPM8.tsv:
+    source: A-LTMR.TAC3
+    target: C-Thermo.TRPM8
+  bipartite/A-LTMR.TAC3__global_ppi.tsv:
+    source: A-LTMR.TAC3
+    target: global_ppi
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.KIT.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-PEP.KIT
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.NTRK3_S100A16.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-PEP.NTRK3_S100A16
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.SCGN_ADRA2C.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-PEP.SCGN_ADRA2C
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.EPHA3.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-Propr.EPHA3
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.HAPLN4.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-Propr.HAPLN4
+  bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.PCDH8.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: A-Propr.PCDH8
+  bipartite/A-PEP.CHRNA7_SLC18A3__ATF3.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: ATF3
+  bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.CCKAR.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: Ab-LTMR.CCKAR
+  bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.ETV1.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: Ab-LTMR.ETV1
+  bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.LGI2.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: Ab-LTMR.LGI2
+  bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.NSG2.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: Ab-LTMR.NSG2
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-LTMR.CDH9.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-LTMR.CDH9
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.SST.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-NP.SST
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.ADORA2B.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-PEP.ADORA2B
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.TAC1_CACNG5.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-Thermo.RXFP1.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-Thermo.RXFP1
+  bipartite/A-PEP.CHRNA7_SLC18A3__C-Thermo.TRPM8.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: C-Thermo.TRPM8
+  bipartite/A-PEP.CHRNA7_SLC18A3__global_ppi.tsv:
+    source: A-PEP.CHRNA7_SLC18A3
+    target: global_ppi
+  bipartite/A-PEP.KIT__A-PEP.NTRK3_S100A16.tsv:
+    source: A-PEP.KIT
+    target: A-PEP.NTRK3_S100A16
+  bipartite/A-PEP.KIT__A-PEP.SCGN_ADRA2C.tsv:
+    source: A-PEP.KIT
+    target: A-PEP.SCGN_ADRA2C
+  bipartite/A-PEP.KIT__A-Propr.EPHA3.tsv:
+    source: A-PEP.KIT
+    target: A-Propr.EPHA3
+  bipartite/A-PEP.KIT__A-Propr.HAPLN4.tsv:
+    source: A-PEP.KIT
+    target: A-Propr.HAPLN4
+  bipartite/A-PEP.KIT__A-Propr.PCDH8.tsv:
+    source: A-PEP.KIT
+    target: A-Propr.PCDH8
+  bipartite/A-PEP.KIT__ATF3.tsv:
+    source: A-PEP.KIT
+    target: ATF3
+  bipartite/A-PEP.KIT__Ab-LTMR.CCKAR.tsv:
+    source: A-PEP.KIT
+    target: Ab-LTMR.CCKAR
+  bipartite/A-PEP.KIT__Ab-LTMR.ETV1.tsv:
+    source: A-PEP.KIT
+    target: Ab-LTMR.ETV1
+  bipartite/A-PEP.KIT__Ab-LTMR.LGI2.tsv:
+    source: A-PEP.KIT
+    target: Ab-LTMR.LGI2
+  bipartite/A-PEP.KIT__Ab-LTMR.NSG2.tsv:
+    source: A-PEP.KIT
+    target: Ab-LTMR.NSG2
+  bipartite/A-PEP.KIT__C-LTMR.CDH9.tsv:
+    source: A-PEP.KIT
+    target: C-LTMR.CDH9
+  bipartite/A-PEP.KIT__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-PEP.KIT
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-PEP.KIT__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-PEP.KIT
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-PEP.KIT__C-NP.SST.tsv:
+    source: A-PEP.KIT
+    target: C-NP.SST
+  bipartite/A-PEP.KIT__C-PEP.ADORA2B.tsv:
+    source: A-PEP.KIT
+    target: C-PEP.ADORA2B
+  bipartite/A-PEP.KIT__C-PEP.TAC1_CACNG5.tsv:
+    source: A-PEP.KIT
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-PEP.KIT__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-PEP.KIT
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-PEP.KIT__C-Thermo.RXFP1.tsv:
+    source: A-PEP.KIT
+    target: C-Thermo.RXFP1
+  bipartite/A-PEP.KIT__C-Thermo.TRPM8.tsv:
+    source: A-PEP.KIT
+    target: C-Thermo.TRPM8
+  bipartite/A-PEP.KIT__global_ppi.tsv:
+    source: A-PEP.KIT
+    target: global_ppi
+  bipartite/A-PEP.NTRK3_S100A16__A-PEP.SCGN_ADRA2C.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: A-PEP.SCGN_ADRA2C
+  bipartite/A-PEP.NTRK3_S100A16__A-Propr.EPHA3.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: A-Propr.EPHA3
+  bipartite/A-PEP.NTRK3_S100A16__A-Propr.HAPLN4.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: A-Propr.HAPLN4
+  bipartite/A-PEP.NTRK3_S100A16__A-Propr.PCDH8.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: A-Propr.PCDH8
+  bipartite/A-PEP.NTRK3_S100A16__ATF3.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: ATF3
+  bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.CCKAR.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: Ab-LTMR.CCKAR
+  bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.ETV1.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: Ab-LTMR.ETV1
+  bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.LGI2.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: Ab-LTMR.LGI2
+  bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.NSG2.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: Ab-LTMR.NSG2
+  bipartite/A-PEP.NTRK3_S100A16__C-LTMR.CDH9.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-LTMR.CDH9
+  bipartite/A-PEP.NTRK3_S100A16__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-PEP.NTRK3_S100A16__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-PEP.NTRK3_S100A16__C-NP.SST.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-NP.SST
+  bipartite/A-PEP.NTRK3_S100A16__C-PEP.ADORA2B.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-PEP.ADORA2B
+  bipartite/A-PEP.NTRK3_S100A16__C-PEP.TAC1_CACNG5.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-PEP.NTRK3_S100A16__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-PEP.NTRK3_S100A16__C-Thermo.RXFP1.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-Thermo.RXFP1
+  bipartite/A-PEP.NTRK3_S100A16__C-Thermo.TRPM8.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: C-Thermo.TRPM8
+  bipartite/A-PEP.NTRK3_S100A16__global_ppi.tsv:
+    source: A-PEP.NTRK3_S100A16
+    target: global_ppi
+  bipartite/A-PEP.SCGN_ADRA2C__A-Propr.EPHA3.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: A-Propr.EPHA3
+  bipartite/A-PEP.SCGN_ADRA2C__A-Propr.HAPLN4.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: A-Propr.HAPLN4
+  bipartite/A-PEP.SCGN_ADRA2C__A-Propr.PCDH8.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: A-Propr.PCDH8
+  bipartite/A-PEP.SCGN_ADRA2C__ATF3.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: ATF3
+  bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.CCKAR.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: Ab-LTMR.CCKAR
+  bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.ETV1.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: Ab-LTMR.ETV1
+  bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.LGI2.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: Ab-LTMR.LGI2
+  bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.NSG2.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: Ab-LTMR.NSG2
+  bipartite/A-PEP.SCGN_ADRA2C__C-LTMR.CDH9.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-LTMR.CDH9
+  bipartite/A-PEP.SCGN_ADRA2C__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-PEP.SCGN_ADRA2C__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-PEP.SCGN_ADRA2C__C-NP.SST.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-NP.SST
+  bipartite/A-PEP.SCGN_ADRA2C__C-PEP.ADORA2B.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-PEP.ADORA2B
+  bipartite/A-PEP.SCGN_ADRA2C__C-PEP.TAC1_CACNG5.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-PEP.SCGN_ADRA2C__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-PEP.SCGN_ADRA2C__C-Thermo.RXFP1.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-Thermo.RXFP1
+  bipartite/A-PEP.SCGN_ADRA2C__C-Thermo.TRPM8.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: C-Thermo.TRPM8
+  bipartite/A-PEP.SCGN_ADRA2C__global_ppi.tsv:
+    source: A-PEP.SCGN_ADRA2C
+    target: global_ppi
+  bipartite/A-Propr.EPHA3__A-Propr.HAPLN4.tsv:
+    source: A-Propr.EPHA3
+    target: A-Propr.HAPLN4
+  bipartite/A-Propr.EPHA3__A-Propr.PCDH8.tsv:
+    source: A-Propr.EPHA3
+    target: A-Propr.PCDH8
+  bipartite/A-Propr.EPHA3__ATF3.tsv:
+    source: A-Propr.EPHA3
+    target: ATF3
+  bipartite/A-Propr.EPHA3__Ab-LTMR.CCKAR.tsv:
+    source: A-Propr.EPHA3
+    target: Ab-LTMR.CCKAR
+  bipartite/A-Propr.EPHA3__Ab-LTMR.ETV1.tsv:
+    source: A-Propr.EPHA3
+    target: Ab-LTMR.ETV1
+  bipartite/A-Propr.EPHA3__Ab-LTMR.LGI2.tsv:
+    source: A-Propr.EPHA3
+    target: Ab-LTMR.LGI2
+  bipartite/A-Propr.EPHA3__Ab-LTMR.NSG2.tsv:
+    source: A-Propr.EPHA3
+    target: Ab-LTMR.NSG2
+  bipartite/A-Propr.EPHA3__C-LTMR.CDH9.tsv:
+    source: A-Propr.EPHA3
+    target: C-LTMR.CDH9
+  bipartite/A-Propr.EPHA3__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-Propr.EPHA3
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-Propr.EPHA3__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-Propr.EPHA3
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-Propr.EPHA3__C-NP.SST.tsv:
+    source: A-Propr.EPHA3
+    target: C-NP.SST
+  bipartite/A-Propr.EPHA3__C-PEP.ADORA2B.tsv:
+    source: A-Propr.EPHA3
+    target: C-PEP.ADORA2B
+  bipartite/A-Propr.EPHA3__C-PEP.TAC1_CACNG5.tsv:
+    source: A-Propr.EPHA3
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-Propr.EPHA3__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-Propr.EPHA3
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-Propr.EPHA3__C-Thermo.RXFP1.tsv:
+    source: A-Propr.EPHA3
+    target: C-Thermo.RXFP1
+  bipartite/A-Propr.EPHA3__C-Thermo.TRPM8.tsv:
+    source: A-Propr.EPHA3
+    target: C-Thermo.TRPM8
+  bipartite/A-Propr.EPHA3__global_ppi.tsv:
+    source: A-Propr.EPHA3
+    target: global_ppi
+  bipartite/A-Propr.HAPLN4__A-Propr.PCDH8.tsv:
+    source: A-Propr.HAPLN4
+    target: A-Propr.PCDH8
+  bipartite/A-Propr.HAPLN4__ATF3.tsv:
+    source: A-Propr.HAPLN4
+    target: ATF3
+  bipartite/A-Propr.HAPLN4__Ab-LTMR.CCKAR.tsv:
+    source: A-Propr.HAPLN4
+    target: Ab-LTMR.CCKAR
+  bipartite/A-Propr.HAPLN4__Ab-LTMR.ETV1.tsv:
+    source: A-Propr.HAPLN4
+    target: Ab-LTMR.ETV1
+  bipartite/A-Propr.HAPLN4__Ab-LTMR.LGI2.tsv:
+    source: A-Propr.HAPLN4
+    target: Ab-LTMR.LGI2
+  bipartite/A-Propr.HAPLN4__Ab-LTMR.NSG2.tsv:
+    source: A-Propr.HAPLN4
+    target: Ab-LTMR.NSG2
+  bipartite/A-Propr.HAPLN4__C-LTMR.CDH9.tsv:
+    source: A-Propr.HAPLN4
+    target: C-LTMR.CDH9
+  bipartite/A-Propr.HAPLN4__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-Propr.HAPLN4
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-Propr.HAPLN4__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-Propr.HAPLN4
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-Propr.HAPLN4__C-NP.SST.tsv:
+    source: A-Propr.HAPLN4
+    target: C-NP.SST
+  bipartite/A-Propr.HAPLN4__C-PEP.ADORA2B.tsv:
+    source: A-Propr.HAPLN4
+    target: C-PEP.ADORA2B
+  bipartite/A-Propr.HAPLN4__C-PEP.TAC1_CACNG5.tsv:
+    source: A-Propr.HAPLN4
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-Propr.HAPLN4__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-Propr.HAPLN4
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-Propr.HAPLN4__C-Thermo.RXFP1.tsv:
+    source: A-Propr.HAPLN4
+    target: C-Thermo.RXFP1
+  bipartite/A-Propr.HAPLN4__C-Thermo.TRPM8.tsv:
+    source: A-Propr.HAPLN4
+    target: C-Thermo.TRPM8
+  bipartite/A-Propr.HAPLN4__global_ppi.tsv:
+    source: A-Propr.HAPLN4
+    target: global_ppi
+  bipartite/A-Propr.PCDH8__ATF3.tsv:
+    source: A-Propr.PCDH8
+    target: ATF3
+  bipartite/A-Propr.PCDH8__Ab-LTMR.CCKAR.tsv:
+    source: A-Propr.PCDH8
+    target: Ab-LTMR.CCKAR
+  bipartite/A-Propr.PCDH8__Ab-LTMR.ETV1.tsv:
+    source: A-Propr.PCDH8
+    target: Ab-LTMR.ETV1
+  bipartite/A-Propr.PCDH8__Ab-LTMR.LGI2.tsv:
+    source: A-Propr.PCDH8
+    target: Ab-LTMR.LGI2
+  bipartite/A-Propr.PCDH8__Ab-LTMR.NSG2.tsv:
+    source: A-Propr.PCDH8
+    target: Ab-LTMR.NSG2
+  bipartite/A-Propr.PCDH8__C-LTMR.CDH9.tsv:
+    source: A-Propr.PCDH8
+    target: C-LTMR.CDH9
+  bipartite/A-Propr.PCDH8__C-NP.MRGPRX1_GFRA2.tsv:
+    source: A-Propr.PCDH8
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/A-Propr.PCDH8__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: A-Propr.PCDH8
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/A-Propr.PCDH8__C-NP.SST.tsv:
+    source: A-Propr.PCDH8
+    target: C-NP.SST
+  bipartite/A-Propr.PCDH8__C-PEP.ADORA2B.tsv:
+    source: A-Propr.PCDH8
+    target: C-PEP.ADORA2B
+  bipartite/A-Propr.PCDH8__C-PEP.TAC1_CACNG5.tsv:
+    source: A-Propr.PCDH8
+    target: C-PEP.TAC1_CACNG5
+  bipartite/A-Propr.PCDH8__C-PEP.TAC1_CHRNA3.tsv:
+    source: A-Propr.PCDH8
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/A-Propr.PCDH8__C-Thermo.RXFP1.tsv:
+    source: A-Propr.PCDH8
+    target: C-Thermo.RXFP1
+  bipartite/A-Propr.PCDH8__C-Thermo.TRPM8.tsv:
+    source: A-Propr.PCDH8
+    target: C-Thermo.TRPM8
+  bipartite/A-Propr.PCDH8__global_ppi.tsv:
+    source: A-Propr.PCDH8
+    target: global_ppi
+  bipartite/ATF3__Ab-LTMR.CCKAR.tsv:
+    source: ATF3
+    target: Ab-LTMR.CCKAR
+  bipartite/ATF3__Ab-LTMR.ETV1.tsv:
+    source: ATF3
+    target: Ab-LTMR.ETV1
+  bipartite/ATF3__Ab-LTMR.LGI2.tsv:
+    source: ATF3
+    target: Ab-LTMR.LGI2
+  bipartite/ATF3__Ab-LTMR.NSG2.tsv:
+    source: ATF3
+    target: Ab-LTMR.NSG2
+  bipartite/ATF3__C-LTMR.CDH9.tsv:
+    source: ATF3
+    target: C-LTMR.CDH9
+  bipartite/ATF3__C-NP.MRGPRX1_GFRA2.tsv:
+    source: ATF3
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/ATF3__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: ATF3
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/ATF3__C-NP.SST.tsv:
+    source: ATF3
+    target: C-NP.SST
+  bipartite/ATF3__C-PEP.ADORA2B.tsv:
+    source: ATF3
+    target: C-PEP.ADORA2B
+  bipartite/ATF3__C-PEP.TAC1_CACNG5.tsv:
+    source: ATF3
+    target: C-PEP.TAC1_CACNG5
+  bipartite/ATF3__C-PEP.TAC1_CHRNA3.tsv:
+    source: ATF3
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/ATF3__C-Thermo.RXFP1.tsv:
+    source: ATF3
+    target: C-Thermo.RXFP1
+  bipartite/ATF3__C-Thermo.TRPM8.tsv:
+    source: ATF3
+    target: C-Thermo.TRPM8
+  bipartite/ATF3__global_ppi.tsv:
+    source: ATF3
+    target: global_ppi
+  bipartite/Ab-LTMR.CCKAR__Ab-LTMR.ETV1.tsv:
+    source: Ab-LTMR.CCKAR
+    target: Ab-LTMR.ETV1
+  bipartite/Ab-LTMR.CCKAR__Ab-LTMR.LGI2.tsv:
+    source: Ab-LTMR.CCKAR
+    target: Ab-LTMR.LGI2
+  bipartite/Ab-LTMR.CCKAR__Ab-LTMR.NSG2.tsv:
+    source: Ab-LTMR.CCKAR
+    target: Ab-LTMR.NSG2
+  bipartite/Ab-LTMR.CCKAR__C-LTMR.CDH9.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-LTMR.CDH9
+  bipartite/Ab-LTMR.CCKAR__C-NP.MRGPRX1_GFRA2.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/Ab-LTMR.CCKAR__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/Ab-LTMR.CCKAR__C-NP.SST.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-NP.SST
+  bipartite/Ab-LTMR.CCKAR__C-PEP.ADORA2B.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-PEP.ADORA2B
+  bipartite/Ab-LTMR.CCKAR__C-PEP.TAC1_CACNG5.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-PEP.TAC1_CACNG5
+  bipartite/Ab-LTMR.CCKAR__C-PEP.TAC1_CHRNA3.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/Ab-LTMR.CCKAR__C-Thermo.RXFP1.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-Thermo.RXFP1
+  bipartite/Ab-LTMR.CCKAR__C-Thermo.TRPM8.tsv:
+    source: Ab-LTMR.CCKAR
+    target: C-Thermo.TRPM8
+  bipartite/Ab-LTMR.CCKAR__global_ppi.tsv:
+    source: Ab-LTMR.CCKAR
+    target: global_ppi
+  bipartite/Ab-LTMR.ETV1__Ab-LTMR.LGI2.tsv:
+    source: Ab-LTMR.ETV1
+    target: Ab-LTMR.LGI2
+  bipartite/Ab-LTMR.ETV1__Ab-LTMR.NSG2.tsv:
+    source: Ab-LTMR.ETV1
+    target: Ab-LTMR.NSG2
+  bipartite/Ab-LTMR.ETV1__C-LTMR.CDH9.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-LTMR.CDH9
+  bipartite/Ab-LTMR.ETV1__C-NP.MRGPRX1_GFRA2.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/Ab-LTMR.ETV1__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/Ab-LTMR.ETV1__C-NP.SST.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-NP.SST
+  bipartite/Ab-LTMR.ETV1__C-PEP.ADORA2B.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-PEP.ADORA2B
+  bipartite/Ab-LTMR.ETV1__C-PEP.TAC1_CACNG5.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-PEP.TAC1_CACNG5
+  bipartite/Ab-LTMR.ETV1__C-PEP.TAC1_CHRNA3.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/Ab-LTMR.ETV1__C-Thermo.RXFP1.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-Thermo.RXFP1
+  bipartite/Ab-LTMR.ETV1__C-Thermo.TRPM8.tsv:
+    source: Ab-LTMR.ETV1
+    target: C-Thermo.TRPM8
+  bipartite/Ab-LTMR.ETV1__global_ppi.tsv:
+    source: Ab-LTMR.ETV1
+    target: global_ppi
+  bipartite/Ab-LTMR.LGI2__Ab-LTMR.NSG2.tsv:
+    source: Ab-LTMR.LGI2
+    target: Ab-LTMR.NSG2
+  bipartite/Ab-LTMR.LGI2__C-LTMR.CDH9.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-LTMR.CDH9
+  bipartite/Ab-LTMR.LGI2__C-NP.MRGPRX1_GFRA2.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/Ab-LTMR.LGI2__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/Ab-LTMR.LGI2__C-NP.SST.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-NP.SST
+  bipartite/Ab-LTMR.LGI2__C-PEP.ADORA2B.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-PEP.ADORA2B
+  bipartite/Ab-LTMR.LGI2__C-PEP.TAC1_CACNG5.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-PEP.TAC1_CACNG5
+  bipartite/Ab-LTMR.LGI2__C-PEP.TAC1_CHRNA3.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/Ab-LTMR.LGI2__C-Thermo.RXFP1.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-Thermo.RXFP1
+  bipartite/Ab-LTMR.LGI2__C-Thermo.TRPM8.tsv:
+    source: Ab-LTMR.LGI2
+    target: C-Thermo.TRPM8
+  bipartite/Ab-LTMR.LGI2__global_ppi.tsv:
+    source: Ab-LTMR.LGI2
+    target: global_ppi
+  bipartite/Ab-LTMR.NSG2__C-LTMR.CDH9.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-LTMR.CDH9
+  bipartite/Ab-LTMR.NSG2__C-NP.MRGPRX1_GFRA2.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/Ab-LTMR.NSG2__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/Ab-LTMR.NSG2__C-NP.SST.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-NP.SST
+  bipartite/Ab-LTMR.NSG2__C-PEP.ADORA2B.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-PEP.ADORA2B
+  bipartite/Ab-LTMR.NSG2__C-PEP.TAC1_CACNG5.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-PEP.TAC1_CACNG5
+  bipartite/Ab-LTMR.NSG2__C-PEP.TAC1_CHRNA3.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/Ab-LTMR.NSG2__C-Thermo.RXFP1.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-Thermo.RXFP1
+  bipartite/Ab-LTMR.NSG2__C-Thermo.TRPM8.tsv:
+    source: Ab-LTMR.NSG2
+    target: C-Thermo.TRPM8
+  bipartite/Ab-LTMR.NSG2__global_ppi.tsv:
+    source: Ab-LTMR.NSG2
+    target: global_ppi
+  bipartite/C-LTMR.CDH9__C-NP.MRGPRX1_GFRA2.tsv:
+    source: C-LTMR.CDH9
+    target: C-NP.MRGPRX1_GFRA2
+  bipartite/C-LTMR.CDH9__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: C-LTMR.CDH9
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/C-LTMR.CDH9__C-NP.SST.tsv:
+    source: C-LTMR.CDH9
+    target: C-NP.SST
+  bipartite/C-LTMR.CDH9__C-PEP.ADORA2B.tsv:
+    source: C-LTMR.CDH9
+    target: C-PEP.ADORA2B
+  bipartite/C-LTMR.CDH9__C-PEP.TAC1_CACNG5.tsv:
+    source: C-LTMR.CDH9
+    target: C-PEP.TAC1_CACNG5
+  bipartite/C-LTMR.CDH9__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-LTMR.CDH9
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-LTMR.CDH9__C-Thermo.RXFP1.tsv:
+    source: C-LTMR.CDH9
+    target: C-Thermo.RXFP1
+  bipartite/C-LTMR.CDH9__C-Thermo.TRPM8.tsv:
+    source: C-LTMR.CDH9
+    target: C-Thermo.TRPM8
+  bipartite/C-LTMR.CDH9__global_ppi.tsv:
+    source: C-LTMR.CDH9
+    target: global_ppi
+  bipartite/C-NP.MRGPRX1_GFRA2__C-NP.MRGPRX1_MRGPRX4.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-NP.MRGPRX1_MRGPRX4
+  bipartite/C-NP.MRGPRX1_GFRA2__C-NP.SST.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-NP.SST
+  bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.ADORA2B.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-PEP.ADORA2B
+  bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.TAC1_CACNG5.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-PEP.TAC1_CACNG5
+  bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-NP.MRGPRX1_GFRA2__C-Thermo.RXFP1.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-Thermo.RXFP1
+  bipartite/C-NP.MRGPRX1_GFRA2__C-Thermo.TRPM8.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: C-Thermo.TRPM8
+  bipartite/C-NP.MRGPRX1_GFRA2__global_ppi.tsv:
+    source: C-NP.MRGPRX1_GFRA2
+    target: global_ppi
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-NP.SST.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-NP.SST
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.ADORA2B.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-PEP.ADORA2B
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.TAC1_CACNG5.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-PEP.TAC1_CACNG5
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-Thermo.RXFP1.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-Thermo.RXFP1
+  bipartite/C-NP.MRGPRX1_MRGPRX4__C-Thermo.TRPM8.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: C-Thermo.TRPM8
+  bipartite/C-NP.MRGPRX1_MRGPRX4__global_ppi.tsv:
+    source: C-NP.MRGPRX1_MRGPRX4
+    target: global_ppi
+  bipartite/C-NP.SST__C-PEP.ADORA2B.tsv:
+    source: C-NP.SST
+    target: C-PEP.ADORA2B
+  bipartite/C-NP.SST__C-PEP.TAC1_CACNG5.tsv:
+    source: C-NP.SST
+    target: C-PEP.TAC1_CACNG5
+  bipartite/C-NP.SST__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-NP.SST
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-NP.SST__C-Thermo.RXFP1.tsv:
+    source: C-NP.SST
+    target: C-Thermo.RXFP1
+  bipartite/C-NP.SST__C-Thermo.TRPM8.tsv:
+    source: C-NP.SST
+    target: C-Thermo.TRPM8
+  bipartite/C-NP.SST__global_ppi.tsv:
+    source: C-NP.SST
+    target: global_ppi
+  bipartite/C-PEP.ADORA2B__C-PEP.TAC1_CACNG5.tsv:
+    source: C-PEP.ADORA2B
+    target: C-PEP.TAC1_CACNG5
+  bipartite/C-PEP.ADORA2B__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-PEP.ADORA2B
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-PEP.ADORA2B__C-Thermo.RXFP1.tsv:
+    source: C-PEP.ADORA2B
+    target: C-Thermo.RXFP1
+  bipartite/C-PEP.ADORA2B__C-Thermo.TRPM8.tsv:
+    source: C-PEP.ADORA2B
+    target: C-Thermo.TRPM8
+  bipartite/C-PEP.ADORA2B__global_ppi.tsv:
+    source: C-PEP.ADORA2B
+    target: global_ppi
+  bipartite/C-PEP.TAC1_CACNG5__C-PEP.TAC1_CHRNA3.tsv:
+    source: C-PEP.TAC1_CACNG5
+    target: C-PEP.TAC1_CHRNA3
+  bipartite/C-PEP.TAC1_CACNG5__C-Thermo.RXFP1.tsv:
+    source: C-PEP.TAC1_CACNG5
+    target: C-Thermo.RXFP1
+  bipartite/C-PEP.TAC1_CACNG5__C-Thermo.TRPM8.tsv:
+    source: C-PEP.TAC1_CACNG5
+    target: C-Thermo.TRPM8
+  bipartite/C-PEP.TAC1_CACNG5__global_ppi.tsv:
+    source: C-PEP.TAC1_CACNG5
+    target: global_ppi
+  bipartite/C-PEP.TAC1_CHRNA3__C-Thermo.RXFP1.tsv:
+    source: C-PEP.TAC1_CHRNA3
+    target: C-Thermo.RXFP1
+  bipartite/C-PEP.TAC1_CHRNA3__C-Thermo.TRPM8.tsv:
+    source: C-PEP.TAC1_CHRNA3
+    target: C-Thermo.TRPM8
+  bipartite/C-PEP.TAC1_CHRNA3__global_ppi.tsv:
+    source: C-PEP.TAC1_CHRNA3
+    target: global_ppi
+  bipartite/C-Thermo.RXFP1__C-Thermo.TRPM8.tsv:
+    source: C-Thermo.RXFP1
+    target: C-Thermo.TRPM8
+  bipartite/C-Thermo.RXFP1__global_ppi.tsv:
+    source: C-Thermo.RXFP1
+    target: global_ppi
+  bipartite/C-Thermo.TRPM8__global_ppi.tsv:
+    source: C-Thermo.TRPM8
+    target: global_ppi
+seed: seeds/seeds.txt
+self_loops: 0
+r: 0.7

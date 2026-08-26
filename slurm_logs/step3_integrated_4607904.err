@@ -1,3 +1,0 @@
-usage: step3_build_integrated_multiplex.py [-h] --ts-layers-dir TS_LAYERS_DIR --hrdg-layers-dir HRDG_LAYERS_DIR --reactome-csv REACTOME_CSV [--kegg-csv KEGG_CSV] [--uniprot-map UNIPROT_MAP] --lr-csv LR_CSV [--output-dir OUTPUT_DIR]
-                                           [--max-pathway-size MAX_PATHWAY_SIZE] [--pathway-chunk-size PATHWAY_CHUNK_SIZE] [--cross-source-only] [--base-ppi BASE_PPI]
-step3_build_integrated_multiplex.py: error: the following arguments are required: --hrdg-layers-dir

@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step6_filter_lr_pairs.py", line 183, in <module>
-    main()
-  File "/lisc/home/user/gerardursin/multiplex/step6_filter_lr_pairs.py", line 167, in main
-    shutil.copy(seeds_file, wdir / "seeds" / "seeds_original.txt")
-    ^^^^^^
-NameError: name 'shutil' is not defined. Did you forget to import 'shutil'?

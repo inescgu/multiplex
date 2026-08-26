@@ -1,0 +1,420 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-5810934
+Step 9: Marchenko-Pastur analysis
+Running on host: node-b01.lisc
+Starting at: Fri Aug  7 09:19:11 AM CEST 2026
+
+======================================================================
+[1] Loading disease module
+======================================================================
+Loading disease module graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges
+  Cell-type composition of module:
+    ATF3                              238 genes
+    A-PEP.CHRNA7_SLC18A3              238 genes
+    A-PEP.SCGN_ADRA2C                 235 genes
+    C-NP.MRGPRX1_GFRA2                233 genes
+    global_ppi                        226 genes
+    C-PEP.TAC1_CACNG5                 218 genes
+    C-LTMR.CDH9                       215 genes
+    A-PEP.NTRK3_S100A16               214 genes
+    Ab-LTMR.CCKAR                     212 genes
+    C-PEP.TAC1_CHRNA3                 210 genes
+    C-Thermo.TRPM8                    209 genes
+    C-PEP.ADORA2B                     209 genes
+    C-NP.SST                          209 genes
+    C-NP.MRGPRX1_MRGPRX4              208 genes
+    Ab-LTMR.NSG2                      201 genes
+    A-Propr.HAPLN4                    201 genes
+    Ab-LTMR.ETV1                      183 genes
+    A-PEP.KIT                         181 genes
+    A-Propr.EPHA3                     176 genes
+    Ab-LTMR.LGI2                      174 genes
+    A-Propr.PCDH8                     169 genes
+    C-Thermo.RXFP1                    169 genes
+    A-LTMR.TAC3                       157 genes
+  Dropping 226 global_ppi:: nodes (pass --keep-global-ppi to retain them as their own layer)
+  After drop: 4,459 nodes, 10,016 edges
+  WARNING: 63 nodes have zero degree in the module graph itself -- removing them (they contribute spurious trivial eigenvalues to any Laplacian).
+
+======================================================================
+[2] Building cell-type layers
+======================================================================
+  Cell-type layers built:
+    A-LTMR.TAC3                       131 nodes,    219 intra-layer edges,     2 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.CHRNA7_SLC18A3              238 nodes,    411 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.KIT                         176 nodes,    411 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.NTRK3_S100A16               214 nodes,    455 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.SCGN_ADRA2C                 235 nodes,    560 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.EPHA3                     172 nodes,    324 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.HAPLN4                    201 nodes,    536 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.PCDH8                     161 nodes,    303 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    ATF3                              238 nodes,    579 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.CCKAR                     212 nodes,    434 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.ETV1                      179 nodes,    360 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.LGI2                      166 nodes,    301 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.NSG2                      200 nodes,    389 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-LTMR.CDH9                       215 nodes,    503 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_GFRA2                233 nodes,    495 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_MRGPRX4              208 nodes,    464 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.SST                          209 nodes,    443 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.ADORA2B                     207 nodes,    542 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CACNG5                 218 nodes,    463 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CHRNA3                 210 nodes,    430 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.RXFP1                    164 nodes,    274 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.TRPM8                    209 nodes,    371 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+
+======================================================================
+[3] Per-cell-type Marchenko-Pastur fits
+======================================================================
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-LTMR.TAC3] beta=1.000  sigma_hat=1.3815  MP bounds=[0.0000, 7.6336]  optimal thresh (Gavish-Donoho)=2.8584
+  [layer_A-LTMR.TAC3] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.CHRNA7_SLC18A3] beta=1.000  sigma_hat=1.2742  MP bounds=[0.0000, 6.4946]  optimal thresh (Gavish-Donoho)=3.3418
+  [layer_A-PEP.CHRNA7_SLC18A3] outliers above MP lambda+: 0  |  above optimal threshold: 11
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.KIT] beta=1.000  sigma_hat=1.6633  MP bounds=[0.0000, 11.0660]  optimal thresh (Gavish-Donoho)=3.3734
+  [layer_A-PEP.KIT] outliers above MP lambda+: 1  |  above optimal threshold: 9
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.NTRK3_S100A16] beta=1.000  sigma_hat=1.3839  MP bounds=[0.0000, 7.6610]  optimal thresh (Gavish-Donoho)=3.7158
+  [layer_A-PEP.NTRK3_S100A16] outliers above MP lambda+: 0  |  above optimal threshold: 8
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.SCGN_ADRA2C] beta=1.000  sigma_hat=1.4994  MP bounds=[0.0000, 8.9933]  optimal thresh (Gavish-Donoho)=3.9073
+  [layer_A-PEP.SCGN_ADRA2C] outliers above MP lambda+: 1  |  above optimal threshold: 10
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.EPHA3] beta=1.000  sigma_hat=1.3432  MP bounds=[0.0000, 7.2163]  optimal thresh (Gavish-Donoho)=3.2712
+  [layer_A-Propr.EPHA3] outliers above MP lambda+: 1  |  above optimal threshold: 8
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.HAPLN4] beta=1.000  sigma_hat=1.6016  MP bounds=[0.0000, 10.2611]  optimal thresh (Gavish-Donoho)=4.1781
+  [layer_A-Propr.HAPLN4] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.PCDH8] beta=1.000  sigma_hat=1.3669  MP bounds=[0.0000, 7.4739]  optimal thresh (Gavish-Donoho)=3.4302
+  [layer_A-Propr.PCDH8] outliers above MP lambda+: 1  |  above optimal threshold: 5
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_ATF3] beta=1.000  sigma_hat=1.6852  MP bounds=[0.0000, 11.3596]  optimal thresh (Gavish-Donoho)=3.8738
+  [layer_ATF3] outliers above MP lambda+: 1  |  above optimal threshold: 8
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.CCKAR] beta=1.000  sigma_hat=1.3442  MP bounds=[0.0000, 7.2280]  optimal thresh (Gavish-Donoho)=3.8395
+  [layer_Ab-LTMR.CCKAR] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.ETV1] beta=1.000  sigma_hat=1.4372  MP bounds=[0.0000, 8.2616]  optimal thresh (Gavish-Donoho)=3.4948
+  [layer_Ab-LTMR.ETV1] outliers above MP lambda+: 1  |  above optimal threshold: 8
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.LGI2] beta=1.000  sigma_hat=1.2265  MP bounds=[0.0000, 6.0171]  optimal thresh (Gavish-Donoho)=3.5549
+  [layer_Ab-LTMR.LGI2] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.NSG2] beta=1.000  sigma_hat=1.3025  MP bounds=[0.0000, 6.7855]  optimal thresh (Gavish-Donoho)=3.5344
+  [layer_Ab-LTMR.NSG2] outliers above MP lambda+: 1  |  above optimal threshold: 9
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-LTMR.CDH9] beta=1.000  sigma_hat=1.4959  MP bounds=[0.0000, 8.9510]  optimal thresh (Gavish-Donoho)=4.1428
+  [layer_C-LTMR.CDH9] outliers above MP lambda+: 1  |  above optimal threshold: 6
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.MRGPRX1_GFRA2] beta=1.000  sigma_hat=1.3773  MP bounds=[0.0000, 7.5873]  optimal thresh (Gavish-Donoho)=3.7644
+  [layer_C-NP.MRGPRX1_GFRA2] outliers above MP lambda+: 1  |  above optimal threshold: 9
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.MRGPRX1_MRGPRX4] beta=1.000  sigma_hat=1.4426  MP bounds=[0.0000, 8.3246]  optimal thresh (Gavish-Donoho)=3.8331
+  [layer_C-NP.MRGPRX1_MRGPRX4] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.SST] beta=1.000  sigma_hat=1.4163  MP bounds=[0.0000, 8.0238]  optimal thresh (Gavish-Donoho)=3.8111
+  [layer_C-NP.SST] outliers above MP lambda+: 1  |  above optimal threshold: 7
+  [layer_C-PEP.ADORA2B] beta=1.000  sigma_hat=1.1684  MP bounds=[0.0000, 5.4604]  optimal thresh (Gavish-Donoho)=4.0213
+  [layer_C-PEP.ADORA2B] outliers above MP lambda+: 1  |  above optimal threshold: 8
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-PEP.TAC1_CACNG5] beta=1.000  sigma_hat=1.3871  MP bounds=[0.0000, 7.6962]  optimal thresh (Gavish-Donoho)=3.8940
+  [layer_C-PEP.TAC1_CACNG5] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-PEP.TAC1_CHRNA3] beta=1.000  sigma_hat=1.3784  MP bounds=[0.0000, 7.5998]  optimal thresh (Gavish-Donoho)=3.8882
+  [layer_C-PEP.TAC1_CHRNA3] outliers above MP lambda+: 1  |  above optimal threshold: 7
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-Thermo.RXFP1] beta=1.000  sigma_hat=1.2195  MP bounds=[0.0000, 5.9489]  optimal thresh (Gavish-Donoho)=3.2325
+  [layer_C-Thermo.RXFP1] outliers above MP lambda+: 1  |  above optimal threshold: 5
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-Thermo.TRPM8] beta=1.000  sigma_hat=1.2380  MP bounds=[0.0000, 6.1303]  optimal thresh (Gavish-Donoho)=3.5827
+  [layer_C-Thermo.TRPM8] outliers above MP lambda+: 0  |  above optimal threshold: 7
+
+======================================================================
+[4] Building real inter-layer coupling blocks (signaling edges)
+======================================================================
+  Real inter-layer coupling blocks: 214 cell-type pairs, 749 signaling edges total
+    A-Propr.EPHA3 <-> C-Thermo.RXFP1: 11 edges
+    A-LTMR.TAC3 <-> C-Thermo.RXFP1: 9 edges
+    A-Propr.EPHA3 <-> C-PEP.TAC1_CACNG5: 8 edges
+    A-Propr.PCDH8 <-> C-Thermo.RXFP1: 8 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.RXFP1: 8 edges
+    A-Propr.EPHA3 <-> C-LTMR.CDH9: 8 edges
+    C-LTMR.CDH9 <-> C-Thermo.RXFP1: 8 edges
+    A-LTMR.TAC3 <-> A-Propr.EPHA3: 8 edges
+    A-Propr.HAPLN4 <-> C-Thermo.RXFP1: 7 edges
+    C-NP.SST <-> C-Thermo.RXFP1: 7 edges
+    Ab-LTMR.ETV1 <-> C-Thermo.RXFP1: 7 edges
+    A-Propr.EPHA3 <-> A-Propr.PCDH8: 7 edges
+    A-LTMR.TAC3 <-> C-PEP.ADORA2B: 7 edges
+    A-Propr.EPHA3 <-> C-PEP.TAC1_CHRNA3: 7 edges
+    Ab-LTMR.ETV1 <-> C-LTMR.CDH9: 7 edges
+    A-LTMR.TAC3 <-> C-PEP.TAC1_CACNG5: 6 edges
+    A-Propr.PCDH8 <-> C-PEP.TAC1_CACNG5: 6 edges
+    C-LTMR.CDH9 <-> C-PEP.TAC1_CACNG5: 6 edges
+    Ab-LTMR.ETV1 <-> C-PEP.ADORA2B: 6 edges
+    A-Propr.EPHA3 <-> C-Thermo.TRPM8: 6 edges
+    A-Propr.PCDH8 <-> C-LTMR.CDH9: 6 edges
+    C-LTMR.CDH9 <-> C-PEP.ADORA2B: 6 edges
+    A-LTMR.TAC3 <-> C-LTMR.CDH9: 6 edges
+    A-Propr.EPHA3 <-> Ab-LTMR.NSG2: 6 edges
+    A-Propr.EPHA3 <-> C-PEP.ADORA2B: 6 edges
+    Ab-LTMR.LGI2 <-> C-LTMR.CDH9: 6 edges
+    Ab-LTMR.LGI2 <-> C-Thermo.RXFP1: 6 edges
+    A-Propr.PCDH8 <-> C-PEP.ADORA2B: 6 edges
+    A-LTMR.TAC3 <-> C-Thermo.TRPM8: 6 edges
+    C-LTMR.CDH9 <-> C-Thermo.TRPM8: 6 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.TRPM8: 6 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.ADORA2B: 6 edges
+    A-LTMR.TAC3 <-> A-PEP.KIT: 6 edges
+    A-Propr.HAPLN4 <-> C-PEP.TAC1_CACNG5: 5 edges
+    Ab-LTMR.ETV1 <-> C-PEP.TAC1_CACNG5: 5 edges
+    C-Thermo.RXFP1 <-> C-Thermo.TRPM8: 5 edges
+    A-Propr.EPHA3 <-> Ab-LTMR.ETV1: 5 edges
+    A-Propr.PCDH8 <-> Ab-LTMR.ETV1: 5 edges
+    Ab-LTMR.ETV1 <-> C-Thermo.TRPM8: 5 edges
+    A-Propr.HAPLN4 <-> C-Thermo.TRPM8: 5 edges
+    A-Propr.PCDH8 <-> C-Thermo.TRPM8: 5 edges
+    A-PEP.NTRK3_S100A16 <-> A-Propr.EPHA3: 5 edges
+    A-Propr.PCDH8 <-> Ab-LTMR.LGI2: 5 edges
+    A-Propr.PCDH8 <-> C-NP.SST: 5 edges
+    A-Propr.PCDH8 <-> C-PEP.TAC1_CHRNA3: 5 edges
+    A-Propr.EPHA3 <-> A-Propr.HAPLN4: 5 edges
+    A-Propr.EPHA3 <-> Ab-LTMR.LGI2: 5 edges
+    A-Propr.EPHA3 <-> C-NP.SST: 5 edges
+    A-Propr.PCDH8 <-> C-NP.MRGPRX1_MRGPRX4: 5 edges
+    A-Propr.HAPLN4 <-> C-LTMR.CDH9: 5 edges
+    A-LTMR.TAC3 <-> C-PEP.TAC1_CHRNA3: 5 edges
+    C-PEP.TAC1_CHRNA3 <-> C-Thermo.RXFP1: 5 edges
+    Ab-LTMR.ETV1 <-> Ab-LTMR.LGI2: 5 edges
+    C-PEP.ADORA2B <-> C-Thermo.RXFP1: 5 edges
+    C-PEP.TAC1_CACNG5 <-> C-Thermo.RXFP1: 5 edges
+    C-LTMR.CDH9 <-> C-PEP.TAC1_CHRNA3: 5 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-Thermo.TRPM8: 5 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-PEP.ADORA2B: 5 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-Thermo.RXFP1: 5 edges
+    A-LTMR.TAC3 <-> A-Propr.HAPLN4: 5 edges
+    A-Propr.HAPLN4 <-> C-PEP.ADORA2B: 5 edges
+    Ab-LTMR.CCKAR <-> C-PEP.ADORA2B: 4 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CACNG5: 4 edges
+    C-PEP.ADORA2B <-> C-PEP.TAC1_CACNG5: 4 edges
+    A-Propr.EPHA3 <-> Ab-LTMR.CCKAR: 4 edges
+    C-NP.SST <-> C-PEP.TAC1_CACNG5: 4 edges
+    A-PEP.SCGN_ADRA2C <-> A-Propr.EPHA3: 4 edges
+    A-LTMR.TAC3 <-> Ab-LTMR.ETV1: 4 edges
+    A-Propr.HAPLN4 <-> Ab-LTMR.ETV1: 4 edges
+    C-PEP.ADORA2B <-> C-Thermo.TRPM8: 4 edges
+    A-Propr.PCDH8 <-> Ab-LTMR.NSG2: 4 edges
+    A-LTMR.TAC3 <-> A-Propr.PCDH8: 4 edges
+    A-PEP.NTRK3_S100A16 <-> A-Propr.PCDH8: 4 edges
+    A-LTMR.TAC3 <-> C-NP.MRGPRX1_MRGPRX4: 4 edges
+    A-Propr.HAPLN4 <-> A-Propr.PCDH8: 4 edges
+    A-Propr.EPHA3 <-> C-NP.MRGPRX1_GFRA2: 4 edges
+    A-Propr.EPHA3 <-> C-NP.MRGPRX1_MRGPRX4: 4 edges
+    Ab-LTMR.LGI2 <-> Ab-LTMR.NSG2: 4 edges
+    Ab-LTMR.LGI2 <-> C-NP.MRGPRX1_MRGPRX4: 4 edges
+    Ab-LTMR.LGI2 <-> C-NP.SST: 4 edges
+    Ab-LTMR.LGI2 <-> C-PEP.ADORA2B: 4 edges
+    Ab-LTMR.LGI2 <-> C-PEP.TAC1_CACNG5: 4 edges
+    Ab-LTMR.LGI2 <-> C-PEP.TAC1_CHRNA3: 4 edges
+    Ab-LTMR.LGI2 <-> C-Thermo.TRPM8: 4 edges
+    C-NP.SST <-> C-PEP.TAC1_CHRNA3: 4 edges
+    C-NP.SST <-> C-Thermo.TRPM8: 4 edges
+    A-LTMR.TAC3 <-> C-NP.SST: 4 edges
+    A-Propr.HAPLN4 <-> C-NP.SST: 4 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-NP.SST: 4 edges
+    A-Propr.HAPLN4 <-> C-PEP.TAC1_CHRNA3: 4 edges
+    C-PEP.TAC1_CHRNA3 <-> C-Thermo.TRPM8: 4 edges
+    Ab-LTMR.ETV1 <-> Ab-LTMR.NSG2: 4 edges
+    Ab-LTMR.ETV1 <-> C-NP.SST: 4 edges
+    Ab-LTMR.ETV1 <-> C-PEP.TAC1_CHRNA3: 4 edges
+    C-PEP.TAC1_CACNG5 <-> C-Thermo.TRPM8: 4 edges
+    A-Propr.HAPLN4 <-> Ab-LTMR.LGI2: 4 edges
+    Ab-LTMR.ETV1 <-> C-NP.MRGPRX1_MRGPRX4: 4 edges
+    A-Propr.HAPLN4 <-> C-NP.MRGPRX1_MRGPRX4: 4 edges
+    A-LTMR.TAC3 <-> Ab-LTMR.NSG2: 4 edges
+    A-LTMR.TAC3 <-> Ab-LTMR.LGI2: 4 edges
+    A-PEP.KIT <-> C-LTMR.CDH9: 4 edges
+    C-LTMR.CDH9 <-> C-NP.SST: 4 edges
+    A-PEP.NTRK3_S100A16 <-> C-PEP.TAC1_CACNG5: 3 edges
+    A-PEP.SCGN_ADRA2C <-> C-PEP.TAC1_CACNG5: 3 edges
+    A-LTMR.TAC3 <-> Ab-LTMR.CCKAR: 3 edges
+    ATF3 <-> Ab-LTMR.LGI2: 3 edges
+    A-PEP.SCGN_ADRA2C <-> Ab-LTMR.LGI2: 3 edges
+    A-PEP.SCGN_ADRA2C <-> C-LTMR.CDH9: 3 edges
+    A-PEP.SCGN_ADRA2C <-> C-Thermo.RXFP1: 3 edges
+    A-LTMR.TAC3 <-> C-NP.MRGPRX1_GFRA2: 3 edges
+    A-Propr.HAPLN4 <-> C-NP.MRGPRX1_GFRA2: 3 edges
+    A-Propr.PCDH8 <-> C-NP.MRGPRX1_GFRA2: 3 edges
+    C-LTMR.CDH9 <-> C-NP.MRGPRX1_GFRA2: 3 edges
+    A-LTMR.TAC3 <-> A-PEP.NTRK3_S100A16: 3 edges
+    A-PEP.NTRK3_S100A16 <-> A-Propr.HAPLN4: 3 edges
+    A-PEP.NTRK3_S100A16 <-> C-PEP.ADORA2B: 3 edges
+    A-PEP.NTRK3_S100A16 <-> C-Thermo.RXFP1: 3 edges
+    ATF3 <-> C-LTMR.CDH9: 3 edges
+    C-LTMR.CDH9 <-> C-NP.MRGPRX1_MRGPRX4: 3 edges
+    A-PEP.NTRK3_S100A16 <-> C-LTMR.CDH9: 3 edges
+    Ab-LTMR.NSG2 <-> C-LTMR.CDH9: 3 edges
+    Ab-LTMR.NSG2 <-> C-PEP.ADORA2B: 3 edges
+    Ab-LTMR.NSG2 <-> C-Thermo.RXFP1: 3 edges
+    Ab-LTMR.CCKAR <-> C-LTMR.CDH9: 3 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-PEP.ADORA2B: 3 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CHRNA3: 3 edges
+    C-PEP.ADORA2B <-> C-PEP.TAC1_CHRNA3: 3 edges
+    C-PEP.TAC1_CACNG5 <-> C-PEP.TAC1_CHRNA3: 3 edges
+    Ab-LTMR.CCKAR <-> C-Thermo.TRPM8: 3 edges
+    A-Propr.HAPLN4 <-> Ab-LTMR.NSG2: 3 edges
+    A-LTMR.TAC3 <-> A-PEP.SCGN_ADRA2C: 3 edges
+    A-PEP.SCGN_ADRA2C <-> C-PEP.ADORA2B: 3 edges
+    A-PEP.KIT <-> A-Propr.EPHA3: 3 edges
+    A-PEP.KIT <-> C-PEP.ADORA2B: 3 edges
+    Ab-LTMR.CCKAR <-> C-Thermo.RXFP1: 3 edges
+    Ab-LTMR.CCKAR <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    A-PEP.KIT <-> C-PEP.TAC1_CACNG5: 2 edges
+    Ab-LTMR.CCKAR <-> C-PEP.TAC1_CACNG5: 2 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-PEP.TAC1_CACNG5: 2 edges
+    ATF3 <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    A-PEP.SCGN_ADRA2C <-> A-Propr.HAPLN4: 2 edges
+    A-PEP.SCGN_ADRA2C <-> A-Propr.PCDH8: 2 edges
+    A-PEP.SCGN_ADRA2C <-> Ab-LTMR.ETV1: 2 edges
+    A-PEP.SCGN_ADRA2C <-> Ab-LTMR.NSG2: 2 edges
+    A-PEP.SCGN_ADRA2C <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    A-PEP.SCGN_ADRA2C <-> C-NP.SST: 2 edges
+    A-PEP.SCGN_ADRA2C <-> C-PEP.TAC1_CHRNA3: 2 edges
+    A-PEP.SCGN_ADRA2C <-> C-Thermo.TRPM8: 2 edges
+    Ab-LTMR.CCKAR <-> C-NP.MRGPRX1_GFRA2: 2 edges
+    Ab-LTMR.ETV1 <-> C-NP.MRGPRX1_GFRA2: 2 edges
+    Ab-LTMR.LGI2 <-> C-NP.MRGPRX1_GFRA2: 2 edges
+    A-PEP.KIT <-> Ab-LTMR.LGI2: 2 edges
+    A-PEP.NTRK3_S100A16 <-> C-Thermo.TRPM8: 2 edges
+    ATF3 <-> Ab-LTMR.ETV1: 2 edges
+    ATF3 <-> Ab-LTMR.NSG2: 2 edges
+    ATF3 <-> C-NP.SST: 2 edges
+    ATF3 <-> C-PEP.TAC1_CACNG5: 2 edges
+    ATF3 <-> C-PEP.TAC1_CHRNA3: 2 edges
+    ATF3 <-> C-Thermo.RXFP1: 2 edges
+    Ab-LTMR.NSG2 <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    Ab-LTMR.NSG2 <-> C-NP.SST: 2 edges
+    Ab-LTMR.NSG2 <-> C-PEP.TAC1_CACNG5: 2 edges
+    Ab-LTMR.NSG2 <-> C-PEP.TAC1_CHRNA3: 2 edges
+    Ab-LTMR.NSG2 <-> C-Thermo.TRPM8: 2 edges
+    A-PEP.CHRNA7_SLC18A3 <-> A-Propr.EPHA3: 2 edges
+    A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    C-NP.SST <-> C-PEP.ADORA2B: 2 edges
+    A-PEP.KIT <-> C-Thermo.RXFP1: 2 edges
+    A-PEP.NTRK3_S100A16 <-> C-PEP.TAC1_CHRNA3: 2 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-NP.SST: 2 edges
+    A-Propr.HAPLN4 <-> Ab-LTMR.CCKAR: 2 edges
+    A-Propr.PCDH8 <-> Ab-LTMR.CCKAR: 2 edges
+    A-PEP.KIT <-> C-NP.MRGPRX1_MRGPRX4: 2 edges
+    A-PEP.NTRK3_S100A16 <-> Ab-LTMR.NSG2: 2 edges
+    A-PEP.NTRK3_S100A16 <-> C-NP.SST: 2 edges
+    Ab-LTMR.CCKAR <-> Ab-LTMR.LGI2: 2 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-PEP.TAC1_CACNG5: 1 edges
+    ATF3 <-> C-PEP.ADORA2B: 1 edges
+    A-PEP.SCGN_ADRA2C <-> Ab-LTMR.CCKAR: 1 edges
+    A-PEP.SCGN_ADRA2C <-> C-NP.MRGPRX1_GFRA2: 1 edges
+    Ab-LTMR.NSG2 <-> C-NP.MRGPRX1_GFRA2: 1 edges
+    ATF3 <-> C-Thermo.TRPM8: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> Ab-LTMR.LGI2: 1 edges
+    ATF3 <-> Ab-LTMR.CCKAR: 1 edges
+    ATF3 <-> C-NP.MRGPRX1_GFRA2: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> A-Propr.PCDH8: 1 edges
+    A-LTMR.TAC3 <-> A-PEP.CHRNA7_SLC18A3: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> A-PEP.KIT: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> A-Propr.HAPLN4: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-Thermo.RXFP1: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-Thermo.TRPM8: 1 edges
+    A-PEP.KIT <-> C-PEP.TAC1_CHRNA3: 1 edges
+    A-PEP.KIT <-> C-Thermo.TRPM8: 1 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-PEP.TAC1_CHRNA3: 1 edges
+    Ab-LTMR.CCKAR <-> Ab-LTMR.ETV1: 1 edges
+    A-PEP.KIT <-> A-Propr.HAPLN4: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> A-PEP.NTRK3_S100A16: 1 edges
+    A-PEP.KIT <-> A-PEP.NTRK3_S100A16: 1 edges
+    A-PEP.NTRK3_S100A16 <-> A-PEP.SCGN_ADRA2C: 1 edges
+    A-PEP.NTRK3_S100A16 <-> Ab-LTMR.CCKAR: 1 edges
+    A-PEP.NTRK3_S100A16 <-> Ab-LTMR.ETV1: 1 edges
+    A-PEP.NTRK3_S100A16 <-> Ab-LTMR.LGI2: 1 edges
+    A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_GFRA2: 1 edges
+    A-PEP.KIT <-> Ab-LTMR.NSG2: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-LTMR.CDH9: 1 edges
+    Ab-LTMR.CCKAR <-> C-PEP.TAC1_CHRNA3: 1 edges
+    A-PEP.KIT <-> A-PEP.SCGN_ADRA2C: 1 edges
+    A-PEP.KIT <-> Ab-LTMR.ETV1: 1 edges
+    A-PEP.KIT <-> C-NP.SST: 1 edges
+    A-PEP.CHRNA7_SLC18A3 <-> C-NP.MRGPRX1_MRGPRX4: 1 edges
+    Ab-LTMR.CCKAR <-> C-NP.SST: 1 edges
+    Ab-LTMR.CCKAR <-> Ab-LTMR.NSG2: 1 edges
+    A-PEP.KIT <-> A-Propr.PCDH8: 1 edges
+
+======================================================================
+[5] Supra-Laplacian (omega=1.0)
+======================================================================
+  Supra-Laplacian shape: 4396x4396 across 22 cell types (sizes: {'A-LTMR.TAC3': 131, 'A-PEP.CHRNA7_SLC18A3': 238, 'A-PEP.KIT': 176, 'A-PEP.NTRK3_S100A16': 214, 'A-PEP.SCGN_ADRA2C': 235, 'A-Propr.EPHA3': 172, 'A-Propr.HAPLN4': 201, 'A-Propr.PCDH8': 161, 'ATF3': 238, 'Ab-LTMR.CCKAR': 212, 'Ab-LTMR.ETV1': 179, 'Ab-LTMR.LGI2': 166, 'Ab-LTMR.NSG2': 200, 'C-LTMR.CDH9': 215, 'C-NP.MRGPRX1_GFRA2': 233, 'C-NP.MRGPRX1_MRGPRX4': 208, 'C-NP.SST': 209, 'C-PEP.ADORA2B': 207, 'C-PEP.TAC1_CACNG5': 218, 'C-PEP.TAC1_CHRNA3': 210, 'C-Thermo.RXFP1': 164, 'C-Thermo.TRPM8': 209})
+  Computing 6 smallest eigenvalues of 4396x4396 supra-Laplacian...
+  Smallest eigenvalues: [-0.        0.010644  0.015219  0.04044   0.041462  0.042578]
+  Multiplex bridges (negative in >= 2 cell types where present): 692 / 1183 genes
+
+======================================================================
+[6] Perturbation: dropping multiplex bridge genes
+======================================================================
+  Removing 692 bridge genes -> 3869 node-copies -> 527 nodes remain (4,396 -> 527)
+  Cell-type layers built:
+    A-LTMR.TAC3                         7 nodes,      1 intra-layer edges,     5 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.CHRNA7_SLC18A3               51 nodes,     11 intra-layer edges,    32 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.KIT                          10 nodes,      0 intra-layer edges,    10 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.NTRK3_S100A16                28 nodes,      6 intra-layer edges,    18 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.SCGN_ADRA2C                  26 nodes,      2 intra-layer edges,    22 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.EPHA3                      17 nodes,      3 intra-layer edges,    11 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.HAPLN4                     11 nodes,      2 intra-layer edges,     7 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.PCDH8                       7 nodes,      2 intra-layer edges,     4 isolated within this layer (may still be connected via inter-layer coupling)
+    ATF3                               89 nodes,    153 intra-layer edges,    22 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.CCKAR                      30 nodes,      4 intra-layer edges,    23 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.ETV1                        6 nodes,      0 intra-layer edges,     6 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.LGI2                        7 nodes,      0 intra-layer edges,     7 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.NSG2                       10 nodes,      0 intra-layer edges,    10 isolated within this layer (may still be connected via inter-layer coupling)
+    C-LTMR.CDH9                        30 nodes,     12 intra-layer edges,    17 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_GFRA2                 37 nodes,      6 intra-layer edges,    27 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_MRGPRX4               17 nodes,      5 intra-layer edges,    11 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.SST                           19 nodes,      1 intra-layer edges,    17 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.ADORA2B                      28 nodes,      7 intra-layer edges,    17 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CACNG5                  25 nodes,      2 intra-layer edges,    21 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CHRNA3                  21 nodes,      4 intra-layer edges,    16 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.RXFP1                     13 nodes,      0 intra-layer edges,    13 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.TRPM8                     38 nodes,      7 intra-layer edges,    27 isolated within this layer (may still be connected via inter-layer coupling)
+  Real inter-layer coupling blocks: 0 cell-type pairs, 0 signaling edges total
+  Computing 6 smallest eigenvalues of 527x527 supra-Laplacian...
+  WARNING: 6 near-zero eigenvalues found (expected exactly 1 if the supra-graph is connected). This means the supra-graph has 6 disconnected components -- the 'Fiedler value' below is only meaningful if you account for this. Check for cell types with no coupling to the rest of the module.
+  Perturbed smallest eigenvalues: [-0. -0. -0. -0. -0. -0.]
+
+======================================================================
+[7] Saving summary
+======================================================================
+
+Done in 14.1s -- outputs in 09_marchenko_pastur
+Key outputs:
+  09_marchenko_pastur/multiplex_bridges.csv   -- per-gene, layer-resolved bridge scores
+  09_marchenko_pastur/marchenko_pastur_summary.json
+  09_marchenko_pastur/mp_layer_<celltype>.png  -- per-cell-type MP fit plots
+  09_marchenko_pastur/supra_spectrum.png
+Finished at: Fri Aug  7 09:19:39 AM CEST 2026

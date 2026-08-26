@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step14_permutation_test_multiplex.py", line 500, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "/lisc/home/user/gerardursin/multiplex/step14_permutation_test_multiplex.py", line 289, in main
-    rng = np.random.default_rng(args.seed)
-          ^^
-UnboundLocalError: cannot access local variable 'np' where it is not associated with a value

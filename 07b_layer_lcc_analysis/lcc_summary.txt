@@ -1,0 +1,139 @@
+================================================================================
+CELL-TYPE LCC SIGNIFICANCE ANALYSIS (DEGREE-NORMALIZED)
+================================================================================
+
+Interpretation:
+  - LCC: Largest connected component size in seed subgraph
+  - p-value < 0.05: Cell type has SIGNIFICANT structural role
+  - z-score: How many std devs above random (degree-normalized)
+
+SIGNIFICANT CELL TYPES (p < 0.05): 23 / 23
+--------------------------------------------------------------------------------
+  [A-LTMR.TAC3] (A-fiber)
+    Nodes: 6,170 | Edges: 58,818 | Seeds: 133
+    LCC: 53 (z=106.77, p=0.000000)
+    Random mean +/- std: 1.3 +/- 0.5
+
+  [A-PEP.CHRNA7_SLC18A3] (A-fiber)
+    Nodes: 1,232 | Edges: 2,650 | Seeds: 49
+    LCC: 3 (z=4.99, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.5
+
+  [A-PEP.KIT] (A-fiber)
+    Nodes: 3,566 | Edges: 20,489 | Seeds: 100
+    LCC: 22 (z=98.87, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [A-PEP.NTRK3_S100A16] (A-fiber)
+    Nodes: 1,606 | Edges: 4,566 | Seeds: 63
+    LCC: 6 (z=14.08, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [A-Propr.HAPLN4] (A-fiber)
+    Nodes: 2,427 | Edges: 9,295 | Seeds: 85
+    LCC: 32 (z=119.32, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
+
+  [A-Propr.EPHA3] (A-fiber)
+    Nodes: 3,022 | Edges: 13,971 | Seeds: 109
+    LCC: 39 (z=216.19, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [A-Propr.PCDH8] (A-fiber)
+    Nodes: 3,606 | Edges: 21,547 | Seeds: 117
+    LCC: 46 (z=205.06, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [ATF3] (Non-classified)
+    Nodes: 1,655 | Edges: 6,394 | Seeds: 54
+    LCC: 6 (z=11.81, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.4
+
+  [Ab-LTMR.NSG2] (A-fiber)
+    Nodes: 2,164 | Edges: 7,370 | Seeds: 73
+    LCC: 23 (z=72.55, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
+
+  [Ab-LTMR.CCKAR] (A-fiber)
+    Nodes: 1,685 | Edges: 4,771 | Seeds: 66
+    LCC: 12 (z=27.83, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [Ab-LTMR.LGI2] (A-fiber)
+    Nodes: 3,134 | Edges: 16,141 | Seeds: 109
+    LCC: 29 (z=161.87, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [Ab-LTMR.ETV1] (A-fiber)
+    Nodes: 3,106 | Edges: 16,560 | Seeds: 103
+    LCC: 28 (z=158.72, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [C-NP.MRGPRX1_GFRA2] (C-fiber)
+    Nodes: 1,184 | Edges: 2,692 | Seeds: 65
+    LCC: 4 (z=7.70, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [C-LTMR.CDH9] (C-fiber)
+    Nodes: 2,140 | Edges: 8,123 | Seeds: 77
+    LCC: 19 (z=61.94, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
+
+  [C-NP.MRGPRX1_MRGPRX4] (C-fiber)
+    Nodes: 1,492 | Edges: 4,272 | Seeds: 70
+    LCC: 11 (z=26.43, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [C-NP.SST] (C-fiber)
+    Nodes: 1,432 | Edges: 3,585 | Seeds: 75
+    LCC: 14 (z=35.38, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [C-Thermo.RXFP1] (C-fiber)
+    Nodes: 3,636 | Edges: 19,226 | Seeds: 91
+    LCC: 30 (z=148.31, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [C-PEP.ADORA2B] (C-fiber)
+    Nodes: 3,285 | Edges: 16,638 | Seeds: 87
+    LCC: 12 (z=75.92, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.1
+
+  [C-PEP.TAC1_CACNG5] (C-fiber)
+    Nodes: 1,435 | Edges: 3,624 | Seeds: 61
+    LCC: 8 (z=18.01, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [C-PEP.TAC1_CHRNA3] (C-fiber)
+    Nodes: 1,814 | Edges: 5,452 | Seeds: 72
+    LCC: 9 (z=22.97, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.4
+
+  [global_ppi] (unknown)
+    Nodes: 17,051 | Edges: 302,553 | Seeds: 372
+    LCC: 200 (z=8.02, p=0.000000)
+    Random mean +/- std: 66.7 +/- 16.6
+
+  [C-Thermo.TRPM8] (C-fiber)
+    Nodes: 1,227 | Edges: 2,659 | Seeds: 61
+    LCC: 4 (z=7.65, p=0.000000)
+    Random mean +/- std: 0.8 +/- 0.4
+
+  [A-PEP.SCGN_ADRA2C] (A-fiber)
+    Nodes: 1,824 | Edges: 6,433 | Seeds: 58
+    LCC: 2 (z=3.16, p=0.003000)
+    Random mean +/- std: 0.9 +/- 0.4
+
+
+================================================================================
+NON-SIGNIFICANT (p >= 0.05): 0 / 23
+--------------------------------------------------------------------------------
+
+================================================================================
+SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Total cell types analyzed: 23
+Mean LCC size: 26.6
+Median LCC size: 14.0
+Max LCC: 200
+Cell types with LCC > 0: 23

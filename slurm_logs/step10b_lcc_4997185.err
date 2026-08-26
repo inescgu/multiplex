@@ -1,24 +1,0 @@
-Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
-
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "Python/3.14.4-weekly"
-
-Also make sure that all modulefiles written in TCL start with the string #%Module
-
-
-
-Layers analyzed:   0%|          | 0/179 [00:00<?, ?it/s]LCC [global_ppi__full_network]:   0%|          | 0/200 [00:00<?, ?it/s]LCC [hdrg__A-LTMR.TAC3]:   0%|          | 0/200 [00:00<?, ?it/s]Layers analyzed:   0%|          | 0/179 [04:41<?, ?it/s]
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step10b_layer_lcc_analysis.py", line 600, in <module>
-    main()
-  File "/lisc/home/user/gerardursin/multiplex/step10b_layer_lcc_analysis.py", line 557, in main
-    result = future.result()
-             ^^^^^^^^^^^^^^^
-  File "/lisc/opt/sw/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/concurrent/futures/_base.py", line 449, in result
-    return self.__get_result()
-           ^^^^^^^^^^^^^^^^^^^
-  File "/lisc/opt/sw/software/Python/3.12.3-GCCcore-13.3.0/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
-    raise self._exception
-concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
-[2026-07-11T11:41:33.919] error: Detected 1 oom_kill event in StepId=4997185.batch. Some of the step tasks have been OOM Killed.
