@@ -1,0 +1,4 @@
+/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/louvain/__init__.py:54: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+/var/spool/slurm/slurmd/job6167949/slurm_script: line 21: 2734657 Killed                  python step11c_phase1_consensus.py --ensemble 11_hidef_hetero/ensemble.pkl --output 11_hidef_results_faithful/consensus.pkl --minsize 4 --jaccard 0.75 --chi 5 --consensus-p 75
+[2026-08-26T15:59:39.626] error: Detected 1 oom_kill event in StepId=6167949.batch. Some of the step tasks have been OOM Killed.

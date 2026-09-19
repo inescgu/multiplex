@@ -47,6 +47,16 @@ from pathlib import Path
 import igraph as ig
 import pandas as pd
 
+def _maybe_namespace(gene: str, ct: str) -> str:
+    """Namespace a gene as 'cell_type::gene', but only if it isn't already
+    namespaced. Needed because this wdir may have already been through
+    step 3.5 (which renames nodes in ppi_layer.tsv / bipartite/*.tsv to
+    'ct::gene' in place, for MultiXrank's own benefit) before this script
+    runs -- without this guard, an already-namespaced gene column gets a
+    SECOND 'ct::' prefix stapled on top, e.g.
+    'global_ppi::global_ppi::A1BG'."""
+    gene = str(gene)
+    return gene if "::" in gene else f"{ct}::{gene}"
 
 def load_intra_layer_edges(wdir: Path):
     mul_dir = wdir / "multiplex"
@@ -67,7 +77,7 @@ def load_intra_layer_edges(wdir: Path):
         # empty layer file -- see step1's write_ppi_layer())
         df = df[df["g1"] != df["g2"]]
         for g1, g2 in zip(df["g1"], df["g2"]):
-            edges.append((f"{ct}::{g1}", f"{ct}::{g2}", 1.0, "intra"))
+            edges.append((_maybe_namespace(g1, ct), _maybe_namespace(g2, ct), 1.0, "intra"))
         note = f" ({n_self} placeholder self-loop skipped)" if n_self else ""
         print(f"  {ct}: {len(df):,} intra-layer edges{note}")
     print()
@@ -92,7 +102,7 @@ def load_bipartite_edges(wdir: Path):
         # ct_a's gene space and g2 to ct_b's -- see step2's "FIX" note in
         # add_cross_celltype_edges()/add_scored_lr_edges().
         for g1, g2 in zip(df["g1"], df["g2"]):
-            edges.append((f"{ct_a}::{g1}", f"{ct_b}::{g2}", 1.0, "bipartite"))
+            edges.append((_maybe_namespace(g1, ct_a), _maybe_namespace(g2, ct_b), 1.0, "bipartite"))
         print(f"  {ct_a} <-> {ct_b}: {len(df):,} bipartite edges")
     print()
     return edges

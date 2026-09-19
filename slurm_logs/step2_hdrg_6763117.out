@@ -1,0 +1,307 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-6763117
+Step 2: Building HDRG multiplex
+Running on host: node-c05.lisc
+Starting at: Sat Sep 19 10:44:22 AM CEST 2026
+
+================================================================================
+LOADING DATA
+================================================================================
+Loading cell-type markers from 00_inputs/hdrg_markers.csv...
+  Loaded 58813 total marker entries
+  Columns: ['p_val', 'avg_log2FC', 'pct.1', 'pct.2', 'p_val_adj', 'gene', 'cell_type']
+  Using gene column: 'gene'
+  Using cell_type column: 'cell_type'
+  ATF3: 2231 marker genes
+  C-LTMR.CDH9: 1380 marker genes
+  C-NP.MRGPRX1/GFRA2: 1825 marker genes
+  C-NP.MRGPRX1/MRGPRX4: 2815 marker genes
+  C-PEP.TAC1/CACNG5: 2112 marker genes
+  C-PEP.TAC1/CHRNA3: 1822 marker genes
+  C-PEP.ADORA2B: 3901 marker genes
+  C-NP.SST: 4243 marker genes
+  C-Thermo.TRPM8: 3425 marker genes
+  C-Thermo.RXFP1: 5542 marker genes
+  A-PEP.CHRNA7/SLC18A3: 1315 marker genes
+  A-PEP.SCGN/ADRA2C: 1299 marker genes
+  A-PEP.KIT: 5627 marker genes
+  A-PEP.NTRK3/S100A16: 1887 marker genes
+  Ab-LTMR.ETV1: 932 marker genes
+  Ab-LTMR.LGI2: 2073 marker genes
+  Ab-LTMR.NSG2: 1435 marker genes
+  A-LTMR.TAC3: 5477 marker genes
+  Ab-LTMR.CCKAR: 1680 marker genes
+  A-Propr.HAPLN4: 1438 marker genes
+  A-Propr.EPHA3: 3300 marker genes
+  A-Propr.PCDH8: 3054 marker genes
+Loading base PPI network from 00_inputs/ppi_network.pkl...
+  Loaded PPI with 17053 nodes, 302564 edges
+  Converted node names to uppercase
+
+Loaded 408 seed genes from 00_inputs/seed_genes.csv
+
+================================================================================
+GENE ID VERIFICATION
+================================================================================
+
+1. Gene ID Format Check:
+   Total marker genes: 13801
+   PPI genes: 17051
+
+   Marker gene examples:
+      1. ACIN1
+      2. DNER
+      3. RTBDN
+      4. TIMP3
+      5. ITM2B
+
+   PPI gene examples:
+      1. ACIN1
+      2. DNER
+      3. RTBDN
+      4. TIMP3
+      5. ITM2B
+
+2. Gene Overlap:
+   Genes in both: 12007 (87.0%)
+   ✓ Good overlap! Gene IDs appear compatible.
+
+3. Seed Gene Verification:
+   Total seed genes: 408
+   Seeds in marker genes: 298 (73.0%)
+   Seeds in PPI: 372 (91.2%)
+   Seeds in BOTH (markers AND PPI): 275 (67.4%)
+================================================================================
+
+
+================================================================================
+BUILDING MULTIPLEX LAYERS
+================================================================================
+
+Building layer for cell type: A-LTMR.TAC3
+  Marker genes: 5477
+  PPI genes: 17051
+  Overlap: 4897 (89.4%)
+  Nodes in layer: 4897
+  Edges in layer: 24779
+  Seed genes in layer: 81 / 408 (19.9%)
+  Seed genes form 69 connected component(s)
+
+Building layer for cell type: A-PEP.CHRNA7/SLC18A3
+  Marker genes: 1315
+  PPI genes: 17051
+  Overlap: 1225 (93.2%)
+  Nodes in layer: 1225
+  Edges in layer: 4140
+  Seed genes in layer: 41 / 408 (10.0%)
+  Seed genes form 35 connected component(s)
+
+Building layer for cell type: A-PEP.KIT
+  Marker genes: 5627
+  PPI genes: 17051
+  Overlap: 5008 (89.0%)
+  Nodes in layer: 5008
+  Edges in layer: 26720
+  Seed genes in layer: 89 / 408 (21.8%)
+  Seed genes form 66 connected component(s)
+
+Building layer for cell type: A-PEP.NTRK3/S100A16
+  Marker genes: 1887
+  PPI genes: 17051
+  Overlap: 1714 (90.8%)
+  Nodes in layer: 1714
+  Edges in layer: 7490
+  Seed genes in layer: 70 / 408 (17.2%)
+  Seed genes form 57 connected component(s)
+
+Building layer for cell type: A-PEP.SCGN/ADRA2C
+  Marker genes: 1299
+  PPI genes: 17051
+  Overlap: 1153 (88.8%)
+  Nodes in layer: 1153
+  Edges in layer: 5469
+  Seed genes in layer: 46 / 408 (11.3%)
+  Seed genes form 40 connected component(s)
+
+Building layer for cell type: A-Propr.EPHA3
+  Marker genes: 3300
+  PPI genes: 17051
+  Overlap: 2605 (78.9%)
+  Nodes in layer: 2605
+  Edges in layer: 9570
+  Seed genes in layer: 56 / 408 (13.7%)
+  Seed genes form 52 connected component(s)
+
+Building layer for cell type: A-Propr.HAPLN4
+  Marker genes: 1438
+  PPI genes: 17051
+  Overlap: 1276 (88.7%)
+  Nodes in layer: 1276
+  Edges in layer: 4985
+  Seed genes in layer: 35 / 408 (8.6%)
+  Seed genes form 34 connected component(s)
+
+Building layer for cell type: A-Propr.PCDH8
+  Marker genes: 3054
+  PPI genes: 17051
+  Overlap: 2365 (77.4%)
+  Nodes in layer: 2365
+  Edges in layer: 9100
+  Seed genes in layer: 58 / 408 (14.2%)
+  Seed genes form 54 connected component(s)
+
+Building layer for cell type: ATF3
+  Marker genes: 2231
+  PPI genes: 17051
+  Overlap: 1912 (85.7%)
+  Nodes in layer: 1912
+  Edges in layer: 10442
+  Seed genes in layer: 50 / 408 (12.3%)
+  Seed genes form 44 connected component(s)
+
+Building layer for cell type: Ab-LTMR.CCKAR
+  Marker genes: 1680
+  PPI genes: 17051
+  Overlap: 1538 (91.5%)
+  Nodes in layer: 1538
+  Edges in layer: 3740
+  Seed genes in layer: 43 / 408 (10.5%)
+  Seed genes form 38 connected component(s)
+
+Building layer for cell type: Ab-LTMR.ETV1
+  Marker genes: 932
+  PPI genes: 17051
+  Overlap: 849 (91.1%)
+  Nodes in layer: 849
+  Edges in layer: 2888
+  Seed genes in layer: 31 / 408 (7.6%)
+  Seed genes form 30 connected component(s)
+
+Building layer for cell type: Ab-LTMR.LGI2
+  Marker genes: 2073
+  PPI genes: 17051
+  Overlap: 1884 (90.9%)
+  Nodes in layer: 1884
+  Edges in layer: 5909
+  Seed genes in layer: 52 / 408 (12.7%)
+  Seed genes form 48 connected component(s)
+
+Building layer for cell type: Ab-LTMR.NSG2
+  Marker genes: 1435
+  PPI genes: 17051
+  Overlap: 1326 (92.4%)
+  Nodes in layer: 1326
+  Edges in layer: 4657
+  Seed genes in layer: 39 / 408 (9.6%)
+  Seed genes form 38 connected component(s)
+
+Building layer for cell type: C-LTMR.CDH9
+  Marker genes: 1380
+  PPI genes: 17051
+  Overlap: 1229 (89.1%)
+  Nodes in layer: 1229
+  Edges in layer: 1487
+  Seed genes in layer: 38 / 408 (9.3%)
+  Seed genes form 34 connected component(s)
+
+Building layer for cell type: C-NP.MRGPRX1/GFRA2
+  Marker genes: 1825
+  PPI genes: 17051
+  Overlap: 1624 (89.0%)
+  Nodes in layer: 1624
+  Edges in layer: 3213
+  Seed genes in layer: 65 / 408 (15.9%)
+  Seed genes form 47 connected component(s)
+
+Building layer for cell type: C-NP.MRGPRX1/MRGPRX4
+  Marker genes: 2815
+  PPI genes: 17051
+  Overlap: 2517 (89.4%)
+  Nodes in layer: 2517
+  Edges in layer: 7538
+  Seed genes in layer: 74 / 408 (18.1%)
+  Seed genes form 54 connected component(s)
+
+Building layer for cell type: C-NP.SST
+  Marker genes: 4243
+  PPI genes: 17051
+  Overlap: 3866 (91.1%)
+  Nodes in layer: 3866
+  Edges in layer: 16291
+  Seed genes in layer: 76 / 408 (18.6%)
+  Seed genes form 53 connected component(s)
+
+Building layer for cell type: C-PEP.ADORA2B
+  Marker genes: 3901
+  PPI genes: 17051
+  Overlap: 3501 (89.7%)
+  Nodes in layer: 3501
+  Edges in layer: 13040
+  Seed genes in layer: 67 / 408 (16.4%)
+  Seed genes form 52 connected component(s)
+
+Building layer for cell type: C-PEP.TAC1/CACNG5
+  Marker genes: 2112
+  PPI genes: 17051
+  Overlap: 1889 (89.4%)
+  Nodes in layer: 1889
+  Edges in layer: 5552
+  Seed genes in layer: 56 / 408 (13.7%)
+  Seed genes form 42 connected component(s)
+
+Building layer for cell type: C-PEP.TAC1/CHRNA3
+  Marker genes: 1822
+  PPI genes: 17051
+  Overlap: 1670 (91.7%)
+  Nodes in layer: 1670
+  Edges in layer: 4651
+  Seed genes in layer: 66 / 408 (16.2%)
+  Seed genes form 51 connected component(s)
+
+Building layer for cell type: C-Thermo.RXFP1
+  Marker genes: 5542
+  PPI genes: 17051
+  Overlap: 4999 (90.2%)
+  Nodes in layer: 4999
+  Edges in layer: 27326
+  Seed genes in layer: 80 / 408 (19.6%)
+  Seed genes form 53 connected component(s)
+
+Building layer for cell type: C-Thermo.TRPM8
+  Marker genes: 3425
+  PPI genes: 17051
+  Overlap: 3109 (90.8%)
+  Nodes in layer: 3109
+  Edges in layer: 8935
+  Seed genes in layer: 64 / 408 (15.7%)
+  Seed genes form 54 connected component(s)
+
+================================================================================
+MULTIPLEX-LEVEL STATISTICS
+================================================================================
+Total unique genes in multiplex: 12007
+Total edges in multiplex: 207922
+Number of layers: 22
+
+Seed genes in multiplex: 275 / 408 (67.4%)
+
+================================================================================
+SAVING OUTPUTS
+================================================================================
+Saved 22 layer networks to 02_hdrg_multiplex/multiplex_2025hdrg_filtered/layers
+Saved layer statistics to 02_hdrg_multiplex/multiplex_2025hdrg_filtered/layer_statistics.csv
+Saved markers with layer assignments to 02_hdrg_multiplex/multiplex_2025hdrg_filtered/markers_with_layers.csv
+Saved comprehensive report to 02_hdrg_multiplex/multiplex_2025hdrg_filtered/multiplex_conversion_report.txt
+Saved JSON report to 02_hdrg_multiplex/multiplex_2025hdrg_filtered/multiplex_conversion_report.json
+
+================================================================================
+MULTIPLEX INTERACTOME CONSTRUCTION COMPLETE
+================================================================================
+Total layers: 22
+Total unique genes: 12007
+Total edges: 207922
+Gene retention: 100.0%
+Seed gene recovery: 67.4%
+Time elapsed: 6.92 seconds
+Output directory: 02_hdrg_multiplex/multiplex_2025hdrg_filtered
+================================================================================
+Finished at: Sat Sep 19 10:44:39 AM CEST 2026

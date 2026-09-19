@@ -37,3 +37,8 @@ pathway_prep/uniprot_to_pathways.txt
 pathway_prep/.ipynb_checkpoints/
 *.ipynb_checkpoints/
 pathway_prep/lr_sources/neuronchat_object_debug.rds
+*.weaver
+*.weaver
+*.nodes
+*.gml
+phen/combined_gene_results_*.tsv

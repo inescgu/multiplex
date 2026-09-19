@@ -18,6 +18,8 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step6b_module_diagnostics.py \
     --output-dir 06_disease_module/disease_module_output \
-    --input-dir  04_multixrank_prep/multixrank_hetero_input
+    --input-dir  04_multixrank_prep/multixrank_hetero_input \
+    --markers-csv ../R/convert_hdrg_human_2025/cell_type_markers.csv \
+    --celltype-gene-sets 04_multixrank_prep/multixrank_hetero_input/celltype_gene_sets.json
 
 echo "Finished at: $(date)"

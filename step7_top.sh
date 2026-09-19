@@ -25,5 +25,4 @@ python step7_layer_topology_stats.py \
     --top-n-eigen 5 \
     --exclude-ai "immune tissue" "immune" "nervous" \
     --min-edges 1
-
 echo "Finished at: $(date)"

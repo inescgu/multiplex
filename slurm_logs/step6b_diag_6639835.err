@@ -1,0 +1,2 @@
+/lisc/home/user/gerardursin/multiplex/step6b_module_diagnostics.py:255: DtypeWarning: Columns (5) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(path)

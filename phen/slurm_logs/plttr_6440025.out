@@ -1,0 +1,25 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g01/tmp/slurm-6440025
+Running on host: node-g01.lisc
+Starting at: Mon Sep 14 04:02:12 PM CEST 2026
+[multiplex adapter] 1,582 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 0 below persistence=0, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+Loaded 1582 clusters with persistence data
+
+Persistence Tier Thresholds (Percentiles [90, 75, 50]):
+  90th percentile: 16.00
+  75th percentile: 9.00
+  50th percentile: 6.00
+Built cluster-level table: 1570 clusters with >=1 significant hit (matched against 1582 clusters with persistence data)
+Saved underlying table -> ./output/combined26_multiplex/cluster_level_categorization.csv
+
+=== Cluster counts per tier ===
+tier
+Tier 1 (>=90th)       171
+Tier 2 (75th-90th)    265
+Tier 3 (50th-75th)    569
+Tier 4 (<50th)        565
+Name: count, dtype: int64
+Saved -> plots/combined26_multiplex/tier_source_variation/tier_specificity_stacked_bar.png
+Saved -> plots/combined26_multiplex/tier_source_variation/tier_source_prevalence_heatmap.png
+
+Done.
+Finished at: Mon Sep 14 04:02:34 PM CEST 2026

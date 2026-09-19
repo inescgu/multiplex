@@ -1,4 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b06/tmp/slurm-5802096
-Step 10: Permutation test for disease module
-Running on host: node-b06.lisc
-Starting at: Wed Aug  5 11:15:44 AM CEST 2026

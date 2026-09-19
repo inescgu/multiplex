@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step11a_supragraph.py", line 47, in <module>
-    import igraph as ig
-ModuleNotFoundError: No module named 'igraph'

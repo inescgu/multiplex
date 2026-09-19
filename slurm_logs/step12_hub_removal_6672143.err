@@ -1,0 +1,10 @@
+Lmod has detected the following error: The following module(s) are unknown: "Python/3.14.4-weekly"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Python/3.14.4-weekly"
+
+Also make sure that all modulefiles written in TCL start with the string #%Module
+
+
+[2026-09-17T21:08:23.040] error: *** JOB 6672143 ON node-h03 CANCELLED AT 2026-09-17T21:08:23 DUE TO TIME LIMIT ***

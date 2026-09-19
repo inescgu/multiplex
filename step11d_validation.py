@@ -6,19 +6,26 @@ the same heterogeneous supra-graph using Infomap.
 
 CHANGELOG
 ---------
-- --communities now expects the RECOVERED pickle
-  (heterogeneous_hidef_communities_FIXED.pkl), since the original step 11c
-  extract_communities() had a bug that made every entry a trivial
-  single-node "community" (see the recovery notebook/script).
-- Added --min-size (default 2): entries with size < min-size are dropped
-  before computing purity. Without this, the ~140k terminal-leaf entries
-  that legitimately exist alongside the real persistent clusters dominate
+- v3: --communities is now OPTIONAL. This script can read the .nodes file
+  from step 11c Phase 2 directly (via --nodes-file), the same parser used
+  by step 11e, instead of requiring a separately-recovered
+  heterogeneous_hidef_communities_FIXED.pkl. That recovery pickle was tied
+  to a specific (now superseded) run's extract_communities() bug fix --
+  every time you re-run the pipeline with new sweep parameters (e.g. the
+  CPM-based resolution sweep replacing the original flat-persistence RB
+  sweep), regenerating that pickle by hand is an easy step to forget,
+  which silently validates STALE clusters against a fresh Infomap run
+  instead of erroring out. Reading .nodes directly removes that failure
+  mode. --communities is kept for backward compatibility with any older
+  recovery pickles you still want to cross-check.
+- --min-size (default 2): entries with size < min-size are dropped before
+  computing purity, whichever source they came from. Without this, a
+  large number of legitimately-trivial single-node leaf entries dominate
   the report and drive purity to ~1.0 trivially (a singleton is always
   "pure" against any module assignment), which is meaningless as a
   cross-validation of the actual hierarchy against Infomap.
-- Report now records how many communities were dropped by the size filter,
-  and both the filtered and unfiltered counts, so this can't silently
-  regress back to the degenerate case again.
+- Report records how many communities were dropped by the size filter,
+  and both the filtered and unfiltered counts.
 
 SIMPLIFICATION, stated up front: rather than reconstructing the full
 interconnected/multilayer Infomap formulation (De Domenico et al. 2015,
@@ -49,6 +56,7 @@ Reports:
 import argparse
 import json
 import pickle
+import re
 from pathlib import Path
 
 import numpy as np
@@ -107,6 +115,70 @@ def community_purity(members, node_name_to_idx, infomap_membership):
     return purity, int(top_module)
 
 
+# ============================================================================
+# COMMUNITY LOADING -- either the recovered pickle (legacy) or .nodes directly
+# ============================================================================
+
+def load_communities_from_pickle(path: Path):
+    with open(path, "rb") as f:
+        raw = pickle.load(f)
+    communities = {}
+    for cid, c in raw.items():
+        members = c["members"]
+        communities[str(cid)] = {
+            "members": list(members),
+            "size": c.get("size", len(members)),
+            "persistence": c.get("persistence", None),
+        }
+    print(f"Loaded {len(communities):,} communities from recovery pickle {path}\n")
+    return communities
+
+
+def load_communities_from_nodes_file(nodes_path: Path, node_names: list):
+    """Same parser as step 11e: community, size, members, persistence
+    (tab-separated, no header). 'members' may be whitespace- or comma-
+    separated, and may contain either 'cell_type::gene' names or integer
+    vertex indices -- both are handled. Rows with an empty/NaN members
+    field are skipped rather than crashing downstream."""
+    import pandas as pd
+
+    df = pd.read_csv(nodes_path, sep="\t", header=None,
+                      names=["cluster_id", "size", "members", "persistence"],
+                      dtype={"members": str})
+    communities = {}
+    n_skipped_empty = 0
+    for _, row in df.iterrows():
+        raw_field = row["members"]
+        if pd.isna(raw_field) or not str(raw_field).strip():
+            n_skipped_empty += 1
+            continue
+        raw = [tok for tok in re.split(r"[,\s]+", str(raw_field).strip()) if tok]
+        if not raw:
+            n_skipped_empty += 1
+            continue
+
+        looks_like_indices = all(tok.lstrip("-").isdigit() for tok in raw[:5])
+        if looks_like_indices:
+            try:
+                members = [node_names[int(tok)] for tok in raw]
+            except (IndexError, ValueError):
+                members = raw
+        else:
+            members = raw
+
+        communities[str(row["cluster_id"])] = {
+            "members": members,
+            "size": int(row["size"]),
+            "persistence": float(row["persistence"]),
+        }
+
+    print(f"Loaded {len(communities):,} communities from {nodes_path}")
+    if n_skipped_empty:
+        print(f"  ⚠ skipped {n_skipped_empty} row(s) with empty/NaN members field")
+    print()
+    return communities
+
+
 def filter_trivial_communities(communities: dict, min_size: int):
     """Drop terminal-leaf / trivially small entries before computing
     purity. See CHANGELOG at top of file for why this matters."""
@@ -118,13 +190,8 @@ def filter_trivial_communities(communities: dict, min_size: int):
           f"{n_before:,} -> {n_after:,} communities "
           f"({n_before - n_after:,} dropped as trivial)")
     if n_after == 0:
-        print("  ⚠ Filter removed everything -- check that --communities points "
-              "at the RECOVERED pickle (heterogeneous_hidef_communities_FIXED.pkl), "
-              "not the original broken one.")
-    elif n_after > 5000:
-        print("  ⚠ Filtered count is still large relative to your expected "
-              "~2,896 real persistent clusters -- double check --min-size and "
-              "that you're using the recovered pickle.")
+        print("  ⚠ Filter removed everything -- check --nodes-file/--communities points "
+              "at the right output and --min-size isn't too strict.")
     return filtered, n_before, n_after
 
 
@@ -133,10 +200,13 @@ def main():
                                                "communities against Infomap on the same supra-graph")
     ap.add_argument("--supra-graph", required=True, help="Pickle from step 3a")
     ap.add_argument("--ensemble", required=True, help="Pickle from step 3b (for the closest-N comparison)")
-    ap.add_argument("--communities", required=True,
-                     help="heterogeneous_hidef_communities_FIXED.pkl from the recovery step "
-                          "(NOT the original heterogeneous_hidef_communities.pkl -- that one has "
-                          "the extract_communities() bug and is all trivial single-node entries)")
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument("--nodes-file",
+                      help="hidef_finder .nodes output from step 11c Phase 2 -- read directly, "
+                           "no recovery-pickle step needed (preferred)")
+    src.add_argument("--communities",
+                      help="Legacy: a {comm_id: {'members', 'size', 'persistence'}} recovery "
+                           "pickle from an earlier extract_communities() bug-fix pass")
     ap.add_argument("--min-size", type=int, default=2,
                      help="Drop communities smaller than this before computing purity "
                           "(default 2 -- excludes trivial single-node leaf entries)")
@@ -148,8 +218,11 @@ def main():
         g = pickle.load(f)
     with open(args.ensemble, "rb") as f:
         ensemble = pickle.load(f)
-    with open(args.communities, "rb") as f:
-        communities = pickle.load(f)
+
+    if args.nodes_file:
+        communities = load_communities_from_nodes_file(Path(args.nodes_file), g.vs["name"])
+    else:
+        communities = load_communities_from_pickle(Path(args.communities))
 
     communities, n_before_filter, n_after_filter = filter_trivial_communities(
         communities, args.min_size
@@ -184,6 +257,7 @@ def main():
     print(f"NMI(Infomap, closest leidenalg partition) = {nmi:.3f}\n")
 
     report = {
+        "source": "nodes_file" if args.nodes_file else "communities_pickle",
         "min_size_filter": args.min_size,
         "n_communities_before_filter": n_before_filter,
         "n_communities_after_filter": n_after_filter,

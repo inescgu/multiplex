@@ -1,0 +1,19 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b07/tmp/slurm-6261268
+Step 11d: Cross-checking persistent communities against Infomap on the supra-graph
+Running on host: node-b07.lisc
+Starting at: Wed Sep  2 03:53:10 PM CEST 2026
+Loaded 7,996 communities from 11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes
+
+Community size filter (--min-size 2): 7,996 -> 7,996 communities (0 dropped as trivial)
+
+Running Infomap on supra-graph (140,139 nodes, 695,209 edges) ...
+  Infomap found 9429 modules
+
+Purity of persistent HiDeF communities against Infomap modules (size >= 2 only):
+  mean purity: 0.994  median: 1.000  (n=7996 communities)
+
+Closest leidenalg partition: gamma=5.784e-05, omega=1, 9055 communities
+NMI(Infomap, closest leidenalg partition) = 0.960
+
+✓ Saved cross-check report -> 11_hidef_results_faithful_cpm/infomap_crosscheck.json
+Finished at: Wed Sep  2 03:53:40 PM CEST 2026

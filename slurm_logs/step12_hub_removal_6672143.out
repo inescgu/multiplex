@@ -1,0 +1,285 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-h03/tmp/slurm-6672143
+Running on host: node-h03.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Thu Sep 17 12:08:11 PM CEST 2026
+SLURM_JOB_ID: 6672143
+
+================================================================================
+Hub Removal / Attack-Tolerance Analysis (heterogeneous multiplex)
+================================================================================
+Output directory: 12_hub_removal/hub_removal
+
+Loading module graph from 06_disease_module/disease_module_output/module_graph.pkl...
+Module graph: 4685 nodes, 12483 edges
+  23 cell type(s), 1192 unique gene symbol(s)
+Loaded disease_module CSV (4685 rows) for reference
+  Cell-type breakdown:
+cell_type
+A-PEP.CHRNA7_SLC18A3    238
+ATF3                    238
+A-PEP.SCGN_ADRA2C       235
+C-NP.MRGPRX1_GFRA2      233
+global_ppi              226
+C-PEP.TAC1_CACNG5       218
+C-LTMR.CDH9             215
+A-PEP.NTRK3_S100A16     214
+Ab-LTMR.CCKAR           212
+C-PEP.TAC1_CHRNA3       210
+C-NP.SST                209
+C-PEP.ADORA2B           209
+C-Thermo.TRPM8          209
+C-NP.MRGPRX1_MRGPRX4    208
+A-Propr.HAPLN4          201
+Ab-LTMR.NSG2            201
+Ab-LTMR.ETV1            183
+A-PEP.KIT               181
+A-Propr.EPHA3           176
+Ab-LTMR.LGI2            174
+A-Propr.PCDH8           169
+C-Thermo.RXFP1          169
+A-LTMR.TAC3             157
+  Seed genes in module: 1969
+  1969 seed node(s) available for seed-vs-bridging split
+Loading background graph from ../og_gene_set/temp/combined26/full_network.pkl...
+Background graph: 17053 nodes, 302564 edges
+
+--- Hub definitions ---
+Computing degree and betweenness centrality for hub definitions...
+  top5pct_degree: 235 nodes
+  top10pct_degree: 469 nodes
+  top20pct_degree: 937 nodes
+  degree_gt_mean_plus_1SD: 480 nodes
+  degree_gt_mean_plus_2SD: 193 nodes
+  degree_gt_mean_plus_3SD: 94 nodes
+  yu_hub_bottleneck: 753 nodes
+  yu_pure_hub: 451 nodes
+  yu_pure_bottleneck: 184 nodes
+  yu_neither: 3297 nodes
+
+--- Cell-type composition of hub sets ---
+cell_type                A-LTMR.TAC3  A-PEP.CHRNA7_SLC18A3  A-PEP.KIT  A-PEP.NTRK3_S100A16  A-PEP.SCGN_ADRA2C  A-Propr.EPHA3  A-Propr.HAPLN4  A-Propr.PCDH8  ATF3  Ab-LTMR.CCKAR  Ab-LTMR.ETV1  Ab-LTMR.LGI2  Ab-LTMR.NSG2  C-LTMR.CDH9  C-NP.MRGPRX1_GFRA2  C-NP.MRGPRX1_MRGPRX4  C-NP.SST  C-PEP.ADORA2B  C-PEP.TAC1_CACNG5  C-PEP.TAC1_CHRNA3  C-Thermo.RXFP1  C-Thermo.TRPM8  global_ppi
+hub_definition                                                                                                                                                                                                                                                                                                                                                                              
+degree_gt_mean_plus_1SD            7                    13         25                   12                 23             12              22             12    28              9            18            14             9           19                  14                    19        18             28                 19                 16              15              11         117
+degree_gt_mean_plus_2SD            4                     1          9                    4                  2              5               7              4     7              2             7             4             2           10                   3                     7         4             14                  5                  5               6               3          78
+degree_gt_mean_plus_3SD            3                     0          4                    1                  2              4               3              3     3              2             3             1             2            5                   1                     2         2              6                  3                  2               2               2          38
+top10pct_degree                    6                    13         24                   12                 21             12              22             12    27              8            17            14             9           19                  13                    19        18             28                 19                 15              14              10         117
+top20pct_degree                   20                    24         40                   38                 49             31              53             27    51             32            40            26            33           45                  40                    42        37             48                 42                 35              22              25         137
+top5pct_degree                     4                     3         13                    5                  5              5               9              5    11              5             8             4             2           11                   4                    10         5             15                  6                  6               7               5          87
+yu_hub_bottleneck                 12                    26         23                   33                 41             24              23             16    32             23            19            19            31           34                  34                    35        29             38                 35                 31              20              28         147
+yu_neither                       128                   197        130                  155                164            123             127            128   160            159           136           135           145          144                 176                   147       152            141                157                152             129             165          47
+yu_pure_bottleneck                 1                     9          3                   10                  7             13               6              5    13              8             5             2            10           11                   3                     6         7              4                  6                 14               8              10          23
+yu_pure_hub                       16                     6         25                   16                 23             16              45             20    33             22            23            18            15           26                  20                    20        21             26                 20                 13              12               6           9
+
+--- Topology diagnostics on the real module (advisor #1: cut-vertices, assortativity, connectivity, k-core, redundancy) ---
+  Degree assortativity              : 0.1922
+  Articulation points                : 368 (7.85% of nodes)
+  Bridges                            : 488 (3.91% of edges)
+  k-core                             : max=11, mean=3.054
+  Hub-neighborhood clustering (top 10%): 0.1127
+  Avg clustering / transitivity      : 0.0761 / 0.0974
+  Molloy-Reed ratio <k^2>/<k>        : 9.9517  (NOTE: identical in expectation to the degree-preserving null by construction -- any f_c/f_90 divergence from the null is coming from wiring, not from this)
+  Node/edge connectivity, algebraic connectivity, efficiency, avg path length: SKIPPED (module has 4685 nodes > --expensive-metrics-max-nodes=3000)
+
+  Hub-set overlap with articulation points:
+         hub_definition  n_hub_nodes  n_hub_nodes_that_are_articulation_points  frac_hub_nodes_that_are_articulation_points
+         top5pct_degree          235                                        20                                     0.085106
+        top10pct_degree          469                                        42                                     0.089552
+        top20pct_degree          937                                        98                                     0.104589
+degree_gt_mean_plus_1SD          480                                        42                                     0.087500
+degree_gt_mean_plus_2SD          193                                        16                                     0.082902
+degree_gt_mean_plus_3SD           94                                         4                                     0.042553
+      yu_hub_bottleneck          753                                       118                                     0.156707
+            yu_pure_hub          451                                        10                                     0.022173
+     yu_pure_bottleneck          184                                        57                                     0.309783
+             yu_neither         3297                                       183                                     0.055505
+
+--- Bridge-gene dependency diagnostics (advisor #2) ---
+  Computing single-node removal impact (delta_lcc) for 4685 node(s) (all articulation points + all hub-set members)...
+      origin  n_nodes  mean_degree  median_degree  mean_betweenness  median_betweenness  mean_core_number  frac_articulation_points  mean_delta_lcc  max_delta_lcc
+        seed     1969     5.711021            4.0          0.001325            0.000624          3.170645                  0.180802        0.000272       0.002988
+bridge_added     2716     5.051915            3.0          0.000825            0.000273          2.969072                  0.004418        0.000215       0.001281
+
+  Full seed-set vs. full bridge-added-set knockout:
+    origin_group  n_nodes_removed  frac_removed  n_components_after  lcc_fraction_after
+       all_seeds             1969      0.420277                 571            0.446745
+all_bridge_added             2716      0.579723                  87            0.255069
+
+--- Layer participation (inter- vs. intra-layer edges per node) ---
+         hub_definition  n_nodes  mean_frac_inter_layer  module_wide_mean_frac_inter_layer  difference_from_module_mean
+         top5pct_degree      235               0.493241                           0.180868                     0.312373
+        top10pct_degree      469               0.369978                           0.180868                     0.189110
+        top20pct_degree      937               0.256476                           0.180868                     0.075608
+degree_gt_mean_plus_1SD      480               0.363583                           0.180868                     0.182715
+degree_gt_mean_plus_2SD      193               0.530803                           0.180868                     0.349935
+degree_gt_mean_plus_3SD       94               0.545731                           0.180868                     0.364863
+      yu_hub_bottleneck      753               0.286635                           0.180868                     0.105768
+            yu_pure_hub      451               0.146776                           0.180868                    -0.034092
+     yu_pure_bottleneck      184               0.222373                           0.180868                     0.041505
+             yu_neither     3297               0.159059                           0.180868                    -0.021809
+
+--- Per-cell-type knockout (independent of hub definition) ---
+           cell_type  n_nodes_removed  frac_removed  n_components_after  lcc_fraction_after
+          global_ppi              226      0.048239                 114            0.913554
+A-PEP.CHRNA7_SLC18A3              238      0.050800                   1            0.949200
+                ATF3              238      0.050800                   1            0.949200
+   A-PEP.SCGN_ADRA2C              235      0.050160                   1            0.949840
+  C-NP.MRGPRX1_GFRA2              233      0.049733                   1            0.950267
+   C-PEP.TAC1_CACNG5              218      0.046531                   1            0.953469
+ A-PEP.NTRK3_S100A16              214      0.045678                   2            0.954109
+         C-LTMR.CDH9              215      0.045891                   1            0.954109
+       Ab-LTMR.CCKAR              212      0.045251                   1            0.954749
+   C-PEP.TAC1_CHRNA3              210      0.044824                   1            0.955176
+       C-PEP.ADORA2B              209      0.044610                   2            0.955176
+      C-Thermo.TRPM8              209      0.044610                   1            0.955390
+            C-NP.SST              209      0.044610                   1            0.955390
+C-NP.MRGPRX1_MRGPRX4              208      0.044397                   1            0.955603
+      A-Propr.HAPLN4              201      0.042903                   1            0.957097
+        Ab-LTMR.NSG2              201      0.042903                   1            0.957097
+           A-PEP.KIT              181      0.038634                   3            0.960512
+        Ab-LTMR.ETV1              183      0.039061                   1            0.960939
+       A-Propr.EPHA3              176      0.037567                   3            0.960939
+        Ab-LTMR.LGI2              174      0.037140                   1            0.962860
+      C-Thermo.RXFP1              169      0.036073                   2            0.963714
+       A-Propr.PCDH8              169      0.036073                   1            0.963927
+         A-LTMR.TAC3              157      0.033511                   1            0.966489
+
+--- Per-cell-type induced-subgraph fragility (advisor #4: is a layer fragile on its own?) ---
+           cell_type  n_nodes  n_edges   mode      f_c     f_90
+         A-LTMR.TAC3      157      219 degree 0.184713 0.006369
+A-PEP.CHRNA7_SLC18A3      238      411 degree 0.231092 0.025210
+           A-PEP.KIT      181      411 degree 0.331492 0.033149
+ A-PEP.NTRK3_S100A16      214      455 degree 0.317757 0.070093
+   A-PEP.SCGN_ADRA2C      235      560 degree 0.485106 0.089362
+       A-Propr.EPHA3      176      324 degree 0.323864 0.011364
+      A-Propr.HAPLN4      201      536 degree 0.552239 0.079602
+       A-Propr.PCDH8      169      303 degree 0.242604 0.005917
+                ATF3      238      579 degree 0.420168 0.067227
+       Ab-LTMR.CCKAR      212      434 degree 0.391509 0.042453
+        Ab-LTMR.ETV1      183      360 degree 0.360656 0.005464
+        Ab-LTMR.LGI2      174      301 degree 0.258621 0.005747
+        Ab-LTMR.NSG2      201      389 degree 0.378109 0.034826
+         C-LTMR.CDH9      215      503 degree 0.451163 0.069767
+  C-NP.MRGPRX1_GFRA2      233      495 degree 0.330472 0.068670
+C-NP.MRGPRX1_MRGPRX4      208      464 degree 0.442308 0.038462
+            C-NP.SST      209      443 degree 0.311005 0.043062
+       C-PEP.ADORA2B      209      542 degree 0.435407 0.062201
+   C-PEP.TAC1_CACNG5      218      463 degree 0.472477 0.064220
+   C-PEP.TAC1_CHRNA3      210      430 degree 0.504762 0.061905
+      C-Thermo.RXFP1      169      274 degree 0.331361 0.005917
+      C-Thermo.TRPM8      209      371 degree 0.334928 0.052632
+          global_ppi      226      318 degree 0.154867 0.004425
+  celltype x hub-definition knockout saved -> celltype_hub_knockout.csv (229 rows)
+
+--- Hub knockout split by seed vs. non-seed (bridging-gene) status ---
+         hub_definition                subset  n_nodes_removed  frac_removed  n_components_after  lcc_fraction_after
+         top5pct_degree             seed_only              116      0.024760                  49            0.963074
+         top5pct_degree nonseed_bridging_only              119      0.025400                   3            0.973959
+        top10pct_degree             seed_only              217      0.046318                  94            0.929349
+        top10pct_degree nonseed_bridging_only              252      0.053789                   5            0.943223
+        top20pct_degree             seed_only              440      0.093917                 221            0.849947
+        top20pct_degree nonseed_bridging_only              497      0.106083                  11            0.886446
+degree_gt_mean_plus_1SD             seed_only              222      0.047385                  95            0.928068
+degree_gt_mean_plus_1SD nonseed_bridging_only              258      0.055069                   5            0.941942
+degree_gt_mean_plus_2SD             seed_only               97      0.020704                  42            0.968837
+degree_gt_mean_plus_2SD nonseed_bridging_only               96      0.020491                   3            0.978869
+degree_gt_mean_plus_3SD             seed_only               43      0.009178                  16            0.987193
+degree_gt_mean_plus_3SD nonseed_bridging_only               51      0.010886                   1            0.989114
+      yu_hub_bottleneck             seed_only              430      0.091782                 253            0.840768
+      yu_hub_bottleneck nonseed_bridging_only              323      0.068943                   6            0.928068
+            yu_pure_hub             seed_only              145      0.030950                  14            0.966275
+            yu_pure_hub nonseed_bridging_only              306      0.065315                   2            0.933618
+     yu_pure_bottleneck             seed_only              128      0.027321                  79            0.952615
+     yu_pure_bottleneck nonseed_bridging_only               56      0.011953                   5            0.983351
+             yu_neither             seed_only             1266      0.270224                 223            0.681323
+             yu_neither nonseed_bridging_only             2031      0.433511                  12            0.558591
+
+--- Community structure (advisor #5: connector vs. provincial hubs) ---
+  Modularity: 0.7795  (33 communities)
+  Role counts:
+role
+peripheral           4370
+connector_non_hub     170
+provincial_hub        133
+connector_hub          12
+
+  Connector/provincial-hub composition per hub definition:
+         hub_definition  n_nodes  n_connector_hub  frac_connector_hub  n_provincial_hub  frac_provincial_hub  n_connector_non_hub  frac_connector_non_hub  n_peripheral  frac_peripheral
+         top5pct_degree      235               11            0.046809               100             0.425532                   67                0.285106            57         0.242553
+        top10pct_degree      469               12            0.025586               128             0.272921                   96                0.204691           233         0.496802
+        top20pct_degree      937               12            0.012807               132             0.140875                  117                0.124867           676         0.721451
+degree_gt_mean_plus_1SD      480               12            0.025000               129             0.268750                   97                0.202083           242         0.504167
+degree_gt_mean_plus_2SD      193               11            0.056995                87             0.450777                   57                0.295337            38         0.196891
+degree_gt_mean_plus_3SD       94                9            0.095745                53             0.563830                   20                0.212766            12         0.127660
+      yu_hub_bottleneck      753               12            0.015936               124             0.164675                  116                0.154050           501         0.665339
+            yu_pure_hub      451                0            0.000000                 9             0.019956                    5                0.011086           437         0.968958
+     yu_pure_bottleneck      184                0            0.000000                 0             0.000000                   14                0.076087           170         0.923913
+             yu_neither     3297                0            0.000000                 0             0.000000                   35                0.010616          3262         0.989384
+
+--- Seed-component connectivity (advisor #6: node-disjoint paths between original seed components) ---
+  [seed-component-connectivity] 87 seed components found; capping to the 6 largest.
+ component_i  component_i_size   representative_i  component_j  component_j_size      representative_j  node_disjoint_paths
+           0              1195   global_ppi::LRP1            1                25    global_ppi::KCNK18                   16
+           0              1195   global_ppi::LRP1            2                24     global_ppi::PRKG1                   15
+           0              1195   global_ppi::LRP1            3                23     global_ppi::ANXA1                   24
+           0              1195   global_ppi::LRP1            4                23     global_ppi::RAMP1                   19
+           0              1195   global_ppi::LRP1            5                23 global_ppi::ADCYAP1R1                   20
+           1                25 global_ppi::KCNK18            2                24     global_ppi::PRKG1                   15
+           1                25 global_ppi::KCNK18            3                23     global_ppi::ANXA1                   16
+           1                25 global_ppi::KCNK18            4                23     global_ppi::RAMP1                   16
+           1                25 global_ppi::KCNK18            5                23 global_ppi::ADCYAP1R1                   16
+           2                24  global_ppi::PRKG1            3                23     global_ppi::ANXA1                   15
+           2                24  global_ppi::PRKG1            4                23     global_ppi::RAMP1                   15
+           2                24  global_ppi::PRKG1            5                23 global_ppi::ADCYAP1R1                   15
+           3                23  global_ppi::ANXA1            4                23     global_ppi::RAMP1                   19
+           3                23  global_ppi::ANXA1            5                23 global_ppi::ADCYAP1R1                   20
+           4                23  global_ppi::RAMP1            5                23 global_ppi::ADCYAP1R1                   19
+
+--- Discrete hub-set knockouts (recommendation 2 + 4) ---
+         hub_definition  n_hub_nodes_removed  frac_removed  n_components_after  lcc_fraction_after  n_residual_nodes
+         top5pct_degree                  235      0.050160                  71            0.929349              4450
+        top10pct_degree                  469      0.100107                 162            0.849520              4216
+        top20pct_degree                  937      0.200000                 524            0.621131              3748
+degree_gt_mean_plus_1SD                  480      0.102455                 163            0.846958              4205
+degree_gt_mean_plus_2SD                  193      0.041195                  59            0.941729              4492
+degree_gt_mean_plus_3SD                   94      0.020064                  17            0.976094              4591
+      yu_hub_bottleneck                  753      0.160726                 475            0.682177              3932
+            yu_pure_hub                  451      0.096265                  26            0.897545              4234
+     yu_pure_bottleneck                  184      0.039274                  84            0.938954              4501
+             yu_neither                 3297      0.703735                  16            0.293063              1388
+
+NOTE: post-knockout LCC fraction varies substantially across hub definitions (range > 0.15) — fragility conclusions are sensitive to how 'hub' is defined. Report this explicitly.
+
+--- Functional enrichment of residual modules (recommendation 4) ---
+  Collapsing 4685 celltype::gene nodes to 1192 unique gene symbols for enrichment.
+  [full_module] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_full_module.csv
+  [residual_after_top5pct_degree] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_top5pct_degree.csv
+  [residual_after_top10pct_degree] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_top10pct_degree.csv
+  [residual_after_top20pct_degree] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_top20pct_degree.csv
+  [residual_after_degree_gt_mean_plus_1SD] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_degree_gt_mean_plus_1SD.csv
+  [residual_after_degree_gt_mean_plus_2SD] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_degree_gt_mean_plus_2SD.csv
+  [residual_after_degree_gt_mean_plus_3SD] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_degree_gt_mean_plus_3SD.csv
+  [residual_after_yu_hub_bottleneck] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_yu_hub_bottleneck.csv
+  [residual_after_yu_pure_hub] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_yu_pure_hub.csv
+  [residual_after_yu_pure_bottleneck] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_yu_pure_bottleneck.csv
+  [residual_after_yu_neither] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_residual_after_yu_neither.csv
+  [top_delta_lcc_nodes] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_top_delta_lcc_nodes.csv
+  [articulation_points] enrichment saved to 12_hub_removal/hub_removal/enrichment/enrichment_articulation_points.csv
+
+--- Attack curves (recommendation 1) ---
+  Static degree attack...
+  Cascading degree attack (recompute every 10 nodes)...
+  Static betweenness attack...
+  Cascading betweenness attack (recompute every 10 nodes)...
+  Static degree_betweenness attack...
+  Cascading degree_betweenness attack (recompute every 10 nodes)...
+  Random failure (averaged)...
+              mode  cascading      f_c     f_90
+            degree      False 0.302241 0.068517
+            degree       True 0.224120 0.061900
+       betweenness      False 0.365422 0.060406
+       betweenness       True 0.096051 0.042689
+degree_betweenness      False 0.294557 0.064034
+degree_betweenness       True 0.175027 0.061900
+            random      False 0.789328 0.088154
+
+--- Degree-preserving rewired null benchmark (recommendation 1) ---

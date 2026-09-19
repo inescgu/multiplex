@@ -1,0 +1,14 @@
+/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/louvain/__init__.py:54: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step11c_phase1_consensus.py", line 245, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step11c_phase1_consensus.py", line 203, in main
+    cluG = build_windowed_resolution_graph(
+  File "/lisc/home/user/gerardursin/multiplex/step11c_phase1_consensus.py", line 156, in build_windowed_resolution_graph
+    cluG.add_clusters(resolution_graph, surrogate_res)
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/hidef/hidef_finder.py", line 93, in add_clusters
+    new_mat = resolution_graph.nodes[resname_new]['matrix']
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/networkx/classes/reportviews.py", line 196, in __getitem__
+    return self._nodes[n]
+KeyError: '0.0000'

@@ -1,0 +1,50 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b09/tmp/slurm-6168079
+Step 11c: Weaving partition ensemble into a HiDeF persistent hierarchy (hidef.weaver)
+Running on host: node-b09.lisc
+Starting at: Wed Aug 26 04:05:17 PM CEST 2026
+Loaded ensemble: 30 partitions, 140139 nodes
+
+Building ClusterGraph (complete resolution graph over all partitions) ...
+  [1/30] partition (gamma=0.01, omega=1.0, restart=0): 6,441 clusters (size >= 4) added -- cluG now has 6,441 nodes, 0 edges
+  [2/30] partition (gamma=0.01268961003167922, omega=1.0, restart=0): 6,441 clusters (size >= 4) added -- cluG now has 12,882 nodes, 6,441 edges
+  [3/30] partition (gamma=0.01610262027560939, omega=1.0, restart=0): 6,441 clusters (size >= 4) added -- cluG now has 19,323 nodes, 19,323 edges
+  [4/30] partition (gamma=0.020433597178569417, omega=1.0, restart=0): 6,441 clusters (size >= 4) added -- cluG now has 25,764 nodes, 38,646 edges
+  [5/30] partition (gamma=0.02592943797404667, omega=1.0, restart=0): 6,443 clusters (size >= 4) added -- cluG now has 32,207 nodes, 64,410 edges
+  [6/30] partition (gamma=0.03290344562312668, omega=1.0, restart=0): 6,443 clusters (size >= 4) added -- cluG now has 38,650 nodes, 96,617 edges
+  [7/30] partition (gamma=0.041753189365604, omega=1.0, restart=0): 6,443 clusters (size >= 4) added -- cluG now has 45,093 nodes, 135,267 edges
+  [8/30] partition (gamma=0.05298316906283707, omega=1.0, restart=0): 6,444 clusters (size >= 4) added -- cluG now has 51,537 nodes, 180,360 edges
+  [9/30] partition (gamma=0.06723357536499334, omega=1.0, restart=0): 6,444 clusters (size >= 4) added -- cluG now has 57,981 nodes, 231,897 edges
+  [10/30] partition (gamma=0.08531678524172806, omega=1.0, restart=0): 6,445 clusters (size >= 4) added -- cluG now has 64,426 nodes, 289,878 edges
+  [11/30] partition (gamma=0.10826367338740546, omega=1.0, restart=0): 6,447 clusters (size >= 4) added -- cluG now has 70,873 nodes, 354,304 edges
+  [12/30] partition (gamma=0.1373823795883263, omega=1.0, restart=0): 6,450 clusters (size >= 4) added -- cluG now has 77,323 nodes, 425,177 edges
+  [13/30] partition (gamma=0.17433288221999882, omega=1.0, restart=0): 6,450 clusters (size >= 4) added -- cluG now has 83,773 nodes, 502,500 edges
+  [14/30] partition (gamma=0.2212216291070449, omega=1.0, restart=0): 6,452 clusters (size >= 4) added -- cluG now has 90,225 nodes, 586,273 edges
+  [15/30] partition (gamma=0.2807216203941177, omega=1.0, restart=0): 6,451 clusters (size >= 4) added -- cluG now has 96,676 nodes, 676,494 edges
+  [16/30] partition (gamma=0.3562247890262442, omega=1.0, restart=0): 6,452 clusters (size >= 4) added -- cluG now has 103,128 nodes, 773,162 edges
+  [17/30] partition (gamma=0.4520353656360243, omega=1.0, restart=0): 6,453 clusters (size >= 4) added -- cluG now has 109,581 nodes, 876,279 edges
+  [18/30] partition (gamma=0.5736152510448679, omega=1.0, restart=0): 6,455 clusters (size >= 4) added -- cluG now has 116,036 nodes, 985,832 edges
+  [19/30] partition (gamma=0.727895384398315, omega=1.0, restart=0): 6,457 clusters (size >= 4) added -- cluG now has 122,493 nodes, 1,101,840 edges
+  [20/30] partition (gamma=0.9236708571873861, omega=1.0, restart=0): 6,458 clusters (size >= 4) added -- cluG now has 128,951 nodes, 1,224,253 edges
+  [21/30] partition (gamma=1.1721022975334805, omega=1.0, restart=0): 6,459 clusters (size >= 4) added -- cluG now has 135,410 nodes, 1,353,121 edges
+  [22/30] partition (gamma=1.4873521072935119, omega=1.0, restart=0): 6,465 clusters (size >= 4) added -- cluG now has 141,875 nodes, 1,488,461 edges
+  [23/30] partition (gamma=1.8873918221350976, omega=1.0, restart=0): 6,467 clusters (size >= 4) added -- cluG now has 148,342 nodes, 1,630,245 edges
+  [24/30] partition (gamma=2.395026619987486, omega=1.0, restart=0): 6,472 clusters (size >= 4) added -- cluG now has 154,814 nodes, 1,778,477 edges
+  [25/30] partition (gamma=3.039195382313198, omega=1.0, restart=0): 6,480 clusters (size >= 4) added -- cluG now has 161,294 nodes, 1,933,173 edges
+  [26/30] partition (gamma=3.856620421163472, omega=1.0, restart=0): 6,490 clusters (size >= 4) added -- cluG now has 167,784 nodes, 2,094,353 edges
+  [27/30] partition (gamma=4.893900918477494, omega=1.0, restart=0): 6,504 clusters (size >= 4) added -- cluG now has 174,288 nodes, 2,261,969 edges
+  [28/30] partition (gamma=6.2101694189156165, omega=1.0, restart=0): 6,524 clusters (size >= 4) added -- cluG now has 180,812 nodes, 2,435,993 edges
+  [29/30] partition (gamma=7.880462815669913, omega=1.0, restart=0): 6,556 clusters (size >= 4) added -- cluG now has 187,368 nodes, 2,616,491 edges
+  [30/30] partition (gamma=10.0, omega=1.0, restart=0): 6,591 clusters (size >= 4) added -- cluG now has 193,959 nodes, 2,803,442 edges
+
+ClusterGraph complete: 193,959 cluster-nodes, 2,803,442 edges
+
+Running consensus() (chi=5, p=75) ...
+consensus() produced 6,466 consensus clusters
+
+Consensus cluster size stats: min=4 max=17051 mean=21.0
+Persistence stats: min=5 max=30 mean=29.9  (max possible = 30 partitions)
+
+✓ Saved -> 11_hidef_results_faithful/consensus.pkl
+
+Next: inspect the numbers above, then run Phase 2 (the multi-day merge=True weave) pointed at this pickle.
+Finished at: Wed Aug 26 04:21:15 PM CEST 2026

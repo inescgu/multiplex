@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step11e_characterize_clusters.py", line 305, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step11e_characterize_clusters.py", line 262, in main
+    summary_row, detail, ct_counts = characterize_cluster(cluster, node_index, g, seed_genes)
+  File "/lisc/home/user/gerardursin/multiplex/step11e_characterize_clusters.py", line 146, in characterize_cluster
+    genes = [m.split("::", 1)[1] for m in members]
+  File "/lisc/home/user/gerardursin/multiplex/step11e_characterize_clusters.py", line 146, in <listcomp>
+    genes = [m.split("::", 1)[1] for m in members]
+IndexError: list index out of range

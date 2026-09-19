@@ -1,0 +1,189 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6352602
+Running on host: node-c01.lisc
+Starting at: Wed Sep  9 11:04:27 AM CEST 2026
+
+================================================================================
+Creating Enrichment Heatmap with Phenotype and Spatial Integration
+================================================================================
+[multiplex adapter] 1,581 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 1 below persistence=5, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+Loaded 1581 clusters with persistence data
+Sample cluster IDs: ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+Persistence filter: keeping >= 50th percentile (persistence >= 6.00): 1006/1581 clusters
+
+Persistence Tier Thresholds (Percentiles [90, 75, 50]):
+  90th percentile: 20.00
+  75th percentile: 12.00
+  50th percentile: 8.00
+Loaded 222 results from neuropathic_pain
+Loaded 303 results from phenotype
+Loaded 121 results from proteomics
+Loaded 9600 results from omim_ps
+Loaded 1556 results from orphanet_enrichr
+
+Total combined results: 11802 rows across 5 analysis types
+
+Filtering results...
+Before filtering: 11802 rows
+After significance filter (adjusted_p_value < 0.05): 1996 rows
+After cluster size filter (>= 10): 387 rows
+Using fallback column 'top_phenotype' for orphanet_enrichr
+
+Heatmap data shape: (116, 7)
+Unique clusters: 75
+Unique terms: 21
+Pivot table shape: (21, 75)
+No data remaining after removing empty rows and columns!
+
+================================================================================
+Creating Enrichment Heatmap with Phenotype and Spatial Integration
+================================================================================
+[multiplex adapter] 1,581 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 1 below persistence=5, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+Loaded 1581 clusters with persistence data
+Sample cluster IDs: ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+Persistence filter: keeping >= 50th percentile (persistence >= 6.00): 1006/1581 clusters
+
+Persistence Tier Thresholds (Percentiles [90, 75, 50]):
+  90th percentile: 20.00
+  75th percentile: 12.00
+  50th percentile: 8.00
+Loaded 222 results from neuropathic_pain
+Loaded 303 results from phenotype
+Loaded 121 results from proteomics
+Loaded 9600 results from omim_ps
+Loaded 1556 results from orphanet_enrichr
+
+Total combined results: 11802 rows across 5 analysis types
+
+Filtering results...
+Before filtering: 11802 rows
+After significance filter (adjusted_p_value < 0.05): 1996 rows
+After cluster size filter (>= 10): 387 rows
+Using fallback column 'top_phenotype' for orphanet_enrichr
+
+Heatmap data shape: (116, 7)
+Unique clusters: 75
+Unique terms: 21
+Pivot table shape: (21, 75)
+No data remaining after removing empty rows and columns!
+
+================================================================================
+Creating Enrichment Heatmap with Phenotype and Spatial Integration
+================================================================================
+[multiplex adapter] 1,581 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 1 below persistence=5, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+Loaded 1581 clusters with persistence data
+Sample cluster IDs: ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+Persistence filter: keeping >= 50th percentile (persistence >= 6.00): 1006/1581 clusters
+
+Persistence Tier Thresholds (Percentiles [90, 75, 50]):
+  90th percentile: 20.00
+  75th percentile: 12.00
+  50th percentile: 8.00
+Loaded 222 results from neuropathic_pain
+Loaded 303 results from phenotype
+Loaded 121 results from proteomics
+Loaded 9600 results from omim_ps
+Loaded 1556 results from orphanet_enrichr
+
+Total combined results: 11802 rows across 5 analysis types
+
+Filtering results...
+Before filtering: 11802 rows
+After significance filter (adjusted_p_value < 0.05): 1996 rows
+After cluster size filter (>= 10): 387 rows
+Using fallback column 'top_phenotype' for orphanet_enrichr
+
+Heatmap data shape: (116, 7)
+Unique clusters: 75
+Unique terms: 21
+Pivot table shape: (21, 75)
+Pivot table shape after removing empty rows/columns: (21, 75)
+
+============================================================
+HEATMAP COMPLETE
+============================================================
+Saved heatmap to: plots/combined26_multiplex/enrichment_heatmaps/enrichment_heatmap_hidef_from_comparison_percentage_phenotype_spatial.png
+Saved PDF to: plots/combined26_multiplex/enrichment_heatmaps/enrichment_heatmap_hidef_from_comparison_percentage_phenotype_spatial.pdf
+Clusters visualized: 21
+Enrichment terms: 75
+
+Summary by analysis type:
+  neuropathic_pain: 57 clusters
+  phenotype: 1 clusters
+  proteomics: 33 clusters
+  omim_ps: 25 clusters
+
+================================================================================
+Creating Persistence-based Lollipop Plot with Phenotype and Spatial Integration
+================================================================================
+[multiplex adapter] 1,581 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 1 below persistence=5, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+Loaded 1581 clusters with persistence data
+Sample cluster IDs: ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+Persistence filter: keeping >= 50th percentile (persistence >= 6.00): 1006/1581 clusters
+
+Persistence Tier Thresholds (Percentiles [90, 75, 50]):
+  90th percentile: 20.00
+  75th percentile: 12.00
+  50th percentile: 8.00
+Loaded enrichments from neuropathic_pain: 83 significant results
+  Sample cluster IDs from neuropathic_pain: ['HiDeF_Cluster_Cluster1-0' 'HiDeF_Cluster_Cluster1-1'
+ 'HiDeF_Cluster_Cluster1-2' 'HiDeF_Cluster_Cluster1-3'
+ 'HiDeF_Cluster_Cluster1-4']
+Loaded enrichments from phenotype: 2 significant results
+  Sample cluster IDs from phenotype: ['HiDeF_Cluster_Cluster2-4' 'HiDeF_Cluster_Cluster3-1']
+Loaded enrichments from proteomics: 44 significant results
+  Sample cluster IDs from proteomics: ['HiDeF_Cluster_Cluster1-0' 'HiDeF_Cluster_Cluster1-1'
+ 'HiDeF_Cluster_Cluster1-2' 'HiDeF_Cluster_Cluster1-3'
+ 'HiDeF_Cluster_Cluster1-4']
+Loaded enrichments from omim_ps: 44 significant results
+  Sample cluster IDs from omim_ps: ['HiDeF_Cluster_Cluster2-1' 'HiDeF_Cluster_Cluster2-2'
+ 'HiDeF_Cluster_Cluster3-0' 'HiDeF_Cluster_Cluster2-4'
+ 'HiDeF_Cluster_Cluster1-25']
+Loaded enrichments from orphanet_enrichr: 214 significant results
+  Sample cluster IDs from orphanet_enrichr: ['HiDeF_Cluster_Cluster1-0' 'HiDeF_Cluster_Cluster1-1'
+ 'HiDeF_Cluster_Cluster1-2' 'HiDeF_Cluster_Cluster1-3'
+ 'HiDeF_Cluster_Cluster1-4']
+
+Debug Info:
+  Persistence map keys (sample): ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+  Enrichments keys (sample): ['Cluster1-0', 'Cluster1-1', 'Cluster1-2', 'Cluster1-3', 'Cluster1-4']
+  Total clusters in persistence_map: 1006
+  Total clusters in all_enrichments: 224
+
+Plot saved to: plots/combined26_multiplex/persistence_lollipop/persistence_lollipop_hidef_from_comparison_percentile_tiers.png
+PDF saved to: plots/combined26_multiplex/persistence_lollipop/persistence_lollipop_hidef_from_comparison_percentile_tiers.pdf
+
+============================================================
+SUMMARY
+============================================================
+Clusters in Tier 4 (<50th): 54
+Clusters in Tier 3 (50-75th): 42
+Clusters in Tier 2 (75-90th): 38
+Clusters in Tier 1 (90th+): 6
+
+Done with percentile-based plots.
+
+================================================================================
+TOP-PERSISTENCE SECTION
+================================================================================
+[multiplex adapter] 1,581 clusters kept from ../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes (dropped 1 below persistence=5, 6,414 below min_size_after_dedup=2, 0 with unresolved index-form members)
+7 top-persistence clusters selected:
+  Cluster1-46  (persistence = 38)
+  Cluster1-47  (persistence = 38)
+  Cluster1-52  (persistence = 38)
+  Cluster1-91  (persistence = 38)
+  Cluster1-667  (persistence = 38)
+  Cluster1-1358  (persistence = 38)
+  Cluster1-3243  (persistence = 38)
+Loaded 222 results from neuropathic_pain
+Loaded 303 results from phenotype
+Loaded 121 results from proteomics
+Loaded 9600 results from omim_ps
+Loaded 1556 results from orphanet_enrichr
+
+Total combined results: 11802 rows across 5 analysis types
+
+All enrichment results (no significance filter) for top clusters -> ./output/combined26_multiplex/top_persistence_clusters_all_results.csv
+  14 rows across 7 clusters, 4 analysis types
+Significant-only (adjusted p < 0.05) -> ./output/combined26_multiplex/top_persistence_clusters_significant_only.csv
+  8 rows
+Finished at: Wed Sep  9 11:05:29 AM CEST 2026

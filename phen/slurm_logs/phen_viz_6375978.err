@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/phen/run_multiplex_visualizations.py", line 48, in <module>
+    create_enrichment_heatmap(
+  File "/lisc/home/user/gerardursin/multiplex/phen/enrichment_plots_multiplex.py", line 698, in create_enrichment_heatmap
+    persistence_map = load_persistence_map(
+  File "/lisc/home/user/gerardursin/multiplex/phen/enrichment_plots_multiplex.py", line 106, in load_persistence_map
+    seed_genes = set(pd.read_csv(seed_genes_file)['gene'].astype(str))
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+  File "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '../seed_genes.csv'

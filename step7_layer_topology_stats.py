@@ -17,12 +17,50 @@ name directly — no stem suffix, no CSV-driven name translation needed to
 find it. Discovery is just `multiplex/*/ppi_layer.tsv`.
 
 Everything else — per-layer density/clustering/LCC/degree/eigen-centrality,
-the DRG hierarchy grouping and every plot — is unchanged, since it's all
-intra-cell-type structure and doesn't care how cell types relate to each
-other (that's step 7c's job now).
+the DRG hierarchy grouping and every original plot — is unchanged, since
+it's all intra-cell-type structure and doesn't care how cell types relate
+to each other (that's step 7c's job).
+
+NEW: cross-layer comparison, folded in from a separate draft script
+---------------------------------------------------------------------
+A separate exploratory script (step7_layer_comparison.py) computed
+pairwise layer-vs-layer PPI similarity, a union-of-all-layers graph with
+per-gene/per-edge layer counts, cross-layer "hub gene" flagging, and
+per-layer network pictures. All four are intra-layer PPI questions —
+"how similar is this layer's own PPI structure to that one's", not
+anything about bipartite/LR/Reactome connectivity — so they belong here
+rather than in step 7c (which is specifically about inter-cell-type
+bipartite edges and already covers gene-overlap-across-cell-types on its
+own terms). Folding them in here also means zero extra I/O:
+analyse_all_layers() was already parsing every multiplex/<ct>/ppi_layer.tsv
+into an nx.Graph and then discarding it after computing that layer's own
+metrics; it now hangs onto those graphs (`layer_graphs`) so the new
+section below can reuse them directly.
+
+  - Pairwise similarity   : node Jaccard/overlap coefficient, edge Jaccard/
+                            overlap coefficient, and a Spearman correlation
+                            of degree for genes shared between two layers
+                            (do the same genes play a similarly connected
+                            role in both layers, or is the overlap
+                            structurally coincidental?).
+  - Union graph           : every layer's PPI edges merged into one
+                            nx.Graph, each node/edge tagged with which
+                            layers it came from. Saved as union_ppi_graph.pkl.
+  - Cross-layer hub genes : genes present in >= --hub-threshold-frac of
+                            layers, ranked by how connected they are on
+                            average where they do appear.
+  - Network pictures      : one spring-layout PNG per cell type, capped to
+                            the --max-plot-nodes highest-degree genes so
+                            it stays legible. Off by default
+                            (--network-plots to enable) — step 7c's own
+                            docstring already flags this exact plot type
+                            as "nice to look at, lowest analytical value
+                            per line of code", so it's opt-in here too.
 """
 import argparse
+import pickle
 import warnings
+from itertools import combinations
 from pathlib import Path
 from collections import defaultdict
 import matplotlib
@@ -180,7 +218,9 @@ def compute_layer_metrics(G: nx.Graph, layer_name: str, top_n_eigen: int = 10) -
 
 
 # ---------------------------------------------------------------------------
-# Build full metrics table — discovery changed, everything else the same
+# Build full metrics table — discovery changed, everything else the same.
+# NEW: also returns layer_graphs (cell_type -> nx.Graph) so the cross-layer
+# section below doesn't need to re-parse every tsv a second time.
 # ---------------------------------------------------------------------------
 def analyse_all_layers(wdir: Path, categories_df: pd.DataFrame, top_n_eigen: int, min_edges: int):
     _print_block("Computing per-cell-type topology metrics")
@@ -200,6 +240,7 @@ def analyse_all_layers(wdir: Path, categories_df: pd.DataFrame, top_n_eigen: int
                 "color": cat_info["color"], "marker": cat_info["marker"], "broad": broad}
 
     metrics_rows, eigen_rows, skipped = [], [], 0
+    layer_graphs: dict[str, nx.Graph] = {}  # NEW
 
     for ct_dir in ct_dirs:
         cell_type = ct_dir.name
@@ -208,6 +249,8 @@ def analyse_all_layers(wdir: Path, categories_df: pd.DataFrame, top_n_eigen: int
         if G.number_of_edges() < min_edges:
             skipped += 1
             continue
+
+        layer_graphs[cell_type] = G  # NEW: keep it around for cross-layer analysis below
 
         meta = _meta(cell_type)
         m = compute_layer_metrics(G, cell_type, top_n_eigen=top_n_eigen)
@@ -227,7 +270,7 @@ def analyse_all_layers(wdir: Path, categories_df: pd.DataFrame, top_n_eigen: int
 
     print(f"\n  Cell types analysed : {len(metrics_rows)}")
     print(f"  Cell types skipped  : {skipped}  (< {min_edges} edges)")
-    return pd.DataFrame(metrics_rows), pd.DataFrame(eigen_rows)
+    return pd.DataFrame(metrics_rows), pd.DataFrame(eigen_rows), layer_graphs
 
 
 # ---------------------------------------------------------------------------
@@ -261,8 +304,7 @@ def aggregate_by_minor_category(metrics_df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
-# Plotting (unchanged from old version — omitted here would lose real value,
-# kept in full but trimmed of the "special" filtering since it's now moot)
+# Plotting (unchanged from old version)
 # ---------------------------------------------------------------------------
 METRIC_LABELS = {
     "n_nodes": "Node count", "n_edges": "Edge count", "density": "Density",
@@ -475,6 +517,144 @@ def save_tables(metrics_df, major_agg_df, minor_agg_df, eigen_df, out):
         print(f"  -> 04_table_top_eigen_genes.csv ({len(eigen_df):,} rows)")
 
 
+# ============================================================================
+# NEW: cross-layer comparison -- pairwise similarity, union graph, hub genes,
+# per-layer network pictures. See module docstring for why this lives here.
+# ============================================================================
+def compute_pairwise_similarity(layer_graphs: dict[str, nx.Graph]) -> pd.DataFrame:
+    rows = []
+    cts = sorted(layer_graphs.keys())
+    for ct_a, ct_b in combinations(cts, 2):
+        Ga, Gb = layer_graphs[ct_a], layer_graphs[ct_b]
+        na, nb = set(Ga.nodes()), set(Gb.nodes())
+        ea = {frozenset(e) for e in Ga.edges()}
+        eb = {frozenset(e) for e in Gb.edges()}
+
+        node_union = na | nb
+        node_jaccard = len(na & nb) / len(node_union) if node_union else 0.0
+        node_overlap = len(na & nb) / min(len(na), len(nb)) if min(len(na), len(nb)) else 0.0
+
+        edge_union = ea | eb
+        edge_jaccard = len(ea & eb) / len(edge_union) if edge_union else 0.0
+        edge_overlap = len(ea & eb) / min(len(ea), len(eb)) if min(len(ea), len(eb)) else 0.0
+
+        shared = na & nb
+        spearman = np.nan
+        if len(shared) >= 3:
+            da = np.array([Ga.degree(g) for g in shared], dtype=float)
+            db = np.array([Gb.degree(g) for g in shared], dtype=float)
+            if da.std() > 0 and db.std() > 0:
+                ra, rb = pd.Series(da).rank(), pd.Series(db).rank()
+                spearman = float(np.corrcoef(ra, rb)[0, 1])
+
+        for metric, value in [
+            ("node_jaccard", node_jaccard), ("node_overlap_coef", node_overlap),
+            ("edge_jaccard", edge_jaccard), ("edge_overlap_coef", edge_overlap),
+            ("shared_degree_spearman", spearman),
+        ]:
+            rows.append({"cell_type_a": ct_a, "cell_type_b": ct_b, "metric": metric, "value": value})
+    return pd.DataFrame(rows)
+
+
+def plot_similarity_heatmap(sim_df: pd.DataFrame, metric: str, cts: list[str], out: Path):
+    if sim_df.empty:
+        print(f"  ⚠  No similarity data for '{metric}', skipping"); return
+    sub = sim_df[sim_df["metric"] == metric]
+    n = len(cts)
+    idx = {ct: i for i, ct in enumerate(cts)}
+    M = np.full((n, n), np.nan)
+    np.fill_diagonal(M, 1.0 if ("jaccard" in metric or "overlap" in metric) else np.nan)
+    for row in sub.itertuples(index=False):
+        i, j = idx[row.cell_type_a], idx[row.cell_type_b]
+        M[i, j] = row.value
+        M[j, i] = row.value
+    fig, ax = plt.subplots(figsize=(max(8, 0.35 * n), max(6, 0.35 * n)))
+    finite = M[np.isfinite(M)]
+    im = ax.imshow(M, cmap="viridis", vmin=finite.min() if finite.size else 0, vmax=finite.max() if finite.size else 1)
+    ax.set_xticks(range(n)); ax.set_xticklabels(cts, rotation=90, fontsize=6)
+    ax.set_yticks(range(n)); ax.set_yticklabels(cts, fontsize=6)
+    ax.set_title(f"Layer similarity: {metric}", fontsize=11, fontweight="bold")
+    fig.colorbar(im, ax=ax, shrink=0.8)
+    plt.tight_layout()
+    for ext in ("pdf", "png"):
+        fp = out / f"08_heatmap_similarity_{metric}.{ext}"
+        plt.savefig(fp, dpi=150, bbox_inches="tight")
+        print(f"  Saved -> {fp}")
+    plt.close(fig)
+
+
+def compute_union_layercounts(layer_graphs: dict[str, nx.Graph]):
+    """Returns (node_df, edge_df, union_graph). union_graph is every layer's
+    PPI edges merged into one nx.Graph, with node/edge attributes n_layers
+    (int) and layers (sorted list of cell types)."""
+    node_layers: dict[str, set] = defaultdict(set)
+    edge_layers: dict[frozenset, set] = defaultdict(set)
+    for ct, G in layer_graphs.items():
+        for g in G.nodes():
+            node_layers[g].add(ct)
+        for u, v in G.edges():
+            edge_layers[frozenset((u, v))].add(ct)
+
+    node_rows = [{"gene": g, "n_layers": len(cts), "layers": ";".join(sorted(cts))}
+                 for g, cts in node_layers.items()]
+    node_df = pd.DataFrame(node_rows).sort_values("n_layers", ascending=False)
+
+    edge_rows = []
+    union_graph = nx.Graph()
+    for e, cts in edge_layers.items():
+        g1, g2 = tuple(e)
+        edge_rows.append({"g1": g1, "g2": g2, "n_layers": len(cts), "layers": ";".join(sorted(cts))})
+        union_graph.add_edge(g1, g2, n_layers=len(cts), layers=sorted(cts))
+    for g, cts in node_layers.items():
+        if g in union_graph:
+            union_graph.nodes[g]["n_layers"] = len(cts)
+            union_graph.nodes[g]["layers"] = sorted(cts)
+        else:
+            union_graph.add_node(g, n_layers=len(cts), layers=sorted(cts))
+    edge_df = pd.DataFrame(edge_rows).sort_values("n_layers", ascending=False)
+
+    return node_df, edge_df, union_graph
+
+
+def hub_genes_across_layers(node_df: pd.DataFrame, layer_graphs: dict[str, nx.Graph], threshold_frac: float) -> pd.DataFrame:
+    n_layers_total = len(layer_graphs)
+    cutoff = max(2, int(np.ceil(threshold_frac * n_layers_total)))
+    hubs = node_df[node_df["n_layers"] >= cutoff].copy()
+    avg_degrees = []
+    for row in hubs.itertuples(index=False):
+        cts = row.layers.split(";")
+        degs = [layer_graphs[ct].degree(row.gene) for ct in cts if row.gene in layer_graphs[ct]]
+        avg_degrees.append(float(np.mean(degs)) if degs else 0.0)
+    hubs["avg_degree_across_present_layers"] = avg_degrees
+    return hubs.sort_values(["n_layers", "avg_degree_across_present_layers"], ascending=False)
+
+
+def plot_layer_network(cell_type: str, G: nx.Graph, max_nodes: int, out: Path):
+    if G.number_of_nodes() == 0:
+        return
+    H = G
+    if H.number_of_nodes() > max_nodes:
+        top_nodes = [n for n, _ in sorted(H.degree(), key=lambda x: -x[1])[:max_nodes]]
+        H = H.subgraph(top_nodes).copy()
+    if H.number_of_nodes() == 0:
+        return
+    pos = nx.spring_layout(H, seed=1, k=1.5 / max(np.sqrt(H.number_of_nodes()), 1))
+    degrees = dict(H.degree())
+    sizes = [30 + 15 * degrees[n] for n in H.nodes()]
+    fig, ax = plt.subplots(figsize=(8, 8))
+    nx.draw_networkx_edges(H, pos, ax=ax, alpha=0.25, width=0.5)
+    nx.draw_networkx_nodes(H, pos, ax=ax, node_size=sizes, node_color="#3b6fa0", alpha=0.85)
+    top_labels = {n: n for n, _ in sorted(degrees.items(), key=lambda x: -x[1])[:15]}
+    nx.draw_networkx_labels(H, pos, labels=top_labels, ax=ax, font_size=7)
+    ax.set_title(f"{cell_type} (top {H.number_of_nodes()} nodes by degree)", fontsize=11, fontweight="bold")
+    ax.axis("off")
+    plt.tight_layout()
+    fp = out / f"network_{cell_type}.png"
+    plt.savefig(fp, dpi=150, bbox_inches="tight")
+    print(f"  Saved -> {fp}")
+    plt.close(fig)
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -487,6 +667,17 @@ def main():
     ap.add_argument("--top-n-eigen", type=int, default=10)
     ap.add_argument("--min-edges", type=int, default=1)
     ap.add_argument("--max-layers-plot", type=int, default=45)
+    ap.add_argument("--no-pairwise-similarity", action="store_true",
+                     help="Skip the cross-layer similarity / union-graph / hub-gene section. On by default "
+                          "since it's cheap -- the layer graphs are already loaded for the metrics above.")
+    ap.add_argument("--hub-threshold-frac", type=float, default=0.5,
+                     help="A gene counts as a cross-layer hub if present in >= this fraction of layers (default 0.5)")
+    ap.add_argument("--network-plots", action="store_true",
+                     help="Also draw a spring-layout network picture per cell type. Off by default -- step 7c's "
+                          "own docstring flags this plot type as low analytical value per line of code; opt in "
+                          "with this flag if you want them anyway.")
+    ap.add_argument("--max-plot-nodes", type=int, default=150,
+                     help="Cap per-layer network pictures to this many highest-degree nodes, for legibility")
     args = ap.parse_args()
 
     wdir = Path(args.wdir).resolve()
@@ -498,7 +689,7 @@ def main():
         _print_block("Loading input files")
         categories_df = load_categories(Path(args.csv), exclude_ai=args.exclude_ai or None)
 
-    metrics_df, eigen_df = analyse_all_layers(wdir, categories_df, args.top_n_eigen, args.min_edges)
+    metrics_df, eigen_df, layer_graphs = analyse_all_layers(wdir, categories_df, args.top_n_eigen, args.min_edges)
 
     if metrics_df.empty:
         print("\n⚠  No cell types found/analysed — check --wdir path.")
@@ -516,6 +707,40 @@ def main():
     plot_scatter_density_clustering(metrics_df, out)
     plot_top_eigen_per_category(eigen_df, out)
     plot_lcc_heatmap_hierarchical(metrics_df, out)
+
+    if not args.no_pairwise_similarity:
+        _print_block("Cross-layer comparison: pairwise similarity, union graph, hub genes")
+        sim_df = compute_pairwise_similarity(layer_graphs)
+        sim_path = out / "05_table_pairwise_similarity.csv"
+        sim_df.to_csv(sim_path, index=False)
+        print(f"  -> {sim_path.name} ({len(sim_df):,} rows)")
+
+        cts_sorted = sorted(layer_graphs.keys())
+        for metric in ["node_jaccard", "node_overlap_coef", "edge_jaccard", "edge_overlap_coef", "shared_degree_spearman"]:
+            plot_similarity_heatmap(sim_df, metric, cts_sorted, out)
+
+        node_df, edge_df, union_graph = compute_union_layercounts(layer_graphs)
+        node_df.to_csv(out / "06_table_union_node_layercounts.csv", index=False)
+        edge_df.to_csv(out / "07_table_union_edge_layercounts.csv", index=False)
+        print(f"  -> 06_table_union_node_layercounts.csv ({len(node_df):,} rows)")
+        print(f"  -> 07_table_union_edge_layercounts.csv ({len(edge_df):,} rows)")
+
+        union_pkl_path = out / "union_ppi_graph.pkl"
+        with open(union_pkl_path, "wb") as f:
+            pickle.dump(union_graph, f, protocol=4)
+        print(f"  -> {union_pkl_path.name} ({union_graph.number_of_nodes():,} nodes, "
+              f"{union_graph.number_of_edges():,} edges -- every layer's PPI merged into one graph, "
+              f"each node/edge tagged with n_layers/layers)")
+
+        hub_df = hub_genes_across_layers(node_df, layer_graphs, args.hub_threshold_frac)
+        hub_df.to_csv(out / "08_table_hub_genes_across_layers.csv", index=False)
+        print(f"  -> 08_table_hub_genes_across_layers.csv "
+              f"({len(hub_df):,} genes present in >= {args.hub_threshold_frac:.0%} of layers)")
+
+    if args.network_plots:
+        _print_block("Plotting per-layer network pictures")
+        for ct, G in layer_graphs.items():
+            plot_layer_network(ct, G, args.max_plot_nodes, out)
 
     _print_block("DONE")
     print(f"  wdir             : {wdir}")

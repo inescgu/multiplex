@@ -3,9 +3,9 @@ step8g_seed_core_periphery_null.py
 ------------------------------------------------------------------------------------
 Ports the ACTUAL null-model methodology found in structure_function_analysis.py
 (written for the persistence/"hdief" communities) onto the multiplex spectral
-k=2 (or k=3) partition from step8e, to directly test the single-layer
-pipeline's headline finding -- seed genes enriched in the periphery, not the
-hub core -- on the multiplex clustering.
+k=2/k=3 partition from step8e, to directly test the single-layer pipeline's
+headline finding -- seed genes enriched in the periphery, not the hub core --
+on the multiplex clustering.
 
 CORRECTION vs. step8f_null_models.py: the real "permutation" null shuffles
 SEED LABELS on a FIXED, already-computed structure -- not the graph itself.
@@ -19,20 +19,49 @@ Two different, complementary null hypotheses:
                           Cheap -- structure computed once, only labels
                           reshuffle. No embedding recomputation at all.
 
-CORE/PERIPHERY DEFINITION: the original script derives core/periphery
-per-cluster via a composite k-core + degree-centrality + clustering-
-coefficient threshold, applied within each of many small persistence
-communities. Here we instead have exactly k (2 or 3) large clusters from
-forced spectral clustering, so core vs. periphery is defined the way your
-single-layer narrative described its own result: whichever cluster has the
-HIGHEST average clustering coefficient is the "core"/hub cluster; the rest
-are pooled as "periphery". Flagging this as a simplifying, explicit choice
--- not a hidden one.
+CORE/PERIPHERY DEFINITION -- UPDATED (this version):
+
+  Two options, via --core-definition:
+
+  "composite" (DEFAULT, as of this update): a direct port of
+    structure_function_analysis.py's compute_core_periphery_structure(),
+    the actual per-gene definition used in the single-layer analysis.
+    For each spectral cluster's own induced subgraph, every gene is scored
+    on three metrics -- k-core number, degree centrality, and local
+    clustering coefficient -- each thresholded at that CLUSTER's own
+    33rd/67th percentile. A gene is "core" if it's in the top third on
+    >=2 of the 3 metrics, "periphery" if it's in the bottom third on >=2
+    of the 3, and "intermediate" (dropped from the core/periphery
+    comparison, exactly as the single-layer script does) otherwise.
+    Core/periphery genes are then POOLED across all spectral clusters
+    into one core set and one periphery set for the enrichment stats
+    below -- i.e. this treats each spectral cluster the way the
+    single-layer script treated each persistence community: a local
+    neighborhood within which to ask "who's central, who's peripheral,"
+    not a single binary hub/non-hub label slapped on an entire cluster.
+    This is a much closer methodological match to the single-layer
+    result than the old cluster-level shortcut, though it's still an
+    adaptation -- clusters here are large spectral partitions, not many
+    small persistence communities, so "within-cluster" percentiles are
+    computed over a much bigger, more heterogeneous pool of genes than
+    in the original. Flagging that as a real, if smaller, difference
+    that remains.
+
+  "cluster-level" (legacy, pre-this-update behavior, kept for
+    comparison/reproducibility only): whichever WHOLE spectral cluster
+    has the highest average clustering coefficient is entirely labeled
+    "core"; every other whole cluster is pooled as "periphery." No
+    per-gene distinction within a cluster. This was flagged in the
+    original version of this script as an explicit simplification, not
+    a hidden one -- it's kept here only so old results can still be
+    regenerated if needed.
 
 Two null models, ported as faithfully as possible to the real code:
   PERMUTATION : --n-permutation reps reshuffling which genes are "seed"
     (seed count preserved), recomputing core/periphery enrichment, bridge
-    scores, homogeneity, density under each shuffle. Cheap.
+    scores, homogeneity, density under each shuffle. Cheap -- core/
+    periphery structure is computed ONCE up front and held fixed; only
+    the seed labels reshuffle each rep.
   POPULATION  : --n-population reps of plain uniform-random same-size
     subgraph sampling from --full-ref-graph (matches the real code -- NOT
     degree-binned).
@@ -44,8 +73,9 @@ Usage:
   python step8g_seed_core_periphery_null.py \
       --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
       --exclude-ppi-layer \  # only if this run's clusters-csv came from module_no_ppi
-      --clusters-csv 08_spectral_analysis/module_with_ppi/diagnostics/spectral_clusters_k2_with_ppi.csv \
-      --cluster-col cluster_k2 \
+      --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
+      --cluster-col cluster \
+      --core-definition composite \
       --seed-genes-csv <path to seed genes csv with a 'gene' column> \
       --full-ref-graph <path to gene_reference_graph.pkl, optional> \
       --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
@@ -63,14 +93,128 @@ from scipy.stats import mannwhitneyu
 from step8_multiplex_spectral_clustering import load_reference_graph, filter_out_celltypes
 
 
-def compute_node_metrics(G: nx.Graph):
-    print("  computing k-core number and clustering coefficient ...")
-    k_core = nx.core_number(G)
-    clustering = nx.clustering(G)
-    return k_core, clustering
+# ---------------------------------------------------------------------------
+# NEW: composite per-gene core/periphery definition, ported directly from
+# structure_function_analysis.py's StructureFunctionAnalyzer.compute_core_
+# periphery_structure(). Operates on ONE cluster's induced subgraph at a
+# time -- call this once per spectral cluster, same role as "once per
+# persistence community" in the single-layer script.
+# ---------------------------------------------------------------------------
+def compute_core_periphery_structure(subgraph: nx.Graph, cluster_genes: list):
+    """
+    Returns None if the cluster is too small (<3 genes) to define tertiles on,
+    matching the single-layer script's own guard. Otherwise returns a dict
+    with core_genes / periphery_genes / intermediate_genes (sets) plus the
+    raw per-gene metric dicts, in case you want to inspect them later.
+    """
+    if len(cluster_genes) < 3:
+        return None
+
+    try:
+        k_cores = nx.core_number(subgraph)
+    except Exception:
+        return None
+
+    degree_cent = nx.degree_centrality(subgraph)
+    clustering = nx.clustering(subgraph)
+
+    k_core_values = np.array([k_cores[g] for g in cluster_genes])
+    degree_values = np.array([degree_cent[g] for g in cluster_genes])
+    clustering_values = np.array([clustering[g] for g in cluster_genes])
+
+    k_core_hi, k_core_lo = np.percentile(k_core_values, [67, 33])
+    degree_hi, degree_lo = np.percentile(degree_values, [67, 33])
+    clust_hi, clust_lo = np.percentile(clustering_values, [67, 33])
+
+    core_genes, periphery_genes, intermediate_genes = set(), set(), set()
+    for gene in cluster_genes:
+        kc, dc, cl = k_cores[gene], degree_cent[gene], clustering[gene]
+
+        core_score = sum([kc >= k_core_hi, dc >= degree_hi, cl >= clust_hi])
+        periphery_score = sum([kc <= k_core_lo, dc <= degree_lo, cl <= clust_lo])
+
+        if core_score >= 2:
+            core_genes.add(gene)
+        elif periphery_score >= 2:
+            periphery_genes.add(gene)
+        else:
+            intermediate_genes.add(gene)
+
+    return {
+        "core_genes": core_genes,
+        "periphery_genes": periphery_genes,
+        "intermediate_genes": intermediate_genes,
+        "k_cores": k_cores,
+        "degree_centrality": degree_cent,
+        "clustering": clustering,
+    }
 
 
-def assign_core_periphery(df: pd.DataFrame, cluster_col: str, clustering: dict):
+def assign_core_periphery_composite(df: pd.DataFrame, cluster_col: str, G: nx.Graph,
+                                     min_cluster_size: int = 3):
+    """
+    NEW default path. Runs compute_core_periphery_structure() independently
+    within each spectral cluster's own induced subgraph, then pools core/
+    periphery genes across all clusters into df["region"]. Genes in a
+    too-small cluster, or scored "intermediate," end up labeled
+    "intermediate" and are excluded from the core-vs-periphery comparison
+    downstream (same convention as the single-layer script).
+    """
+    df = df.copy()
+    df["region"] = "intermediate"
+
+    per_cluster_summary = {}
+    for cid, grp in df.groupby(cluster_col):
+        genes = grp["node_id"].tolist()
+        if len(genes) < min_cluster_size:
+            print(f"  cluster {cid}: only {len(genes)} genes (<{min_cluster_size}), "
+                  f"skipping composite scoring -- all left as 'intermediate'.")
+            per_cluster_summary[str(cid)] = None
+            continue
+
+        sub = G.subgraph(genes).copy()
+        cp = compute_core_periphery_structure(sub, genes)
+        if cp is None:
+            print(f"  cluster {cid}: core/periphery structure computation failed, "
+                  f"skipping -- all left as 'intermediate'.")
+            per_cluster_summary[str(cid)] = None
+            continue
+
+        df.loc[df["node_id"].isin(cp["core_genes"]), "region"] = "core"
+        df.loc[df["node_id"].isin(cp["periphery_genes"]), "region"] = "periphery"
+        # genes not in core_genes or periphery_genes keep "intermediate"
+
+        per_cluster_summary[str(cid)] = {
+            "n_genes": len(genes),
+            "n_core": len(cp["core_genes"]),
+            "n_periphery": len(cp["periphery_genes"]),
+            "n_intermediate": len(cp["intermediate_genes"]),
+        }
+        print(f"  cluster {cid}: {len(genes)} genes -> "
+              f"core={len(cp['core_genes'])}, periphery={len(cp['periphery_genes'])}, "
+              f"intermediate={len(cp['intermediate_genes'])}")
+
+    n_core = int((df["region"] == "core").sum())
+    n_periph = int((df["region"] == "periphery").sum())
+    n_inter = int((df["region"] == "intermediate").sum())
+    print(f"\n  POOLED across all clusters: core={n_core}, periphery={n_periph}, "
+          f"intermediate={n_inter} (of {len(df)} total)")
+    if n_inter / len(df) > 0.5:
+        print("  NOTE: more than half the genes landed in 'intermediate' -- this is "
+              "expected behavior (mixed-signal genes are deliberately excluded, same "
+              "as the single-layer script), but it does mean the core/periphery "
+              "comparison below is running on a minority of the module. Worth "
+              "reporting the intermediate fraction alongside any enrichment numbers.")
+
+    return df, per_cluster_summary
+
+
+# ---------------------------------------------------------------------------
+# LEGACY: old whole-cluster shortcut, kept only for reproducing/comparing
+# against pre-this-update results. Not used unless --core-definition
+# cluster-level is passed explicitly.
+# ---------------------------------------------------------------------------
+def assign_core_periphery_cluster_level(df: pd.DataFrame, cluster_col: str, clustering: dict):
     cluster_avg_clust = {}
     for cid, grp in df.groupby(cluster_col):
         vals = [clustering.get(n, 0.0) for n in grp["node_id"]]
@@ -117,12 +261,21 @@ def compute_homogeneity(G: nx.Graph, nodes, label_of: dict):
 
 
 def observed_statistics(G: nx.Graph, df: pd.DataFrame, cluster_col: str, seed_set: set):
+    """
+    Unchanged from the original script -- this reads whatever df["region"]
+    says, so it works identically regardless of which core/periphery
+    assignment function populated it. Note that with the new composite
+    definition, "core" + "periphery" no longer necessarily sum to n_total
+    (some genes are "intermediate" and excluded), so n_core + n_periphery
+    is reported alongside n_total explicitly.
+    """
     df = df.copy()
     df["is_seed"] = df["gene"].astype(str).str.strip().str.upper().isin(seed_set)
     cluster_of = dict(zip(df["node_id"], df[cluster_col]))
 
     core_nodes = df.loc[df["region"] == "core", "node_id"].tolist()
     periph_nodes = df.loc[df["region"] == "periphery", "node_id"].tolist()
+    n_intermediate = int((df["region"] == "intermediate").sum())
     seed_nodes = df.loc[df["is_seed"], "node_id"].tolist()
     nonseed_nodes = df.loc[~df["is_seed"], "node_id"].tolist()
 
@@ -157,6 +310,7 @@ def observed_statistics(G: nx.Graph, df: pd.DataFrame, cluster_col: str, seed_se
         "n_total": n_total, "n_seeds": len(seed_nodes), "n_nonseeds": len(nonseed_nodes),
         "seed_fraction": seed_fraction,
         "n_core": len(core_nodes), "n_periphery": len(periph_nodes),
+        "n_intermediate": n_intermediate,
         "core_seed_enrichment": core_seed_enrichment,
         "periphery_seed_enrichment": periph_seed_enrichment,
         "seed_bridge_mean": float(np.mean(seed_bridge)) if seed_bridge else 0.0,
@@ -173,6 +327,14 @@ def observed_statistics(G: nx.Graph, df: pd.DataFrame, cluster_col: str, seed_se
 
 def permutation_null(G: nx.Graph, df: pd.DataFrame, meta: dict, n_seeds: int,
                      n_reps: int, seed_base: int = 0):
+    """
+    Unchanged in logic from the original script. Core/periphery structure
+    (meta["core_nodes"], meta["periph_nodes"], meta["bridge_scores"]) is
+    computed ONCE before this is called and held fixed across all reps --
+    only which genes count as "seed" is reshuffled each rep. This is what
+    keeps this null cheap regardless of which core/periphery definition
+    was used upstream.
+    """
     all_nodes = df["node_id"].tolist()
     core_nodes = meta["core_nodes"]
     periph_nodes = meta["periph_nodes"]
@@ -295,9 +457,19 @@ def main():
     ap.add_argument("--exclude-celltypes", nargs="+", default=[])
     ap.add_argument("--exclude-ppi-layer", action="store_true")
     ap.add_argument("--clusters-csv", required=True,
-                     help="Output of step8e with a forced-k cluster column, e.g. "
-                          "spectral_clusters_k2_with_ppi.csv")
+                     help="Output of step8 (or step8e's forced-k version) with a cluster column.")
     ap.add_argument("--cluster-col", default="cluster_k2")
+    ap.add_argument("--core-definition", choices=["composite", "cluster-level"], default="composite",
+                     help="'composite' (default): per-gene k-core+degree-centrality+clustering "
+                          "composite, ported from structure_function_analysis.py, scored within "
+                          "each spectral cluster and pooled -- the closer match to the single-"
+                          "layer script's own definition. 'cluster-level': legacy pre-update "
+                          "shortcut (whole highest-avg-clustering-coefficient cluster = core), "
+                          "kept only for reproducing old results.")
+    ap.add_argument("--min-cluster-size", type=int, default=3,
+                     help="Clusters smaller than this are skipped for composite scoring (all "
+                          "their genes end up 'intermediate'). Only used with --core-definition "
+                          "composite. Matches the single-layer script's own n<3 guard.")
     ap.add_argument("--seed-genes-csv", required=True, help="CSV with a 'gene' column.")
     ap.add_argument("--full-ref-graph", default=None,
                      help="Full heterogeneous reference graph, for the population null "
@@ -333,8 +505,18 @@ def main():
     seed_set = set(seed_df[gene_col].astype(str).str.strip().str.upper())
     print(f"  {len(seed_set):,} seed genes loaded from {args.seed_genes_csv}")
 
-    k_core, clustering = compute_node_metrics(G)
-    df, core_cid, cluster_avg_clust = assign_core_periphery(df, args.cluster_col, clustering)
+    print(f"\nCore/periphery definition: {args.core_definition}")
+    core_cid = None
+    cluster_avg_clust = None
+    per_cluster_summary = None
+    if args.core_definition == "composite":
+        df, per_cluster_summary = assign_core_periphery_composite(
+            df, args.cluster_col, G, min_cluster_size=args.min_cluster_size)
+    else:
+        print("  computing k-core number and clustering coefficient (whole module) ...")
+        _, clustering = nx.core_number(G), nx.clustering(G)
+        df, core_cid, cluster_avg_clust = assign_core_periphery_cluster_level(
+            df, args.cluster_col, clustering)
 
     observed, meta = observed_statistics(G, df, args.cluster_col, seed_set)
     print(f"\n=== Observed statistics: {args.label} ===")
@@ -374,11 +556,16 @@ def main():
     else:
         module_gene_of = {n: (n.rsplit("::", 1)[-1] if "::" in n else n) for n in G.nodes()}
         global_result = global_core_periphery_test(
-            k_core, seed_set, list(G.nodes()), module_gene_of, f"{args.label} (module only)")
+            k_core=nx.core_number(G), seed_set=seed_set, all_nodes=list(G.nodes()),
+            gene_of=module_gene_of, label=f"{args.label} (module only)")
 
     summary = {
-        "label": args.label, "cluster_col": args.cluster_col, "core_cluster_id": str(core_cid),
-        "cluster_avg_clustering_coeff": {str(k): v for k, v in cluster_avg_clust.items()},
+        "label": args.label, "cluster_col": args.cluster_col,
+        "core_definition": args.core_definition,
+        "core_cluster_id": None if core_cid is None else str(core_cid),
+        "cluster_avg_clustering_coeff": (None if cluster_avg_clust is None
+                                          else {str(k): v for k, v in cluster_avg_clust.items()}),
+        "per_cluster_composite_summary": per_cluster_summary,
         "observed": observed,
         "n_permutation": args.n_permutation,
         "n_population": args.n_population if args.full_ref_graph else 0,

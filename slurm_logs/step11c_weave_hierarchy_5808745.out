@@ -1,8 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-5808745
-Step 11c: Weaving partition ensemble into a HiDeF persistent hierarchy (hidef.weaver)
-Running on host: node-c05.lisc
-Starting at: Thu Aug  6 03:16:22 PM CEST 2026
-Loaded ensemble: 30 partitions, 140139 nodes
-
-Weaving 30 partitions over 140139 nodes (cutoff=0.75) ...
-Finished at: Thu Aug  6 03:16:38 PM CEST 2026

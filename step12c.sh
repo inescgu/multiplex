@@ -8,9 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
-mkdir -p slurm_logs
 
-PPI=combined26
 
 echo "Running on host: $(hostname)"
 echo "Current working directory: $(pwd)"
@@ -20,10 +18,10 @@ echo "SLURM_JOB_ID: $SLURM_JOB_ID"
 module load Python/3.14.4-weekly
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
-# Runs after hub_removal_analysis.py has produced:
-#   output/${PPI}/hub_removal/observed_vs_null_comparison.csv
-INPUT_CSV=12_hub_removal/hub_removal/observed_vs_null_comparison.csv
-PLOT_DIR=12_hub_removal/hub_removal/
+HUB_REMOVAL_DIR=12_hub_removal/hub_removal
+PLOT_DIR=12_hub_removal/plots
+
+mkdir -p "${PLOT_DIR}"
 
 
 python step12c_plothubremoval.py \

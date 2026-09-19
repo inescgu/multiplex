@@ -1,3 +1,0 @@
-usage: step9b_permutation_test_bridges.py [-h] --bridges-csv BRIDGES_CSV --out-dir OUT_DIR [--min-celltypes-present MIN_CELLTYPES_PRESENT] [--frac-minority-threshold FRAC_MINORITY_THRESHOLD]
-                                          [--n-perm N_PERM] [--seed SEED] [--fdr FDR]
-step9b_permutation_test_bridges.py: error: unrecognized arguments: --frac-neg-threshold 0.6

@@ -13,12 +13,14 @@ echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
-
+# Uses the patched step11d_validation.py: reads .nodes directly via --nodes-file,
+# no separately-recovered communities pickle needed (that recovery step was tied
+# to the old RB run and would otherwise silently go stale here).
 python step11d_validation.py \
     --supra-graph 11_hidef_hetero/supra_graph.pkl \
     --ensemble 11_hidef_hetero/ensemble.pkl \
-    --communities 11_hidef_results_fixed/heterogeneous_hidef_communities_FIXED.pkl \
+    --nodes-file 11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes \
     --min-size 2 \
-    --output 11_hidef_results_fixed/infomap_crosscheck_FIXED.json
+    --output 11_hidef_results_faithful_cpm/infomap_crosscheck.json
     
 echo "Finished at: $(date)"

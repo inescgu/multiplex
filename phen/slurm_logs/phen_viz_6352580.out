@@ -1,0 +1,8 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6352580
+Running on host: node-c01.lisc
+Starting at: Wed Sep  9 10:59:32 AM CEST 2026
+
+================================================================================
+Creating Enrichment Heatmap with Phenotype and Spatial Integration
+================================================================================
+Finished at: Wed Sep  9 10:59:50 AM CEST 2026

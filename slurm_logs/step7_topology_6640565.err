@@ -1,0 +1,4 @@
+usage: step7_layer_topology_stats.py [-h] --wdir WDIR [--csv CSV] [--output-dir OUTPUT_DIR] [--exclude-ai EXCLUDE_AI [EXCLUDE_AI ...]] [--top-n-eigen TOP_N_EIGEN]
+                                     [--min-edges MIN_EDGES] [--max-layers-plot MAX_LAYERS_PLOT] [--no-pairwise-similarity] [--hub-threshold-frac HUB_THRESHOLD_FRAC]
+                                     [--network-plots] [--max-plot-nodes MAX_PLOT_NODES]
+step7_layer_topology_stats.py: error: unrecognized arguments: --markers-csv ../R/convert_hdrg_human_2025/cell_type_markers.csv

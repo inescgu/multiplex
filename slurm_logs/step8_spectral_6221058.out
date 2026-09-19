@@ -1,0 +1,277 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6221058
+Step 8: Spectral clustering + component diagnostics
+Running on host: node-c01.lisc
+Requested cores: 1
+Starting at: Mon Aug 31 11:50:40 AM CEST 2026
+
+=== Step 8d: module_with_ppi ===
+=== Duplicate embedding groups: with_ppi ===
+  nodes in a group of size >= 2: 1,452 / 4,685
+  number of such groups: 59
+  group size distribution: min=2, median=2, max=1305
+  loading 06_disease_module/disease_module_output/module_graph.pkl for neighbor lookup ...
+  saved full duplicate group table -> 08_spectral_analysis/module_with_ppi/diagnostics/duplicate_groups_with_ppi.csv
+  groups where ALL members share >=1 common neighbor: 37 / 59 (62.7%) -- these are the clean 'attach to the same hub(s)' cases
+  groups with NO common neighbor across all members: 22 -- these collapsed for some other structural reason (e.g. shared 2-hop neighborhoods, isolated pairs, or the squared-adjacency embedding picking up longer-range equivalence)
+
+  top 20 largest groups:
+    group 1844: 1305 genes [ABCC4;ACHE;ANKRD13C;BBS1;BDKRB2;CACNA1B;CACNG2;CD99L2;DICER1;GABRG2;GINM1;GLA;GN...], cell types=A-LTMR.TAC3;A-PEP.CHRNA7_SLC18A3;A-PEP.KIT;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.EPHA3;A-Propr.HAPLN4;A-Propr.PCDH8;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.ETV1;Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.MRGPRX1_MRGPRX4;C-NP.SST;C-PEP.ADORA2B;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1;C-Thermo.TRPM8;global_ppi, shared neighbor(s)=(none / not computed)
+    group 1831: 7 genes [ATP6V0A2;KDM1A;PRKCD;CBS;GRIA2;SHISAL1;AQP1], cell types=A-PEP.CHRNA7_SLC18A3;ATF3;Ab-LTMR.CCKAR;C-NP.MRGPRX1_MRGPRX4;C-Thermo.RXFP1;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1857: 7 genes [GRAMD1A;RNF31;STAT3;DLG2;PTGDR;FMR1;TMEM14B], cell types=Ab-LTMR.CCKAR;Ab-LTMR.LGI2;C-LTMR.CDH9;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1, shared neighbor(s)=(none / not computed)
+    group 1843: 6 genes [CHD3;CWF19L2;PCSK6;EDNRA;UCP2;MKLN1], cell types=A-PEP.SCGN_ADRA2C;ATF3;C-PEP.ADORA2B;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 1861: 5 genes [PPP1R9B;OPRD1;SEC63;ASPH;PIM1], cell types=A-Propr.HAPLN4;C-NP.MRGPRX1_MRGPRX4;C-PEP.ADORA2B;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1783: 4 genes [CYFIP2;EIF1AX;ELOVL7;EXOC4], cell types=C-NP.MRGPRX1_GFRA2, shared neighbor(s)=C-NP.MRGPRX1_GFRA2::DTNBP1
+    group 1840: 4 genes [COG5;SPARC;SEC22A;KCNA2], cell types=ATF3;Ab-LTMR.ETV1;C-PEP.ADORA2B;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1845: 4 genes [DMD;ITPR2;PCSK6;NPTX1], cell types=A-PEP.SCGN_ADRA2C;C-NP.SST;C-PEP.TAC1_CHRNA3;global_ppi, shared neighbor(s)=(none / not computed)
+    group 1839: 4 genes [KCNJ9;ORMDL2;ANKHD1;CYBC1], cell types=A-Propr.EPHA3;Ab-LTMR.NSG2;C-LTMR.CDH9, shared neighbor(s)=(none / not computed)
+    group 1830: 3 genes [INTS4;NRSN1;ANKHD1], cell types=A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C, shared neighbor(s)=(none / not computed)
+    group 814: 3 genes [ADAM11;ADAM11;ADAM11], cell types=A-LTMR.TAC3;A-PEP.SCGN_ADRA2C;Ab-LTMR.LGI2, shared neighbor(s)=global_ppi::ADAM11
+    group 1880: 3 genes [CNTN1;ATR;HIP1R], cell types=A-PEP.NTRK3_S100A16;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1860: 3 genes [TNK2;TMEM179B;SLC16A2], cell types=ATF3;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 1829: 3 genes [FAAH;GRIN1;IPO11], cell types=A-PEP.CHRNA7_SLC18A3;Ab-LTMR.LGI2;C-NP.MRGPRX1_MRGPRX4, shared neighbor(s)=(none / not computed)
+    group 3165: 3 genes [TRPM3;TRPM3;TRPM3], cell types=A-Propr.EPHA3;Ab-LTMR.LGI2;C-NP.SST, shared neighbor(s)=global_ppi::TRPM3
+    group 1758: 2 genes [ORMDL3;VEGFA], cell types=A-Propr.EPHA3, shared neighbor(s)=A-Propr.EPHA3::TMEM237
+    group 1749: 2 genes [RUNX1;OPRD1], cell types=A-PEP.CHRNA7_SLC18A3;Ab-LTMR.NSG2, shared neighbor(s)=(none / not computed)
+    group 1680: 2 genes [EFHC1;PTGER3], cell types=C-Thermo.RXFP1, shared neighbor(s)=C-Thermo.RXFP1::TCF4
+    group 593: 2 genes [RGS4;RGS4], cell types=Ab-LTMR.ETV1;C-PEP.TAC1_CHRNA3, shared neighbor(s)=global_ppi::RGS4
+    group 199: 2 genes [FSTL1;FSTL1], cell types=A-PEP.SCGN_ADRA2C;C-NP.SST, shared neighbor(s)=global_ppi::FSTL1
+
+=== Step 8d: module_no_ppi ===
+=== Duplicate embedding groups: no_ppi ===
+  nodes in a group of size >= 2: 2,295 / 4,459
+  number of such groups: 135
+  group size distribution: min=2, median=2, max=1788
+  loading 06_disease_module/disease_module_output/module_graph.pkl for neighbor lookup ...
+  saved full duplicate group table -> 08_spectral_analysis/module_no_ppi/diagnostics/duplicate_groups_no_ppi.csv
+  groups where ALL members share >=1 common neighbor: 38 / 135 (28.1%) -- these are the clean 'attach to the same hub(s)' cases
+  groups with NO common neighbor across all members: 97 -- these collapsed for some other structural reason (e.g. shared 2-hop neighborhoods, isolated pairs, or the squared-adjacency embedding picking up longer-range equivalence)
+
+  top 20 largest groups:
+    group 835: 1788 genes [ABCC4;ACHE;ADAM11;ANKRD13C;BBS1;BDKRB2;CACNA1B;CACNA1H;CACNA2D1;CACNG2;CD99L2;CD...], cell types=A-LTMR.TAC3;A-PEP.CHRNA7_SLC18A3;A-PEP.KIT;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.EPHA3;A-Propr.HAPLN4;A-Propr.PCDH8;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.ETV1;Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.MRGPRX1_MRGPRX4;C-NP.SST;C-PEP.ADORA2B;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.RXFP1;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 836: 29 genes [RGS4;CLU;DTNBP1;FOXP1;IBTK;PRKCB;RFFL;RNF31;RPL35A;RUNX1T1;RUSF1;S100B;SEMA4C;SH...], cell types=A-Propr.HAPLN4;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-NP.SST;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 834: 27 genes [GNAI1;SPPL2B;AQP1;PIP5K1A;PLCB3;MGST3;RBCK1;CACNG2;NSF;ATP11C;ATP2B2;CEP70;CLTC;...], cell types=A-Propr.HAPLN4;ATF3;Ab-LTMR.CCKAR;Ab-LTMR.NSG2;C-LTMR.CDH9;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 780: 24 genes [ANXA2;BLOC1S6;CCM2;CD14;COQ9;CREB3L1;DDIT3;FHL2;FTL;HINT1;JUND;KCNIP3;LRRC59;LYS...], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 781: 22 genes [BRK1;CACNA1C;CSGALNACT1;DCX;DICER1;DNAJB6;GNAO1;GRIP1;GSTM3;HLA-A;IFITM3;ITGB8;N...], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 837: 16 genes [ARRDC1;GAP43;LMO2;PCSK6;ATP5F1B;CYFIP2;EIF1AX;ELOVL7;EXOC4;ADAM23;RDH13;HIF1A;TR...], cell types=Ab-LTMR.CCKAR;Ab-LTMR.ETV1;C-NP.MRGPRX1_GFRA2;C-NP.SST;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3, shared neighbor(s)=(none / not computed)
+    group 853: 15 genes [ACTN1;AQP3;CREB3L1;NAAA;STARD13;GAL;GPAT3;KCNA2;NOS1;TMEM74;CPNE5;PLP1;DCX;MCAM;...], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16;A-PEP.SCGN_ADRA2C;A-Propr.HAPLN4;Ab-LTMR.NSG2;C-PEP.ADORA2B, shared neighbor(s)=(none / not computed)
+    group 460: 14 genes [DGUOK;NOS1;PRKAR1B;COMTD1;CREB3L1;HTR3A;PLXDC2;RUNX1T1;SOD2;SPARC;VEGFA;ATP5PB;B...], cell types=A-LTMR.TAC3;A-PEP.SCGN_ADRA2C;Ab-LTMR.CCKAR, shared neighbor(s)=(none / not computed)
+    group 832: 9 genes [CLTC;KRIT1;CLU;MAPK8;NRG1;VEGFA;ITCH;MFSD14B;RUNX1], cell types=Ab-LTMR.NSG2;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5;C-PEP.TAC1_CHRNA3;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+    group 1013: 8 genes [LAMA4;ADNP;GNAO1;MAP2K1;NDN;RICTOR;OPRM1;CD274], cell types=Ab-LTMR.LGI2;Ab-LTMR.NSG2;C-PEP.ADORA2B;C-Thermo.RXFP1, shared neighbor(s)=(none / not computed)
+    group 1012: 8 genes [BRAF;IMPDH1;MYC;NHERF2;PRKD1;RB1;UBC;JUN], cell types=Ab-LTMR.NSG2;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1437: 8 genes [COG3;CREB3L1;GPRASP1;IBTK;PRKCA;PRKCD;STRN3;TTYH3], cell types=Ab-LTMR.CCKAR, shared neighbor(s)=(none / not computed)
+    group 958: 8 genes [HDAC4;HPCAL1;KDM1A;PTGDS;RNF31;RUNX1;CALCA;SLC20A2], cell types=A-PEP.NTRK3_S100A16;A-Propr.PCDH8;Ab-LTMR.LGI2, shared neighbor(s)=(none / not computed)
+    group 134: 8 genes [CDC42;EDNRA;GGH;MAPK8;NPM1;PDIA4;TIAM1;YWHAB], cell types=ATF3, shared neighbor(s)=(none / not computed)
+    group 833: 7 genes [ZNF444;GNAQ;MAGED1;NSMCE3;B3GNT2;CNIH1;MAPK3], cell types=Ab-LTMR.NSG2;C-NP.MRGPRX1_GFRA2;C-PEP.TAC1_CACNG5, shared neighbor(s)=(none / not computed)
+    group 1666: 6 genes [ADCY9;APBA1;GPRASP1;GRIP1;HIPK2;PLXDC2], cell types=A-PEP.CHRNA7_SLC18A3, shared neighbor(s)=(none / not computed)
+    group 874: 5 genes [CAPN2;CBS;CERS2;DIP2A;TMEM97], cell types=A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 865: 5 genes [ATR;FLNA;WLS;ATE1;GRIN1], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 857: 5 genes [RUNX1;STX3;THADA;SLC20A2;TLE5], cell types=A-PEP.CHRNA7_SLC18A3;A-PEP.NTRK3_S100A16, shared neighbor(s)=(none / not computed)
+    group 840: 5 genes [FMR1;S100B;EZR;NHERF1;PDCD4], cell types=C-PEP.TAC1_CHRNA3;C-Thermo.TRPM8, shared neighbor(s)=(none / not computed)
+
+=== Step 8e: module_with_ppi (cluster sizes + forced k=2 only, no single-layer comparison yet) ===
+
+=== Cluster sizes: with_ppi (existing k_opt) (cluster) ===
+  cluster 0: 1,544 genes (33.0%)
+  cluster 1: 1,402 genes (29.9%)
+  cluster 2: 1,739 genes (37.1%)
+  largest/smallest ratio: 1.24  (near 1 = balanced split; large = one dominant cluster + small leftovers)
+
+Forcing k=3 on cached embedding (row_normalize=True) ...
+  silhouette at k=3: 0.5434
+
+=== Cluster sizes: with_ppi (forced k=3) (cluster_k3) ===
+  cluster 0: 1,544 genes (33.0%)
+  cluster 1: 1,402 genes (29.9%)
+  cluster 2: 1,739 genes (37.1%)
+  largest/smallest ratio: 1.24  (near 1 = balanced split; large = one dominant cluster + small leftovers)
+  saved -> 08_spectral_analysis/module_with_ppi/diagnostics/spectral_clusters_k3_with_ppi.csv
+
+=== Step 8e: module_no_ppi (cluster sizes + forced k=2 only, no single-layer comparison yet) ===
+
+=== Cluster sizes: no_ppi (existing k_opt) (cluster) ===
+  cluster 0: 1,564 genes (35.1%)
+  cluster 1: 2,217 genes (49.7%)
+  cluster 2: 678 genes (15.2%)
+  largest/smallest ratio: 3.27  (near 1 = balanced split; large = one dominant cluster + small leftovers)
+
+Forcing k=3 on cached embedding (row_normalize=True) ...
+  silhouette at k=3: 0.8776
+
+=== Cluster sizes: no_ppi (forced k=3) (cluster_k3) ===
+  cluster 0: 1,564 genes (35.1%)
+  cluster 1: 2,217 genes (49.7%)
+  cluster 2: 678 genes (15.2%)
+  largest/smallest ratio: 3.27  (near 1 = balanced split; large = one dominant cluster + small leftovers)
+  saved -> 08_spectral_analysis/module_no_ppi/diagnostics/spectral_clusters_k3_no_ppi.csv
+
+=== Step 8g: module with ppi ===
+Loading module graph: 06_disease_module/disease_module_output/module_graph.pkl
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  408 seed genes loaded from 00_inputs/seed_genes.csv
+
+Core/periphery definition: composite
+  cluster 0: 1544 genes -> core=814, periphery=730, intermediate=0
+  cluster 1: 1402 genes -> core=702, periphery=700, intermediate=0
+  cluster 2: 1739 genes -> core=1126, periphery=613, intermediate=0
+
+  POOLED across all clusters: core=2642, periphery=2043, intermediate=0 (of 4685 total)
+
+=== Observed statistics: with_ppi ===
+  n_total: 4685
+  n_seeds: 1969
+  n_nonseeds: 2716
+  seed_fraction: 0.42027748132337245
+  n_core: 2642
+  n_periphery: 2043
+  n_intermediate: 0
+  core_seed_enrichment: 1.016775347177235
+  periphery_seed_enrichment: 0.9783061834350196
+  seed_bridge_mean: 0.6301554255371621
+  non_seed_bridge_mean: 0.598792000593359
+  seed_homogeneity_mean: 0.488170174643068
+  non_seed_homogeneity_mean: 0.48168525602622125
+  seed_density: 0.001406970646649077
+  non_seed_density: 0.0010751375790961143
+  seed_avg_degree: 5.711020822752666
+  non_seed_avg_degree: 5.0519145802650955
+
+=== Permutation null (seed-label shuffling, 1000 reps): with_ppi ===
+    ... 200/1000 permutation reps done
+    ... 400/1000 permutation reps done
+    ... 600/1000 permutation reps done
+    ... 800/1000 permutation reps done
+    ... 1000/1000 permutation reps done
+
+  core_seed_enrichment         observed=   1.0168  null_mean=   1.0002  z=   1.119  p=0.2700
+  periphery_seed_enrichment    observed=   0.9783  null_mean=   0.9998  z=  -1.119  p=0.2700
+  seed_bridge_mean             observed=   0.6302  null_mean=   0.6121  z=   3.550  p=0.0000  <-- p<0.05
+  non_seed_bridge_mean         observed=   0.5988  null_mean=   0.6119  z=  -3.550  p=0.0000  <-- p<0.05
+  seed_homogeneity_mean        observed=   0.4882  null_mean=   0.4203  z=   7.531  p=0.0000  <-- p<0.05
+  non_seed_homogeneity_mean    observed=   0.4817  null_mean=   0.5799  z= -12.126  p=0.0000  <-- p<0.05
+  seed_density                 observed=   0.0014  null_mean=   0.0011  z=   7.053  p=0.0000  <-- p<0.05
+  non_seed_density             observed=   0.0011  null_mean=   0.0011  z=  -2.323  p=0.0250  <-- p<0.05
+  seed_avg_degree              observed=   5.7110  null_mean=   5.3259  z=   4.562  p=0.0000  <-- p<0.05
+  non_seed_avg_degree          observed=   5.0519  null_mean=   5.3311  z=  -4.562  p=0.0000  <-- p<0.05
+
+Loading full reference graph for population null / global test: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+Loading reference graph from 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  78,890 nodes, 628,034 edges (557,829 ppi-tagged, 70,205 inter-tagged)
+
+=== Population null (core, size=2642, 200 reps): with_ppi ===
+  density: observed=0.0014, pop_mean=0.0002 (n=200), percentile=100.0, two-sided p=0.0000
+  avg_degree: observed=5.7110, pop_mean=0.5320 (n=200), percentile=100.0, two-sided p=0.0000
+
+=== Population null (periphery, size=2043, 200 reps): with_ppi ===
+  density: observed=0.0011, pop_mean=0.0002 (n=200), percentile=100.0, two-sided p=0.0000
+  avg_degree: observed=5.0519, pop_mean=0.4136 (n=200), percentile=100.0, two-sided p=0.0000
+
+=== Global core-periphery test: with_ppi (full reference graph) ===
+  seeds n=2680, median k-core=5.00
+  non-seeds n=76210, median k-core=6.00
+  Mann-Whitney U=94236675.5, p (seeds<non-seeds)=4.371e-12
+  -> seeds ARE globally peripheral (p<0.05); module-level periphery enrichment (if found) may partly reflect this global bias, not be module-specific.
+
+Saved summary -> 08_spectral_analysis/module_with_ppi/diagnostics/seed_periphery_summary_with_ppi.json
+
+=== Step 8g: module no ppi ===
+Loading module graph: 06_disease_module/disease_module_output/module_graph.pkl
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,685 nodes, 12,483 edges (9,585 ppi-tagged, 2,898 inter-tagged)
+  [exclude-celltypes] Removed cell type(s) ['GLOBAL_PPI']: 226 nodes dropped -> 4,459 nodes, 10,016 edges remain (was 4,685 nodes, 12,483 edges)
+  408 seed genes loaded from 00_inputs/seed_genes.csv
+
+Core/periphery definition: composite
+  cluster 0: 1564 genes -> core=901, periphery=663, intermediate=0
+  cluster 1: 2217 genes -> core=905, periphery=1191, intermediate=121
+  cluster 2: 678 genes -> core=397, periphery=281, intermediate=0
+
+  POOLED across all clusters: core=2203, periphery=2135, intermediate=121 (of 4459 total)
+
+=== Observed statistics: no_ppi ===
+  n_total: 4459
+  n_seeds: 1760
+  n_nonseeds: 2699
+  seed_fraction: 0.3947073334828437
+  n_core: 2203
+  n_periphery: 2135
+  n_intermediate: 121
+  core_seed_enrichment: 0.91657631122849
+  periphery_seed_enrichment: 1.088168777943368
+  seed_bridge_mean: 0.4717028393501392
+  non_seed_bridge_mean: 0.4657197215925627
+  seed_homogeneity_mean: 0.18374173601845084
+  non_seed_homogeneity_mean: 0.47677807670690997
+  seed_density: 0.00047676882526228746
+  non_seed_density: 0.0010456059419640638
+  seed_avg_degree: 3.947159090909091
+  non_seed_avg_degree: 4.848091885883661
+
+=== Permutation null (seed-label shuffling, 1000 reps): no_ppi ===
+    ... 200/1000 permutation reps done
+    ... 400/1000 permutation reps done
+    ... 600/1000 permutation reps done
+    ... 800/1000 permutation reps done
+    ... 1000/1000 permutation reps done
+
+  core_seed_enrichment         observed=   0.9166  null_mean=   1.0002  z=  -4.654  p=0.0000  <-- p<0.05
+  periphery_seed_enrichment    observed=   1.0882  null_mean=   0.9998  z=   4.793  p=0.0000  <-- p<0.05
+  seed_bridge_mean             observed=   0.4717  null_mean=   0.4681  z=   0.524  p=0.6060
+  non_seed_bridge_mean         observed=   0.4657  null_mean=   0.4681  z=  -0.524  p=0.6060
+  seed_homogeneity_mean        observed=   0.1837  null_mean=   0.3891  z= -21.441  p=0.0000  <-- p<0.05
+  non_seed_homogeneity_mean    observed=   0.4768  null_mean=   0.5966  z= -15.228  p=0.0000  <-- p<0.05
+  seed_density                 observed=   0.0005  null_mean=   0.0010  z= -14.270  p=0.0000  <-- p<0.05
+  non_seed_density             observed=   0.0010  null_mean=   0.0010  z=   1.543  p=0.1210
+  seed_avg_degree              observed=   3.9472  null_mean=   4.4917  z=  -6.931  p=0.0000  <-- p<0.05
+  non_seed_avg_degree          observed=   4.8481  null_mean=   4.4930  z=   6.931  p=0.0000  <-- p<0.05
+
+Loading full reference graph for population null / global test: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+Loading reference graph from 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  78,890 nodes, 628,034 edges (557,829 ppi-tagged, 70,205 inter-tagged)
+
+=== Population null (core, size=2203, 200 reps): no_ppi ===
+  density: observed=0.0005, pop_mean=0.0002 (n=200), percentile=100.0, two-sided p=0.0000
+  avg_degree: observed=3.9472, pop_mean=0.4466 (n=200), percentile=100.0, two-sided p=0.0000
+
+=== Population null (periphery, size=2135, 200 reps): no_ppi ===
+  density: observed=0.0010, pop_mean=0.0002 (n=200), percentile=100.0, two-sided p=0.0000
+  avg_degree: observed=4.8481, pop_mean=0.4327 (n=200), percentile=100.0, two-sided p=0.0000
+
+=== Global core-periphery test: no_ppi (full reference graph) ===
+  seeds n=2680, median k-core=5.00
+  non-seeds n=76210, median k-core=6.00
+  Mann-Whitney U=94236675.5, p (seeds<non-seeds)=4.371e-12
+  -> seeds ARE globally peripheral (p<0.05); module-level periphery enrichment (if found) may partly reflect this global bias, not be module-specific.
+
+Saved summary -> 08_spectral_analysis/module_no_ppi/diagnostics/seed_periphery_summary_no_ppi.json
+
+=== Step 8f: slide figures ===
+Output directory: 08_spectral_analysis/slide_figures
+
+Slide 2: k-selection panels
+  saved -> 08_spectral_analysis/slide_figures/slide2_k_selection.png
+Slide 2 (optional): embedding scatter
+  saved -> 08_spectral_analysis/slide_figures/slide2_embedding_scatter.png
+
+Slide 3: enrichment bar chart
+  saved -> 08_spectral_analysis/slide_figures/slide3_enrichment_bars.png
+Slide 3: null histogram
+  saved -> 08_spectral_analysis/slide_figures/slide3_null_histogram.png
+  NOTE: this histogram is a Gaussian approximation from null_mean/null_std in the summary CSV, not the raw 1000 permutation values (those aren't saved to disk by step8g as written). Fine for a slide, but say 'approximate null distribution' if asked.
+
+Slide 4: forest plot
+  saved -> 08_spectral_analysis/slide_figures/slide4_forest_plot.png
+Slide 4 (optional): silhouette null example
+  saved -> 08_spectral_analysis/slide_figures/slide4_silhouette_null.png
+
+Slide 5: degree distributions
+  saved -> 08_spectral_analysis/slide_figures/slide5_degree_distributions.png
+Slide 5 (optional): illustrative subgraph
+  saved -> 08_spectral_analysis/slide_figures/slide5_illustrative_subgraph.png
+
+Slide 6: established/not-established table
+  saved -> 08_spectral_analysis/slide_figures/slide6_established_table.png
+
+Done. Figures saved in 08_spectral_analysis/slide_figures
+
+Finished at: Mon Aug 31 11:55:20 AM CEST 2026

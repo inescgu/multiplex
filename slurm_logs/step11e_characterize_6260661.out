@@ -1,0 +1,7 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b08/tmp/slurm-6260661
+Step 11e: Characterizing persistent heterogeneous HiDeF clusters (cell-type composition, conserved genes, edge-type breakdown)
+Running on host: node-b08.lisc
+Starting at: Wed Sep  2 03:46:46 PM CEST 2026
+Loaded supra-graph: 140,139 nodes, 695,209 edges across 23 cell type(s)
+
+Finished at: Wed Sep  2 03:46:51 PM CEST 2026

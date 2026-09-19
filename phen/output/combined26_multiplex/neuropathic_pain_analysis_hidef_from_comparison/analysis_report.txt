@@ -1,0 +1,34 @@
+Neuropathic Pain Expression Analysis Report
+==========================================
+
+PPI Source: combined26_multiplex
+Cluster Type: hidef_from_comparison
+Persistence Threshold: 8
+Expression file: ../../expression_data/neuropathic_pain_drg2.csv
+Total clusters: 519
+Total genes: 19997
+Total samples: 51
+
+Sample distribution:
+  P: 33 samples
+  N: 17 samples
+  Undetermined: 1 samples
+
+Gender distribution:
+  M: 32 samples
+  F: 19 samples
+
+Differential Expression Results:
+Total clusters analyzed: 87
+Significant changes: 87
+  Upregulated: 87
+  Downregulated: 0
+
+Top Expression Changes:
+  HiDeF_Cluster_Cluster1-59: OR=10.11, p=9.77e-03
+  HiDeF_Cluster_Cluster1-667: OR=10.11, p=9.77e-03
+  HiDeF_Cluster_Cluster1-4569: OR=10.11, p=9.77e-03
+  HiDeF_Cluster_Cluster1-6537: OR=10.11, p=9.53e-05
+  HiDeF_Cluster_Cluster1-6547: OR=10.11, p=9.53e-05
+  HiDeF_Cluster_Cluster2-832: OR=10.11, p=9.53e-05
+  HiDeF_Cluster_Cluster1-6571: OR=10.11, p=9.53e-05

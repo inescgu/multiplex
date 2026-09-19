@@ -185,10 +185,13 @@ def sample_population_subgraph(full_G: nx.Graph, target_degrees: np.ndarray,
         need = int(target_bin_counts[i])
         if need == 0:
             continue
-        if len(pool) < need:
-            chosen = rng.choice(pool, size=need, replace=True) if len(pool) else []
+        if len(pool) == 0:
+            chosen = np.array([], dtype=full_nodes.dtype)
+        elif len(pool) < need:
+            chosen = rng.choice(pool, size=need, replace=True)
         else:
             chosen = rng.choice(pool, size=need, replace=False)
+        sampled.extend(chosen.tolist())
         sampled.extend(chosen.tolist())
     return full_G.subgraph(sampled).copy()
 

@@ -1,0 +1,79 @@
+Orphanet Enrichr Analysis Report
+=================================
+
+PPI Source: combined26_multiplex
+Cluster Type: hidef_from_comparison
+Annotation: hidef_from_comparison
+Enrichr Library: Orphanet_Augmented_2021
+Total clusters: 1581
+
+Analysis Results:
+Total disease enrichments: 1556
+Significant enrichments (adj p < 0.05): 1522
+
+Diseases per cluster:
+  Mean: 1.0
+  Median: 1.0
+  Range: 1-1
+
+Top 20 Enrichments:
+
+  HiDeF_Cluster_Cluster2-460: Isolated complex III deficiency ORPHA:1460
+    Combined Score=5107377.05, p=1.17e-16, adj_p=1.17e-14
+
+  HiDeF_Cluster_Cluster3-77: Isolated complex III deficiency ORPHA:1460
+    Combined Score=3748961.89, p=2.28e-14, adj_p=1.62e-12
+
+  HiDeF_Cluster_Cluster2-514: Meckel syndrome ORPHA:564
+    Combined Score=3735259.79, p=2.55e-14, adj_p=2.32e-12
+
+  HiDeF_Cluster_Cluster2-706: Singleton-Merten dysplasia ORPHA:85191
+    Combined Score=2645999.35, p=2.82e-12, adj_p=1.58e-10
+
+  HiDeF_Cluster_Cluster3-99: Isolated complex I deficiency ORPHA:2609
+    Combined Score=2546697.34, p=7.46e-12, adj_p=4.77e-10
+
+  HiDeF_Cluster_Cluster1-6537: Autosomal dominant Alport syndrome ORPHA:88918
+    Combined Score=1691810.21, p=5.88e-10, adj_p=4.06e-08
+
+  HiDeF_Cluster_Cluster1-6547: Autosomal dominant Alport syndrome ORPHA:88918
+    Combined Score=1691810.21, p=5.88e-10, adj_p=4.06e-08
+
+  HiDeF_Cluster_Cluster2-917: Immunodeficiency by defective expression of MHC class I ORPHA:34592
+    Combined Score=1691810.21, p=5.88e-10, adj_p=2.33e-08
+
+  HiDeF_Cluster_Cluster1-6590: Periodontal Ehlers-Danlos syndrome ORPHA:75392
+    Combined Score=1691810.21, p=5.88e-10, adj_p=1.18e-07
+
+  HiDeF_Cluster_Cluster2-875: Rubinstein-Taybi syndrome due to 16p13.3 microdeletion ORPHA:353281
+    Combined Score=1688508.69, p=6.12e-10, adj_p=2.76e-08
+
+  HiDeF_Cluster_Cluster2-1029: Rubinstein-Taybi syndrome due to 16p13.3 microdeletion ORPHA:353281
+    Combined Score=1688508.69, p=6.12e-10, adj_p=2.76e-08
+
+  HiDeF_Cluster_Cluster3-120: McKusick-Kaufman syndrome ORPHA:2473
+    Combined Score=1688508.69, p=6.12e-10, adj_p=1.55e-08
+
+  HiDeF_Cluster_Cluster1-66: Liddle syndrome ORPHA:526
+    Combined Score=422146.21, p=2.47e-05, adj_p=5.49e-05
+
+  HiDeF_Cluster_Cluster1-884: Combined deficiency of factor V and factor VIII ORPHA:35909
+    Combined Score=422146.21, p=2.47e-05, adj_p=2.24e-04
+
+  HiDeF_Cluster_Cluster2-195: Combined deficiency of factor V and factor VIII ORPHA:35909
+    Combined Score=422146.21, p=2.47e-05, adj_p=2.24e-04
+
+  HiDeF_Cluster_Cluster1-91: Obesity due to prohormone convertase I deficiency ORPHA:71528
+    Combined Score=421329.00, p=2.52e-05, adj_p=4.80e-04
+
+  HiDeF_Cluster_Cluster1-667: Cathepsin A-related arteriopathy-strokes-leukoencephalopathy ORPHA:575553
+    Combined Score=421329.00, p=2.52e-05, adj_p=1.88e-04
+
+  HiDeF_Cluster_Cluster2-193: Encephalopathy due to prosaposin deficiency ORPHA:139406
+    Combined Score=421329.00, p=2.52e-05, adj_p=3.94e-04
+
+  HiDeF_Cluster_Cluster1-3243: Orofaciodigital syndrome type 3 ORPHA:2752
+    Combined Score=421329.00, p=2.52e-05, adj_p=8.49e-05
+
+  HiDeF_Cluster_Cluster1-4564: Reducing body myopathy ORPHA:97239
+    Combined Score=421329.00, p=2.52e-05, adj_p=6.77e-04

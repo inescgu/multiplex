@@ -1,3 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b07/tmp/slurm-5861601
-Requirement already satisfied: pyarrow in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (25.0.0)
-Requirement already satisfied: pip in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (26.2.1)

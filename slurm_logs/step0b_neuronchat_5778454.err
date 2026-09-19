@@ -1,9 +1,0 @@
-Warning messages:
-1: replacing previous import ‘data.table::dcast’ by ‘reshape2::dcast’ when loading ‘NeuronChat’ 
-2: replacing previous import ‘data.table::melt’ by ‘reshape2::melt’ when loading ‘NeuronChat’ 
-Create a NeuronChat object from a data matrix
-Warning message:
-In asMethod(object) :
-  sparse->dense coercion: allocating vector of size 24.5 GiB
-Error: unexpected symbol in "cat(sprintf("Wrote %d long-format LR rows -> %s\n", nrow(long_df), opt$out))Single"
-Execution halted

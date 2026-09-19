@@ -1,0 +1,26 @@
+Phenotype Analysis Report
+========================
+
+PPI Source: combined26_multiplex
+Cluster Type: hidef_from_comparison
+Annotation: hidef_from_comparison
+Gene data file: ../../expression_data/human_pain_genes_database.csv
+Total clusters: 519
+Total genes with phenotypes: 536
+Total phenotypes: 13
+
+Analysis Results:
+Total clusters analyzed: 114
+Significant enrichments: 0
+
+Top 10 Enrichments:
+  HiDeF_Cluster_Cluster1-24: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-77: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-805: OR=23.30, p=4.29e-02
+  HiDeF_Cluster_Cluster1-48: OR=17.29, p=5.78e-02
+  HiDeF_Cluster_Cluster2-180: OR=17.29, p=5.78e-02
+  HiDeF_Cluster_Cluster1-6543: OR=17.29, p=5.78e-02
+  HiDeF_Cluster_Cluster1-6549: OR=17.29, p=5.78e-02
+  HiDeF_Cluster_Cluster1-6557: OR=17.29, p=5.78e-02
+  HiDeF_Cluster_Cluster2-39: OR=14.11, p=7.09e-02
+  HiDeF_Cluster_Cluster1-4566: OR=14.11, p=7.09e-02

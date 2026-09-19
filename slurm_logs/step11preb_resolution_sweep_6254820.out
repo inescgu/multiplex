@@ -1,0 +1,40 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b08/tmp/slurm-6254820
+Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph
+Running on host: node-b08.lisc
+Starting at: Wed Sep  2 11:47:31 AM CEST 2026
+Loaded supra-graph: 140,139 nodes, 695,209 edges
+
+Profiling 20 gamma values from 0.3 to 1 x 1 partition type(s)
+
+--- CPM ---
+  [CPM 1/20] gamma=0.3 -> 66,758 communities (143.7s elapsed)
+  [CPM 2/20] gamma=0.3196 -> 66,857 communities (243.9s elapsed)
+  [CPM 3/20] gamma=0.3405 -> 77,154 communities (350.4s elapsed)
+  [CPM 4/20] gamma=0.3628 -> 77,231 communities (450.4s elapsed)
+  [CPM 5/20] gamma=0.3865 -> 77,394 communities (551.0s elapsed)
+  [CPM 6/20] gamma=0.4118 -> 77,738 communities (708.1s elapsed)
+  [CPM 7/20] gamma=0.4388 -> 77,877 communities (822.7s elapsed)
+  [CPM 8/20] gamma=0.4675 -> 78,060 communities (959.5s elapsed)
+  [CPM 9/20] gamma=0.4981 -> 78,129 communities (1047.1s elapsed)
+  [CPM 10/20] gamma=0.5306 -> 96,997 communities (1137.7s elapsed)
+  [CPM 11/20] gamma=0.5654 -> 97,203 communities (1212.4s elapsed)
+  [CPM 12/20] gamma=0.6023 -> 97,656 communities (1280.4s elapsed)
+  [CPM 13/20] gamma=0.6417 -> 97,776 communities (1331.6s elapsed)
+  [CPM 14/20] gamma=0.6837 -> 98,980 communities (1376.6s elapsed)
+  [CPM 15/20] gamma=0.7285 -> 99,052 communities (1419.4s elapsed)
+  [CPM 16/20] gamma=0.7761 -> 99,245 communities (1447.7s elapsed)
+  [CPM 17/20] gamma=0.8269 -> 99,353 communities (1476.0s elapsed)
+  [CPM 18/20] gamma=0.881 -> 99,425 communities (1516.7s elapsed)
+  [CPM 19/20] gamma=0.9386 -> 99,444 communities (1538.3s elapsed)
+  [CPM 20/20] gamma=1 -> 140,139 communities (1541.1s elapsed)
+
+Saved profile plot -> 11_hidef_hetero/resolution_profile.png
+
+Transition analysis (per partition type):
+  CPM: steepest change between gamma=0.9386 (99,444 communities) and gamma=1 (140,139 communities)
+  CPM: overall n_communities ratio across swept range = 2.10x (looks flat -- widen the range)
+
+✓ Saved -> 11_hidef_hetero/resolution_profile.csv
+
+Next: pick --min-resolution/--max-resolution for the real step 11b sweep so it straddles a real transition region shown above, rather than sitting entirely inside a flat plateau -- then re-run steps 11b -> 11c -> 11e and check the persistence histogram again.
+Finished at: Wed Sep  2 12:13:24 PM CEST 2026

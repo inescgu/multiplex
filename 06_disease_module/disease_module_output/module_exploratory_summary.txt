@@ -43,6 +43,14 @@ Seed distribution by cell type plot -> 06_disease_module/disease_module_output/m
 Module composition by cell type plot -> 06_disease_module/disease_module_output/module_exploratory_module_pct_by_celltype.png
 Top seed genes plot -> 06_disease_module/disease_module_output/module_exploratory_top_seed_genes.png
 
+Seed connectivity across ALL layers (not just final module):
+  Table -> 06_disease_module/disease_module_output/module_exploratory_seed_layer_connectivity.csv
+
+Expression specificity (vs. cell_type_markers.csv):
+  Seed table -> 06_disease_module/disease_module_output/module_exploratory_seed_expression_specificity.csv
+  Top module-gene table -> 06_disease_module/disease_module_output/module_exploratory_module_top_gene_expression_specificity.csv
+  Plot -> 06_disease_module/disease_module_output/module_exploratory_specificity_vs_centrality.png
+
 Interaction-type breakdown (LR-inference method / NeuronChat ligand_type):
   Candidate scored-LR edges (post step2 filtering): 197,688
   Of those, present in final module                : 1,898

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/phen/run_multiplex_visualizations.py", line 147, in <module>
+    create_enrichment_heatmap(
+TypeError: create_enrichment_heatmap() got an unexpected keyword argument 'cluster_id_whitelist'

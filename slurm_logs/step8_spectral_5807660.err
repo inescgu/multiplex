@@ -1,4 +1,0 @@
-
-[notice] A new release of pip is available: 26.1.2 -> 26.2.1
-[notice] To update, run: pip install --upgrade pip
-[2026-08-06T10:17:42.351] error: *** JOB 5807660 ON node-c01 CANCELLED AT 2026-08-06T10:17:42 DUE to SIGNAL Terminated ***

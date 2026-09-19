@@ -1,0 +1,74 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b03/tmp/slurm-6236108
+Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph
+Running on host: node-b03.lisc
+Starting at: Tue Sep  1 05:06:02 PM CEST 2026
+Loaded supra-graph: 140,139 nodes, 695,209 edges
+
+Profiling 25 gamma values from 1e-05 to 1000 x 2 partition type(s)
+
+--- RB ---
+  [RB 1/25] gamma=1e-05 -> 9,030 communities (8.9s elapsed)
+  [RB 2/25] gamma=2.154e-05 -> 9,030 communities (18.0s elapsed)
+  [RB 3/25] gamma=4.642e-05 -> 9,030 communities (27.0s elapsed)
+  [RB 4/25] gamma=0.0001 -> 9,030 communities (36.1s elapsed)
+  [RB 5/25] gamma=0.0002154 -> 9,030 communities (44.9s elapsed)
+  [RB 6/25] gamma=0.0004642 -> 9,030 communities (53.7s elapsed)
+  [RB 7/25] gamma=0.001 -> 9,030 communities (62.4s elapsed)
+  [RB 8/25] gamma=0.002154 -> 9,030 communities (71.0s elapsed)
+  [RB 9/25] gamma=0.004642 -> 9,030 communities (79.7s elapsed)
+  [RB 10/25] gamma=0.01 -> 9,030 communities (88.4s elapsed)
+  [RB 11/25] gamma=0.02154 -> 9,030 communities (97.2s elapsed)
+  [RB 12/25] gamma=0.04642 -> 9,032 communities (106.0s elapsed)
+  [RB 13/25] gamma=0.1 -> 9,035 communities (118.0s elapsed)
+  [RB 14/25] gamma=0.2154 -> 9,040 communities (130.0s elapsed)
+  [RB 15/25] gamma=0.4642 -> 9,042 communities (149.3s elapsed)
+  [RB 16/25] gamma=1 -> 9,048 communities (175.6s elapsed)
+  [RB 17/25] gamma=2.154 -> 9,059 communities (287.5s elapsed)
+  [RB 18/25] gamma=4.642 -> 9,088 communities (385.1s elapsed)
+  [RB 19/25] gamma=10 -> 9,183 communities (509.6s elapsed)
+  [RB 20/25] gamma=21.54 -> 9,432 communities (660.4s elapsed)
+  [RB 21/25] gamma=46.42 -> 9,996 communities (991.0s elapsed)
+  [RB 22/25] gamma=100 -> 11,251 communities (1326.3s elapsed)
+  [RB 23/25] gamma=215.4 -> 13,620 communities (1673.7s elapsed)
+  [RB 24/25] gamma=464.2 -> 17,804 communities (1984.8s elapsed)
+  [RB 25/25] gamma=1000 -> 23,757 communities (2235.3s elapsed)
+
+--- CPM ---
+  [CPM 1/25] gamma=1e-05 -> 9,034 communities (12.3s elapsed)
+  [CPM 2/25] gamma=2.154e-05 -> 9,036 communities (24.9s elapsed)
+  [CPM 3/25] gamma=4.642e-05 -> 9,054 communities (41.0s elapsed)
+  [CPM 4/25] gamma=0.0001 -> 10,150 communities (57.2s elapsed)
+  [CPM 5/25] gamma=0.0002154 -> 12,022 communities (77.1s elapsed)
+  [CPM 6/25] gamma=0.0004642 -> 16,573 communities (116.0s elapsed)
+  [CPM 7/25] gamma=0.001 -> 22,649 communities (191.9s elapsed)
+  [CPM 8/25] gamma=0.002154 -> 22,147 communities (308.5s elapsed)
+  [CPM 9/25] gamma=0.004642 -> 19,331 communities (485.6s elapsed)
+  [CPM 10/25] gamma=0.01 -> 17,428 communities (709.2s elapsed)
+  [CPM 11/25] gamma=0.02154 -> 17,333 communities (835.3s elapsed)
+  [CPM 12/25] gamma=0.04642 -> 19,460 communities (1016.0s elapsed)
+  [CPM 13/25] gamma=0.1 -> 33,448 communities (1115.1s elapsed)
+  [CPM 14/25] gamma=0.2154 -> 56,986 communities (1182.2s elapsed)
+  [CPM 15/25] gamma=0.4642 -> 78,037 communities (1259.0s elapsed)
+  [CPM 16/25] gamma=1 -> 140,139 communities (1261.5s elapsed)
+  [CPM 17/25] gamma=2.154 -> 140,139 communities (1263.9s elapsed)
+  [CPM 18/25] gamma=4.642 -> 140,139 communities (1266.5s elapsed)
+  [CPM 19/25] gamma=10 -> 140,139 communities (1269.0s elapsed)
+  [CPM 20/25] gamma=21.54 -> 140,139 communities (1271.5s elapsed)
+  [CPM 21/25] gamma=46.42 -> 140,139 communities (1274.0s elapsed)
+  [CPM 22/25] gamma=100 -> 140,139 communities (1276.5s elapsed)
+  [CPM 23/25] gamma=215.4 -> 140,139 communities (1279.1s elapsed)
+  [CPM 24/25] gamma=464.2 -> 140,139 communities (1281.6s elapsed)
+  [CPM 25/25] gamma=1000 -> 140,139 communities (1284.1s elapsed)
+
+Saved profile plot -> 11_hidef_hetero/resolution_profile.png
+
+Transition analysis (per partition type):
+  CPM: steepest change between gamma=0.4642 (78,037 communities) and gamma=1 (140,139 communities)
+  CPM: overall n_communities ratio across swept range = 15.51x (shows real variation)
+  RB: steepest change between gamma=464.2 (17,804 communities) and gamma=1000 (23,757 communities)
+  RB: overall n_communities ratio across swept range = 2.63x (looks flat -- widen the range)
+
+✓ Saved -> 11_hidef_hetero/resolution_profile.csv
+
+Next: pick --min-resolution/--max-resolution for the real step 11b sweep so it straddles a real transition region shown above, rather than sitting entirely inside a flat plateau -- then re-run steps 11b -> 11c -> 11e and check the persistence histogram again.
+Finished at: Tue Sep  1 06:04:54 PM CEST 2026

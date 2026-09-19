@@ -1,0 +1,32 @@
+Spatial Transcriptomics Analysis Report - HiDeF Clusters from Comparison
+======================================================================
+
+PPI Source: combined26_multiplex
+Cluster Source: HiDeF vs Louvain Comparison Results
+Persistence Threshold: 8
+Expression file: ../../expression_data/spatial_transcriptomics_drg.csv
+Total clusters: 519
+Total cell types: 12
+
+Analysis Results:
+Total clusters analyzed: 516
+Significant enrichments: 163
+
+Top 10 Enrichments:
+  HiDeF_Cluster_Cluster1-34 - Ad_HTMRs: OR=1000000.00, p=1.56e-02
+  HiDeF_Cluster_Cluster2-33 - Ad_HTMRs: OR=1000000.00, p=1.56e-02
+  HiDeF_Cluster_Cluster2-37 - Pruritogen_receptor_enriched: OR=1000000.00, p=6.25e-02
+  HiDeF_Cluster_Cluster2-42 - TRPA1+_nociceptors: OR=1000000.00, p=1.56e-02
+  HiDeF_Cluster_Cluster1-47 - Putative_C-LTMRs: OR=1000000.00, p=6.25e-02
+  HiDeF_Cluster_Cluster2-53 - Aß_RA_LTMRs: OR=1000000.00, p=1.56e-02
+  HiDeF_Cluster_Cluster2-65 - Putative_C-LTMRs: OR=1000000.00, p=9.75e-04
+  HiDeF_Cluster_Cluster1-56 - Putative_C-LTMRs: OR=1000000.00, p=1.56e-02
+  HiDeF_Cluster_Cluster1-57 - Putative_C-LTMRs: OR=1000000.00, p=6.25e-02
+  HiDeF_Cluster_Cluster1-58 - Putative_C-LTMRs: OR=1000000.00, p=2.50e-01
+
+Top Cell Type Associations:
+  Putative_C-LTMRs: 280 clusters
+  Pruritogen_receptor_enriched: 74 clusters
+  Putative_silent_nociceptors: 41 clusters
+  TRPA1+_nociceptors: 26 clusters
+  PENK+_nociceptors: 23 clusters
