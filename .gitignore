@@ -48,3 +48,10 @@ phen/combined_gene_results_*.tsv
 slurm_logs/
 __pycache__/
 .ipynb_checkpoints/
+
+# big / regenerable
+*.pkl
+*.pyc
+slurm_logs/
+__pycache__/
+.ipynb_checkpoints/
