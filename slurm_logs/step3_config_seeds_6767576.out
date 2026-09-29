@@ -1,0 +1,26 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-6767576
+Step 3: Writing config.yml, filtering seeds, building reference graphs
+Running on host: node-b01.lisc
+Starting at: Sun Sep 20 01:26:41 PM CEST 2026
+Found 23 cell-type multiplex(es): ['A-LTMR.TAC3', 'A-PEP.CHRNA7_SLC18A3', 'A-PEP.KIT', 'A-PEP.NTRK3_S100A16', 'A-PEP.SCGN_ADRA2C', 'A-Propr.EPHA3', 'A-Propr.HAPLN4', 'A-Propr.PCDH8', 'ATF3', 'Ab-LTMR.CCKAR', 'Ab-LTMR.ETV1', 'Ab-LTMR.LGI2', 'Ab-LTMR.NSG2', 'C-LTMR.CDH9', 'C-NP.MRGPRX1_GFRA2', 'C-NP.MRGPRX1_MRGPRX4', 'C-NP.SST', 'C-PEP.ADORA2B', 'C-PEP.TAC1_CACNG5', 'C-PEP.TAC1_CHRNA3', 'C-Thermo.RXFP1', 'C-Thermo.TRPM8', 'global_ppi']
+
+No --lamb-json given: MultiXrank will auto-compute a homogeneous lambda matrix.
+
+Saved config.yml -> 04_multixrank_prep/multixrank_hetero_input/config.yml
+  Multiplexes : 23
+  Bipartites  : 253
+  r           : 0.7
+  self_loops  : 0
+
+Seeds: 408 provided, 372 present in network (91.2%), 36 missing
+  Missing (first 10): ['ADAMTS5', 'ADORA3', 'BDKRB1', 'BHLHE22', 'CACNA1E', 'CACNA1G', 'CCR7', 'CHRFAM7A', 'CHRM1', 'CHRM2']
+  Saved -> 04_multixrank_prep/multixrank_hetero_input/seeds/seeds.txt
+
+Building combined reference graphs for downstream analysis ...
+  Reference graph : 17,051 nodes, 304,883 edges
+  PPI-only graph  : 17,051 nodes, 302,553 edges
+
+============================================================
+Step 3 complete — ready to run MultiXrank
+============================================================
+Finished at: Sun Sep 20 01:26:55 PM CEST 2026

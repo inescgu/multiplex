@@ -17,7 +17,7 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step1_build_celltype_ppi.py \
-    --hdrg-layers-dir 02_hdrg_multiplex/multiplex_2025hdrg/layers \
+    --hdrg-layers-dir 02_hdrg_multiplex/multiplex_2025hdrg_filtered/layers \
     --output-wdir 04_multixrank_prep/multixrank_hetero_input \
     --layers-csv neurons_only.csv \
     --merge-by none \

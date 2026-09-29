@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/lisc/home/user/gerardursin/multiplex/step11f_visualize_clusters.py", line 429, in <module>
+    main()
+  File "/lisc/home/user/gerardursin/multiplex/step11f_visualize_clusters.py", line 403, in main
+    plot_overview(g, pos, summary, details, celltype_colors,
+  File "/lisc/home/user/gerardursin/multiplex/step11f_visualize_clusters.py", line 183, in plot_overview
+    bxs = [pos[n][0] for n in background if n.split("::", 1)[0] == ct]
+  File "/lisc/home/user/gerardursin/multiplex/step11f_visualize_clusters.py", line 183, in <listcomp>
+    bxs = [pos[n][0] for n in background if n.split("::", 1)[0] == ct]
+KeyError: 'A-LTMR.TAC3::SFMBT1'

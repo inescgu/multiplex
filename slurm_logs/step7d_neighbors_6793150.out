@@ -1,0 +1,77 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g06/tmp/slurm-6793150
+Step 7d: Neighbor profiles - can by run anytime after step 1
+Running on host: node-g06.lisc
+Starting at: Thu Sep 24 01:37:16 PM CEST 2026
+Loaded 3941 unique non-seed genes recruited by the disease module from 06_disease_module/disease_module_output/disease_module.csv
+[mode: module-neighbors] treating the module's non-seed genes as the target set below -- every 'seed' in this run's output files/text means 'module neighbor gene'.
+23 layers in celltype_gene_sets.json
+Enrichment universe: 'global_ppi' (17,051 genes); 3941/3941 seeds are in it
+Markers: 58,813 rows, 22 cell types
+
+Layers:
+  A-LTMR.TAC3                            genes= 4,897 (isolated   498) seeds=1335 degAUC=0.72
+  A-PEP.CHRNA7_SLC18A3                   genes= 1,225 (isolated   205) seeds=611 degAUC=0.78
+  A-PEP.KIT                              genes= 5,008 (isolated   459) seeds=1386 degAUC=0.74
+  A-PEP.NTRK3_S100A16                    genes= 1,714 (isolated   236) seeds=834 degAUC=0.79
+  A-PEP.SCGN_ADRA2C                      genes= 1,153 (isolated   192) seeds=639 degAUC=0.78
+  A-Propr.EPHA3                          genes= 2,605 (isolated   410) seeds=1017 degAUC=0.77
+  A-Propr.HAPLN4                         genes= 1,276 (isolated   257) seeds=686 degAUC=0.81
+  A-Propr.PCDH8                          genes= 2,365 (isolated   434) seeds=923 degAUC=0.77
+  ATF3                                   genes= 1,912 (isolated   237) seeds=911 degAUC=0.77
+  Ab-LTMR.CCKAR                          genes= 1,538 (isolated   295) seeds=740 degAUC=0.79
+  Ab-LTMR.ETV1                           genes=   849 (isolated   183) seeds=490 degAUC=0.81
+  Ab-LTMR.LGI2                           genes= 1,884 (isolated   308) seeds=857 degAUC=0.80
+  Ab-LTMR.NSG2                           genes= 1,326 (isolated   247) seeds=737 degAUC=0.79
+  C-LTMR.CDH9                            genes= 1,229 (isolated   388) seeds=540 degAUC=0.82
+  C-NP.MRGPRX1_GFRA2                     genes= 1,624 (isolated   359) seeds=602 degAUC=0.80
+  C-NP.MRGPRX1_MRGPRX4                   genes= 2,517 (isolated   400) seeds=883 degAUC=0.80
+  C-NP.SST                               genes= 3,866 (isolated   450) seeds=1182 degAUC=0.76
+  C-PEP.ADORA2B                          genes= 3,501 (isolated   464) seeds=1114 degAUC=0.74
+  C-PEP.TAC1_CACNG5                      genes= 1,889 (isolated   284) seeds=784 degAUC=0.78
+  C-PEP.TAC1_CHRNA3                      genes= 1,670 (isolated   247) seeds=763 degAUC=0.79
+  C-Thermo.RXFP1                         genes= 4,999 (isolated   439) seeds=1497 degAUC=0.74
+  C-Thermo.TRPM8                         genes= 3,109 (isolated   463) seeds=1035 degAUC=0.76
+  global_ppi                             genes=17,051 (isolated     0) seeds=3941 degAUC=0.78
+
+Saved -> 07d_module_neighbors/seed_layer_presence.csv
+Saved -> 07d_module_neighbors/seed_layer_summary.csv
+
+0/3941 seed gene(s) absent from every cell-type layer entirely
+
+==============================================================================
+SEED HUBNESS / MARKER-STRENGTH SUMMARY
+==============================================================================
+Seeds: 3941 | in enrichment universe: 3941 | hub / top-marker cutoff: top 10%
+
+GLOBAL PPI ('global_ppi'): full-PPI hubness
+  seeds in PPI: 3941 | median degree seeds 46.0 vs others 14.0
+  degree AUC = 0.779 (p = 0.00e+00) | seeds in top 10%: 968 (expected 394.3, p = 4.06e-152)
+
+PER-LAYER (testable layers = 22 of 22; BH across layers)
+  Seeds higher degree than other genes        (q<0.05): 22
+  Seed excess in top-degree bin               (q<0.05): 22
+  Seeds enriched among the cell type's markers (q<0.05): 22
+  Seeds higher avg_log2FC than other markers  (q<0.05): 0
+  Seeds higher pct.1-pct.2 than other markers (q<0.05): 9
+
+POOLED seed-layer entries (descriptive; entries are not independent)
+  n = 19566 | median degree percentile 0.71 (null 0.50) | fraction in top 10%: 0.21 (null ~0.10)
+  median avg_log2FC percentile among markers: 0.48 (null 0.50)
+
+SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
+  A: specific marker + well-connected in an enriched layer         12
+  A*: specific + connected, but also a generic global hub          31
+  B: specific marker, not well-connected there                    251
+  C: hub in an enriched layer, not a distinct marker             1285
+  F: present, unremarkable                                       2362
+
+Isolated genes (degree 0) across layers: 7,455 (in gene sets json but with no edges in ppi_layer.tsv)
+==============================================================================
+  Saved -> 07d_module_neighbors/seed_individual_reports.txt
+
+  Saved -> 07d_module_neighbors/seed_vs_background.png
+  Saved -> 07d_module_neighbors/seed_percentile_ecdf.png
+  Saved -> 07d_module_neighbors/seed_layer_heatmap.png
+
+All outputs -> /lisc/home/user/gerardursin/multiplex/07d_module_neighbors
+Finished at: Thu Sep 24 01:37:34 PM CEST 2026

@@ -4,22 +4,21 @@ OMEGA SWEEP COMPARISON (top 30 genes, ranked by permutation p-value)
 Omega values tested: [0.1, 1.0, 5.0]
 
 Pairwise Jaccard overlap of top-N sets:
-  omega=0.1 vs omega=1.0: 29/31 shared -> Jaccard = 0.935
-  omega=0.1 vs omega=5.0: 14/46 shared -> Jaccard = 0.304
-  omega=1.0 vs omega=5.0: 15/45 shared -> Jaccard = 0.333
+  omega=0.1 vs omega=1.0: 2/58 shared -> Jaccard = 0.034
+  omega=0.1 vs omega=5.0: 0/60 shared -> Jaccard = 0.000
+  omega=1.0 vs omega=5.0: 0/60 shared -> Jaccard = 0.000
 
-Top-30 robust core (in every omega's top-30): 14 gene(s)
-  ['ADCYAP1', 'BLOC1S6', 'CTXN1', 'MAPK8', 'NAAA', 'PIAS2', 'PPP1R9B', 'PRKG1', 'PTN', 'RBM14', 'RGS17', 'RGS2', 'SMAD1', 'VPS29']
+Top-30 robust core (in every omega's top-30): 0 gene(s)
 
 ROBUST SIGNIFICANT CORE (perm_qvalue_bh <= 0.05 in EVERY omega tested): 0 gene(s)
   This is the direct answer to whether a hit's significance holds across your omega range, not just whether it stays in an arbitrary top-N.
   (none -- no gene was significant at this FDR in every omega tested. Check each omega's individual significant set below; a gene significant in most-but-not-all omegas may still be worth reporting with that caveat.)
-    omega=0.1: 0 significant gene(s)
-    omega=1.0: 1 significant gene(s) -- ['ADCYAP1']
-    omega=5.0: 1 significant gene(s) -- ['ADCYAP1']
+    omega=0.1: 7 significant gene(s) -- ['ADCY8', 'ADCY9', 'ADGRL1', 'CHL1', 'MAPKAPK5', 'NTM', 'TF']
+    omega=1.0: 14 significant gene(s) -- ['ADCY8', 'ADCY9', 'C1QB', 'CLSTN1', 'CNTN1', 'EFNB2', 'EPHA3', 'EPHB2', 'EPHB4', 'GAS6', 'LAMB1', 'LRP1', 'LRP8', 'VLDLR']
+    omega=5.0: 0 significant gene(s)
 
-omega=0.1: 0 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+omega=0.1: 8 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
 
-omega=1.0: 0 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+omega=1.0: 574 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
 
 omega=5.0: 0 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.

@@ -2,7 +2,7 @@
 #SBATCH --job-name=step10_perm
 #SBATCH --output=slurm_logs/step10_perm_%j.out
 #SBATCH --error=slurm_logs/step10_perm_%j.err
-#SBATCH --time=48:00:00
+#SBATCH --time=72:00:00
 #SBATCH --mem=10G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1

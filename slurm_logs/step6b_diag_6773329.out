@@ -1,0 +1,225 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g06/tmp/slurm-6773329
+Step 6b: Investigating disease module structure
+Running on host: node-g06.lisc
+Starting at: Mon Sep 21 12:30:20 PM CEST 2026
+Loaded module graph  : 06_disease_module/disease_module_output/module_graph.pkl
+  4,347 nodes, 16,586 edges
+Loaded module table   : 06_disease_module/disease_module_output/disease_module.csv (4,347 rows)
+Loaded seed list      : 04_multixrank_prep/multixrank_hetero_input/seeds/seeds.txt (1419 lines)
+
+======================================================================
+MODULE OVERVIEW
+======================================================================
+Total nodes           : 4,347
+Total edges           : 16,586
+Cell types represented: 23
+  - A-LTMR.TAC3
+  - A-PEP.CHRNA7_SLC18A3
+  - A-PEP.KIT
+  - A-PEP.NTRK3_S100A16
+  - A-PEP.SCGN_ADRA2C
+  - A-Propr.EPHA3
+  - A-Propr.HAPLN4
+  - A-Propr.PCDH8
+  - ATF3
+  - Ab-LTMR.CCKAR
+  - Ab-LTMR.ETV1
+  - Ab-LTMR.LGI2
+  - Ab-LTMR.NSG2
+  - C-LTMR.CDH9
+  - C-NP.MRGPRX1_GFRA2
+  - C-NP.MRGPRX1_MRGPRX4
+  - C-NP.SST
+  - C-PEP.ADORA2B
+  - C-PEP.TAC1_CACNG5
+  - C-PEP.TAC1_CHRNA3
+  - C-Thermo.RXFP1
+  - C-Thermo.TRPM8
+  - global_ppi
+
+Isolated nodes (degree 0, whole module): 0
+  of which are seeds                    : 0
+
+----------------------------------------------------------------------
+PER-CELL-TYPE STATS (sorted by node count, largest first)
+----------------------------------------------------------------------
+           cell_type major_category  n_nodes  n_intra_celltype_edges  pct_of_module_nodes  n_seeds  seed_fraction_of_celltype  n_isolated_nodes  n_isolated_seeds
+          global_ppi        unknown      282                     410                 6.49      233                     0.8262                 0                 0
+       Ab-LTMR.CCKAR        A-fiber      227                     518                 5.22       31                     0.1366                 0                 0
+       A-Propr.EPHA3        A-fiber      218                     395                 5.01       44                     0.2018                 0                 0
+       A-Propr.PCDH8        A-fiber      212                     376                 4.88       39                     0.1840                 0                 0
+  C-NP.MRGPRX1_GFRA2        C-fiber      209                     446                 4.81       51                     0.2440                 0                 0
+   C-PEP.TAC1_CACNG5        C-fiber      205                     480                 4.72       43                     0.2098                 0                 0
+   A-PEP.SCGN_ADRA2C        A-fiber      198                     486                 4.55       36                     0.1818                 0                 0
+C-NP.MRGPRX1_MRGPRX4        C-fiber      192                     378                 4.42       67                     0.3490                 0                 0
+      C-Thermo.TRPM8        C-fiber      191                     310                 4.39       53                     0.2775                 0                 0
+        Ab-LTMR.NSG2        A-fiber      191                     452                 4.39       25                     0.1309                 0                 0
+                ATF3 Non-classified      189                     519                 4.35       41                     0.2169                 0                 0
+       C-PEP.ADORA2B        C-fiber      187                     361                 4.30       57                     0.3048                 0                 0
+   C-PEP.TAC1_CHRNA3        C-fiber      182                     382                 4.19       56                     0.3077                 0                 0
+         C-LTMR.CDH9        C-fiber      181                     280                 4.16       28                     0.1547                 0                 0
+        Ab-LTMR.LGI2        A-fiber      181                     379                 4.16       40                     0.2210                 0                 0
+A-PEP.CHRNA7_SLC18A3        A-fiber      179                     476                 4.12       31                     0.1732                 0                 0
+         A-LTMR.TAC3        A-fiber      169                     267                 3.89       69                     0.4083                 0                 0
+            C-NP.SST        C-fiber      168                     312                 3.86       68                     0.4048                 0                 0
+      A-Propr.HAPLN4        A-fiber      165                     350                 3.80       22                     0.1333                 0                 0
+           A-PEP.KIT        A-fiber      164                     269                 3.77       84                     0.5122                 0                 0
+ A-PEP.NTRK3_S100A16        A-fiber      161                     333                 3.70       59                     0.3665                 0                 0
+      C-Thermo.RXFP1        C-fiber      156                     218                 3.59       70                     0.4487                 0                 0
+        Ab-LTMR.ETV1        A-fiber      140                     278                 3.22       22                     0.1571                 0                 0
+
+Largest cell type: global_ppi (282 nodes, 6.49% of module)
+Coefficient of variation of cell-type sizes: 0.15 (fairly even representation across cell types)
+
+----------------------------------------------------------------------
+SEED DIAGNOSTICS (within final module)
+----------------------------------------------------------------------
+Seed lines in seeds.txt      : 1419
+Unique seed genes            : 1419
+Duplicate lines in seeds.txt : none
+
+Seeds present in final module        : 1269 / 1419
+Seeds missing from final module      : 150
+Seeds isolated in final module       : 0
+Seed genes seeded under >1 cell type : 1309
+
+Seed counts by cell type (present & connected within that cell type):
+  global_ppi                      233 seeds (82.6% of cell type's nodes)  | isolated seeds: 0
+  Ab-LTMR.CCKAR                    31 seeds (13.7% of cell type's nodes)  | isolated seeds: 0
+  A-Propr.EPHA3                    44 seeds (20.2% of cell type's nodes)  | isolated seeds: 0
+  A-Propr.PCDH8                    39 seeds (18.4% of cell type's nodes)  | isolated seeds: 0
+  C-NP.MRGPRX1_GFRA2               51 seeds (24.4% of cell type's nodes)  | isolated seeds: 0
+  C-PEP.TAC1_CACNG5                43 seeds (21.0% of cell type's nodes)  | isolated seeds: 0
+  A-PEP.SCGN_ADRA2C                36 seeds (18.2% of cell type's nodes)  | isolated seeds: 0
+  C-NP.MRGPRX1_MRGPRX4             67 seeds (34.9% of cell type's nodes)  | isolated seeds: 0
+  C-Thermo.TRPM8                   53 seeds (27.8% of cell type's nodes)  | isolated seeds: 0
+  Ab-LTMR.NSG2                     25 seeds (13.1% of cell type's nodes)  | isolated seeds: 0
+  ATF3                             41 seeds (21.7% of cell type's nodes)  | isolated seeds: 0
+  C-PEP.ADORA2B                    57 seeds (30.5% of cell type's nodes)  | isolated seeds: 0
+  C-PEP.TAC1_CHRNA3                56 seeds (30.8% of cell type's nodes)  | isolated seeds: 0
+  C-LTMR.CDH9                      28 seeds (15.5% of cell type's nodes)  | isolated seeds: 0
+  Ab-LTMR.LGI2                     40 seeds (22.1% of cell type's nodes)  | isolated seeds: 0
+  A-PEP.CHRNA7_SLC18A3             31 seeds (17.3% of cell type's nodes)  | isolated seeds: 0
+  A-LTMR.TAC3                      69 seeds (40.8% of cell type's nodes)  | isolated seeds: 0
+  C-NP.SST                         68 seeds (40.5% of cell type's nodes)  | isolated seeds: 0
+  A-Propr.HAPLN4                   22 seeds (13.3% of cell type's nodes)  | isolated seeds: 0
+  A-PEP.KIT                        84 seeds (51.2% of cell type's nodes)  | isolated seeds: 0
+  A-PEP.NTRK3_S100A16              59 seeds (36.6% of cell type's nodes)  | isolated seeds: 0
+  C-Thermo.RXFP1                   70 seeds (44.9% of cell type's nodes)  | isolated seeds: 0
+  Ab-LTMR.ETV1                     22 seeds (15.7% of cell type's nodes)  | isolated seeds: 0
+
+----------------------------------------------------------------------
+SEED CONNECTIVITY ACROSS ALL LAYERS (not just final module)
+----------------------------------------------------------------------
+  gene  n_layers_present  total_degree_across_layers dominant_layer  dominant_layer_degree
+ PICK1                 4                         711     global_ppi                    440
+  ESR1                 2                         677     global_ppi                    500
+   GRN                 6                         596     global_ppi                    357
+ DISC1                 6                         586     global_ppi                    241
+ CASP6                 7                         497     global_ppi                    206
+ KLF11                 6                         477     global_ppi                    228
+ PMP22                 8                         425     global_ppi                    214
+   FYN                 7                         398     global_ppi                    183
+CAMK2A                 9                         372     global_ppi                    139
+ EFNB1                 5                         362     global_ppi                    171
+LGALS1                 6                         358     global_ppi                    181
+ STX1A                 9                         341     global_ppi                    143
+ C5AR1                 5                         330     global_ppi                    145
+  CCR1                 1                         321     global_ppi                    321
+ S100B                10                         313     global_ppi                    181
+ ARRB2                 7                         294     global_ppi                    120
+ NTRK1                 7                         288     global_ppi                    136
+  MAPT                 3                         287     global_ppi                    205
+ PRKCA                 5                         263     global_ppi                    150
+ HDAC4                 7                         262     global_ppi                    106
+  (372 unique seed gene(s); full table -> 06_disease_module/disease_module_output/module_exploratory_seed_layer_connectivity.csv)
+  0 seed gene(s) absent from EVERY cell-type PPI layer entirely
+
+----------------------------------------------------------------------
+EXPRESSION SPECIFICITY (vs. cell_type_markers.csv)
+----------------------------------------------------------------------
+  Loaded 58,813 marker rows across 22 cell types
+  Seed specificity flags:
+specificity_flag
+moderate              131
+not_in_markers         97
+broad_non_specific     96
+specific               48
+
+  Top 50 non-seed module gene specificity flags:
+specificity_flag
+moderate              28
+broad_non_specific    21
+specific               1
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_specificity_vs_centrality.png
+
+----------------------------------------------------------------------
+PLOTS
+----------------------------------------------------------------------
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_seed_pct_by_celltype.png
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_module_pct_by_celltype.png
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_top_seed_genes.png
+
+Loaded scored-LR edge provenance: 04_multixrank_prep/multixrank_hetero_input/scored_lr_edge_provenance.csv (110,144 rows)
+  Sources present     : ['cellphonedb', 'connectome', 'liana_consensus', 'logfc', 'natmi', 'neuronchat', 'sca']
+  Ligand types present: ['Gap junction protein', 'Neuropeptide', 'Synaptic adhesion molecule']
+
+----------------------------------------------------------------------
+INTERACTION-TYPE BREAKDOWN (LR-inference method / NeuronChat ligand_type)
+----------------------------------------------------------------------
+Candidate scored-LR edges (survived step2 filtering) : 110,144
+  of which present as an edge in the final module    : 16,899
+
+Candidate LR edges by LR-inference method/source:
+source
+cellphonedb        16465
+connectome         16465
+liana_consensus    16465
+logfc              16465
+natmi              16465
+sca                16465
+neuronchat           146
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_source.png
+
+Candidate LR edges by NeuronChat ligand type:
+ligand_type
+Synaptic adhesion molecule    112
+Neuropeptide                   32
+Gap junction protein            2
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_ligand_type.png
+
+Final module LR edges by LR-inference method/source:
+source
+cellphonedb        2675
+connectome         2675
+liana_consensus    2675
+logfc              2675
+natmi              2675
+sca                2675
+neuronchat           27
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_source.png
+
+Final module LR edges by NeuronChat ligand type:
+ligand_type
+Neuropeptide    27
+  Plot saved -> 06_disease_module/disease_module_output/module_exploratory_module_lr_by_ligand_type.png
+
+Saved: 06_disease_module/disease_module_output/module_exploratory_per_celltype.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_seed_membership.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_seed_layer_connectivity.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_seed_expression_specificity.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_top_gene_expression_specificity.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_specificity_vs_centrality.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_summary.txt
+Saved: 06_disease_module/disease_module_output/module_exploratory_seed_pct_by_celltype.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_pct_by_celltype.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_top_seed_genes.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_source.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_source.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_ligand_type.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_candidate_lr_by_ligand_type.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_lr_by_source.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_lr_by_source.png
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_lr_by_ligand_type.csv
+Saved: 06_disease_module/disease_module_output/module_exploratory_module_lr_by_ligand_type.png
+Finished at: Mon Sep 21 12:30:34 PM CEST 2026

@@ -1,0 +1,14 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g09/tmp/slurm-6773344
+Step 7d: Seed profiles - can by run anytime after step 3
+Running on host: node-g09.lisc
+Starting at: Mon Sep 21 12:37:48 PM CEST 2026
+Loading gene sets from 04_multixrank_prep/multixrank_hetero_input/celltype_gene_sets.json ...
+Loaded 408 seed genes from 04_multixrank_prep/multixrank_hetero_input/seeds/seeds_original.txt
+
+Computing per-layer degree for 408 seed genes ...
+Saved -> 07d_seed_layer_profile/seed_layer_presence.csv
+Saved -> 07d_seed_layer_profile/seed_layer_summary.csv
+
+36/408 seed gene(s) absent from every cell-type layer entirely
+  ADORA3, SLC17A6, BDKRB1, BHLHE22, GRIN2D, KCNK9, KCNK10, KCNK2, KCNT1, LPAR5, TAC4, P2RX3, HRH2, EPHX2, NPY1R, MRGPRE, ENPP2, NTSR2, F2RL3, GALR2
+Finished at: Mon Sep 21 12:37:49 PM CEST 2026

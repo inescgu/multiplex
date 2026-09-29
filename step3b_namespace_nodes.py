@@ -28,6 +28,46 @@ What this does
 
 Idempotent: originals are preserved as *.tsv.orig on first run, and
 re-running re-derives from those backups.
+
+NEW: --exclude-seed-celltypes / --exclude-ppi-seeds
+------------------------------------------------------
+Previously, step (2) above (re-expanding plain seeds into namespaced
+seeds) had no exclusion logic at all: a seed gene present in ANY cell
+type's gene set -- including a --base-ppi backbone like "global_ppi",
+added in step 1 and wired to every other cell type via identity bipartite
+edges in step 2 -- got a "<celltype>::GENE" seed entry for THAT cell type
+too. Since a backbone like global_ppi is by construction comprehensive,
+this meant nearly every seed silently grew a "global_ppi::GENE" seed
+entry, with no way to stop it here -- the --exclude-ppi-seeds /
+--exclude-seed-celltypes flags on step 5 (preflight) and step 6 (build
+disease module) only filter THEIR OWN in-memory seed lists; they never
+touch seeds.txt on disk, so they have zero effect on the actual MultiXrank
+random walk in step 4, which just reads seeds.txt as-is. In practice this
+meant a pipeline run with --exclude-ppi-seeds passed at steps 5/6 could
+still have had the backbone anchoring the RWR itself in step 4, silently.
+
+This flag closes that gap at the source: pass
+
+    --exclude-seed-celltypes global_ppi
+    --exclude-ppi-seeds                 # shorthand for the line above
+
+and the namespaced expansion in step (2) will skip creating a
+"<celltype>::GENE" seed entry for any excluded cell type, for every seed,
+before seeds.txt is ever written to disk -- so step 4's random walk never
+sees those entries as seeds in the first place. The cell type's NODES and
+its identity bipartite edges are untouched (this only affects the SEED
+list): global_ppi (or whatever cell type you exclude) still fully
+participates in the network and can still be reached as a bridging
+resource downstream, it just never gets restart probability mass of its
+own. This mirrors the "seed-only" exclusion semantics already used by
+step 5's --exclude-seed-celltypes/--exclude-ppi-seeds and step 6's option
+of the same name -- now it's enforced where it actually matters, before
+step 4 runs, not just in the two scripts that run after.
+
+If you want the excluded cell type gone from the network entirely (not
+just from the seed list), that's step 5/6's separate --exclude-celltypes /
+--exclude-ppi-layer option -- this script does not touch multiplex or
+bipartite structure, only which namespaced entries seeds.txt gets.
 """
 import argparse
 import json
@@ -47,12 +87,39 @@ def namespace(gene: str, ct: str) -> str:
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--wdir", required=True)
+    ap.add_argument("--exclude-seed-celltypes", nargs="+", default=[], metavar="CELLTYPE",
+                     help="Cell type(s) (the '<celltype>::' namespace prefix) to skip when "
+                          "re-expanding plain seeds into namespaced seeds -- i.e. these cell "
+                          "types will NEVER get a '<celltype>::GENE' seed entry, even if the "
+                          "gene is present in that cell type's gene set. The cell type's nodes "
+                          "and bipartite edges are untouched; only seeds.txt is affected. "
+                          "Example: --exclude-seed-celltypes global_ppi. Case-insensitive.")
+    ap.add_argument("--exclude-ppi-seeds", action="store_true",
+                     help="Shorthand for --exclude-seed-celltypes global_ppi -- stops the "
+                          "base/comprehensive PPI pseudo-cell-type added in step 1 via "
+                          "--base-ppi from ever anchoring the MultiXrank random walk as a "
+                          "seed, while leaving it fully in place as a connectivity resource.")
     args = ap.parse_args()
     wdir = Path(args.wdir)
+
+    exclude_seed_celltypes = list(args.exclude_seed_celltypes)
+    if args.exclude_ppi_seeds and "global_ppi" not in {c.lower() for c in exclude_seed_celltypes}:
+        exclude_seed_celltypes.append("global_ppi")
+    exclude_seed_ct_upper = {c.strip().upper() for c in exclude_seed_celltypes}
+    if exclude_seed_ct_upper:
+        print(f"Seed-only exclusion active: {sorted(exclude_seed_ct_upper)} will NEVER receive "
+              f"a namespaced seed entry (nodes/bipartite edges are unaffected)\n")
 
     mul_root = wdir / "multiplex"
     cell_types = sorted(p.name for p in mul_root.iterdir() if p.is_dir())
     print(f"Found {len(cell_types)} cell-type multiplex(es)\n")
+
+    if exclude_seed_ct_upper:
+        unmatched = exclude_seed_ct_upper - {ct.upper() for ct in cell_types}
+        if unmatched:
+            print(f"  \u26a0 --exclude-seed-celltypes/--exclude-ppi-seeds named {sorted(unmatched)}, "
+                  f"which doesn't match any discovered multiplex folder name ({cell_types}) -- "
+                  f"check spelling/case; as given, it will simply never match and have no effect.\n")
 
     # ------------------------------------------------------------------
     # 1. Namespace nodes in each ppi_layer.tsv; remember gene sets per ct
@@ -98,6 +165,10 @@ def main():
 
     # Always re-derive from a fresh copy of whatever step 3 just wrote,
     # so re-running this script after re-running step 3 works correctly.
+    # NOTE: this also means re-running this script with a DIFFERENT
+    # --exclude-seed-celltypes value (or none at all) correctly re-expands
+    # from the same plain base each time -- exclusion is applied fresh at
+    # expansion time below, never baked into the plain backup itself.
     with open(current_seeds_path) as f:
         current_lines = [s.strip() for s in f if s.strip()]
     already_namespaced = any(SEP in s for s in current_lines)
@@ -117,20 +188,37 @@ def main():
                 f.write(s + "\n")
 
     expanded = set()
-    per_seed_hits = {}
+    per_seed_hits = {}          # ct's the seed matched AND was expanded into
+    per_seed_excluded_hits = {} # ct's the seed matched but was excluded from expansion
     for s in base_seeds:
-        hits = [ct for ct, genes in gene_sets.items() if s in genes]
-        per_seed_hits[s] = hits
-        expanded.update(namespace(s, ct) for ct in hits)
+        all_hits = [ct for ct, genes in gene_sets.items() if s in genes]
+        kept_hits = [ct for ct in all_hits if ct.upper() not in exclude_seed_ct_upper]
+        excluded_hits = [ct for ct in all_hits if ct.upper() in exclude_seed_ct_upper]
+        per_seed_hits[s] = kept_hits
+        if excluded_hits:
+            per_seed_excluded_hits[s] = excluded_hits
+        expanded.update(namespace(s, ct) for ct in kept_hits)
 
     with open(current_seeds_path, "w") as f:
         for s in sorted(expanded):
             f.write(s + "\n")
 
     zero_hit = [s for s, hits in per_seed_hits.items() if not hits]
+    n_excluded_entries = sum(len(v) for v in per_seed_excluded_hits.values())
     print(f"\nSeeds: {len(base_seeds)} plain -> {len(expanded)} namespaced seed entries")
+    if exclude_seed_ct_upper:
+        print(f"  [exclude-seed-celltypes] Skipped {n_excluded_entries} would-be seed "
+              f"entr{'y' if n_excluded_entries == 1 else 'ies'} under {sorted(exclude_seed_ct_upper)} "
+              f"across {len(per_seed_excluded_hits)} seed gene(s) -- those cell type(s) remain "
+              f"in the network and can still be reached while bridging, they just never start "
+              f"with seed restart mass of their own.")
+        newly_zero_hit = [s for s in zero_hit if s in per_seed_excluded_hits]
+        if newly_zero_hit:
+            print(f"  \u26a0 {len(newly_zero_hit)} seed gene(s) matched ONLY excluded cell type(s) "
+                  f"and now have NO namespaced seed entry at all (fell out of the seed list "
+                  f"entirely, not just out of that one cell type): {newly_zero_hit[:10]}")
     if zero_hit:
-        print(f"  \u26a0 {len(zero_hit)} seed genes matched NO cell-type layer "
+        print(f"  \u26a0 {len(zero_hit)} seed genes matched NO (non-excluded) cell-type layer "
               f"(will contribute nothing): {zero_hit[:10]}")
     print(f"  Saved -> {current_seeds_path}")
 

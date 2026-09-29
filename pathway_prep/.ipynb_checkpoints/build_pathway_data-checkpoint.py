@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-pipeline.py
+build_pathway_data.py
 ===========
 Single pipeline for Reactome intercellular interaction analysis.
 Replaces: main script + rebuild_reactome_csv.py + merge_reactome_kegg.py
@@ -35,7 +35,7 @@ LR_PAIRS_CSV          = Path("00_inputs/lr_pairs.csv")  # OR WORK_DIR / "human_l
 
 # LAYERS - these exist AFTER steps 1 & 2
 LAYERS_DIR_1          = Path("01_ts_multiplex/new_ts/layers")
-LAYERS_DIR_2          = Path("02_hdrg_multiplex/multiplex_2025hdrg/layers")
+LAYERS_DIR_2          = Path("02_hdrg_multiplex/multiplex_2025hdrg_filtered/layers")
 
 # ── OUTPUTS ────────────────────────────────────────────────────────────
 OUT_INTERACTIONS      = WORK_DIR / "reactome_intercellular_interactions.csv"

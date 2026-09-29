@@ -1,0 +1,42 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b01/tmp/slurm-6767686
+Step 2: Building LR (+ Reactome) bipartite edges between cell types,
+        plus identity bipartite edges connecting global_ppi to everything
+Running on host: node-b01.lisc
+Starting at: Sun Sep 20 01:33:44 PM CEST 2026
+Found 23 cell-type multiplex(es)
+
+  A-LTMR.TAC3                        : 6,170 genes -> namespaced
+  A-PEP.CHRNA7_SLC18A3               : 1,232 genes -> namespaced
+  A-PEP.KIT                          : 3,566 genes -> namespaced
+  A-PEP.NTRK3_S100A16                : 1,606 genes -> namespaced
+  A-PEP.SCGN_ADRA2C                  : 1,824 genes -> namespaced
+  A-Propr.EPHA3                      : 3,022 genes -> namespaced
+  A-Propr.HAPLN4                     : 2,427 genes -> namespaced
+  A-Propr.PCDH8                      : 3,606 genes -> namespaced
+  ATF3                               : 1,655 genes -> namespaced
+  Ab-LTMR.CCKAR                      : 1,685 genes -> namespaced
+  Ab-LTMR.ETV1                       : 3,106 genes -> namespaced
+  Ab-LTMR.LGI2                       : 3,134 genes -> namespaced
+  Ab-LTMR.NSG2                       : 2,164 genes -> namespaced
+  C-LTMR.CDH9                        : 2,140 genes -> namespaced
+  C-NP.MRGPRX1_GFRA2                 : 1,184 genes -> namespaced
+  C-NP.MRGPRX1_MRGPRX4               : 1,492 genes -> namespaced
+  C-NP.SST                           : 1,432 genes -> namespaced
+  C-PEP.ADORA2B                      : 3,285 genes -> namespaced
+  C-PEP.TAC1_CACNG5                  : 1,435 genes -> namespaced
+  C-PEP.TAC1_CHRNA3                  : 1,814 genes -> namespaced
+  C-Thermo.RXFP1                     : 3,636 genes -> namespaced
+  C-Thermo.TRPM8                     : 1,227 genes -> namespaced
+  global_ppi                         : 17,051 genes -> namespaced
+
+  Namespaced 253 bipartite file(s)
+
+Seeds: 372 plain -> 2150 namespaced seed entries
+  Saved -> 04_multixrank_prep/multixrank_hetero_input/seeds/seeds.txt
+
+Rebuilding reference graphs from namespaced files ...
+  Reference graph : 78,890 nodes, 628,034 edges
+  PPI-only graph  : 69,893 nodes, 557,829 edges
+
+Done. Ready for step 4. Do NOT re-run step 3 without re-running this script again afterward.
+Finished at: Sun Sep 20 01:34:07 PM CEST 2026

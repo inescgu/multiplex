@@ -1,0 +1,91 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-6830644
+Step 10: Permutation test, array task 5
+Running on host: node-c02.lisc
+Starting at: Mon Sep 28 10:37:15 AM CEST 2026
+
+======================================================================
+step14: Permutation Test for Disease Module (heterogeneous pipeline)
+  Disease module dir: 06_disease_module/disease_module_output
+  Reference graph   : 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  N permutations: 100 | k: 200
+  Restart: 0.7 | Scaling: 0
+======================================================================
+
+Loading full reference graph...
+  Reference graph: 69,207 nodes, 609,939 edges
+
+Applying --lcc-per-layer filter (matching step6) ...
+  [lcc-per-layer] Cell type 'A-LTMR.TAC3': 4,399 -> 4,389 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.CHRNA7_SLC18A3': 1,020 -> 1,002 nodes (dropped 18)
+  [lcc-per-layer] Cell type 'A-PEP.KIT': 4,549 -> 4,539 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.NTRK3_S100A16': 1,478 -> 1,457 nodes (dropped 21)
+  [lcc-per-layer] Cell type 'A-PEP.SCGN_ADRA2C': 961 -> 953 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'A-Propr.EPHA3': 2,195 -> 2,191 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'A-Propr.HAPLN4': 1,019 -> 1,004 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'A-Propr.PCDH8': 1,931 -> 1,915 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'ATF3': 1,675 -> 1,667 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'Ab-LTMR.CCKAR': 1,243 -> 1,232 nodes (dropped 11)
+  [lcc-per-layer] Cell type 'Ab-LTMR.ETV1': 666 -> 651 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'Ab-LTMR.LGI2': 1,576 -> 1,562 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'Ab-LTMR.NSG2': 1,079 -> 1,065 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'C-LTMR.CDH9': 841 -> 819 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_GFRA2': 1,265 -> 1,231 nodes (dropped 34)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_MRGPRX4': 2,117 -> 2,102 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'C-NP.SST': 3,416 -> 3,406 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'C-PEP.ADORA2B': 3,037 -> 3,011 nodes (dropped 26)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CACNG5': 1,605 -> 1,598 nodes (dropped 7)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CHRNA3': 1,423 -> 1,406 nodes (dropped 17)
+  [lcc-per-layer] Cell type 'C-Thermo.RXFP1': 4,560 -> 4,554 nodes (dropped 6)
+  [lcc-per-layer] Cell type 'C-Thermo.TRPM8': 2,646 -> 2,630 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'global_ppi': 17,051 -> 17,051 nodes (dropped 0)
+
+  [lcc-per-layer] Total: 69,207 -> 61,435 nodes, 609,939 -> 590,509 edges
+
+Building sparse transition matrix...
+  Transition matrix: 61,435 x 61,435, nnz=1,181,018
+
+Loading true disease module...
+  True module size: 9940
+  True seeds in module: 1036
+
+True module metrics (relative to full reference network):
+  size                     : 9940.000000
+  edge_density             : 0.000834
+  mean_internal_deg        : 8.291147
+  conductance              : 0.561782
+  mean_rwr_score           : 0.000192
+
+Building degree bins (bin_size=5)...
+  Created 105 degree bins
+
+Running 100 permutations...
+  Permutation 100/100 | elapsed 22284s | ETA 0s
+
+Completed 100 valid permutations (0 failed/skipped)
+
+======================================================================
+Metric                          True  Null Mean    Null SD    Z-score    p-value
+----------------------------------------------------------------------
+size                       9940.0000  7577.2000  1139.2070       2.07     0.9600
+edge_density                  0.0008     0.0021     0.0001     -15.39     1.0000
+mean_internal_deg             8.2911    15.6995     2.0532      -3.61     1.0000
+conductance                   0.5618     0.6669     0.0467      -2.25     0.0300
+mean_rwr_score                0.0002     0.0001     0.0000       4.10     0.0000
+======================================================================
+
+Jaccard similarity (true vs random modules):
+  Mean:   0.1078
+  Median: 0.1092
+  Max:    0.1243
+
+Saved results → 06_disease_module/perm_array/task_5/permutation_test/permutation_test_results.csv
+Saved Jaccard scores → 06_disease_module/perm_array/task_5/permutation_test/jaccard_scores.csv
+Saved null module metrics → 06_disease_module/perm_array/task_5/permutation_test/null_module_metrics.csv
+Saved null distribution plot → 06_disease_module/perm_array/task_5/permutation_test/permutation_test_null_distributions.png
+Saved Jaccard distribution plot → 06_disease_module/perm_array/task_5/permutation_test/permutation_test_jaccard.png
+
+======================================================================
+All outputs saved to: 06_disease_module/perm_array/task_5/permutation_test
+======================================================================
+
+Finished at: Mon Sep 28 04:52:48 PM CEST 2026

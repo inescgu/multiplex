@@ -1,0 +1,5 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-h08/tmp/slurm-6909392
+Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph
+Running on host: node-h08.lisc
+Starting at: Tue Sep 29 11:37:56 AM CEST 2026
+Finished at: Tue Sep 29 11:38:39 AM CEST 2026

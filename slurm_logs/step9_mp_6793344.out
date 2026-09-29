@@ -1,0 +1,398 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b02/tmp/slurm-6793344
+Step 9: Marchenko-Pastur analysis
+Running on host: node-b02.lisc
+Starting at: Thu Sep 24 02:44:00 PM CEST 2026
+
+======================================================================
+[1] Loading disease module
+======================================================================
+Loading disease module graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  9,940 nodes, 41,207 edges
+  Cell-type composition of module:
+    C-PEP.ADORA2B                     565 genes
+    C-NP.SST                          562 genes
+    A-LTMR.TAC3                       546 genes
+    C-Thermo.RXFP1                    538 genes
+    C-PEP.TAC1_CACNG5                 515 genes
+    C-PEP.TAC1_CHRNA3                 514 genes
+    C-Thermo.TRPM8                    514 genes
+    A-PEP.KIT                         499 genes
+    C-NP.MRGPRX1_MRGPRX4              468 genes
+    A-Propr.EPHA3                     443 genes
+    A-PEP.CHRNA7_SLC18A3              433 genes
+    A-Propr.PCDH8                     432 genes
+    A-PEP.NTRK3_S100A16               419 genes
+    ATF3                              414 genes
+    Ab-LTMR.LGI2                      402 genes
+    Ab-LTMR.CCKAR                     401 genes
+    A-Propr.HAPLN4                    400 genes
+    Ab-LTMR.NSG2                      396 genes
+    C-LTMR.CDH9                       393 genes
+    C-NP.MRGPRX1_GFRA2                390 genes
+    A-PEP.SCGN_ADRA2C                 369 genes
+    Ab-LTMR.ETV1                      327 genes
+  No zero-degree nodes remain -- good.
+
+  Restricting to largest connected component before spectral analysis (pass --no-lcc-restrict to skip -- not recommended, see docstring) ...
+  True connected components (via nx.connected_components, not eigenvalue counting): 1
+  Graph is already fully connected -- nothing dropped.
+  Saved dropped-component node lists -> 09_marchenko_pastur/dropped_small_components.json
+
+======================================================================
+[2] Building cell-type layers
+======================================================================
+  Cell-type layers built:
+    A-LTMR.TAC3                       546 nodes,  2,087 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.CHRNA7_SLC18A3              433 nodes,  1,992 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.KIT                         499 nodes,  2,080 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.NTRK3_S100A16               419 nodes,  1,604 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.SCGN_ADRA2C                 369 nodes,  1,766 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.EPHA3                     443 nodes,  1,414 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.HAPLN4                    400 nodes,  1,378 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.PCDH8                     432 nodes,  1,276 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    ATF3                              414 nodes,  1,931 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.CCKAR                     401 nodes,  1,362 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.ETV1                      327 nodes,  1,797 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.LGI2                      402 nodes,  1,429 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.NSG2                      396 nodes,  1,533 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-LTMR.CDH9                       393 nodes,    818 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_GFRA2                390 nodes,  1,143 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_MRGPRX4              468 nodes,  1,634 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.SST                          562 nodes,  2,432 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.ADORA2B                     565 nodes,  2,220 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CACNG5                 515 nodes,  1,962 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CHRNA3                 514 nodes,  1,775 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.RXFP1                    538 nodes,  2,218 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.TRPM8                    514 nodes,  1,593 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+
+======================================================================
+[3] Per-cell-type Marchenko-Pastur fits (omega-independent, computed once)
+======================================================================
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-LTMR.TAC3] beta=1.000  sigma_hat=2.0964  MP bounds=[0.0000, 17.5789]  optimal thresh (Gavish-Donoho)=4.0678
+  [layer_A-LTMR.TAC3] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.CHRNA7_SLC18A3] beta=1.000  sigma_hat=2.8166  MP bounds=[0.0000, 31.7340]  optimal thresh (Gavish-Donoho)=3.5867
+  [layer_A-PEP.CHRNA7_SLC18A3] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.KIT] beta=1.000  sigma_hat=2.0977  MP bounds=[0.0000, 17.6009]  optimal thresh (Gavish-Donoho)=4.7322
+  [layer_A-PEP.KIT] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.NTRK3_S100A16] beta=1.000  sigma_hat=2.1748  MP bounds=[0.0000, 18.9184]  optimal thresh (Gavish-Donoho)=3.8306
+  [layer_A-PEP.NTRK3_S100A16] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-PEP.SCGN_ADRA2C] beta=1.000  sigma_hat=2.9894  MP bounds=[0.0000, 35.7461]  optimal thresh (Gavish-Donoho)=4.3497
+  [layer_A-PEP.SCGN_ADRA2C] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.EPHA3] beta=1.000  sigma_hat=1.8605  MP bounds=[0.0000, 13.8466]  optimal thresh (Gavish-Donoho)=4.2507
+  [layer_A-Propr.EPHA3] outliers above MP lambda+: 1  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.HAPLN4] beta=1.000  sigma_hat=2.0779  MP bounds=[0.0000, 17.2698]  optimal thresh (Gavish-Donoho)=4.1785
+  [layer_A-Propr.HAPLN4] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_A-Propr.PCDH8] beta=1.000  sigma_hat=1.7400  MP bounds=[0.0000, 12.1108]  optimal thresh (Gavish-Donoho)=4.0046
+  [layer_A-Propr.PCDH8] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_ATF3] beta=1.000  sigma_hat=2.4819  MP bounds=[0.0000, 24.6396]  optimal thresh (Gavish-Donoho)=4.4453
+  [layer_ATF3] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.CCKAR] beta=1.000  sigma_hat=1.9559  MP bounds=[0.0000, 15.3020]  optimal thresh (Gavish-Donoho)=4.2665
+  [layer_Ab-LTMR.CCKAR] outliers above MP lambda+: 0  |  above optimal threshold: 19
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.ETV1] beta=1.000  sigma_hat=3.5293  MP bounds=[0.0000, 49.8250]  optimal thresh (Gavish-Donoho)=3.7757
+  [layer_Ab-LTMR.ETV1] outliers above MP lambda+: 0  |  above optimal threshold: 19
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.LGI2] beta=1.000  sigma_hat=2.0425  MP bounds=[0.0000, 16.6879]  optimal thresh (Gavish-Donoho)=3.9750
+  [layer_Ab-LTMR.LGI2] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_Ab-LTMR.NSG2] beta=1.000  sigma_hat=2.3236  MP bounds=[0.0000, 21.5964]  optimal thresh (Gavish-Donoho)=4.1016
+  [layer_Ab-LTMR.NSG2] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 406 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dpanel_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-LTMR.CDH9] beta=1.000  sigma_hat=1.4590  MP bounds=[0.0000, 8.5148]  optimal thresh (Gavish-Donoho)=3.0264
+  [layer_C-LTMR.CDH9] outliers above MP lambda+: 1  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.MRGPRX1_GFRA2] beta=1.000  sigma_hat=1.6990  MP bounds=[0.0000, 11.5465]  optimal thresh (Gavish-Donoho)=3.8812
+  [layer_C-NP.MRGPRX1_GFRA2] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.MRGPRX1_MRGPRX4] beta=1.000  sigma_hat=1.8923  MP bounds=[0.0000, 14.3236]  optimal thresh (Gavish-Donoho)=4.1562
+  [layer_C-NP.MRGPRX1_MRGPRX4] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-NP.SST] beta=1.000  sigma_hat=2.1708  MP bounds=[0.0000, 18.8504]  optimal thresh (Gavish-Donoho)=4.5519
+  [layer_C-NP.SST] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-PEP.ADORA2B] beta=1.000  sigma_hat=2.1095  MP bounds=[0.0000, 17.8001]  optimal thresh (Gavish-Donoho)=4.0807
+  [layer_C-PEP.ADORA2B] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-PEP.TAC1_CACNG5] beta=1.000  sigma_hat=2.0201  MP bounds=[0.0000, 16.3227]  optimal thresh (Gavish-Donoho)=4.2701
+  [layer_C-PEP.TAC1_CACNG5] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-PEP.TAC1_CHRNA3] beta=1.000  sigma_hat=1.9628  MP bounds=[0.0000, 15.4106]  optimal thresh (Gavish-Donoho)=3.6412
+  [layer_C-PEP.TAC1_CHRNA3] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: Factor is exactly singular); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-Thermo.RXFP1] beta=1.000  sigma_hat=2.1649  MP bounds=[0.0000, 18.7465]  optimal thresh (Gavish-Donoho)=4.3405
+  [layer_C-Thermo.RXFP1] outliers above MP lambda+: 0  |  above optimal threshold: 20
+    shift-invert bulk fetch failed (RuntimeError: failed to factorize matrix at line 110 in file ../scipy/sparse/linalg/_dsolve/SuperLU/SRC/dsnode_bmod.c
+); falling back to dense eigvalsh (small matrix only) or which='SM'
+  [layer_C-Thermo.TRPM8] beta=1.000  sigma_hat=1.8287  MP bounds=[0.0000, 13.3761]  optimal thresh (Gavish-Donoho)=3.4802
+  [layer_C-Thermo.TRPM8] outliers above MP lambda+: 0  |  above optimal threshold: 20
+
+======================================================================
+[4] Building real inter-layer coupling blocks (signaling edges; omega-independent, computed once)
+======================================================================
+  Real inter-layer coupling blocks: 231 cell-type pairs, 3,763 signaling edges total
+    ATF3 <-> C-NP.SST: 55 edges
+    C-LTMR.CDH9 <-> C-NP.SST: 46 edges
+    ATF3 <-> C-LTMR.CDH9: 45 edges
+    C-NP.SST <-> C-Thermo.RXFP1: 44 edges
+    ATF3 <-> C-NP.MRGPRX1_MRGPRX4: 38 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CHRNA3: 37 edges
+    C-LTMR.CDH9 <-> C-Thermo.RXFP1: 37 edges
+    A-PEP.NTRK3_S100A16 <-> C-Thermo.RXFP1: 35 edges
+    ATF3 <-> C-Thermo.RXFP1: 35 edges
+    ATF3 <-> C-PEP.TAC1_CHRNA3: 35 edges
+    ATF3 <-> C-PEP.ADORA2B: 34 edges
+    A-Propr.HAPLN4 <-> C-NP.SST: 34 edges
+    ATF3 <-> C-NP.MRGPRX1_GFRA2: 32 edges
+    A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_MRGPRX4: 32 edges
+    A-LTMR.TAC3 <-> ATF3: 32 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-NP.MRGPRX1_MRGPRX4: 31 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-NP.SST: 31 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.RXFP1: 30 edges
+    C-LTMR.CDH9 <-> C-NP.MRGPRX1_MRGPRX4: 30 edges
+    A-PEP.KIT <-> ATF3: 30 edges
+
+======================================================================
+[5] Supra-Laplacian (omega=0.1)
+======================================================================
+  Supra-Laplacian shape: 9940x9940 across 22 cell types
+  Computing 6 smallest eigenvalues of 9940x9940 supra-Laplacian...
+  Smallest eigenvalues: [-0.        0.030412  0.03293   0.037269  0.03759   0.039399]
+  Global Fiedler sign split: 9,009 negative (90.6%), 931 positive (9.4%)
+  Minority sign: positive (9.4% of node-copies). Multiplex bridges = genes consistently on the positive (minority) side across their present cell types.
+  Bridge flagging method: fractional (minority sign = positive)
+    min_celltypes_present=3, frac_minority_threshold=0.6
+    2691/4203 genes excluded as insufficient_data (present in <3 cell types)
+    Multiplex bridges flagged: 8 / 4203
+  Running in-process permutation test (10000 permutations) so candidates can be ranked by significance, not raw fraction ...
+  Permutation test done: 7 genes significant at FDR <= 0.05 (out of 1512 testable)
+
+======================================================================
+[6] Perturbation: dropping multiplex bridge genes (omega=0.1)
+======================================================================
+  Removing 8 bridge genes -> 29 node-copies -> 9,911 nodes remain
+  True connected components after removal: 3
+  Removing bridge genes fragmented the module -- restricting perturbed graph to its largest component too, for a fair eigenvalue comparison against the (also LCC-restricted) original.
+  True connected components (via nx.connected_components, not eigenvalue counting): 3
+  Largest component: 9,909 / 9,911 nodes (100.0%)
+  Dropping 2 smaller component(s), 2 nodes total (sizes: [1, 1])
+  Cell-type layers built:
+    A-LTMR.TAC3                       540 nodes,  2,074 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.CHRNA7_SLC18A3              432 nodes,  1,991 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.KIT                         498 nodes,  2,076 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.NTRK3_S100A16               418 nodes,  1,600 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.SCGN_ADRA2C                 369 nodes,  1,766 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.EPHA3                     441 nodes,  1,410 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.HAPLN4                    399 nodes,  1,377 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.PCDH8                     430 nodes,  1,272 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    ATF3                              413 nodes,  1,929 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.CCKAR                     400 nodes,  1,359 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.ETV1                      327 nodes,  1,797 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.LGI2                      401 nodes,  1,425 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.NSG2                      395 nodes,  1,530 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-LTMR.CDH9                       390 nodes,    809 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_GFRA2                390 nodes,  1,143 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_MRGPRX4              465 nodes,  1,627 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.SST                          560 nodes,  2,419 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.ADORA2B                     565 nodes,  2,220 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CACNG5                 514 nodes,  1,961 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CHRNA3                 513 nodes,  1,774 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.RXFP1                    535 nodes,  2,208 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.TRPM8                    514 nodes,  1,593 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+  Real inter-layer coupling blocks: 231 cell-type pairs, 3,544 signaling edges total
+    ATF3 <-> C-NP.SST: 54 edges
+    ATF3 <-> C-LTMR.CDH9: 45 edges
+    C-LTMR.CDH9 <-> C-NP.SST: 45 edges
+    C-NP.SST <-> C-Thermo.RXFP1: 42 edges
+    ATF3 <-> C-NP.MRGPRX1_MRGPRX4: 37 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CHRNA3: 36 edges
+    A-PEP.NTRK3_S100A16 <-> C-Thermo.RXFP1: 35 edges
+    C-LTMR.CDH9 <-> C-Thermo.RXFP1: 35 edges
+    A-Propr.HAPLN4 <-> C-NP.SST: 34 edges
+    ATF3 <-> C-PEP.TAC1_CHRNA3: 34 edges
+    ATF3 <-> C-Thermo.RXFP1: 33 edges
+    ATF3 <-> C-PEP.ADORA2B: 33 edges
+    ATF3 <-> C-NP.MRGPRX1_GFRA2: 31 edges
+    A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_MRGPRX4: 31 edges
+    C-NP.MRGPRX1_GFRA2 <-> C-NP.MRGPRX1_MRGPRX4: 31 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-NP.SST: 31 edges
+    C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.RXFP1: 30 edges
+    C-LTMR.CDH9 <-> C-NP.MRGPRX1_MRGPRX4: 30 edges
+    A-PEP.KIT <-> ATF3: 30 edges
+    A-PEP.NTRK3_S100A16 <-> C-LTMR.CDH9: 30 edges
+  Computing 6 smallest eigenvalues of 9909x9909 supra-Laplacian...
+  Perturbed smallest eigenvalues: [-0.        0.025812  0.031879  0.034318  0.035915  0.03626 ]
+
+======================================================================
+[7] Saving summary (omega=0.1)
+======================================================================
+
+Done (omega=0.1) in 70.8s -- outputs in 09_marchenko_pastur/omega_0.1
+
+======================================================================
+[5] Supra-Laplacian (omega=1.0)
+======================================================================
+  Supra-Laplacian shape: 9940x9940 across 22 cell types
+  Computing 6 smallest eigenvalues of 9940x9940 supra-Laplacian...
+  Smallest eigenvalues: [0.       0.117233 0.118555 0.129097 0.135491 0.141561]
+  Global Fiedler sign split: 5,259 negative (52.9%), 4,681 positive (47.1%)
+  Minority sign: positive (47.1% of node-copies). Multiplex bridges = genes consistently on the positive (minority) side across their present cell types.
+  NOTE: split is close to balanced (47.1% minority) -- minority-side flagging is less distinctive here than in a heavily skewed case; consider whether either-side interpretation makes more sense for this run.
+  Bridge flagging method: fractional (minority sign = positive)
+    min_celltypes_present=3, frac_minority_threshold=0.6
+    2691/4203 genes excluded as insufficient_data (present in <3 cell types)
+    Multiplex bridges flagged: 574 / 4203
+  Running in-process permutation test (10000 permutations) so candidates can be ranked by significance, not raw fraction ...
+  Permutation test done: 14 genes significant at FDR <= 0.05 (out of 1512 testable)
+
+======================================================================
+[6] Perturbation: dropping multiplex bridge genes (omega=1.0)
+======================================================================
+  Removing 574 bridge genes -> 2196 node-copies -> 7,744 nodes remain
+  True connected components after removal: 348
+  Removing bridge genes fragmented the module -- restricting perturbed graph to its largest component too, for a fair eigenvalue comparison against the (also LCC-restricted) original.
+  True connected components (via nx.connected_components, not eigenvalue counting): 348
+  Largest component: 7,369 / 7,744 nodes (95.2%)
+  Dropping 347 smaller component(s), 375 nodes total (sizes: [4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]...)
+  Cell-type layers built:
+    A-LTMR.TAC3                       509 nodes,  1,903 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.CHRNA7_SLC18A3              237 nodes,    678 intra-layer edges,     3 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.KIT                         453 nodes,  1,733 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.NTRK3_S100A16               257 nodes,    658 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-PEP.SCGN_ADRA2C                 196 nodes,    637 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.EPHA3                     418 nodes,  1,260 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.HAPLN4                    350 nodes,  1,112 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    A-Propr.PCDH8                     411 nodes,  1,167 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    ATF3                              282 nodes,    826 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.CCKAR                     342 nodes,    965 intra-layer edges,     2 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.ETV1                      290 nodes,  1,252 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.LGI2                      375 nodes,  1,209 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    Ab-LTMR.NSG2                      373 nodes,  1,355 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-LTMR.CDH9                       264 nodes,    407 intra-layer edges,     4 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_GFRA2                154 nodes,    206 intra-layer edges,     5 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.MRGPRX1_MRGPRX4              236 nodes,    425 intra-layer edges,     2 isolated within this layer (may still be connected via inter-layer coupling)
+    C-NP.SST                          384 nodes,  1,234 intra-layer edges,     0 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.ADORA2B                     484 nodes,  1,607 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CACNG5                 268 nodes,    538 intra-layer edges,     4 isolated within this layer (may still be connected via inter-layer coupling)
+    C-PEP.TAC1_CHRNA3                 248 nodes,    433 intra-layer edges,    11 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.RXFP1                    404 nodes,  1,276 intra-layer edges,     1 isolated within this layer (may still be connected via inter-layer coupling)
+    C-Thermo.TRPM8                    434 nodes,  1,141 intra-layer edges,     2 isolated within this layer (may still be connected via inter-layer coupling)
+  Real inter-layer coupling blocks: 205 cell-type pairs, 1,026 signaling edges total
+    A-Propr.EPHA3 <-> A-Propr.PCDH8: 17 edges
+    A-Propr.EPHA3 <-> ATF3: 16 edges
+    A-Propr.PCDH8 <-> ATF3: 16 edges
+    ATF3 <-> C-LTMR.CDH9: 15 edges
+    A-Propr.HAPLN4 <-> ATF3: 15 edges
+    A-PEP.KIT <-> C-LTMR.CDH9: 14 edges
+    Ab-LTMR.NSG2 <-> C-NP.SST: 13 edges
+    C-LTMR.CDH9 <-> C-Thermo.TRPM8: 13 edges
+    Ab-LTMR.ETV1 <-> C-NP.SST: 13 edges
+    A-Propr.HAPLN4 <-> A-Propr.PCDH8: 13 edges
+    A-Propr.EPHA3 <-> A-Propr.HAPLN4: 13 edges
+    A-PEP.KIT <-> A-Propr.EPHA3: 12 edges
+    Ab-LTMR.LGI2 <-> C-NP.SST: 12 edges
+    A-Propr.HAPLN4 <-> Ab-LTMR.NSG2: 11 edges
+    A-Propr.EPHA3 <-> Ab-LTMR.NSG2: 11 edges
+    A-PEP.KIT <-> A-Propr.PCDH8: 11 edges
+    C-LTMR.CDH9 <-> C-Thermo.RXFP1: 11 edges
+    A-LTMR.TAC3 <-> ATF3: 11 edges
+    Ab-LTMR.NSG2 <-> C-LTMR.CDH9: 10 edges
+    A-LTMR.TAC3 <-> A-Propr.HAPLN4: 10 edges
+  Computing 6 smallest eigenvalues of 7369x7369 supra-Laplacian...
+  Perturbed smallest eigenvalues: [-0.        0.014009  0.019     0.029919  0.03445   0.036299]
+
+======================================================================
+[7] Saving summary (omega=1.0)
+======================================================================
+
+Done (omega=1.0) in 40.1s -- outputs in 09_marchenko_pastur/omega_1.0
+
+======================================================================
+[5] Supra-Laplacian (omega=5.0)
+======================================================================
+  Supra-Laplacian shape: 9940x9940 across 22 cell types
+  Computing 6 smallest eigenvalues of 9940x9940 supra-Laplacian...
+  Smallest eigenvalues: [0.       0.117717 0.164293 0.171615 0.180807 0.185204]
+  Global Fiedler sign split: 390 negative (3.9%), 9,550 positive (96.1%)
+  Minority sign: negative (3.9% of node-copies). Multiplex bridges = genes consistently on the negative (minority) side across their present cell types.
+  Bridge flagging method: fractional (minority sign = negative)
+    min_celltypes_present=3, frac_minority_threshold=0.6
+    2691/4203 genes excluded as insufficient_data (present in <3 cell types)
+    Multiplex bridges flagged: 0 / 4203
+  Running in-process permutation test (10000 permutations) so candidates can be ranked by significance, not raw fraction ...
+  Permutation test done: 0 genes significant at FDR <= 0.05 (out of 1512 testable)
+
+======================================================================
+[6] Perturbation: dropping multiplex bridge genes (omega=5.0)
+======================================================================
+  No multiplex bridges found -- skipping.
+
+======================================================================
+[7] Saving summary (omega=5.0)
+======================================================================
+
+Done (omega=5.0) in 49.2s -- outputs in 09_marchenko_pastur/omega_5.0
+
+======================================================================
+[8] Omega sweep comparison
+======================================================================
+
+======================================================================
+OMEGA SWEEP COMPARISON (top 30 genes, ranked by permutation p-value)
+======================================================================
+Omega values tested: [0.1, 1.0, 5.0]
+
+Pairwise Jaccard overlap of top-N sets:
+  omega=0.1 vs omega=1.0: 2/58 shared -> Jaccard = 0.034
+  omega=0.1 vs omega=5.0: 0/60 shared -> Jaccard = 0.000
+  omega=1.0 vs omega=5.0: 0/60 shared -> Jaccard = 0.000
+
+Top-30 robust core (in every omega's top-30): 0 gene(s)
+
+ROBUST SIGNIFICANT CORE (perm_qvalue_bh <= 0.05 in EVERY omega tested): 0 gene(s)
+  This is the direct answer to whether a hit's significance holds across your omega range, not just whether it stays in an arbitrary top-N.
+  (none -- no gene was significant at this FDR in every omega tested. Check each omega's individual significant set below; a gene significant in most-but-not-all omegas may still be worth reporting with that caveat.)
+    omega=0.1: 7 significant gene(s) -- ['ADCY8', 'ADCY9', 'ADGRL1', 'CHL1', 'MAPKAPK5', 'NTM', 'TF']
+    omega=1.0: 14 significant gene(s) -- ['ADCY8', 'ADCY9', 'C1QB', 'CLSTN1', 'CNTN1', 'EFNB2', 'EPHA3', 'EPHB2', 'EPHB4', 'GAS6', 'LAMB1', 'LRP1', 'LRP8', 'VLDLR']
+    omega=5.0: 0 significant gene(s)
+
+omega=0.1: 8 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+
+omega=1.0: 574 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+
+omega=5.0: 0 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+
+Saved sweep comparison -> 09_marchenko_pastur/omega_sweep_comparison.csv
+Saved sweep summary -> 09_marchenko_pastur/omega_sweep_summary.txt
+
+Key outputs:
+  09_marchenko_pastur/omega_<value>/multiplex_bridges.csv   -- per-omega results
+  09_marchenko_pastur/omega_sweep_comparison.csv   -- top-N gene ranks across omegas
+  09_marchenko_pastur/omega_sweep_summary.txt   -- Jaccard overlaps + robust core
+Finished at: Thu Sep 24 02:47:00 PM CEST 2026

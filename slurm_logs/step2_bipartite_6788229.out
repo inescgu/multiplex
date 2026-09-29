@@ -1,0 +1,340 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g07/tmp/slurm-6788229
+Step 2: Building LR (+ Reactome, + scored LIANA/NeuronChat) bipartite edges
+        between cell types, plus identity bipartite edges connecting
+        global_ppi to everything
+Running on host: node-g07.lisc
+Starting at: Wed Sep 23 03:13:40 PM CEST 2026
+Loaded gene universe: 17,051 genes across 23 cell types
+
+Loading PPI reference: 00_inputs/ppi_network.pkl ...
+  302,553 reference PPI edges loaded
+
+Loading ligand-receptor pairs from pathway_prep/lr_pairs_with_pathways.csv ...
+  2,491 LR pairs loaded
+
+Loading scored LR edges from pathway_prep/lr_sources/liana_long.csv ...
+  2,479,710 rows, sources: ['cellphonedb', 'connectome', 'liana_consensus', 'logfc', 'natmi', 'sca']
+Loading scored LR edges from pathway_prep/lr_sources/neuronchat_long.csv ...
+  4,252 rows, sources: ['neuronchat']
+Combined scored LR rows: 2,483,962
+  2,483,962 unique (ligand, receptor, cell_type_source, cell_type_target, source) rows after dedup
+
+Scored LR edges: 15,747 added, 1,327,095 dropped (cell type not in multiplex), 1,273,595 dropped (subunit not in that cell type's PPI layer), 94,397 dropped (no PPI support)
+
+Wrote 15,747 scored-LR edge provenance row(s) (source/method + NeuronChat ligand_type where available) -> 04_multixrank_prep/multixrank_hetero_input/scored_lr_edge_provenance.csv
+  Sources present: ['cellphonedb', 'connectome', 'liana_consensus', 'logfc', 'natmi', 'neuronchat', 'sca']
+  Ligand types present: ['Neuropeptide', 'Synaptic adhesion molecule']
+
+Checking each source's candidate LR pairs against the PPI reference ...
+         source  before_ppi_check  after_ppi_check  pct_ppi_corroborated
+          liana              1856              249                  13.4
+ligand_receptor              2491              423                  17.0
+     neuronchat                39                4                  10.3
+
+  Histogram -> 04_multixrank_prep/multixrank_hetero_input/ppi_check_histogram.png
+
+Connecting 'global_ppi' to other cell types via identity bipartite edges ...
+  global_ppi <-> A-LTMR.TAC3: 4,897 shared genes (identity edges)
+  global_ppi <-> A-PEP.CHRNA7_SLC18A3: 1,225 shared genes (identity edges)
+  global_ppi <-> A-PEP.KIT: 5,008 shared genes (identity edges)
+  global_ppi <-> A-PEP.NTRK3_S100A16: 1,714 shared genes (identity edges)
+  global_ppi <-> A-PEP.SCGN_ADRA2C: 1,153 shared genes (identity edges)
+  global_ppi <-> A-Propr.EPHA3: 2,605 shared genes (identity edges)
+  global_ppi <-> A-Propr.HAPLN4: 1,276 shared genes (identity edges)
+  global_ppi <-> A-Propr.PCDH8: 2,365 shared genes (identity edges)
+  global_ppi <-> ATF3: 1,912 shared genes (identity edges)
+  global_ppi <-> Ab-LTMR.CCKAR: 1,538 shared genes (identity edges)
+  global_ppi <-> Ab-LTMR.ETV1: 849 shared genes (identity edges)
+  global_ppi <-> Ab-LTMR.LGI2: 1,884 shared genes (identity edges)
+  global_ppi <-> Ab-LTMR.NSG2: 1,326 shared genes (identity edges)
+  global_ppi <-> C-LTMR.CDH9: 1,229 shared genes (identity edges)
+  global_ppi <-> C-NP.MRGPRX1_GFRA2: 1,624 shared genes (identity edges)
+  global_ppi <-> C-NP.MRGPRX1_MRGPRX4: 2,517 shared genes (identity edges)
+  global_ppi <-> C-NP.SST: 3,866 shared genes (identity edges)
+  global_ppi <-> C-PEP.ADORA2B: 3,501 shared genes (identity edges)
+  global_ppi <-> C-PEP.TAC1_CACNG5: 1,889 shared genes (identity edges)
+  global_ppi <-> C-PEP.TAC1_CHRNA3: 1,670 shared genes (identity edges)
+  global_ppi <-> C-Thermo.RXFP1: 4,999 shared genes (identity edges)
+  global_ppi <-> C-Thermo.TRPM8: 3,109 shared genes (identity edges)
+
+Writing bipartite edge files ...
+  A-LTMR.TAC3 <-> A-PEP.CHRNA7_SLC18A3: 13 edges -> bipartite/A-LTMR.TAC3__A-PEP.CHRNA7_SLC18A3.tsv
+  A-LTMR.TAC3 <-> A-PEP.KIT: 41 edges -> bipartite/A-LTMR.TAC3__A-PEP.KIT.tsv
+  A-LTMR.TAC3 <-> A-PEP.NTRK3_S100A16: 30 edges -> bipartite/A-LTMR.TAC3__A-PEP.NTRK3_S100A16.tsv
+  A-LTMR.TAC3 <-> A-PEP.SCGN_ADRA2C: 11 edges -> bipartite/A-LTMR.TAC3__A-PEP.SCGN_ADRA2C.tsv
+  A-LTMR.TAC3 <-> A-Propr.EPHA3: 41 edges -> bipartite/A-LTMR.TAC3__A-Propr.EPHA3.tsv
+  A-LTMR.TAC3 <-> A-Propr.HAPLN4: 34 edges -> bipartite/A-LTMR.TAC3__A-Propr.HAPLN4.tsv
+  A-LTMR.TAC3 <-> A-Propr.PCDH8: 39 edges -> bipartite/A-LTMR.TAC3__A-Propr.PCDH8.tsv
+  A-LTMR.TAC3 <-> ATF3: 37 edges -> bipartite/A-LTMR.TAC3__ATF3.tsv
+  A-LTMR.TAC3 <-> Ab-LTMR.CCKAR: 35 edges -> bipartite/A-LTMR.TAC3__Ab-LTMR.CCKAR.tsv
+  A-LTMR.TAC3 <-> Ab-LTMR.ETV1: 11 edges -> bipartite/A-LTMR.TAC3__Ab-LTMR.ETV1.tsv
+  A-LTMR.TAC3 <-> Ab-LTMR.LGI2: 25 edges -> bipartite/A-LTMR.TAC3__Ab-LTMR.LGI2.tsv
+  A-LTMR.TAC3 <-> Ab-LTMR.NSG2: 24 edges -> bipartite/A-LTMR.TAC3__Ab-LTMR.NSG2.tsv
+  A-LTMR.TAC3 <-> C-LTMR.CDH9: 42 edges -> bipartite/A-LTMR.TAC3__C-LTMR.CDH9.tsv
+  A-LTMR.TAC3 <-> C-NP.MRGPRX1_GFRA2: 24 edges -> bipartite/A-LTMR.TAC3__C-NP.MRGPRX1_GFRA2.tsv
+  A-LTMR.TAC3 <-> C-NP.MRGPRX1_MRGPRX4: 44 edges -> bipartite/A-LTMR.TAC3__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-LTMR.TAC3 <-> C-NP.SST: 69 edges -> bipartite/A-LTMR.TAC3__C-NP.SST.tsv
+  A-LTMR.TAC3 <-> C-PEP.ADORA2B: 32 edges -> bipartite/A-LTMR.TAC3__C-PEP.ADORA2B.tsv
+  A-LTMR.TAC3 <-> C-PEP.TAC1_CACNG5: 21 edges -> bipartite/A-LTMR.TAC3__C-PEP.TAC1_CACNG5.tsv
+  A-LTMR.TAC3 <-> C-PEP.TAC1_CHRNA3: 18 edges -> bipartite/A-LTMR.TAC3__C-PEP.TAC1_CHRNA3.tsv
+  A-LTMR.TAC3 <-> C-Thermo.RXFP1: 58 edges -> bipartite/A-LTMR.TAC3__C-Thermo.RXFP1.tsv
+  A-LTMR.TAC3 <-> C-Thermo.TRPM8: 40 edges -> bipartite/A-LTMR.TAC3__C-Thermo.TRPM8.tsv
+  A-LTMR.TAC3 <-> global_ppi: 5,059 edges -> bipartite/A-LTMR.TAC3__global_ppi.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-PEP.KIT: 8 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.KIT.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-PEP.NTRK3_S100A16: 12 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.NTRK3_S100A16.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-PEP.SCGN_ADRA2C: 5 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-PEP.SCGN_ADRA2C.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-Propr.EPHA3: 7 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.EPHA3.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-Propr.HAPLN4: 9 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.HAPLN4.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> A-Propr.PCDH8: 8 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__A-Propr.PCDH8.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> ATF3: 11 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__ATF3.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> Ab-LTMR.CCKAR: 13 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.CCKAR.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> Ab-LTMR.ETV1: 7 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.ETV1.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> Ab-LTMR.LGI2: 10 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.LGI2.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> Ab-LTMR.NSG2: 8 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__Ab-LTMR.NSG2.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-LTMR.CDH9: 14 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-LTMR.CDH9.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-NP.MRGPRX1_GFRA2: 9 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.MRGPRX1_GFRA2.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-NP.MRGPRX1_MRGPRX4: 15 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-NP.SST: 16 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-NP.SST.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-PEP.ADORA2B: 11 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.ADORA2B.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-PEP.TAC1_CACNG5: 4 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.TAC1_CACNG5.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-PEP.TAC1_CHRNA3: 7 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-PEP.TAC1_CHRNA3.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-Thermo.RXFP1: 16 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-Thermo.RXFP1.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> C-Thermo.TRPM8: 9 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__C-Thermo.TRPM8.tsv
+  A-PEP.CHRNA7_SLC18A3 <-> global_ppi: 1,285 edges -> bipartite/A-PEP.CHRNA7_SLC18A3__global_ppi.tsv
+  A-PEP.KIT <-> A-PEP.NTRK3_S100A16: 30 edges -> bipartite/A-PEP.KIT__A-PEP.NTRK3_S100A16.tsv
+  A-PEP.KIT <-> A-PEP.SCGN_ADRA2C: 8 edges -> bipartite/A-PEP.KIT__A-PEP.SCGN_ADRA2C.tsv
+  A-PEP.KIT <-> A-Propr.EPHA3: 40 edges -> bipartite/A-PEP.KIT__A-Propr.EPHA3.tsv
+  A-PEP.KIT <-> A-Propr.HAPLN4: 32 edges -> bipartite/A-PEP.KIT__A-Propr.HAPLN4.tsv
+  A-PEP.KIT <-> A-Propr.PCDH8: 39 edges -> bipartite/A-PEP.KIT__A-Propr.PCDH8.tsv
+  A-PEP.KIT <-> ATF3: 44 edges -> bipartite/A-PEP.KIT__ATF3.tsv
+  A-PEP.KIT <-> Ab-LTMR.CCKAR: 31 edges -> bipartite/A-PEP.KIT__Ab-LTMR.CCKAR.tsv
+  A-PEP.KIT <-> Ab-LTMR.ETV1: 11 edges -> bipartite/A-PEP.KIT__Ab-LTMR.ETV1.tsv
+  A-PEP.KIT <-> Ab-LTMR.LGI2: 25 edges -> bipartite/A-PEP.KIT__Ab-LTMR.LGI2.tsv
+  A-PEP.KIT <-> Ab-LTMR.NSG2: 24 edges -> bipartite/A-PEP.KIT__Ab-LTMR.NSG2.tsv
+  A-PEP.KIT <-> C-LTMR.CDH9: 39 edges -> bipartite/A-PEP.KIT__C-LTMR.CDH9.tsv
+  A-PEP.KIT <-> C-NP.MRGPRX1_GFRA2: 20 edges -> bipartite/A-PEP.KIT__C-NP.MRGPRX1_GFRA2.tsv
+  A-PEP.KIT <-> C-NP.MRGPRX1_MRGPRX4: 44 edges -> bipartite/A-PEP.KIT__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-PEP.KIT <-> C-NP.SST: 76 edges -> bipartite/A-PEP.KIT__C-NP.SST.tsv
+  A-PEP.KIT <-> C-PEP.ADORA2B: 43 edges -> bipartite/A-PEP.KIT__C-PEP.ADORA2B.tsv
+  A-PEP.KIT <-> C-PEP.TAC1_CACNG5: 20 edges -> bipartite/A-PEP.KIT__C-PEP.TAC1_CACNG5.tsv
+  A-PEP.KIT <-> C-PEP.TAC1_CHRNA3: 19 edges -> bipartite/A-PEP.KIT__C-PEP.TAC1_CHRNA3.tsv
+  A-PEP.KIT <-> C-Thermo.RXFP1: 60 edges -> bipartite/A-PEP.KIT__C-Thermo.RXFP1.tsv
+  A-PEP.KIT <-> C-Thermo.TRPM8: 36 edges -> bipartite/A-PEP.KIT__C-Thermo.TRPM8.tsv
+  A-PEP.KIT <-> global_ppi: 5,183 edges -> bipartite/A-PEP.KIT__global_ppi.tsv
+  A-PEP.NTRK3_S100A16 <-> A-PEP.SCGN_ADRA2C: 12 edges -> bipartite/A-PEP.NTRK3_S100A16__A-PEP.SCGN_ADRA2C.tsv
+  A-PEP.NTRK3_S100A16 <-> A-Propr.EPHA3: 18 edges -> bipartite/A-PEP.NTRK3_S100A16__A-Propr.EPHA3.tsv
+  A-PEP.NTRK3_S100A16 <-> A-Propr.HAPLN4: 18 edges -> bipartite/A-PEP.NTRK3_S100A16__A-Propr.HAPLN4.tsv
+  A-PEP.NTRK3_S100A16 <-> A-Propr.PCDH8: 19 edges -> bipartite/A-PEP.NTRK3_S100A16__A-Propr.PCDH8.tsv
+  A-PEP.NTRK3_S100A16 <-> ATF3: 28 edges -> bipartite/A-PEP.NTRK3_S100A16__ATF3.tsv
+  A-PEP.NTRK3_S100A16 <-> Ab-LTMR.CCKAR: 23 edges -> bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.CCKAR.tsv
+  A-PEP.NTRK3_S100A16 <-> Ab-LTMR.ETV1: 9 edges -> bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.ETV1.tsv
+  A-PEP.NTRK3_S100A16 <-> Ab-LTMR.LGI2: 17 edges -> bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.LGI2.tsv
+  A-PEP.NTRK3_S100A16 <-> Ab-LTMR.NSG2: 13 edges -> bipartite/A-PEP.NTRK3_S100A16__Ab-LTMR.NSG2.tsv
+  A-PEP.NTRK3_S100A16 <-> C-LTMR.CDH9: 32 edges -> bipartite/A-PEP.NTRK3_S100A16__C-LTMR.CDH9.tsv
+  A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_GFRA2: 22 edges -> bipartite/A-PEP.NTRK3_S100A16__C-NP.MRGPRX1_GFRA2.tsv
+  A-PEP.NTRK3_S100A16 <-> C-NP.MRGPRX1_MRGPRX4: 49 edges -> bipartite/A-PEP.NTRK3_S100A16__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-PEP.NTRK3_S100A16 <-> C-NP.SST: 45 edges -> bipartite/A-PEP.NTRK3_S100A16__C-NP.SST.tsv
+  A-PEP.NTRK3_S100A16 <-> C-PEP.ADORA2B: 30 edges -> bipartite/A-PEP.NTRK3_S100A16__C-PEP.ADORA2B.tsv
+  A-PEP.NTRK3_S100A16 <-> C-PEP.TAC1_CACNG5: 22 edges -> bipartite/A-PEP.NTRK3_S100A16__C-PEP.TAC1_CACNG5.tsv
+  A-PEP.NTRK3_S100A16 <-> C-PEP.TAC1_CHRNA3: 20 edges -> bipartite/A-PEP.NTRK3_S100A16__C-PEP.TAC1_CHRNA3.tsv
+  A-PEP.NTRK3_S100A16 <-> C-Thermo.RXFP1: 45 edges -> bipartite/A-PEP.NTRK3_S100A16__C-Thermo.RXFP1.tsv
+  A-PEP.NTRK3_S100A16 <-> C-Thermo.TRPM8: 26 edges -> bipartite/A-PEP.NTRK3_S100A16__C-Thermo.TRPM8.tsv
+  A-PEP.NTRK3_S100A16 <-> global_ppi: 1,864 edges -> bipartite/A-PEP.NTRK3_S100A16__global_ppi.tsv
+  A-PEP.SCGN_ADRA2C <-> A-Propr.EPHA3: 8 edges -> bipartite/A-PEP.SCGN_ADRA2C__A-Propr.EPHA3.tsv
+  A-PEP.SCGN_ADRA2C <-> A-Propr.HAPLN4: 11 edges -> bipartite/A-PEP.SCGN_ADRA2C__A-Propr.HAPLN4.tsv
+  A-PEP.SCGN_ADRA2C <-> A-Propr.PCDH8: 8 edges -> bipartite/A-PEP.SCGN_ADRA2C__A-Propr.PCDH8.tsv
+  A-PEP.SCGN_ADRA2C <-> ATF3: 11 edges -> bipartite/A-PEP.SCGN_ADRA2C__ATF3.tsv
+  A-PEP.SCGN_ADRA2C <-> Ab-LTMR.CCKAR: 15 edges -> bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.CCKAR.tsv
+  A-PEP.SCGN_ADRA2C <-> Ab-LTMR.ETV1: 6 edges -> bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.ETV1.tsv
+  A-PEP.SCGN_ADRA2C <-> Ab-LTMR.LGI2: 9 edges -> bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.LGI2.tsv
+  A-PEP.SCGN_ADRA2C <-> Ab-LTMR.NSG2: 7 edges -> bipartite/A-PEP.SCGN_ADRA2C__Ab-LTMR.NSG2.tsv
+  A-PEP.SCGN_ADRA2C <-> C-LTMR.CDH9: 12 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-LTMR.CDH9.tsv
+  A-PEP.SCGN_ADRA2C <-> C-NP.MRGPRX1_GFRA2: 9 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-NP.MRGPRX1_GFRA2.tsv
+  A-PEP.SCGN_ADRA2C <-> C-NP.MRGPRX1_MRGPRX4: 16 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-PEP.SCGN_ADRA2C <-> C-NP.SST: 14 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-NP.SST.tsv
+  A-PEP.SCGN_ADRA2C <-> C-PEP.ADORA2B: 8 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-PEP.ADORA2B.tsv
+  A-PEP.SCGN_ADRA2C <-> C-PEP.TAC1_CACNG5: 5 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-PEP.TAC1_CACNG5.tsv
+  A-PEP.SCGN_ADRA2C <-> C-PEP.TAC1_CHRNA3: 5 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-PEP.TAC1_CHRNA3.tsv
+  A-PEP.SCGN_ADRA2C <-> C-Thermo.RXFP1: 17 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-Thermo.RXFP1.tsv
+  A-PEP.SCGN_ADRA2C <-> C-Thermo.TRPM8: 12 edges -> bipartite/A-PEP.SCGN_ADRA2C__C-Thermo.TRPM8.tsv
+  A-PEP.SCGN_ADRA2C <-> global_ppi: 1,216 edges -> bipartite/A-PEP.SCGN_ADRA2C__global_ppi.tsv
+  A-Propr.EPHA3 <-> A-Propr.HAPLN4: 23 edges -> bipartite/A-Propr.EPHA3__A-Propr.HAPLN4.tsv
+  A-Propr.EPHA3 <-> A-Propr.PCDH8: 32 edges -> bipartite/A-Propr.EPHA3__A-Propr.PCDH8.tsv
+  A-Propr.EPHA3 <-> ATF3: 20 edges -> bipartite/A-Propr.EPHA3__ATF3.tsv
+  A-Propr.EPHA3 <-> Ab-LTMR.CCKAR: 28 edges -> bipartite/A-Propr.EPHA3__Ab-LTMR.CCKAR.tsv
+  A-Propr.EPHA3 <-> Ab-LTMR.ETV1: 5 edges -> bipartite/A-Propr.EPHA3__Ab-LTMR.ETV1.tsv
+  A-Propr.EPHA3 <-> Ab-LTMR.LGI2: 20 edges -> bipartite/A-Propr.EPHA3__Ab-LTMR.LGI2.tsv
+  A-Propr.EPHA3 <-> Ab-LTMR.NSG2: 16 edges -> bipartite/A-Propr.EPHA3__Ab-LTMR.NSG2.tsv
+  A-Propr.EPHA3 <-> C-LTMR.CDH9: 29 edges -> bipartite/A-Propr.EPHA3__C-LTMR.CDH9.tsv
+  A-Propr.EPHA3 <-> C-NP.MRGPRX1_GFRA2: 16 edges -> bipartite/A-Propr.EPHA3__C-NP.MRGPRX1_GFRA2.tsv
+  A-Propr.EPHA3 <-> C-NP.MRGPRX1_MRGPRX4: 27 edges -> bipartite/A-Propr.EPHA3__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-Propr.EPHA3 <-> C-NP.SST: 45 edges -> bipartite/A-Propr.EPHA3__C-NP.SST.tsv
+  A-Propr.EPHA3 <-> C-PEP.ADORA2B: 31 edges -> bipartite/A-Propr.EPHA3__C-PEP.ADORA2B.tsv
+  A-Propr.EPHA3 <-> C-PEP.TAC1_CACNG5: 18 edges -> bipartite/A-Propr.EPHA3__C-PEP.TAC1_CACNG5.tsv
+  A-Propr.EPHA3 <-> C-PEP.TAC1_CHRNA3: 11 edges -> bipartite/A-Propr.EPHA3__C-PEP.TAC1_CHRNA3.tsv
+  A-Propr.EPHA3 <-> C-Thermo.RXFP1: 40 edges -> bipartite/A-Propr.EPHA3__C-Thermo.RXFP1.tsv
+  A-Propr.EPHA3 <-> C-Thermo.TRPM8: 34 edges -> bipartite/A-Propr.EPHA3__C-Thermo.TRPM8.tsv
+  A-Propr.EPHA3 <-> global_ppi: 2,721 edges -> bipartite/A-Propr.EPHA3__global_ppi.tsv
+  A-Propr.HAPLN4 <-> A-Propr.PCDH8: 17 edges -> bipartite/A-Propr.HAPLN4__A-Propr.PCDH8.tsv
+  A-Propr.HAPLN4 <-> ATF3: 23 edges -> bipartite/A-Propr.HAPLN4__ATF3.tsv
+  A-Propr.HAPLN4 <-> Ab-LTMR.CCKAR: 20 edges -> bipartite/A-Propr.HAPLN4__Ab-LTMR.CCKAR.tsv
+  A-Propr.HAPLN4 <-> Ab-LTMR.ETV1: 5 edges -> bipartite/A-Propr.HAPLN4__Ab-LTMR.ETV1.tsv
+  A-Propr.HAPLN4 <-> Ab-LTMR.LGI2: 15 edges -> bipartite/A-Propr.HAPLN4__Ab-LTMR.LGI2.tsv
+  A-Propr.HAPLN4 <-> Ab-LTMR.NSG2: 12 edges -> bipartite/A-Propr.HAPLN4__Ab-LTMR.NSG2.tsv
+  A-Propr.HAPLN4 <-> C-LTMR.CDH9: 24 edges -> bipartite/A-Propr.HAPLN4__C-LTMR.CDH9.tsv
+  A-Propr.HAPLN4 <-> C-NP.MRGPRX1_GFRA2: 8 edges -> bipartite/A-Propr.HAPLN4__C-NP.MRGPRX1_GFRA2.tsv
+  A-Propr.HAPLN4 <-> C-NP.MRGPRX1_MRGPRX4: 21 edges -> bipartite/A-Propr.HAPLN4__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-Propr.HAPLN4 <-> C-NP.SST: 36 edges -> bipartite/A-Propr.HAPLN4__C-NP.SST.tsv
+  A-Propr.HAPLN4 <-> C-PEP.ADORA2B: 23 edges -> bipartite/A-Propr.HAPLN4__C-PEP.ADORA2B.tsv
+  A-Propr.HAPLN4 <-> C-PEP.TAC1_CACNG5: 18 edges -> bipartite/A-Propr.HAPLN4__C-PEP.TAC1_CACNG5.tsv
+  A-Propr.HAPLN4 <-> C-PEP.TAC1_CHRNA3: 14 edges -> bipartite/A-Propr.HAPLN4__C-PEP.TAC1_CHRNA3.tsv
+  A-Propr.HAPLN4 <-> C-Thermo.RXFP1: 32 edges -> bipartite/A-Propr.HAPLN4__C-Thermo.RXFP1.tsv
+  A-Propr.HAPLN4 <-> C-Thermo.TRPM8: 26 edges -> bipartite/A-Propr.HAPLN4__C-Thermo.TRPM8.tsv
+  A-Propr.HAPLN4 <-> global_ppi: 1,363 edges -> bipartite/A-Propr.HAPLN4__global_ppi.tsv
+  A-Propr.PCDH8 <-> ATF3: 20 edges -> bipartite/A-Propr.PCDH8__ATF3.tsv
+  A-Propr.PCDH8 <-> Ab-LTMR.CCKAR: 24 edges -> bipartite/A-Propr.PCDH8__Ab-LTMR.CCKAR.tsv
+  A-Propr.PCDH8 <-> Ab-LTMR.ETV1: 4 edges -> bipartite/A-Propr.PCDH8__Ab-LTMR.ETV1.tsv
+  A-Propr.PCDH8 <-> Ab-LTMR.LGI2: 16 edges -> bipartite/A-Propr.PCDH8__Ab-LTMR.LGI2.tsv
+  A-Propr.PCDH8 <-> Ab-LTMR.NSG2: 15 edges -> bipartite/A-Propr.PCDH8__Ab-LTMR.NSG2.tsv
+  A-Propr.PCDH8 <-> C-LTMR.CDH9: 28 edges -> bipartite/A-Propr.PCDH8__C-LTMR.CDH9.tsv
+  A-Propr.PCDH8 <-> C-NP.MRGPRX1_GFRA2: 15 edges -> bipartite/A-Propr.PCDH8__C-NP.MRGPRX1_GFRA2.tsv
+  A-Propr.PCDH8 <-> C-NP.MRGPRX1_MRGPRX4: 23 edges -> bipartite/A-Propr.PCDH8__C-NP.MRGPRX1_MRGPRX4.tsv
+  A-Propr.PCDH8 <-> C-NP.SST: 50 edges -> bipartite/A-Propr.PCDH8__C-NP.SST.tsv
+  A-Propr.PCDH8 <-> C-PEP.ADORA2B: 30 edges -> bipartite/A-Propr.PCDH8__C-PEP.ADORA2B.tsv
+  A-Propr.PCDH8 <-> C-PEP.TAC1_CACNG5: 16 edges -> bipartite/A-Propr.PCDH8__C-PEP.TAC1_CACNG5.tsv
+  A-Propr.PCDH8 <-> C-PEP.TAC1_CHRNA3: 12 edges -> bipartite/A-Propr.PCDH8__C-PEP.TAC1_CHRNA3.tsv
+  A-Propr.PCDH8 <-> C-Thermo.RXFP1: 39 edges -> bipartite/A-Propr.PCDH8__C-Thermo.RXFP1.tsv
+  A-Propr.PCDH8 <-> C-Thermo.TRPM8: 29 edges -> bipartite/A-Propr.PCDH8__C-Thermo.TRPM8.tsv
+  A-Propr.PCDH8 <-> global_ppi: 2,486 edges -> bipartite/A-Propr.PCDH8__global_ppi.tsv
+  ATF3 <-> Ab-LTMR.CCKAR: 23 edges -> bipartite/ATF3__Ab-LTMR.CCKAR.tsv
+  ATF3 <-> Ab-LTMR.ETV1: 7 edges -> bipartite/ATF3__Ab-LTMR.ETV1.tsv
+  ATF3 <-> Ab-LTMR.LGI2: 11 edges -> bipartite/ATF3__Ab-LTMR.LGI2.tsv
+  ATF3 <-> Ab-LTMR.NSG2: 12 edges -> bipartite/ATF3__Ab-LTMR.NSG2.tsv
+  ATF3 <-> C-LTMR.CDH9: 15 edges -> bipartite/ATF3__C-LTMR.CDH9.tsv
+  ATF3 <-> C-NP.MRGPRX1_GFRA2: 14 edges -> bipartite/ATF3__C-NP.MRGPRX1_GFRA2.tsv
+  ATF3 <-> C-NP.MRGPRX1_MRGPRX4: 34 edges -> bipartite/ATF3__C-NP.MRGPRX1_MRGPRX4.tsv
+  ATF3 <-> C-NP.SST: 52 edges -> bipartite/ATF3__C-NP.SST.tsv
+  ATF3 <-> C-PEP.ADORA2B: 26 edges -> bipartite/ATF3__C-PEP.ADORA2B.tsv
+  ATF3 <-> C-PEP.TAC1_CACNG5: 15 edges -> bipartite/ATF3__C-PEP.TAC1_CACNG5.tsv
+  ATF3 <-> C-PEP.TAC1_CHRNA3: 17 edges -> bipartite/ATF3__C-PEP.TAC1_CHRNA3.tsv
+  ATF3 <-> C-Thermo.RXFP1: 33 edges -> bipartite/ATF3__C-Thermo.RXFP1.tsv
+  ATF3 <-> C-Thermo.TRPM8: 20 edges -> bipartite/ATF3__C-Thermo.TRPM8.tsv
+  ATF3 <-> global_ppi: 2,026 edges -> bipartite/ATF3__global_ppi.tsv
+  Ab-LTMR.CCKAR <-> Ab-LTMR.ETV1: 10 edges -> bipartite/Ab-LTMR.CCKAR__Ab-LTMR.ETV1.tsv
+  Ab-LTMR.CCKAR <-> Ab-LTMR.LGI2: 18 edges -> bipartite/Ab-LTMR.CCKAR__Ab-LTMR.LGI2.tsv
+  Ab-LTMR.CCKAR <-> Ab-LTMR.NSG2: 12 edges -> bipartite/Ab-LTMR.CCKAR__Ab-LTMR.NSG2.tsv
+  Ab-LTMR.CCKAR <-> C-LTMR.CDH9: 26 edges -> bipartite/Ab-LTMR.CCKAR__C-LTMR.CDH9.tsv
+  Ab-LTMR.CCKAR <-> C-NP.MRGPRX1_GFRA2: 20 edges -> bipartite/Ab-LTMR.CCKAR__C-NP.MRGPRX1_GFRA2.tsv
+  Ab-LTMR.CCKAR <-> C-NP.MRGPRX1_MRGPRX4: 35 edges -> bipartite/Ab-LTMR.CCKAR__C-NP.MRGPRX1_MRGPRX4.tsv
+  Ab-LTMR.CCKAR <-> C-NP.SST: 40 edges -> bipartite/Ab-LTMR.CCKAR__C-NP.SST.tsv
+  Ab-LTMR.CCKAR <-> C-PEP.ADORA2B: 24 edges -> bipartite/Ab-LTMR.CCKAR__C-PEP.ADORA2B.tsv
+  Ab-LTMR.CCKAR <-> C-PEP.TAC1_CACNG5: 23 edges -> bipartite/Ab-LTMR.CCKAR__C-PEP.TAC1_CACNG5.tsv
+  Ab-LTMR.CCKAR <-> C-PEP.TAC1_CHRNA3: 22 edges -> bipartite/Ab-LTMR.CCKAR__C-PEP.TAC1_CHRNA3.tsv
+  Ab-LTMR.CCKAR <-> C-Thermo.RXFP1: 39 edges -> bipartite/Ab-LTMR.CCKAR__C-Thermo.RXFP1.tsv
+  Ab-LTMR.CCKAR <-> C-Thermo.TRPM8: 25 edges -> bipartite/Ab-LTMR.CCKAR__C-Thermo.TRPM8.tsv
+  Ab-LTMR.CCKAR <-> global_ppi: 1,653 edges -> bipartite/Ab-LTMR.CCKAR__global_ppi.tsv
+  Ab-LTMR.ETV1 <-> Ab-LTMR.LGI2: 8 edges -> bipartite/Ab-LTMR.ETV1__Ab-LTMR.LGI2.tsv
+  Ab-LTMR.ETV1 <-> Ab-LTMR.NSG2: 5 edges -> bipartite/Ab-LTMR.ETV1__Ab-LTMR.NSG2.tsv
+  Ab-LTMR.ETV1 <-> C-LTMR.CDH9: 11 edges -> bipartite/Ab-LTMR.ETV1__C-LTMR.CDH9.tsv
+  Ab-LTMR.ETV1 <-> C-NP.MRGPRX1_GFRA2: 7 edges -> bipartite/Ab-LTMR.ETV1__C-NP.MRGPRX1_GFRA2.tsv
+  Ab-LTMR.ETV1 <-> C-NP.MRGPRX1_MRGPRX4: 12 edges -> bipartite/Ab-LTMR.ETV1__C-NP.MRGPRX1_MRGPRX4.tsv
+  Ab-LTMR.ETV1 <-> C-NP.SST: 23 edges -> bipartite/Ab-LTMR.ETV1__C-NP.SST.tsv
+  Ab-LTMR.ETV1 <-> C-PEP.ADORA2B: 10 edges -> bipartite/Ab-LTMR.ETV1__C-PEP.ADORA2B.tsv
+  Ab-LTMR.ETV1 <-> C-PEP.TAC1_CACNG5: 8 edges -> bipartite/Ab-LTMR.ETV1__C-PEP.TAC1_CACNG5.tsv
+  Ab-LTMR.ETV1 <-> C-PEP.TAC1_CHRNA3: 7 edges -> bipartite/Ab-LTMR.ETV1__C-PEP.TAC1_CHRNA3.tsv
+  Ab-LTMR.ETV1 <-> C-Thermo.RXFP1: 12 edges -> bipartite/Ab-LTMR.ETV1__C-Thermo.RXFP1.tsv
+  Ab-LTMR.ETV1 <-> C-Thermo.TRPM8: 8 edges -> bipartite/Ab-LTMR.ETV1__C-Thermo.TRPM8.tsv
+  Ab-LTMR.ETV1 <-> global_ppi: 888 edges -> bipartite/Ab-LTMR.ETV1__global_ppi.tsv
+  Ab-LTMR.LGI2 <-> Ab-LTMR.NSG2: 10 edges -> bipartite/Ab-LTMR.LGI2__Ab-LTMR.NSG2.tsv
+  Ab-LTMR.LGI2 <-> C-LTMR.CDH9: 21 edges -> bipartite/Ab-LTMR.LGI2__C-LTMR.CDH9.tsv
+  Ab-LTMR.LGI2 <-> C-NP.MRGPRX1_GFRA2: 13 edges -> bipartite/Ab-LTMR.LGI2__C-NP.MRGPRX1_GFRA2.tsv
+  Ab-LTMR.LGI2 <-> C-NP.MRGPRX1_MRGPRX4: 22 edges -> bipartite/Ab-LTMR.LGI2__C-NP.MRGPRX1_MRGPRX4.tsv
+  Ab-LTMR.LGI2 <-> C-NP.SST: 38 edges -> bipartite/Ab-LTMR.LGI2__C-NP.SST.tsv
+  Ab-LTMR.LGI2 <-> C-PEP.ADORA2B: 18 edges -> bipartite/Ab-LTMR.LGI2__C-PEP.ADORA2B.tsv
+  Ab-LTMR.LGI2 <-> C-PEP.TAC1_CACNG5: 11 edges -> bipartite/Ab-LTMR.LGI2__C-PEP.TAC1_CACNG5.tsv
+  Ab-LTMR.LGI2 <-> C-PEP.TAC1_CHRNA3: 6 edges -> bipartite/Ab-LTMR.LGI2__C-PEP.TAC1_CHRNA3.tsv
+  Ab-LTMR.LGI2 <-> C-Thermo.RXFP1: 26 edges -> bipartite/Ab-LTMR.LGI2__C-Thermo.RXFP1.tsv
+  Ab-LTMR.LGI2 <-> C-Thermo.TRPM8: 19 edges -> bipartite/Ab-LTMR.LGI2__C-Thermo.TRPM8.tsv
+  Ab-LTMR.LGI2 <-> global_ppi: 1,967 edges -> bipartite/Ab-LTMR.LGI2__global_ppi.tsv
+  Ab-LTMR.NSG2 <-> C-LTMR.CDH9: 20 edges -> bipartite/Ab-LTMR.NSG2__C-LTMR.CDH9.tsv
+  Ab-LTMR.NSG2 <-> C-NP.MRGPRX1_GFRA2: 11 edges -> bipartite/Ab-LTMR.NSG2__C-NP.MRGPRX1_GFRA2.tsv
+  Ab-LTMR.NSG2 <-> C-NP.MRGPRX1_MRGPRX4: 21 edges -> bipartite/Ab-LTMR.NSG2__C-NP.MRGPRX1_MRGPRX4.tsv
+  Ab-LTMR.NSG2 <-> C-NP.SST: 36 edges -> bipartite/Ab-LTMR.NSG2__C-NP.SST.tsv
+  Ab-LTMR.NSG2 <-> C-PEP.ADORA2B: 15 edges -> bipartite/Ab-LTMR.NSG2__C-PEP.ADORA2B.tsv
+  Ab-LTMR.NSG2 <-> C-PEP.TAC1_CACNG5: 9 edges -> bipartite/Ab-LTMR.NSG2__C-PEP.TAC1_CACNG5.tsv
+  Ab-LTMR.NSG2 <-> C-PEP.TAC1_CHRNA3: 6 edges -> bipartite/Ab-LTMR.NSG2__C-PEP.TAC1_CHRNA3.tsv
+  Ab-LTMR.NSG2 <-> C-Thermo.RXFP1: 25 edges -> bipartite/Ab-LTMR.NSG2__C-Thermo.RXFP1.tsv
+  Ab-LTMR.NSG2 <-> C-Thermo.TRPM8: 17 edges -> bipartite/Ab-LTMR.NSG2__C-Thermo.TRPM8.tsv
+  Ab-LTMR.NSG2 <-> global_ppi: 1,393 edges -> bipartite/Ab-LTMR.NSG2__global_ppi.tsv
+  C-LTMR.CDH9 <-> C-NP.MRGPRX1_GFRA2: 18 edges -> bipartite/C-LTMR.CDH9__C-NP.MRGPRX1_GFRA2.tsv
+  C-LTMR.CDH9 <-> C-NP.MRGPRX1_MRGPRX4: 47 edges -> bipartite/C-LTMR.CDH9__C-NP.MRGPRX1_MRGPRX4.tsv
+  C-LTMR.CDH9 <-> C-NP.SST: 59 edges -> bipartite/C-LTMR.CDH9__C-NP.SST.tsv
+  C-LTMR.CDH9 <-> C-PEP.ADORA2B: 34 edges -> bipartite/C-LTMR.CDH9__C-PEP.ADORA2B.tsv
+  C-LTMR.CDH9 <-> C-PEP.TAC1_CACNG5: 16 edges -> bipartite/C-LTMR.CDH9__C-PEP.TAC1_CACNG5.tsv
+  C-LTMR.CDH9 <-> C-PEP.TAC1_CHRNA3: 15 edges -> bipartite/C-LTMR.CDH9__C-PEP.TAC1_CHRNA3.tsv
+  C-LTMR.CDH9 <-> C-Thermo.RXFP1: 41 edges -> bipartite/C-LTMR.CDH9__C-Thermo.RXFP1.tsv
+  C-LTMR.CDH9 <-> C-Thermo.TRPM8: 30 edges -> bipartite/C-LTMR.CDH9__C-Thermo.TRPM8.tsv
+  C-LTMR.CDH9 <-> global_ppi: 1,359 edges -> bipartite/C-LTMR.CDH9__global_ppi.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-NP.MRGPRX1_MRGPRX4: 33 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-NP.MRGPRX1_MRGPRX4.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-NP.SST: 33 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-NP.SST.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-PEP.ADORA2B: 14 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.ADORA2B.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-PEP.TAC1_CACNG5: 10 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.TAC1_CACNG5.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-PEP.TAC1_CHRNA3: 11 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-PEP.TAC1_CHRNA3.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-Thermo.RXFP1: 23 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-Thermo.RXFP1.tsv
+  C-NP.MRGPRX1_GFRA2 <-> C-Thermo.TRPM8: 17 edges -> bipartite/C-NP.MRGPRX1_GFRA2__C-Thermo.TRPM8.tsv
+  C-NP.MRGPRX1_GFRA2 <-> global_ppi: 1,725 edges -> bipartite/C-NP.MRGPRX1_GFRA2__global_ppi.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-NP.SST: 66 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-NP.SST.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.ADORA2B: 39 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.ADORA2B.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CACNG5: 22 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.TAC1_CACNG5.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-PEP.TAC1_CHRNA3: 30 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-PEP.TAC1_CHRNA3.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.RXFP1: 61 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-Thermo.RXFP1.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> C-Thermo.TRPM8: 37 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__C-Thermo.TRPM8.tsv
+  C-NP.MRGPRX1_MRGPRX4 <-> global_ppi: 2,726 edges -> bipartite/C-NP.MRGPRX1_MRGPRX4__global_ppi.tsv
+  C-NP.SST <-> C-PEP.ADORA2B: 60 edges -> bipartite/C-NP.SST__C-PEP.ADORA2B.tsv
+  C-NP.SST <-> C-PEP.TAC1_CACNG5: 29 edges -> bipartite/C-NP.SST__C-PEP.TAC1_CACNG5.tsv
+  C-NP.SST <-> C-PEP.TAC1_CHRNA3: 30 edges -> bipartite/C-NP.SST__C-PEP.TAC1_CHRNA3.tsv
+  C-NP.SST <-> C-Thermo.RXFP1: 84 edges -> bipartite/C-NP.SST__C-Thermo.RXFP1.tsv
+  C-NP.SST <-> C-Thermo.TRPM8: 58 edges -> bipartite/C-NP.SST__C-Thermo.TRPM8.tsv
+  C-NP.SST <-> global_ppi: 4,083 edges -> bipartite/C-NP.SST__global_ppi.tsv
+  C-PEP.ADORA2B <-> C-PEP.TAC1_CACNG5: 15 edges -> bipartite/C-PEP.ADORA2B__C-PEP.TAC1_CACNG5.tsv
+  C-PEP.ADORA2B <-> C-PEP.TAC1_CHRNA3: 15 edges -> bipartite/C-PEP.ADORA2B__C-PEP.TAC1_CHRNA3.tsv
+  C-PEP.ADORA2B <-> C-Thermo.RXFP1: 45 edges -> bipartite/C-PEP.ADORA2B__C-Thermo.RXFP1.tsv
+  C-PEP.ADORA2B <-> C-Thermo.TRPM8: 31 edges -> bipartite/C-PEP.ADORA2B__C-Thermo.TRPM8.tsv
+  C-PEP.ADORA2B <-> global_ppi: 3,650 edges -> bipartite/C-PEP.ADORA2B__global_ppi.tsv
+  C-PEP.TAC1_CACNG5 <-> C-PEP.TAC1_CHRNA3: 5 edges -> bipartite/C-PEP.TAC1_CACNG5__C-PEP.TAC1_CHRNA3.tsv
+  C-PEP.TAC1_CACNG5 <-> C-Thermo.RXFP1: 27 edges -> bipartite/C-PEP.TAC1_CACNG5__C-Thermo.RXFP1.tsv
+  C-PEP.TAC1_CACNG5 <-> C-Thermo.TRPM8: 21 edges -> bipartite/C-PEP.TAC1_CACNG5__C-Thermo.TRPM8.tsv
+  C-PEP.TAC1_CACNG5 <-> global_ppi: 1,994 edges -> bipartite/C-PEP.TAC1_CACNG5__global_ppi.tsv
+  C-PEP.TAC1_CHRNA3 <-> C-Thermo.RXFP1: 25 edges -> bipartite/C-PEP.TAC1_CHRNA3__C-Thermo.RXFP1.tsv
+  C-PEP.TAC1_CHRNA3 <-> C-Thermo.TRPM8: 20 edges -> bipartite/C-PEP.TAC1_CHRNA3__C-Thermo.TRPM8.tsv
+  C-PEP.TAC1_CHRNA3 <-> global_ppi: 1,763 edges -> bipartite/C-PEP.TAC1_CHRNA3__global_ppi.tsv
+  C-Thermo.RXFP1 <-> C-Thermo.TRPM8: 45 edges -> bipartite/C-Thermo.RXFP1__C-Thermo.TRPM8.tsv
+  C-Thermo.RXFP1 <-> global_ppi: 5,203 edges -> bipartite/C-Thermo.RXFP1__global_ppi.tsv
+  C-Thermo.TRPM8 <-> global_ppi: 3,246 edges -> bipartite/C-Thermo.TRPM8__global_ppi.tsv
+
+Computing unique-gene-pair vs. absolute-edge-count stats (namespacing overcounting check) ...
+                                 source  absolute_edges  unique_gene_pairs  overcounting_ratio
+                            cellphonedb            2385                206               11.58
+                             connectome            2385                206               11.58
+                    global_ppi_identity           52156              12007                4.34
+                        liana_consensus            2385                206               11.58
+                        ligand_receptor            7059                370               19.08
+                                  logfc            2385                206               11.58
+                                  natmi            2385                206               11.58
+                             neuronchat              33                  4                8.25
+                                    sca            2385                206               11.58
+OVERALL (as written to bipartite files)           60207              12456                4.83
+OVERALL (excluding global_ppi_identity)            8051                449               17.93
+  -> 04_multixrank_prep/multixrank_hetero_input/unique_vs_absolute_stats.csv
+  Chart -> 04_multixrank_prep/multixrank_hetero_input/chart_unique_vs_absolute_overall.png
+  Chart -> 04_multixrank_prep/multixrank_hetero_input/chart_unique_vs_absolute_by_source.png
+  [exclude-identity-from-charts] 'global_ppi_identity' left out of both PNGs (still logged in unique_vs_absolute_stats.csv for reference)
+  Overall (raw, all sources): 60,207 absolute edges written across all bipartite files represent only 12,456 unique gene-gene pairs (≈4.83x namespacing overcounting)
+  Overall (excluding global_ppi_identity): 8,051 absolute edges represent 449 unique gene-gene pairs (≈17.93x) -- this is the picture drawn in the PNGs
+
+============================================================
+Step 2 complete: 253 bipartite file(s), 60,207 total edges
+  Edges skipped (no PPI support): 1,844
+  Manifest -> 04_multixrank_prep/multixrank_hetero_input/bipartite_manifest.json
+============================================================
+Finished at: Wed Sep 23 03:14:02 PM CEST 2026

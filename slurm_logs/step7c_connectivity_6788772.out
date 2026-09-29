@@ -1,0 +1,679 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d01/tmp/slurm-6788772
+Step 7c: Inter-cell-type connectivity analysis (merged old step10 pathway-connectivity + step14 interlayer-edges)
+Running on host: node-d01.lisc
+Starting at: Wed Sep 23 04:06:41 PM CEST 2026
+
+================================================================================
+STEP 7c: INTER-CELL-TYPE CONNECTIVITY ANALYSIS
+================================================================================
+
+Loaded 47,307 raw bipartite edges across 253 cell-type pair(s)
+
+Loaded pathway map: 4,183 gene pairs with shared-pathway annotation
+
+Loaded scored-LR edge provenance: 04_multixrank_prep/multixrank_hetero_input/scored_lr_edge_provenance.csv (110,144 rows)
+  Sources present     : ['cellphonedb', 'connectome', 'liana_consensus', 'logfc', 'natmi', 'neuronchat', 'sca']
+  Ligand types present: ['Gap junction protein', 'Neuropeptide', 'Synaptic adhesion molecule']
+
+SECTION 1: EDGE COUNTS BY CELL-TYPE PAIR
+         cell_type_1          cell_type_2  n_ligand_receptor  n_reactome  n_other  total
+            C-NP.SST           global_ppi               1232         221        0   1453
+C-NP.MRGPRX1_MRGPRX4           global_ppi               1136         199        0   1335
+      C-Thermo.RXFP1           global_ppi               1020         187        0   1207
+           A-PEP.KIT           global_ppi               1031         166        0   1197
+         A-LTMR.TAC3           global_ppi                794         152        0    946
+ A-PEP.NTRK3_S100A16           global_ppi                781         132        0    913
+                ATF3           global_ppi                774         132        0    906
+       C-PEP.ADORA2B           global_ppi                764         122        0    886
+      C-Thermo.TRPM8           global_ppi                654         128        0    782
+       A-Propr.PCDH8           global_ppi                651         129        0    780
+  C-NP.MRGPRX1_GFRA2           global_ppi                641         131        0    772
+         C-LTMR.CDH9           global_ppi                640         112        0    752
+   C-PEP.TAC1_CHRNA3           global_ppi                625         114        0    739
+           A-PEP.KIT             C-NP.SST                594          75        0    669
+       A-Propr.EPHA3           global_ppi                556         101        0    657
+   C-PEP.TAC1_CACNG5           global_ppi                546         104        0    650
+       Ab-LTMR.CCKAR           global_ppi                524          92        0    616
+            C-NP.SST       C-Thermo.RXFP1                519          73        0    592
+      A-Propr.HAPLN4           global_ppi                448         107        0    555
+           A-PEP.KIT       C-Thermo.RXFP1                477          49        0    526
+         A-LTMR.TAC3             C-NP.SST                423          68        0    491
+                ATF3             C-NP.SST                416          55        0    471
+        Ab-LTMR.LGI2           global_ppi                371          94        0    465
+   A-PEP.SCGN_ADRA2C           global_ppi                391          73        0    464
+           A-PEP.KIT                 ATF3                397          60        0    457
+         A-LTMR.TAC3            A-PEP.KIT                396          51        0    447
+C-NP.MRGPRX1_MRGPRX4             C-NP.SST                362          66        0    428
+            C-NP.SST        C-PEP.ADORA2B                386          41        0    427
+         A-LTMR.TAC3       C-Thermo.RXFP1                362          49        0    411
+         C-LTMR.CDH9             C-NP.SST                355          53        0    408
+A-PEP.CHRNA7_SLC18A3           global_ppi                360          47        0    407
+        Ab-LTMR.NSG2           global_ppi                319          82        0    401
+                ATF3       C-Thermo.RXFP1                339          49        0    388
+           A-PEP.KIT        C-PEP.ADORA2B                352          35        0    387
+       C-PEP.ADORA2B       C-Thermo.RXFP1                346          33        0    379
+            C-NP.SST       C-Thermo.TRPM8                313          50        0    363
+           A-PEP.KIT          C-LTMR.CDH9                326          30        0    356
+       A-Propr.PCDH8             C-NP.SST                297          54        0    351
+C-NP.MRGPRX1_MRGPRX4       C-Thermo.RXFP1                297          53        0    350
+           A-PEP.KIT        A-Propr.PCDH8                291          46        0    337
+         C-LTMR.CDH9       C-Thermo.RXFP1                292          39        0    331
+           A-PEP.KIT C-NP.MRGPRX1_MRGPRX4                293          37        0    330
+         A-LTMR.TAC3                 ATF3                274          53        0    327
+      C-Thermo.RXFP1       C-Thermo.TRPM8                278          42        0    320
+       A-Propr.PCDH8       C-Thermo.RXFP1                270          49        0    319
+         A-LTMR.TAC3        A-Propr.PCDH8                260          51        0    311
+           A-PEP.KIT        A-Propr.EPHA3                278          32        0    310
+       A-Propr.EPHA3             C-NP.SST                272          38        0    310
+           A-PEP.KIT       C-Thermo.TRPM8                271          29        0    300
+           A-PEP.KIT        Ab-LTMR.CCKAR                258          36        0    294
+       A-Propr.EPHA3       C-Thermo.RXFP1                253          40        0    293
+ A-PEP.NTRK3_S100A16             C-NP.SST                259          30        0    289
+ A-PEP.NTRK3_S100A16 C-NP.MRGPRX1_MRGPRX4                247          34        0    281
+         A-LTMR.TAC3        A-Propr.EPHA3                242          37        0    279
+         A-LTMR.TAC3          C-LTMR.CDH9                241          36        0    277
+                ATF3 C-NP.MRGPRX1_MRGPRX4                235          36        0    271
+       Ab-LTMR.CCKAR       C-Thermo.RXFP1                234          34        0    268
+         A-LTMR.TAC3       C-Thermo.TRPM8                231          36        0    267
+         A-LTMR.TAC3        C-PEP.ADORA2B                246          20        0    266
+                ATF3          C-LTMR.CDH9                232          33        0    265
+           A-PEP.KIT       A-Propr.HAPLN4                213          43        0    256
+ A-PEP.NTRK3_S100A16       C-Thermo.RXFP1                215          39        0    254
+       Ab-LTMR.CCKAR             C-NP.SST                229          23        0    252
+                ATF3        C-PEP.ADORA2B                227          23        0    250
+         A-LTMR.TAC3 C-NP.MRGPRX1_MRGPRX4                213          36        0    249
+C-NP.MRGPRX1_MRGPRX4        C-PEP.ADORA2B                207          37        0    244
+      A-Propr.HAPLN4             C-NP.SST                201          42        0    243
+           A-PEP.KIT  A-PEP.NTRK3_S100A16                210          30        0    240
+         C-LTMR.CDH9 C-NP.MRGPRX1_MRGPRX4                207          31        0    238
+         A-LTMR.TAC3        Ab-LTMR.CCKAR                200          33        0    233
+  C-NP.MRGPRX1_GFRA2             C-NP.SST                193          40        0    233
+        Ab-LTMR.ETV1           global_ppi                175          57        0    232
+       A-Propr.PCDH8                 ATF3                199          33        0    232
+       A-Propr.EPHA3        A-Propr.PCDH8                196          36        0    232
+         C-LTMR.CDH9        C-PEP.ADORA2B                207          19        0    226
+      A-Propr.HAPLN4       C-Thermo.RXFP1                179          44        0    223
+         A-LTMR.TAC3       A-Propr.HAPLN4                177          45        0    222
+  C-NP.MRGPRX1_GFRA2 C-NP.MRGPRX1_MRGPRX4                189          33        0    222
+            C-NP.SST    C-PEP.TAC1_CHRNA3                186          33        0    219
+       A-Propr.PCDH8        C-PEP.ADORA2B                198          18        0    216
+       A-Propr.PCDH8       C-Thermo.TRPM8                179          33        0    212
+C-NP.MRGPRX1_MRGPRX4       C-Thermo.TRPM8                180          31        0    211
+       C-PEP.ADORA2B       C-Thermo.TRPM8                185          25        0    210
+                ATF3       C-Thermo.TRPM8                181          29        0    210
+           A-PEP.KIT         Ab-LTMR.LGI2                175          35        0    210
+           A-PEP.KIT         Ab-LTMR.NSG2                179          29        0    208
+       A-Propr.PCDH8          C-LTMR.CDH9                169          39        0    208
+        Ab-LTMR.LGI2       C-Thermo.RXFP1                174          33        0    207
+       A-Propr.EPHA3        C-PEP.ADORA2B                189          16        0    205
+         C-LTMR.CDH9       C-Thermo.TRPM8                175          29        0    204
+        Ab-LTMR.LGI2             C-NP.SST                171          31        0    202
+       A-Propr.EPHA3                 ATF3                172          27        0    199
+       A-Propr.EPHA3       C-Thermo.TRPM8                169          30        0    199
+C-NP.MRGPRX1_MRGPRX4    C-PEP.TAC1_CHRNA3                169          28        0    197
+         A-LTMR.TAC3  A-PEP.NTRK3_S100A16                165          29        0    194
+   C-PEP.TAC1_CHRNA3       C-Thermo.RXFP1                159          32        0    191
+        Ab-LTMR.NSG2             C-NP.SST                160          31        0    191
+  C-NP.MRGPRX1_GFRA2       C-Thermo.RXFP1                155          34        0    189
+        Ab-LTMR.NSG2       C-Thermo.RXFP1                160          27        0    187
+            C-NP.SST    C-PEP.TAC1_CACNG5                164          23        0    187
+       Ab-LTMR.CCKAR       C-Thermo.TRPM8                158          28        0    186
+       Ab-LTMR.CCKAR        C-PEP.ADORA2B                164          17        0    181
+                ATF3        Ab-LTMR.CCKAR                158          22        0    180
+       A-Propr.PCDH8        Ab-LTMR.CCKAR                148          30        0    178
+       A-Propr.PCDH8 C-NP.MRGPRX1_MRGPRX4                151          27        0    178
+       A-Propr.EPHA3          C-LTMR.CDH9                150          28        0    178
+         A-LTMR.TAC3         Ab-LTMR.LGI2                144          31        0    175
+       A-Propr.EPHA3        Ab-LTMR.CCKAR                149          25        0    174
+           A-PEP.KIT   C-NP.MRGPRX1_GFRA2                154          20        0    174
+ A-PEP.NTRK3_S100A16          C-LTMR.CDH9                146          25        0    171
+       Ab-LTMR.CCKAR          C-LTMR.CDH9                151          18        0    169
+         A-LTMR.TAC3         Ab-LTMR.NSG2                141          27        0    168
+       Ab-LTMR.CCKAR C-NP.MRGPRX1_MRGPRX4                150          17        0    167
+C-NP.MRGPRX1_MRGPRX4    C-PEP.TAC1_CACNG5                142          24        0    166
+           A-PEP.KIT    C-PEP.TAC1_CHRNA3                144          22        0    166
+   C-PEP.TAC1_CACNG5       C-Thermo.RXFP1                139          25        0    164
+ A-PEP.NTRK3_S100A16                 ATF3                142          19        0    161
+ A-PEP.NTRK3_S100A16   C-NP.MRGPRX1_GFRA2                137          23        0    160
+      A-Propr.HAPLN4                 ATF3                134          23        0    157
+        Ab-LTMR.LGI2       C-Thermo.TRPM8                127          28        0    155
+      A-Propr.HAPLN4          C-LTMR.CDH9                125          29        0    154
+       A-Propr.EPHA3 C-NP.MRGPRX1_MRGPRX4                131          19        0    150
+      A-Propr.HAPLN4       C-Thermo.TRPM8                121          29        0    150
+        Ab-LTMR.NSG2       C-Thermo.TRPM8                125          24        0    149
+         A-LTMR.TAC3   C-NP.MRGPRX1_GFRA2                118          30        0    148
+ A-PEP.NTRK3_S100A16       C-Thermo.TRPM8                125          22        0    147
+                ATF3   C-NP.MRGPRX1_GFRA2                125          21        0    146
+   A-PEP.SCGN_ADRA2C C-NP.MRGPRX1_MRGPRX4                130          15        0    145
+ A-PEP.NTRK3_S100A16        C-PEP.ADORA2B                126          18        0    144
+       A-Propr.PCDH8         Ab-LTMR.LGI2                116          27        0    143
+      A-Propr.HAPLN4        C-PEP.ADORA2B                124          18        0    142
+      A-Propr.HAPLN4        A-Propr.PCDH8                111          30        0    141
+        Ab-LTMR.LGI2        C-PEP.ADORA2B                123          18        0    141
+   A-PEP.SCGN_ADRA2C             C-NP.SST                123          17        0    140
+       A-Propr.EPHA3       A-Propr.HAPLN4                113          25        0    138
+       A-Propr.EPHA3         Ab-LTMR.LGI2                113          25        0    138
+      A-Propr.HAPLN4 C-NP.MRGPRX1_MRGPRX4                117          20        0    137
+  C-NP.MRGPRX1_GFRA2        C-PEP.ADORA2B                116          20        0    136
+         C-LTMR.CDH9   C-NP.MRGPRX1_GFRA2                117          19        0    136
+       A-Propr.EPHA3         Ab-LTMR.NSG2                112          24        0    136
+  C-NP.MRGPRX1_GFRA2       C-Thermo.TRPM8                110          25        0    135
+       A-Propr.PCDH8         Ab-LTMR.NSG2                110          25        0    135
+           A-PEP.KIT    C-PEP.TAC1_CACNG5                117          17        0    134
+        Ab-LTMR.LGI2          C-LTMR.CDH9                111          22        0    133
+         A-LTMR.TAC3    C-PEP.TAC1_CHRNA3                115          17        0    132
+ A-PEP.NTRK3_S100A16        A-Propr.PCDH8                112          18        0    130
+   A-PEP.SCGN_ADRA2C       C-Thermo.RXFP1                106          22        0    128
+        Ab-LTMR.NSG2        C-PEP.ADORA2B                111          15        0    126
+ A-PEP.NTRK3_S100A16    C-PEP.TAC1_CHRNA3                111          15        0    126
+           A-PEP.KIT         Ab-LTMR.ETV1                102          24        0    126
+  C-NP.MRGPRX1_GFRA2    C-PEP.TAC1_CHRNA3                106          18        0    124
+                ATF3    C-PEP.TAC1_CHRNA3                104          18        0    122
+       Ab-LTMR.CCKAR    C-PEP.TAC1_CHRNA3                101          19        0    120
+        Ab-LTMR.NSG2          C-LTMR.CDH9                102          18        0    120
+         A-LTMR.TAC3    C-PEP.TAC1_CACNG5                104          15        0    119
+       C-PEP.ADORA2B    C-PEP.TAC1_CHRNA3                104          14        0    118
+                ATF3         Ab-LTMR.NSG2                 96          20        0    116
+A-PEP.CHRNA7_SLC18A3             C-NP.SST                107           9        0    116
+       A-Propr.PCDH8   C-NP.MRGPRX1_GFRA2                 94          21        0    115
+        Ab-LTMR.LGI2 C-NP.MRGPRX1_MRGPRX4                100          14        0    114
+   C-PEP.TAC1_CHRNA3       C-Thermo.TRPM8                 96          18        0    114
+                ATF3         Ab-LTMR.LGI2                 92          21        0    113
+       C-PEP.ADORA2B    C-PEP.TAC1_CACNG5                 98          14        0    112
+        Ab-LTMR.ETV1             C-NP.SST                 88          22        0    110
+ A-PEP.NTRK3_S100A16    C-PEP.TAC1_CACNG5                 95          15        0    110
+       Ab-LTMR.CCKAR   C-NP.MRGPRX1_GFRA2                 94          16        0    110
+ A-PEP.NTRK3_S100A16        Ab-LTMR.CCKAR                 95          14        0    109
+         C-LTMR.CDH9    C-PEP.TAC1_CHRNA3                 94          14        0    108
+           A-PEP.KIT    A-PEP.SCGN_ADRA2C                 89          19        0    108
+        Ab-LTMR.ETV1       C-Thermo.RXFP1                 89          18        0    107
+A-PEP.CHRNA7_SLC18A3 C-NP.MRGPRX1_MRGPRX4                 97           9        0    106
+A-PEP.CHRNA7_SLC18A3       C-Thermo.RXFP1                 91          15        0    106
+       Ab-LTMR.CCKAR         Ab-LTMR.NSG2                 85          20        0    105
+      A-Propr.HAPLN4        Ab-LTMR.CCKAR                 90          15        0    105
+  C-NP.MRGPRX1_GFRA2    C-PEP.TAC1_CACNG5                 89          14        0    103
+       A-Propr.EPHA3   C-NP.MRGPRX1_GFRA2                 85          18        0    103
+       Ab-LTMR.CCKAR    C-PEP.TAC1_CACNG5                 85          17        0    102
+         A-LTMR.TAC3         Ab-LTMR.ETV1                 84          17        0    101
+       Ab-LTMR.CCKAR         Ab-LTMR.LGI2                 79          21        0    100
+A-PEP.CHRNA7_SLC18A3            A-PEP.KIT                 90           9        0     99
+        Ab-LTMR.NSG2 C-NP.MRGPRX1_MRGPRX4                 85          13        0     98
+ A-PEP.NTRK3_S100A16        A-Propr.EPHA3                 85          12        0     97
+         C-LTMR.CDH9    C-PEP.TAC1_CACNG5                 82          14        0     96
+       A-Propr.PCDH8    C-PEP.TAC1_CHRNA3                 83          12        0     95
+        Ab-LTMR.ETV1       C-Thermo.TRPM8                 75          17        0     92
+                ATF3    C-PEP.TAC1_CACNG5                 77          14        0     91
+   C-PEP.TAC1_CACNG5       C-Thermo.TRPM8                 76          14        0     90
+        Ab-LTMR.ETV1        C-PEP.ADORA2B                 77          11        0     88
+ A-PEP.NTRK3_S100A16       A-Propr.HAPLN4                 73          14        0     87
+   C-PEP.TAC1_CACNG5    C-PEP.TAC1_CHRNA3                 76          11        0     87
+       A-Propr.PCDH8    C-PEP.TAC1_CACNG5                 74           9        0     83
+         A-LTMR.TAC3    A-PEP.SCGN_ADRA2C                 71          12        0     83
+      A-Propr.HAPLN4         Ab-LTMR.LGI2                 63          20        0     83
+       A-Propr.EPHA3    C-PEP.TAC1_CHRNA3                 70          12        0     82
+   A-PEP.SCGN_ADRA2C   C-NP.MRGPRX1_GFRA2                 73           9        0     82
+         A-LTMR.TAC3 A-PEP.CHRNA7_SLC18A3                 74           7        0     81
+   A-PEP.SCGN_ADRA2C          C-LTMR.CDH9                 66          15        0     81
+        Ab-LTMR.LGI2   C-NP.MRGPRX1_GFRA2                 66          14        0     80
+        Ab-LTMR.LGI2         Ab-LTMR.NSG2                 62          18        0     80
+ A-PEP.NTRK3_S100A16         Ab-LTMR.LGI2                 64          13        0     77
+      A-Propr.HAPLN4   C-NP.MRGPRX1_GFRA2                 64          12        0     76
+       A-Propr.EPHA3    C-PEP.TAC1_CACNG5                 67           9        0     76
+ A-PEP.NTRK3_S100A16    A-PEP.SCGN_ADRA2C                 63          13        0     76
+       A-Propr.PCDH8         Ab-LTMR.ETV1                 61          15        0     76
+   A-PEP.SCGN_ADRA2C       C-Thermo.TRPM8                 62          13        0     75
+      A-Propr.HAPLN4    C-PEP.TAC1_CHRNA3                 63          11        0     74
+       A-Propr.EPHA3         Ab-LTMR.ETV1                 60          13        0     73
+A-PEP.CHRNA7_SLC18A3   C-NP.MRGPRX1_GFRA2                 66           6        0     72
+A-PEP.CHRNA7_SLC18A3          C-LTMR.CDH9                 66           6        0     72
+   A-PEP.SCGN_ADRA2C        Ab-LTMR.CCKAR                 57          14        0     71
+        Ab-LTMR.ETV1          C-LTMR.CDH9                 58          13        0     71
+A-PEP.CHRNA7_SLC18A3        C-PEP.ADORA2B                 66           5        0     71
+A-PEP.CHRNA7_SLC18A3                 ATF3                 61           7        0     68
+      A-Propr.HAPLN4         Ab-LTMR.NSG2                 54          14        0     68
+ A-PEP.NTRK3_S100A16         Ab-LTMR.NSG2                 52          16        0     68
+        Ab-LTMR.LGI2    C-PEP.TAC1_CHRNA3                 53          13        0     66
+      A-Propr.HAPLN4    C-PEP.TAC1_CACNG5                 55          10        0     65
+       Ab-LTMR.CCKAR         Ab-LTMR.ETV1                 51          14        0     65
+   A-PEP.SCGN_ADRA2C                 ATF3                 56           9        0     65
+A-PEP.CHRNA7_SLC18A3  A-PEP.NTRK3_S100A16                 58           5        0     63
+A-PEP.CHRNA7_SLC18A3    C-PEP.TAC1_CHRNA3                 54           8        0     62
+        Ab-LTMR.LGI2    C-PEP.TAC1_CACNG5                 50          11        0     61
+A-PEP.CHRNA7_SLC18A3       C-Thermo.TRPM8                 54           6        0     60
+        Ab-LTMR.NSG2   C-NP.MRGPRX1_GFRA2                 49          11        0     60
+   A-PEP.SCGN_ADRA2C        A-Propr.PCDH8                 50          10        0     60
+   A-PEP.SCGN_ADRA2C    C-PEP.TAC1_CHRNA3                 48          10        0     58
+        Ab-LTMR.NSG2    C-PEP.TAC1_CHRNA3                 44          14        0     58
+                ATF3         Ab-LTMR.ETV1                 46          11        0     57
+A-PEP.CHRNA7_SLC18A3        A-Propr.PCDH8                 51           6        0     57
+A-PEP.CHRNA7_SLC18A3        Ab-LTMR.CCKAR                 47           8        0     55
+        Ab-LTMR.ETV1 C-NP.MRGPRX1_MRGPRX4                 46           8        0     54
+        Ab-LTMR.NSG2    C-PEP.TAC1_CACNG5                 41          11        0     52
+   A-PEP.SCGN_ADRA2C        C-PEP.ADORA2B                 49           3        0     52
+   A-PEP.SCGN_ADRA2C        A-Propr.EPHA3                 41          10        0     51
+   A-PEP.SCGN_ADRA2C       A-Propr.HAPLN4                 41          10        0     51
+        Ab-LTMR.ETV1         Ab-LTMR.LGI2                 37          13        0     50
+A-PEP.CHRNA7_SLC18A3        A-Propr.EPHA3                 42           4        0     46
+        Ab-LTMR.ETV1         Ab-LTMR.NSG2                 34          11        0     45
+A-PEP.CHRNA7_SLC18A3    C-PEP.TAC1_CACNG5                 38           6        0     44
+        Ab-LTMR.ETV1    C-PEP.TAC1_CHRNA3                 29          13        0     42
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.LGI2                 31           9        0     40
+   A-PEP.SCGN_ADRA2C    C-PEP.TAC1_CACNG5                 33           6        0     39
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.LGI2                 34           5        0     39
+A-PEP.CHRNA7_SLC18A3    A-PEP.SCGN_ADRA2C                 32           6        0     38
+ A-PEP.NTRK3_S100A16         Ab-LTMR.ETV1                 28          10        0     38
+        Ab-LTMR.ETV1   C-NP.MRGPRX1_GFRA2                 30           8        0     38
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.NSG2                 30           7        0     37
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.NSG2                 27          10        0     37
+        Ab-LTMR.ETV1    C-PEP.TAC1_CACNG5                 28           9        0     37
+A-PEP.CHRNA7_SLC18A3       A-Propr.HAPLN4                 29           4        0     33
+      A-Propr.HAPLN4         Ab-LTMR.ETV1                 24           9        0     33
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.ETV1                 17           8        0     25
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.ETV1                 17           5        0     22
+
+SECTION 2: DRG HIERARCHY BREAKDOWN (raw counts + density-normalized)
+  ⚠ 1 cell type(s) not in DRG_HIERARCHY (bucketed 'Unclassified' at subcategory/fiber level, excluded from fine heatmap): ['global_ppi']
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_celltype.png
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_celltype_density.png
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_subcategory.png
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_subcategory_density.png
+  Saved -> 07_analysis/interlayer_connectivity/edgetype_breakdown_subcategory.png
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_fibertype.png
+  Saved -> 07_analysis/interlayer_connectivity/heatmap_fibertype_density.png
+  Saved -> 07_analysis/interlayer_connectivity/edgetype_breakdown_fibertype.png
+
+SECTION 3: DENSITY METRICS
+         cell_type_1          cell_type_2  n_genes_1  n_genes_2  n_possible_edges  n_actual_edges  density_percent
+            C-NP.SST           global_ppi       3866      17051          65919166            1453         0.002204
+C-NP.MRGPRX1_MRGPRX4           global_ppi       2517      17051          42917367            1335         0.003111
+      C-Thermo.RXFP1           global_ppi       4999      17051          85237949            1207         0.001416
+           A-PEP.KIT           global_ppi       5008      17051          85391408            1197         0.001402
+         A-LTMR.TAC3           global_ppi       4897      17051          83498747             946         0.001133
+ A-PEP.NTRK3_S100A16           global_ppi       1714      17051          29225414             913         0.003124
+                ATF3           global_ppi       1912      17051          32601512             906         0.002779
+       C-PEP.ADORA2B           global_ppi       3501      17051          59695551             886         0.001484
+      C-Thermo.TRPM8           global_ppi       3109      17051          53011559             782         0.001475
+       A-Propr.PCDH8           global_ppi       2365      17051          40325615             780         0.001934
+  C-NP.MRGPRX1_GFRA2           global_ppi       1624      17051          27690824             772         0.002788
+         C-LTMR.CDH9           global_ppi       1229      17051          20955679             752         0.003589
+   C-PEP.TAC1_CHRNA3           global_ppi       1670      17051          28475170             739         0.002595
+           A-PEP.KIT             C-NP.SST       5008       3866          19360928             669         0.003455
+       A-Propr.EPHA3           global_ppi       2605      17051          44417855             657         0.001479
+   C-PEP.TAC1_CACNG5           global_ppi       1889      17051          32209339             650         0.002018
+       Ab-LTMR.CCKAR           global_ppi       1538      17051          26224438             616         0.002349
+            C-NP.SST       C-Thermo.RXFP1       3866       4999          19326134             592         0.003063
+      A-Propr.HAPLN4           global_ppi       1276      17051          21757076             555         0.002551
+           A-PEP.KIT       C-Thermo.RXFP1       5008       4999          25034992             526         0.002101
+         A-LTMR.TAC3             C-NP.SST       4897       3866          18931802             491         0.002594
+                ATF3             C-NP.SST       1912       3866           7391792             471         0.006372
+        Ab-LTMR.LGI2           global_ppi       1884      17051          32124084             465         0.001448
+   A-PEP.SCGN_ADRA2C           global_ppi       1153      17051          19659803             464         0.002360
+           A-PEP.KIT                 ATF3       5008       1912           9575296             457         0.004773
+         A-LTMR.TAC3            A-PEP.KIT       4897       5008          24524176             447         0.001823
+C-NP.MRGPRX1_MRGPRX4             C-NP.SST       2517       3866           9730722             428         0.004398
+            C-NP.SST        C-PEP.ADORA2B       3866       3501          13534866             427         0.003155
+         A-LTMR.TAC3       C-Thermo.RXFP1       4897       4999          24480103             411         0.001679
+         C-LTMR.CDH9             C-NP.SST       1229       3866           4751314             408         0.008587
+A-PEP.CHRNA7_SLC18A3           global_ppi       1225      17051          20887475             407         0.001949
+        Ab-LTMR.NSG2           global_ppi       1326      17051          22609626             401         0.001774
+                ATF3       C-Thermo.RXFP1       1912       4999           9558088             388         0.004059
+           A-PEP.KIT        C-PEP.ADORA2B       5008       3501          17533008             387         0.002207
+       C-PEP.ADORA2B       C-Thermo.RXFP1       3501       4999          17501499             379         0.002166
+            C-NP.SST       C-Thermo.TRPM8       3866       3109          12019394             363         0.003020
+           A-PEP.KIT          C-LTMR.CDH9       5008       1229           6154832             356         0.005784
+       A-Propr.PCDH8             C-NP.SST       2365       3866           9143090             351         0.003839
+C-NP.MRGPRX1_MRGPRX4       C-Thermo.RXFP1       2517       4999          12582483             350         0.002782
+           A-PEP.KIT        A-Propr.PCDH8       5008       2365          11843920             337         0.002845
+         C-LTMR.CDH9       C-Thermo.RXFP1       1229       4999           6143771             331         0.005388
+           A-PEP.KIT C-NP.MRGPRX1_MRGPRX4       5008       2517          12605136             330         0.002618
+         A-LTMR.TAC3                 ATF3       4897       1912           9363064             327         0.003492
+      C-Thermo.RXFP1       C-Thermo.TRPM8       4999       3109          15541891             320         0.002059
+       A-Propr.PCDH8       C-Thermo.RXFP1       2365       4999          11822635             319         0.002698
+         A-LTMR.TAC3        A-Propr.PCDH8       4897       2365          11581405             311         0.002685
+           A-PEP.KIT        A-Propr.EPHA3       5008       2605          13045840             310         0.002376
+       A-Propr.EPHA3             C-NP.SST       2605       3866          10070930             310         0.003078
+           A-PEP.KIT       C-Thermo.TRPM8       5008       3109          15569872             300         0.001927
+           A-PEP.KIT        Ab-LTMR.CCKAR       5008       1538           7702304             294         0.003817
+       A-Propr.EPHA3       C-Thermo.RXFP1       2605       4999          13022395             293         0.002250
+ A-PEP.NTRK3_S100A16             C-NP.SST       1714       3866           6626324             289         0.004361
+ A-PEP.NTRK3_S100A16 C-NP.MRGPRX1_MRGPRX4       1714       2517           4314138             281         0.006513
+         A-LTMR.TAC3        A-Propr.EPHA3       4897       2605          12756685             279         0.002187
+         A-LTMR.TAC3          C-LTMR.CDH9       4897       1229           6018413             277         0.004603
+                ATF3 C-NP.MRGPRX1_MRGPRX4       1912       2517           4812504             271         0.005631
+       Ab-LTMR.CCKAR       C-Thermo.RXFP1       1538       4999           7688462             268         0.003486
+         A-LTMR.TAC3       C-Thermo.TRPM8       4897       3109          15224773             267         0.001754
+         A-LTMR.TAC3        C-PEP.ADORA2B       4897       3501          17144397             266         0.001552
+                ATF3          C-LTMR.CDH9       1912       1229           2349848             265         0.011277
+           A-PEP.KIT       A-Propr.HAPLN4       5008       1276           6390208             256         0.004006
+ A-PEP.NTRK3_S100A16       C-Thermo.RXFP1       1714       4999           8568286             254         0.002964
+       Ab-LTMR.CCKAR             C-NP.SST       1538       3866           5945908             252         0.004238
+                ATF3        C-PEP.ADORA2B       1912       3501           6693912             250         0.003735
+         A-LTMR.TAC3 C-NP.MRGPRX1_MRGPRX4       4897       2517          12325749             249         0.002020
+C-NP.MRGPRX1_MRGPRX4        C-PEP.ADORA2B       2517       3501           8812017             244         0.002769
+      A-Propr.HAPLN4             C-NP.SST       1276       3866           4933016             243         0.004926
+           A-PEP.KIT  A-PEP.NTRK3_S100A16       5008       1714           8583712             240         0.002796
+         C-LTMR.CDH9 C-NP.MRGPRX1_MRGPRX4       1229       2517           3093393             238         0.007694
+         A-LTMR.TAC3        Ab-LTMR.CCKAR       4897       1538           7531586             233         0.003094
+  C-NP.MRGPRX1_GFRA2             C-NP.SST       1624       3866           6278384             233         0.003711
+        Ab-LTMR.ETV1           global_ppi        849      17051          14476299             232         0.001603
+       A-Propr.PCDH8                 ATF3       2365       1912           4521880             232         0.005131
+       A-Propr.EPHA3        A-Propr.PCDH8       2605       2365           6160825             232         0.003766
+         C-LTMR.CDH9        C-PEP.ADORA2B       1229       3501           4302729             226         0.005252
+      A-Propr.HAPLN4       C-Thermo.RXFP1       1276       4999           6378724             223         0.003496
+         A-LTMR.TAC3       A-Propr.HAPLN4       4897       1276           6248572             222         0.003553
+  C-NP.MRGPRX1_GFRA2 C-NP.MRGPRX1_MRGPRX4       1624       2517           4087608             222         0.005431
+            C-NP.SST    C-PEP.TAC1_CHRNA3       3866       1670           6456220             219         0.003392
+       A-Propr.PCDH8        C-PEP.ADORA2B       2365       3501           8279865             216         0.002609
+       A-Propr.PCDH8       C-Thermo.TRPM8       2365       3109           7352785             212         0.002883
+C-NP.MRGPRX1_MRGPRX4       C-Thermo.TRPM8       2517       3109           7825353             211         0.002696
+       C-PEP.ADORA2B       C-Thermo.TRPM8       3501       3109          10884609             210         0.001929
+                ATF3       C-Thermo.TRPM8       1912       3109           5944408             210         0.003533
+           A-PEP.KIT         Ab-LTMR.LGI2       5008       1884           9435072             210         0.002226
+           A-PEP.KIT         Ab-LTMR.NSG2       5008       1326           6640608             208         0.003132
+       A-Propr.PCDH8          C-LTMR.CDH9       2365       1229           2906585             208         0.007156
+        Ab-LTMR.LGI2       C-Thermo.RXFP1       1884       4999           9418116             207         0.002198
+       A-Propr.EPHA3        C-PEP.ADORA2B       2605       3501           9120105             205         0.002248
+         C-LTMR.CDH9       C-Thermo.TRPM8       1229       3109           3820961             204         0.005339
+        Ab-LTMR.LGI2             C-NP.SST       1884       3866           7283544             202         0.002773
+       A-Propr.EPHA3                 ATF3       2605       1912           4980760             199         0.003995
+       A-Propr.EPHA3       C-Thermo.TRPM8       2605       3109           8098945             199         0.002457
+C-NP.MRGPRX1_MRGPRX4    C-PEP.TAC1_CHRNA3       2517       1670           4203390             197         0.004687
+         A-LTMR.TAC3  A-PEP.NTRK3_S100A16       4897       1714           8393458             194         0.002311
+   C-PEP.TAC1_CHRNA3       C-Thermo.RXFP1       1670       4999           8348330             191         0.002288
+        Ab-LTMR.NSG2             C-NP.SST       1326       3866           5126316             191         0.003726
+  C-NP.MRGPRX1_GFRA2       C-Thermo.RXFP1       1624       4999           8118376             189         0.002328
+        Ab-LTMR.NSG2       C-Thermo.RXFP1       1326       4999           6628674             187         0.002821
+            C-NP.SST    C-PEP.TAC1_CACNG5       3866       1889           7302874             187         0.002561
+       Ab-LTMR.CCKAR       C-Thermo.TRPM8       1538       3109           4781642             186         0.003890
+       Ab-LTMR.CCKAR        C-PEP.ADORA2B       1538       3501           5384538             181         0.003361
+                ATF3        Ab-LTMR.CCKAR       1912       1538           2940656             180         0.006121
+       A-Propr.PCDH8        Ab-LTMR.CCKAR       2365       1538           3637370             178         0.004894
+       A-Propr.PCDH8 C-NP.MRGPRX1_MRGPRX4       2365       2517           5952705             178         0.002990
+       A-Propr.EPHA3          C-LTMR.CDH9       2605       1229           3201545             178         0.005560
+         A-LTMR.TAC3         Ab-LTMR.LGI2       4897       1884           9225948             175         0.001897
+       A-Propr.EPHA3        Ab-LTMR.CCKAR       2605       1538           4006490             174         0.004343
+           A-PEP.KIT   C-NP.MRGPRX1_GFRA2       5008       1624           8132992             174         0.002139
+ A-PEP.NTRK3_S100A16          C-LTMR.CDH9       1714       1229           2106506             171         0.008118
+       Ab-LTMR.CCKAR          C-LTMR.CDH9       1538       1229           1890202             169         0.008941
+         A-LTMR.TAC3         Ab-LTMR.NSG2       4897       1326           6493422             168         0.002587
+       Ab-LTMR.CCKAR C-NP.MRGPRX1_MRGPRX4       1538       2517           3871146             167         0.004314
+C-NP.MRGPRX1_MRGPRX4    C-PEP.TAC1_CACNG5       2517       1889           4754613             166         0.003491
+           A-PEP.KIT    C-PEP.TAC1_CHRNA3       5008       1670           8363360             166         0.001985
+   C-PEP.TAC1_CACNG5       C-Thermo.RXFP1       1889       4999           9443111             164         0.001737
+ A-PEP.NTRK3_S100A16                 ATF3       1714       1912           3277168             161         0.004913
+ A-PEP.NTRK3_S100A16   C-NP.MRGPRX1_GFRA2       1714       1624           2783536             160         0.005748
+      A-Propr.HAPLN4                 ATF3       1276       1912           2439712             157         0.006435
+        Ab-LTMR.LGI2       C-Thermo.TRPM8       1884       3109           5857356             155         0.002646
+      A-Propr.HAPLN4          C-LTMR.CDH9       1276       1229           1568204             154         0.009820
+       A-Propr.EPHA3 C-NP.MRGPRX1_MRGPRX4       2605       2517           6556785             150         0.002288
+      A-Propr.HAPLN4       C-Thermo.TRPM8       1276       3109           3967084             150         0.003781
+        Ab-LTMR.NSG2       C-Thermo.TRPM8       1326       3109           4122534             149         0.003614
+         A-LTMR.TAC3   C-NP.MRGPRX1_GFRA2       4897       1624           7952728             148         0.001861
+ A-PEP.NTRK3_S100A16       C-Thermo.TRPM8       1714       3109           5328826             147         0.002759
+                ATF3   C-NP.MRGPRX1_GFRA2       1912       1624           3105088             146         0.004702
+   A-PEP.SCGN_ADRA2C C-NP.MRGPRX1_MRGPRX4       1153       2517           2902101             145         0.004996
+ A-PEP.NTRK3_S100A16        C-PEP.ADORA2B       1714       3501           6000714             144         0.002400
+       A-Propr.PCDH8         Ab-LTMR.LGI2       2365       1884           4455660             143         0.003209
+      A-Propr.HAPLN4        C-PEP.ADORA2B       1276       3501           4467276             142         0.003179
+      A-Propr.HAPLN4        A-Propr.PCDH8       1276       2365           3017740             141         0.004672
+        Ab-LTMR.LGI2        C-PEP.ADORA2B       1884       3501           6595884             141         0.002138
+   A-PEP.SCGN_ADRA2C             C-NP.SST       1153       3866           4457498             140         0.003141
+       A-Propr.EPHA3       A-Propr.HAPLN4       2605       1276           3323980             138         0.004152
+       A-Propr.EPHA3         Ab-LTMR.LGI2       2605       1884           4907820             138         0.002812
+      A-Propr.HAPLN4 C-NP.MRGPRX1_MRGPRX4       1276       2517           3211692             137         0.004266
+  C-NP.MRGPRX1_GFRA2        C-PEP.ADORA2B       1624       3501           5685624             136         0.002392
+         C-LTMR.CDH9   C-NP.MRGPRX1_GFRA2       1229       1624           1995896             136         0.006814
+       A-Propr.EPHA3         Ab-LTMR.NSG2       2605       1326           3454230             136         0.003937
+  C-NP.MRGPRX1_GFRA2       C-Thermo.TRPM8       1624       3109           5049016             135         0.002674
+       A-Propr.PCDH8         Ab-LTMR.NSG2       2365       1326           3135990             135         0.004305
+           A-PEP.KIT    C-PEP.TAC1_CACNG5       5008       1889           9460112             134         0.001416
+        Ab-LTMR.LGI2          C-LTMR.CDH9       1884       1229           2315436             133         0.005744
+         A-LTMR.TAC3    C-PEP.TAC1_CHRNA3       4897       1670           8177990             132         0.001614
+ A-PEP.NTRK3_S100A16        A-Propr.PCDH8       1714       2365           4053610             130         0.003207
+   A-PEP.SCGN_ADRA2C       C-Thermo.RXFP1       1153       4999           5763847             128         0.002221
+        Ab-LTMR.NSG2        C-PEP.ADORA2B       1326       3501           4642326             126         0.002714
+ A-PEP.NTRK3_S100A16    C-PEP.TAC1_CHRNA3       1714       1670           2862380             126         0.004402
+           A-PEP.KIT         Ab-LTMR.ETV1       5008        849           4251792             126         0.002963
+  C-NP.MRGPRX1_GFRA2    C-PEP.TAC1_CHRNA3       1624       1670           2712080             124         0.004572
+                ATF3    C-PEP.TAC1_CHRNA3       1912       1670           3193040             122         0.003821
+       Ab-LTMR.CCKAR    C-PEP.TAC1_CHRNA3       1538       1670           2568460             120         0.004672
+        Ab-LTMR.NSG2          C-LTMR.CDH9       1326       1229           1629654             120         0.007364
+         A-LTMR.TAC3    C-PEP.TAC1_CACNG5       4897       1889           9250433             119         0.001286
+       C-PEP.ADORA2B    C-PEP.TAC1_CHRNA3       3501       1670           5846670             118         0.002018
+                ATF3         Ab-LTMR.NSG2       1912       1326           2535312             116         0.004575
+A-PEP.CHRNA7_SLC18A3             C-NP.SST       1225       3866           4735850             116         0.002449
+       A-Propr.PCDH8   C-NP.MRGPRX1_GFRA2       2365       1624           3840760             115         0.002994
+        Ab-LTMR.LGI2 C-NP.MRGPRX1_MRGPRX4       1884       2517           4742028             114         0.002404
+   C-PEP.TAC1_CHRNA3       C-Thermo.TRPM8       1670       3109           5192030             114         0.002196
+                ATF3         Ab-LTMR.LGI2       1912       1884           3602208             113         0.003137
+       C-PEP.ADORA2B    C-PEP.TAC1_CACNG5       3501       1889           6613389             112         0.001694
+        Ab-LTMR.ETV1             C-NP.SST        849       3866           3282234             110         0.003351
+ A-PEP.NTRK3_S100A16    C-PEP.TAC1_CACNG5       1714       1889           3237746             110         0.003397
+       Ab-LTMR.CCKAR   C-NP.MRGPRX1_GFRA2       1538       1624           2497712             110         0.004404
+ A-PEP.NTRK3_S100A16        Ab-LTMR.CCKAR       1714       1538           2636132             109         0.004135
+         C-LTMR.CDH9    C-PEP.TAC1_CHRNA3       1229       1670           2052430             108         0.005262
+           A-PEP.KIT    A-PEP.SCGN_ADRA2C       5008       1153           5774224             108         0.001870
+        Ab-LTMR.ETV1       C-Thermo.RXFP1        849       4999           4244151             107         0.002521
+A-PEP.CHRNA7_SLC18A3 C-NP.MRGPRX1_MRGPRX4       1225       2517           3083325             106         0.003438
+A-PEP.CHRNA7_SLC18A3       C-Thermo.RXFP1       1225       4999           6123775             106         0.001731
+       Ab-LTMR.CCKAR         Ab-LTMR.NSG2       1538       1326           2039388             105         0.005149
+      A-Propr.HAPLN4        Ab-LTMR.CCKAR       1276       1538           1962488             105         0.005350
+  C-NP.MRGPRX1_GFRA2    C-PEP.TAC1_CACNG5       1624       1889           3067736             103         0.003358
+       A-Propr.EPHA3   C-NP.MRGPRX1_GFRA2       2605       1624           4230520             103         0.002435
+       Ab-LTMR.CCKAR    C-PEP.TAC1_CACNG5       1538       1889           2905282             102         0.003511
+         A-LTMR.TAC3         Ab-LTMR.ETV1       4897        849           4157553             101         0.002429
+       Ab-LTMR.CCKAR         Ab-LTMR.LGI2       1538       1884           2897592             100         0.003451
+A-PEP.CHRNA7_SLC18A3            A-PEP.KIT       1225       5008           6134800              99         0.001614
+        Ab-LTMR.NSG2 C-NP.MRGPRX1_MRGPRX4       1326       2517           3337542              98         0.002936
+ A-PEP.NTRK3_S100A16        A-Propr.EPHA3       1714       2605           4464970              97         0.002172
+         C-LTMR.CDH9    C-PEP.TAC1_CACNG5       1229       1889           2321581              96         0.004135
+       A-Propr.PCDH8    C-PEP.TAC1_CHRNA3       2365       1670           3949550              95         0.002405
+        Ab-LTMR.ETV1       C-Thermo.TRPM8        849       3109           2639541              92         0.003485
+                ATF3    C-PEP.TAC1_CACNG5       1912       1889           3611768              91         0.002520
+   C-PEP.TAC1_CACNG5       C-Thermo.TRPM8       1889       3109           5872901              90         0.001532
+        Ab-LTMR.ETV1        C-PEP.ADORA2B        849       3501           2972349              88         0.002961
+ A-PEP.NTRK3_S100A16       A-Propr.HAPLN4       1714       1276           2187064              87         0.003978
+   C-PEP.TAC1_CACNG5    C-PEP.TAC1_CHRNA3       1889       1670           3154630              87         0.002758
+       A-Propr.PCDH8    C-PEP.TAC1_CACNG5       2365       1889           4467485              83         0.001858
+         A-LTMR.TAC3    A-PEP.SCGN_ADRA2C       4897       1153           5646241              83         0.001470
+      A-Propr.HAPLN4         Ab-LTMR.LGI2       1276       1884           2403984              83         0.003453
+       A-Propr.EPHA3    C-PEP.TAC1_CHRNA3       2605       1670           4350350              82         0.001885
+   A-PEP.SCGN_ADRA2C   C-NP.MRGPRX1_GFRA2       1153       1624           1872472              82         0.004379
+         A-LTMR.TAC3 A-PEP.CHRNA7_SLC18A3       4897       1225           5998825              81         0.001350
+   A-PEP.SCGN_ADRA2C          C-LTMR.CDH9       1153       1229           1417037              81         0.005716
+        Ab-LTMR.LGI2   C-NP.MRGPRX1_GFRA2       1884       1624           3059616              80         0.002615
+        Ab-LTMR.LGI2         Ab-LTMR.NSG2       1884       1326           2498184              80         0.003202
+ A-PEP.NTRK3_S100A16         Ab-LTMR.LGI2       1714       1884           3229176              77         0.002385
+      A-Propr.HAPLN4   C-NP.MRGPRX1_GFRA2       1276       1624           2072224              76         0.003668
+       A-Propr.EPHA3    C-PEP.TAC1_CACNG5       2605       1889           4920845              76         0.001544
+ A-PEP.NTRK3_S100A16    A-PEP.SCGN_ADRA2C       1714       1153           1976242              76         0.003846
+       A-Propr.PCDH8         Ab-LTMR.ETV1       2365        849           2007885              76         0.003785
+   A-PEP.SCGN_ADRA2C       C-Thermo.TRPM8       1153       3109           3584677              75         0.002092
+      A-Propr.HAPLN4    C-PEP.TAC1_CHRNA3       1276       1670           2130920              74         0.003473
+       A-Propr.EPHA3         Ab-LTMR.ETV1       2605        849           2211645              73         0.003301
+A-PEP.CHRNA7_SLC18A3   C-NP.MRGPRX1_GFRA2       1225       1624           1989400              72         0.003619
+A-PEP.CHRNA7_SLC18A3          C-LTMR.CDH9       1225       1229           1505525              72         0.004782
+   A-PEP.SCGN_ADRA2C        Ab-LTMR.CCKAR       1153       1538           1773314              71         0.004004
+        Ab-LTMR.ETV1          C-LTMR.CDH9        849       1229           1043421              71         0.006805
+A-PEP.CHRNA7_SLC18A3        C-PEP.ADORA2B       1225       3501           4288725              71         0.001656
+A-PEP.CHRNA7_SLC18A3                 ATF3       1225       1912           2342200              68         0.002903
+      A-Propr.HAPLN4         Ab-LTMR.NSG2       1276       1326           1691976              68         0.004019
+ A-PEP.NTRK3_S100A16         Ab-LTMR.NSG2       1714       1326           2272764              68         0.002992
+        Ab-LTMR.LGI2    C-PEP.TAC1_CHRNA3       1884       1670           3146280              66         0.002098
+      A-Propr.HAPLN4    C-PEP.TAC1_CACNG5       1276       1889           2410364              65         0.002697
+       Ab-LTMR.CCKAR         Ab-LTMR.ETV1       1538        849           1305762              65         0.004978
+   A-PEP.SCGN_ADRA2C                 ATF3       1153       1912           2204536              65         0.002948
+A-PEP.CHRNA7_SLC18A3  A-PEP.NTRK3_S100A16       1225       1714           2099650              63         0.003001
+A-PEP.CHRNA7_SLC18A3    C-PEP.TAC1_CHRNA3       1225       1670           2045750              62         0.003031
+        Ab-LTMR.LGI2    C-PEP.TAC1_CACNG5       1884       1889           3558876              61         0.001714
+A-PEP.CHRNA7_SLC18A3       C-Thermo.TRPM8       1225       3109           3808525              60         0.001575
+        Ab-LTMR.NSG2   C-NP.MRGPRX1_GFRA2       1326       1624           2153424              60         0.002786
+   A-PEP.SCGN_ADRA2C        A-Propr.PCDH8       1153       2365           2726845              60         0.002200
+   A-PEP.SCGN_ADRA2C    C-PEP.TAC1_CHRNA3       1153       1670           1925510              58         0.003012
+        Ab-LTMR.NSG2    C-PEP.TAC1_CHRNA3       1326       1670           2214420              58         0.002619
+                ATF3         Ab-LTMR.ETV1       1912        849           1623288              57         0.003511
+A-PEP.CHRNA7_SLC18A3        A-Propr.PCDH8       1225       2365           2897125              57         0.001967
+A-PEP.CHRNA7_SLC18A3        Ab-LTMR.CCKAR       1225       1538           1884050              55         0.002919
+        Ab-LTMR.ETV1 C-NP.MRGPRX1_MRGPRX4        849       2517           2136933              54         0.002527
+        Ab-LTMR.NSG2    C-PEP.TAC1_CACNG5       1326       1889           2504814              52         0.002076
+   A-PEP.SCGN_ADRA2C        C-PEP.ADORA2B       1153       3501           4036653              52         0.001288
+   A-PEP.SCGN_ADRA2C        A-Propr.EPHA3       1153       2605           3003565              51         0.001698
+   A-PEP.SCGN_ADRA2C       A-Propr.HAPLN4       1153       1276           1471228              51         0.003466
+        Ab-LTMR.ETV1         Ab-LTMR.LGI2        849       1884           1599516              50         0.003126
+A-PEP.CHRNA7_SLC18A3        A-Propr.EPHA3       1225       2605           3191125              46         0.001441
+        Ab-LTMR.ETV1         Ab-LTMR.NSG2        849       1326           1125774              45         0.003997
+A-PEP.CHRNA7_SLC18A3    C-PEP.TAC1_CACNG5       1225       1889           2314025              44         0.001901
+        Ab-LTMR.ETV1    C-PEP.TAC1_CHRNA3        849       1670           1417830              42         0.002962
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.LGI2       1153       1884           2172252              40         0.001841
+   A-PEP.SCGN_ADRA2C    C-PEP.TAC1_CACNG5       1153       1889           2178017              39         0.001791
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.LGI2       1225       1884           2307900              39         0.001690
+A-PEP.CHRNA7_SLC18A3    A-PEP.SCGN_ADRA2C       1225       1153           1412425              38         0.002690
+ A-PEP.NTRK3_S100A16         Ab-LTMR.ETV1       1714        849           1455186              38         0.002611
+        Ab-LTMR.ETV1   C-NP.MRGPRX1_GFRA2        849       1624           1378776              38         0.002756
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.NSG2       1225       1326           1624350              37         0.002278
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.NSG2       1153       1326           1528878              37         0.002420
+        Ab-LTMR.ETV1    C-PEP.TAC1_CACNG5        849       1889           1603761              37         0.002307
+A-PEP.CHRNA7_SLC18A3       A-Propr.HAPLN4       1225       1276           1563100              33         0.002111
+      A-Propr.HAPLN4         Ab-LTMR.ETV1       1276        849           1083324              33         0.003046
+   A-PEP.SCGN_ADRA2C         Ab-LTMR.ETV1       1153        849            978897              25         0.002554
+A-PEP.CHRNA7_SLC18A3         Ab-LTMR.ETV1       1225        849           1040025              22         0.002115
+
+SECTION 4: GENE OVERLAP ACROSS CELL TYPES
+  Saved -> 07_analysis/interlayer_connectivity/gene_overlap_distribution.png
+  Total unique genes: 17,051 | in >1 cell type: 12,007
+
+SECTION: LR INTERACTION-TYPE BREAKDOWN (method/source + NeuronChat ligand_type)
+
+LR edges by method/source (network-wide):
+lr_sources
+cellphonedb        15568
+connectome         15568
+liana_consensus    15568
+logfc              15568
+natmi              15568
+sca                15568
+neuronchat           141
+
+LR edges by NeuronChat ligand_type (network-wide):
+lr_ligand_types
+Synaptic adhesion molecule    110
+Neuropeptide                   31
+  Saved -> 07_analysis/interlayer_connectivity/lr_edges_by_source.png
+  Saved -> 07_analysis/interlayer_connectivity/lr_edges_by_ligand_type.png
+
+SECTION 5: REPORT
+
+Saved report -> 07_analysis/interlayer_connectivity/interlayer_analysis_report.txt
+================================================================================
+INTER-CELL-TYPE CONNECTIVITY ANALYSIS REPORT
+================================================================================
+
+Total cell-type pairs connected : 253
+Total inter-cell-type edges     : 55,330
+
+TOP 10 CELL-TYPE PAIRS BY VOLUME
+--------------------------------------------------------------------------------
+  C-NP.SST                       <-> global_ppi                      L-R:  1,232 | Reactome:    221 | Total:    1,453
+  C-NP.MRGPRX1_MRGPRX4           <-> global_ppi                      L-R:  1,136 | Reactome:    199 | Total:    1,335
+  C-Thermo.RXFP1                 <-> global_ppi                      L-R:  1,020 | Reactome:    187 | Total:    1,207
+  A-PEP.KIT                      <-> global_ppi                      L-R:  1,031 | Reactome:    166 | Total:    1,197
+  A-LTMR.TAC3                    <-> global_ppi                      L-R:    794 | Reactome:    152 | Total:      946
+  A-PEP.NTRK3_S100A16            <-> global_ppi                      L-R:    781 | Reactome:    132 | Total:      913
+  ATF3                           <-> global_ppi                      L-R:    774 | Reactome:    132 | Total:      906
+  C-PEP.ADORA2B                  <-> global_ppi                      L-R:    764 | Reactome:    122 | Total:      886
+  C-Thermo.TRPM8                 <-> global_ppi                      L-R:    654 | Reactome:    128 | Total:      782
+  A-Propr.PCDH8                  <-> global_ppi                      L-R:    651 | Reactome:    129 | Total:      780
+
+FIBER-TYPE LEVEL BREAKDOWN — RAW COUNTS
+--------------------------------------------------------------------------------
+  A-fiber              <-> C-fiber               total:   15,259
+  C-fiber              <-> Unclassified          total:    7,258
+  C-fiber              <-> C-fiber               total:    6,969
+  A-fiber              <-> A-fiber               total:    6,883
+  A-fiber              <-> Unclassified          total:    6,401
+  C-fiber              <-> Non-classified        total:    1,936
+  A-fiber              <-> Non-classified        total:    1,827
+  Non-classified       <-> Unclassified          total:      774
+
+  ⚠ Cell types not in DRG_HIERARCHY (bucketed 'Unclassified'): ['global_ppi']
+
+FIBER-TYPE LEVEL BREAKDOWN — DENSITY-NORMALIZED (% of possible gene pairs realized)
+--------------------------------------------------------------------------------
+  A-fiber              <-> C-fiber               density:     0.0178%  (  15,259 /     85,718,080 possible)
+  C-fiber              <-> Non-classified        density:     0.0112%  (   1,936 /     17,215,648 possible)
+  A-fiber              <-> Non-classified        density:     0.0100%  (   1,827 /     18,202,240 possible)
+  C-fiber              <-> C-fiber               density:     0.0086%  (   6,969 /     81,072,016 possible)
+  A-fiber              <-> A-fiber               density:     0.0076%  (   6,883 /     90,630,400 possible)
+  C-fiber              <-> Unclassified          density:     0.0047%  (   7,258 /    153,527,204 possible)
+  A-fiber              <-> Unclassified          density:     0.0039%  (   6,401 /    162,325,520 possible)
+  Non-classified       <-> Unclassified          density:     0.0024%  (     774 /     32,601,512 possible)
+  (a group's raw edge count naturally scales with how many genes it has -- density is what tells you if a group is actually more densely wired than another, not just bigger)
+
+TOP 10 PATHWAYS BY CELL-TYPE-PAIR INVOLVEMENT
+--------------------------------------------------------------------------------
+   1. Axon guidance|Developmental Biology|Nervous system development|Other semaphorin interactions|Semaphorin interactions (138 pairs)
+   2. Regulation of FZD by ubiquitination|Signal Transduction|Signaling by WNT|TCF dependent signaling in response to WNT (127 pairs)
+   3. Axonal growth inhibition (RHOA activation)|Death Receptor Signaling|Signal Transduction|p75 NTR receptor-mediated signalling|p75NTR regulates axonogenesis (125 pairs)
+   4. Axon guidance|Developmental Biology|L1CAM interactions|Nervous system development (118 pairs)
+   5. Axon guidance|CHL1 interactions|Developmental Biology|L1CAM interactions|Nervous system development (111 pairs)
+   6. Adherens junctions interactions|CDH11 homotypic and heterotypic interactions|Cell junction organization|Cell-Cell communication|Cell-cell junction organization|Regulation of CDH11 Expression and Function|Regulation of CDH11 function|Regulation of Expression and Function of Type II Classical Cadherins|Regulation of Homotypic Cell-Cell Adhesion (94 pairs)
+   7. Developmental Biology|Developmental Cell Lineages|Extracellular matrix organization|Laminin interactions|Non-integrin membrane-ECM interactions (84 pairs)
+   8. Axon guidance|Developmental Biology|Interaction between L1 and Ankyrins|L1CAM interactions|Nervous system development (84 pairs)
+   9. Signal Transduction|Signaling by Activin|Signaling by TGFB family members (84 pairs)
+  10. Neuronal System|Protein-protein interactions at synapses|Synaptic adhesion-like molecules (84 pairs)
+
+TOP 10 GENES BY INTER-CELL-TYPE INVOLVEMENT
+--------------------------------------------------------------------------------
+   1. NFASC                (184 pairs)
+   2. CNTN1                (173 pairs)
+   3. ITGB5                (156 pairs)
+   4. CDH8                 (155 pairs)
+   5. RTN4                 (152 pairs)
+   6. ACVR2B               (150 pairs)
+   7. GNAI2                (148 pairs)
+   8. ITGAV                (148 pairs)
+   9. GNAS                 (148 pairs)
+  10. FAT3                 (144 pairs)
+
+GENE OVERLAP ACROSS CELL TYPES
+--------------------------------------------------------------------------------
+  Total unique genes (across all cell types) : 17,051
+  Genes in exactly 1 cell type                : 5,044
+  Genes in >1 cell type                       : 12,007
+
+DENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by Edge Count)
+--------------------------------------------------------------------------------
+  C-NP.SST                       <-> global_ppi                       1,453 / 65,919,166 possible (0.002%)
+  C-NP.MRGPRX1_MRGPRX4           <-> global_ppi                       1,335 / 42,917,367 possible (0.003%)
+  C-Thermo.RXFP1                 <-> global_ppi                       1,207 / 85,237,949 possible (0.001%)
+  A-PEP.KIT                      <-> global_ppi                       1,197 / 85,391,408 possible (0.001%)
+  A-LTMR.TAC3                    <-> global_ppi                         946 / 83,498,747 possible (0.001%)
+
+DENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by DENSITY, min 1 edge)
+--------------------------------------------------------------------------------
+  ATF3                           <-> C-LTMR.CDH9                        265 /  2,349,848 possible (0.011%)
+  A-Propr.HAPLN4                 <-> C-LTMR.CDH9                        154 /  1,568,204 possible (0.010%)
+  Ab-LTMR.CCKAR                  <-> C-LTMR.CDH9                        169 /  1,890,202 possible (0.009%)
+  C-LTMR.CDH9                    <-> C-NP.SST                           408 /  4,751,314 possible (0.009%)
+  A-PEP.NTRK3_S100A16            <-> C-LTMR.CDH9                        171 /  2,106,506 possible (0.008%)
+
+LR INTERACTION-TYPE BREAKDOWN (method/source + NeuronChat ligand_type)
+--------------------------------------------------------------------------------
+  By method/source:
+    cellphonedb            15,568
+    connectome             15,568
+    liana_consensus        15,568
+    logfc                  15,568
+    natmi                  15,568
+    sca                    15,568
+    neuronchat                141
+  By NeuronChat ligand_type:
+    Synaptic adhesion molecule      110
+    Neuropeptide               31
+
+================================================================================
+End of report
+================================================================================
+
+All outputs saved to: /lisc/home/user/gerardursin/multiplex/07_analysis/interlayer_connectivity
+Finished at: Wed Sep 23 04:07:00 PM CEST 2026

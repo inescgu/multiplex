@@ -1,0 +1,29 @@
+==============================================================================
+SEED HUBNESS / MARKER-STRENGTH SUMMARY
+==============================================================================
+Seeds: 3941 | in enrichment universe: 3941 | hub / top-marker cutoff: top 10%
+
+GLOBAL PPI ('global_ppi'): full-PPI hubness
+  seeds in PPI: 3941 | median degree seeds 46.0 vs others 14.0
+  degree AUC = 0.779 (p = 0.00e+00) | seeds in top 10%: 968 (expected 394.3, p = 4.06e-152)
+
+PER-LAYER (testable layers = 22 of 22; BH across layers)
+  Seeds higher degree than other genes        (q<0.05): 22
+  Seed excess in top-degree bin               (q<0.05): 22
+  Seeds enriched among the cell type's markers (q<0.05): 22
+  Seeds higher avg_log2FC than other markers  (q<0.05): 0
+  Seeds higher pct.1-pct.2 than other markers (q<0.05): 9
+
+POOLED seed-layer entries (descriptive; entries are not independent)
+  n = 19566 | median degree percentile 0.71 (null 0.50) | fraction in top 10%: 0.21 (null ~0.10)
+  median avg_log2FC percentile among markers: 0.48 (null 0.50)
+
+SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
+  A: specific marker + well-connected in an enriched layer         12
+  A*: specific + connected, but also a generic global hub          31
+  B: specific marker, not well-connected there                    251
+  C: hub in an enriched layer, not a distinct marker             1285
+  F: present, unremarkable                                       2362
+
+Isolated genes (degree 0) across layers: 7,455 (in gene sets json but with no edges in ppi_layer.tsv)
+==============================================================================

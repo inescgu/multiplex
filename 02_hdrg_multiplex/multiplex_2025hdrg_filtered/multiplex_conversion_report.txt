@@ -1,0 +1,104 @@
+================================================================================
+MULTIPLEX INTERACTOME FROM CELL-TYPE MARKERS - CONVERSION REPORT
+================================================================================
+
+SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Number of cell types: 22
+P-value threshold: 0.05
+Log2FC threshold: 0.0
+
+MARKER GENE STATISTICS
+  Total marker genes: 13,801
+  Marker genes in PPI: 12,007
+  Genes in multiplex: 12,007
+  Genes lost: 0
+  Gene retention: 100.0%
+
+EDGE STATISTICS
+  Total edges in multiplex: 207,922
+
+PER CELL TYPE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                Markers      In PPI       In Layer     Node %    
+--------------------------------------------------------------------------------
+A-LTMR.TAC3                              5477         4897         4897         100.0%
+A-PEP.CHRNA7/SLC18A3                     1315         1225         1225         100.0%
+A-PEP.KIT                                5627         5008         5008         100.0%
+A-PEP.NTRK3/S100A16                      1887         1714         1714         100.0%
+A-PEP.SCGN/ADRA2C                        1299         1153         1153         100.0%
+A-Propr.EPHA3                            3300         2605         2605         100.0%
+A-Propr.HAPLN4                           1438         1276         1276         100.0%
+A-Propr.PCDH8                            3054         2365         2365         100.0%
+ATF3                                     2231         1912         1912         100.0%
+Ab-LTMR.CCKAR                            1680         1538         1538         100.0%
+Ab-LTMR.ETV1                             932          849          849          100.0%
+Ab-LTMR.LGI2                             2073         1884         1884         100.0%
+Ab-LTMR.NSG2                             1435         1326         1326         100.0%
+C-LTMR.CDH9                              1380         1229         1229         100.0%
+C-NP.MRGPRX1/GFRA2                       1825         1624         1624         100.0%
+C-NP.MRGPRX1/MRGPRX4                     2815         2517         2517         100.0%
+C-NP.SST                                 4243         3866         3866         100.0%
+C-PEP.ADORA2B                            3901         3501         3501         100.0%
+C-PEP.TAC1/CACNG5                        2112         1889         1889         100.0%
+C-PEP.TAC1/CHRNA3                        1822         1670         1670         100.0%
+C-Thermo.RXFP1                           5542         4999         4999         100.0%
+C-Thermo.TRPM8                           3425         3109         3109         100.0%
+
+================================================================================
+SEED GENE ANALYSIS
+================================================================================
+
+SUMMARY
+--------------------------------------------------------------------------------
+Total seed genes: 408
+Seed genes in marker genes: 298
+Seed genes in PPI: 372
+Seed genes in both (before multiplex): 275
+Seed genes in multiplex (after): 275
+Seed genes lost: 133
+Seed gene recovery: 67.4%
+
+PER CELL TYPE SEED GENE STATISTICS
+--------------------------------------------------------------------------------
+Cell Type                                In Layer        % of Total      Connected   
+--------------------------------------------------------------------------------
+A-LTMR.TAC3                              81              19.9%           False       
+A-PEP.CHRNA7/SLC18A3                     41              10.0%           False       
+A-PEP.KIT                                89              21.8%           False       
+A-PEP.NTRK3/S100A16                      70              17.2%           False       
+A-PEP.SCGN/ADRA2C                        46              11.3%           False       
+A-Propr.EPHA3                            56              13.7%           False       
+A-Propr.HAPLN4                           35              8.6%           False       
+A-Propr.PCDH8                            58              14.2%           False       
+ATF3                                     50              12.3%           False       
+Ab-LTMR.CCKAR                            43              10.5%           False       
+Ab-LTMR.ETV1                             31              7.6%           False       
+Ab-LTMR.LGI2                             52              12.7%           False       
+Ab-LTMR.NSG2                             39              9.6%           False       
+C-LTMR.CDH9                              38              9.3%           False       
+C-NP.MRGPRX1/GFRA2                       65              15.9%           False       
+C-NP.MRGPRX1/MRGPRX4                     74              18.1%           False       
+C-NP.SST                                 76              18.6%           False       
+C-PEP.ADORA2B                            67              16.4%           False       
+C-PEP.TAC1/CACNG5                        56              13.7%           False       
+C-PEP.TAC1/CHRNA3                        66              16.2%           False       
+C-Thermo.RXFP1                           80              19.6%           False       
+C-Thermo.TRPM8                           64              15.7%           False       
+
+================================================================================
+INTERPRETATION GUIDE
+================================================================================
+
+Gene Retention:
+  Current: 100.0%
+  Status: ✓ EXCELLENT - Most genes retained
+
+Seed Gene Recovery:
+  Current: 67.4%
+  Status: ✓ GOOD - Majority of seed genes recovered
+
+Where genes are lost:
+  1. Marker filtering: Genes not meeting p-value/log2FC thresholds
+  2. PPI filtering: Marker genes not in PPI network
+  3. Connectivity: Genes with no edges in the subgraph

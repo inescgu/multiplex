@@ -22,7 +22,8 @@ python step2_build_bipartite_edges.py \
     --lr-csv pathway_prep/lr_pairs_with_pathways.csv \
     --scored-lr-csv pathway_prep/lr_sources/liana_long.csv pathway_prep/lr_sources/neuronchat_long.csv \
     --ppi-pkl 00_inputs/ppi_network.pkl \
-    --global-ppi-name global_ppi
+    --global-ppi-name global_ppi \
+    --exclude-identity-from-charts
 
 # --scored-lr-csv adds the new directional, cell-type-specific LR edges from
 # step0a (LIANA) and step0b (NeuronChat), on top of your existing flat

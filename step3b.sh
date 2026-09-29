@@ -9,7 +9,7 @@
 
 cd /lisc/home/user/gerardursin/multiplex/
 
-echo "Step 2: Building LR (+ Reactome) bipartite edges between cell types,"
+echo "Step 3b: Building LR (+ Reactome) bipartite edges between cell types,"
 echo "        plus identity bipartite edges connecting global_ppi to everything"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
@@ -17,6 +17,7 @@ echo "Starting at: $(date)"
 module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
-python step3b_namespace_nodes.py --wdir 04_multixrank_prep/multixrank_hetero_input
-
+python step3b_namespace_nodes.py \
+    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --exclude-ppi-seeds
 echo "Finished at: $(date)"

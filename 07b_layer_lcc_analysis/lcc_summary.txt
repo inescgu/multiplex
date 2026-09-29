@@ -9,120 +9,120 @@ Interpretation:
 
 SIGNIFICANT CELL TYPES (p < 0.05): 23 / 23
 --------------------------------------------------------------------------------
-  [A-LTMR.TAC3] (A-fiber)
-    Nodes: 6,170 | Edges: 58,818 | Seeds: 133
-    LCC: 53 (z=106.77, p=0.000000)
-    Random mean +/- std: 1.3 +/- 0.5
-
   [A-PEP.CHRNA7_SLC18A3] (A-fiber)
-    Nodes: 1,232 | Edges: 2,650 | Seeds: 49
-    LCC: 3 (z=4.99, p=0.000000)
-    Random mean +/- std: 0.7 +/- 0.5
+    Nodes: 1,020 | Edges: 4,140 | Seeds: 33
+    LCC: 5 (z=9.12, p=0.000000)
+    Random mean +/- std: 0.5 +/- 0.5
 
   [A-PEP.KIT] (A-fiber)
-    Nodes: 3,566 | Edges: 20,489 | Seeds: 100
-    LCC: 22 (z=98.87, p=0.000000)
+    Nodes: 4,549 | Edges: 26,720 | Seeds: 84
+    LCC: 17 (z=73.75, p=0.000000)
     Random mean +/- std: 1.0 +/- 0.2
 
   [A-PEP.NTRK3_S100A16] (A-fiber)
-    Nodes: 1,606 | Edges: 4,566 | Seeds: 63
-    LCC: 6 (z=14.08, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+    Nodes: 1,478 | Edges: 7,490 | Seeds: 59
+    LCC: 5 (z=9.32, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.5
+
+  [A-PEP.SCGN_ADRA2C] (A-fiber)
+    Nodes: 961 | Edges: 5,469 | Seeds: 37
+    LCC: 3 (z=5.10, p=0.000000)
+    Random mean +/- std: 0.5 +/- 0.5
 
   [A-Propr.HAPLN4] (A-fiber)
-    Nodes: 2,427 | Edges: 9,295 | Seeds: 85
-    LCC: 32 (z=119.32, p=0.000000)
-    Random mean +/- std: 0.9 +/- 0.3
-
-  [A-Propr.EPHA3] (A-fiber)
-    Nodes: 3,022 | Edges: 13,971 | Seeds: 109
-    LCC: 39 (z=216.19, p=0.000000)
-    Random mean +/- std: 1.0 +/- 0.2
-
-  [A-Propr.PCDH8] (A-fiber)
-    Nodes: 3,606 | Edges: 21,547 | Seeds: 117
-    LCC: 46 (z=205.06, p=0.000000)
-    Random mean +/- std: 1.0 +/- 0.2
-
-  [ATF3] (Non-classified)
-    Nodes: 1,655 | Edges: 6,394 | Seeds: 54
-    LCC: 6 (z=11.81, p=0.000000)
-    Random mean +/- std: 0.7 +/- 0.4
-
-  [Ab-LTMR.NSG2] (A-fiber)
-    Nodes: 2,164 | Edges: 7,370 | Seeds: 73
-    LCC: 23 (z=72.55, p=0.000000)
-    Random mean +/- std: 0.9 +/- 0.3
-
-  [Ab-LTMR.CCKAR] (A-fiber)
-    Nodes: 1,685 | Edges: 4,771 | Seeds: 66
-    LCC: 12 (z=27.83, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
-
-  [Ab-LTMR.LGI2] (A-fiber)
-    Nodes: 3,134 | Edges: 16,141 | Seeds: 109
-    LCC: 29 (z=161.87, p=0.000000)
-    Random mean +/- std: 1.0 +/- 0.2
+    Nodes: 1,019 | Edges: 4,985 | Seeds: 22
+    LCC: 2 (z=3.85, p=0.000000)
+    Random mean +/- std: 0.3 +/- 0.4
 
   [Ab-LTMR.ETV1] (A-fiber)
-    Nodes: 3,106 | Edges: 16,560 | Seeds: 103
-    LCC: 28 (z=158.72, p=0.000000)
-    Random mean +/- std: 1.0 +/- 0.2
+    Nodes: 666 | Edges: 2,888 | Seeds: 23
+    LCC: 2 (z=3.87, p=0.000000)
+    Random mean +/- std: 0.3 +/- 0.4
 
-  [C-NP.MRGPRX1_GFRA2] (C-fiber)
-    Nodes: 1,184 | Edges: 2,692 | Seeds: 65
-    LCC: 4 (z=7.70, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+  [Ab-LTMR.CCKAR] (A-fiber)
+    Nodes: 1,243 | Edges: 3,740 | Seeds: 32
+    LCC: 3 (z=5.00, p=0.000000)
+    Random mean +/- std: 0.5 +/- 0.5
 
-  [C-LTMR.CDH9] (C-fiber)
-    Nodes: 2,140 | Edges: 8,123 | Seeds: 77
-    LCC: 19 (z=61.94, p=0.000000)
-    Random mean +/- std: 0.9 +/- 0.3
+  [ATF3] (ATF3)
+    Nodes: 1,675 | Edges: 10,442 | Seeds: 41
+    LCC: 2 (z=2.84, p=0.000000)
+    Random mean +/- std: 0.6 +/- 0.5
 
   [C-NP.MRGPRX1_MRGPRX4] (C-fiber)
-    Nodes: 1,492 | Edges: 4,272 | Seeds: 70
-    LCC: 11 (z=26.43, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+    Nodes: 2,117 | Edges: 7,538 | Seeds: 67
+    LCC: 10 (z=27.01, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
 
-  [C-NP.SST] (C-fiber)
-    Nodes: 1,432 | Edges: 3,585 | Seeds: 75
-    LCC: 14 (z=35.38, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+  [C-NP.MRGPRX1_GFRA2] (C-fiber)
+    Nodes: 1,265 | Edges: 3,213 | Seeds: 51
+    LCC: 14 (z=28.13, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.5
+
+  [Ab-LTMR.LGI2] (A-fiber)
+    Nodes: 1,576 | Edges: 5,909 | Seeds: 41
+    LCC: 3 (z=4.98, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.5
 
   [C-Thermo.RXFP1] (C-fiber)
-    Nodes: 3,636 | Edges: 19,226 | Seeds: 91
-    LCC: 30 (z=148.31, p=0.000000)
+    Nodes: 4,560 | Edges: 27,326 | Seeds: 70
+    LCC: 18 (z=86.76, p=0.000000)
     Random mean +/- std: 1.0 +/- 0.2
 
   [C-PEP.ADORA2B] (C-fiber)
-    Nodes: 3,285 | Edges: 16,638 | Seeds: 87
-    LCC: 12 (z=75.92, p=0.000000)
-    Random mean +/- std: 1.0 +/- 0.1
-
-  [C-PEP.TAC1_CACNG5] (C-fiber)
-    Nodes: 1,435 | Edges: 3,624 | Seeds: 61
-    LCC: 8 (z=18.01, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+    Nodes: 3,037 | Edges: 13,040 | Seeds: 58
+    LCC: 10 (z=30.67, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
 
   [C-PEP.TAC1_CHRNA3] (C-fiber)
-    Nodes: 1,814 | Edges: 5,452 | Seeds: 72
-    LCC: 9 (z=22.97, p=0.000000)
-    Random mean +/- std: 0.9 +/- 0.4
+    Nodes: 1,423 | Edges: 4,651 | Seeds: 57
+    LCC: 14 (z=30.37, p=0.000000)
+    Random mean +/- std: 0.7 +/- 0.4
+
+  [C-PEP.TAC1_CACNG5] (C-fiber)
+    Nodes: 1,605 | Edges: 5,552 | Seeds: 43
+    LCC: 9 (z=16.85, p=0.000000)
+    Random mean +/- std: 0.6 +/- 0.5
+
+  [C-NP.SST] (C-fiber)
+    Nodes: 3,416 | Edges: 16,291 | Seeds: 68
+    LCC: 9 (z=36.15, p=0.000000)
+    Random mean +/- std: 1.0 +/- 0.2
 
   [global_ppi] (unknown)
     Nodes: 17,051 | Edges: 302,553 | Seeds: 372
-    LCC: 200 (z=8.02, p=0.000000)
-    Random mean +/- std: 66.7 +/- 16.6
+    LCC: 200 (z=8.36, p=0.000000)
+    Random mean +/- std: 66.4 +/- 16.0
 
   [C-Thermo.TRPM8] (C-fiber)
-    Nodes: 1,227 | Edges: 2,659 | Seeds: 61
-    LCC: 4 (z=7.65, p=0.000000)
-    Random mean +/- std: 0.8 +/- 0.4
+    Nodes: 2,646 | Edges: 8,935 | Seeds: 53
+    LCC: 5 (z=13.37, p=0.000000)
+    Random mean +/- std: 0.9 +/- 0.3
 
-  [A-PEP.SCGN_ADRA2C] (A-fiber)
-    Nodes: 1,824 | Edges: 6,433 | Seeds: 58
-    LCC: 2 (z=3.16, p=0.003000)
-    Random mean +/- std: 0.9 +/- 0.4
+  [A-LTMR.TAC3] (A-fiber)
+    Nodes: 4,399 | Edges: 24,779 | Seeds: 69
+    LCC: 3 (z=9.71, p=0.001000)
+    Random mean +/- std: 1.0 +/- 0.2
+
+  [C-LTMR.CDH9] (C-fiber)
+    Nodes: 841 | Edges: 1,487 | Seeds: 29
+    LCC: 2 (z=3.22, p=0.001000)
+    Random mean +/- std: 0.4 +/- 0.5
+
+  [Ab-LTMR.NSG2] (A-fiber)
+    Nodes: 1,079 | Edges: 4,657 | Seeds: 26
+    LCC: 2 (z=3.22, p=0.001000)
+    Random mean +/- std: 0.4 +/- 0.5
+
+  [A-Propr.PCDH8] (A-fiber)
+    Nodes: 1,931 | Edges: 9,100 | Seeds: 39
+    LCC: 2 (z=2.81, p=0.002000)
+    Random mean +/- std: 0.7 +/- 0.5
+
+  [A-Propr.EPHA3] (A-fiber)
+    Nodes: 2,195 | Edges: 9,570 | Seeds: 45
+    LCC: 2 (z=2.84, p=0.007000)
+    Random mean +/- std: 0.8 +/- 0.4
 
 
 ================================================================================
@@ -133,7 +133,7 @@ NON-SIGNIFICANT (p >= 0.05): 0 / 23
 SUMMARY STATISTICS
 --------------------------------------------------------------------------------
 Total cell types analyzed: 23
-Mean LCC size: 26.6
-Median LCC size: 14.0
+Mean LCC size: 14.9
+Median LCC size: 5.0
 Max LCC: 200
 Cell types with LCC > 0: 23

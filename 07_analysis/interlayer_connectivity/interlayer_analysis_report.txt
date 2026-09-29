@@ -3,87 +3,107 @@ INTER-CELL-TYPE CONNECTIVITY ANALYSIS REPORT
 ================================================================================
 
 Total cell-type pairs connected : 253
-Total inter-cell-type edges     : 90,581
+Total inter-cell-type edges     : 55,330
 
 TOP 10 CELL-TYPE PAIRS BY VOLUME
 --------------------------------------------------------------------------------
-  A-LTMR.TAC3                    <-> global_ppi                      L-R:  1,271 | Reactome:    249 | Total:    1,520
-  A-Propr.PCDH8                  <-> global_ppi                      L-R:  1,085 | Reactome:    214 | Total:    1,299
-  Ab-LTMR.LGI2                   <-> global_ppi                      L-R:  1,067 | Reactome:    230 | Total:    1,297
-  A-Propr.EPHA3                  <-> global_ppi                      L-R:  1,076 | Reactome:    215 | Total:    1,291
-  C-Thermo.RXFP1                 <-> global_ppi                      L-R:  1,032 | Reactome:    215 | Total:    1,247
-  Ab-LTMR.ETV1                   <-> global_ppi                      L-R:    978 | Reactome:    203 | Total:    1,181
-  C-LTMR.CDH9                    <-> global_ppi                      L-R:    918 | Reactome:    191 | Total:    1,109
-  A-Propr.HAPLN4                 <-> global_ppi                      L-R:    915 | Reactome:    191 | Total:    1,106
-  A-PEP.KIT                      <-> global_ppi                      L-R:    874 | Reactome:    192 | Total:    1,066
-  C-PEP.ADORA2B                  <-> global_ppi                      L-R:    887 | Reactome:    172 | Total:    1,059
+  C-NP.SST                       <-> global_ppi                      L-R:  1,232 | Reactome:    221 | Total:    1,453
+  C-NP.MRGPRX1_MRGPRX4           <-> global_ppi                      L-R:  1,136 | Reactome:    199 | Total:    1,335
+  C-Thermo.RXFP1                 <-> global_ppi                      L-R:  1,020 | Reactome:    187 | Total:    1,207
+  A-PEP.KIT                      <-> global_ppi                      L-R:  1,031 | Reactome:    166 | Total:    1,197
+  A-LTMR.TAC3                    <-> global_ppi                      L-R:    794 | Reactome:    152 | Total:      946
+  A-PEP.NTRK3_S100A16            <-> global_ppi                      L-R:    781 | Reactome:    132 | Total:      913
+  ATF3                           <-> global_ppi                      L-R:    774 | Reactome:    132 | Total:      906
+  C-PEP.ADORA2B                  <-> global_ppi                      L-R:    764 | Reactome:    122 | Total:      886
+  C-Thermo.TRPM8                 <-> global_ppi                      L-R:    654 | Reactome:    128 | Total:      782
+  A-Propr.PCDH8                  <-> global_ppi                      L-R:    651 | Reactome:    129 | Total:      780
 
-FIBER-TYPE LEVEL BREAKDOWN
+FIBER-TYPE LEVEL BREAKDOWN — RAW COUNTS
 --------------------------------------------------------------------------------
-  A-fiber              <-> C-fiber               total:   26,343
-  A-fiber              <-> A-fiber               total:   19,496
-  A-fiber              <-> Unclassified          total:   10,523
-  C-fiber              <-> C-fiber               total:    7,049
-  C-fiber              <-> Unclassified          total:    6,883
-  A-fiber              <-> Non-classified        total:    3,712
-  C-fiber              <-> Non-classified        total:    2,311
-  Non-classified       <-> Unclassified          total:      810
+  A-fiber              <-> C-fiber               total:   15,259
+  C-fiber              <-> Unclassified          total:    7,258
+  C-fiber              <-> C-fiber               total:    6,969
+  A-fiber              <-> A-fiber               total:    6,883
+  A-fiber              <-> Unclassified          total:    6,401
+  ATF3                 <-> C-fiber               total:    1,936
+  A-fiber              <-> ATF3                  total:    1,827
+  ATF3                 <-> Unclassified          total:      774
 
   ⚠ Cell types not in DRG_HIERARCHY (bucketed 'Unclassified'): ['global_ppi']
 
+FIBER-TYPE LEVEL BREAKDOWN — DENSITY-NORMALIZED (% of possible gene pairs realized)
+--------------------------------------------------------------------------------
+  A-fiber              <-> C-fiber               density:     0.0178%  (  15,259 /     85,718,080 possible)
+  ATF3                 <-> C-fiber               density:     0.0112%  (   1,936 /     17,215,648 possible)
+  A-fiber              <-> ATF3                  density:     0.0100%  (   1,827 /     18,202,240 possible)
+  C-fiber              <-> C-fiber               density:     0.0086%  (   6,969 /     81,072,016 possible)
+  A-fiber              <-> A-fiber               density:     0.0076%  (   6,883 /     90,630,400 possible)
+  C-fiber              <-> Unclassified          density:     0.0047%  (   7,258 /    153,527,204 possible)
+  A-fiber              <-> Unclassified          density:     0.0039%  (   6,401 /    162,325,520 possible)
+  ATF3                 <-> Unclassified          density:     0.0024%  (     774 /     32,601,512 possible)
+  (a group's raw edge count naturally scales with how many genes it has -- density is what tells you if a group is actually more densely wired than another, not just bigger)
+
 TOP 10 PATHWAYS BY CELL-TYPE-PAIR INVOLVEMENT
 --------------------------------------------------------------------------------
-   1. Adherens junctions interactions|CDH11 homotypic and heterotypic interactions|Cell junction organization|Cell-Cell communication|Cell-cell junction organization|Regulation of CDH11 Expression and Function|Regulation of CDH11 function|Regulation of Expression and Function of Type II Classical Cadherins|Regulation of Homotypic Cell-Cell Adhesion (250 pairs)
-   2. Degradation of the extracellular matrix|Extracellular matrix organization|Integrin cell surface interactions (243 pairs)
-   3. Axon guidance|Developmental Biology|Nervous system development|Netrin-1 signaling|Regulation of commissural axon pathfinding by SLIT and ROBO|Regulation of cortical dendrite branching|Regulation of expression of SLITs and ROBOs|Signaling by ROBO receptors (230 pairs)
-   4. Activated NTRK2 signals through CDK5|Activated NTRK2 signals through FRS2 and FRS3|Activated NTRK2 signals through FYN|Activated NTRK2 signals through PI3K|Activated NTRK2 signals through PLCG1|Activated NTRK2 signals through RAS|BDNF activates NTRK2 (TRKB) signaling|Constitutive Signaling by Aberrant PI3K in Cancer|Disease|Diseases of signal transduction by growth factor receptors and second messengers|Intracellular signaling by second messengers|NTRK2 activates RAC1|Negative regulation of the PI3K/AKT network|PI3K/AKT Signaling in Cancer|PI5P, PP2A and IER3 Regulate PI3K/AKT Signaling|PIP3 activates AKT signaling|Signal Transduction|Signaling by NTRK2 (TRKB)|Signaling by NTRKs|Signaling by Receptor Tyrosine Kinases (210 pairs)
-   5. Extracellular matrix organization|Laminin interactions|MET activates PTK2 signaling|MET promotes cell motility|Signal Transduction|Signaling by MET|Signaling by Receptor Tyrosine Kinases (210 pairs)
-   6. Disease|Hedgehog ligand biogenesis|Release of Hh-Np from the secreting cell|Signal Transduction|Signaling by Hedgehog (209 pairs)
-   7. Axonal growth inhibition (RHOA activation)|Death Receptor Signaling|Signal Transduction|p75 NTR receptor-mediated signalling|p75NTR regulates axonogenesis (208 pairs)
-   8. Axon guidance|Developmental Biology|Nervous system development|Other semaphorin interactions|Semaphorin interactions (203 pairs)
-   9. Axon guidance|CHL1 interactions|Developmental Biology|L1CAM interactions|Nervous system development (194 pairs)
-  10. Cellular responses to mechanical stimuli|Cellular responses to stimuli|Extracellular matrix organization|Integrin cell surface interactions|Mechanical load activates signaling by PIEZO1 and integrins in osteocytes|Signal Transduction|Signaling by Receptor Tyrosine Kinases (182 pairs)
+   1. Axon guidance|Developmental Biology|Nervous system development|Other semaphorin interactions|Semaphorin interactions (138 pairs)
+   2. Regulation of FZD by ubiquitination|Signal Transduction|Signaling by WNT|TCF dependent signaling in response to WNT (127 pairs)
+   3. Axonal growth inhibition (RHOA activation)|Death Receptor Signaling|Signal Transduction|p75 NTR receptor-mediated signalling|p75NTR regulates axonogenesis (125 pairs)
+   4. Axon guidance|Developmental Biology|L1CAM interactions|Nervous system development (118 pairs)
+   5. Axon guidance|CHL1 interactions|Developmental Biology|L1CAM interactions|Nervous system development (111 pairs)
+   6. Adherens junctions interactions|CDH11 homotypic and heterotypic interactions|Cell junction organization|Cell-Cell communication|Cell-cell junction organization|Regulation of CDH11 Expression and Function|Regulation of CDH11 function|Regulation of Expression and Function of Type II Classical Cadherins|Regulation of Homotypic Cell-Cell Adhesion (94 pairs)
+   7. Developmental Biology|Developmental Cell Lineages|Extracellular matrix organization|Laminin interactions|Non-integrin membrane-ECM interactions (84 pairs)
+   8. Axon guidance|Developmental Biology|Interaction between L1 and Ankyrins|L1CAM interactions|Nervous system development (84 pairs)
+   9. Signal Transduction|Signaling by Activin|Signaling by TGFB family members (84 pairs)
+  10. Neuronal System|Protein-protein interactions at synapses|Synaptic adhesion-like molecules (84 pairs)
 
 TOP 10 GENES BY INTER-CELL-TYPE INVOLVEMENT
 --------------------------------------------------------------------------------
-   1. SPP1                 (252 pairs)
-   2. CDH8                 (250 pairs)
-   3. CTNNA1               (250 pairs)
-   4. CDH1                 (247 pairs)
-   5. LAMA5                (247 pairs)
-   6. CACNA1C              (247 pairs)
-   7. EPHA6                (246 pairs)
-   8. TRPV1                (246 pairs)
-   9. CD44                 (243 pairs)
-  10. SLIT1                (243 pairs)
+   1. NFASC                (184 pairs)
+   2. CNTN1                (173 pairs)
+   3. ITGB5                (156 pairs)
+   4. CDH8                 (155 pairs)
+   5. RTN4                 (152 pairs)
+   6. ACVR2B               (150 pairs)
+   7. GNAI2                (148 pairs)
+   8. ITGAV                (148 pairs)
+   9. GNAS                 (148 pairs)
+  10. FAT3                 (144 pairs)
 
 GENE OVERLAP ACROSS CELL TYPES
 --------------------------------------------------------------------------------
   Total unique genes (across all cell types) : 17,051
-  Genes in exactly 1 cell type                : 7,515
-  Genes in >1 cell type                       : 9,536
+  Genes in exactly 1 cell type                : 5,044
+  Genes in >1 cell type                       : 12,007
 
-DENSITY METRICS (Top 5 by Edge Count)
+DENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by Edge Count)
 --------------------------------------------------------------------------------
-  A-LTMR.TAC3                    <-> global_ppi                       1,520 / 108,938,839 possible (0.001%)
-  A-Propr.PCDH8                  <-> global_ppi                       1,299 / 66,243,135 possible (0.002%)
-  Ab-LTMR.LGI2                   <-> global_ppi                       1,297 / 59,064,664 possible (0.002%)
-  A-Propr.EPHA3                  <-> global_ppi                       1,291 / 56,779,830 possible (0.002%)
-  C-Thermo.RXFP1                 <-> global_ppi                       1,247 / 67,982,337 possible (0.002%)
+  C-NP.SST                       <-> global_ppi                       1,453 / 65,919,166 possible (0.002%)
+  C-NP.MRGPRX1_MRGPRX4           <-> global_ppi                       1,335 / 42,917,367 possible (0.003%)
+  C-Thermo.RXFP1                 <-> global_ppi                       1,207 / 85,237,949 possible (0.001%)
+  A-PEP.KIT                      <-> global_ppi                       1,197 / 85,391,408 possible (0.001%)
+  A-LTMR.TAC3                    <-> global_ppi                         946 / 83,498,747 possible (0.001%)
+
+DENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by DENSITY, min 1 edge)
+--------------------------------------------------------------------------------
+  ATF3                           <-> C-LTMR.CDH9                        265 /  2,349,848 possible (0.011%)
+  A-Propr.HAPLN4                 <-> C-LTMR.CDH9                        154 /  1,568,204 possible (0.010%)
+  Ab-LTMR.CCKAR                  <-> C-LTMR.CDH9                        169 /  1,890,202 possible (0.009%)
+  C-LTMR.CDH9                    <-> C-NP.SST                           408 /  4,751,314 possible (0.009%)
+  A-PEP.NTRK3_S100A16            <-> C-LTMR.CDH9                        171 /  2,106,506 possible (0.008%)
 
 LR INTERACTION-TYPE BREAKDOWN (method/source + NeuronChat ligand_type)
 --------------------------------------------------------------------------------
   By method/source:
-    cellphonedb            25,285
-    connectome             25,285
-    liana_consensus        25,285
-    logfc                  25,285
-    natmi                  25,285
-    sca                    25,285
-    neuronchat                269
+    cellphonedb            15,568
+    connectome             15,568
+    liana_consensus        15,568
+    logfc                  15,568
+    natmi                  15,568
+    sca                    15,568
+    neuronchat                141
   By NeuronChat ligand_type:
-    Synaptic adhesion molecule      216
-    Neuropeptide               53
+    Synaptic adhesion molecule      110
+    Neuropeptide               31
 
 ================================================================================
 End of report

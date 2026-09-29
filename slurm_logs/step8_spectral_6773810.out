@@ -1,0 +1,294 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-g06/tmp/slurm-6773810
+Step 8: Spectral clustering + component diagnostics
+Running on host: node-g06.lisc
+Requested cores: 10
+Starting at: Mon Sep 21 01:25:20 PM CEST 2026
+Requirement already satisfied: pip in /lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages (26.1.2)
+Collecting pip
+  Using cached pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+Using cached pip-26.2.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 26.1.2
+    Uninstalling pip-26.1.2:
+      Successfully uninstalled pip-26.1.2
+Successfully installed pip-26.2.1
+
+=== [1/2] Spectral clustering: module_with_ppi ===
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,347 nodes, 16,586 edges (8,675 ppi-tagged, 7,911 inter-tagged)
+  layer 'inter': nnz = 15,822
+  layer 'ppi': nnz = 17,350
+  NOTE: --k-max (50) exceeds the embedding width K_emb (12). For candidate k > 12, per-k clustering is capped at all 12 available embedding columns (same as pre-row-normalize-update behavior for those k) -- raise --K if you want a wider embedding to slice from.
+  WARNING: cached embedding params don't match this run.
+    cached:   {'mode': 'sos', 'n_nodes': 4685, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': [], 'degree_normalize': True, 'reg_tau': None}
+    expected: {'mode': 'sos', 'n_nodes': 4347, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': [], 'degree_normalize': True, 'reg_tau': None}
+  Recomputing.
+
+[mode=sos] randomized SoS embedding (K=12, p=0.4)
+  degree-normalized 'inter' (tau=mean-degree)
+  squared+accumulated 'inter'
+  degree-normalized 'ppi' (tau=mean-degree)
+  squared+accumulated 'ppi'
+  randomized SVD: n=4347, K=12, oversample=10
+
+Embedding shape: (4347, 12)
+Row-normalization before clustering: ON
+
+Eigengap heuristic (cross-check only, mirrors the single-layer pipeline): suggests k = 2
+
+Silhouette sweep:
+  → optimal k = 2  (sampled silhouette=0.7725, exact silhouette=0.7725)
+  → optimal k (silhouette) = 2
+Saved gene/cluster table → 08_spectral_analysis/module_with_ppi/spectral_clusters.csv
+
+Done in 233.3s — outputs in 08_spectral_analysis/module_with_ppi
+  k= 2  silhouette=0.7725  inertia=528.65
+  k=12  silhouette=0.3157  inertia=1198.76
+  k=16  silhouette=0.3383  inertia=1044.86
+  k=21  silhouette=0.3411  inertia=940.45
+  k=33  silhouette=0.3641  inertia=786.09
+  k=45  silhouette=0.3513  inertia=692.75
+  k=47  silhouette=0.3640  inertia=684.11
+  k= 6  silhouette=0.4408  inertia=900.04
+  k=27  silhouette=0.3478  inertia=852.36
+  k=41  silhouette=0.3572  inertia=721.23
+  k=48  silhouette=0.3453  inertia=677.29
+  k=11  silhouette=0.3541  inertia=1147.04
+  k=20  silhouette=0.3568  inertia=957.32
+  k=23  silhouette=0.3484  inertia=909.82
+  k=31  silhouette=0.3505  inertia=798.89
+  k=35  silhouette=0.3527  inertia=767.76
+  k= 3  silhouette=0.6227  inertia=663.45
+  k=13  silhouette=0.3235  inertia=1160.60
+  k=22  silhouette=0.3480  inertia=922.78
+  k=37  silhouette=0.3566  inertia=752.32
+  k=10  silhouette=0.4101  inertia=1079.16
+  k=17  silhouette=0.3441  inertia=1021.89
+  k=25  silhouette=0.3448  inertia=881.48
+  k=39  silhouette=0.3519  inertia=736.77
+  k=43  silhouette=0.3611  inertia=709.47
+  k= 5  silhouette=0.4937  inertia=800.74
+  k=24  silhouette=0.3551  inertia=889.56
+  k=26  silhouette=0.3444  inertia=862.24
+  k=40  silhouette=0.3557  inertia=730.53
+  k=46  silhouette=0.3638  inertia=690.48
+  k=50  silhouette=0.3592  inertia=666.94
+  k= 7  silhouette=0.4148  inertia=974.98
+  k=14  silhouette=0.3318  inertia=1115.60
+  k=38  silhouette=0.3589  inertia=741.30
+  k= 9  silhouette=0.4361  inertia=1007.68
+  k=18  silhouette=0.3448  inertia=1001.06
+  k=29  silhouette=0.3629  inertia=829.99
+  k=32  silhouette=0.3538  inertia=789.65
+  k=34  silhouette=0.3494  inertia=779.95
+  k=44  silhouette=0.3551  inertia=693.50
+  k=49  silhouette=0.3593  inertia=675.50
+  k= 8  silhouette=0.4209  inertia=975.13
+  k=28  silhouette=0.3518  inertia=838.10
+  k=30  silhouette=0.3511  inertia=814.88
+  k=42  silhouette=0.3525  inertia=714.20
+  k= 4  silhouette=0.5587  inertia=681.98
+  k=15  silhouette=0.3384  inertia=1080.06
+  k=19  silhouette=0.3408  inertia=978.64
+  k=36  silhouette=0.3527  inertia=758.14
+
+=== [1/2] Component diagnostic: module_with_ppi ===
+Loading 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,347 nodes, 16,586 edges after any exclusion
+
+=== Connected components: with_ppi ===
+  nodes: 4,347
+  connected components: 1
+  largest component: 4,347 nodes (100.0% of graph)
+  singleton (isolated, size-1) components: 0
+  components with <5 nodes: 0
+  components with >=5 nodes: 1
+  saved component size table -> 08_spectral_analysis/module_with_ppi/diagnostics/component_sizes_with_ppi.csv
+  saved component size histogram -> 08_spectral_analysis/module_with_ppi/diagnostics/component_sizes_with_ppi.png
+
+=== Cluster vs. component comparison: with_ppi ===
+  nodes compared: 4,347
+  connected components represented: 1
+  spectral clusters represented: 2
+  Adjusted Rand Index (component vs. spectral cluster): 0.0000
+    1.0 = clusters are just relabeled connected components (likely degenerate)
+    0.0 = clusters are unrelated to raw connectivity (more likely real structure)
+  mean cluster component-purity: 1.0000
+    1.0 = every spectral cluster sits entirely inside one connected component
+  saved comparison summary -> 08_spectral_analysis/module_with_ppi/diagnostics/component_vs_cluster_summary_with_ppi.json
+
+  >>> ARI is low: clusters look substantially independent of raw connectivity, which is more consistent with genuine substructure within connected regions.
+
+=== [1/2] Embedding diagnostic: module_with_ppi ===
+
+=== Degree distribution: with_ppi ===
+  nodes: 4,347  (raw degree = sum of ['deg_inter', 'deg_ppi'])
+  degree <= 0: 0 nodes (0.0%)
+  degree <= 1: 399 nodes (9.2%)
+  degree <= 2: 1,018 nodes (23.4%)
+  degree <= 5: 2,381 nodes (54.8%)
+  median degree: 5.0, mean degree: 7.63, max: 85
+  saved degree histogram -> 08_spectral_analysis/module_with_ppi/diagnostics/degree_distribution_with_ppi.png
+
+=== Embedding geometry: with_ppi ===
+  embedding shape: (4347, 12)
+  unique rows @ 6 decimals: 3,395 / 4,347 (78.1% unique)
+  rows sharing their rounded position with >=1 other row: 976 (22.5%)
+  nearest-neighbor distance: min=0.00e+00, 1st pct=0.00e+00, median=9.22e-04, mean=4.77e-03
+  saved nearest-neighbor distance histogram -> 08_spectral_analysis/module_with_ppi/diagnostics/nn_distance_distribution_with_ppi.png
+  Spearman correlation(degree, nearest-neighbor distance): rho=0.6849 (p=0.00e+00)
+    positive rho = low-degree nodes tend to sit closer to their nearest neighbor (collapsing toward each other) — consistent with the 'low-degree nodes become near-duplicate points' theory
+
+=== Eigenvalue spectrum: with_ppi ===
+  top-12 eigenvalues: [0.741, 0.721, 0.692, 0.672, 0.653, 0.646, 0.643, 0.627, 0.623, 0.62, 0.617, 0.594]
+  fraction of total captured by top-1: 0.094
+  fraction of total captured by top-2: 0.186
+  participation ratio (effective rank): 11.95 out of 12 dimensions
+    PR much smaller than K = most of the embedding's spread lives in a few dimensions, with the rest doing little work -- consistent with most nodes collapsing together along those remaining directions
+  saved eigenvalue spectrum plot -> 08_spectral_analysis/module_with_ppi/diagnostics/eigval_spectrum_with_ppi.png
+
+Saved combined summary -> 08_spectral_analysis/module_with_ppi/diagnostics/embedding_diagnostic_summary_with_ppi.json
+
+=== [2/2] Spectral clustering: module_no_ppi ===
+Loading reference graph from 06_disease_module/disease_module_output/module_graph.pkl ...
+  4,347 nodes, 16,586 edges (8,675 ppi-tagged, 7,911 inter-tagged)
+
+Excluding cell type(s) ['global_ppi'] before layer splitting/embedding ...
+  [exclude-celltypes] Removed cell type(s) ['GLOBAL_PPI']: 282 nodes dropped -> 4,065 nodes, 13,844 edges remain (was 4,347 nodes, 16,586 edges)
+  layer 'inter': nnz = 11,158
+  layer 'ppi': nnz = 16,530
+  NOTE: --k-max (50) exceeds the embedding width K_emb (12). For candidate k > 12, per-k clustering is capped at all 12 available embedding columns (same as pre-row-normalize-update behavior for those k) -- raise --K if you want a wider embedding to slice from.
+  WARNING: cached embedding params don't match this run.
+    cached:   {'mode': 'sos', 'n_nodes': 4459, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': ['GLOBAL_PPI'], 'degree_normalize': True, 'reg_tau': None}
+    expected: {'mode': 'sos', 'n_nodes': 4065, 'K_emb': 12, 'sample_p': 0.4, 'omega': 1.0, 'seed': 42, 'debias': True, 'ref_graph': '06_disease_module/disease_module_output/module_graph.pkl', 'excluded_celltypes': ['GLOBAL_PPI'], 'degree_normalize': True, 'reg_tau': None}
+  Recomputing.
+
+[mode=sos] randomized SoS embedding (K=12, p=0.4)
+  degree-normalized 'inter' (tau=mean-degree)
+  squared+accumulated 'inter'
+  degree-normalized 'ppi' (tau=mean-degree)
+  squared+accumulated 'ppi'
+  randomized SVD: n=4065, K=12, oversample=10
+
+Embedding shape: (4065, 12)
+Row-normalization before clustering: ON
+
+Eigengap heuristic (cross-check only, mirrors the single-layer pipeline): suggests k = 5
+
+Silhouette sweep:
+  → optimal k = 2  (sampled silhouette=0.6152, exact silhouette=0.6152)
+  → optimal k (silhouette) = 2
+  NOTE: eigengap heuristic (k=5) and silhouette-picked k (2) disagree -- worth a closer look before trusting k_opt biologically (this is exactly the kind of disagreement that surfaced the leaf-collapse issue on this module before this update).
+Saved gene/cluster table → 08_spectral_analysis/module_no_ppi/spectral_clusters.csv
+
+Done in 195.4s — outputs in 08_spectral_analysis/module_no_ppi
+  k= 5  silhouette=0.6080  inertia=573.40
+  k=14  silhouette=0.3635  inertia=814.83
+  k=17  silhouette=0.3839  inertia=734.19
+  k=25  silhouette=0.4144  inertia=593.35
+  k=40  silhouette=0.4036  inertia=455.46
+  k=47  silhouette=0.3939  inertia=423.52
+  k= 6  silhouette=0.5524  inertia=631.97
+  k=21  silhouette=0.4008  inertia=647.03
+  k=42  silhouette=0.4124  inertia=444.61
+  k=10  silhouette=0.4472  inertia=763.41
+  k=29  silhouette=0.4062  inertia=542.00
+  k=46  silhouette=0.4086  inertia=424.03
+  k=50  silhouette=0.4018  inertia=410.20
+  k= 3  silhouette=0.4648  inertia=845.96
+  k=18  silhouette=0.3918  inertia=706.09
+  k=33  silhouette=0.3965  inertia=500.66
+  k=35  silhouette=0.4105  inertia=486.69
+  k= 4  silhouette=0.4325  inertia=852.99
+  k=23  silhouette=0.4019  inertia=621.59
+  k=28  silhouette=0.4067  inertia=561.51
+  k=31  silhouette=0.4085  inertia=523.11
+  k=36  silhouette=0.4060  inertia=482.71
+  k=45  silhouette=0.4111  inertia=430.51
+  k=49  silhouette=0.4126  inertia=412.76
+  k= 9  silhouette=0.4687  inertia=742.49
+  k=27  silhouette=0.4094  inertia=570.58
+  k=34  silhouette=0.4097  inertia=503.69
+  k=39  silhouette=0.4023  inertia=469.40
+  k=11  silhouette=0.4362  inertia=800.35
+  k=22  silhouette=0.3874  inertia=641.54
+  k=32  silhouette=0.4110  inertia=513.34
+  k=38  silhouette=0.4027  inertia=470.35
+  k=44  silhouette=0.4085  inertia=437.84
+  k= 8  silhouette=0.4719  inertia=723.67
+  k=13  silhouette=0.3679  inertia=841.97
+  k=20  silhouette=0.3943  inertia=669.47
+  k=43  silhouette=0.4143  inertia=439.19
+  k= 7  silhouette=0.4988  inertia=659.17
+  k=15  silhouette=0.3716  inertia=790.51
+  k=16  silhouette=0.3762  inertia=765.02
+  k=24  silhouette=0.4077  inertia=608.69
+  k=41  silhouette=0.4062  inertia=448.85
+  k= 2  silhouette=0.6152  inertia=862.19
+  k=12  silhouette=0.3614  inertia=873.66
+  k=19  silhouette=0.3895  inertia=690.23
+  k=26  silhouette=0.4026  inertia=577.30
+  k=30  silhouette=0.4115  inertia=527.96
+  k=37  silhouette=0.4081  inertia=471.79
+  k=48  silhouette=0.4129  inertia=411.70
+
+=== [2/2] Component diagnostic: module_no_ppi ===
+Loading 06_disease_module/disease_module_output/module_graph.pkl ...
+  [exclude-celltypes] Removed ['GLOBAL_PPI']: 282 nodes dropped -> 4,065 nodes remain
+  4,065 nodes, 13,844 edges after any exclusion
+
+=== Connected components: no_ppi ===
+  nodes: 4,065
+  connected components: 26
+  largest component: 4,028 nodes (99.1% of graph)
+  singleton (isolated, size-1) components: 16
+  components with <5 nodes: 25
+  components with >=5 nodes: 1
+  saved component size table -> 08_spectral_analysis/module_no_ppi/diagnostics/component_sizes_no_ppi.csv
+  saved component size histogram -> 08_spectral_analysis/module_no_ppi/diagnostics/component_sizes_no_ppi.png
+
+=== Cluster vs. component comparison: no_ppi ===
+  nodes compared: 4,065
+  connected components represented: 26
+  spectral clusters represented: 2
+  Adjusted Rand Index (component vs. spectral cluster): 0.0135
+    1.0 = clusters are just relabeled connected components (likely degenerate)
+    0.0 = clusters are unrelated to raw connectivity (more likely real structure)
+  mean cluster component-purity: 0.9875
+    1.0 = every spectral cluster sits entirely inside one connected component
+  saved comparison summary -> 08_spectral_analysis/module_no_ppi/diagnostics/component_vs_cluster_summary_no_ppi.json
+
+  >>> ARI is low: clusters look substantially independent of raw connectivity, which is more consistent with genuine substructure within connected regions.
+
+=== [2/2] Embedding diagnostic: module_no_ppi ===
+
+=== Degree distribution: no_ppi ===
+  nodes: 4,065  (raw degree = sum of ['deg_inter', 'deg_ppi'])
+  degree <= 0: 16 nodes (0.4%)
+  degree <= 1: 552 nodes (13.6%)
+  degree <= 2: 1,145 nodes (28.2%)
+  degree <= 5: 2,431 nodes (59.8%)
+  median degree: 4.0, mean degree: 6.81, max: 79
+  saved degree histogram -> 08_spectral_analysis/module_no_ppi/diagnostics/degree_distribution_no_ppi.png
+
+=== Embedding geometry: no_ppi ===
+  embedding shape: (4065, 12)
+  unique rows @ 6 decimals: 3,021 / 4,065 (74.3% unique)
+  rows sharing their rounded position with >=1 other row: 1,066 (26.2%)
+  nearest-neighbor distance: min=0.00e+00, 1st pct=0.00e+00, median=2.73e-04, mean=3.46e-03
+  saved nearest-neighbor distance histogram -> 08_spectral_analysis/module_no_ppi/diagnostics/nn_distance_distribution_no_ppi.png
+  Spearman correlation(degree, nearest-neighbor distance): rho=0.6792 (p=0.00e+00)
+    positive rho = low-degree nodes tend to sit closer to their nearest neighbor (collapsing toward each other) — consistent with the 'low-degree nodes become near-duplicate points' theory
+
+=== Eigenvalue spectrum: no_ppi ===
+  top-12 eigenvalues: [0.851, 0.826, 0.816, 0.797, 0.775, 0.735, 0.732, 0.724, 0.723, 0.72, 0.703, 0.699]
+  fraction of total captured by top-1: 0.093
+  fraction of total captured by top-2: 0.184
+  participation ratio (effective rank): 11.95 out of 12 dimensions
+    PR much smaller than K = most of the embedding's spread lives in a few dimensions, with the rest doing little work -- consistent with most nodes collapsing together along those remaining directions
+  saved eigenvalue spectrum plot -> 08_spectral_analysis/module_no_ppi/diagnostics/eigval_spectrum_no_ppi.png
+
+Saved combined summary -> 08_spectral_analysis/module_no_ppi/diagnostics/embedding_diagnostic_summary_no_ppi.json
+
+Finished at: Mon Sep 21 01:33:36 PM CEST 2026

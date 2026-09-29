@@ -1,0 +1,198 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b13/tmp/slurm-6831307
+Requirement already satisfied: pyarrow in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (25.0.0)
+Requirement already satisfied: pip in /lisc/data/scratch/menche/ines/general_env/lib/python3.12/site-packages (26.2.1)
+
+======================================================================
+Functional Permutation Test (heterogeneous multiplex) -- seed/neighbor decomposition + rewired-network + fixed-seed nulls
+  Reference graph: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  Disease module dir: 06_disease_module/
+  N permutations (seed null): 200 | k: 200
+  Worker processes: 6
+  Disease EFOs: 74 IDs
+======================================================================
+
+Loading full reference graph...
+  69,207 nodes, 609,939 edges
+
+Applying --lcc-per-layer filter (matching step6) ...
+  [lcc-per-layer] Cell type 'A-LTMR.TAC3': 4,399 -> 4,389 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.CHRNA7_SLC18A3': 1,020 -> 1,002 nodes (dropped 18)
+  [lcc-per-layer] Cell type 'A-PEP.KIT': 4,549 -> 4,539 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.NTRK3_S100A16': 1,478 -> 1,457 nodes (dropped 21)
+  [lcc-per-layer] Cell type 'A-PEP.SCGN_ADRA2C': 961 -> 953 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'A-Propr.EPHA3': 2,195 -> 2,191 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'A-Propr.HAPLN4': 1,019 -> 1,004 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'A-Propr.PCDH8': 1,931 -> 1,915 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'ATF3': 1,675 -> 1,667 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'Ab-LTMR.CCKAR': 1,243 -> 1,232 nodes (dropped 11)
+  [lcc-per-layer] Cell type 'Ab-LTMR.ETV1': 666 -> 651 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'Ab-LTMR.LGI2': 1,576 -> 1,562 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'Ab-LTMR.NSG2': 1,079 -> 1,065 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'C-LTMR.CDH9': 841 -> 819 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_GFRA2': 1,265 -> 1,231 nodes (dropped 34)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_MRGPRX4': 2,117 -> 2,102 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'C-NP.SST': 3,416 -> 3,406 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'C-PEP.ADORA2B': 3,037 -> 3,011 nodes (dropped 26)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CACNG5': 1,605 -> 1,598 nodes (dropped 7)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CHRNA3': 1,423 -> 1,406 nodes (dropped 17)
+  [lcc-per-layer] Cell type 'C-Thermo.RXFP1': 4,560 -> 4,554 nodes (dropped 6)
+  [lcc-per-layer] Cell type 'C-Thermo.TRPM8': 2,646 -> 2,630 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'global_ppi': 17,051 -> 17,051 nodes (dropped 0)
+
+  [lcc-per-layer] Total: 69,207 -> 61,435 nodes, 609,939 -> 590,509 edges
+
+Building sparse adjacency (reused across Null 1 permutations)...
+  Adjacency: 61,435 x 61,435, nnz=1,181,018
+
+Loading true disease module...
+True seeds in graph: 1036
+True module size (namespaced nodes): 9940
+True module size (unique genes): 4203
+True RWR-added neighbor nodes: 8904
+
+Initialising functional scorers...
+  ✓ DrugTargetScorer — any indication + 74 disease EFOs
+  – GOEnrichmentScorer skipped (--no-go)
+  ✓ PainPhenotypeScorer (../expression_data/human_pain_genes_database.csv)
+
+Scoring true disease module...
+  [DrugTargetScorer] 1,520 drug-target gene symbols (any indication)
+  [DrugTargetScorer] 207 drug-target gene symbols across 74 disease EFOs
+  [PainPhenotypeScorer] 289 pain-phenotype genes
+True module functional metrics (combined module, gene-level):
+  drug_target_fraction_any                     : 0.137759
+  drug_target_fraction_disease                 : 0.021889
+  pain_phenotype_fraction                      : 0.020700
+
+True module functional metrics (seed vs. neighbor decomposition, gene-level):
+  drug_target_fraction_any__seeds              : 0.496183
+  drug_target_fraction_any__neighbors          : 0.113930
+  drug_target_fraction_disease__seeds          : 0.122137
+  drug_target_fraction_disease__neighbors      : 0.015225
+  pain_phenotype_fraction__seeds               : 0.137405
+  pain_phenotype_fraction__neighbors           : 0.012941
+
+  Disease-EFO drug-target genes in true module (92): ['ABCB1', 'ACE', 'ACHE', 'ADORA1', 'ADORA2A', 'ADORA2B', 'ADRA1A', 'ADRA1D', 'ADRA2A', 'ADRA2C', 'ALOX5', 'AR', 'CACNA1B', 'CACNA1C', 'CACNA1H', 'CACNA2D1', 'CACNA2D2', 'CHRNA4', 'CHRNB2', 'CNR1'] ...
+
+[Null 1/3] Degree-matched random seeds — 200 permutations across 6 workers...
+  [Null 1] 20/200 | elapsed 2557s | ETA 23013s | 0.0 perms/s
+  [Null 1] 40/200 | elapsed 4630s | ETA 18520s | 0.0 perms/s
+  [Null 1] 60/200 | elapsed 6842s | ETA 15966s | 0.0 perms/s
+  [Null 1] 80/200 | elapsed 8933s | ETA 13400s | 0.0 perms/s
+  [Null 1] 100/200 | elapsed 11168s | ETA 11168s | 0.0 perms/s
+  [Null 1] 120/200 | elapsed 13298s | ETA 8866s | 0.0 perms/s
+  [Null 1] 140/200 | elapsed 15419s | ETA 6608s | 0.0 perms/s
+  [Null 1] 160/200 | elapsed 17659s | ETA 4415s | 0.0 perms/s
+  [Null 1] 180/200 | elapsed 19893s | ETA 2210s | 0.0 perms/s
+  [Null 1] 200/200 | elapsed 21730s | ETA 0s | 0.0 perms/s
+  Completed 200 valid permutations (0 failed/skipped)
+
+==========================================================================================
+NULL 1: Degree-matched random SEEDS (combined module vs. combined module)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any                             0.1378     0.0984    0.0031     12.52    0.0000
+drug_target_fraction_disease                         0.0219     0.0131    0.0010      8.63    0.0000
+pain_phenotype_fraction                              0.0207     0.0138    0.0009      7.51    0.0000
+==========================================================================================
+
+==========================================================================================
+NULL 1: Degree-matched random SEEDS (seed/neighbor decomposition)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any__seeds                      0.4962     0.0779    0.0078     53.38    0.0000
+drug_target_fraction_any__neighbors                  0.1139     0.1016    0.0033      3.75    0.0000
+drug_target_fraction_disease__seeds                  0.1221     0.0111    0.0031     35.25    0.0000
+drug_target_fraction_disease__neighbors              0.0152     0.0135    0.0011      1.64    0.0350
+pain_phenotype_fraction__seeds                       0.1374     0.0110    0.0032     39.20    0.0000
+pain_phenotype_fraction__neighbors                   0.0129     0.0142    0.0010     -1.22    0.8800
+==========================================================================================
+Saved plot → 06_disease_module/functional_permutation_test/null1_combined_distributions.png
+Saved plot → 06_disease_module/functional_permutation_test/null1_split_distributions.png
+
+[Null 2/3] Degree-preserving rewired network, true seeds fixed — 100 permutations across 6 workers...
+  [Null 2] 10/100 | elapsed 532s | ETA 4789s | 0.0 perms/s
+  [Null 2] 20/100 | elapsed 991s | ETA 3966s | 0.0 perms/s
+  [Null 2] 30/100 | elapsed 1431s | ETA 3338s | 0.0 perms/s
+  [Null 2] 40/100 | elapsed 1828s | ETA 2743s | 0.0 perms/s
+  [Null 2] 50/100 | elapsed 2351s | ETA 2351s | 0.0 perms/s
+  [Null 2] 60/100 | elapsed 2736s | ETA 1824s | 0.0 perms/s
+  [Null 2] 70/100 | elapsed 3141s | ETA 1346s | 0.0 perms/s
+  [Null 2] 80/100 | elapsed 3594s | ETA 898s | 0.0 perms/s
+  [Null 2] 90/100 | elapsed 4062s | ETA 451s | 0.0 perms/s
+  [Null 2] 100/100 | elapsed 4415s | ETA 0s | 0.0 perms/s
+  Completed 100 valid permutations (0 failed/skipped)
+
+==========================================================================================
+NULL 2: Degree-preserving rewired network, TRUE seeds fixed (combined)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any                             0.1378     0.1084    0.0019     15.63    0.0000
+drug_target_fraction_disease                         0.0219     0.0152    0.0007      9.95    0.0000
+pain_phenotype_fraction                              0.0207     0.0166    0.0007      5.93    0.0000
+==========================================================================================
+
+==========================================================================================
+NULL 2: Degree-preserving rewired network, TRUE seeds fixed (seed/neighbor)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any__seeds                      0.4962     0.4962    0.0000     -1.00    1.0000
+drug_target_fraction_any__neighbors                  0.1139     0.0937    0.0018     11.29    0.0000
+drug_target_fraction_disease__seeds                  0.1221     0.1221    0.0000     -1.00    1.0000
+drug_target_fraction_disease__neighbors              0.0152     0.0111    0.0007      5.81    0.0000
+pain_phenotype_fraction__seeds                       0.1374     0.1374    0.0000     -1.00    1.0000
+pain_phenotype_fraction__neighbors                   0.0129     0.0120    0.0007      1.25    0.1300
+==========================================================================================
+Saved plot → 06_disease_module/functional_permutation_test/null2_combined_distributions.png
+Saved plot → 06_disease_module/functional_permutation_test/null2_split_distributions.png
+
+[Null 3/3] Fixed true seeds, degree_matched random neighbors — 200 permutations across 6 workers...
+  [Null 3] 20/200 | elapsed 209s | ETA 1880s | 0.1 perms/s
+  [Null 3] 40/200 | elapsed 373s | ETA 1492s | 0.1 perms/s
+  [Null 3] 60/200 | elapsed 540s | ETA 1259s | 0.1 perms/s
+  [Null 3] 80/200 | elapsed 731s | ETA 1096s | 0.1 perms/s
+  [Null 3] 100/200 | elapsed 897s | ETA 897s | 0.1 perms/s
+  [Null 3] 120/200 | elapsed 1071s | ETA 714s | 0.1 perms/s
+  [Null 3] 140/200 | elapsed 1254s | ETA 537s | 0.1 perms/s
+  [Null 3] 160/200 | elapsed 1419s | ETA 355s | 0.1 perms/s
+  [Null 3] 180/200 | elapsed 1607s | ETA 179s | 0.1 perms/s
+  [Null 3] 200/200 | elapsed 1767s | ETA 0s | 0.1 perms/s
+  Completed 200 valid permutations (0 failed/skipped)
+
+==========================================================================================
+NULL 3: TRUE seeds fixed, degree_matched random neighbors (combined module)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any                             0.1378     0.0958    0.0019     22.05    0.0000
+drug_target_fraction_disease                         0.0219     0.0146    0.0007      9.93    0.0000
+pain_phenotype_fraction                              0.0207     0.0157    0.0009      5.84    0.0000
+==========================================================================================
+
+==========================================================================================
+NULL 3: TRUE seeds fixed, degree_matched random neighbors (seed/neighbor decomposition)
+Metric                                                 True  Null Mean   Null SD   Z-score   p-value
+------------------------------------------------------------------------------------------
+drug_target_fraction_any__seeds                      0.4962     0.4962    0.0000     -1.00    1.0000
+drug_target_fraction_any__neighbors                  0.1139     0.0795    0.0020     17.33    0.0000
+drug_target_fraction_disease__seeds                  0.1221     0.1221    0.0000       nan    1.0000
+drug_target_fraction_disease__neighbors              0.0152     0.0103    0.0008      6.52    0.0000
+pain_phenotype_fraction__seeds                       0.1374     0.1374    0.0000       nan    1.0000
+pain_phenotype_fraction__neighbors                   0.0129     0.0107    0.0009      2.46    0.0050
+==========================================================================================
+Saved plot → 06_disease_module/functional_permutation_test/null3_combined_distributions.png
+Saved plot → 06_disease_module/functional_permutation_test/null3_split_distributions.png
+
+All outputs saved to: 06_disease_module/functional_permutation_test
+
+How to read the three nulls together:
+  Null 1 (__neighbors rows) significant AND Null 2 significant AND
+  Null 3 significant  →  strong evidence the RWR-selected neighbors carry
+  real, network-topology-dependent functional signal, not just seed bias.
+  Null 1 significant but Null 2/3 NOT significant  →  signal is mostly
+  attributable to seed-gene identity, not to the network expansion step.
+Running on host: node-b13.lisc
+Current working directory: /lisc/home/user/gerardursin/multiplex
+Starting at: Mon Sep 28 06:58:40 PM CEST 2026
+SLURM_JOB_ID: 6831307
+SLURM_ARRAY_TASK_ID: 1
+Finished at: Mon Sep 28 06:58:40 PM CEST 2026

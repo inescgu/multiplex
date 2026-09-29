@@ -1,0 +1,26 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-6831403
+Step 11f: Visualizing persistent heterogeneous HiDeF clusters (supra-graph overview, composition heatmap, per-cluster zooms)
+Running on host: node-c05.lisc
+Starting at: Mon Sep 28 11:42:45 AM CEST 2026
+Loaded supra-graph: 69,207 nodes, 609,939 edges
+
+Loaded characterization for 2,903 clusters
+
+Computing drl layout for 69,207 nodes, 609,939 edges (this can take a while) ...
+  Computed and cached layout -> 11_hidef_hetero/supra_graph_layout.pkl
+
+
+Overview plot: 744 clusters (75th pct (persist >= 22.0))
+  Drawing background nodes by cell type ...
+  Drawing cluster nodes/edges ...
+  Saved -> 11_hidef_results_faithful_cpm/overview.png
+Saved composition heatmap -> 11_hidef_results_faithful_cpm/composition_heatmap.png
+
+Rendering 40 per-cluster zoom panels ...
+  Saved zoom panels -> 11_hidef_results_faithful_cpm/cluster_zooms/
+  Saved summary sheet -> 11_hidef_results_faithful_cpm/cluster_zoom_summary_sheet.png
+
+============================================================
+Done. Outputs in 11_hidef_results_faithful_cpm/
+============================================================
+Finished at: Mon Sep 28 11:47:55 AM CEST 2026

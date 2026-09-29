@@ -135,6 +135,41 @@ up present in the final disease module (by checking each row's two
 
 Only written when --scored-lr-csv is given.
 
+NEW: unique-gene-pair vs. absolute-edge-count reporting
+--------------------------------------------------------
+Because genes are namespaced by cell type across bipartite files (the same
+gene symbol pair, e.g. (TNF, TNFRSF1A), can be added once per cell-type
+pair that happens to express both genes), the total edge count summed
+across all bipartite/<ct1>__<ct2>.tsv files ("absolute") is NOT the same
+as the number of distinct underlying gene-gene relationships ("unique") —
+the former can be inflated by however many cell-type pairs a given gene
+pair happens to be eligible for. This was previously invisible: nothing
+reported the two side by side.
+
+Now, every edge-adding function also records edges into a per-source
+tracker (source_edge_tracker: source_label -> pair_key -> set of edges),
+mirroring `buckets` but split out per source/method. Scored-LR edges are
+tracked per actual method (row['source'], e.g. "liana_consensus",
+"cellphonedb", "neuronchat", ...) rather than lumped as one "scored_lr"
+bucket, so methods can be compared directly. After all bipartite files are
+written, the script computes, per source and overall:
+    absolute_edges     = total (pair_key, edge) entries (i.e. how many
+                          bipartite-file lines this source is responsible
+                          for, matching what's actually on disk)
+    unique_gene_pairs   = distinct gene-symbol pairs, IGNORING which
+                          cell-type pair they appear under
+    overcounting_ratio  = absolute_edges / unique_gene_pairs
+and prints this table, writes it to unique_vs_absolute_stats.csv, and
+plots it as two bar charts. The "OVERALL" row uses the final `buckets`
+directly (already deduplicated within each cell-type pair across all
+sources), so it reflects exactly what was written to the bipartite files.
+
+Written (always, since this needs no extra inputs beyond what's already
+built):
+    unique_vs_absolute_stats.csv
+    chart_unique_vs_absolute_overall.png
+    chart_unique_vs_absolute_by_source.png
+
 Outputs (under --wdir):
     bipartite/<ct1>__<ct2>.tsv          (one file per connected cell-type pair)
     bipartite_manifest.json             (file -> source/target/edge counts;
@@ -143,6 +178,9 @@ Outputs (under --wdir):
     scored_lr_edge_provenance.csv       (only if --scored-lr-csv given; see above)
     ppi_check_stats.csv                 (only if --ppi-pkl given)
     ppi_check_histogram.png             (only if --ppi-pkl given)
+    unique_vs_absolute_stats.csv
+    chart_unique_vs_absolute_overall.png
+    chart_unique_vs_absolute_by_source.png
 """
 import argparse
 import json
@@ -309,80 +347,167 @@ def plot_ppi_check_histogram(stats_df: pd.DataFrame, out_path: Path) -> None:
     print(f"  Histogram -> {out_path}")
 
 
-def add_scored_lr_edges(
-    df: pd.DataFrame,
-    celltype_gene_sets_as_sets: dict[str, set],
+# ---------------------------------------------------------------------------
+# NEW: unique gene-gene relationships vs. absolute (cell-type-namespaced)
+# edge counts — see module docstring section "unique-gene-pair vs.
+# absolute-edge-count reporting".
+# ---------------------------------------------------------------------------
+OVERALL_LABEL = "OVERALL (as written to bipartite files)"
+OVERALL_EXCL_LABEL_TMPL = "OVERALL (excluding {sources})"
+
+
+def compute_unique_vs_absolute_stats(
     buckets: dict[tuple[str, str], set],
-    ppi_ref: set | None,
-    split_complexes: bool,
-    stats: dict,
-    provenance_rows: list,
-) -> None:
-    n_added = 0
-    n_dropped_ct = 0
-    n_dropped_gene = 0
-    n_dropped_ppi = 0
+    source_edge_tracker: dict[str, dict[tuple[str, str], set]],
+    hide_sources: set[str] | None = None,
+) -> pd.DataFrame:
+    """hide_sources (e.g. {"global_ppi_identity"}) does NOT remove anything
+    from the per-source rows below -- every source that contributed edges
+    always gets its own row, full transparency. It only controls whether an
+    ADDITIONAL 'OVERALL (excluding ...)' row is computed alongside the
+    unfiltered OVERALL row, for sources whose edges aren't really "gene-gene
+    relationships" in the same sense as LR/pathway/scored-LR edges (identity
+    bridges to a backbone are structural, not biological claims) and would
+    otherwise dominate/skew the combined ratio. See plot_* functions below
+    for how this feeds into which bars actually get drawn."""
+    hide_sources = hide_sources or set()
+    rows = []
+    for source_label in sorted(source_edge_tracker.keys()):
+        per_pair = source_edge_tracker[source_label]
+        absolute_edges = sum(len(edges) for edges in per_pair.values())
+        unique_pairs = {frozenset(e) for edges in per_pair.values() for e in edges}
+        n_unique = len(unique_pairs)
+        rows.append({
+            "source": source_label,
+            "absolute_edges": absolute_edges,
+            "unique_gene_pairs": n_unique,
+            "overcounting_ratio": round(absolute_edges / n_unique, 2) if n_unique else 0.0,
+        })
 
-    has_ligand_type = "ligand_type" in df.columns
+    # OVERALL row: computed straight from the final, cross-source-deduped
+    # `buckets` — i.e. exactly what ends up written to the bipartite .tsv
+    # files, not a sum of the per-source rows above (which can double-count
+    # an edge that two sources both proposed for the same cell-type pair,
+    # since buckets collapses that to one line but the per-source trackers
+    # don't share a set).
+    overall_absolute = sum(len(edges) for edges in buckets.values())
+    overall_unique = len({frozenset(e) for edges in buckets.values() for e in edges})
+    rows.append({
+        "source": OVERALL_LABEL,
+        "absolute_edges": overall_absolute,
+        "unique_gene_pairs": overall_unique,
+        "overcounting_ratio": round(overall_absolute / overall_unique, 2) if overall_unique else 0.0,
+    })
 
-    for row in df.itertuples(index=False):
-        ct_src = sanitize_name(row.cell_type_source)
-        ct_tgt = sanitize_name(row.cell_type_target)
-        if ct_src not in celltype_gene_sets_as_sets or ct_tgt not in celltype_gene_sets_as_sets:
-            n_dropped_ct += 1
-            continue
-        if ct_src == ct_tgt:
-            continue
+    # OPTIONAL second OVERALL row with one or more sources' edges left out
+    # entirely (not just hidden from a chart) -- e.g. identity bridges to a
+    # --base-ppi backbone, which are (gene, gene) self-pairs by construction
+    # and inflate the combined "unique gene-gene relationship" count with
+    # entries that were never really a claimed biological relationship.
+    # Derived from source_edge_tracker (the union of every NON-hidden
+    # source's edges per pair_key), not from `buckets` minus something,
+    # since buckets doesn't retain per-source provenance.
+    present_hidden = sorted(s for s in hide_sources if s in source_edge_tracker)
+    if present_hidden:
+        kept_by_pair: dict[tuple[str, str], set] = defaultdict(set)
+        for source_label, per_pair in source_edge_tracker.items():
+            if source_label in hide_sources:
+                continue
+            for pair_key, edges in per_pair.items():
+                kept_by_pair[pair_key] |= edges
+        excl_absolute = sum(len(edges) for edges in kept_by_pair.values())
+        excl_unique = len({frozenset(e) for edges in kept_by_pair.values() for e in edges})
+        rows.append({
+            "source": OVERALL_EXCL_LABEL_TMPL.format(sources=", ".join(present_hidden)),
+            "absolute_edges": excl_absolute,
+            "unique_gene_pairs": excl_unique,
+            "overcounting_ratio": round(excl_absolute / excl_unique, 2) if excl_unique else 0.0,
+        })
 
-        src_genes = celltype_gene_sets_as_sets[ct_src]
-        tgt_genes = celltype_gene_sets_as_sets[ct_tgt]
+    return pd.DataFrame(rows)
 
-        ligand_subunits = expand_complex(row.ligand) if split_complexes else [row.ligand]
-        receptor_subunits = expand_complex(row.receptor) if split_complexes else [row.receptor]
 
-        row_source = row.source
-        row_ligand_type = getattr(row, "ligand_type", None) if has_ligand_type else None
-        if isinstance(row_ligand_type, float) and pd.isna(row_ligand_type):
-            row_ligand_type = None
+def plot_unique_vs_absolute_overall(stats_df: pd.DataFrame, out_path: Path,
+                                     hide_sources: set[str] | None = None) -> None:
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print(f"  ⚠ matplotlib not available — skipping {out_path.name} (unique_vs_absolute_stats.csv was still written)")
+        return
 
-        for lig in ligand_subunits:
-            for rec in receptor_subunits:
-                if lig not in src_genes or rec not in tgt_genes:
-                    n_dropped_gene += 1
-                    continue
-                if ppi_ref is not None and frozenset((lig, rec)) not in ppi_ref:
-                    n_dropped_ppi += 1
-                    continue
-                # Record provenance BEFORE the reorientation below -- ct_src/
-                # lig is always the ligand-sender side and ct_tgt/rec the
-                # receptor-receiver side here, regardless of which cell type
-                # ends up sorting first for bucket storage. step6b rebuilds
-                # the exact same "<celltype>::GENE" node pair from these
-                # columns to look the edge up in the final module graph.
-                provenance_rows.append({
-                    "cell_type_source": ct_src,
-                    "cell_type_target": ct_tgt,
-                    "ligand": lig,
-                    "receptor": rec,
-                    "source": row_source,
-                    "ligand_type": row_ligand_type,
-                })
-                # Orient (pair_key, edge) together so edge[0] always belongs
-                # to pair_key[0]'s gene space and edge[1] to pair_key[1]'s —
-                # see FIX note in module docstring.
-                if ct_src < ct_tgt:
-                    pair_key = (ct_src, ct_tgt)
-                    edge = (lig, rec)
-                else:
-                    pair_key = (ct_tgt, ct_src)
-                    edge = (rec, lig)
-                buckets[pair_key].add(edge)
-                stats["edges_by_pair_and_source"][(pair_key, "scored_lr")] += 1
-                n_added += 1
+    hide_sources = hide_sources or set()
+    # Prefer the "excluding {hidden sources}" row when one was computed
+    # (i.e. hide_sources was non-empty and at least one of those sources
+    # actually contributed edges) -- this is the row that answers "how
+    # skewed is my real LR/pathway overcounting picture by the identity
+    # bridges", which is the whole point of --exclude-identity-from-charts.
+    excl_rows = stats_df[stats_df["source"].str.startswith("OVERALL (excluding")]
+    if hide_sources and not excl_rows.empty:
+        overall = excl_rows.iloc[0]
+        subtitle = f"\n(excludes: {', '.join(sorted(hide_sources))})"
+    else:
+        overall = stats_df[stats_df["source"] == OVERALL_LABEL].iloc[0]
+        subtitle = ""
 
-    print(f"Scored LR edges: {n_added:,} added, {n_dropped_ct:,} dropped (cell type not in multiplex), "
-          f"{n_dropped_gene:,} dropped (subunit not in that cell type's PPI layer)"
-          + (f", {n_dropped_ppi:,} dropped (no PPI support)" if ppi_ref is not None else "") + "\n")
+    absolute = overall["absolute_edges"]
+    unique = overall["unique_gene_pairs"]
+    ratio = overall["overcounting_ratio"]
+
+    fig, ax = plt.subplots(figsize=(5, 5))
+    bars = ax.bar(["Absolute edges\n(bipartite file lines)", "Unique gene-gene\nrelationships"],
+                   [absolute, unique], color=["#4C72B0", "#55A868"])
+    for bar, val in zip(bars, [absolute, unique]):
+        ax.annotate(f"{val:,}", (bar.get_x() + bar.get_width() / 2, val),
+                     textcoords="offset points", xytext=(0, 4), ha="center", fontsize=10)
+    ax.set_ylabel("Count")
+    ax.set_title(f"Overall: absolute vs. unique edges\n(overcounting ratio ≈ {ratio:.2f}x){subtitle}")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+    print(f"  Chart -> {out_path}")
+
+
+def plot_unique_vs_absolute_by_source(stats_df: pd.DataFrame, out_path: Path,
+                                       hide_sources: set[str] | None = None) -> None:
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        import numpy as np
+    except ImportError:
+        print(f"  ⚠ matplotlib not available — skipping {out_path.name} (unique_vs_absolute_stats.csv was still written)")
+        return
+
+    hide_sources = hide_sources or set()
+    per_source = stats_df[~stats_df["source"].str.startswith("OVERALL")]
+    per_source = per_source[~per_source["source"].isin(hide_sources)]
+    if per_source.empty:
+        return
+
+    sources = per_source["source"].tolist()
+    absolute = per_source["absolute_edges"].tolist()
+    unique = per_source["unique_gene_pairs"].tolist()
+
+    x = np.arange(len(sources))
+    width = 0.35
+    fig, ax = plt.subplots(figsize=(max(7, 1.7 * len(sources)), 5.5))
+    ax.bar(x - width / 2, absolute, width, label="absolute edges (file lines)", color="#4C72B0")
+    ax.bar(x + width / 2, unique, width, label="unique gene-gene pairs", color="#55A868")
+    ax.set_xticks(x)
+    ax.set_xticklabels(sources, rotation=20, ha="right")
+    ax.set_ylabel("Count")
+    ax.set_title("Absolute vs. unique edges, by source/method")
+    for xi, a, u in zip(x, absolute, unique):
+        ratio = a / u if u else 0
+        ax.annotate(f"{ratio:.1f}x", (xi, max(a, u)), textcoords="offset points",
+                     xytext=(0, 4), ha="center", fontsize=8)
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
+    print(f"  Chart -> {out_path}")
 
 
 # ---------------------------------------------------------------------------
@@ -453,6 +578,7 @@ def add_cross_celltype_edges(
     ppi_ref: set | None,
     source_label: str,
     stats: dict,
+    source_edge_tracker: dict[str, dict[tuple[str, str], set]] | None = None,
 ) -> None:
     for ga, gb in gene_pairs:
         cts_a = gene_to_celltypes.get(ga, ())
@@ -479,6 +605,8 @@ def add_cross_celltype_edges(
                     edge = (gb, ga)
                 buckets[pair_key].add(edge)
                 stats["edges_by_pair_and_source"][(pair_key, source_label)] += 1
+                if source_edge_tracker is not None:
+                    source_edge_tracker[source_label][pair_key].add(edge)
 
 
 def add_global_ppi_identity_edges(
@@ -486,6 +614,7 @@ def add_global_ppi_identity_edges(
     global_ppi_name: str,
     buckets: dict[tuple[str, str], set],
     stats: dict,
+    source_edge_tracker: dict[str, dict[tuple[str, str], set]] | None = None,
 ) -> int:
     """Connects the base/comprehensive PPI pseudo-cell-type multiplex (added
     in step 1 via --base-ppi) to every other cell-type multiplex through
@@ -511,12 +640,99 @@ def add_global_ppi_identity_edges(
             continue
         pair_key = tuple(sorted((ct, global_ppi_name)))
         for g in shared:
-            buckets[pair_key].add((g, g))
+            edge = (g, g)
+            buckets[pair_key].add(edge)
+            if source_edge_tracker is not None:
+                source_edge_tracker["global_ppi_identity"][pair_key].add(edge)
         stats["edges_by_pair_and_source"][(pair_key, "global_ppi_identity")] += len(shared)
         n_connected += 1
         print(f"  {global_ppi_name} <-> {ct}: {len(shared):,} shared genes (identity edges)")
     print()
     return n_connected
+
+
+def add_scored_lr_edges(
+    df: pd.DataFrame,
+    celltype_gene_sets_as_sets: dict[str, set],
+    buckets: dict[tuple[str, str], set],
+    ppi_ref: set | None,
+    split_complexes: bool,
+    stats: dict,
+    provenance_rows: list,
+    source_edge_tracker: dict[str, dict[tuple[str, str], set]] | None = None,
+) -> None:
+    n_added = 0
+    n_dropped_ct = 0
+    n_dropped_gene = 0
+    n_dropped_ppi = 0
+
+    has_ligand_type = "ligand_type" in df.columns
+
+    for row in df.itertuples(index=False):
+        ct_src = sanitize_name(row.cell_type_source)
+        ct_tgt = sanitize_name(row.cell_type_target)
+        if ct_src not in celltype_gene_sets_as_sets or ct_tgt not in celltype_gene_sets_as_sets:
+            n_dropped_ct += 1
+            continue
+        if ct_src == ct_tgt:
+            continue
+
+        src_genes = celltype_gene_sets_as_sets[ct_src]
+        tgt_genes = celltype_gene_sets_as_sets[ct_tgt]
+
+        ligand_subunits = expand_complex(row.ligand) if split_complexes else [row.ligand]
+        receptor_subunits = expand_complex(row.receptor) if split_complexes else [row.receptor]
+
+        row_source = row.source
+        row_ligand_type = getattr(row, "ligand_type", None) if has_ligand_type else None
+        if isinstance(row_ligand_type, float) and pd.isna(row_ligand_type):
+            row_ligand_type = None
+
+        for lig in ligand_subunits:
+            for rec in receptor_subunits:
+                if lig not in src_genes or rec not in tgt_genes:
+                    n_dropped_gene += 1
+                    continue
+                if ppi_ref is not None and frozenset((lig, rec)) not in ppi_ref:
+                    n_dropped_ppi += 1
+                    continue
+                # Record provenance BEFORE the reorientation below -- ct_src/
+                # lig is always the ligand-sender side and ct_tgt/rec the
+                # receptor-receiver side here, regardless of which cell type
+                # ends up sorting first for bucket storage. step6b rebuilds
+                # the exact same "<celltype>::GENE" node pair from these
+                # columns to look the edge up in the final module graph.
+                provenance_rows.append({
+                    "cell_type_source": ct_src,
+                    "cell_type_target": ct_tgt,
+                    "ligand": lig,
+                    "receptor": rec,
+                    "source": row_source,
+                    "ligand_type": row_ligand_type,
+                })
+                # Orient (pair_key, edge) together so edge[0] always belongs
+                # to pair_key[0]'s gene space and edge[1] to pair_key[1]'s —
+                # see FIX note in module docstring.
+                if ct_src < ct_tgt:
+                    pair_key = (ct_src, ct_tgt)
+                    edge = (lig, rec)
+                else:
+                    pair_key = (ct_tgt, ct_src)
+                    edge = (rec, lig)
+                buckets[pair_key].add(edge)
+                stats["edges_by_pair_and_source"][(pair_key, "scored_lr")] += 1
+                if source_edge_tracker is not None:
+                    # Tracked per actual method (row_source, e.g.
+                    # "liana_consensus", "cellphonedb", "neuronchat", ...)
+                    # rather than lumped as one "scored_lr" bucket, so
+                    # methods can be compared directly in the unique-vs-
+                    # absolute report.
+                    source_edge_tracker[row_source][pair_key].add(edge)
+                n_added += 1
+
+    print(f"Scored LR edges: {n_added:,} added, {n_dropped_ct:,} dropped (cell type not in multiplex), "
+          f"{n_dropped_gene:,} dropped (subunit not in that cell type's PPI layer)"
+          + (f", {n_dropped_ppi:,} dropped (no PPI support)" if ppi_ref is not None else "") + "\n")
 
 
 def main():
@@ -554,6 +770,17 @@ def main():
                           "other cell type via identity bipartite edges.")
     ap.add_argument("--no-global-ppi-bipartite", action="store_true",
                      help="Skip auto-connecting --global-ppi-name to every other cell type via identity bipartite edges")
+    ap.add_argument("--exclude-identity-from-charts", action="store_true",
+                     help="Keep building global_ppi identity edges as usual (network, config.yml, "
+                          "everything downstream is unaffected) but leave the 'global_ppi_identity' "
+                          "source out of chart_unique_vs_absolute_by_source.png, and use an "
+                          "identity-excluded total for chart_unique_vs_absolute_overall.png instead "
+                          "of the raw one. Identity edges are (gene, gene) self-pairs bridging to the "
+                          "backbone, not real LR/pathway/scored-LR relationships, so they otherwise "
+                          "dominate the 'unique vs. absolute' picture with something that isn't really "
+                          "a gene-gene relationship being overcounted. Both the raw OVERALL row and "
+                          "global_ppi_identity's own row are still written to unique_vs_absolute_stats.csv "
+                          "either way -- this flag only changes what gets drawn.")
     args = ap.parse_args()
 
     wdir = Path(args.wdir)
@@ -593,9 +820,13 @@ def main():
     buckets: dict[tuple[str, str], set] = defaultdict(set)
     stats = {"skipped_no_ppi": 0, "edges_by_pair_and_source": defaultdict(int)}
     pairs_by_source: dict[str, set[frozenset]] = {}
+    # NEW: mirrors `buckets` but split per source/method, used only for the
+    # unique-vs-absolute report at the end (see module docstring).
+    source_edge_tracker: dict[str, dict[tuple[str, str], set]] = defaultdict(lambda: defaultdict(set))
 
     lr_set = load_lr_pairs(args.lr_csv)
-    add_cross_celltype_edges(lr_set, gene_to_celltypes, buckets, filter_ppi_ref, "ligand_receptor", stats)
+    add_cross_celltype_edges(lr_set, gene_to_celltypes, buckets, filter_ppi_ref, "ligand_receptor", stats,
+                              source_edge_tracker=source_edge_tracker)
     if ppi_ref is not None:
         pairs_by_source["ligand_receptor"] = {frozenset(p) for p in lr_set}
 
@@ -611,7 +842,8 @@ def main():
         for pway, genes in pathway_to_genes.items():
             gene_list = sorted(genes)
             pairs = {tuple(sorted(p)) for p in combinations(gene_list, 2)}
-            add_cross_celltype_edges(pairs, gene_to_celltypes, buckets, filter_ppi_ref, "reactome", stats)
+            add_cross_celltype_edges(pairs, gene_to_celltypes, buckets, filter_ppi_ref, "reactome", stats,
+                                      source_edge_tracker=source_edge_tracker)
             if ppi_ref is not None:
                 reactome_pairs.update(frozenset(p) for p in pairs)
             n_pway_pairs += len(pairs)
@@ -626,6 +858,7 @@ def main():
         add_scored_lr_edges(
             scored_df, celltype_gene_sets_as_sets, buckets, filter_ppi_ref,
             split_complexes=split_complexes, stats=stats, provenance_rows=provenance_rows,
+            source_edge_tracker=source_edge_tracker,
         )
         if provenance_rows:
             prov_df = pd.DataFrame(provenance_rows)
@@ -655,7 +888,8 @@ def main():
         print()
 
     if not args.no_global_ppi_bipartite:
-        n_connected = add_global_ppi_identity_edges(celltype_gene_sets, args.global_ppi_name, buckets, stats)
+        n_connected = add_global_ppi_identity_edges(celltype_gene_sets, args.global_ppi_name, buckets, stats,
+                                                      source_edge_tracker=source_edge_tracker)
         if n_connected == 0 and args.global_ppi_name in celltype_gene_sets:
             print(f"⚠ '{args.global_ppi_name}' found in celltype_gene_sets.json but shares no genes with any "
                   f"other cell type — no identity edges added\n")
@@ -685,6 +919,35 @@ def main():
         for (pair, src), n in sorted(stats["edges_by_pair_and_source"].items())
     ]
     pd.DataFrame(stats_rows).to_csv(wdir / "stats_bipartite_edges.csv", index=False)
+
+    # NEW: unique gene-gene relationships vs. absolute (cell-type-namespaced)
+    # edge counts, per source/method and overall. See module docstring.
+    print("Computing unique-gene-pair vs. absolute-edge-count stats (namespacing overcounting check) ...")
+    hide_sources = {"global_ppi_identity"} if args.exclude_identity_from_charts else set()
+    uva_df = compute_unique_vs_absolute_stats(buckets, source_edge_tracker, hide_sources=hide_sources)
+    uva_path = wdir / "unique_vs_absolute_stats.csv"
+    uva_df.to_csv(uva_path, index=False)
+    print(uva_df.to_string(index=False))
+    print(f"  -> {uva_path}")
+    plot_unique_vs_absolute_overall(uva_df, wdir / "chart_unique_vs_absolute_overall.png",
+                                     hide_sources=hide_sources)
+    plot_unique_vs_absolute_by_source(uva_df, wdir / "chart_unique_vs_absolute_by_source.png",
+                                       hide_sources=hide_sources)
+    if hide_sources:
+        print(f"  [exclude-identity-from-charts] '{', '.join(sorted(hide_sources))}' left out of both "
+              f"PNGs (still logged in unique_vs_absolute_stats.csv for reference)")
+    overall_row = uva_df[uva_df["source"] == OVERALL_LABEL].iloc[0]
+    print(f"  Overall (raw, all sources): {overall_row['absolute_edges']:,} absolute edges written across "
+          f"all bipartite files represent only {overall_row['unique_gene_pairs']:,} unique gene-gene pairs "
+          f"(≈{overall_row['overcounting_ratio']:.2f}x namespacing overcounting)")
+    if hide_sources:
+        excl_rows = uva_df[uva_df["source"].str.startswith("OVERALL (excluding")]
+        if not excl_rows.empty:
+            er = excl_rows.iloc[0]
+            print(f"  Overall (excluding {', '.join(sorted(hide_sources))}): {er['absolute_edges']:,} absolute "
+                  f"edges represent {er['unique_gene_pairs']:,} unique gene-gene pairs "
+                  f"(≈{er['overcounting_ratio']:.2f}x) -- this is the picture drawn in the PNGs")
+    print()
 
     print("=" * 60)
     print(f"Step 2 complete: {len(manifest)} bipartite file(s), "

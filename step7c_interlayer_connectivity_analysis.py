@@ -83,6 +83,31 @@ Two things changed with this update:
 Only generated if scored_lr_edge_provenance.csv exists under --wdir (i.e.
 step2 was run with --scored-lr-csv). Auto-discovered by default; override
 with --scored-lr-provenance-csv if it lives somewhere else.
+
+NEW: density-normalized heatmaps (this update)
+------------------------------------------------
+Raw edge-count heatmaps (heatmap_celltype.png / heatmap_subcategory.png /
+heatmap_fibertype.png, kept exactly as before) naturally favor whichever
+cell type or group has the most genes to draw edges from -- most visibly
+'Unclassified', which is just the leftover bucket for every cell type not
+in DRG_HIERARCHY (in practice, PPI-linked types with far larger gene sets
+than any DRG neuron subtype). Raw counts alone therefore make the biggest
+layer look like the "best connected" one almost by construction, not
+because it's actually more densely wired.
+
+To make cross-group comparisons fair, every hierarchy heatmap now also
+gets a density-normalized twin (heatmap_*_density.png, plus matching
+edge_density_by_*.csv): edges / (n_genes_group_a * n_genes_group_b), i.e.
+what fraction of all possible gene-gene pairs between the two groups are
+actually realized as bipartite edges. A group's gene pool is the UNION of
+its member cell types' gene sets (celltype_gene_sets.json), not a sum, so
+a gene shared across several cell types in the same group isn't
+double-counted. This is an approximation at the group level (it doesn't
+try to subtract out gene pairs that could never appear as a
+between-cell-type bipartite edge in the first place), but it's enough to
+stop the biggest layer from automatically looking like the best-connected
+one. The absolute-count plots are unchanged and still produced -- density
+is an additional lens, not a replacement.
 """
 import argparse
 import json
@@ -109,7 +134,7 @@ DRG_HIERARCHY = {
         "C-thermosensitive": {"cell_types": ["C-Thermo.RXFP1", "C-Thermo.TRPM8"]},
         "C-SST nociceptor": {"cell_types": ["C-NP.SST"]},
     }},
-    "Non-classified": {"color": "#d62728", "subcategories": {
+    "ATF3": {"color": "#d62728", "subcategories": {
         "ATF3 (injured)": {"cell_types": ["ATF3"]},
     }},
 }
@@ -473,7 +498,54 @@ def build_group_rollup(annotations_df: pd.DataFrame, group_lookup: dict) -> pd.D
     return out
 
 
-def plot_hierarchy_heatmap(mat, order, tick_colors, output_path, title, major_boundaries=None, minor_boundaries=None, annot=None):
+# ============================================================================
+# NEW: group-level gene pools + density, for normalizing group heatmaps
+# ============================================================================
+def build_group_gene_universe(gene_sets: dict, group_lookup: dict) -> dict:
+    """Union (NOT sum) of every group's member cell types' gene sets --
+    the relevant 'pool size' for that group when normalizing edge counts
+    into a density. Using union rather than sum means a gene shared by
+    several cell types in the same group is only counted once, so the
+    density isn't artificially deflated for groups with lots of gene
+    overlap between their own member cell types.
+
+    Cell types absent from group_lookup fall into 'Unclassified', the
+    same catch-all bucket build_group_rollup() already uses -- in
+    practice this is usually a much larger gene pool than any single DRG
+    fiber/subcategory, which is exactly why its raw edge counts dwarf
+    everything else and why this normalization matters."""
+    group_genes = defaultdict(set)
+    for ct, genes in gene_sets.items():
+        group_genes[group_lookup.get(ct, "Unclassified")] |= genes
+    return {g: len(s) for g, s in group_genes.items()}
+
+
+def calculate_group_density(group_df: pd.DataFrame, group_gene_sizes: dict) -> pd.DataFrame:
+    """Same idea as calculate_density() below, but at the subcategory/
+    fiber-type group level: density_percent = 100 * actual edges /
+    (n_genes_group_1 * n_genes_group_2). This is an approximation for
+    within-group (diagonal) entries -- it doesn't subtract out gene pairs
+    that could never appear as a between-cell-type bipartite edge (e.g.
+    a gene paired with itself, or two genes belonging to the same single
+    cell type) -- but it's a consistent yardstick across every group pair,
+    which raw counts alone are not."""
+    rows = []
+    for _, row in group_df.iterrows():
+        g1, g2 = row["group_1"], row["group_2"]
+        n1, n2 = group_gene_sizes.get(g1, 0), group_gene_sizes.get(g2, 0)
+        n_possible = n1 * n2
+        n_actual = row["total"]
+        density = 100 * n_actual / n_possible if n_possible else 0
+        rows.append({"group_1": g1, "group_2": g2, "n_genes_1": n1, "n_genes_2": n2,
+                      "n_possible_edges": n_possible, "n_actual_edges": n_actual, "density_percent": density})
+    df = pd.DataFrame(rows)
+    if len(df):
+        df = df.sort_values("n_actual_edges", ascending=False).reset_index(drop=True)
+    return df
+
+
+def plot_hierarchy_heatmap(mat, order, tick_colors, output_path, title, major_boundaries=None, minor_boundaries=None,
+                            annot=None, cbar_label="Inter-cell-type edges", fmt=".0f"):
     if mat.values.sum() == 0:
         print(f"  Skipping {output_path.name}: no data.")
         return
@@ -484,9 +556,9 @@ def plot_hierarchy_heatmap(mat, order, tick_colors, output_path, title, major_bo
         annot = n <= 18
     size = max(6, min(0.55 * n + 3, 22))
     fig, ax = plt.subplots(figsize=(size, size))
-    sns.heatmap(mat, xticklabels=order, yticklabels=order, cmap="rocket_r", annot=annot, fmt=".0f",
+    sns.heatmap(mat, xticklabels=order, yticklabels=order, cmap="rocket_r", annot=annot, fmt=fmt,
                 annot_kws={"size": 7}, linewidths=0.4, linecolor="white",
-                cbar_kws={"label": "Inter-cell-type edges"}, square=True, ax=ax)
+                cbar_kws={"label": cbar_label}, square=True, ax=ax)
     ax.set_title(title, fontsize=13, fontweight="bold", pad=14)
     for label in ax.get_xticklabels():
         label.set_color(tick_colors.get(label.get_text(), "black"))
@@ -530,7 +602,7 @@ def plot_edgetype_breakdown(df, col1, col2, output_path, title):
     plt.close()
 
 
-def hierarchy_breakdown_section(edge_counts_df, annotations_df, out, no_plots) -> dict:
+def hierarchy_breakdown_section(edge_counts_df, annotations_df, gene_sets, density_df, out, no_plots) -> dict:
     hl = build_hierarchy_lookup(DRG_HIERARCHY)
     all_cts_seen = set(edge_counts_df["cell_type_1"]) | set(edge_counts_df["cell_type_2"]) if len(edge_counts_df) else set()
     unmapped = sorted(all_cts_seen - set(hl["ct_to_fiber"].keys()))
@@ -546,9 +618,22 @@ def hierarchy_breakdown_section(edge_counts_df, annotations_df, out, no_plots) -
         plot_hierarchy_heatmap(fine_mat, fine_order, fine_tick_colors, out / "heatmap_celltype.png",
                                 "Inter-Cell-Type Edges — Fine Cell Type\n(thick=fiber boundary, dashed=subcategory boundary)",
                                 major_boundaries=fiber_bounds_fine, minor_boundaries=subcat_bounds_fine)
+        # NEW: density-normalized twin — same edges, divided by
+        # n_genes(ct1) * n_genes(ct2), so a cell-type pair with huge gene
+        # sets doesn't just look "more connected" by virtue of having more
+        # genes available to form edges from.
+        fine_density_mat = pivot_symmetric(density_df, "cell_type_1", "cell_type_2", fine_order, "density_percent")
+        plot_hierarchy_heatmap(fine_density_mat, fine_order, fine_tick_colors, out / "heatmap_celltype_density.png",
+                                "Inter-Cell-Type Edge DENSITY — Fine Cell Type\n"
+                                "(% of possible gene-gene pairs realized; thick=fiber, dashed=subcategory)",
+                                major_boundaries=fiber_bounds_fine, minor_boundaries=subcat_bounds_fine,
+                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
 
     subcat_df = build_group_rollup(annotations_df, hl["ct_to_subcat"])
     subcat_df.to_csv(out / "edge_counts_by_subcategory.csv", index=False)
+    subcat_gene_sizes = build_group_gene_universe(gene_sets, hl["ct_to_subcat"])
+    subcat_density_df = calculate_group_density(subcat_df, subcat_gene_sizes)
+    subcat_density_df.to_csv(out / "edge_density_by_subcategory.csv", index=False)
     subcat_order = list(hl["subcat_order"])
     subcat_tick_colors = {s: hl["fiber_colors"][hl["subcat_to_fiber"][s]] for s in subcat_order}
     if len(subcat_df) and "Unclassified" in set(subcat_df["group_1"]).union(subcat_df["group_2"]):
@@ -559,11 +644,19 @@ def hierarchy_breakdown_section(edge_counts_df, annotations_df, out, no_plots) -
     if not no_plots:
         plot_hierarchy_heatmap(subcat_mat, subcat_order, subcat_tick_colors, out / "heatmap_subcategory.png",
                                 "Inter-Cell-Type Edges — DRG Subcategory Level", major_boundaries=subcat_bounds)
+        subcat_density_mat = pivot_symmetric(subcat_density_df, "group_1", "group_2", subcat_order, "density_percent")
+        plot_hierarchy_heatmap(subcat_density_mat, subcat_order, subcat_tick_colors, out / "heatmap_subcategory_density.png",
+                                "Inter-Cell-Type Edge DENSITY — DRG Subcategory Level\n(% of possible gene-gene pairs realized)",
+                                major_boundaries=subcat_bounds,
+                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
         plot_edgetype_breakdown(subcat_df, "group_1", "group_2", out / "edgetype_breakdown_subcategory.png",
                                  "Edge Type Breakdown — Subcategory Level")
 
     fiber_df = build_group_rollup(annotations_df, hl["ct_to_fiber"])
     fiber_df.to_csv(out / "edge_counts_by_fibertype.csv", index=False)
+    fiber_gene_sizes = build_group_gene_universe(gene_sets, hl["ct_to_fiber"])
+    fiber_density_df = calculate_group_density(fiber_df, fiber_gene_sizes)
+    fiber_density_df.to_csv(out / "edge_density_by_fibertype.csv", index=False)
     fiber_order = list(hl["fiber_order"])
     fiber_tick_colors = {f: hl["fiber_colors"][f] for f in fiber_order}
     if len(fiber_df) and "Unclassified" in set(fiber_df["group_1"]).union(fiber_df["group_2"]):
@@ -573,14 +666,19 @@ def hierarchy_breakdown_section(edge_counts_df, annotations_df, out, no_plots) -
     if not no_plots:
         plot_hierarchy_heatmap(fiber_mat, fiber_order, fiber_tick_colors, out / "heatmap_fibertype.png",
                                 "Inter-Cell-Type Edges — Fiber Type Level")
+        fiber_density_mat = pivot_symmetric(fiber_density_df, "group_1", "group_2", fiber_order, "density_percent")
+        plot_hierarchy_heatmap(fiber_density_mat, fiber_order, fiber_tick_colors, out / "heatmap_fibertype_density.png",
+                                "Inter-Cell-Type Edge DENSITY — Fiber Type Level\n(% of possible gene-gene pairs realized)",
+                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
         plot_edgetype_breakdown(fiber_df, "group_1", "group_2", out / "edgetype_breakdown_fibertype.png",
                                  "Edge Type Breakdown — Fiber Type Level")
 
-    return {"subcat_df": subcat_df, "fiber_df": fiber_df, "unmapped": unmapped}
+    return {"subcat_df": subcat_df, "fiber_df": fiber_df, "unmapped": unmapped,
+            "subcat_density_df": subcat_density_df, "fiber_density_df": fiber_density_df}
 
 
 # ============================================================================
-# Density metrics
+# Density metrics (fine cell-type-pair level)
 # ============================================================================
 def calculate_density(edge_counts_df: pd.DataFrame, gene_sets: dict) -> pd.DataFrame:
     rows = []
@@ -657,11 +755,26 @@ def write_report(edge_counts_df, density_df, pathway_involvement, gene_involveme
                       f"L-R: {row['n_ligand_receptor']:>6,} | Reactome: {row['n_reactome']:>6,} | Total: {row['total']:>8,}")
 
     fiber_df, subcat_df = hierarchy_info["fiber_df"], hierarchy_info["subcat_df"]
-    lines.append("\nFIBER-TYPE LEVEL BREAKDOWN\n" + "-" * 80)
+    lines.append("\nFIBER-TYPE LEVEL BREAKDOWN — RAW COUNTS\n" + "-" * 80)
     for _, row in fiber_df.sort_values("total", ascending=False).iterrows():
         lines.append(f"  {row['group_1']:<20} <-> {row['group_2']:<20}  total: {row['total']:>8,}")
     if hierarchy_info["unmapped"]:
         lines.append(f"\n  ⚠ Cell types not in DRG_HIERARCHY (bucketed 'Unclassified'): {hierarchy_info['unmapped']}")
+
+    # NEW: density-normalized ranking, right next to the raw-count one
+    # above, so re-ranking (e.g. 'Unclassified' dropping out of the top
+    # spot once it's not just winning by gene-pool size) is easy to see.
+    fiber_density_df = hierarchy_info.get("fiber_density_df")
+    lines.append("\nFIBER-TYPE LEVEL BREAKDOWN — DENSITY-NORMALIZED (% of possible gene pairs realized)\n" + "-" * 80)
+    if fiber_density_df is not None and len(fiber_density_df):
+        for _, row in fiber_density_df.sort_values("density_percent", ascending=False).iterrows():
+            lines.append(f"  {row['group_1']:<20} <-> {row['group_2']:<20}  "
+                          f"density: {row['density_percent']:>10.4f}%  "
+                          f"({row['n_actual_edges']:>8,} / {row['n_possible_edges']:>14,} possible)")
+        lines.append("  (a group's raw edge count naturally scales with how many genes it has -- density is what "
+                      "tells you if a group is actually more densely wired than another, not just bigger)")
+    else:
+        lines.append("  (no data)")
 
     if pathway_involvement:
         top_pathways = sorted(((p, len(pairs)) for p, pairs in pathway_involvement.items()), key=lambda x: -x[1])[:10]
@@ -680,8 +793,14 @@ def write_report(edge_counts_df, density_df, pathway_involvement, gene_involveme
     lines.append(f"  Genes in >1 cell type                       : {overlap['genes_in_multiple_celltypes']:,}")
 
     if len(density_df):
-        lines.append("\nDENSITY METRICS (Top 5 by Edge Count)\n" + "-" * 80)
+        lines.append("\nDENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by Edge Count)\n" + "-" * 80)
         for _, row in density_df.sort_values("n_actual_edges", ascending=False).head(5).iterrows():
+            lines.append(f"  {row['cell_type_1']:<30} <-> {row['cell_type_2']:<30}  "
+                          f"{row['n_actual_edges']:>6,} / {row['n_possible_edges']:>10,} possible "
+                          f"({row['density_percent']:.3f}%)")
+        lines.append("\nDENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by DENSITY, min 1 edge)\n" + "-" * 80)
+        nonzero = density_df[density_df["n_actual_edges"] > 0]
+        for _, row in nonzero.sort_values("density_percent", ascending=False).head(5).iterrows():
             lines.append(f"  {row['cell_type_1']:<30} <-> {row['cell_type_2']:<30}  "
                           f"{row['n_actual_edges']:>6,} / {row['n_possible_edges']:>10,} possible "
                           f"({row['density_percent']:.3f}%)")
@@ -756,12 +875,15 @@ def main():
     print("SECTION 1: EDGE COUNTS BY CELL-TYPE PAIR")
     print(edge_counts_df.to_string(index=False))
 
-    print("\nSECTION 2: DRG HIERARCHY BREAKDOWN")
-    hierarchy_info = hierarchy_breakdown_section(edge_counts_df, annotations_df, out, args.no_plots)
-
-    print("\nSECTION 3: DENSITY METRICS")
+    # Computed up front (moved ahead of the hierarchy section) since the
+    # hierarchy heatmaps now need it too, for the fine-level density plot.
     density_df = calculate_density(edge_counts_df, gene_sets)
     density_df.to_csv(out / "density.csv", index=False)
+
+    print("\nSECTION 2: DRG HIERARCHY BREAKDOWN (raw counts + density-normalized)")
+    hierarchy_info = hierarchy_breakdown_section(edge_counts_df, annotations_df, gene_sets, density_df, out, args.no_plots)
+
+    print("\nSECTION 3: DENSITY METRICS")
     print(density_df.to_string(index=False))
 
     print("\nSECTION 4: GENE OVERLAP ACROSS CELL TYPES")

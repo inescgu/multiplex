@@ -9,7 +9,7 @@
 
 cd /lisc/home/user/gerardursin/multiplex/
 
-echo "Step 7d: Seed profiles - can by run anytime after step 3"
+echo "Step 7d: Seed profiles - can by run anytime after step 1"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 
@@ -17,11 +17,10 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
  
-mkdir -p 07d_seed_layer_profile
- 
 python step7d_seed_layer_profile.py \
     --wdir 04_multixrank_prep/multixrank_hetero_input \
-    --output-dir 07d_seed_layer_profile
+    --output-dir 07d_seed_layer_profile \
+    --markers-csv ../R/convert_hdrg_human_2025/cell_type_markers.csv
  
 echo "Finished at: $(date)"
  

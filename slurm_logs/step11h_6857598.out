@@ -1,0 +1,63 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6857598
+Step 11g
+Running on host: node-c01.lisc
+Starting at: Mon Sep 28 01:47:14 PM CEST 2026
+Loaded 2,903 clusters from 11_hidef_results_faithful_cpm/characterized/heterogeneous_hidef_faithful_cpm_cluster_summary.csv
+Observed persistence range: 0-36 (ceiling given: 40)
+
+Persistence tier thresholds (TRUE statistical percentiles of the observed persistence distribution -- matches the legacy single-layer logic):
+  90th percentile -> persistence >= 33.00  (295 clusters, 10.2%)
+  75th percentile -> persistence >= 22.00  (744 clusters, 25.6%)
+  50th percentile -> persistence >= 9.00  (1,580 clusters, 54.4%)
+
+======================================================================
+Per-tier summary (median [IQR], n)
+======================================================================
+
+Cluster size (# genes):
+  Tier 4 (<50th): median=7  IQR=[5, 11]  n=1,323
+  Tier 3 (50-75th): median=7  IQR=[5, 9]  n=836
+  Tier 2 (75-90th): median=6  IQR=[5, 7]  n=449
+  Tier 1 (90th+): median=6  IQR=[5, 7]  n=295
+  Kruskal-Wallis across tiers: H=49.63, p=9.599e-11  -- significant (p<0.05)
+
+Density (edges / possible pairs):
+  Tier 4 (<50th): median=0.438  IQR=[0.286, 0.657]  n=1,323
+  Tier 3 (50-75th): median=0.333  IQR=[0.25, 0.5]  n=836
+  Tier 2 (75-90th): median=0.333  IQR=[0.286, 0.4]  n=449
+  Tier 1 (90th+): median=0.333  IQR=[0.286, 0.4]  n=295
+  Kruskal-Wallis across tiers: H=168.84, p=2.267e-36  -- significant (p<0.05)
+
+# cell types spanned:
+  Tier 4 (<50th): median=4  IQR=[1, 6.5]  n=1,323
+  Tier 3 (50-75th): median=6  IQR=[4, 7]  n=836
+  Tier 2 (75-90th): median=6  IQR=[5, 7]  n=449
+  Tier 1 (90th+): median=6  IQR=[5, 7]  n=295
+  Kruskal-Wallis across tiers: H=248.80, p=1.189e-53  -- significant (p<0.05)
+
+Conserved-gene fraction:
+  Tier 4 (<50th): median=0.5  IQR=[0, 1]  n=1,323
+  Tier 3 (50-75th): median=1  IQR=[0.5, 1]  n=836
+  Tier 2 (75-90th): median=1  IQR=[1, 1]  n=449
+  Tier 1 (90th+): median=1  IQR=[1, 1]  n=295
+  Kruskal-Wallis across tiers: H=676.96, p=2.081e-146  -- significant (p<0.05)
+
+Cross-cell-type edge fraction:
+  Tier 4 (<50th): median=0.667  IQR=[0, 1]  n=1,323
+  Tier 3 (50-75th): median=1  IQR=[0.667, 1]  n=836
+  Tier 2 (75-90th): median=1  IQR=[1, 1]  n=449
+  Tier 1 (90th+): median=1  IQR=[1, 1]  n=295
+  Kruskal-Wallis across tiers: H=870.40, p=2.332e-188  -- significant (p<0.05)
+
+Dominant cell-type fraction:
+  Tier 4 (<50th): median=0.333  IQR=[0.2, 1]  n=1,323
+  Tier 3 (50-75th): median=0.2  IQR=[0.167, 0.333]  n=836
+  Tier 2 (75-90th): median=0.167  IQR=[0.143, 0.2]  n=449
+  Tier 1 (90th+): median=0.167  IQR=[0.143, 0.2]  n=295
+  Kruskal-Wallis across tiers: H=708.66, p=2.785e-153  -- significant (p<0.05)
+
+Saved -> 11_hidef_results_faithful_cpm/persistence_tiers/persistence_tier_summary.csv
+Saved -> 11_hidef_results_faithful_cpm/persistence_tiers/persistence_tier_comparison.png
+Saved -> 11_hidef_results_faithful_cpm/persistence_tiers/persistence_tier_counts.png
+Saved -> 11_hidef_results_faithful_cpm/persistence_tiers/clusters_with_tiers.csv (full per-cluster data with tier labels)
+Finished at: Mon Sep 28 01:47:28 PM CEST 2026

@@ -1,0 +1,52 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b02/tmp/slurm-6788209
+Step 4: Running MultiXrank (heterogeneous multiplex + bipartite)
+Running on host: node-b02.lisc
+Starting at: Wed Sep 23 03:08:48 PM CEST 2026
+============================================================
+Running MultiXrank (heterogeneous multiplex + bipartite)
+============================================================
+Working dir : /lisc/home/user/gerardursin/multiplex/04_multixrank_prep/multixrank_hetero_input
+Config      : config.yml
+Output dir  : 05_multixrank_results/multixrank_hetero_results
+
+
+Checking 1047 seeds against combined reference graph LCC ...
+  Seeds in LCC: 1047/1047 (100.0%)
+
+RWR complete in 26.3s
+
+Raw output saved -> 05_multixrank_results/multixrank_hetero_results/multixrank_raw_output
+
+Per-cell-type matrix: 17,051 genes x 23 cell types
+Non-zero genes: 11,286
+
+Saved per-celltype scores -> 05_multixrank_results/multixrank_hetero_results/per_celltype_scores.csv
+Saved aggregated scores -> 05_multixrank_results/multixrank_hetero_results/gene_rwr_scores.csv
+  Method       : max
+  Genes ranked : 17,051
+  Non-zero     : 11,286
+  Top score    : 2.883344e-03
+
+Top 20 genes:
+ gene  rwr_score
+ NRG1   0.002883
+ PLP1   0.002855
+EFNB2   0.002847
+ GJA1   0.002826
+ SOD2   0.002823
+LPAR1   0.002819
+RAMP1   0.002809
+IL6ST   0.002796
+S100B   0.002793
+HMOX2   0.002784
+ARRB2   0.002781
+ APOE   0.002772
+KCNA1   0.002771
+ CD14   0.002766
+GRIA2   0.002759
+HINT1   0.002758
+HOXB8   0.002757
+EDNRB   0.002757
+ ANO1   0.002755
+ADCY8   0.002755
+Finished at: Wed Sep 23 03:09:50 PM CEST 2026

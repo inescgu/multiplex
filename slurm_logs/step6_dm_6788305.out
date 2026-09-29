@@ -1,0 +1,186 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-6788305
+Step 6: Building disease module
+Running on host: node-c05.lisc
+Starting at: Wed Sep 23 03:20:39 PM CEST 2026
+Loading RWR scores from 05_multixrank_results/multixrank_hetero_results/gene_rwr_scores.csv ...
+  17,051 ranked genes
+
+Loading reference graph from 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  69,207 nodes, 609,939 edges
+  Per-cell-type scores: 17,051 genes × 23 cell types (columns ARE the cell-type names)
+  Namespaced ranking pool: 44,405 (celltype::gene) candidates
+
+Loading seeds from 04_multixrank_prep/multixrank_hetero_input/seeds/seeds.txt ...
+  [exclude-seed-celltypes] No seeds found under ['GLOBAL_PPI'] -- nothing to drop.
+  1047 seeds loaded
+  Excluding 6 seed(s): ['A-PEP.CHRNA7_SLC18A3::ADRA2A', 'A-PEP.CHRNA7_SLC18A3::ADRA2C', 'A-PEP.SCGN_ADRA2C::RGS9', 'C-LTMR.CDH9::GRIA2', 'C-PEP.ADORA2B::TRPV1', 'C-PEP.TAC1_CHRNA3::TRPV1']
+  1041 seeds remaining after exclusion
+
+
+Filtering each cell type to its largest connected component ...
+  [lcc-per-layer] Cell type 'A-LTMR.TAC3': 4,399 -> 4,389 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.CHRNA7_SLC18A3': 1,020 -> 1,002 nodes (dropped 18)
+  [lcc-per-layer] Cell type 'A-PEP.KIT': 4,549 -> 4,539 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'A-PEP.NTRK3_S100A16': 1,478 -> 1,457 nodes (dropped 21)
+  [lcc-per-layer] Cell type 'A-PEP.SCGN_ADRA2C': 961 -> 953 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'A-Propr.EPHA3': 2,195 -> 2,191 nodes (dropped 4)
+  [lcc-per-layer] Cell type 'A-Propr.HAPLN4': 1,019 -> 1,004 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'A-Propr.PCDH8': 1,931 -> 1,915 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'ATF3': 1,675 -> 1,667 nodes (dropped 8)
+  [lcc-per-layer] Cell type 'Ab-LTMR.CCKAR': 1,243 -> 1,232 nodes (dropped 11)
+  [lcc-per-layer] Cell type 'Ab-LTMR.ETV1': 666 -> 651 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'Ab-LTMR.LGI2': 1,576 -> 1,562 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'Ab-LTMR.NSG2': 1,079 -> 1,065 nodes (dropped 14)
+  [lcc-per-layer] Cell type 'C-LTMR.CDH9': 841 -> 819 nodes (dropped 22)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_GFRA2': 1,265 -> 1,231 nodes (dropped 34)
+  [lcc-per-layer] Cell type 'C-NP.MRGPRX1_MRGPRX4': 2,117 -> 2,102 nodes (dropped 15)
+  [lcc-per-layer] Cell type 'C-NP.SST': 3,416 -> 3,406 nodes (dropped 10)
+  [lcc-per-layer] Cell type 'C-PEP.ADORA2B': 3,037 -> 3,011 nodes (dropped 26)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CACNG5': 1,605 -> 1,598 nodes (dropped 7)
+  [lcc-per-layer] Cell type 'C-PEP.TAC1_CHRNA3': 1,423 -> 1,406 nodes (dropped 17)
+  [lcc-per-layer] Cell type 'C-Thermo.RXFP1': 4,560 -> 4,554 nodes (dropped 6)
+  [lcc-per-layer] Cell type 'C-Thermo.TRPM8': 2,646 -> 2,630 nodes (dropped 16)
+  [lcc-per-layer] Cell type 'global_ppi': 17,051 -> 17,051 nodes (dropped 0)
+
+  [lcc-per-layer] Total: 69,207 -> 61,435 nodes, 609,939 -> 590,509 edges
+
+Seed-only subgraph: 712 components, largest CC = 115
+
+Ranked non-seed genes available: 43,348
+Seeds not fully connected — expanding with ranked genes ...
+  +  200 genes -> 1236 nodes, 557 component(s)
+  +  400 genes -> 1436 nodes, 436 component(s)
+  +  600 genes -> 1636 nodes, 357 component(s)
+  +  800 genes -> 1836 nodes, 301 component(s)
+  + 1000 genes -> 2036 nodes, 244 component(s)
+  + 1200 genes -> 2236 nodes, 189 component(s)
+  + 1400 genes -> 2436 nodes, 164 component(s)
+  + 1600 genes -> 2636 nodes, 137 component(s)
+  + 1800 genes -> 2836 nodes, 112 component(s)
+  + 2000 genes -> 3036 nodes, 99 component(s)
+  + 2200 genes -> 3236 nodes, 78 component(s)
+  + 2400 genes -> 3436 nodes, 66 component(s)
+  + 2600 genes -> 3636 nodes, 54 component(s)
+  + 2800 genes -> 3836 nodes, 47 component(s)
+  + 3000 genes -> 4036 nodes, 36 component(s)
+  + 3200 genes -> 4236 nodes, 26 component(s)
+  + 3400 genes -> 4436 nodes, 22 component(s)
+  + 3600 genes -> 4636 nodes, 19 component(s)
+  + 3800 genes -> 4836 nodes, 17 component(s)
+  + 4000 genes -> 5036 nodes, 16 component(s)
+  + 4200 genes -> 5236 nodes, 11 component(s)
+  + 4400 genes -> 5436 nodes, 9 component(s)
+  + 4600 genes -> 5636 nodes, 9 component(s)
+  + 4800 genes -> 5836 nodes, 6 component(s)
+  + 5000 genes -> 6036 nodes, 6 component(s)
+  + 5200 genes -> 6236 nodes, 5 component(s)
+  + 5400 genes -> 6436 nodes, 5 component(s)
+  + 5600 genes -> 6636 nodes, 4 component(s)
+  + 5800 genes -> 6836 nodes, 4 component(s)
+  + 6000 genes -> 7036 nodes, 4 component(s)
+  + 6200 genes -> 7236 nodes, 4 component(s)
+  + 6400 genes -> 7436 nodes, 3 component(s)
+  + 6600 genes -> 7636 nodes, 3 component(s)
+  + 6800 genes -> 7836 nodes, 2 component(s)
+  + 7000 genes -> 8036 nodes, 2 component(s)
+  + 7200 genes -> 8236 nodes, 2 component(s)
+  + 7400 genes -> 8436 nodes, 2 component(s)
+  + 7600 genes -> 8636 nodes, 2 component(s)
+  + 7800 genes -> 8836 nodes, 2 component(s)
+  + 8000 genes -> 9036 nodes, 2 component(s)
+  + 8200 genes -> 9236 nodes, 2 component(s)
+  + 8400 genes -> 9436 nodes, 2 component(s)
+  + 8600 genes -> 9636 nodes, 2 component(s)
+  + 8800 genes -> 9836 nodes, 2 component(s)
+  Connected after adding 8904 gene(s)!
+
+Bridging trajectory (8904 steps) saved -> 06_disease_module/disease_module_output/bridging_trajectory.csv
+  Elbow plot saved -> 06_disease_module/disease_module_output/bridging_elbow.png
+Suggested elbow: +2130 genes bridged -> 80 components remaining (vs. 8904 genes actually added this run)
+
+Cell-type annotation:
+  Genes annotated : 9,940
+  Unique cell types: 22
+
+Saved disease module -> 06_disease_module/disease_module_output/disease_module.csv
+  9,940 genes, 1036 seeds
+  Excluded seeds    : ['A-PEP.CHRNA7_SLC18A3::ADRA2A', 'A-PEP.CHRNA7_SLC18A3::ADRA2C', 'A-PEP.SCGN_ADRA2C::RGS9', 'A-PROPR.EPHA3::HCN2', 'AB-LTMR.CCKAR::KCNQ2', 'AB-LTMR.ETV1::KCNQ2', 'AB-LTMR.LGI2::SPP1', 'AB-LTMR.NSG2::KCNQ2', 'C-LTMR.CDH9::GRIA2', 'C-PEP.ADORA2B::TRPV1', 'C-PEP.TAC1_CHRNA3::TRPV1']
+  Excluded cell types (seeds only, still bridge-eligible): ['global_ppi']
+    Implicitly dropped seeds: []
+Saved module graph -> 06_disease_module/disease_module_output/module_graph.pkl
+======================================================================
+DISEASE MODULE DIAGNOSTICS (heterogeneous multiplex + bipartite)
+======================================================================
+Connectivity mode      : all
+Reference graph        : 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  nodes                : 61,435
+  edges                : 590,509
+Excluded cell types (graph+seeds) : (none)
+Excluded cell types (seeds only, still bridge-eligible) : ['global_ppi']
+  Implicitly dropped seeds: []
+
+--- SEEDS ---
+Seeds provided         : 1047
+Seeds excluded         : 11
+  Excluded list        : ['A-PEP.CHRNA7_SLC18A3::ADRA2A', 'A-PEP.CHRNA7_SLC18A3::ADRA2C', 'A-PEP.SCGN_ADRA2C::RGS9', 'A-PROPR.EPHA3::HCN2', 'AB-LTMR.CCKAR::KCNQ2', 'AB-LTMR.ETV1::KCNQ2', 'AB-LTMR.LGI2::SPP1', 'AB-LTMR.NSG2::KCNQ2', 'C-LTMR.CDH9::GRIA2', 'C-PEP.ADORA2B::TRPV1', 'C-PEP.TAC1_CHRNA3::TRPV1']
+Seeds after exclusion  : 1041
+Seeds in reference     : 1036
+Seeds missing          : 5
+  Missing: ['A-Propr.EPHA3::HCN2', 'Ab-LTMR.CCKAR::KCNQ2', 'Ab-LTMR.ETV1::KCNQ2', 'Ab-LTMR.LGI2::SPP1', 'Ab-LTMR.NSG2::KCNQ2']
+
+--- SEED-ONLY SUBGRAPH ---
+Connected components   : 712
+Largest seed CC size   : 115
+Seed subgraph edges    : 488
+Isolated seeds         : 635
+  Examples: ['A-LTMR.TAC3::ABCC4', 'A-LTMR.TAC3::ADAM11', 'A-LTMR.TAC3::ADCY8', 'A-LTMR.TAC3::ADORA2A', 'A-LTMR.TAC3::BBS1', 'A-LTMR.TAC3::C5AR1', 'A-LTMR.TAC3::CACNA1A', 'A-LTMR.TAC3::CACNA1H', 'A-LTMR.TAC3::CACNA2D1', 'A-LTMR.TAC3::CLOCK', 'A-LTMR.TAC3::CTSS', 'A-LTMR.TAC3::DICER1', 'A-LTMR.TAC3::DISC1', 'A-LTMR.TAC3::DLG2', 'A-LTMR.TAC3::EFNB2', 'A-LTMR.TAC3::FRMPD4', 'A-LTMR.TAC3::FYN', 'A-LTMR.TAC3::GLA', 'A-LTMR.TAC3::GRIA2', 'A-LTMR.TAC3::HDAC4']
+
+--- MODULE CONSTRUCTION ---
+Top-k requested            : 200
+Max bridging genes allowed : 30000
+Ranking pool size          : 44405
+Genes added                : 8904
+Full module size           : 9940
+Fully connected            : True
+
+--- BRIDGING ELBOW (components vs. genes added) ---
+Trajectory points saved    : 8904
+Trajectory CSV              : 06_disease_module/disease_module_output/bridging_trajectory.csv
+Elbow plot                  : 06_disease_module/disease_module_output/bridging_elbow.png
+Suggested elbow             : +2130 genes bridged -> 80 components remaining (max distance from chord = 459.756)
+  This is a SUGGESTION (max-distance-from-chord method), not enforced. If you want to actually cut here, rerun with --max-bridge 2130.
+
+--- FINAL MODULE ---
+Final module size       : 9940
+Final module edges      : 41207
+Used LCC fallback       : False
+Seeds in final module   : 1036 / 1036
+Seeds dropped by LCC    : 0
+
+--- DOMINANT CELL TYPE DISTRIBUTION ---
+  C-PEP.ADORA2B                               565 genes
+  C-NP.SST                                    562 genes
+  A-LTMR.TAC3                                 546 genes
+  C-Thermo.RXFP1                              538 genes
+  C-PEP.TAC1_CACNG5                           515 genes
+  C-Thermo.TRPM8                              514 genes
+  C-PEP.TAC1_CHRNA3                           514 genes
+  A-PEP.KIT                                   499 genes
+  C-NP.MRGPRX1_MRGPRX4                        468 genes
+  A-Propr.EPHA3                               443 genes
+  A-PEP.CHRNA7_SLC18A3                        433 genes
+  A-Propr.PCDH8                               432 genes
+  A-PEP.NTRK3_S100A16                         419 genes
+  ATF3                                        414 genes
+  Ab-LTMR.LGI2                                402 genes
+  Ab-LTMR.CCKAR                               401 genes
+  A-Propr.HAPLN4                              400 genes
+  Ab-LTMR.NSG2                                396 genes
+  C-LTMR.CDH9                                 393 genes
+  C-NP.MRGPRX1_GFRA2                          390 genes
+  A-PEP.SCGN_ADRA2C                           369 genes
+  Ab-LTMR.ETV1                                327 genes
+======================================================================
+
+Diagnostics saved -> 06_disease_module/disease_module_output/module_diagnostics.txt
+Finished at: Wed Sep 23 04:09:41 PM CEST 2026

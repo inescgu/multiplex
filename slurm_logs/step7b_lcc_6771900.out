@@ -1,0 +1,61 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-b10/tmp/slurm-6771900
+Step 7b: Per-cell-type LCC significance analysis
+Host: node-b10.lisc
+Start: Mon Sep 21 10:21:41 AM CEST 2026
+================================================================================
+CELL-TYPE LCC SIGNIFICANCE ANALYSIS
+================================================================================
+Loading per-cell-type PPI layers from 04_multixrank_prep/multixrank_hetero_input/multiplex ...
+  A-LTMR.TAC3: 6,170 nodes, 58,818 edges
+  A-PEP.CHRNA7_SLC18A3: 1,232 nodes, 2,650 edges
+  A-PEP.KIT: 3,566 nodes, 20,489 edges
+  A-PEP.NTRK3_S100A16: 1,606 nodes, 4,566 edges
+  A-PEP.SCGN_ADRA2C: 1,824 nodes, 6,433 edges
+  A-Propr.EPHA3: 3,022 nodes, 13,971 edges
+  A-Propr.HAPLN4: 2,427 nodes, 9,295 edges
+  A-Propr.PCDH8: 3,606 nodes, 21,547 edges
+  ATF3: 1,655 nodes, 6,394 edges
+  Ab-LTMR.CCKAR: 1,685 nodes, 4,771 edges
+  Ab-LTMR.ETV1: 3,106 nodes, 16,560 edges
+  Ab-LTMR.LGI2: 3,134 nodes, 16,141 edges
+  Ab-LTMR.NSG2: 2,164 nodes, 7,370 edges
+  C-LTMR.CDH9: 2,140 nodes, 8,123 edges
+  C-NP.MRGPRX1_GFRA2: 1,184 nodes, 2,692 edges
+  C-NP.MRGPRX1_MRGPRX4: 1,492 nodes, 4,272 edges
+  C-NP.SST: 1,432 nodes, 3,585 edges
+  C-PEP.ADORA2B: 3,285 nodes, 16,638 edges
+  C-PEP.TAC1_CACNG5: 1,435 nodes, 3,624 edges
+  C-PEP.TAC1_CHRNA3: 1,814 nodes, 5,452 edges
+  C-Thermo.RXFP1: 3,636 nodes, 19,226 edges
+  C-Thermo.TRPM8: 1,227 nodes, 2,659 edges
+  global_ppi: 17,051 nodes, 302,553 edges
+  23 cell type(s) loaded
+
+Loaded 408 seed gene symbols
+  e.g.: ['ABCB1', 'ABCC3', 'ABCC4', 'ACHE', 'ACP3', 'ADAM11', 'ADAMTS5', 'ADCY1', 'ADCY5', 'ADCY8']
+
+Loading combined reference graph for null-model pool: 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl ...
+  Reference graph: 78,890 nodes (shared pool degree dict for every cell type)
+
+Seed/layer overlap check: 372 / 408 seed genes found in the union of all 23 cell-type PPI layers (69,893 distinct genes)
+  372 / 408 seed genes found in the null-model pool
+
+Preparing per-cell-type tasks ...
+Prepared 23 tasks
+
+  Memory: 0.33 GB
+Using 4 workers
+
+Analyzing LCC significance:
+
+  A-PEP.CHRNA7_SLC18A3
+    nodes: 1,232 | edges: 2,650 | seeds: 49
+
+  A-PEP.NTRK3_S100A16
+    nodes: 1,606 | edges: 4,566 | seeds: 63
+
+  A-PEP.KIT
+    nodes: 3,566 | edges: 20,489 | seeds: 100
+
+  A-LTMR.TAC3
+    nodes: 6,170 | edges: 58,818 | seeds: 133

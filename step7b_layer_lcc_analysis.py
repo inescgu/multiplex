@@ -123,7 +123,7 @@ DRG_HIERARCHY = {
         "C-thermosensitive": {"marker": "*", "cell_types": ["C-Thermo.RXFP1", "C-Thermo.TRPM8"]},
         "C-SST nociceptor": {"marker": "v", "cell_types": ["C-NP.SST"]},
     }},
-    "Non-classified": {"color": "#d62728", "subcategories": {
+    "ATF3": {"color": "#d62728", "subcategories": {
         "ATF3 (injured)": {"marker": "x", "cell_types": ["ATF3"]},
     }},
     "Non-neuronal": {"color": "#2ca02c", "subcategories": {

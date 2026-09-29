@@ -1,0 +1,9 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c01/tmp/slurm-6857590
+Step 11g
+Running on host: node-c01.lisc
+Starting at: Mon Sep 28 01:46:44 PM CEST 2026
+Saved -> presentation_figures/results_summary.png
+  size:        min=4  mean=23.3  max=10,949  (n=3,410)
+  persistence: min=5  mean=12.2  max=36  (32/40 distinct values)
+Saved -> presentation_figures/resolution_selection.png
+Finished at: Mon Sep 28 01:46:59 PM CEST 2026

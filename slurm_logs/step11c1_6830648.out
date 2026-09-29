@@ -1,0 +1,26 @@
+##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c02/tmp/slurm-6830648
+Step 11c: Weaving partition ensemble into a HiDeF persistent hierarchy (hidef.weaver)
+Running on host: node-c02.lisc
+Starting at: Mon Sep 28 10:37:34 AM CEST 2026
+Loaded ensemble: 40 partitions, 69207 nodes
+Omega values present: [1.0]
+Neighbor window: 3  |  link_omega: False
+
+Building windowed-neighbor ClusterGraph ...
+  [10/40] partition (gamma=0.0001390870618490682, omega=1.0, restart=0): 987 clusters (size >= 4) added -- cluG now has 6,781 nodes, 13,098 edges
+  [20/40] partition (gamma=0.002591822914115521, omega=1.0, restart=0): 1,794 clusters (size >= 4) added -- cluG now has 22,738 nodes, 46,045 edges
+  [30/40] partition (gamma=0.04829741838549935, omega=1.0, restart=0): 6,087 clusters (size >= 4) added -- cluG now has 57,427 nodes, 82,162 edges
+  [40/40] partition (gamma=0.9, omega=1.0, restart=0): 1,177 clusters (size >= 4) added -- cluG now has 111,439 nodes, 130,079 edges
+
+ClusterGraph complete: 111,439 cluster-nodes, 130,079 edges
+
+Running consensus() (chi=5, p=75) ...
+consensus() produced 3,410 consensus clusters
+
+Consensus cluster size stats: min=4 max=10949 mean=23.3
+Persistence stats: min=5 max=36 mean=12.2  distinct values=32  (max possible = 40 partitions)
+
+✓ Saved -> 11_hidef_results_faithful_cpm/consensus.pkl
+
+Next: sanity-check the persistence distribution above (or reload this pickle and histogram len_component values) BEFORE committing to the slow Phase 2 weave rerun.
+Finished at: Mon Sep 28 10:40:02 AM CEST 2026

@@ -106,14 +106,21 @@ def make_categorical_colors(keys, colormap="tab20"):
 # ============================================================================
 
 def get_or_compute_layout(g: ig.Graph, cache_path: Path, algo="drl"):
+    names = g.vs["name"]
+
     if cache_path.exists():
         with open(cache_path, "rb") as f:
             pos = pickle.load(f)
-        print(f"Loaded cached layout ({algo}) for {len(pos):,} nodes from {cache_path}\n")
-        return pos
+        missing = [n for n in names if n not in pos]
+        if not missing:
+            print(f"Loaded cached layout ({algo}) for {len(pos):,} nodes from {cache_path}\n")
+            return pos
+        print(f"Cached layout at {cache_path} is stale: {len(missing):,} of "
+              f"{len(names):,} supra-graph nodes are missing (e.g. {missing[:3]}). "
+              f"Recomputing ...")
 
-    print(f"No cached layout found -- computing {algo} layout for "
-          f"{g.vcount():,} nodes, {g.ecount():,} edges (this can take a while) ...")
+    print(f"Computing {algo} layout for {g.vcount():,} nodes, {g.ecount():,} edges "
+          f"(this can take a while) ...")
     if algo == "drl":
         coords = g.layout_drl()
     elif algo == "fr":
@@ -123,7 +130,7 @@ def get_or_compute_layout(g: ig.Graph, cache_path: Path, algo="drl"):
     else:
         raise ValueError(f"Unknown layout algo: {algo}")
 
-    pos = {name: (xy[0], xy[1]) for name, xy in zip(g.vs["name"], coords)}
+    pos = {name: (xy[0], xy[1]) for name, xy in zip(names, coords)}
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     with open(cache_path, "wb") as f:
         pickle.dump(pos, f)
