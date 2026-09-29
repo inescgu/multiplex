@@ -42,3 +42,9 @@ pathway_prep/lr_sources/neuronchat_object_debug.rds
 *.nodes
 *.gml
 phen/combined_gene_results_*.tsv
+
+# big / regenerable
+*.pkl
+slurm_logs/
+__pycache__/
+.ipynb_checkpoints/

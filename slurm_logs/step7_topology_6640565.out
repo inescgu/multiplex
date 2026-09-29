@@ -1,5 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-6640565
-Step 7: Per-cell-type topology statistics
-Running on host: node-c05.lisc
-Starting at: Wed Sep 16 12:06:22 PM CEST 2026
-Finished at: Wed Sep 16 12:06:41 PM CEST 2026

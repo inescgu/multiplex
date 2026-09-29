@@ -1,4 +1,0 @@
-/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1213: RuntimeWarning: Mean of empty slice
-  return np.nanmean(a, axis, out=out, keepdims=keepdims)
-/lisc/data/scratch/menche/ines/multixrank_env/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1213: RuntimeWarning: Mean of empty slice
-  return np.nanmean(a, axis, out=out, keepdims=keepdims)

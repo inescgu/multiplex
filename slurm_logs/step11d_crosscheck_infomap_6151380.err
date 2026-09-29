@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/step11d_validation.py", line 40, in <module>
-    from infomap import Infomap
-ModuleNotFoundError: No module named 'infomap'

@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/lisc/home/user/gerardursin/multiplex/phen/run_multiplex_enrichment_pipeline.py", line 31, in <module>
-    from results_combiner_multiplex import ResultsCombiner
-ModuleNotFoundError: No module named 'results_combiner_multiplex'

@@ -1,6 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-c05/tmp/slurm-3978222
-Running on host: node-c05.lisc
-Current working directory: /lisc/home/user/gerardursin/multiplex/pathway_distance
-Starting at: Tue Jun  2 01:40:27 PM CEST 2026
-SLURM_JOB_ID: 3978222
-Finished at: Tue Jun  2 01:40:29 PM CEST 2026

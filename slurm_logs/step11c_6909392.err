@@ -1,4 +1,0 @@
-/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/louvain/__init__.py:54: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  from pkg_resources import get_distribution, DistributionNotFound
-/var/spool/slurm/slurmd/job6909392/slurm_script: line 23: 1193038 Killed                  python step11c_neighbors_sweep.py --ensemble 11_hidef_hetero/ensemble.pkl --neighbor-values 2 3 5 10 15 20 --reference-neighbors 10 --minsize 4 --jaccard 0.75 --chi 5 --consensus-p 75 --output-dir 11_hidef_neighbors_sweep
-[2026-09-29T11:38:39.268] error: Detected 1 oom_kill event in StepId=6909392.batch. Some of the step tasks have been OOM Killed.

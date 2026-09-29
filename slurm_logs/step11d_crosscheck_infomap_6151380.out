@@ -1,6 +1,0 @@
-##LiSC job info: the temporary directory of your job is also available read-only until 3 days after job end on the login nodes (login01/login02) under this path: /lisc/slurm/node-d03/tmp/slurm-6151380
-Step 11d: Cross-checking persistent communities against Infomap on the supra-graph
-Running on host: node-d03.lisc
-Starting at: Tue Aug 25 09:56:22 AM CEST 2026
-ERROR: could not import infomap -- pip install infomap
-Finished at: Tue Aug 25 09:56:24 AM CEST 2026
