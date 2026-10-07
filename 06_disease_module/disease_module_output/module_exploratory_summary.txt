@@ -30,7 +30,7 @@ A-PEP.CHRNA7_SLC18A3        A-fiber      433                    1992            
         Ab-LTMR.ETV1        A-fiber      327                    1797                 3.29       22                     0.0673                 0                 0
 
 Isolated nodes overall: 0 (of which seeds: 0)
-Seed lines in seeds.txt: 1047  | unique: 1047  | duplicate lines: none
+Seed lines in seeds.txt: 1047  | unique nodes: 1047  | unique genes: 262  | duplicate lines: none
 Seeds in final module: 1036 / 1047
 Seeds isolated in module: 0
 Seed genes seeded under >1 cell type: 1012

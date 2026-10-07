@@ -16,9 +16,13 @@ from statsmodels.stats.multitest import multipletests
 import pickle
 import os
 from common_utils import *
+from hidef_multiplex_adapter import MultiplexClusterLoaderMixin
 
-class NeuropathicPainAnalyzer:
-    def __init__(self, ppi_source, expression_file, input_dir, output_dir, cluster_type='seed_lcc_hidef', persistence_threshold=5):
+class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
+    def __init__(self, ppi_source, expression_file, input_dir, output_dir, cluster_type='seed_lcc_hidef', persistence_threshold=None):
+        import pipeline_config as cfg
+        if persistence_threshold is None:
+            persistence_threshold = cfg.PERSISTENCE_THRESHOLD
         print(f"\n{'='*80}")
         print(f"INITIALIZING NeuropathicPainAnalyzer")
         print(f"{'='*80}")
@@ -73,43 +77,6 @@ class NeuropathicPainAnalyzer:
     def safe_fold_change(self, numerator, denominator, min_value=1e-10):
         """Safely calculate fold change with handling for zero denominators."""
         return numerator / max(denominator, min_value)
-    
-    def load_hidef_clusters_multiplex(self, nodes_file, supra_graph_pkl=None,
-                                   seed_genes_file=None):
-        '''Drop-in replacement for load_hidef_clusters_from_comparison() that
-        reads the heterogeneous pipeline's .nodes file instead of the old
-        monoplex hidef_communities.pkl. Populates the exact same attributes
-        (self.clusters, self.cluster_seed_mapping, self.seed_genes) so nothing
-        else in this class needs to change.'''
-        import pickle
-        from hidef_multiplex_adapter import load_multiplex_clusters
-
-        node_names = None
-        if supra_graph_pkl:
-            with open(supra_graph_pkl, "rb") as f:
-                g = pickle.load(f)
-            node_names = g.vs["name"]
-
-        seed_genes = None
-        if seed_genes_file:
-            seed_genes = set(pd.read_csv(seed_genes_file)["gene"].astype(str))
-
-        self.clusters, self.cluster_seed_mapping, self._multiplex_extra = load_multiplex_clusters(
-            nodes_file, node_names=node_names, seed_genes=seed_genes,
-            persistence_threshold=self.persistence_threshold,
-        )
-        self.seed_genes = (
-            set().union(*self.cluster_seed_mapping.values())
-            if self.cluster_seed_mapping else set()
-        )
-
-        if self.clusters:
-            sizes = [len(g) for g in self.clusters.values()]
-            print(f"Loaded {len(self.clusters)} multiplex clusters "
-                  f"(deduped gene-set sizes {min(sizes)}-{max(sizes)}, "
-                  f"avg {sum(sizes)/len(sizes):.1f})")
-        return bool(self.clusters)
-
     
     def load_expression_data(self):
         """Load pain expression data with metadata."""
@@ -802,10 +769,7 @@ class NeuropathicPainAnalyzer:
 
         # Load clusters
         print(f"STEP 1: Loading HiDeF clusters from comparison results...")
-        if not self.load_hidef_clusters_multiplex(
-            nodes_file='../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes',
-            supra_graph_pkl='../11_hidef_hetero/supra_graph.pkl',
-            seed_genes_file='../00_inputs/seed_genes.csv'):
+        if not self.load_hidef_clusters_multiplex():
             print("✗ Failed to load HiDeF clusters")
             return False
 
@@ -888,7 +852,7 @@ def main():
     parser.add_argument('--expression_data', type=str, required=True, help='Expression data CSV file')
     parser.add_argument('--input_dir', type=str, default='./input', help='Input directory with HiDeF comparison results')
     parser.add_argument('--output_dir', type=str, default='./output', help='Output directory')
-    parser.add_argument('--persistence_threshold', type=int, default=5, 
+    parser.add_argument('--persistence_threshold', type=int, default=None, 
                     help='Minimum persistence threshold for HiDeF clusters (default: 5)')
     
     args = parser.parse_args()

@@ -5,28 +5,28 @@ PPI Source: combined26_multiplex
 Cluster Source: HiDeF vs Louvain Comparison Results
 Persistence Threshold: 8
 Expression file: ../../expression_data/spatial_transcriptomics_drg.csv
-Total clusters: 519
+Total clusters: 2187
 Total cell types: 12
 
 Analysis Results:
-Total clusters analyzed: 516
-Significant enrichments: 163
+Total clusters analyzed: 2185
+Significant enrichments: 1029
 
 Top 10 Enrichments:
-  HiDeF_Cluster_Cluster1-34 - Ad_HTMRs: OR=1000000.00, p=1.56e-02
-  HiDeF_Cluster_Cluster2-33 - Ad_HTMRs: OR=1000000.00, p=1.56e-02
-  HiDeF_Cluster_Cluster2-37 - Pruritogen_receptor_enriched: OR=1000000.00, p=6.25e-02
-  HiDeF_Cluster_Cluster2-42 - TRPA1+_nociceptors: OR=1000000.00, p=1.56e-02
-  HiDeF_Cluster_Cluster1-47 - Putative_C-LTMRs: OR=1000000.00, p=6.25e-02
-  HiDeF_Cluster_Cluster2-53 - Aß_RA_LTMRs: OR=1000000.00, p=1.56e-02
-  HiDeF_Cluster_Cluster2-65 - Putative_C-LTMRs: OR=1000000.00, p=9.75e-04
-  HiDeF_Cluster_Cluster1-56 - Putative_C-LTMRs: OR=1000000.00, p=1.56e-02
-  HiDeF_Cluster_Cluster1-57 - Putative_C-LTMRs: OR=1000000.00, p=6.25e-02
-  HiDeF_Cluster_Cluster1-58 - Putative_C-LTMRs: OR=1000000.00, p=2.50e-01
+  HiDeF_Cluster_Cluster2-46 - Putative_C-LTMRs: OR=1000000.00, p=2.83e-27
+  HiDeF_Cluster_Cluster2-84 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.50e-14
+  HiDeF_Cluster_Cluster3-75 - Putative_C-LTMRs: OR=1000000.00, p=3.55e-12
+  HiDeF_Cluster_Cluster4-30 - Putative_C-LTMRs: OR=1000000.00, p=3.55e-12
+  HiDeF_Cluster_Cluster6-2 - Putative_C-LTMRs: OR=1000000.00, p=1.52e-05
+  HiDeF_Cluster_Cluster3-83 - Ad_LTMRs: OR=1000000.00, p=5.71e-11
+  HiDeF_Cluster_Cluster1-83 - Aß_RA_LTMRs: OR=1000000.00, p=2.29e-10
+  HiDeF_Cluster_Cluster3-82 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.71e-11
+  HiDeF_Cluster_Cluster4-40 - Putative_C-LTMRs: OR=1000000.00, p=2.29e-10
+  HiDeF_Cluster_Cluster4-45 - Putative_silent_nociceptors: OR=1000000.00, p=9.17e-10
 
 Top Cell Type Associations:
-  Putative_C-LTMRs: 280 clusters
-  Pruritogen_receptor_enriched: 74 clusters
-  Putative_silent_nociceptors: 41 clusters
-  TRPA1+_nociceptors: 26 clusters
-  PENK+_nociceptors: 23 clusters
+  Putative_C-LTMRs: 1087 clusters
+  Pruritogen_receptor_enriched: 300 clusters
+  Putative_silent_nociceptors: 135 clusters
+  PENK+_nociceptors: 121 clusters
+  Aß_nociceptors: 98 clusters

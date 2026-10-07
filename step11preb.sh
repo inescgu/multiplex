@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
 
-echo "Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph"
+echo "Step 11preb: CPM resolution diagnostic"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
@@ -16,9 +16,9 @@ source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 
 python step11preb_diagnostic.py \
-        --supra-graph 11_hidef_hetero/supra_graph.pkl \
-        --output-prefix 11_hidef_hetero/resolution_profile \
-        --min-resolution 0.3 \
+        --supra-graph 11_hidef_module/supra_graph.pkl \
+        --output-prefix 11_hidef_module/resolution_profile \
+        --min-resolution 8.34e-04 \
         --max-resolution 1.0 \
         --n-resolutions 20 \
         --partition-types CPM

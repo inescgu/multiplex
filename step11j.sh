@@ -7,14 +7,16 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
-echo "Step 11g"
+source ./run_env.sh
+echo "Step 11j: Persistence confounds"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
-python step11j_persistence_confounds.py \
-        --cluster-summary 11_hidef_results_faithful/characterized/heterogeneous_hidef_cluster_summary.csv \
-        --output-prefix 11_hidef_results_faithful/characterized/heterogeneous_hidef
+snapshot "$RUN_DIR/characterized"
 
+python step11j_persistence_confounds.py \
+        --cluster-summary "$RUN_DIR/characterized/heterogeneous_hidef_faithful_cpm_cluster_summary.csv" \
+        --output-prefix "$RUN_DIR/characterized/heterogeneous_hidef_faithful_cpm"
 echo "Finished at: $(date)"

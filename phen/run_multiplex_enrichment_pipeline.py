@@ -17,6 +17,7 @@ existing scripts -- adjust the imports below to match wherever those
 files live.
 """
 import os
+import sys
 import pandas as pd
 
 # --- your existing analyzer classes (unmodified) ---
@@ -29,30 +30,23 @@ from analyze_spatial_transcriptomics import SpatialTranscriptomicsAnalyzer
 # --- new modules from this conversation ---
 from hidef_multiplex_adapter import load_multiplex_clusters, patch_analyzer_for_multiplex
 from hidef_multiplex_facets import compute_cluster_facets, facet_all_analysis_outputs
-from results_combiner_multiplex import ResultsCombiner
-
 
 # ============================================================================
 # CONFIG -- edit this block
 # ============================================================================
 
-PPI_SOURCE = 'combined26_multiplex'      # distinct from your monoplex 'combined26'
-CLUSTER_TYPE = 'hidef_from_comparison'   # kept the same so file-naming patterns still match;
-                                          # PPI_SOURCE alone separates the two pipelines' folders
-OUTPUT_DIR = './output'
-PERSISTENCE_THRESHOLD = 8                # floor for which clusters get enrichment-tested at
-                                          # all in this run. NOTE: run_multiplex_visualizations.py
-                                          # reads this same value separately (as
-                                          # ANALYZER_PERSISTENCE_THRESHOLD) for its "top clusters"
-                                          # plot -- keep the two in sync if you change this.
+import pipeline_config as cfg
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from provenance import write_manifest
+from results_combiner_multiplex import ResultsCombiner
 
-NODES_FILE = '../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes'
-# ^ MUST match NODES_FILE in run_multiplex_visualizations.py. Cluster IDs and
-# persistence values in the output CSVs are tied to whichever .nodes file was
-# in effect when this script last ran -- if you change this, rerun this whole
-# pipeline before trusting anything the visualization script plots.
-SUPRA_GRAPH_PKL = '../11_hidef_hetero/supra_graph.pkl'
-SEED_GENES_FILE = '../00_inputs/seed_genes.csv'
+PPI_SOURCE = cfg.PPI_SOURCE
+CLUSTER_TYPE = cfg.CLUSTER_TYPE
+OUTPUT_DIR = cfg.OUTPUT_DIR
+PERSISTENCE_THRESHOLD = cfg.PERSISTENCE_THRESHOLD
+NODES_FILE = cfg.NODES_FILE
+SUPRA_GRAPH_PKL = cfg.SUPRA_GRAPH_PKL
+SEED_GENES_FILE = cfg.SEED_GENES_FILE
 
 # Data files for each analysis type -- same files you already use.
 PROTEOMICS_FILE = '../../expression_data/matrix-for-limma2.csv'
@@ -61,7 +55,6 @@ PHENOTYPES_FILE = '../../expression_data/human_pain_genes_database.csv'
 NEUROPATHIC_PAIN_FILE = '../../expression_data/neuropathic_pain_drg2.csv'
 SPATIAL_FILE = '../../expression_data/spatial_transcriptomics_drg.csv'
 OMIM_PS_FILE = '../../phenotypic_series/omim_phenotypic_series_enrichment.csv'
-
 
 # ============================================================================
 # STEP 1 -- load clusters once, build the facet table once
@@ -84,7 +77,10 @@ os.makedirs(os.path.dirname(facets_out_path), exist_ok=True)
 facets_df.to_csv(facets_out_path, index=False)
 print(f"Saved facet table -> {facets_out_path}\n")
 
-
+write_manifest(os.path.join(OUTPUT_DIR, PPI_SOURCE),
+               args={"persistence_threshold": PERSISTENCE_THRESHOLD, "nodes_file": NODES_FILE},
+               inputs=[NODES_FILE, SUPRA_GRAPH_PKL, SEED_GENES_FILE],
+               extra={"n_clusters": len(clusters)})
 # ============================================================================
 # STEP 2 -- run each analyzer, patched to read the multiplex clustering
 # ============================================================================

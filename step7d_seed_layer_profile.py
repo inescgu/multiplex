@@ -1,80 +1,71 @@
 #!/usr/bin/env python3
 """
-Step 7d: seed genes across the raw per-cell-type PPI layers -- presence,
-degree, hubness and marker strength.
+Step 7d: profile a gene set across the raw per-cell-type PPI layers --
+presence, degree, hubness and marker strength.
 
-Runs as soon as step 1 has written multiplex/<ct>/ppi_layer.tsv and
-celltype_gene_sets.json (before MultiXrank / disease module exist). Does NOT
-read disease_module.csv; for the module cross-reference use step6b.
+TWO MODES (same code, different target gene set)
+------------------------------------------------
+  SEED mode      (default)              target genes = your seed genes
+  NEIGHBOR mode  (--disease-module-csv) target genes = the NON-seed genes the
+                                        disease-module builder (step 6)
+                                        recruited to connect the seeds.
+All printouts, reports and plot labels use the right word ("seed" or
+"neighbor") automatically. Column names inside the CSVs (seed_median_degree,
+n_seeds, ...) are kept as-is; in neighbor mode read "seed" there as "target".
 
-What it does
-------------
-PROFILE (as before; needs no extra inputs)
-  For every seed gene x every layer: is it in the layer, and its degree there.
+What's new in this version
+--------------------------
+1. NEIGHBOR mode defines "enriched layer" from your real SEEDS, not from the
+   neighbors. Neighbors were recruited from these layers, so testing them for
+   enrichment is circular (every layer comes out "enriched"). The specificity
+   tiers (A/A*/B/C/D) now use the layers where the seeds themselves are
+   enriched among the cell type's markers. If seeds can't be loaded, the
+   script warns and falls back to the old (circular) behaviour.
+   Seeds come from --seed-csv, or <wdir>/seeds/.
+2. NEIGHBOR mode also profiles the real seeds in the same run (as a reference)
+   and draws seed_vs_neighbor.png + writes reference_seed_layer_tests.csv.
+   Each set is tested against a background that EXCLUDES the other set
+   (disable with --keep-other-set-in-background).
+3. DEGREE-MATCHED NULL for hubness. For every layer: do the targets have a
+   higher in-layer degree than random genes with the SAME global-PPI degree?
+   This controls for "popular genes have lots of known interactions"
+   (literature/study bias, and for neighbors the fact that bridging genes are
+   hubs). Empirical one-sided permutation p-value, BH-corrected across layers.
+   Columns: matched_obs_mean_pctile, matched_null_mean_pctile, matched_z,
+   matched_p, matched_q.
 
-HUBNESS (new; no extra inputs)
-  Is the seeds' degree higher than the other genes' in the same layer?
-  Mann-Whitney U (one-sided, seeds > others), effect size = AUC
-  (P[random seed > random non-seed]; 0.5 = no difference), plus a binomial
-  test on how many seeds fall in the top --hub-frac by degree. Also run on the
-  full global PPI layer ('global_ppi', from step 1 --base-ppi) if present.
-
-LAYER ENRICHMENT (new; no extra inputs)
-  Are seeds over-represented among a cell type's marker genes relative to all
-  genes in global_ppi? (Fisher exact, one-sided.)
-
-MARKER STRENGTH (new; only with --markers-csv)
-  Among a cell type's markers (those in the PPI), do seeds have higher
-  avg_log2FC / higher (pct.1 - pct.2) than non-seed markers? Seed-level
-  percentile ranks are reported too. Ranking uses effect sizes, not the
-  Wilcoxon p-values: with thousands of cells nearly every marker has
-  p_val_adj ~ 0 (underflow), so p-values carry no ranking information.
-
-Changes vs. the previous 7d (read before comparing old and new numbers)
------------------------------------------------------------------------
-* global_ppi is reported separately (global_degree, global_degree_pctile).
-  Previously it was counted as one more layer, so it inflated
-  n_layers_present / total_degree_across_layers and was almost always the
-  "dominant layer".  Those three columns now cover the cell-type layers only.
-* n_layers_present now means "gene is in the layer's gene set"; the new
-  n_layers_connected means "... and has >= 1 edge there". Before, the summary
-  counted only connected layers while the presence table counted gene-set
-  membership, so the two files could disagree.
-* Degree counts each undirected edge once (duplicates dropped).
-* Genes with no in-layer edges are absent from ppi_layer.tsv (step 1 writes
-  edges only) but present in celltype_gene_sets.json. They count here as
-  degree 0 so the hubness background isn't biased upward; how many there are
-  is printed and saved as n_isolated.
+Existing analyses
+-----------------
+PROFILE      Every target gene x every layer: present? degree?
+HUBNESS      Mann-Whitney U (targets > other genes in layer), AUC effect size
+             (0.5 = no difference), binomial test on the top --hub-frac bin.
+             Also on the full global PPI ('global_ppi') if present.
+ENRICHMENT   Are targets over-represented among a cell type's markers vs. all
+             genes in global_ppi? (Fisher exact, one-sided.)
+MARKER       (--markers-csv) targets vs other markers: avg_log2FC, pct.1-pct.2.
+STRENGTH     Effect sizes, not Wilcoxon p-values (those underflow to ~0).
 
 Caveats
 -------
-* Study bias: seeds are typically well-studied genes, and well-studied genes
-  have more known PPIs. "Seeds are hubs" may partly be literature bias; the
-  global_ppi result shares that bias, so read layer results against it.
-* Layers share genes, so pooled numbers are descriptive, not independent
-  tests. Per-layer p-values are BH-corrected across layers.
-* Layers are induced subgraphs on marker genes, so layer degree = number of
+* Study bias: well-studied genes have more known PPIs (see the matched test).
+* Layers share genes, so pooled numbers are descriptive. Per-layer p-values
+  are BH-corrected across layers.
+* Layers are induced subgraphs on marker genes: layer degree = number of
   marker neighbours, not full-PPI degree.
-* Layers with fewer than --min-seeds seeds are profiled but not tested.
+* Layers with fewer than --min-seeds targets are profiled but not tested.
+* The matched test matches on GLOBAL degree, so it is not run on global_ppi
+  itself, and genes missing from global_ppi are dropped from it.
 
 Outputs (under --output-dir)
 ----------------------------
-  seed_layer_presence.csv    long: gene, cell_type, is_global, present, degree,
-                             degree_pctile, is_hub, [avg_log2FC, pct.1, pct.2,
-                             pct_diff, fc_pctile, fc_rank]  (marker cols need
-                             --markers-csv)
-  seed_layer_summary.csv     one row per seed gene (previous columns kept, more added)
-  layer_seed_tests.csv       one row per layer: tests, effect sizes, BH q-values
-  seed_hubness_summary.txt   human-readable summary
-  seed_vs_background.png     per-layer AUC bars              (unless --no-plots)
-  seed_percentile_ecdf.png   pooled seed percentiles vs null (unless --no-plots)
-
-Usage (existing call still works):
-  python step7d_seed_layer_profile.py \
-      --wdir 04_multixrank_prep/multixrank_hetero_input \
-      --output-dir 07d_seed_layer_profile \
-      [--markers-csv ../R/convert_hdrg_human_2025/cell_type_markers.csv] \
-      [--seed-csv 00_inputs/seed_genes.csv]
+  seed_layer_presence.csv, seed_layer_summary.csv, layer_seed_tests.csv,
+  seed_hubness_summary.txt, seed_individual_reports.txt,
+  reference_seed_layer_tests.csv   (neighbor mode only)
+  Plots (unless --no-plots): seed_vs_background, seed_percentile_ecdf,
+  seed_layer_heatmap, layer_enrichment, layer_percentile_boxplots,
+  tier_breakdown, genes_per_layer_hist, degree_vs_marker_scatter,
+  layer_auc_scatter, global_degree_hist, degree_matched_null,
+  seed_vs_neighbor (neighbor mode only)   -- all .png
 """
 import argparse
 import json
@@ -87,9 +78,19 @@ from scipy import stats
 SEP = "::"
 MARKER_COLS = ["avg_log2FC", "pct.1", "pct.2", "pct_diff", "fc_pctile", "fc_rank"]
 
-# Optional layer ordering/coloring for the heatmap. Cell types not listed here
-# fall into "Unclassified" and are drawn at the end, alphabetically -- this is
-# purely cosmetic, nothing downstream depends on a cell type being in here.
+# Wording for the target gene set; switched in main() by set_terms().
+T = {"s": "seed", "p": "seeds", "S": "Seed", "P": "Seeds", "U": "SEED"}
+
+
+def set_terms(neighbor_mode: bool):
+    if neighbor_mode:
+        T.update(s="neighbor", p="neighbors", S="Neighbor", P="Neighbors", U="NEIGHBOR")
+    else:
+        T.update(s="seed", p="seeds", S="Seed", P="Seeds", U="SEED")
+
+
+# Optional layer ordering/coloring. Cell types not listed here fall into
+# "Unclassified" and are drawn at the end, alphabetically -- purely cosmetic.
 DRG_HIERARCHY = {
     "A-fiber": {"color": "#1f77b4", "cell_types": [
         "A-Propr.EPHA3", "A-Propr.HAPLN4", "A-Propr.PCDH8",
@@ -112,7 +113,6 @@ DRG_HIERARCHY = {
 }
 
 
-
 # ---------------------------------------------------------------------------
 # Names
 # ---------------------------------------------------------------------------
@@ -122,8 +122,7 @@ def sanitize_name(name: str) -> str:
 
 
 def marker_ct_to_layer_name(ct: str) -> str:
-    """Raw Atlas_annotation string -> multiplex folder name. The layer builder
-    wrote pkl stems with '/' -> '_' before step 1's sanitize_name() ran."""
+    """Raw Atlas_annotation string -> multiplex folder name."""
     return sanitize_name(str(ct).replace("/", "_"))
 
 
@@ -139,9 +138,8 @@ _MAJOR_COLOR["Unclassified"] = "#999999"
 
 
 def order_layers(layer_names: list[str], global_name: str) -> tuple[list[str], dict]:
-    """Cell types grouped by DRG major category (order above), unmapped ones
-    bucketed 'Unclassified' and sorted alphabetically at the end; global_ppi
-    (if present) always last of all. Returns (ordered_names, name->color)."""
+    """Cell types grouped by DRG major category, unmapped ones 'Unclassified'
+    (alphabetical, at the end); global_ppi (if present) last of all."""
     real = [c for c in layer_names if c != global_name]
     majors = {c: _CT_TO_MAJOR.get(c, "Unclassified") for c in real}
     order_key = list(DRG_HIERARCHY.keys()) + ["Unclassified"]
@@ -179,12 +177,9 @@ def load_seeds(wdir: Path, seed_csv: str | None) -> list[str]:
 
 
 def load_module_neighbors(disease_module_csv: str) -> tuple[list[str], dict[str, set]]:
-    """Non-seed genes the disease-module builder (step 6) actually recruited
-    to bridge/connect the seeds -- i.e. everything in disease_module.csv with
-    is_seed == False. Returns (unique gene list, gene -> set of cell types it
-    was recruited into, parsed from the module's own 'cell_type' column).
-    Excluding is_excluded_seed==True rows if present (those are seeds you
-    told step 6 to exclude, not neighbors it chose)."""
+    """Non-seed genes the disease-module builder (step 6) recruited to
+    bridge/connect the seeds (is_seed == False). Returns (unique gene list,
+    gene -> set of cell types it was recruited into)."""
     df = pd.read_csv(disease_module_csv)
     if "is_seed" not in df.columns:
         raise SystemExit(f"ERROR: {disease_module_csv} has no 'is_seed' column -- is this really disease_module.csv?")
@@ -195,7 +190,8 @@ def load_module_neighbors(disease_module_csv: str) -> tuple[list[str], dict[str,
         if pd.notna(ct) and str(ct).strip() and str(ct).strip().lower() != "unknown":
             layers_by_gene.setdefault(g, set()).add(str(ct).strip())
     genes = sorted(set(neigh["gene"]) - {"", "NAN"})
-    print(f"Loaded {len(genes)} unique non-seed genes recruited by the disease module from {disease_module_csv}")
+    print(f"Loaded {len(genes)} unique NEIGHBOR genes (non-seed genes recruited by the disease module) "
+          f"from {disease_module_csv}")
     return genes, layers_by_gene
 
 
@@ -212,7 +208,7 @@ def find_layer_file(wdir: Path, ct: str) -> Path | None:
 
 def layer_degrees(edge_path: Path, node_universe: set) -> pd.Series:
     """Degree of every gene in node_universe (0 if it has no edges in the tsv).
-    Each undirected edge counted once; self-loops (step 1's placeholder) ignored."""
+    Each undirected edge counted once; self-loops ignored."""
     df = pd.read_csv(edge_path, sep="\t", header=None, names=["a", "b"],
                      dtype=str, on_bad_lines="skip").dropna()
     a = df["a"].map(_gene_of).to_numpy(dtype=object)
@@ -276,11 +272,61 @@ def bh(pvals) -> np.ndarray:
     return out
 
 
+def matched_degree_test(s: pd.DataFrame, bg: pd.DataFrame, gdeg: pd.Series, edges: np.ndarray,
+                        n_perm: int, rng) -> dict:
+    """Do the targets have a higher in-layer degree percentile than random
+    genes with the same GLOBAL-PPI degree?
+
+    Genes are binned by global degree (quantile bins, shared across layers).
+    For each bin containing targets, the same number of background genes is
+    drawn from that bin (with replacement) n_perm times; the null statistic is
+    the mean in-layer degree percentile of the drawn genes. One-sided
+    empirical p = (1 + #null >= observed) / (1 + n_perm). Targets whose bin
+    has no background genes (or that are not in the global PPI) are dropped.
+    """
+    nan = dict(matched_n=0, matched_obs_mean_pctile=np.nan, matched_null_mean_pctile=np.nan,
+               matched_z=np.nan, matched_p=np.nan)
+    if gdeg is None or not len(s) or not len(bg):
+        return nan
+    inner = edges[1:-1]
+    s = s.assign(g=s["gene"].map(gdeg)).dropna(subset=["g"])
+    bg = bg.assign(g=bg["gene"].map(gdeg)).dropna(subset=["g"])
+    if not len(s) or not len(bg):
+        return nan
+    s_bin = np.digitize(s["g"].values, inner)
+    bg_bin = np.digitize(bg["g"].values, inner)
+    bg_pct = bg["degree_pctile"].values
+    s_pct = s["degree_pctile"].values
+    null_sum = np.zeros(n_perm)
+    obs_sum, n_used = 0.0, 0
+    for b in np.unique(s_bin):
+        pool = bg_pct[bg_bin == b]
+        sel = s_bin == b
+        k = int(sel.sum())
+        if len(pool) == 0:
+            continue
+        null_sum += pool[rng.integers(0, len(pool), size=(n_perm, k))].sum(axis=1)
+        obs_sum += s_pct[sel].sum()
+        n_used += k
+    if n_used == 0:
+        return nan
+    obs = obs_sum / n_used
+    null = null_sum / n_used
+    sd = null.std()
+    return dict(matched_n=n_used, matched_obs_mean_pctile=float(obs), matched_null_mean_pctile=float(null.mean()),
+                matched_z=float((obs - null.mean()) / sd) if sd > 0 else np.nan,
+                matched_p=float((1 + (null >= obs).sum()) / (1 + n_perm)))
+
+
 # ---------------------------------------------------------------------------
 # Per-layer analysis
 # ---------------------------------------------------------------------------
-def analyse_layer(ct, deg, seeds, universe, markers_ct, hub_frac, min_seeds, is_global):
-    """Returns (layer_row dict, DataFrame of the seed genes in this layer)."""
+def analyse_layer(ct, deg, target, universe, markers_ct, hub_frac, min_seeds, is_global,
+                  exclude, gdeg, edges, n_perm, rng):
+    """Returns (layer_row dict, DataFrame of the target genes in this layer).
+    'target' = the gene set under test (seeds OR module neighbors). Genes in
+    'exclude' (the other set) are kept for percentiles but dropped from the
+    background used in the tests."""
     frame = pd.DataFrame({"gene": deg.index, "degree": deg.values})
     frame["degree_pctile"] = frame["degree"].rank(pct=True)  # 1.0 = highest degree
     thr = np.quantile(frame["degree"].values, 1 - hub_frac)
@@ -295,19 +341,19 @@ def analyse_layer(ct, deg, seeds, universe, markers_ct, hub_frac, min_seeds, is_
         for c in MARKER_COLS:
             frame[c] = np.nan
 
-    frame["is_seed"] = frame["gene"].isin(seeds)
-    s, bg = frame[frame["is_seed"]], frame[~frame["is_seed"]]
+    frame["is_seed"] = frame["gene"].isin(target)
+    s = frame[frame["is_seed"]]
+    bg = frame[~frame["is_seed"] & ~frame["gene"].isin(exclude)]
 
     row = {"layer": ct, "is_global": is_global, "n_genes": len(frame),
            "n_isolated": int((frame["degree"] == 0).sum()), "n_seeds": len(s)}
 
-    # enrichment of seeds among this layer's genes (meaningless for global)
-    seeds_u = seeds & universe
-    if not is_global and len(seeds_u):
+    targets_u = target & universe
+    if not is_global and len(targets_u):
         L = set(frame["gene"]) & universe
-        a = len(seeds_u & L)
+        a = len(targets_u & L)
         b = len(L) - a
-        c = len(seeds_u) - a
+        c = len(targets_u) - a
         d = len(universe) - len(L) - c
         orat, p = stats.fisher_exact([[a, b], [c, d]], alternative="greater")
         row.update(enrich_odds_ratio=orat, enrich_p=p)
@@ -330,28 +376,71 @@ def analyse_layer(ct, deg, seeds, universe, markers_ct, hub_frac, min_seeds, is_
     row["log2fc_auc"], row["log2fc_p"] = mwu_auc(s["avg_log2FC"], bg["avg_log2FC"]) if testable else nan2
     row["pctdiff_auc"], row["pctdiff_p"] = mwu_auc(s["pct_diff"], bg["pct_diff"]) if testable else nan2
 
+    if testable and not is_global:
+        row.update(matched_degree_test(s, bg, gdeg, edges, n_perm, rng))
+    else:
+        row.update(matched_n=0, matched_obs_mean_pctile=np.nan, matched_null_mean_pctile=np.nan,
+                   matched_z=np.nan, matched_p=np.nan)
+
     seed_tbl = s.drop(columns=["is_seed"]).copy()
     seed_tbl.insert(0, "layer", ct)
     return row, seed_tbl
 
 
+def run_layers(target: set, exclude: set, cache: dict, universe: set, gdeg, edges, args, rng, verbose: bool):
+    """Run analyse_layer over every cached layer for one target gene set and
+    BH-correct across the non-global layers."""
+    rows, tables = [], []
+    for ct in sorted(cache):
+        deg, mk, is_global = cache[ct]
+        row, st = analyse_layer(ct, deg, target, universe, mk, args.hub_frac, args.min_seeds, is_global,
+                                exclude, gdeg, edges, args.n_perm, rng)
+        rows.append(row)
+        tables.append(st.assign(is_global=is_global))
+        if verbose:
+            auc = f"degAUC={row['degree_auc']:.2f}" if not np.isnan(row["degree_auc"]) else f"(too few {T['p']} to test)"
+            print(f"  {ct:<38} genes={row['n_genes']:>6,} (isolated {row['n_isolated']:>5,}) "
+                  f"{T['p']}={row['n_seeds']:>3} {auc}")
+    df = pd.DataFrame(rows)
+    ng = ~df["is_global"]
+    for p_col, q_col in [("degree_p", "degree_q"), ("hub_p", "hub_q"), ("enrich_p", "enrich_q"),
+                         ("log2fc_p", "log2fc_q"), ("pctdiff_p", "pctdiff_q"), ("matched_p", "matched_q")]:
+        df[q_col] = np.nan
+        df.loc[ng, q_col] = bh(df.loc[ng, p_col].values)
+    return df, tables
+
+
 # ---------------------------------------------------------------------------
 # Plots
 # ---------------------------------------------------------------------------
-def make_plots(layer_df, seed_ng, out, have_markers):
+def _plt():
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
+        return matplotlib, plt
     except ImportError:
         print("  matplotlib not available -- skipping plots")
+        return None, None
+
+
+def _save(fig, plt, path: Path):
+    plt.tight_layout()
+    fig.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  Saved -> {path}")
+
+
+def make_plots(layer_df, seed_ng, out, have_markers):
+    _, plt = _plt()
+    if plt is None:
         return
 
     d = layer_df[~layer_df["is_global"]].dropna(subset=["degree_auc"]).sort_values("degree_auc")
     if len(d):
-        panels = [("degree_auc", "degree_q", "Seeds vs others: degree")]
+        panels = [("degree_auc", "degree_q", f"{T['P']} vs other genes: degree")]
         if have_markers:
-            panels.append(("log2fc_auc", "log2fc_q", "Seeds vs other markers: avg_log2FC"))
+            panels.append(("log2fc_auc", "log2fc_q", f"{T['P']} vs other markers: avg_log2FC"))
         fig, axes = plt.subplots(1, len(panels), figsize=(5.5 * len(panels) + 1, max(4, 0.28 * len(d) + 1.5)),
                                  sharey=True, squeeze=False)
         for ax, (auc, q, title) in zip(axes[0], panels):
@@ -360,12 +449,9 @@ def make_plots(layer_df, seed_ng, out, have_markers):
             ax.axvline(0.5, color="black", lw=0.8)
             ax.set_yticks(range(len(d)))
             ax.set_yticklabels(d["layer"], fontsize=8)
-            ax.set_xlabel("AUC (0.5 = no difference; red = BH q < 0.05)")
+            ax.set_xlabel("AUC (0.5 = no difference; >0.5 = higher; red = BH q < 0.05)")
             ax.set_title(title, fontsize=10, fontweight="bold")
-        plt.tight_layout()
-        plt.savefig(out / "seed_vs_background.png", dpi=200, bbox_inches="tight")
-        plt.close(fig)
-        print(f"  Saved -> {out / 'seed_vs_background.png'}")
+        _save(fig, plt, out / "seed_vs_background.png")
 
     if len(seed_ng):
         cols = [("degree_pctile", "Degree percentile in layer")]
@@ -375,36 +461,237 @@ def make_plots(layer_df, seed_ng, out, have_markers):
         for ax, (col, title) in zip(axes[0], cols):
             x = np.sort(seed_ng[col].dropna().values)
             if len(x):
-                ax.step(x, np.arange(1, len(x) + 1) / len(x), where="post", color="#c44e52", label="seeds")
+                ax.step(x, np.arange(1, len(x) + 1) / len(x), where="post", color="#c44e52", label=T["p"])
             ax.plot([0, 1], [0, 1], "k--", lw=0.8, label="null (all genes)")
             ax.set_xlabel(title + "  (1 = highest)")
-            ax.set_ylabel("Cumulative fraction of seed-layer entries")
-            ax.set_title("Below the diagonal = seeds skew high", fontsize=9)
+            ax.set_ylabel(f"Cumulative fraction of {T['s']}-layer entries")
+            ax.set_title(f"Curve below the diagonal = {T['p']} skew high", fontsize=9)
             ax.legend(fontsize=8)
-        plt.tight_layout()
-        plt.savefig(out / "seed_percentile_ecdf.png", dpi=200, bbox_inches="tight")
-        plt.close(fig)
-        print(f"  Saved -> {out / 'seed_percentile_ecdf.png'}")
+        _save(fig, plt, out / "seed_percentile_ecdf.png")
 
 
-def make_heatmap(pres_all: pd.DataFrame, summ: pd.DataFrame, out: Path, global_name: str,
-                  value_col: str, top_n: int) -> bool:
-    """Seed x layer heatmap. Rows = top-N seeds by consistency_score (so the
-    genes that score high across MULTIPLE layers/namespaces float to the
-    top, not just single-layer standouts); columns = layers, DRG-ordered
-    when recognised. Cell = value_col (fc_pctile if markers were given, else
-    degree_pctile); grey = seed not present in that layer at all."""
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-    except ImportError:
-        print("  matplotlib not available -- skipping heatmap")
+def plot_enrichment(df, out, noun: str, subtitle: str):
+    """-log10(BH q) of 'this gene set is over-represented among the cell type's markers'."""
+    _, plt = _plt()
+    if plt is None:
+        return
+    d = df[~df["is_global"]].dropna(subset=["enrich_q"]).copy()
+    if not len(d):
+        return
+    d["nlq"] = -np.log10(d["enrich_q"].clip(lower=1e-300))
+    d = d.sort_values("nlq")
+    fig, ax = plt.subplots(figsize=(7, max(4, 0.28 * len(d) + 1.5)))
+    ax.barh(range(len(d)), d["nlq"], color=["#c44e52" if q < 0.05 else "#8c8c8c" for q in d["enrich_q"]])
+    ax.axvline(-np.log10(0.05), color="black", ls="--", lw=0.8)
+    ax.set_yticks(range(len(d)))
+    ax.set_yticklabels([f"{l}  (n={n})" for l, n in zip(d["layer"], d["n_seeds"])], fontsize=8)
+    ax.set_xlabel("-log10(BH q)   (dashed = q 0.05; red = significant)")
+    ax.set_title(f"Are {noun} over-represented among each cell type's markers?\n{subtitle}",
+                 fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "layer_enrichment.png")
+
+
+def plot_matched(df, ref, out):
+    """z-score of observed mean degree percentile vs the degree-matched null."""
+    _, plt = _plt()
+    if plt is None:
+        return
+    d = df[~df["is_global"]].dropna(subset=["matched_z"]).sort_values("matched_z")
+    if not len(d):
+        return
+    fig, ax = plt.subplots(figsize=(7, max(4, 0.28 * len(d) + 1.5)))
+    ax.barh(range(len(d)), d["matched_z"],
+            color=["#c44e52" if (not np.isnan(q) and q < 0.05) else "#8c8c8c" for q in d["matched_q"]],
+            label=T["p"])
+    if ref is not None:
+        r = ref.set_index("layer")["matched_z"].reindex(d["layer"])
+        ax.scatter(r.values, range(len(d)), marker="D", s=22, facecolor="white", edgecolor="black", zorder=3,
+                   label="real seeds (reference)")
+        ax.legend(fontsize=8, loc="lower right")
+    ax.axvline(0, color="black", lw=0.8)
+    ax.set_yticks(range(len(d)))
+    ax.set_yticklabels(d["layer"], fontsize=8)
+    ax.set_xlabel("z-score vs random genes with the same global-PPI degree   (red = BH q<0.05)")
+    ax.set_title(f"Do {T['p']} have higher in-layer degree than expected\n"
+                 f"given how connected they are globally?  (>0 = yes)", fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "degree_matched_null.png")
+
+
+def plot_seed_vs_neighbor(neigh: pd.DataFrame, seeds_df: pd.DataFrame, global_name: str, out: Path, have_markers: bool):
+    """Per-layer side-by-side of seeds and neighbors. Solid bar = BH q<0.05."""
+    mpl, plt = _plt()
+    if plt is None:
+        return
+    a = neigh[~neigh["is_global"]].set_index("layer")
+    b = seeds_df[~seeds_df["is_global"]].set_index("layer")
+    layers, _ = order_layers(list(a.index), global_name)
+    if not layers:
+        return
+    panels = [("degree_auc", "degree_q", "Degree AUC (0.5 = none)", 0.5)]
+    if have_markers:
+        panels.append(("log2fc_auc", "log2fc_q", "avg_log2FC AUC (0.5 = none)", 0.5))
+    panels.append(("matched_z", "matched_q", "Degree vs degree-matched genes (z; 0 = none)", 0.0))
+    fig, axes = plt.subplots(1, len(panels), figsize=(5.2 * len(panels) + 1, max(4, 0.42 * len(layers) + 1.8)),
+                             sharey=True, squeeze=False)
+    y = np.arange(len(layers))
+    h = 0.38
+    for ax, (col, qcol, title, base) in zip(axes[0], panels):
+        for off, df, color in [(-h / 2, b, "#4c72b0"), (h / 2, a, "#dd8452")]:
+            vals = df[col].reindex(layers).astype(float).fillna(base).values
+            qs = df[qcol].reindex(layers).values
+            cols = [mpl.colors.to_rgba(color, 1.0 if (not np.isnan(q) and q < 0.05) else 0.35) for q in qs]
+            ax.barh(y + off, vals - base, left=base, height=h, color=cols, edgecolor=color, lw=0.6)
+        ax.axvline(base, color="black", lw=0.8)
+        ax.set_yticks(y)
+        ax.set_yticklabels(layers, fontsize=8)
+        ax.set_title(title, fontsize=9, fontweight="bold")
+    axes[0][0].invert_yaxis()
+    handles = [mpl.patches.Patch(color="#4c72b0", label="seeds"), mpl.patches.Patch(color="#dd8452", label="neighbors")]
+    axes[0][-1].legend(handles=handles + [mpl.patches.Patch(facecolor="grey", alpha=0.35, label="faded = q>=0.05")],
+                       fontsize=8, loc="lower right")
+    fig.suptitle("Seeds vs neighbors, layer by layer (each tested against a background without the other set)",
+                 fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "seed_vs_neighbor.png")
+
+
+def plot_layer_boxplots(seed_ng, global_name, out, have_markers):
+    """Spread of target percentiles per layer; the 0.5 line is what 'no skew' looks like."""
+    _, plt = _plt()
+    if plt is None or not len(seed_ng):
+        return
+    layers, colors = order_layers(sorted(seed_ng["layer"].unique()), global_name)
+    cols = [("degree_pctile", "Degree percentile")]
+    if have_markers:
+        cols.append(("fc_pctile", "avg_log2FC percentile (among markers)"))
+    fig, axes = plt.subplots(len(cols), 1, figsize=(max(7, 0.45 * len(layers) + 2), 4.5 * len(cols)), squeeze=False)
+    for ax, (col, title) in zip(axes[:, 0], cols):
+        data = [seed_ng.loc[seed_ng["layer"] == l, col].dropna().values for l in layers]
+        bp = ax.boxplot(data, patch_artist=True, showfliers=False)
+        for patch, l in zip(bp["boxes"], layers):
+            patch.set_facecolor(colors[l])
+            patch.set_alpha(0.6)
+        ax.axhline(0.5, color="black", ls="--", lw=0.8)
+        ax.set_xticks(range(1, len(layers) + 1))
+        ax.set_xticklabels([f"{l} (n={len(x)})" for l, x in zip(layers, data)], rotation=90, fontsize=7)
+        ax.set_ylabel(title)
+        ax.set_ylim(0, 1)
+        ax.set_title(f"{T['S']} {title.lower()} by layer (dashed = no skew)", fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "layer_percentile_boxplots.png")
+
+
+def plot_tiers(summ, out, tier_order):
+    _, plt = _plt()
+    if plt is None:
+        return
+    counts = summ["specificity_tier"].value_counts().reindex(tier_order).dropna()
+    counts = counts[counts > 0]
+    if not len(counts):
+        return
+    fig, ax = plt.subplots(figsize=(8, 0.5 * len(counts) + 1.5))
+    ax.barh(range(len(counts)), counts.values[::-1], color="#4c72b0")
+    ax.set_yticks(range(len(counts)))
+    ax.set_yticklabels(list(counts.index)[::-1], fontsize=8)
+    for i, v in enumerate(counts.values[::-1]):
+        ax.text(v, i, f" {int(v)}", va="center", fontsize=8)
+    ax.set_xlabel(f"Number of {T['p']}")
+    ax.set_title(f"{T['S']} specificity tiers", fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "tier_breakdown.png")
+
+
+def plot_layer_counts(summ, out):
+    """How many cell-type layers each gene shows up in, and in how many it is 'strong'."""
+    _, plt = _plt()
+    if plt is None:
+        return
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+    for ax, col, title in zip(axes, ["n_layers_present", "n_layers_strong"],
+                              ["Layers the gene is in (is a marker/node)", "Layers where it is 'strong'"]):
+        v = summ[col].dropna().astype(int)
+        bins = np.arange(0, v.max() + 2) - 0.5 if len(v) else [0, 1]
+        ax.hist(v, bins=bins, color="#55a868", edgecolor="white")
+        ax.set_xlabel(title)
+        ax.set_ylabel(f"Number of {T['p']}")
+    fig.suptitle(f"Recurrence of {T['p']} across cell-type layers", fontsize=11, fontweight="bold")
+    _save(fig, plt, out / "genes_per_layer_hist.png")
+
+
+def plot_degree_vs_marker(pres_all, enrich_ok, out, hub_frac, enrich_label):
+    """Each dot = one (gene, layer) entry. Top-right = well-connected AND a strong marker."""
+    _, plt = _plt()
+    if plt is None:
+        return
+    d = pres_all[pres_all["present"]].dropna(subset=["degree_pctile", "fc_pctile"]).copy()
+    if not len(d):
+        return
+    d["enr"] = d["cell_type"].isin(enrich_ok)
+    fig, ax = plt.subplots(figsize=(6.5, 6))
+    ax.scatter(d.loc[~d["enr"], "degree_pctile"], d.loc[~d["enr"], "fc_pctile"], s=10, c="#8c8c8c", alpha=0.5,
+               label="other layers")
+    ax.scatter(d.loc[d["enr"], "degree_pctile"], d.loc[d["enr"], "fc_pctile"], s=14, c="#c44e52", alpha=0.7,
+               label=enrich_label)
+    ax.axvline(1 - hub_frac, color="black", ls=":", lw=0.8)
+    ax.axhline(1 - hub_frac, color="black", ls=":", lw=0.8)
+    ax.set_xlabel("Degree percentile in layer (1 = most connected)")
+    ax.set_ylabel("avg_log2FC percentile among markers (1 = strongest)")
+    ax.set_title(f"{T['S']}-layer entries: connectivity vs marker strength\n"
+                 f"(top-right box = hub AND top marker)", fontsize=10, fontweight="bold")
+    ax.legend(fontsize=8, loc="lower left")
+    _save(fig, plt, out / "degree_vs_marker_scatter.png")
+
+
+def plot_auc_scatter(layer_df, out):
+    """Per layer: do targets skew high on degree (x) and on marker strength (y)?"""
+    _, plt = _plt()
+    if plt is None:
+        return
+    d = layer_df[~layer_df["is_global"]].dropna(subset=["degree_auc", "log2fc_auc"])
+    if not len(d):
+        return
+    sig = (d["degree_q"] < 0.05) | (d["log2fc_q"] < 0.05)
+    fig, ax = plt.subplots(figsize=(6.5, 6))
+    ax.scatter(d["degree_auc"], d["log2fc_auc"], s=d["n_seeds"].clip(upper=300) * 0.6 + 15,
+               c=np.where(sig, "#c44e52", "#8c8c8c"), alpha=0.7)
+    for _, r in d[sig].iterrows():
+        ax.annotate(r["layer"], (r["degree_auc"], r["log2fc_auc"]), fontsize=6, xytext=(3, 3),
+                    textcoords="offset points")
+    ax.axvline(0.5, color="black", lw=0.6)
+    ax.axhline(0.5, color="black", lw=0.6)
+    ax.set_xlabel("Degree AUC (0.5 = no difference)")
+    ax.set_ylabel("avg_log2FC AUC (0.5 = no difference)")
+    ax.set_title(f"Per layer: {T['p']} vs background\n(dot size = number of {T['p']}; red = q<0.05 in either)",
+                 fontsize=10, fontweight="bold")
+    _save(fig, plt, out / "layer_auc_scatter.png")
+
+
+def plot_global_hist(summ, out, hub_frac):
+    _, plt = _plt()
+    if plt is None or "global_degree_pctile" not in summ:
+        return
+    v = summ["global_degree_pctile"].dropna()
+    if not len(v):
+        return
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    ax.hist(v, bins=np.linspace(0, 1, 21), color="#4c72b0", edgecolor="white")
+    ax.axhline(len(v) / 20, color="black", ls="--", lw=0.8, label="null (uniform)")
+    ax.axvline(1 - hub_frac, color="#c44e52", ls=":", lw=1, label=f"top {hub_frac:.0%} cutoff")
+    ax.set_xlabel("Degree percentile in the full global PPI (1 = biggest hub)")
+    ax.set_ylabel(f"Number of {T['p']}")
+    ax.set_title(f"Are {T['p']} hubs in the full PPI?  (bars above dashed line on the right = yes)",
+                 fontsize=9, fontweight="bold")
+    ax.legend(fontsize=8)
+    _save(fig, plt, out / "global_degree_hist.png")
+
+
+def make_heatmap(pres_all, summ, out, global_name, value_col, top_n) -> bool:
+    """Gene x layer heatmap. Rows = top-N genes by consistency_score; columns =
+    layers (DRG-ordered when recognised). grey = gene not present in that layer."""
+    matplotlib, plt = _plt()
+    if plt is None:
         return False
 
     top_genes = summ.head(top_n)["gene"].tolist()
     if not top_genes:
-        print("  No seeds to plot -- skipping heatmap")
+        print(f"  No {T['p']} to plot -- skipping heatmap")
         return False
 
     layers, colors = order_layers(sorted(pres_all["cell_type"].unique()), global_name)
@@ -412,14 +699,10 @@ def make_heatmap(pres_all: pd.DataFrame, summ: pd.DataFrame, out: Path, global_n
            .pivot_table(index="gene", columns="cell_type", values=value_col, aggfunc="first")
            .reindex(index=top_genes, columns=layers))
 
-    fig_w = max(6, 0.42 * len(layers) + 3)
-    fig_h = max(4, 0.24 * len(top_genes) + 1.5)
-    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
-    masked = np.ma.masked_invalid(mat.values)
-    cmap = plt.get_cmap("rocket_r") if "rocket_r" in plt.colormaps() else plt.get_cmap("YlOrRd")
+    fig, ax = plt.subplots(figsize=(max(6, 0.42 * len(layers) + 3), max(4, 0.24 * len(top_genes) + 1.5)))
     cmap = matplotlib.colormaps.get_cmap("YlOrRd").copy()
     cmap.set_bad("#e8e8e8")
-    im = ax.imshow(masked, cmap=cmap, vmin=0, vmax=1, aspect="auto")
+    im = ax.imshow(np.ma.masked_invalid(mat.values), cmap=cmap, vmin=0, vmax=1, aspect="auto")
     ax.set_xticks(range(len(layers)))
     ax.set_xticklabels(layers, rotation=90, fontsize=7)
     for tick, c in zip(ax.get_xticklabels(), [colors[l] for l in layers]):
@@ -428,27 +711,29 @@ def make_heatmap(pres_all: pd.DataFrame, summ: pd.DataFrame, out: Path, global_n
     ax.set_yticklabels(top_genes, fontsize=7)
     label = "avg_log2FC percentile (marker strength)" if value_col == "fc_pctile" else "degree percentile"
     fig.colorbar(im, ax=ax, shrink=0.7, label=label + "  (grey = not a marker gene in that layer)")
-    ax.set_title(f"Top {len(top_genes)} seeds by cross-layer consistency", fontsize=11, fontweight="bold")
-    plt.tight_layout()
-    fp = out / "seed_layer_heatmap.png"
-    plt.savefig(fp, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    print(f"  Saved -> {fp}")
+    ax.set_title(f"Top {len(top_genes)} {T['p']} by cross-layer consistency", fontsize=11, fontweight="bold")
+    _save(fig, plt, out / "seed_layer_heatmap.png")
     return True
 
 
-def write_seed_reports(pres_all: pd.DataFrame, summ: pd.DataFrame, tests: pd.DataFrame,
-                        out: Path, global_name: str, hub_frac: float, have_markers: bool, top_n: int,
-                        module_layers_by_gene: dict[str, set] | None = None):
-    """One structured, human-readable block per top seed: which layers it's
-    in, whether it's a hub/marker there, and whether that layer itself
-    passed enrichment -- i.e. everything you need to individually judge a
-    gene before going to look up its disease associations."""
-    enrich_ok = set(tests.loc[(~tests["is_global"]) & (tests["enrich_q"] < 0.05), "layer"])
-    lines = ["=" * 78, "PER-SEED REPORTS (top genes by cross-layer consistency)", "=" * 78,
+# ---------------------------------------------------------------------------
+# Reports
+# ---------------------------------------------------------------------------
+def enriched_layers(tests: pd.DataFrame) -> set:
+    """Layers used to define 'enriched' for tiers/reports/plots. In neighbor
+    mode this column holds the SEEDS' enrichment q (see main)."""
+    return set(tests.loc[(~tests["is_global"]) & (tests["tier_enrich_q"] < 0.05), "layer"])
+
+
+def write_seed_reports(pres_all, summ, tests, out, hub_frac, have_markers, top_n, enrich_who,
+                       module_layers_by_gene=None):
+    """One human-readable block per top gene."""
+    enrich_ok = enriched_layers(tests)
+    lines = ["=" * 78, f"PER-{T['U']} REPORTS (top {T['p']} by cross-layer consistency)", "=" * 78,
              "Read each block top to bottom: global role, then per-layer detail.",
-             "'enriched layer' = seeds as a group are significantly over-represented",
-             "among that cell type's markers (enrich_q<0.05, from layer_seed_tests.csv).",
+             f"'ENRICHED LAYER' = {enrich_who} significantly over-represented",
+             "among that cell type's markers (q<0.05, tier_enrich_q in layer_seed_tests.csv).",
+             "deg = number of marker neighbours in that layer; pXX = percentile (1.00 = top).",
              ""]
 
     for _, srow in summ.head(top_n).iterrows():
@@ -465,9 +750,10 @@ def write_seed_reports(pres_all: pd.DataFrame, summ: pd.DataFrame, tests: pd.Dat
                      f"'strong' (well-connected + top marker) in {int(srow['n_layers_strong'])}")
         if module_layers_by_gene:
             ml = sorted(module_layers_by_gene.get(gene, set()))
-            lines.append(f"  Actually RECRUITED into the disease module under: {', '.join(ml) if ml else '(none -- unexpected, check disease_module.csv)'}")
+            lines.append(f"  Recruited into the disease module under: "
+                         f"{', '.join(ml) if ml else '(none -- unexpected, check disease_module.csv)'}")
         if not len(rows):
-            lines.append("  Not a marker/node in any cell-type layer (seed acts only via global_ppi, if present)")
+            lines.append(f"  Not a marker/node in any cell-type layer ({T['s']} acts only via global_ppi, if present)")
         for _, r in rows.iterrows():
             ct = r["cell_type"]
             tag = "ENRICHED LAYER" if ct in enrich_ok else "layer"
@@ -479,30 +765,68 @@ def write_seed_reports(pres_all: pd.DataFrame, summ: pd.DataFrame, tests: pd.Dat
             lines.append(f"    [{tag:14s}] {ct:<30} " + " | ".join(b for b in bits if b))
         lines.append("")
 
-    text = "\n".join(lines)
-    (out / "seed_individual_reports.txt").write_text(text)
+    (out / "seed_individual_reports.txt").write_text("\n".join(lines))
     print(f"  Saved -> {out / 'seed_individual_reports.txt'}")
 
 
-def enriched_layers(tests: pd.DataFrame) -> set:
-    return set(tests.loc[(~tests["is_global"]) & (tests["enrich_q"] < 0.05), "layer"])
+def how_to_read(neighbor_mode: bool, have_markers: bool, hub_frac: float, seeds_ok: bool) -> list[str]:
+    """Plain-language guide appended to the summary text."""
+    tp = T["p"]
+    enr = "your SEEDS are" if (neighbor_mode and seeds_ok) else f"the {tp} are"
+    L = ["", "-" * 78, "HOW TO READ THIS", "-" * 78,
+         f"Target set: the {tp} (" + ("non-seed genes the disease module recruited to connect your seeds)"
+                                      if neighbor_mode else "your input seed genes)"),
+         "Layer: one PPI network per cell type, built only from that cell type's marker genes.",
+         "Degree: how many other genes in the layer a gene is connected to.",
+         f"Percentile: where a gene ranks within its layer (0.50 = median; 1.00 = best). If {tp} were random",
+         "  genes, their percentiles would average 0.50.",
+         f"Hub: top {hub_frac:.0%} of its layer by degree.",
+         "AUC: probability that a random target beats a random non-target. 0.50 = no difference,",
+         "  0.60 = modest skew, 0.70+ = strong. Read it together with q, not instead of it.",
+         "q (BH): p-value corrected across layers. q<0.05 = unlikely to be chance for that layer.",
+         "Degree-matched test: compares each target with random genes that have the SAME degree in the",
+         "  full global PPI. If a layer is 'hubby' by AUC but NOT by this test, the hubness is explained",
+         "  by general popularity (literature bias / being a global hub), not by the cell-type layer.",
+         f"Enriched layer: a layer where {enr} over-represented among that cell type's markers.",
+         "  Used to define the tiers below. Says nothing about WHICH cell type matters on its own.",
+         "Strong (in a layer): well-connected (degree pctile >= 0.75) AND a top marker there"
+         if have_markers else "Strong (in a layer): degree percentile >= 0.90 there",
+         "  (top-marker cutoff = --hub-frac). Genes strong in several layers recur across cell types.",
+         "Specificity tier:",
+         "  A  = a specific marker AND well-connected in an enriched layer (best lead)",
+         "  A* = like A, but also a generic hub in the full PPI (could be literature/study bias)",
+         "  B  = specific marker in an enriched layer, but not well-connected there",
+         "  C  = hub in an enriched layer but not a distinctive marker",
+         "  D  = generic global hub, no enriched layer (likely just a popular gene)",
+         "  F  = present but unremarkable;  E = absent from every cell-type layer",
+         "Isolated genes: in a layer's gene set but with no edges; counted as degree 0 so the",
+         "  background isn't biased upward."]
+    if neighbor_mode:
+        L += ["", "NEIGHBOR-MODE NOTES",
+              "  * Neighbors were chosen BECAUSE they connect seeds in these layers, so their own layer"]
+        if seeds_ok:
+            L += ["    enrichment is circular and is ignored. 'Enriched layer' above comes from the seeds."]
+        else:
+            L += ["    enrichment is circular. WARNING: seeds could not be loaded, so 'enriched layer' fell back",
+                  "    to it (every layer looks enriched). Pass --seed-csv."]
+        L += ["  * Neighbor hubness is partly built in too (bridging genes are hubs); the degree-matched",
+              "    test and the seed reference are the fair comparisons."]
+    else:
+        L += ["", "SEED-MODE NOTE", "  * Seeds are usually well-studied genes -> more known PPIs. See the degree-matched test."]
+    return L
 
 
-def categorize_seeds(pres_all: pd.DataFrame, summ: pd.DataFrame, tests: pd.DataFrame,
-                      have_markers: bool) -> pd.Series:
-    """One tier per seed gene -- a decision tree over the same columns you'd
-    read by eye, in the same priority order described in the docs below.
-    Orthogonal to consistency_score/n_layers_strong (that's the "recurs
-    across layers" axis; this is the "specific vs. generic" axis) -- read
-    both together, don't collapse them into one label.
-    """
+def categorize_seeds(pres_all, summ, tests, have_markers) -> pd.Series:
+    """One tier per gene -- a decision tree over the same columns you'd read by
+    eye. Orthogonal to consistency_score / n_layers_strong ("recurs across
+    layers" axis); this is the "specific vs. generic" axis."""
     enrich_ok = enriched_layers(tests)
     p = pres_all.copy()
     p["in_enriched"] = p["cell_type"].isin(enrich_ok)
     if have_markers:
         p["is_specific"] = (p["fc_pctile"] >= 0.90) & (p["pct_diff"].fillna(0) >= 0.30)
     else:
-        p["is_specific"] = False  # can't assess specificity without marker stats
+        p["is_specific"] = False
 
     g = p.groupby("gene")
     flags = pd.DataFrame({
@@ -536,47 +860,63 @@ def main():
     ap.add_argument("--wdir", required=True, help="MultiXrank input dir (has multiplex/, celltype_gene_sets.json)")
     ap.add_argument("--celltype-gene-sets", default=None, help="Defaults to <wdir>/celltype_gene_sets.json")
     ap.add_argument("--seed-csv", default=None,
-                    help="Read seeds from this CSV ('gene' column) instead of <wdir>/seeds/. "
-                         "Ignored if --disease-module-csv is given (see --target-set).")
+                    help="Seeds CSV ('gene' column). In seed mode: the target set. In neighbor mode: the "
+                         "reference seeds used to define enriched layers. Default: <wdir>/seeds/.")
     ap.add_argument("--disease-module-csv", default=None,
-                    help="Run this analysis on the disease module's NON-seed (bridging/neighbor) genes "
-                         "instead of the seeds -- pass step6's disease_module.csv. Requires step 6 to "
-                         "have run. Use a different --output-dir than your seeds run so files don't clash.")
+                    help="NEIGHBOR mode: analyse the disease module's NON-seed genes (step6 disease_module.csv). "
+                         "Use a different --output-dir than your seed run.")
     ap.add_argument("--markers-csv", default=None,
                     help="cell_type_markers.csv from the R script; enables marker-strength tests")
     ap.add_argument("--output-dir", required=True)
     ap.add_argument("--global-ppi-name", default="global_ppi")
     ap.add_argument("--hub-frac", type=float, default=0.10,
                     help="Top fraction by degree / log2FC counted as 'hub' / 'top marker' (default 0.10)")
-    ap.add_argument("--min-seeds", type=int, default=3, help="Min seeds in a layer to run tests (default 3)")
+    ap.add_argument("--min-seeds", type=int, default=3, help="Min target genes in a layer to run tests (default 3)")
+    ap.add_argument("--n-perm", type=int, default=2000,
+                    help="Permutations for the degree-matched null (default 2000; 0 disables it)")
+    ap.add_argument("--rng-seed", type=int, default=0, help="Random seed for the matched null (default 0)")
+    ap.add_argument("--keep-other-set-in-background", action="store_true",
+                    help="Neighbor mode: do NOT remove the other set (seeds/neighbors) from the test background.")
     ap.add_argument("--top-n-report", type=int, default=40,
-                    help="How many top seeds (by consistency_score) to draw in the heatmap and write "
-                         "individual reports for (default 40)")
+                    help="Top genes (by consistency_score) shown in the heatmap and individual reports (default 40)")
     ap.add_argument("--no-plots", action="store_true")
     args = ap.parse_args()
 
     wdir, out = Path(args.wdir), Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
+    rng = np.random.default_rng(args.rng_seed)
+
+    neighbor_mode = bool(args.disease_module_csv)
+    set_terms(neighbor_mode)
 
     gene_sets = load_gene_sets(args.celltype_gene_sets or (wdir / "celltype_gene_sets.json"))
     module_layers_by_gene: dict[str, set] = {}
-    if args.disease_module_csv:
-        seeds, module_layers_by_gene = load_module_neighbors(args.disease_module_csv)
-        print("[mode: module-neighbors] treating the module's non-seed genes as the target set below -- "
-              "every 'seed' in this run's output files/text means 'module neighbor gene'.")
+    ref_seeds: set = set()
+    if neighbor_mode:
+        targets, module_layers_by_gene = load_module_neighbors(args.disease_module_csv)
+        print("[mode: NEIGHBOR] target set = non-seed genes recruited by the disease module. "
+              "'neighbors' below means those genes, NOT your original seeds. "
+              "(CSV column names still say 'seed'; read that as 'neighbor'.)")
+        try:
+            ref_seeds = set(load_seeds(wdir, args.seed_csv))
+        except SystemExit as e:
+            print(f"WARNING: could not load seeds for the reference analysis ({e}). "
+                  f"'Enriched layer' will fall back to the neighbors' own (circular) enrichment.")
     else:
-        seeds = load_seeds(wdir, args.seed_csv)
-    seed_set = set(seeds)
+        targets = load_seeds(wdir, args.seed_csv)
+        print("[mode: SEED] target set = your input seed genes.")
+    target_set = set(targets)
+    seeds_ok = neighbor_mode and bool(ref_seeds)
     gname = args.global_ppi_name
     print(f"{len(gene_sets)} layers in celltype_gene_sets.json")
 
     if gname in gene_sets:
         universe = gene_sets[gname]
         print(f"Enrichment universe: '{gname}' ({len(universe):,} genes); "
-              f"{len(seed_set & universe)}/{len(seeds)} seeds are in it")
+              f"{len(target_set & universe)}/{len(targets)} {T['p']} are in it")
     else:
         universe = set().union(*gene_sets.values())
-        print(f"⚠ '{gname}' not found: using union of all layers as enrichment universe "
+        print(f"WARNING: '{gname}' not found: using union of all layers as enrichment universe "
               f"(biased toward marker genes -- enrichment p-values are optimistic)")
 
     markers = None
@@ -589,38 +929,62 @@ def main():
         if unmatched:
             print(f"  {len(unmatched)} marker cell type(s) without a layer (fine if you filtered layers): {unmatched[:8]}")
         if no_markers:
-            print(f"  ⚠ {len(no_markers)} layer(s) with no matching marker rows (name mismatch?): {no_markers}")
+            print(f"  WARNING: {len(no_markers)} layer(s) with no matching marker rows (name mismatch?): {no_markers}")
     else:
         print("[info] --markers-csv not given: marker-strength tests skipped (hubness + enrichment still run).")
 
-    # ---- per-layer degrees + tests ----
-    layer_rows, seed_tables = [], []
-    print("\nLayers:")
+    # ---- load every layer's degrees once ----
+    cache: dict = {}
     for ct, genes in sorted(gene_sets.items()):
         p = find_layer_file(wdir, ct)
         if p is None:
-            print(f"  ⚠ no ppi_layer file for '{ct}' -- skipped")
+            print(f"  WARNING: no ppi_layer file for '{ct}' -- skipped")
             continue
         is_global = ct == gname
-        deg = layer_degrees(p, genes)
         mk = None if (markers is None or is_global) else markers[markers["layer"] == ct]
-        row, st = analyse_layer(ct, deg, seed_set, universe, mk, args.hub_frac, args.min_seeds, is_global)
-        layer_rows.append(row)
-        seed_tables.append(st.assign(is_global=is_global))
-        auc = f"degAUC={row['degree_auc']:.2f}" if not np.isnan(row["degree_auc"]) else "(too few seeds to test)"
-        print(f"  {ct:<38} genes={row['n_genes']:>6,} (isolated {row['n_isolated']:>5,}) seeds={row['n_seeds']:>3} {auc}")
+        cache[ct] = (layer_degrees(p, genes), mk, is_global)
 
-    layer_df = pd.DataFrame(layer_rows)
-    is_ng = ~layer_df["is_global"]
-    for p_col, q_col in [("degree_p", "degree_q"), ("hub_p", "hub_q"), ("enrich_p", "enrich_q"),
-                         ("log2fc_p", "log2fc_q"), ("pctdiff_p", "pctdiff_q")]:
-        layer_df[q_col] = np.nan
-        layer_df.loc[is_ng, q_col] = bh(layer_df.loc[is_ng, p_col].values)
+    gdeg, edges = None, None
+    if args.n_perm > 0 and gname in cache:
+        gdeg = cache[gname][0]
+        edges = np.unique(np.quantile(gdeg.values, np.linspace(0, 1, 21)))
+        print(f"Degree-matched null: {len(edges) - 1} global-degree bins, {args.n_perm} permutations")
+    elif args.n_perm > 0:
+        print("[info] no global_ppi layer -> degree-matched null skipped.")
+
+    exclude_for_target = set() if args.keep_other_set_in_background else ref_seeds
+    exclude_for_ref = set() if args.keep_other_set_in_background else target_set
+    if neighbor_mode and seeds_ok and not args.keep_other_set_in_background:
+        print(f"Background for the neighbor tests excludes the {len(ref_seeds)} real seeds "
+              f"(use --keep-other-set-in-background to restore the old behaviour).")
+
+    print(f"\nLayers (genes in layer, isolated genes, number of {T['p']} in layer, degree AUC):")
+    layer_df, seed_tables = run_layers(target_set, exclude_for_target, cache, universe, gdeg, edges, args, rng, True)
+
+    ref_df = None
+    if seeds_ok:
+        saved = dict(T)
+        set_terms(False)  # reference run is about seeds
+        ref_df, _ = run_layers(ref_seeds, exclude_for_ref, cache, universe, gdeg, edges, args, rng, False)
+        T.update(saved)
+        ref_df.to_csv(out / "reference_seed_layer_tests.csv", index=False)
+        print(f"Saved -> {out / 'reference_seed_layer_tests.csv'}  (real seeds, same layers)")
+
+    # which enrichment defines 'enriched layer' for tiers/reports/plots
+    if seeds_ok:
+        layer_df["tier_enrich_q"] = ref_df.set_index("layer")["enrich_q"].reindex(layer_df["layer"]).values
+        enrich_who = "your SEEDS are"
+        enrich_label = "layers where seeds are enriched (q<0.05)"
+    else:
+        layer_df["tier_enrich_q"] = layer_df["enrich_q"]
+        enrich_who = f"the {T['p']} are"
+        enrich_label = "enriched layers (q<0.05)"
     layer_df.to_csv(out / "layer_seed_tests.csv", index=False)
+    is_ng = ~layer_df["is_global"]
 
-    # ---- long presence table: every seed x every layer ----
-    layer_names = [r["layer"] for r in layer_rows]
-    long = pd.MultiIndex.from_product([seeds, layer_names], names=["gene", "cell_type"]).to_frame(index=False)
+    # ---- long presence table: every target gene x every layer ----
+    layer_names = list(layer_df["layer"])
+    long = pd.MultiIndex.from_product([targets, layer_names], names=["gene", "cell_type"]).to_frame(index=False)
     seen = pd.concat(seed_tables, ignore_index=True).rename(columns={"layer": "cell_type"}).drop(columns=["is_global"])
     long = long.merge(seen, on=["gene", "cell_type"], how="left")
     long["present"] = long["degree"].notna()
@@ -633,11 +997,11 @@ def main():
     long.to_csv(out / "seed_layer_presence.csv", index=False)
     print(f"\nSaved -> {out / 'seed_layer_presence.csv'}")
 
-    # ---- per-seed summary (cell-type layers only; global reported separately) ----
+    # ---- per-gene summary (cell-type layers only; global reported separately) ----
     pres = long[(~long["is_global"]) & long["present"]]
     conn = pres[pres["degree"] > 0]
     g = pres.groupby("gene")
-    summ = pd.DataFrame(index=pd.Index(seeds, name="gene"))
+    summ = pd.DataFrame(index=pd.Index(targets, name="gene"))
     summ["n_layers_present"] = g.size().reindex(summ.index).fillna(0).astype(int)
     summ["n_layers_connected"] = conn.groupby("gene").size().reindex(summ.index).fillna(0).astype(int)
     summ["total_degree_across_layers"] = g["degree"].sum().reindex(summ.index).fillna(0).astype(int)
@@ -661,10 +1025,6 @@ def main():
                 .drop_duplicates("gene").set_index("gene")["cell_type"])
         summ["best_marker_layer"] = best.reindex(summ.index)
 
-        # "Strong" in a layer = well-connected there AND a strong marker there.
-        # This is the "same seed scoring high across several subtypes" signal:
-        # a gene present under many cell-type prefixes that clears both bars
-        # in more than one of them, rather than being a fluke in a single layer.
         pres_c = pres.copy()
         pres_c["strong"] = (pres_c["degree_pctile"] >= 0.75) & (pres_c["fc_pctile"] >= 1 - args.hub_frac)
         summ["n_layers_strong"] = pres_c.groupby("gene")["strong"].sum().reindex(summ.index).fillna(0).astype(int)
@@ -699,7 +1059,7 @@ def main():
     print(f"Saved -> {out / 'seed_layer_summary.csv'}")
 
     n_absent = int((summ["n_layers_present"] == 0).sum())
-    print(f"\n{n_absent}/{len(seeds)} seed gene(s) absent from every cell-type layer entirely")
+    print(f"\n{n_absent}/{len(targets)} {T['s']} gene(s) absent from every cell-type layer entirely")
     if n_absent:
         print("  " + ", ".join(summ.loc[summ["n_layers_present"] == 0, "gene"].tolist()[:20]))
 
@@ -708,51 +1068,108 @@ def main():
     testable = ng.dropna(subset=["degree_auc"])
     seed_ng = pd.concat([t for t in seed_tables if not t["is_global"].iloc[0]], ignore_index=True) \
         if any(not t["is_global"].iloc[0] for t in seed_tables) else pd.DataFrame()
-    L = ["=" * 78, "SEED HUBNESS / MARKER-STRENGTH SUMMARY", "=" * 78,
-         f"Seeds: {len(seeds)} | in enrichment universe: {len(seed_set & universe)} | "
+    L = ["=" * 78, f"{T['U']} HUBNESS / MARKER-STRENGTH SUMMARY", "=" * 78,
+         ("MODE: NEIGHBOR -- target genes are the non-seed genes the disease module recruited "
+          "(not your input seeds)" if neighbor_mode else "MODE: SEED -- target genes are your input seeds"),
+         f"{T['P']}: {len(targets)} | in enrichment universe: {len(target_set & universe)} | "
          f"hub / top-marker cutoff: top {args.hub_frac:.0%}"]
+    if neighbor_mode and not args.keep_other_set_in_background and seeds_ok:
+        L.append(f"Test background excludes the {len(ref_seeds)} real seeds.")
     if layer_df["is_global"].any():
         gr = layer_df[layer_df["is_global"]].iloc[0]
-        L += ["", f"GLOBAL PPI ('{gname}'): full-PPI hubness"]
+        L += ["", f"GLOBAL PPI ('{gname}'): are {T['p']} hubs in the full network?"]
         if np.isnan(gr["degree_auc"]):
-            L.append(f"  too few seeds in the global PPI to test ({gr['n_seeds']})")
+            L.append(f"  too few {T['p']} in the global PPI to test ({gr['n_seeds']})")
         else:
-            L += [f"  seeds in PPI: {gr['n_seeds']} | median degree seeds {gr['seed_median_degree']:.1f} "
+            L += [f"  {T['p']} in PPI: {gr['n_seeds']} | median degree {T['p']} {gr['seed_median_degree']:.1f} "
                   f"vs others {gr['bg_median_degree']:.1f}",
-                  f"  degree AUC = {gr['degree_auc']:.3f} (p = {gr['degree_p']:.2e}) | seeds in top "
+                  f"  degree AUC = {gr['degree_auc']:.3f} (p = {gr['degree_p']:.2e}) | {T['p']} in top "
                   f"{args.hub_frac:.0%}: {gr['n_seed_hubs']} (expected {gr['expected_seed_hubs']:.1f}, p = {gr['hub_p']:.2e})"]
     L += ["", f"PER-LAYER (testable layers = {len(testable)} of {len(ng)}; BH across layers)",
-          f"  Seeds higher degree than other genes        (q<0.05): {int((testable['degree_q'] < 0.05).sum())}",
-          f"  Seed excess in top-degree bin               (q<0.05): {int((testable['hub_q'] < 0.05).sum())}",
-          f"  Seeds enriched among the cell type's markers (q<0.05): {int((ng['enrich_q'] < 0.05).sum())}"]
+          f"  {T['P']} have higher degree than other genes        (q<0.05): {int((testable['degree_q'] < 0.05).sum())} layers",
+          f"  {T['P']} over-represented in the top-degree bin     (q<0.05): {int((testable['hub_q'] < 0.05).sum())} layers"]
+    if args.n_perm > 0 and gdeg is not None:
+        L.append(f"  {T['P']} higher degree than DEGREE-MATCHED genes    (q<0.05): "
+                 f"{int((ng['matched_q'] < 0.05).sum())} layers  <- survives literature/popularity bias")
+    if neighbor_mode and seeds_ok:
+        L.append(f"  {T['P']} enriched among markers (q<0.05): {int((ng['enrich_q'] < 0.05).sum())} layers  "
+                 f"<- circular by construction, ignore")
+        sig_layers = sorted(enriched_layers(layer_df))
+        L.append(f"  Your SEEDS enriched among markers (q<0.05): {len(sig_layers)} layers "
+                 f"<- these define 'enriched layer' for the tiers")
+        for l in sig_layers:
+            L.append(f"      - {l}")
+    else:
+        L.append(f"  {T['P']} enriched among the cell type's markers     (q<0.05): {int((ng['enrich_q'] < 0.05).sum())} layers"
+                 + ("  <- circular for neighbors (fell back; pass --seed-csv)" if neighbor_mode else ""))
     if markers is not None:
-        L += [f"  Seeds higher avg_log2FC than other markers  (q<0.05): {int((testable['log2fc_q'] < 0.05).sum())}",
-              f"  Seeds higher pct.1-pct.2 than other markers (q<0.05): {int((testable['pctdiff_q'] < 0.05).sum())}"]
+        L += [f"  {T['P']} have higher avg_log2FC than other markers  (q<0.05): {int((testable['log2fc_q'] < 0.05).sum())} layers",
+              f"  {T['P']} have higher pct.1-pct.2 than other markers (q<0.05): {int((testable['pctdiff_q'] < 0.05).sum())} layers"]
+
+    if ref_df is not None:
+        rng_ = ref_df[~ref_df["is_global"]]
+        rt = rng_.dropna(subset=["degree_auc"])
+        L += ["", "SEEDS vs NEIGHBORS (same layers; each tested against a background without the other set)",
+              f"  {'':<46}{'seeds':>10}{'neighbors':>12}"]
+        gref = ref_df[ref_df["is_global"]]
+        if len(gref) and layer_df["is_global"].any():
+            L.append(f"  {'global PPI degree AUC':<46}{gref.iloc[0]['degree_auc']:>10.3f}"
+                     f"{layer_df[layer_df['is_global']].iloc[0]['degree_auc']:>12.3f}")
+        rows_cmp = [("layers: higher degree (q<0.05)", "degree_q"),
+                    ("layers: higher than degree-matched (q<0.05)", "matched_q")]
+        if markers is not None:
+            rows_cmp.append(("layers: higher avg_log2FC (q<0.05)", "log2fc_q"))
+        for lab, qc in rows_cmp:
+            if qc == "matched_q" and not (args.n_perm > 0 and gdeg is not None):
+                continue
+            L.append(f"  {lab:<46}{int((rng_[qc] < 0.05).sum()):>10}{int((ng[qc] < 0.05).sum()):>12}")
+        L.append(f"  {'median degree AUC across layers':<46}{rt['degree_auc'].median():>10.3f}"
+                 f"{testable['degree_auc'].median():>12.3f}")
+
     if len(seed_ng):
-        L += ["", "POOLED seed-layer entries (descriptive; entries are not independent)",
+        L += ["", f"POOLED {T['s']}-layer entries (descriptive; entries are not independent)",
               f"  n = {len(seed_ng)} | median degree percentile {seed_ng['degree_pctile'].median():.2f} (null 0.50) | "
               f"fraction in top {args.hub_frac:.0%}: {seed_ng['is_hub'].mean():.2f} (null ~{args.hub_frac:.2f})"]
         if markers is not None:
             L.append(f"  median avg_log2FC percentile among markers: {seed_ng['fc_pctile'].median():.2f} (null 0.50)")
-    L += ["", "SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)"]
+    L += ["", f"{T['U']} CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)"]
     for t, n in summ["specificity_tier"].value_counts().reindex(tier_order).items():
         if pd.notna(n) and n > 0:
             L.append(f"  {t:<62} {int(n):>4}")
     L += ["", f"Isolated genes (degree 0) across layers: {int(layer_df['n_isolated'].sum()):,} "
-              f"(in gene sets json but with no edges in ppi_layer.tsv)", "=" * 78]
+              f"(in gene sets json but with no edges in ppi_layer.tsv)"]
+    L += how_to_read(neighbor_mode, markers is not None, args.hub_frac, seeds_ok or not neighbor_mode)
+    L += ["=" * 78]
     text = "\n".join(L)
     (out / "seed_hubness_summary.txt").write_text(text)
     print("\n" + text)
 
-    # ---- heatmap + per-seed reports (use ALL layer rows, not just present-only) ----
+    # ---- reports + plots ----
     value_col = "fc_pctile" if markers is not None else "degree_pctile"
-    write_seed_reports(pres_all, summ, layer_df, out, gname, args.hub_frac, markers is not None, args.top_n_report,
-                       module_layers_by_gene)
+    write_seed_reports(pres_all, summ, layer_df, out, args.hub_frac, markers is not None, args.top_n_report,
+                       enrich_who, module_layers_by_gene)
 
     if not args.no_plots:
         print()
-        make_plots(layer_df, seed_ng, out, markers is not None)
+        have_m = markers is not None
+        make_plots(layer_df, seed_ng, out, have_m)
         make_heatmap(pres_all, summ, out, gname, value_col, args.top_n_report)
+        if seeds_ok:
+            plot_enrichment(ref_df, out, "your seeds",
+                            "(defines 'enriched layers' for the neighbor tiers; n = seeds in that layer)")
+        else:
+            plot_enrichment(layer_df, out, T["p"], f"(n = number of {T['p']} in that layer)")
+        plot_layer_boxplots(seed_ng, gname, out, have_m)
+        plot_tiers(summ, out, tier_order)
+        plot_layer_counts(summ, out)
+        plot_global_hist(summ, out, args.hub_frac)
+        if args.n_perm > 0 and gdeg is not None:
+            plot_matched(layer_df, ref_df, out)
+        if have_m:
+            plot_degree_vs_marker(pres_all, enriched_layers(layer_df), out, args.hub_frac, enrich_label)
+            plot_auc_scatter(layer_df, out)
+        if ref_df is not None:
+            plot_seed_vs_neighbor(layer_df, ref_df, gname, out, have_m)
     print(f"\nAll outputs -> {out.resolve()}")
 
 

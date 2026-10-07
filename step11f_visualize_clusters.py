@@ -43,12 +43,13 @@ import json
 import pickle
 from collections import defaultdict
 from pathlib import Path
-
+from provenance import write_manifest
 import igraph as ig
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.collections import LineCollection
 import numpy as np
 import pandas as pd
 
@@ -265,45 +266,59 @@ def plot_composition_heatmap(summary, participation, top_n, out_path):
 # ============================================================================
 
 def draw_cluster_zoom(ax, g, node_index, detail, celltype_colors, seed_genes,
-                       label=True, adjust_kw=None):
+                       label=None, adjust_kw=None, max_label_nodes=40, max_fr_nodes=1500):
     members = member_genes_for(detail)
     idxs = [node_index[m] for m in members if m in node_index]
     sub = g.induced_subgraph(idxs)
     if sub.vcount() == 0:
         ax.axis("off")
         return
+    if label is None:
+        label = sub.vcount() <= max_label_nodes
 
-    layout = sub.layout_fruchterman_reingold()
-    sub_pos = {v["name"]: (xy[0], xy[1]) for v, xy in zip(sub.vs, layout)}
+    layout = (sub.layout_fruchterman_reingold() if sub.vcount() <= max_fr_nodes
+              else sub.layout_drl())
+    names = sub.vs["name"]
+    sub_pos = {n: (xy[0], xy[1]) for n, xy in zip(names, layout)}
 
-    for e in sub.es:
-        u, v = e.tuple
-        un, vn = sub.vs[u]["name"], sub.vs[v]["name"]
-        etype = e["etype"]
-        ax.plot([sub_pos[un][0], sub_pos[vn][0]], [sub_pos[un][1], sub_pos[vn][1]],
-                color="#999999", alpha=EDGE_ALPHA.get(etype, 0.4), linewidth=0.8,
-                linestyle=EDGE_STYLE.get(etype, "solid"), zorder=1)
+    # one LineCollection per edge type instead of one ax.plot per edge
+    for etype, style in EDGE_STYLE.items():
+        segs = [(sub_pos[names[e.source]], sub_pos[names[e.target]])
+                for e in sub.es if e["etype"] == etype]
+        if segs:
+            ax.add_collection(LineCollection(
+                segs, colors="#999999", alpha=EDGE_ALPHA.get(etype, 0.4),
+                linewidths=0.8, linestyles=style, zorder=1))
 
-    texts = []
-    for v in sub.vs:
-        ct = v["cell_type"]
-        gene = v["gene"]
-        x, y = sub_pos[v["name"]]
-        is_seed = gene in seed_genes
-        ax.scatter([x], [y], c=[celltype_colors[ct]],
-                   s=140 if is_seed else 55,
-                   marker="*" if is_seed else "o",
-                   linewidths=1.2 if is_seed else 0.4,
-                   edgecolors=SEED_MARKER_EC if is_seed else "white",
-                   alpha=0.95, zorder=3)
-        if label:
-            texts.append(ax.annotate(gene, xy=(x, y), fontsize=7, zorder=4,
+    # one scatter per (cell_type, is_seed) group instead of one per node
+    for is_seed in (False, True):
+        for ct in sorted(set(sub.vs["cell_type"])):
+            vs = [v for v in sub.vs
+                  if v["cell_type"] == ct and ((v["gene"] in seed_genes) == is_seed)]
+            if not vs:
+                continue
+            ax.scatter([sub_pos[v["name"]][0] for v in vs],
+                       [sub_pos[v["name"]][1] for v in vs],
+                       c=[celltype_colors[ct]],
+                       s=140 if is_seed else 55,
+                       marker="*" if is_seed else "o",
+                       linewidths=1.2 if is_seed else 0.4,
+                       edgecolors=SEED_MARKER_EC if is_seed else "white",
+                       alpha=0.95, zorder=3)
+
+    if label:
+        texts = []
+        for v in sub.vs:
+            x, y = sub_pos[v["name"]]
+            texts.append(ax.annotate(v["gene"], xy=(x, y), fontsize=7, zorder=4,
                                       bbox=dict(boxstyle="round,pad=0.15", facecolor="white",
-                                                edgecolor=celltype_colors[ct], alpha=0.85, linewidth=0.7)))
+                                                edgecolor=celltype_colors[v["cell_type"]],
+                                                alpha=0.85, linewidth=0.7)))
+        if texts and HAVE_ADJUST_TEXT:
+            adjust_text(texts, ax=ax,
+                        arrowprops=dict(arrowstyle="-", color="#888888", lw=0.5, alpha=0.6))
 
-    if label and texts and HAVE_ADJUST_TEXT:
-        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="-", color="#888888", lw=0.5, alpha=0.6))
-
+    ax.autoscale_view()
     ax.axis("off")
 
 
@@ -394,6 +409,7 @@ def main():
     ap.add_argument("--skip-heatmap", action="store_true")
     ap.add_argument("--skip-zooms", action="store_true")
     args = ap.parse_args()
+    write_manifest(args.output_dir, args, inputs=[args.supra_graph])
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

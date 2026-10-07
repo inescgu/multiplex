@@ -45,12 +45,12 @@ the infomap docs and adapt run_infomap() below.
 
 Reports:
   1. How many modules Infomap found on the supra-graph.
-  2. Purity of each persistent HiDeF community (step 3c output, filtered
+  2. Purity of each persistent HiDeF community (step 11c output, filtered
      to size >= --min-size) against Infomap's module assignment -- what
      fraction of a community's members fall into Infomap's single most
      common module for that community.
   3. NMI between Infomap's partition and whichever leidenalg partition in
-     the step 3b ensemble has the closest number of communities -- a rough
+     the step 11b ensemble has the closest number of communities -- a rough
      single-number concordance score between the two engines.
 """
 import argparse
@@ -58,7 +58,7 @@ import json
 import pickle
 import re
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 
 try:
@@ -194,12 +194,24 @@ def filter_trivial_communities(communities: dict, min_size: int):
               "at the right output and --min-size isn't too strict.")
     return filtered, n_before, n_after
 
+def random_purity_baseline(size, membership, rng, n_draw=200, cache={}):
+    """Expected purity of a random node set of the same size (cached per size)."""
+    if size in cache:
+        return cache[size]
+    n = len(membership)
+    vals = []
+    for _ in range(n_draw):
+        sample = membership[rng.choice(n, size=min(size, n), replace=False)]
+        vals.append(np.unique(sample, return_counts=True)[1].max() / len(sample))
+    cache[size] = float(np.mean(vals))
+    return cache[size]
+    
 
 def main():
-    ap = argparse.ArgumentParser(description="Step 3d: cross-check step 3c's persistent "
+    ap = argparse.ArgumentParser(description="Step 11d: cross-check step 11c's persistent "
                                                "communities against Infomap on the same supra-graph")
-    ap.add_argument("--supra-graph", required=True, help="Pickle from step 3a")
-    ap.add_argument("--ensemble", required=True, help="Pickle from step 3b (for the closest-N comparison)")
+    ap.add_argument("--supra-graph", required=True, help="Pickle from step 11a")
+    ap.add_argument("--ensemble", required=True, help="Pickle from step 11b (for the closest-N comparison)")
     src = ap.add_mutually_exclusive_group(required=True)
     src.add_argument("--nodes-file",
                       help="hidef_finder .nodes output from step 11c Phase 2 -- read directly, "
@@ -214,6 +226,7 @@ def main():
     ap.add_argument("--seed", type=int, default=1)
     args = ap.parse_args()
 
+    write_manifest(Path(args.output).parent, args, inputs=[args.supra_graph, args.ensemble, args.nodes_file or args.communities])
     with open(args.supra_graph, "rb") as f:
         g = pickle.load(f)
     with open(args.ensemble, "rb") as f:
@@ -237,13 +250,18 @@ def main():
 
     print("Purity of persistent HiDeF communities against Infomap modules "
           f"(size >= {args.min_size} only):")
-    purities = []
+    purities, baselines = [], []
     per_community = {}
+    rng = np.random.default_rng(args.seed)
     for cid, c in communities.items():
         purity, top_module = community_purity(c["members"], node_name_to_idx, infomap_membership)
         if purity is not None:
+            base = random_purity_baseline(c["size"], infomap_membership, rng)
             purities.append(purity)
-            per_community[cid] = {"purity": purity, "top_infomap_module": top_module, "size": c["size"]}
+            baselines.append(base)
+            per_community[cid] = {"purity": purity, "baseline_purity": base,
+                                  "excess_purity": purity - base,
+                                  "top_infomap_module": top_module, "size": c["size"]}
     if purities:
         print(f"  mean purity: {np.mean(purities):.3f}  median: {np.median(purities):.3f}  "
               f"(n={len(purities)} communities)\n")
@@ -264,6 +282,8 @@ def main():
         "n_infomap_modules": n_infomap_modules,
         "mean_community_purity": float(np.mean(purities)) if purities else None,
         "median_community_purity": float(np.median(purities)) if purities else None,
+        "mean_baseline_purity": float(np.mean(baselines)) if baselines else None,
+        "mean_excess_purity": float(np.mean(np.array(purities) - np.array(baselines))) if purities else None,
         "closest_leidenalg_partition": {
             "gamma": closest["gamma"], "omega": closest["omega"],
             "n_communities": closest["n_communities"],

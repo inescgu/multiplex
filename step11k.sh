@@ -7,17 +7,20 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
-echo "Step 11g"
+source ./run_env.sh
+echo "Step 11k: DAG nesting"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
+OUT="$RUN_DIR/dag_persist8_$(date +%Y%m%d)"
+guard "$OUT"
+snapshot "$OUT"
 
 python step11k_dag_nesting_analysis.py \
-        --nodes-file heterogeneous_hidef_faithful_cpm.nodes \
-        --edges-file heterogeneous_hidef_faithful_cpm.edges \
-        --output-prefix characterized/heterogeneous_hidef_dag \
-        --enrichment-csv output/combined26_multiplex/.../combined_gene_results_multiplex.tsv \
-        --enrichment-label-col top_cell_type --enrichment-pval-col adjusted_p_value
-
+        --nodes-file "$RUN_DIR/heterogeneous_hidef_faithful_cpm.nodes" \
+        --edges-file "$RUN_DIR/heterogeneous_hidef_faithful_cpm.edges" \
+        --output-prefix "$OUT/dag" \
+        --enrichment-csv phen/cluster_enrichment_long.csv \
+        --enrichment-label-col analysis --enrichment-pval-col adjusted_p_value
 echo "Finished at: $(date)"

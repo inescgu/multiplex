@@ -51,7 +51,7 @@ USAGE
 """
 import argparse
 from pathlib import Path
-
+from provenance import write_manifest
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -138,7 +138,18 @@ def assign_tiers_percentile(df, percentiles):
     (default [90, 75, 50], matching the legacy default)."""
     percentiles_sorted = sorted(set(percentiles), reverse=True)
     values = df["persistence"].values
+        # collapse duplicate thresholds (heavy ties at max persistence) so no tier is empty
     thresholds = [float(np.percentile(values, p)) for p in percentiles_sorted]
+    _pairs, _seen = [], set()
+    for p, t in zip(percentiles_sorted, thresholds):
+        if t in _seen:
+            print(f"  ⚠ {p}th percentile threshold ({t:.2f}) equals a higher percentile's; "
+                  f"dropped to avoid an empty tier")
+            continue
+        _seen.add(t)
+        _pairs.append((p, t))
+    percentiles_sorted = [p for p, _ in _pairs]
+    thresholds = [t for _, t in _pairs]
 
     print("Persistence tier thresholds (TRUE statistical percentiles of the "
           "observed persistence distribution -- matches the legacy single-layer logic):")
@@ -330,7 +341,7 @@ def main():
                           "noise/singletons and you only want to compare the more persistent tiers "
                           "against each other")
     args = ap.parse_args()
-
+    write_manifest(args.output_dir, args, inputs=[args.cluster_summary])
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 

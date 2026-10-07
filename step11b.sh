@@ -7,12 +7,16 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+source ./run_env.sh
 
 echo "Step 11b: Multi-resolution (+coupling) partition sweep over the heterogeneous supra-graph"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
+
+guard 11_hidef_module/ensemble.pkl      # everything downstream depends on this file
+snapshot 11_hidef_module
 
 # CHANGED from the original RB-based sweep, based on the resolution_profile diagnostics:
 #   - RB (--min-resolution 0.01 --max-resolution 10.0) sat almost entirely inside a flat
@@ -29,12 +33,14 @@ source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 # --n-restarts is still 1, same as your original conservative choice -- bump this up
 # (at proportional runtime cost) if you want restart-based robustness signal for step 11c.
 python step11b_resolution_sweep.py \
-    --supra-graph 11_hidef_hetero/supra_graph.pkl \
-    --output 11_hidef_hetero/ensemble.pkl \
-    --min-resolution 1e-5 \
+    --supra-graph 11_hidef_module/supra_graph.pkl \
+    --output 11_hidef_module/ensemble.pkl \
+    --min-resolution 8.34e-04 \
     --max-resolution 0.9 \
     --n-resolutions 40 \
     --omegas 1.0 \
-    --n-restarts 1 \
+    --n-restarts 5 \
     --partition-type CPM
 echo "Finished at: $(date)"
+
+# The guard means a rerun refuses until you mv the old ensemble.pkl aside, e.g. mv ensemble.pkl ensemble_CPM_1e-5_0.9_$(date +%Y%m%d).pkl.

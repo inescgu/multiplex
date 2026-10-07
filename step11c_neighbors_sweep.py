@@ -47,7 +47,7 @@ USAGE
 import argparse
 import pickle
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 import pandas as pd
 import scipy as sp
@@ -99,8 +99,13 @@ def run_phase1(partitions, node_names, minsize, jaccard, chi, consensus_p, neigh
         resname_of[orig_i] = resname
         resolution_graph.add_node(resname, padded=True)
     names_in_order = [resname_of[i] for i in idxs_sorted]
+    gammas_sorted = sorted({partitions[i]["gamma"] for i in idxs_sorted})
+    grank = {gm: k for k, gm in enumerate(gammas_sorted)}
+    ranks = [grank[partitions[i]["gamma"]] for i in idxs_sorted]
     for a in range(len(names_in_order)):
-        for b in range(a + 1, min(a + 1 + neighbors, len(names_in_order))):
+        for b in range(a + 1, len(names_in_order)):
+            if ranks[b] - ranks[a] > neighbors:
+                break
             resolution_graph.add_edge(names_in_order[a], names_in_order[b])
 
     for orig_i in idxs_sorted:
@@ -161,7 +166,7 @@ def main():
     ap.add_argument("--consensus-p", type=int, default=75)
     ap.add_argument("--output-dir", required=True)
     args = ap.parse_args()
-
+    write_manifest(args.output_dir, args, inputs=[args.ensemble])
     out = Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
 

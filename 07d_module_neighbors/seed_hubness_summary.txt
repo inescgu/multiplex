@@ -1,29 +1,85 @@
 ==============================================================================
-SEED HUBNESS / MARKER-STRENGTH SUMMARY
+NEIGHBOR HUBNESS / MARKER-STRENGTH SUMMARY
 ==============================================================================
-Seeds: 3941 | in enrichment universe: 3941 | hub / top-marker cutoff: top 10%
+MODE: NEIGHBOR -- target genes are the non-seed genes the disease module recruited (not your input seeds)
+Neighbors: 3941 | in enrichment universe: 3941 | hub / top-marker cutoff: top 10%
+Test background excludes the 408 real seeds.
 
-GLOBAL PPI ('global_ppi'): full-PPI hubness
-  seeds in PPI: 3941 | median degree seeds 46.0 vs others 14.0
-  degree AUC = 0.779 (p = 0.00e+00) | seeds in top 10%: 968 (expected 394.3, p = 4.06e-152)
+GLOBAL PPI ('global_ppi'): are neighbors hubs in the full network?
+  neighbors in PPI: 3941 | median degree neighbors 46.0 vs others 14.0
+  degree AUC = 0.781 (p = 0.00e+00) | neighbors in top 10%: 968 (expected 394.3, p = 4.06e-152)
 
 PER-LAYER (testable layers = 22 of 22; BH across layers)
-  Seeds higher degree than other genes        (q<0.05): 22
-  Seed excess in top-degree bin               (q<0.05): 22
-  Seeds enriched among the cell type's markers (q<0.05): 22
-  Seeds higher avg_log2FC than other markers  (q<0.05): 0
-  Seeds higher pct.1-pct.2 than other markers (q<0.05): 9
+  Neighbors have higher degree than other genes        (q<0.05): 22 layers
+  Neighbors over-represented in the top-degree bin     (q<0.05): 22 layers
+  Neighbors higher degree than DEGREE-MATCHED genes    (q<0.05): 16 layers  <- survives literature/popularity bias
+  Neighbors enriched among markers (q<0.05): 22 layers  <- circular by construction, ignore
+  Your SEEDS enriched among markers (q<0.05): 9 layers <- these define 'enriched layer' for the tiers
+      - A-PEP.CHRNA7_SLC18A3
+      - A-PEP.NTRK3_S100A16
+      - A-PEP.SCGN_ADRA2C
+      - Ab-LTMR.ETV1
+      - C-LTMR.CDH9
+      - C-NP.MRGPRX1_GFRA2
+      - C-NP.MRGPRX1_MRGPRX4
+      - C-PEP.TAC1_CACNG5
+      - C-PEP.TAC1_CHRNA3
+  Neighbors have higher avg_log2FC than other markers  (q<0.05): 0 layers
+  Neighbors have higher pct.1-pct.2 than other markers (q<0.05): 12 layers
 
-POOLED seed-layer entries (descriptive; entries are not independent)
+SEEDS vs NEIGHBORS (same layers; each tested against a background without the other set)
+                                                     seeds   neighbors
+  global PPI degree AUC                              0.565       0.781
+  layers: higher degree (q<0.05)                        14          22
+  layers: higher than degree-matched (q<0.05)            8          16
+  layers: higher avg_log2FC (q<0.05)                    15           0
+  median degree AUC across layers                    0.603       0.788
+
+POOLED neighbor-layer entries (descriptive; entries are not independent)
   n = 19566 | median degree percentile 0.71 (null 0.50) | fraction in top 10%: 0.21 (null ~0.10)
   median avg_log2FC percentile among markers: 0.48 (null 0.50)
 
-SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
-  A: specific marker + well-connected in an enriched layer         12
-  A*: specific + connected, but also a generic global hub          31
-  B: specific marker, not well-connected there                    251
-  C: hub in an enriched layer, not a distinct marker             1285
-  F: present, unremarkable                                       2362
+NEIGHBOR CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
+  A: specific marker + well-connected in an enriched layer          3
+  A*: specific + connected, but also a generic global hub          11
+  B: specific marker, not well-connected there                     68
+  C: hub in an enriched layer, not a distinct marker              703
+  F: present, unremarkable                                       3156
 
 Isolated genes (degree 0) across layers: 7,455 (in gene sets json but with no edges in ppi_layer.tsv)
+
+------------------------------------------------------------------------------
+HOW TO READ THIS
+------------------------------------------------------------------------------
+Target set: the neighbors (non-seed genes the disease module recruited to connect your seeds)
+Layer: one PPI network per cell type, built only from that cell type's marker genes.
+Degree: how many other genes in the layer a gene is connected to.
+Percentile: where a gene ranks within its layer (0.50 = median; 1.00 = best). If neighbors were random
+  genes, their percentiles would average 0.50.
+Hub: top 10% of its layer by degree.
+AUC: probability that a random target beats a random non-target. 0.50 = no difference,
+  0.60 = modest skew, 0.70+ = strong. Read it together with q, not instead of it.
+q (BH): p-value corrected across layers. q<0.05 = unlikely to be chance for that layer.
+Degree-matched test: compares each target with random genes that have the SAME degree in the
+  full global PPI. If a layer is 'hubby' by AUC but NOT by this test, the hubness is explained
+  by general popularity (literature bias / being a global hub), not by the cell-type layer.
+Enriched layer: a layer where your SEEDS are over-represented among that cell type's markers.
+  Used to define the tiers below. Says nothing about WHICH cell type matters on its own.
+Strong (in a layer): well-connected (degree pctile >= 0.75) AND a top marker there
+  (top-marker cutoff = --hub-frac). Genes strong in several layers recur across cell types.
+Specificity tier:
+  A  = a specific marker AND well-connected in an enriched layer (best lead)
+  A* = like A, but also a generic hub in the full PPI (could be literature/study bias)
+  B  = specific marker in an enriched layer, but not well-connected there
+  C  = hub in an enriched layer but not a distinctive marker
+  D  = generic global hub, no enriched layer (likely just a popular gene)
+  F  = present but unremarkable;  E = absent from every cell-type layer
+Isolated genes: in a layer's gene set but with no edges; counted as degree 0 so the
+  background isn't biased upward.
+
+NEIGHBOR-MODE NOTES
+  * Neighbors were chosen BECAUSE they connect seeds in these layers, so their own layer
+    enrichment is circular and is ignored. 'Enriched layer' above comes from the seeds.
+  * Neighbor hubness is partly built in too (bridging genes are hubs); the degree-matched
+    test and the seed reference are the fair comparisons.
 ==============================================================================

@@ -53,7 +53,7 @@ import argparse
 import pickle
 import time
 from pathlib import Path
-
+from provenance import write_manifest
 import igraph as ig
 import leidenalg as la
 import matplotlib

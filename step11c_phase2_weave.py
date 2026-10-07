@@ -35,7 +35,7 @@ import pickle
 from pathlib import Path
 
 import numpy as np
-
+from provenance import write_manifest
 from hidef import weaver
 from hidef.hidef_finder import output_all
 
@@ -57,6 +57,7 @@ def main():
     ap.add_argument("--skipgml", action="store_true")
     args = ap.parse_args()
 
+    write_manifest(Path(args.output_prefix).parent, args, inputs=[args.consensus])
     with open(args.consensus, "rb") as f:
         data = pickle.load(f)
 

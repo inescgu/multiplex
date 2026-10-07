@@ -46,7 +46,7 @@ USAGE
 import argparse
 import pickle
 from pathlib import Path
-
+from provenance import write_manifest
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -241,7 +241,9 @@ def main():
                           "reaches this value as full singleton collapse")
     ap.add_argument("--output-dir", required=True)
     args = ap.parse_args()
-
+    
+    write_manifest(args.output_dir, args, inputs=[args.consensus, args.wide_scan_csv, args.fine_scan_csv])
+    
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 

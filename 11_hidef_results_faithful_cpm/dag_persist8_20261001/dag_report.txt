@@ -1,0 +1,40 @@
+======================================================================
+FIX 4: DAG NESTING ANALYSIS
+======================================================================
+
+Monotonicity: 23.4% of parent->child edges satisfy persistence(parent) >= persistence(child)
+  2234 violating edges (parent, child, p_parent, p_child), first 20:
+    ('Cluster0-0', 'Cluster1-0', 0.0, 6.0)
+    ('Cluster0-0', 'Cluster1-1', 0.0, 10.0)
+    ('Cluster0-0', 'Cluster1-2', 0.0, 10.0)
+    ('Cluster0-0', 'Cluster1-3', 0.0, 16.0)
+    ('Cluster0-0', 'Cluster1-4', 0.0, 9.0)
+    ('Cluster0-0', 'Cluster1-5', 0.0, 13.0)
+    ('Cluster0-0', 'Cluster1-6', 0.0, 10.0)
+    ('Cluster0-0', 'Cluster1-7', 0.0, 12.0)
+    ('Cluster0-0', 'Cluster1-8', 0.0, 10.0)
+    ('Cluster0-0', 'Cluster1-9', 0.0, 12.0)
+    ('Cluster0-0', 'Cluster1-10', 0.0, 11.0)
+    ('Cluster0-0', 'Cluster1-11', 0.0, 14.0)
+    ('Cluster0-0', 'Cluster1-12', 0.0, 15.0)
+    ('Cluster0-0', 'Cluster1-13', 0.0, 14.0)
+    ('Cluster0-0', 'Cluster1-14', 0.0, 12.0)
+    ('Cluster0-0', 'Cluster1-15', 0.0, 12.0)
+    ('Cluster0-0', 'Cluster1-16', 0.0, 9.0)
+    ('Cluster0-0', 'Cluster1-17', 0.0, 13.0)
+    ('Cluster0-0', 'Cluster1-18', 0.0, 13.0)
+    ('Cluster0-0', 'Cluster1-19', 0.0, 13.0)
+  ⚠ Monotonicity below 80% -- your persistence hierarchy is NOT cleanly nested (children are often MORE persistent than parents). This directly undercuts a 'broad clusters contain specific sub-clusters' narrative; investigate whether this stems from --neighbors being too small/large, or from weave()'s own cutoff parameter.
+
+Spearman(depth_from_root, persistence): rho=-0.437  p=1.61e-135  (expect NEGATIVE under the hypothesis -- deeper = less persistent = more specific)
+Spearman(n_descendants, persistence):   rho=-0.146  p=2.36e-15  (expect POSITIVE -- broader/more persistent clusters should have more descendants)
+
+----------------------------------------------------------------------
+Label-nesting permutation test (are 'specific' clusters descendants of 'broad' clusters more often than chance, given this DAG's topology?)
+----------------------------------------------------------------------
+  observed_frac_specific_with_broad_ancestor: 0.6268221574344023
+  null_mean: 0.06443440233236152
+  null_std: 0.039355744308409844
+  p_value: 0.0
+  n_broad_labeled: 81
+  n_specific_labeled: 1233

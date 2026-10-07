@@ -2,7 +2,7 @@
 """
 Step 11c-faithful, Phase 1 (v2 -- WINDOWED neighbor graph): build the REAL
 hidef_finder.py ClusterGraph and run its ACTUAL consensus()/persistence
-calculation against your step 3b partition ensemble.
+calculation against your step 11b partition ensemble.
 
 WHY THIS VERSION EXISTS
 ------------------------
@@ -49,7 +49,7 @@ committing to the slow multi-day Phase 2 rerun.
 
 USAGE
 -----
-    python step11c_phase1_consensus_windowed.py \
+    python step11c_phase1_consensus.py \
         --ensemble 11_hidef_hetero/ensemble.pkl \
         --output 11_hidef_results_faithful/consensus_windowed.pkl \
         --minsize 4 \
@@ -61,7 +61,7 @@ USAGE
 import argparse
 import pickle
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 import scipy as sp
 import networkx as nx
@@ -140,9 +140,16 @@ def build_windowed_resolution_graph(partitions, n_nodes, minsize, jaccard_thresh
             resolution_graph.add_node(resname, padded=True)
             ordered_indices.append(orig_i)
             global_rank += 1
-        # window-based neighbor linking along this omega's (gamma, restart)-sorted chain
+        # replace the "window-based neighbor linking" block in
+        # build_windowed_resolution_graph (11c), and the equivalent loop in
+        # run_phase1 (neighbors sweep) and windowed_consensus (11i)
+        gammas_sorted = sorted({partitions[i]["gamma"] for i in idxs_sorted})
+        grank = {gm: k for k, gm in enumerate(gammas_sorted)}
+        ranks = [grank[partitions[i]["gamma"]] for i in idxs_sorted]
         for a in range(len(group_names)):
-            for b in range(a + 1, min(a + 1 + neighbors, len(group_names))):
+            for b in range(a + 1, len(group_names)):
+                if ranks[b] - ranks[a] > neighbors:
+                    break
                 resolution_graph.add_edge(group_names[a], group_names[b])
 
     if link_omega and len(by_omega) > 1:
@@ -179,7 +186,7 @@ def build_windowed_resolution_graph(partitions, n_nodes, minsize, jaccard_thresh
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                   formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--ensemble", required=True, help="Pickle from step 3b")
+    ap.add_argument("--ensemble", required=True, help="Pickle from step 11b")
     ap.add_argument("--output", required=True, help="Where to save the consensus pickle")
     ap.add_argument("--minsize", type=int, default=4,
                      help="hidef_finder's own hardcoded default in partition_to_membership_matrix "
@@ -194,18 +201,17 @@ def main():
                      help="hidef_finder's --p: consensus threshold (percent) for which nodes "
                           "survive collapse_cluster_graph (default 75, hidef_finder's own default)")
     ap.add_argument("--neighbors", type=int, default=10,
-                     help="How many nearest partitions (in gamma-sorted order, within the same "
-                          "omega group) each partition is compared against. This is the direct "
-                          "fix for the degenerate/constant persistence values the COMPLETE-graph "
-                          "version produced -- hidef_finder's own single-layer runs default to "
-                          "neighbors=10 (see the single-layer run_hidef_clustering() script).")
+                     help="Window size in GAMMA STEPS: each partition is compared against all "
+                          "partitions (incl. restarts) within this many gamma steps in the same "
+                          "omega group.")
     ap.add_argument("--link-omega", action="store_true",
                      help="Also link matching (gamma, restart) partitions across adjacent omega "
                           "values, treating omega as a second smooth resolution-like axis. "
                           "Off by default -- each omega group's persistence stays independently "
                           "interpretable.")
     args = ap.parse_args()
-
+    write_manifest(Path(args.output).parent, args, inputs=[args.ensemble])
+    
     partitions, node_names, cell_types, genes = load_ensemble(Path(args.ensemble))
     n_nodes = len(node_names)
     print(f"Loaded ensemble: {len(partitions)} partitions, {n_nodes} nodes")

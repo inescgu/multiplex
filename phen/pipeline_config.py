@@ -20,6 +20,8 @@ directory layout, then never touch them again in the individual scripts.
 """
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent   # multiplex/
 # ---------------------------------------------------------------------
 # Heterogeneous (multiplex) pipeline
 # ---------------------------------------------------------------------
@@ -32,35 +34,33 @@ CLUSTER_TYPE = "hidef_from_comparison"
 PERSISTENCE_THRESHOLD = 8
 
 # hidef_finder Phase-2 weave output (step11c_phase2_weave.py)
-NODES_FILE = "../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes"
-EDGES_FILE = "../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.edges"
+NODES_FILE = str(ROOT / "11_hidef_module" / "results_cpm" / "heterogeneous_hidef_faithful_cpm.nodes")
+EDGES_FILE = str(ROOT / "11_hidef_module" / "results_cpm"  / "heterogeneous_hidef_faithful_cpm.edges")
 
 # step11a output (supra-graph) and step11b output (partition ensemble)
-SUPRA_GRAPH_PKL = "../11_hidef_hetero/supra_graph.pkl"
-ENSEMBLE_PKL = "../11_hidef_hetero/ensemble.pkl"
+SUPRA_GRAPH_PKL = str(ROOT / "11_hidef_module" / "supra_graph.pkl")
+ENSEMBLE_PKL = str(ROOT / "11_hidef_module" / "ensemble.pkl")
 
 # step6_build_disease_module.py output dir (must contain disease_module.csv)
-DISEASE_MODULE_DIR = "../06_disease_module"
+DISEASE_MODULE_DIR = str(ROOT / "06_disease_module")
 
 # step2.5 output -- full namespaced reference network ("<celltype>::GENE")
-REFERENCE_GRAPH_PKL = "../04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl"
-
-SEED_GENES_FILE = "../00_inputs/seed_genes.csv"
+REFERENCE_GRAPH_PKL = str(ROOT / "04_multixrank_prep" / "multixrank_hetero_input" / "gene_reference_graph.pkl")
+SEED_GENES_FILE = str(ROOT / "00_inputs" / "seed_genes.csv")
 
 # The --neighbors value actually used for the .nodes/.edges files above.
 # Record it here so every downstream script that reports on "the current
 # result" can print it, instead of you having to remember which sbatch
 # script produced which output.
-HIDEF_NEIGHBORS_USED = 3
+HIDEF_NEIGHBORS_USED = 7
 
-OUTPUT_DIR = "./output"
-
+OUTPUT_DIR = str(HERE / "output")
 # ---------------------------------------------------------------------
 # Single-layer (monoplex) pipeline -- fill in per PPI source
 # ---------------------------------------------------------------------
-MONOPLEX_HIDEF_COMMUNITIES_PKL = "../hidef_results/hidef_communities.pkl"
-MONOPLEX_DISEASE_MODULE_DIR = "../temp"          # contains graph_lcc.pkl etc.
-MONOPLEX_RWR_OUTPUT_DIR = "../output"            # rwr/disease_module.csv etc.
+MONOPLEX_HIDEF_COMMUNITIES_PKL = str(ROOT /"hidef_results" / "hidef_communities.pkl")
+MONOPLEX_DISEASE_MODULE_DIR = str(ROOT / "temp")          # contains graph_lcc.pkl etc.
+MONOPLEX_RWR_OUTPUT_DIR = str(ROOT / "output")            # rwr/disease_module.csv etc.
 
 
 def loader_kwargs():

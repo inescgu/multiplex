@@ -46,7 +46,7 @@ USAGE
     facet_all_analysis_outputs(
         output_dir='./output', ppi_source='combined26', facets_df=facets_df,
         analysis_types=['neuropathic_pain', 'omim', 'orphanet', 'phenotypes',
-                         'proteomics', 'spatial'],
+                         'proteomics', 'spatial'], extra=extra
     )
 """
 import os

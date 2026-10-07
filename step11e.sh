@@ -7,6 +7,8 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+source ./run_env.sh
+
 echo "Step 11e: Characterizing persistent heterogeneous HiDeF clusters (cell-type composition, conserved genes, edge-type breakdown)"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
@@ -16,10 +18,12 @@ source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 # If you only have the recovered communities pickle from step 11d's changelog
 # instead, swap --nodes-file for:
 #   --communities-pkl 11_hidef_results_fixed/heterogeneous_hidef_communities_FIXED.pkl
+snapshot "$RUN_DIR/characterized"
+
 python step11e_characterize_clusters.py \
-    --supra-graph 11_hidef_hetero/supra_graph.pkl \
-    --nodes-file 11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes \
+    --supra-graph 11_hidef_module/supra_graph.pkl \
+    --nodes-file "$RUN_DIR/heterogeneous_hidef_faithful_cpm.nodes" \
     --seed-genes 00_inputs/seed_genes.csv \
     --min-size 2 \
-    --output-prefix 11_hidef_results_faithful_cpm/characterized/heterogeneous_hidef_faithful_cpm
+    --output-prefix "$RUN_DIR/characterized/heterogeneous_hidef_faithful_cpm"
 echo "Finished at: $(date)"

@@ -55,20 +55,29 @@ from enrichment_plots_multiplex import (
 # ============================================================================
 # CONFIG -- keep in sync with run_multiplex_enrichment_pipeline.py
 # ============================================================================
-OUTPUT_DIR = './output'
-PPI_SOURCE = 'combined26_multiplex'
-CLUSTER_TYPE = 'hidef_from_comparison'
-PERSISTENCE_THRESHOLD = 5
+import pipeline_config as cfg
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from provenance import write_manifest
+
+PPI_SOURCE = cfg.PPI_SOURCE
+CLUSTER_TYPE = cfg.CLUSTER_TYPE
+OUTPUT_DIR = cfg.OUTPUT_DIR
+PERSISTENCE_THRESHOLD = cfg.PERSISTENCE_THRESHOLD
+NODES_FILE = cfg.NODES_FILE
+SUPRA_GRAPH_PKL = cfg.SUPRA_GRAPH_PKL
+SEED_GENES_FILE = cfg.SEED_GENES_FILE
+
 ORPHANET_TERM_CAP = 10
 LEGEND_BOTTOM_THRESHOLD = 10
 
-NODES_FILE = '../11_hidef_results_faithful_cpm/heterogeneous_hidef_faithful_cpm.nodes'
-SUPRA_GRAPH_PKL = '../11_hidef_hetero/supra_graph.pkl'
-SEED_GENES_FILE = '../00_inputs/seed_genes.csv'
+write_manifest(os.path.join(OUTPUT_DIR, PPI_SOURCE),
+               args={"persistence_threshold": PERSISTENCE_THRESHOLD, "nodes_file": NODES_FILE},
+               inputs=[NODES_FILE, SUPRA_GRAPH_PKL, SEED_GENES_FILE],
+               extra={"n_clusters": len(clusters)})
 
 # 'spatial' dropped -- spatial transcriptomics results are no longer part of
 # this analysis.
-ANALYSIS_TYPES = ['neuropathic_pain', 'phenotype', 'proteomics', 'omim_ps', 'orphanet_enrichr']
+ANALYSIS_TYPES = ['neuropathic_pain', 'phenotype', 'proteomics', 'omim_ps', 'orphanet_enrichr', 'spatial']
 
 # Which effect-size columns to render a heatmap for, per tier. With
 # pagination (below), the number of files per tier varies with how crowded

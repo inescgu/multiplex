@@ -35,73 +35,58 @@ import os
 import socket
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 
-def _git_info(repo_dir="."):
+def _git_info():
+    repo_dir = Path(__file__).resolve().parent
     def run(cmd):
         try:
-            return subprocess.check_output(cmd, cwd=repo_dir, stderr=subprocess.DEVNULL,
-                                            text=True).strip()
+            return subprocess.check_output(cmd, cwd=repo_dir, stderr=subprocess.DEVNULL, text=True).strip()
         except Exception:
             return None
     commit = run(["git", "rev-parse", "HEAD"])
     if commit is None:
         return {"git_available": False}
-    dirty = run(["git", "status", "--porcelain"])
-    return {
-        "git_available": True,
-        "commit": commit,
-        "dirty": bool(dirty),
-        "dirty_files": dirty.splitlines() if dirty else [],
-        "branch": run(["git", "rev-parse", "--abbrev-ref", "HEAD"]),
-    }
+    dirty = run(["git", "status", "--porcelain", "--untracked-files=no"])
+    return {"git_available": True, "commit": commit, "dirty": bool(dirty),
+            "dirty_files": dirty.splitlines() if dirty else [],
+            "branch": run(["git", "rev-parse", "--abbrev-ref", "HEAD"])}
 
+def _file_stamp(p):
+    try:
+        st = os.stat(p)
+        return {"size": st.st_size,
+                "mtime": datetime.fromtimestamp(st.st_mtime, timezone.utc).isoformat()}
+    except OSError:
+        return {"missing": True}
 
-def write_manifest(output_dir, args=None, script_path=None, extra=None):
-    """
-    output_dir : where to write manifest.json (created if missing)
-    args       : an argparse.Namespace (or any object with __dict__), or a
-                 plain dict -- recorded verbatim
-    script_path: defaults to sys.argv[0]
-    extra      : any additional dict of run-specific info you want stamped
-                 (e.g. {"n_partitions_loaded": len(partitions)})
-    """
-    output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    if args is None:
-        args_dict = {}
-    elif isinstance(args, dict):
-        args_dict = args
-    else:
-        args_dict = vars(args)
-
+def write_manifest(output_dir, args=None, script_path=None, extra=None, inputs=None):
+    output_dir = Path(output_dir); output_dir.mkdir(parents=True, exist_ok=True)
+    args_dict = {} if args is None else (args if isinstance(args, dict) else vars(args))
+    now = datetime.now(timezone.utc)
     manifest = {
         "script": script_path or sys.argv[0],
         "full_command": " ".join(sys.argv),
         "args": args_dict,
-        "timestamp_utc": datetime.utcnow().isoformat() + "Z",
+        "inputs": {str(p): _file_stamp(p) for p in (inputs or []) if p},
+        "timestamp_utc": now.isoformat(),
         "hostname": socket.gethostname(),
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
         "git": _git_info(),
     }
     if extra:
         manifest["extra"] = extra
-
     if manifest["git"].get("dirty"):
-        print(f"  \u26a0 provenance: repo has uncommitted changes "
-              f"({len(manifest['git']['dirty_files'])} file(s)) -- this run's result is not "
-              f"fully reproducible from git history alone. Commit before rerunning for anything "
-              f"you intend to put in the paper.")
-
-    path = output_dir / "manifest.json"
+        print(f"  ⚠ provenance: {len(manifest['git']['dirty_files'])} tracked file(s) modified "
+              f"and uncommitted -- don't cite this run.")
+    stem = Path(manifest["script"]).stem
+    path = output_dir / f"manifest_{stem}_{now:%Y%m%dT%H%M%SZ}.json"
     with open(path, "w") as f:
         json.dump(manifest, f, indent=2, default=str)
     print(f"  provenance manifest -> {path}")
     return manifest
-
 
 def append_results_index(index_csv, row: dict):
     """

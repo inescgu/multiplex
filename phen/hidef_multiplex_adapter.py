@@ -54,7 +54,9 @@ import re
 from collections import Counter
 
 import pandas as pd
-
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from provenance import write_manifest
 
 def _gene_of(node: str) -> str:
     return node.rsplit("::", 1)[-1] if "::" in node else node
@@ -95,7 +97,8 @@ def load_multiplex_clusters(nodes_file, node_names=None, seed_genes=None,
                       dtype={"members": str})
 
     clusters, cluster_seed_mapping = {}, {}
-    extra = {"persistence": {}, "namespaced_members": {}, "n_cell_types": {}}
+    extra = {"persistence": {}, "namespaced_members": {}, "n_cell_types": {},
+         "genes_by_celltype": {}, "conserved_genes": {}}
     n_skipped_persistence, n_skipped_empty, n_skipped_small = 0, 0, 0
 
     for _, row in df.iterrows():
@@ -133,6 +136,16 @@ def load_multiplex_clusters(nodes_file, node_names=None, seed_genes=None,
         extra["persistence"][cluster_name] = float(row["persistence"])
         extra["namespaced_members"][cluster_name] = members
         extra["n_cell_types"][cluster_name] = len({_celltype_of(m) for m in members if "::" in m})
+        by_ct = {}
+        for m in members:
+            if "::" in m:
+                by_ct.setdefault(_celltype_of(m), set()).add(_gene_of(m))
+        extra["genes_by_celltype"][cluster_name] = {ct: sorted(g) for ct, g in by_ct.items()}
+        gene_cts = {}
+        for ct, gs in by_ct.items():
+            for g in gs:
+                gene_cts.setdefault(g, set()).add(ct)
+        extra["conserved_genes"][cluster_name] = {g: sorted(c) for g, c in gene_cts.items() if len(c) >= 2}
 
     print(f"load_multiplex_clusters({nodes_file}): kept {len(clusters)} clusters "
           f"(persistence >= {persistence_threshold}); skipped "
@@ -206,7 +219,7 @@ class MultiplexClusterLoaderMixin:
         nodes_file = nodes_file or kw["nodes_file"]
         supra_graph_pkl = supra_graph_pkl or kw["supra_graph_pkl"]
         seed_genes_file = seed_genes_file or kw["seed_genes_file"]
-        persistence_threshold = getattr(self, "persistence_threshold", kw["persistence_threshold"])
+        persistence_threshold = self.persistence_threshold
 
         node_names = None
         if supra_graph_pkl:
@@ -230,4 +243,10 @@ class MultiplexClusterLoaderMixin:
             sizes = [len(g) for g in self.clusters.values()]
             print(f"Loaded {len(self.clusters)} multiplex clusters "
                   f"(gene-set sizes {min(sizes)}-{max(sizes)}, avg {sum(sizes)/len(sizes):.1f})")
+
+        if hasattr(self, "analysis_dir"):
+            write_manifest(self.analysis_dir,
+                           args={"persistence_threshold": persistence_threshold, "ppi_source": self.ppi_source},
+                           inputs=[nodes_file, supra_graph_pkl, seed_genes_file],
+                           extra={"n_clusters_loaded": len(self.clusters)})
         return bool(self.clusters)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Step 11b: Multi-resolution (and, optionally, multi-coupling) partition
-sweep over the heterogeneous supra-graph built in step 3a, using leidenalg.
+sweep over the heterogeneous supra-graph built in step 11a, using leidenalg.
 
 This is the direct generalization of HiDeF Phase I (log-spaced resolution
 sweep + modularity maximization) to your heterogeneous multiplex: same
@@ -10,7 +10,7 @@ is directly comparable to your prior monoplex HiDeF run's resolution
 range), plus a SECOND optional sweep axis, omega, the coupling weight
 multiplier applied to every non-intra edge (bipartite LR/Reactome/
 scored-LR/global_ppi-identity edges from step 2, plus any extra identity
-edges from step 3a's --add-identity-coupling). This is exactly the
+edges from step 11a's --add-identity-coupling). This is exactly the
 interlayer coupling term from Mucha et al.'s multislice modularity
 (Science 2010): omega=0 clusters every cell type's PPI network
 independently; omega=1 (the default here) treats biological cross-
@@ -18,17 +18,17 @@ cell-type edges the same as intra-layer PPI edges; omega>>1 increasingly
 forces communities to agree across cell types.
 
 The output is a raw ENSEMBLE of partitions -- one membership vector per
-(gamma, omega, restart) triple. HiDeF's persistence/DAG logic (step 3c) is
+(gamma, omega, restart) triple. HiDeF's persistence/DAG logic (step 11c) is
 documented as agnostic to how its input partitions were generated ("the
 construction of DAG is independent of the upstream clustering algorithm"),
-so this script's only job is to produce a good, diverse ensemble; step 3c
+so this script's only job is to produce a good, diverse ensemble; step 11c
 does the robustness/persistence analysis on top of it.
 """
 import argparse
 import pickle
 import time
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 import igraph as ig
 import leidenalg as la
@@ -90,9 +90,9 @@ def run_sweep(g: ig.Graph, gammas, omegas, n_restarts: int, partition_type: str,
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Step 3b: resolution/coupling sweep over the "
-                                               "heterogeneous supra-graph (step 3a output)")
-    ap.add_argument("--supra-graph", required=True, help="Pickle from step 3a (igraph.Graph)")
+    ap = argparse.ArgumentParser(description="Step 11b: resolution/coupling sweep over the "
+                                               "heterogeneous supra-graph (step 11a output)")
+    ap.add_argument("--supra-graph", required=True, help="Pickle from step 11a (igraph.Graph)")
     ap.add_argument("--output", required=True, help="Path to write the partition ensemble (.pkl)")
     ap.add_argument("--min-resolution", type=float, default=0.01)
     ap.add_argument("--max-resolution", type=float, default=10.0)
@@ -104,7 +104,7 @@ def main():
                           "equivalent to a plain resolution sweep on the full supra-graph). Pass e.g. "
                           "--omegas 0.1 0.5 1 2 5 for a full Mucha-style multislice sweep.")
     ap.add_argument("--n-restarts", type=int, default=1,
-                     help="Random restarts per (gamma, omega) -- adds robustness signal for step 3c's "
+                     help="Random restarts per (gamma, omega) -- adds robustness signal for step 11c's "
                           "persistence analysis, at proportional runtime cost.")
     ap.add_argument("--partition-type", choices=["RB", "CPM"], default="RB",
                      help="RBConfigurationVertexPartition (matches HiDeF's own Reichardt-Bornholdt "
@@ -113,7 +113,7 @@ def main():
                           "sometimes preferable when edge density varies a lot across cell types).")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
-
+    write_manifest(Path(args.output).parent, args, inputs=[args.supra_graph])
     with open(args.supra_graph, "rb") as f:
         g = pickle.load(f)
     print(f"Loaded supra-graph: {g.vcount():,} nodes, {g.ecount():,} edges\n")
@@ -135,7 +135,7 @@ def main():
                      "cell_type": g.vs["cell_type"], "gene": g.vs["gene"]}, f)
 
     print(f"\n{'='*60}")
-    print(f"Step 3b complete: {len(partitions)} partitions across "
+    print(f"Step 11b complete: {len(partitions)} partitions across "
           f"{len(gammas)} resolution(s) x {len(args.omegas)} coupling weight(s) x {args.n_restarts} restart(s)")
     print(f"  -> {out_path}")
     print(f"{'='*60}")

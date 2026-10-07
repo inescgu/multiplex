@@ -73,7 +73,7 @@ import pickle
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
-
+from provenance import write_manifest
 import igraph as ig
 import matplotlib
 matplotlib.use("Agg")
@@ -192,6 +192,8 @@ def characterize_cluster(cluster, node_index, g, seed_genes=None):
     members = [m for m in raw_members if isinstance(m, str) and "::" in m]
     n_malformed = len(raw_members) - len(members)
 
+    if not members:
+        return None, None, None
     idxs = [node_index[m] for m in members if m in node_index]
     n_missing = len(members) - len(idxs)
 
@@ -404,6 +406,8 @@ def main():
                      help="Skip writing <prefix>_summary_plots.png")
     args = ap.parse_args()
 
+    write_manifest(Path(args.output_prefix).parent, args, inputs=[args.supra_graph, args.nodes_file or args.communities_pkl])
+    
     g = load_supra_graph(Path(args.supra_graph))
     node_names = g.vs["name"]
     node_index = {n: i for i, n in enumerate(node_names)}
@@ -423,6 +427,9 @@ def main():
     print(f"Characterizing {len(clusters):,} clusters ...")
     for i, cluster in enumerate(clusters, 1):
         summary_row, detail, ct_counts = characterize_cluster(cluster, node_index, g, seed_genes)
+        if summary_row is None:
+            print(f"  ⚠ cluster {cluster['cluster_id']}: no resolvable 'ct::gene' members, skipped")
+            continue
         summary_rows.append(summary_row)
         details[cluster["cluster_id"]] = detail
         participation_rows.append({"cluster_id": cluster["cluster_id"], **ct_counts})

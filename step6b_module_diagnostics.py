@@ -205,7 +205,27 @@ def _gene_of(node: str) -> str:
 def _celltype_of(node: str) -> str:
     return node.rsplit("::", 1)[0] if "::" in node else "unknown"
 
+def unique_gene_and_edge_counts(G, module_df):
+    """Collapse the namespaced module down to bare-gene counts."""
+    unique_genes = module_df["gene"].nunique()
+    unique_nodes = module_df["node"].nunique()
 
+    bare_pairs = set()
+    n_identity_edges = 0
+    for u, v in G.edges():
+        gu, gv = _gene_of(u).upper(), _gene_of(v).upper()
+        if gu == gv:
+            n_identity_edges += 1   # same gene linked across layers
+            continue
+        bare_pairs.add(frozenset((gu, gv)))  # undirected, dedup across cell types
+
+    return {
+        "unique_genes": unique_genes,
+        "unique_nodes": unique_nodes,
+        "namespaced_edges": G.number_of_edges(),
+        "unique_gene_gene_edges": len(bare_pairs),
+        "identity_edges": n_identity_edges,
+    }
 # ---------------------------------------------------------------------------
 # I/O
 # ---------------------------------------------------------------------------
@@ -600,13 +620,16 @@ def main():
     seed_set = set(raw_seeds)
 
     cell_types = get_cell_types(module_df)
+    counts = unique_gene_and_edge_counts(G, module_df)
 
     print("\n" + "=" * 70)
     print("MODULE OVERVIEW")
     print("=" * 70)
-    print(f"Total nodes           : {G.number_of_nodes():,}")
-    print(f"Total edges           : {G.number_of_edges():,}")
-    print(f"Cell types represented: {len(cell_types)}")
+    print(f"Total nodes (ct::gene)        : {counts['unique_nodes']:,}")
+    print(f"Unique genes (bare symbols)   : {counts['unique_genes']:,}")
+    print(f"Total edges (namespaced)      : {counts['namespaced_edges']:,}")
+    print(f"  of which cross-layer identity edges : {counts['identity_edges']:,}")
+    print(f"Unique gene-gene edges (collapsed across cell types) : {counts['unique_gene_gene_edges']:,}")
     for ct in cell_types:
         print(f"  - {ct}")
 
@@ -645,8 +668,12 @@ def main():
     print("\n" + "-" * 70)
     print("SEED DIAGNOSTICS (within final module)")
     print("-" * 70)
+    unique_seed_nodes = set(raw_seeds)
+    unique_seed_gene_set = {_gene_of(s) for s in raw_seeds}
+    
     print(f"Seed lines in seeds.txt      : {len(raw_seeds)}")
-    print(f"Unique seed genes            : {len(set(raw_seeds))}")
+    print(f"Unique seed nodes (ct::gene) : {len(unique_seed_nodes)}")
+    print(f"Unique seed genes (bare)     : {len(unique_seed_gene_set)}")
     if dup_in_file:
         print(f"Duplicate lines in seeds.txt : {len(dup_in_file)} gene(s) -> {dup_in_file}")
     else:
@@ -824,14 +851,18 @@ def main():
         "=" * 70,
         "MODULE EXPLORATORY DIAGNOSTICS",
         "=" * 70,
-        f"Total nodes: {G.number_of_nodes():,}   Total edges: {G.number_of_edges():,}",
+        f"Total nodes: {counts['unique_nodes']:,}   Unique genes: {counts['unique_genes']:,}",
+        f"Total edges (namespaced): {counts['namespaced_edges']:,}   "
+        f"Unique gene-gene edges: {counts['unique_gene_gene_edges']:,}   "
+        f"Identity edges: {counts['identity_edges']:,}",
         f"Cell types represented: {len(cell_types)}",
         "",
         "Per-cell-type breakdown:",
         pl.to_string(index=False),
         "",
         f"Isolated nodes overall: {len(isolated_all):,} (of which seeds: {len(isolated_seeds_all)})",
-        f"Seed lines in seeds.txt: {len(raw_seeds)}  | unique: {len(set(raw_seeds))}  "
+        f"Seed lines in seeds.txt: {len(raw_seeds)}  | unique nodes: {len(set(raw_seeds))}  "
+        f"| unique genes: {len({_gene_of(s) for s in raw_seeds})}  "
         f"| duplicate lines: {dup_in_file if dup_in_file else 'none'}",
         f"Seeds in final module: {sm['in_final_module'].sum()} / {len(sm)}",
         f"Seeds isolated in module: {sm['isolated_in_module'].sum()}",

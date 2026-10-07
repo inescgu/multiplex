@@ -43,7 +43,7 @@ USAGE
 """
 import argparse
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 import pandas as pd
 import networkx as nx
@@ -91,19 +91,24 @@ def build_dag(nodes_df, edges_df, relation_filter=None):
             G.add_edge(p, c)
     return G
 
-
 def compute_monotonicity(G):
-    ok, total = 0, 0
+    """Excludes edges out of roots (the weave root has persistence 0 by construction).
+    Returns (frac >=, frac strict >, violations)."""
+    roots = {n for n in G if G.in_degree(n) == 0}
+    ge = gt = total = 0
     violations = []
     for p, c in G.edges():
+        if p in roots:
+            continue
         total += 1
         pp, pc = G.nodes[p]["persistence"], G.nodes[c]["persistence"]
-        if pp >= pc:
-            ok += 1
-        else:
+        ge += pp >= pc
+        gt += pp > pc
+        if pp < pc:
             violations.append((p, c, pp, pc))
-    frac = ok / total if total else np.nan
-    return frac, violations
+    if not total:
+        return np.nan, np.nan, violations
+    return ge / total, gt / total, violations
 
 
 def compute_depth_and_descendants(G):
@@ -118,46 +123,49 @@ def compute_depth_and_descendants(G):
     return depth, n_descendants, roots
 
 
-def label_nesting_permutation_test(G, labels, n_perm=2000, seed=0):
-    """labels: dict cluster_id -> 'broad' | 'specific' | None (unlabeled
-    clusters ignored). Test statistic: mean depth-difference between
-    'specific' descendants and their nearest labeled 'broad' ancestor,
-    vs. the same statistic computed on randomly permuted labels (holding
-    the DAG topology fixed). A more negative/positive observed value than
-    the permutation distribution supports genuine nesting rather than
-    label placement being independent of hierarchy position."""
-    labeled_nodes = [n for n, lab in labels.items() if lab in ("broad", "specific") and n in G.nodes]
+def label_nesting_permutation_test(G, labels, n_perm=2000, seed=0, n_strata=5):
+    """Fraction of 'specific' clusters with >=1 'broad' ancestor, vs. two nulls:
+    (a) labels shuffled uniformly, (b) labels shuffled WITHIN cluster-size strata
+    (controls for 'big clusters hit more enrichment labels')."""
+    labeled_nodes = [n for n, lab in labels.items()
+                     if lab in ("broad", "specific") and n in G.nodes]
     if len(labeled_nodes) < 6:
         return None
 
-    def statistic(lab_map):
-        broad_nodes = {n for n in labeled_nodes if lab_map[n] == "broad"}
-        specific_nodes = {n for n in labeled_nodes if lab_map[n] == "specific"}
-        if not broad_nodes or not specific_nodes:
-            return np.nan
-        hits = 0
-        for s in specific_nodes:
-            ancestors = nx.ancestors(G, s)
-            if ancestors & broad_nodes:
-                hits += 1
-        return hits / len(specific_nodes)
+    anc = {n: nx.ancestors(G, n) for n in labeled_nodes}      # computed once
+    lab_values = np.array([labels[n] for n in labeled_nodes], dtype=object)
+    sizes = np.array([G.nodes[n]["size"] for n in labeled_nodes], dtype=float)
+    strata = np.asarray(pd.qcut(np.log(sizes), q=n_strata, labels=False, duplicates="drop"))
 
-    observed = statistic(labels)
+    def statistic(lab_arr):
+        broad = {n for n, l in zip(labeled_nodes, lab_arr) if l == "broad"}
+        specific = [n for n, l in zip(labeled_nodes, lab_arr) if l == "specific"]
+        if not broad or not specific:
+            return np.nan
+        return sum(1 for s in specific if anc[s] & broad) / len(specific)
+
+    observed = statistic(lab_values)
     rng = np.random.default_rng(seed)
-    lab_values = [labels[n] for n in labeled_nodes]
-    null_stats = []
+    null_u, null_s = [], []
     for _ in range(n_perm):
-        shuffled = rng.permutation(lab_values)
-        perm_map = dict(zip(labeled_nodes, shuffled))
-        full_map = {**labels, **perm_map}
-        null_stats.append(statistic(full_map))
-    null_stats = np.array([x for x in null_stats if not np.isnan(x)])
-    p_value = float(np.mean(null_stats >= observed)) if len(null_stats) else np.nan
+        null_u.append(statistic(rng.permutation(lab_values)))
+        perm = lab_values.copy()
+        for b in np.unique(strata):
+            idx = np.where(strata == b)[0]
+            perm[idx] = rng.permutation(lab_values[idx])
+        null_s.append(statistic(perm))
+    null_u = np.array([x for x in null_u if not np.isnan(x)])
+    null_s = np.array([x for x in null_s if not np.isnan(x)])
+
+    def pval(null):
+        return (1 + float(np.sum(null >= observed))) / (1 + len(null)) if len(null) else np.nan
+
     return {
         "observed_frac_specific_with_broad_ancestor": observed,
-        "null_mean": float(null_stats.mean()) if len(null_stats) else np.nan,
-        "null_std": float(null_stats.std()) if len(null_stats) else np.nan,
-        "p_value": p_value,
+        "null_mean_unstratified": float(null_u.mean()) if len(null_u) else np.nan,
+        "null_mean_size_stratified": float(null_s.mean()) if len(null_s) else np.nan,
+        "p_value_unstratified": pval(null_u),
+        "p_value_size_stratified": pval(null_s),
         "n_broad_labeled": sum(1 for v in labels.values() if v == "broad"),
         "n_specific_labeled": sum(1 for v in labels.values() if v == "specific"),
     }
@@ -196,7 +204,7 @@ def main():
     ap.add_argument("--enrichment-pval-col", default="adjusted_p_value")
     ap.add_argument("--broad-min-labels", type=int, default=3)
     args = ap.parse_args()
-
+    write_manifest(Path(args.output_prefix).parent, args, inputs=[args.nodes_file, args.edges_file])
     print("Loading .nodes and .edges ...")
     nodes_df = load_nodes(args.nodes_file)
     edges_df = load_edges(args.edges_file)
@@ -207,8 +215,9 @@ def main():
     lines = ["=" * 70, "FIX 4: DAG NESTING ANALYSIS", "=" * 70, ""]
 
     # ---- 1. monotonicity ----
-    frac_ok, violations = compute_monotonicity(G)
-    line = f"Monotonicity: {frac_ok:.1%} of parent->child edges satisfy persistence(parent) >= persistence(child)"
+    frac_ok, frac_strict, violations = compute_monotonicity(G)
+    line = (f"Monotonicity (root edges excluded): {frac_ok:.1%} of parent->child edges satisfy "
+            f"persistence(parent) >= persistence(child); {frac_strict:.1%} strictly >")
     print(line)
     lines.append(line)
     if violations:
@@ -264,6 +273,25 @@ def main():
         print("\nLoading enrichment table for broad/specific labeling ...")
         sep = "\t" if args.enrichment_csv.endswith((".tsv", ".txt")) else ","
         enr = pd.read_csv(args.enrichment_csv, sep=sep)
+
+        # cluster IDs in the enrichment files carry the adapter's prefix; DAG nodes don't
+        enr[args.enrichment_cluster_col] = (enr[args.enrichment_cluster_col].astype(str)
+                                            .str.replace("HiDeF_Cluster_", "", regex=False))
+
+        need = [args.enrichment_cluster_col, args.enrichment_label_col, args.enrichment_pval_col]
+        missing = [c for c in need if c not in enr.columns]
+        if missing:
+            raise SystemExit(f"Missing columns {missing}. Available: {list(enr.columns)}")
+        enr = enr[need].drop_duplicates()
+
+        # do the IDs actually match DAG nodes?
+        enr_ids = set(enr[args.enrichment_cluster_col])
+        overlap = enr_ids & set(G.nodes)
+        print(f"  Cluster-ID overlap: {len(overlap):,} of {len(enr_ids):,} enrichment clusters found in the DAG")
+        if not overlap:
+            raise SystemExit(f"No ID overlap. Enrichment IDs look like {sorted(enr_ids)[:3]}, "
+                             f"DAG IDs look like {sorted(G.nodes)[:3]}")
+
         labels = derive_broad_specific_labels(
             enr, args.enrichment_cluster_col, args.enrichment_label_col,
             args.enrichment_pval_col, broad_min_labels=args.broad_min_labels)

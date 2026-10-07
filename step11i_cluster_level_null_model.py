@@ -1,57 +1,52 @@
 #!/usr/bin/env python3
 """
-step11i_cluster_level_null_model.py
+step11i_cluster_level_null_model.py  (parallel / resumable version)
 
-FIX 3 (proper null) + FIX 6 (leave-one-out robustness) -- addresses the gap
-you spotted yourself: step10/step10b's permutation tests validate the
-disease MODULE (is it more connected / more functionally enriched than
-degree-matched random seed neighborhoods?) but never re-run HiDeF on the
-null modules. That means you currently have no evidence that the
-persistence HIERARCHY itself -- broad high-persistence clusters nesting
-disease-specific low-persistence ones -- is anything other than what you'd
-get from clustering ANY RWR-expanded neighborhood in this network,
-regardless of which genes you started from.
+Cluster-level null model (Fix 3) + leave-one-seed-out robustness (Fix 6),
+split into independent STAGES so they can run as SLURM job arrays:
 
-This script closes that gap directly:
+  --stage true   Re-cluster the true module (as read from disease_module.csv)
+                 AND a "rebuilt" true module (same seeds -> same RWR/cap code
+                 path as the nulls). Writes true_summary.json. Run once.
+  --stage null   Run --n-perms degree-matched null permutations for task
+                 --task-id. Global perm index = task_id * n_perms + i, and each
+                 perm's RNG depends only on (seed, perm_idx), so results do not
+                 depend on how perms are split across tasks. Appends one row
+                 per perm to null_perms.csv (resumable).
+  --stage loo    Leave-one-seed-out for seeds[task_id::n_tasks]. Needs --true-dir.
 
-  NULL A (structural, matches step10's Null 1 logic): degree-matched random
-      seeds -> sparse RWR -> null module -> actually re-cluster the null
-      module's own induced subgraph with the SAME windowed-HiDeF recipe
-      (Leiden resolution sweep + windowed consensus, using hidef_finder's
-      own Cluster/ClusterGraph/consensus -- not a reimplementation) -> record
-      hierarchy-shape summary statistics -> repeat N times -> compare the
-      TRUE module's own hierarchy-shape statistics against this null
-      distribution.
+Aggregation (p-values, plots, budget suggestion) is in step11i_aggregate.py.
 
-  LEAVE-ONE-SEED-OUT (Fix 6): for each true seed gene, drop only that one
-      seed, rebuild the module via RWR from the remaining seeds, re-cluster
-      it the same way, and measure how much the resulting top-persistence
-      ("broadest") cluster's gene membership shifts (Jaccard) relative to
-      the full-seed-set result. If persistence rank is highly sensitive to
-      any single seed, your hierarchy is fragile and "persistence" is partly
-      measuring curation choices, not robust network structure.
-
-NOTE ON COST: re-clustering (Leiden sweep x gammas x restarts, per
-permutation) is much more expensive than the topology-only nulls in
-step10/step10b. This script runs the sweep on the NULL MODULE'S OWN induced
-subgraph (typically hundreds of nodes), not the full genome-scale network,
-which is what makes repeating it O(100) times per run practical. Start with
---n-perms 30-50 to sanity check before committing to more.
-
-Requires: leidenalg, python-igraph, hidef (for Cluster/ClusterGraph/consensus).
-
-USAGE
------
-    python step11i_cluster_level_null_model.py \
-        --reference-graph gene_reference_graph.pkl \
-        --disease-module-dir 06_disease_module \
-        --n-perms 50 \
-        --min-resolution 0.01 --max-resolution 10 --n-resolutions 30 \
-        --neighbors 3 \
-        --output-dir 11i_cluster_level_null
+CHANGES vs. the single-process version
+--------------------------------------
+1. run_rwr_module(): connectivity-extension loop is capped (--cap-factor x true
+   module size). If still disconnected at the cap, the module becomes its
+   largest connected component (LCC). Perms whose LCC is < --min-lcc-factor x
+   true size are skipped and logged (status column), not silently dropped.
+2. CPM gamma grid is calibrated PER MODULE (--gamma-mode calibrated): probe a
+   coarse gamma ladder, find where the module splits from 1 community into >=2
+   (lo) and where fewer than half the nodes sit in communities >= minsize (hi),
+   then geomspace(lo, hi, n_resolutions). Every module (true or null) is swept
+   from its own root to its own leaves with the same number of partitions, so
+   persistence values are comparable. --gamma-mode fixed restores old behaviour.
+3. "Top" cluster = max persistence, ties broken by size (argmax on ties was
+   arbitrary before, which would make LOO Jaccards noisy).
+4. Per-perm CSV append, timestamps, flushed logs, RSS/peak-RSS, ETA, optional
+   per-perm timeout, deterministic per-perm RNG.
+5. LOO is compared to a REBUILT full-seed module (same code path), not only to
+   the module read from file, so RWR-parameter differences are not mistaken
+   for seed sensitivity. Both Jaccards are reported.
 """
 import argparse
+import gc
+import json
+import math
+import os
 import pickle
+import resource
+import signal
+import socket
+import sys
 import time
 from collections import defaultdict
 from pathlib import Path
@@ -62,15 +57,64 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 from scipy import sparse
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
-from hidef.hidef_finder import Cluster, ClusterGraph, consensus
+from provenance import write_manifest
+from hidef.hidef_finder import Cluster, ClusterGraph, consensus  # noqa: F401
+
+SUMMARY_KEYS = ["n_clusters", "max_persistence", "frac_at_max_persistence",
+                "n_distinct_persistence_values", "top_cluster_frac_of_module",
+                "mean_persistence"]
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# Reference-graph RWR (self-contained; mirrors step10/step10b's sparse RWR)
+# Logging / resource helpers
+# ─────────────────────────────────────────────────────────────────────────
+
+def log(msg):
+    print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
+
+
+def rss_gb():
+    """(current RSS, peak RSS) in GiB."""
+    cur = float("nan")
+    try:
+        with open("/proc/self/status") as f:
+            for line in f:
+                if line.startswith("VmRSS:"):
+                    cur = int(line.split()[1]) / 1024 ** 2  # kB -> GiB
+                    break
+    except OSError:
+        pass
+    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024 ** 2  # kB -> GiB
+    return cur, peak
+
+
+class PermTimeout(Exception):
+    pass
+
+
+def _alarm_handler(signum, frame):
+    raise PermTimeout()
+
+
+signal.signal(signal.SIGALRM, _alarm_handler)
+
+
+def append_row(path, row, cols):
+    df = pd.DataFrame([row]).reindex(columns=cols)
+    df.to_csv(path, mode="a", header=not path.exists(), index=False)
+
+
+def to_jsonable(o):
+    if hasattr(o, "item"):
+        return o.item()
+    if isinstance(o, (set, tuple)):
+        return sorted(o)
+    return str(o)
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Reference-graph RWR
 # ─────────────────────────────────────────────────────────────────────────
 
 def build_transition_matrix(G, nodelist):
@@ -93,7 +137,14 @@ def rwr_power_iteration(M, p0, restart, max_iter=200, tol=1e-9):
     return p
 
 
-def run_rwr_module(G_ref, nodelist, idx_of, M, deg, seed_nodes, restart, k=200, scaling=0):
+def run_rwr_module(G_ref, nodelist, idx_of, M, deg, seed_nodes, restart, k=200,
+                   scaling=0, max_size=None):
+    """RWR -> seeds + top-k -> extend 10 nodes at a time until connected.
+
+    NEW: the extension stops once len(module) >= max_size (if given). If the
+    module is still disconnected, it is reduced to its largest connected
+    component. Returns a dict (or None if no seed is in the graph).
+    """
     n = len(nodelist)
     seeds_in_graph = [g for g in seed_nodes if g in idx_of]
     if not seeds_in_graph:
@@ -111,20 +162,33 @@ def run_rwr_module(G_ref, nodelist, idx_of, M, deg, seed_nodes, restart, k=200, 
 
     module = list(seeds_set) + ranked_nodes[:k]
     module_set = set(module)
+    cap = max(max_size, len(module)) if max_size else None
     extra_idx = k
-    while extra_idx < len(ranked_nodes):
+    connected, capped = False, False
+    while True:
         sg = G_ref.subgraph(module)
         if nx.is_connected(sg):
+            connected = True
             break
-        batch = ranked_nodes[extra_idx: extra_idx + 10]
-        if not batch:
+        if extra_idx >= len(ranked_nodes):
             break
-        for g in batch:
+        if cap is not None and len(module) >= cap:
+            capped = True
+            break
+        for g in ranked_nodes[extra_idx: extra_idx + 10]:
             if g not in module_set:
                 module.append(g)
                 module_set.add(g)
         extra_idx += 10
-    return module
+
+    raw_size = len(module)
+    if connected:
+        final = module
+    else:
+        lcc = max(nx.connected_components(G_ref.subgraph(module)), key=len)
+        final = [m for m in module if m in lcc]
+    return {"module": final, "raw_size": raw_size, "connected_raw": connected,
+            "capped": capped, "n_seeds_in_final": len(seeds_set & set(final))}
 
 
 def build_degree_bins(G, bin_size=5):
@@ -135,28 +199,25 @@ def build_degree_bins(G, bin_size=5):
 
 
 def sample_degree_matched_seeds(true_seeds, G, degree_bins, rng, bin_size=5):
+    true_set = set(true_seeds)
     sampled = set()
     for seed in true_seeds:
         deg = G.degree(seed)
         bin_key = (deg // bin_size) * bin_size
-        candidates = [n for n in degree_bins[bin_key] if n not in sampled and n not in true_seeds]
+        candidates = [n for n in degree_bins[bin_key] if n not in sampled and n not in true_set]
         if not candidates:
             for offset in [bin_size, -bin_size, 2 * bin_size, -2 * bin_size]:
                 candidates = [n for n in degree_bins.get(bin_key + offset, [])
-                              if n not in sampled and n not in true_seeds]
+                              if n not in sampled and n not in true_set]
                 if candidates:
                     break
         if candidates:
-            sampled.add(rng.choice(candidates))
+            sampled.add(str(rng.choice(candidates)))
     return list(sampled)
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# Re-clustering a module's own induced subgraph with windowed HiDeF
-# (reuses hidef_finder's own Cluster/ClusterGraph/consensus, same as
-# step11c_phase1_consensus_windowed.py -- only the resolution-graph
-# construction is reimplemented here, condensed to a single-graph,
-# single-omega case)
+# Windowed HiDeF re-clustering of a module's own induced subgraph
 # ─────────────────────────────────────────────────────────────────────────
 
 def nx_to_igraph(G_sub):
@@ -169,18 +230,21 @@ def nx_to_igraph(G_sub):
     return g, nodes
 
 
+PARTITION_CLASS = {"RB": la.RBConfigurationVertexPartition,
+                   "CPM": la.CPMVertexPartition}
+
+
 def leiden_sweep(g_ig, gammas, n_restarts, base_seed, partition_type="RB"):
-    PartitionClass = {"RB": la.RBConfigurationVertexPartition,
-                       "CPM": la.CPMVertexPartition}[partition_type]
+    PartitionClass = PARTITION_CLASS[partition_type]
     partitions = []
     run_i = 0
     for gamma in gammas:
         for r in range(n_restarts):
             run_i += 1
-            part = la.find_partition(g_ig, PartitionClass, resolution_parameter=gamma,
-                                      seed=base_seed + run_i, n_iterations=-1)
+            part = la.find_partition(g_ig, PartitionClass, resolution_parameter=float(gamma),
+                                     seed=base_seed + run_i, n_iterations=-1)
             partitions.append({"membership": list(part.membership), "gamma": float(gamma),
-                                "restart": r})
+                               "restart": r})
     return partitions
 
 
@@ -198,16 +262,18 @@ def membership_to_csr(membership, minsize=4):
     return sparse.coo_matrix((data, (row, col)), shape=(len(keep), len(membership))).tocsr()
 
 
+def rank_of_resname(resname):
+    return float(resname)
+
+
 def windowed_consensus(partitions, n_nodes, minsize, jaccard_thr, chi, consensus_p, neighbors):
-    """Single-omega version of step11c's windowed resolution graph: sort
-    partitions by (gamma, restart), link each to its `neighbors` nearest
-    neighbors in that order, feed hidef_finder's own consensus() the result."""
+    """Single-omega windowed resolution graph -> hidef_finder.consensus()."""
     cluG = ClusterGraph()
     cluG.graph["sim_threshold"] = jaccard_thr
     cluG.graph["num_leaves"] = n_nodes
 
     ordered = sorted(range(len(partitions)),
-                      key=lambda i: (partitions[i]["gamma"], partitions[i]["restart"]))
+                     key=lambda i: (partitions[i]["gamma"], partitions[i]["restart"]))
     resolution_graph = nx.Graph()
     resname_of = {}
     for rank, orig_i in enumerate(ordered):
@@ -215,8 +281,13 @@ def windowed_consensus(partitions, n_nodes, minsize, jaccard_thr, chi, consensus
         resname_of[orig_i] = resname
         resolution_graph.add_node(resname, padded=True)
     names_in_order = [resname_of[i] for i in ordered]
+    gammas_sorted = sorted({partitions[i]["gamma"] for i in ordered})
+    grank = {gm: k for k, gm in enumerate(gammas_sorted)}
+    ranks = [grank[partitions[i]["gamma"]] for i in ordered]
     for a in range(len(names_in_order)):
-        for b in range(a + 1, min(a + 1 + neighbors, len(names_in_order))):
+        for b in range(a + 1, len(names_in_order)):
+            if ranks[b] - ranks[a] > neighbors:
+                break
             resolution_graph.add_edge(names_in_order[a], names_in_order[b])
 
     for orig_i in ordered:
@@ -226,25 +297,21 @@ def windowed_consensus(partitions, n_nodes, minsize, jaccard_thr, chi, consensus
         resolution_graph.nodes[resname]["matrix"] = mat
         cluG.add_clusters(resolution_graph, rank_of_resname(resname))
 
-    cluG_collapsed_w_len = consensus(cluG, k=chi, f=1.0, p=consensus_p)
-    return cluG_collapsed_w_len
+    return consensus(cluG, k=chi, f=1.0, p=consensus_p)
 
 
-def rank_of_resname(resname):
-    return float(resname)
+def top_cluster_index(sizes, persistences):
+    """Max persistence; ties broken by larger size (deterministic)."""
+    return int(np.lexsort((sizes, persistences))[-1])
 
 
-def summarize_hierarchy(cluG_collapsed_w_len, n_nodes_in_module, n_partitions):
-    """Compact set of "hierarchy shape" statistics comparable across
-    modules of different sizes. This is what gets compared true-vs-null."""
+def summarize_hierarchy(cluG_collapsed_w_len, n_nodes_in_module):
     if not cluG_collapsed_w_len:
-        return {"n_clusters": 0, "max_persistence": 0, "frac_at_max_persistence": 0.0,
-                "n_distinct_persistence_values": 0, "top_cluster_frac_of_module": 0.0,
-                "mean_persistence": 0.0}
+        return {k: 0 for k in SUMMARY_KEYS}
     sizes = np.array([int(np.sum(c[0])) for c in cluG_collapsed_w_len])
     persistences = np.array([c[1] for c in cluG_collapsed_w_len])
     pmax = persistences.max()
-    top_idx = np.argmax(persistences)
+    top_idx = top_cluster_index(sizes, persistences)
     return {
         "n_clusters": len(cluG_collapsed_w_len),
         "max_persistence": float(pmax),
@@ -255,28 +322,332 @@ def summarize_hierarchy(cluG_collapsed_w_len, n_nodes_in_module, n_partitions):
     }
 
 
-def recluster_and_summarize(module_nodes, G_ref, gammas, n_restarts, neighbors,
-                             minsize, jaccard_thr, chi, consensus_p, base_seed,
-                             partition_type="RB"):
+# ─────────────────────────────────────────────────────────────────────────
+# Per-module gamma grid
+# ─────────────────────────────────────────────────────────────────────────
+
+def module_gamma_grid(g_ig, n, max_res, lo_mult=0.1):
+    """Density-based fallback (old heuristic)."""
+    nv = g_ig.vcount()
+    dens = 2 * g_ig.ecount() / (nv * (nv - 1)) if nv > 1 else 0.01
+    lo = max(dens * lo_mult, 1e-4)
+    hi = min(max_res, 0.9)
+    if lo >= hi:
+        lo = hi / 100
+    return np.geomspace(lo, hi, n)
+
+
+def calibrate_gamma_grid(g_ig, n_grid, minsize, partition_type, probe_lo, probe_hi,
+                         seed, n_probe=30, coverage_floor=0.5):
+    """Find the gamma window over which THIS module goes from root to leaves.
+
+    lo  = last probe gamma before the module first splits into >=2 communities
+          of size >= minsize (the "root" end).
+    hi  = first probe gamma at which < coverage_floor of nodes sit in
+          communities of size >= minsize (the "leaf" end).
+    Returns (grid or None, probe_rows). None => no split found (use fallback).
+    """
+    nv = g_ig.vcount()
+    PartitionClass = PARTITION_CLASS[partition_type]
+    probes = np.geomspace(probe_lo, probe_hi, n_probe)
+    rows = []
+    for j, gm in enumerate(probes):
+        part = la.find_partition(g_ig, PartitionClass, resolution_parameter=float(gm),
+                                 seed=int(seed + j), n_iterations=-1)
+        sizes = np.bincount(part.membership)
+        big = sizes[sizes >= minsize]
+        rows.append({"gamma": float(gm), "n_comm_total": int(len(sizes)),
+                     "n_comm_ge_minsize": int(len(big)),
+                     "coverage": float(big.sum() / nv)})
+    first_multi = next((j for j, r in enumerate(rows) if r["n_comm_ge_minsize"] >= 2), None)
+    if first_multi is None:
+        return None, rows
+    lo_idx = max(first_multi - 1, 0)
+    hi_idx = next((j for j in range(first_multi, len(rows))
+                   if rows[j]["coverage"] < coverage_floor), len(rows) - 1)
+    hi_idx = min(max(hi_idx, lo_idx + 1), len(rows) - 1)
+    return np.geomspace(probes[lo_idx], probes[hi_idx], n_grid), rows
+
+
+def get_gamma_grid(g_ig, args, seed):
+    fixed = np.geomspace(args.min_resolution, args.max_resolution, args.n_resolutions)
+    if args.gamma_mode == "fixed":
+        return fixed, [], "fixed"
+    if args.partition_type == "CPM":
+        plo, phi = 1e-4, min(args.max_resolution, 1.0)
+    else:
+        plo, phi = args.min_resolution / 10.0, args.max_resolution * 3.0
+    grid, probe_rows = calibrate_gamma_grid(g_ig, args.n_resolutions, args.minsize,
+                                            args.partition_type, plo, phi, seed)
+    if grid is None:
+        if args.partition_type == "CPM":
+            return module_gamma_grid(g_ig, args.n_resolutions, args.max_resolution), \
+                probe_rows, "fallback_density"
+        return fixed, probe_rows, "fallback_fixed"
+    return grid, probe_rows, "calibrated"
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Re-cluster one module
+# ─────────────────────────────────────────────────────────────────────────
+
+def recluster_module(module_nodes, G_ref, args, base_seed):
     sub = G_ref.subgraph(module_nodes).copy()
-    if sub.number_of_nodes() < minsize * 2:
-        return None, None
+    n_nodes = sub.number_of_nodes()
+    if n_nodes < args.minsize * 2:
+        return None
     g_ig, nodes = nx_to_igraph(sub)
-    partitions = leiden_sweep(g_ig, gammas, n_restarts, base_seed, partition_type)
-    cluG_collapsed_w_len = windowed_consensus(
-        partitions, len(nodes), minsize, jaccard_thr, chi, consensus_p, neighbors)
-    summary = summarize_hierarchy(cluG_collapsed_w_len, len(nodes), len(partitions))
-    top_cluster_genes = None
-    if cluG_collapsed_w_len:
-        top_idx = int(np.argmax([c[1] for c in cluG_collapsed_w_len]))
-        mask = cluG_collapsed_w_len[top_idx][0].astype(bool)
-        top_cluster_genes = {nodes[i] for i in np.where(mask)[0]}
-    return summary, top_cluster_genes
+
+    t0 = time.time()
+    gammas, probe_rows, gamma_status = get_gamma_grid(g_ig, args, seed=base_seed + 900)
+    t1 = time.time()
+    partitions = leiden_sweep(g_ig, gammas, args.n_restarts, base_seed, args.partition_type)
+    t2 = time.time()
+    cluG = windowed_consensus(partitions, n_nodes, args.minsize, args.jaccard,
+                              args.chi, args.consensus_p, args.neighbors)
+    t3 = time.time()
+
+    summary = summarize_hierarchy(cluG, n_nodes)
+    top_genes = None
+    if cluG:
+        sizes = np.array([int(np.sum(c[0])) for c in cluG])
+        pers = np.array([c[1] for c in cluG])
+        mask = cluG[top_cluster_index(sizes, pers)][0].astype(bool)
+        top_genes = {nodes[i] for i in np.where(mask)[0]}
+    return {"summary": summary, "top_genes": top_genes, "n_nodes": n_nodes,
+            "n_edges": sub.number_of_edges(), "gamma_lo": float(gammas[0]),
+            "gamma_hi": float(gammas[-1]), "gamma_status": gamma_status,
+            "n_partitions": len(partitions), "probe_rows": probe_rows,
+            "t_calibrate_s": t1 - t0, "t_leiden_s": t2 - t1, "t_consensus_s": t3 - t2}
 
 
 def jaccard(a, b):
     a, b = set(a), set(b)
     return len(a & b) / len(a | b) if (a or b) else 1.0
+
+
+def res_to_json(res, module_nodes=None):
+    d = {k: v for k, v in res.items() if k not in ("probe_rows", "top_genes")}
+    d["top_genes"] = sorted(res["top_genes"]) if res["top_genes"] else []
+    if module_nodes is not None:
+        d["module_nodes"] = sorted(module_nodes)
+    return d
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Stages
+# ─────────────────────────────────────────────────────────────────────────
+
+def run_true_stage(args, G_ref, nodelist, idx_of, M, deg, true_seeds, true_module,
+                   max_size, out):
+    log("TRUE stage: re-clustering module read from disease_module.csv ...")
+    res_file = recluster_module(true_module, G_ref, args, base_seed=args.seed)
+    if res_file is None:
+        raise SystemExit("True module too small to re-cluster with current --minsize.")
+    log(f"  file module: {res_file['n_nodes']} nodes, {res_file['n_edges']} edges, "
+        f"gamma [{res_file['gamma_lo']:.4g}, {res_file['gamma_hi']:.4g}] ({res_file['gamma_status']}), "
+        f"{res_file['n_partitions']} partitions")
+    log(f"  summary: {res_file['summary']}")
+    log(f"  timings: calibrate {res_file['t_calibrate_s']:.1f}s, leiden {res_file['t_leiden_s']:.1f}s, "
+        f"consensus {res_file['t_consensus_s']:.1f}s | RSS {rss_gb()[0]:.2f} GiB, peak {rss_gb()[1]:.2f} GiB")
+    pd.DataFrame(res_file["probe_rows"]).to_csv(out / "gamma_probe_curve_file.csv", index=False)
+
+    log("TRUE stage: rebuilding module from the same seeds with this script's RWR/cap code ...")
+    rb = run_rwr_module(G_ref, nodelist, idx_of, M, deg, true_seeds, args.restart,
+                        k=args.k, max_size=max_size)
+    out_json = {"n_true_module": len(true_module), "n_true_seeds": len(true_seeds),
+                "seeds": true_seeds, "max_size_cap": max_size}
+    out_json["file"] = res_to_json(res_file, true_module)
+    if rb is None:
+        log("  WARNING: rebuild failed (no seeds in graph)")
+    else:
+        jac_mod = jaccard(true_module, rb["module"])
+        log(f"  rebuilt module: raw {rb['raw_size']} -> final {len(rb['module'])} nodes "
+            f"(connected_raw={rb['connected_raw']}, capped={rb['capped']}); "
+            f"Jaccard with file module = {jac_mod:.3f}")
+        if jac_mod < 0.8:
+            log("  WARNING: rebuilt module differs a lot from the file module. Check that "
+                "--restart / --k match what step06 used; nulls are built with THIS code path.")
+        res_rb = recluster_module(rb["module"], G_ref, args, base_seed=args.seed + 1)
+        if res_rb is not None:
+            out_json["rebuilt"] = res_to_json(res_rb, rb["module"])
+            out_json["rebuilt"].update({"module_size_raw": rb["raw_size"],
+                                        "connected_raw": rb["connected_raw"],
+                                        "capped": rb["capped"],
+                                        "jaccard_with_file_module": jac_mod})
+            pd.DataFrame(res_rb["probe_rows"]).to_csv(out / "gamma_probe_curve_rebuilt.csv", index=False)
+            log(f"  rebuilt summary: {res_rb['summary']}")
+    with open(out / "true_summary.json", "w") as f:
+        json.dump(out_json, f, indent=1, default=to_jsonable)
+    log(f"Wrote {out / 'true_summary.json'}")
+
+
+NULL_COLS = (["perm_idx", "task_id", "status", "n_seeds_sampled", "module_size_raw",
+              "module_size_final", "connected_raw", "capped", "n_nodes", "n_edges",
+              "gamma_lo", "gamma_hi", "gamma_status", "n_partitions",
+              "t_rwr_s", "t_calibrate_s", "t_leiden_s", "t_consensus_s", "t_total_s",
+              "rss_gb", "peak_rss_gb"] + SUMMARY_KEYS)
+
+
+def run_null_stage(args, G_ref, nodelist, idx_of, M, deg, true_seeds, true_module,
+                   max_size, out):
+    csv_path = out / "null_perms.csv"
+    done = set()
+    if csv_path.exists() and not args.no_resume:
+        done = set(pd.read_csv(csv_path)["perm_idx"].astype(int))
+        log(f"Resuming: {len(done)} perms already in {csv_path.name}")
+    min_lcc = int(args.min_lcc_factor * len(true_module))
+    degree_bins = build_degree_bins(G_ref, bin_size=args.bin_size)
+    log(f"NULL stage task {args.task_id}/{args.n_tasks}: {args.n_perms} perms "
+        f"(global idx {args.task_id * args.n_perms}..{(args.task_id + 1) * args.n_perms - 1}); "
+        f"module size cap {max_size}, min LCC {min_lcc}")
+
+    t_start = time.time()
+    n_done_now, t_sum = 0, 0.0
+    for i in range(args.n_perms):
+        perm_idx = args.task_id * args.n_perms + i
+        if perm_idx in done:
+            continue
+        row = {"perm_idx": perm_idx, "task_id": args.task_id, "status": "error"}
+        t_perm = time.time()
+        res = None
+        try:
+            if args.perm_timeout > 0:
+                signal.alarm(int(args.perm_timeout))
+            rng = np.random.default_rng([args.seed, perm_idx])
+            rand_seeds = sample_degree_matched_seeds(true_seeds, G_ref, degree_bins, rng,
+                                                     bin_size=args.bin_size)
+            row["n_seeds_sampled"] = len(rand_seeds)
+            if len(rand_seeds) < max(1, len(true_seeds) // 2):
+                row["status"] = "skip_too_few_seeds"
+            else:
+                t = time.time()
+                rm = run_rwr_module(G_ref, nodelist, idx_of, M, deg, rand_seeds,
+                                    args.restart, k=args.k, max_size=max_size)
+                row["t_rwr_s"] = time.time() - t
+                if rm is None:
+                    row["status"] = "skip_no_module"
+                else:
+                    row.update(module_size_raw=rm["raw_size"], connected_raw=rm["connected_raw"],
+                               capped=rm["capped"], module_size_final=len(rm["module"]))
+                    if len(rm["module"]) < min_lcc:
+                        row["status"] = "skip_small_lcc"
+                    else:
+                        res = recluster_module(rm["module"], G_ref, args,
+                                               base_seed=args.seed + 1_000_000 + perm_idx * 1000)
+                        if res is None:
+                            row["status"] = "skip_too_small"
+                        else:
+                            row.update(res["summary"])
+                            row.update({k: res[k] for k in
+                                        ("n_nodes", "n_edges", "gamma_lo", "gamma_hi", "gamma_status",
+                                         "n_partitions", "t_calibrate_s", "t_leiden_s", "t_consensus_s")})
+                            row["status"] = "ok"
+        except PermTimeout:
+            row["status"] = "timeout"
+        except MemoryError:
+            row["status"] = "memoryerror"
+        finally:
+            signal.alarm(0)
+
+        row["t_total_s"] = time.time() - t_perm
+        row["rss_gb"], row["peak_rss_gb"] = rss_gb()
+        append_row(csv_path, row, NULL_COLS)
+
+        n_done_now += 1
+        t_sum += row["t_total_s"]
+        remaining = sum(1 for j in range(i + 1, args.n_perms)
+                        if args.task_id * args.n_perms + j not in done)
+        eta = (t_sum / n_done_now) * remaining
+        if row["status"] == "ok":
+            log(f"perm {perm_idx} [{i + 1}/{args.n_perms}] ok | module raw {row['module_size_raw']}"
+                f"->{row['module_size_final']} (conn_raw={row['connected_raw']}, capped={row['capped']}) | "
+                f"clusters {row['n_clusters']}, maxpers {row['max_persistence']:.3g} | "
+                f"gamma [{row['gamma_lo']:.3g},{row['gamma_hi']:.3g}] {row['gamma_status']} | "
+                f"{row['t_total_s']:.0f}s (rwr {row.get('t_rwr_s', 0):.1f}, cal {row['t_calibrate_s']:.1f}, "
+                f"leiden {row['t_leiden_s']:.1f}, cons {row['t_consensus_s']:.1f}) | "
+                f"RSS {row['rss_gb']:.2f} GiB, peak {row['peak_rss_gb']:.2f} GiB | ETA {eta / 60:.1f} min")
+        else:
+            log(f"perm {perm_idx} [{i + 1}/{args.n_perms}] {row['status']} | module raw "
+                f"{row.get('module_size_raw')}->{row.get('module_size_final')} | "
+                f"{row['t_total_s']:.0f}s | peak {row['peak_rss_gb']:.2f} GiB")
+        del res
+        gc.collect()
+
+    if csv_path.exists():
+        df = pd.read_csv(csv_path)
+        log("Status counts: " + ", ".join(f"{k}={v}" for k, v in df["status"].value_counts().items()))
+    log(f"NULL task {args.task_id} finished in {(time.time() - t_start) / 60:.1f} min")
+
+
+LOO_COLS = (["dropped_seed", "seed_idx", "status", "module_size_raw", "module_size_final",
+             "capped", "module_jaccard_vs_rebuilt", "top_cluster_jaccard_vs_rebuilt",
+             "top_cluster_jaccard_vs_file", "n_nodes", "gamma_lo", "gamma_hi",
+             "t_total_s", "rss_gb", "peak_rss_gb"] + SUMMARY_KEYS)
+
+
+def run_loo_stage(args, G_ref, nodelist, idx_of, M, deg, true_seeds, true_module,
+                  max_size, out):
+    tj_path = Path(args.true_dir) / "true_summary.json"
+    if not tj_path.exists():
+        raise SystemExit(f"{tj_path} not found; run --stage true first.")
+    with open(tj_path) as f:
+        tj = json.load(f)
+    if "rebuilt" not in tj:
+        raise SystemExit("true_summary.json has no 'rebuilt' entry; cannot do LOO.")
+    ref_top = set(tj["rebuilt"]["top_genes"])
+    ref_mod = set(tj["rebuilt"]["module_nodes"])
+    file_top = set(tj["file"]["top_genes"])
+
+    csv_path = out / "loo.csv"
+    done = set()
+    if csv_path.exists() and not args.no_resume:
+        done = set(pd.read_csv(csv_path)["dropped_seed"].astype(str))
+    mine = [(j, s) for j, s in enumerate(true_seeds) if j % args.n_tasks == args.task_id]
+    log(f"LOO stage task {args.task_id}/{args.n_tasks}: {len(mine)} of {len(true_seeds)} seeds")
+
+    for n_i, (j, dropped) in enumerate(mine):
+        if dropped in done:
+            continue
+        row = {"dropped_seed": dropped, "seed_idx": j, "status": "error"}
+        t0 = time.time()
+        try:
+            if args.perm_timeout > 0:
+                signal.alarm(int(args.perm_timeout))
+            reduced = [s for s in true_seeds if s != dropped]
+            rm = run_rwr_module(G_ref, nodelist, idx_of, M, deg, reduced, args.restart,
+                                k=args.k, max_size=max_size)
+            if rm is None:
+                row["status"] = "skip_no_module"
+            else:
+                row.update(module_size_raw=rm["raw_size"], module_size_final=len(rm["module"]),
+                           capped=rm["capped"],
+                           module_jaccard_vs_rebuilt=jaccard(ref_mod, rm["module"]))
+                res = recluster_module(rm["module"], G_ref, args,
+                                       base_seed=args.seed + 2_000_000 + j * 1000)
+                if res is None:
+                    row["status"] = "skip_too_small"
+                else:
+                    tg = res["top_genes"] or set()
+                    row.update(res["summary"])
+                    row.update(n_nodes=res["n_nodes"], gamma_lo=res["gamma_lo"],
+                               gamma_hi=res["gamma_hi"],
+                               top_cluster_jaccard_vs_rebuilt=jaccard(ref_top, tg),
+                               top_cluster_jaccard_vs_file=jaccard(file_top, tg))
+                    row["status"] = "ok"
+        except PermTimeout:
+            row["status"] = "timeout"
+        finally:
+            signal.alarm(0)
+        row["t_total_s"] = time.time() - t0
+        row["rss_gb"], row["peak_rss_gb"] = rss_gb()
+        append_row(csv_path, row, LOO_COLS)
+        log(f"[{n_i + 1}/{len(mine)}] dropped {dropped}: {row['status']} | "
+            f"module Jaccard {row.get('module_jaccard_vs_rebuilt', float('nan')):.3f} | "
+            f"top-cluster Jaccard vs rebuilt {row.get('top_cluster_jaccard_vs_rebuilt', float('nan')):.3f} | "
+            f"{row['t_total_s']:.0f}s | peak {row['peak_rss_gb']:.2f} GiB")
+        gc.collect()
+    log("LOO task finished")
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -285,48 +656,67 @@ def jaccard(a, b):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
-                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--stage", choices=["true", "null", "loo"], required=True)
+    ap.add_argument("--task-id", type=int, default=0, help="SLURM_ARRAY_TASK_ID")
+    ap.add_argument("--n-tasks", type=int, default=1, help="number of array tasks (loo striding)")
+    ap.add_argument("--true-dir", default=None, help="dir containing true_summary.json (loo)")
     ap.add_argument("--reference-graph", required=True)
     ap.add_argument("--disease-module-dir", required=True)
     ap.add_argument("--restart", type=float, default=0.7)
     ap.add_argument("--k", type=int, default=200)
-    ap.add_argument("--n-perms", type=int, default=50)
+    ap.add_argument("--n-perms", type=int, default=50, help="perms PER TASK (null stage)")
     ap.add_argument("--bin-size", type=int, default=5)
     ap.add_argument("--min-resolution", type=float, default=0.01)
     ap.add_argument("--max-resolution", type=float, default=10.0)
     ap.add_argument("--n-resolutions", type=int, default=30)
     ap.add_argument("--n-restarts", type=int, default=1)
     ap.add_argument("--neighbors", type=int, default=3,
-                     help="MUST match whatever --neighbors you used for the real "
-                          "heterogeneous_hidef_faithful*.nodes result, or this isn't "
-                          "an apples-to-apples comparison.")
+                    help="MUST match the --neighbors of the real heterogeneous_hidef run.")
     ap.add_argument("--minsize", type=int, default=4)
     ap.add_argument("--jaccard", type=float, default=0.75)
     ap.add_argument("--chi", type=int, default=5)
     ap.add_argument("--consensus-p", type=int, default=75)
     ap.add_argument("--partition-type", choices=["RB", "CPM"], default="RB")
+    ap.add_argument("--gamma-mode", choices=["calibrated", "fixed"], default="calibrated",
+                    help="calibrated: per-module gamma window; fixed: geomspace(min,max).")
+    ap.add_argument("--cap-factor", type=float, default=1.5,
+                    help="stop extending a module for connectivity at cap-factor x true module size")
+    ap.add_argument("--min-lcc-factor", type=float, default=0.5,
+                    help="skip null perms whose final module is < this x true module size")
+    ap.add_argument("--perm-timeout", type=int, default=0,
+                    help="seconds per perm/LOO item before it is abandoned (0 = off)")
+    ap.add_argument("--no-resume", action="store_true")
     ap.add_argument("--seed", type=int, default=42)
-    ap.add_argument("--run-leave-one-out", action="store_true",
-                     help="Also run Fix 6: drop each true seed one at a time, rebuild + "
-                          "recluster, measure top-cluster Jaccard drift.")
     ap.add_argument("--output-dir", required=True)
     args = ap.parse_args()
 
-    rng = np.random.default_rng(args.seed)
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+    except Exception:
+        pass
     out = Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    gammas = np.geomspace(args.min_resolution, args.max_resolution, args.n_resolutions)
+    write_manifest(args.output_dir, args, inputs=[args.reference_graph])
 
-    print("Loading reference graph ...")
+    log(f"step11i stage={args.stage} task={args.task_id}/{args.n_tasks} host={socket.gethostname()} "
+        f"SLURM_JOB_ID={os.environ.get('SLURM_JOB_ID')} ARRAY_TASK={os.environ.get('SLURM_ARRAY_TASK_ID')}")
+    log(f"args: {vars(args)}")
+
+    t0 = time.time()
+    log("Loading reference graph ...")
     with open(args.reference_graph, "rb") as f:
         G_ref = pickle.load(f)
     G_ref = nx.relabel_nodes(G_ref, {n: str(n).strip() for n in G_ref.nodes()})
     nodelist = sorted(G_ref.nodes())
+    log(f"  {G_ref.number_of_nodes():,} nodes, {G_ref.number_of_edges():,} edges "
+        f"({time.time() - t0:.0f}s) | RSS {rss_gb()[0]:.2f} GiB")
     M, idx_of, deg = build_transition_matrix(G_ref, nodelist)
-    print(f"  {G_ref.number_of_nodes():,} nodes, {G_ref.number_of_edges():,} edges")
+    log(f"  transition matrix built | RSS {rss_gb()[0]:.2f} GiB, peak {rss_gb()[1]:.2f} GiB "
+        f"(this is the per-task baseline; --mem must exceed it plus per-perm growth)")
 
     dm_dir = Path(args.disease_module_dir)
-    module_df = pd.read_csv(dm_dir / "disease_module.csv")
+    module_df = pd.read_csv(dm_dir / "disease_module_output" / "disease_module.csv")
     module_df["node"] = module_df["node"].astype(str).str.strip()
     true_module = module_df["node"].tolist()
     if "is_excluded_seed" in module_df.columns:
@@ -334,131 +724,13 @@ def main():
     else:
         anchor_mask = module_df["is_seed"]
     true_seeds = [g for g in module_df.loc[anchor_mask, "node"].tolist() if g in idx_of]
-    print(f"True module: {len(true_module)} nodes, {len(true_seeds)} anchoring seeds")
+    max_size = int(math.ceil(args.cap_factor * len(true_module)))
+    log(f"True module: {len(true_module)} nodes, {len(true_seeds)} anchoring seeds; "
+        f"null module cap = {max_size}")
 
-    # ── TRUE module: re-cluster its own induced subgraph ───────────────────
-    print("\nRe-clustering the TRUE module's own induced subgraph ...")
-    true_summary, true_top_genes = recluster_and_summarize(
-        true_module, G_ref, gammas, args.n_restarts, args.neighbors,
-        args.minsize, args.jaccard, args.chi, args.consensus_p,
-        base_seed=args.seed, partition_type=args.partition_type)
-    if true_summary is None:
-        raise SystemExit("True module too small to re-cluster with current --minsize.")
-    print("  True module hierarchy summary:", true_summary)
-
-    # ── NULL A: degree-matched random seeds -> RWR -> module -> recluster ──
-    print(f"\nRunning {args.n_perms} null permutations (structural null, Fix 3) ...")
-    degree_bins = build_degree_bins(G_ref, bin_size=args.bin_size)
-    null_summaries = []
-    t0 = time.time()
-    for i in range(args.n_perms):
-        rand_seeds = sample_degree_matched_seeds(true_seeds, G_ref, degree_bins, rng,
-                                                  bin_size=args.bin_size)
-        if len(rand_seeds) < max(1, len(true_seeds) // 2):
-            continue
-        rand_module = run_rwr_module(G_ref, nodelist, idx_of, M, deg, rand_seeds,
-                                      args.restart, k=args.k)
-        if rand_module is None:
-            continue
-        summ, _ = recluster_and_summarize(
-            rand_module, G_ref, gammas, args.n_restarts, args.neighbors,
-            args.minsize, args.jaccard, args.chi, args.consensus_p,
-            base_seed=args.seed + 1000 + i, partition_type=args.partition_type)
-        if summ is not None:
-            null_summaries.append(summ)
-        if (i + 1) % 5 == 0:
-            elapsed = time.time() - t0
-            print(f"  [{i+1}/{args.n_perms}] elapsed {elapsed:.0f}s")
-
-    print(f"\nCompleted {len(null_summaries)} valid null permutations")
-    null_df = pd.DataFrame(null_summaries)
-    null_df.to_csv(out / "null_hierarchy_summaries.csv", index=False)
-
-    # ── p-values / z-scores for each hierarchy-shape statistic ─────────────
-    higher_is_better = {"max_persistence", "n_distinct_persistence_values", "mean_persistence"}
-    rows = []
-    for metric, true_val in true_summary.items():
-        if metric not in null_df.columns or null_df.empty:
-            continue
-        null_vals = null_df[metric].to_numpy()
-        mu, sigma = null_vals.mean(), null_vals.std()
-        z = (true_val - mu) / sigma if sigma > 0 else np.nan
-        if metric in higher_is_better:
-            p = float(np.mean(null_vals >= true_val))
-        else:
-            p = float(np.mean(null_vals <= true_val))
-        rows.append({"metric": metric, "true_value": true_val, "null_mean": mu,
-                      "null_std": sigma, "z_score": z, "p_value": p})
-    results_df = pd.DataFrame(rows)
-    results_df.to_csv(out / "step11i_null_vs_true_results.csv", index=False)
-    print("\n" + "=" * 70)
-    print("FIX 3 RESULTS: true module's hierarchy shape vs. degree-matched null")
-    print("=" * 70)
-    print(results_df.to_string(index=False))
-    print("\nInterpretation: if max_persistence / n_distinct_persistence_values / "
-          "top_cluster_frac_of_module are NOT significantly different from the null "
-          "(p not small, |z| not large), then a random RWR neighborhood in this network "
-          "produces a similarly-shaped persistence hierarchy by default -- your broad/"
-          "specific structure would not be evidence of pain-specific biology, just of "
-          "how Leiden+RWR behave on this graph's topology.")
-
-    # ── plots ──
-    fig, axes = plt.subplots(1, len(true_summary), figsize=(4.5 * len(true_summary), 4))
-    for ax, (metric, true_val) in zip(np.atleast_1d(axes), true_summary.items()):
-        if metric not in null_df.columns or null_df.empty:
-            continue
-        ax.hist(null_df[metric], bins=20, color="steelblue", alpha=0.7, edgecolor="white")
-        ax.axvline(true_val, color="crimson", linewidth=2, label="true module")
-        ax.set_title(metric)
-        ax.legend(fontsize=8)
-    plt.tight_layout()
-    fig.savefig(out / "step11i_null_distributions.png", dpi=150, bbox_inches="tight")
-    plt.close(fig)
-
-    # ── FIX 6: leave-one-seed-out ────────────────────────────────────────
-    if args.run_leave_one_out:
-        print(f"\nRunning leave-one-seed-out (Fix 6) across {len(true_seeds)} seeds ...")
-        loo_rows = []
-        for j, dropped_seed in enumerate(true_seeds):
-            reduced_seeds = [s for s in true_seeds if s != dropped_seed]
-            reduced_module = run_rwr_module(G_ref, nodelist, idx_of, M, deg, reduced_seeds,
-                                             args.restart, k=args.k)
-            if reduced_module is None:
-                continue
-            summ, top_genes = recluster_and_summarize(
-                reduced_module, G_ref, gammas, args.n_restarts, args.neighbors,
-                args.minsize, args.jaccard, args.chi, args.consensus_p,
-                base_seed=args.seed + 5000 + j, partition_type=args.partition_type)
-            if summ is None:
-                continue
-            jac = jaccard(true_top_genes or set(), top_genes or set())
-            loo_rows.append({"dropped_seed": dropped_seed, "top_cluster_jaccard_vs_full": jac,
-                              **{f"loo_{k}": v for k, v in summ.items()}})
-            if (j + 1) % 5 == 0:
-                print(f"  [{j+1}/{len(true_seeds)}] dropped {dropped_seed}: "
-                      f"top-cluster Jaccard vs full-seed result = {jac:.3f}")
-
-        loo_df = pd.DataFrame(loo_rows).sort_values("top_cluster_jaccard_vs_full")
-        loo_df.to_csv(out / "step11i_leave_one_out.csv", index=False)
-        print(f"\nSaved leave-one-out results -> {out / 'step11i_leave_one_out.csv'}")
-        print(f"Top-cluster Jaccard vs. full-seed result: "
-              f"mean={loo_df['top_cluster_jaccard_vs_full'].mean():.3f}, "
-              f"min={loo_df['top_cluster_jaccard_vs_full'].min():.3f} "
-              f"(seed: {loo_df.iloc[0]['dropped_seed']})")
-        print("Interpretation: a low Jaccard for any single dropped seed means your "
-              "'broadest' cluster's identity hinges on that one gene being in the seed "
-              "list -- worth flagging explicitly if it's a recently-added or "
-              "less-confident seed.")
-
-        fig, ax = plt.subplots(figsize=(8, max(4, 0.25 * len(loo_df))))
-        ax.barh(loo_df["dropped_seed"], loo_df["top_cluster_jaccard_vs_full"], color="#4C72B0")
-        ax.set_xlabel("Top-cluster Jaccard vs. full-seed-set result")
-        ax.set_title("Leave-one-seed-out sensitivity of the broadest cluster")
-        plt.tight_layout()
-        fig.savefig(out / "step11i_leave_one_out.png", dpi=150, bbox_inches="tight")
-        plt.close(fig)
-
-    print(f"\nAll outputs saved to: {out}")
+    stage_fn = {"true": run_true_stage, "null": run_null_stage, "loo": run_loo_stage}[args.stage]
+    stage_fn(args, G_ref, nodelist, idx_of, M, deg, true_seeds, true_module, max_size, out)
+    log(f"Done. Total wall time {(time.time() - t0) / 60:.1f} min; peak RSS {rss_gb()[1]:.2f} GiB")
 
 
 if __name__ == "__main__":

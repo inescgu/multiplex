@@ -5,95 +5,95 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Annotation: hidef_from_comparison
 OMIM PS File: ../../phenotypic_series/omim_phenotypic_series_enrichment.csv
-Total clusters: 1581
+Total clusters: 2187
 
 Analysis Results:
-Total phenotypic series enrichments: 9600
-Significant enrichments (adj p < 0.05): 129
+Total phenotypic series enrichments: 9422
+Significant enrichments (adj p < 0.05): 84
 
 Phenotypic series per cluster:
-  Mean: 8.5
-  Median: 2.0
-  Range: 1-577
+  Mean: 5.4
+  Median: 3.0
+  Range: 1-124
 
 Top 20 Enrichments:
 
-  HiDeF_Cluster_Cluster2-34: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=261.85, p=3.40e-55, adj_p=3.26e-51
-    Overlap: 27/38 genes
+  HiDeF_Cluster_Cluster3-75: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=85.52, p=7.76e-24, adj_p=7.31e-20
+    Overlap: 12/19 genes
 
-  HiDeF_Cluster_Cluster2-28: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=251.15, p=2.00e-52, adj_p=1.92e-48
-    Overlap: 28/51 genes
+  HiDeF_Cluster_Cluster4-69: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=71.51, p=2.14e-21, adj_p=2.01e-17
+    Overlap: 10/13 genes
 
-  HiDeF_Cluster_Cluster2-47: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=132.97, p=1.30e-32, adj_p=1.24e-28
-    Overlap: 17/29 genes
+  HiDeF_Cluster_Cluster2-46: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=63.91, p=5.35e-18, adj_p=5.04e-14
+    Overlap: 12/46 genes
 
-  HiDeF_Cluster_Cluster2-78: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=107.22, p=3.59e-28, adj_p=3.45e-24
-    Overlap: 14/21 genes
+  HiDeF_Cluster_Cluster2-54: Diamond-Blackfan anemia (PS105650)
+    Combined Score=54.97, p=2.83e-17, adj_p=2.66e-13
+    Overlap: 9/31 genes
 
-  HiDeF_Cluster_Cluster2-71: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=70.37, p=2.35e-20, adj_p=2.25e-16
-    Overlap: 11/22 genes
+  HiDeF_Cluster_Cluster2-34: Diamond-Blackfan anemia (PS105650)
+    Combined Score=35.41, p=6.75e-12, adj_p=6.36e-08
+    Overlap: 8/71 genes
 
-  HiDeF_Cluster_Cluster2-46: Coffin-Siris syndrome (PS135900)
-    Combined Score=65.65, p=1.06e-19, adj_p=1.01e-15
-    Overlap: 10/30 genes
+  HiDeF_Cluster_Cluster3-29: Diamond-Blackfan anemia (PS105650)
+    Combined Score=33.93, p=4.91e-12, adj_p=4.63e-08
+    Overlap: 7/39 genes
 
-  HiDeF_Cluster_Cluster2-230: Bardet-Biedl syndrome (PS209900)
-    Combined Score=56.22, p=1.84e-18, adj_p=1.77e-14
-    Overlap: 8/10 genes
+  HiDeF_Cluster_Cluster1-19: Diamond-Blackfan anemia (PS105650)
+    Combined Score=33.36, p=2.28e-10, adj_p=2.15e-06
+    Overlap: 10/235 genes
 
-  HiDeF_Cluster_Cluster2-140: Fanconi anemia (PS227650)
-    Combined Score=52.53, p=2.69e-17, adj_p=2.58e-13
-    Overlap: 8/13 genes
-
-  HiDeF_Cluster_Cluster2-97: Coffin-Siris syndrome (PS135900)
-    Combined Score=52.11, p=3.64e-17, adj_p=3.49e-13
-    Overlap: 8/18 genes
-
-  HiDeF_Cluster_Cluster2-35: Combined oxidative phosphorylation deficiency (PS609060)
-    Combined Score=48.79, p=2.46e-14, adj_p=2.36e-10
-    Overlap: 11/37 genes
-
-  HiDeF_Cluster_Cluster2-220: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=42.19, p=8.63e-15, adj_p=8.28e-11
-    Overlap: 7/10 genes
-
-  HiDeF_Cluster_Cluster2-128: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=37.85, p=2.43e-13, adj_p=2.33e-09
-    Overlap: 7/14 genes
-
-  HiDeF_Cluster_Cluster2-119: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=37.03, p=4.53e-13, adj_p=4.35e-09
-    Overlap: 7/15 genes
-
-  HiDeF_Cluster_Cluster2-336: Bardet-Biedl syndrome (PS209900)
-    Combined Score=36.66, p=8.71e-14, adj_p=8.36e-10
-    Overlap: 6/8 genes
-
-  HiDeF_Cluster_Cluster2-514: Joubert syndrome (PS213300)
-    Combined Score=35.97, p=1.55e-13, adj_p=1.48e-09
-    Overlap: 6/6 genes
-
-  HiDeF_Cluster_Cluster2-540: Coenzyme Q10 deficiency, primary (PS607426)
-    Combined Score=34.49, p=4.53e-14, adj_p=4.35e-10
-    Overlap: 5/6 genes
-
-  HiDeF_Cluster_Cluster2-257: Mitochondrial complex I deficiency, nuclear type (PS252010)
-    Combined Score=33.41, p=1.26e-12, adj_p=1.21e-08
-    Overlap: 6/9 genes
-
-  HiDeF_Cluster_Cluster2-460: Mitochondrial complex III deficiency, nuclear type (PS124000)
-    Combined Score=33.09, p=1.58e-13, adj_p=1.52e-09
+  HiDeF_Cluster_Cluster4-135: Bardet-Biedl syndrome (PS209900)
+    Combined Score=27.80, p=1.76e-11, adj_p=1.66e-07
     Overlap: 5/7 genes
 
-  HiDeF_Cluster_Cluster2-514: Meckel syndrome (PS249000)
-    Combined Score=30.89, p=1.12e-12, adj_p=1.08e-08
-    Overlap: 5/6 genes
+  HiDeF_Cluster_Cluster3-38: Diamond-Blackfan anemia (PS105650)
+    Combined Score=27.70, p=1.36e-10, adj_p=1.28e-06
+    Overlap: 6/32 genes
 
-  HiDeF_Cluster_Cluster2-297: Cranioectodermal dysplasia (PS218330)
-    Combined Score=30.12, p=2.23e-12, adj_p=2.14e-08
+  HiDeF_Cluster_Cluster3-261: Congenital disorders of glycosylation, type II (PS212066)
+    Combined Score=26.86, p=4.06e-11, adj_p=3.83e-07
+    Overlap: 5/7 genes
+
+  HiDeF_Cluster_Cluster4-30: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=26.41, p=3.90e-10, adj_p=3.67e-06
+    Overlap: 6/19 genes
+
+  HiDeF_Cluster_Cluster1-11: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=25.51, p=1.27e-07, adj_p=1.20e-03
+    Overlap: 12/332 genes
+
+  HiDeF_Cluster_Cluster3-157: Bardet-Biedl syndrome (PS209900)
+    Combined Score=24.34, p=3.83e-10, adj_p=3.61e-06
+    Overlap: 5/11 genes
+
+  HiDeF_Cluster_Cluster2-274: Arrhythmogenic right ventricular dysplasia (PS107970)
+    Combined Score=24.04, p=4.41e-11, adj_p=4.16e-07
+    Overlap: 4/5 genes
+
+  HiDeF_Cluster_Cluster1-21: Diamond-Blackfan anemia (PS105650)
+    Combined Score=23.86, p=2.98e-08, adj_p=2.81e-04
+    Overlap: 8/202 genes
+
+  HiDeF_Cluster_Cluster5-24: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=23.56, p=7.72e-10, adj_p=7.27e-06
     Overlap: 5/10 genes
+
+  HiDeF_Cluster_Cluster3-332: Mitochondrial complex III deficiency, nuclear type (PS124000)
+    Combined Score=23.43, p=8.08e-11, adj_p=7.61e-07
+    Overlap: 4/6 genes
+
+  HiDeF_Cluster_Cluster3-135: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=22.88, p=1.41e-09, adj_p=1.33e-05
+    Overlap: 5/11 genes
+
+  HiDeF_Cluster_Cluster3-36: Mitochondrial complex I deficiency, nuclear type (PS252010)
+    Combined Score=21.96, p=1.50e-08, adj_p=1.42e-04
+    Overlap: 6/33 genes
+
+  HiDeF_Cluster_Cluster1-158: Arrhythmogenic right ventricular dysplasia (PS107970)
+    Combined Score=21.39, p=6.16e-10, adj_p=5.80e-06
+    Overlap: 4/8 genes

@@ -5,22 +5,22 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Annotation: hidef_from_comparison
 Gene data file: ../../expression_data/human_pain_genes_database.csv
-Total clusters: 519
+Total clusters: 2187
 Total genes with phenotypes: 536
 Total phenotypes: 13
 
 Analysis Results:
-Total clusters analyzed: 114
-Significant enrichments: 0
+Total clusters analyzed: 562
+Significant enrichments: 2
 
 Top 10 Enrichments:
-  HiDeF_Cluster_Cluster1-24: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-77: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-805: OR=23.30, p=4.29e-02
-  HiDeF_Cluster_Cluster1-48: OR=17.29, p=5.78e-02
-  HiDeF_Cluster_Cluster2-180: OR=17.29, p=5.78e-02
-  HiDeF_Cluster_Cluster1-6543: OR=17.29, p=5.78e-02
-  HiDeF_Cluster_Cluster1-6549: OR=17.29, p=5.78e-02
-  HiDeF_Cluster_Cluster1-6557: OR=17.29, p=5.78e-02
-  HiDeF_Cluster_Cluster2-39: OR=14.11, p=7.09e-02
-  HiDeF_Cluster_Cluster1-4566: OR=14.11, p=7.09e-02
+  HiDeF_Cluster_Cluster1-108: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-294: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-319: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-684: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster3-568: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster3-668: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster2-800: OR=38.29, p=2.61e-02
+  HiDeF_Cluster_Cluster3-33: OR=23.30, p=4.29e-02
+  HiDeF_Cluster_Cluster2-83: OR=23.30, p=4.29e-02
+  HiDeF_Cluster_Cluster5-5: OR=23.30, p=4.29e-02

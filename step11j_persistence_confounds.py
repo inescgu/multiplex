@@ -30,7 +30,7 @@ USAGE
 """
 import argparse
 from pathlib import Path
-
+from provenance import write_manifest
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -99,7 +99,9 @@ def main():
                      help="*_cluster_summary.csv from step11e_characterize_clusters.py")
     ap.add_argument("--output-prefix", required=True)
     args = ap.parse_args()
-
+    
+    write_manifest(Path(args.output_prefix).parent, args, inputs=[args.cluster_summary])
+    
     df = pd.read_csv(args.cluster_summary)
     persistence = df["persistence"]
 

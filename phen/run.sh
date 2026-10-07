@@ -12,6 +12,6 @@ echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
-
+cp pipeline_config.py "output/combined26_multiplex/pipeline_config_$(date +%Y%m%d_%H%M).py" 2>/dev/null || true
 python run_multiplex_enrichment_pipeline.py
 echo "Finished at: $(date)"

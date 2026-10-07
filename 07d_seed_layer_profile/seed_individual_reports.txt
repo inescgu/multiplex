@@ -1,9 +1,10 @@
 ==============================================================================
-PER-SEED REPORTS (top genes by cross-layer consistency)
+PER-SEED REPORTS (top seeds by cross-layer consistency)
 ==============================================================================
 Read each block top to bottom: global role, then per-layer detail.
-'enriched layer' = seeds as a group are significantly over-represented
-among that cell type's markers (enrich_q<0.05, from layer_seed_tests.csv).
+'ENRICHED LAYER' = the seeds are significantly over-represented
+among that cell type's markers (q<0.05, tier_enrich_q in layer_seed_tests.csv).
+deg = number of marker neighbours in that layer; pXX = percentile (1.00 = top).
 
 [CHRNB4]  --  A: specific marker + well-connected in an enriched layer
   Global PPI degree percentile : 0.85

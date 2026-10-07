@@ -7,19 +7,19 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
-echo "Step 11g"
+source ./run_env.sh
+
+echo "Step 11g: Presentation plots"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 python step11g_presentation_plots.py \
-    --consensus 11_hidef_results_faithful_cpm/consensus.pkl \
-    --wide-scan-csv 11_hidef_hetero/resolution_profile.csv \
-    --fine-scan-csv 11_hidef_hetero/resolution_profile_cpm_finescan.csv \
+    --consensus "$RUN_DIR/consensus.pkl" \
+    --wide-scan-csv 11_hidef_module/resolution_profile.csv \
     --partition-type CPM \
-    --production-min-resolution 1e-5 \
-    --production-max-resolution 0.9 \
-    --total-nodes 140139 \
+    --production-min-resolution 8.34e-04 --production-max-resolution 0.9 \
+    --total-nodes 9940 \
     --output-dir presentation_figures
 echo "Finished at: $(date)"
