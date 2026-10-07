@@ -5,22 +5,23 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Annotation: hidef_from_comparison
 Gene data file: ../../expression_data/human_pain_genes_database.csv
-Total clusters: 2187
+Multiple testing: Benjamini-Hochberg FDR, alpha=0.05 (family = all cluster x phenotype tests)
+Total clusters: 2383
 Total genes with phenotypes: 536
 Total phenotypes: 13
 
 Analysis Results:
-Total clusters analyzed: 562
-Significant enrichments: 2
+Total clusters analyzed: 612
+Significant enrichments (adj p < 0.05): 0
 
 Top 10 Enrichments:
-  HiDeF_Cluster_Cluster1-108: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-294: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-319: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-684: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster3-568: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster3-668: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster2-800: OR=38.29, p=2.61e-02
-  HiDeF_Cluster_Cluster3-33: OR=23.30, p=4.29e-02
-  HiDeF_Cluster_Cluster2-83: OR=23.30, p=4.29e-02
-  HiDeF_Cluster_Cluster5-5: OR=23.30, p=4.29e-02
+  HiDeF_Cluster_Cluster1-117: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster2-306: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster2-332: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster3-519: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster2-733: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster3-722: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster2-862: FE=38.29, p=2.61e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster3-33: FE=23.30, p=4.29e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster2-86: FE=23.30, p=4.29e-02, adj_p=1.00e+00
+  HiDeF_Cluster_Cluster5-5: FE=23.30, p=4.29e-02, adj_p=1.00e+00

@@ -46,7 +46,7 @@ persistence value" isn't a percentile cut, and follows PERSISTENCE_THRESHOLD
 as a floor to mirror exactly what the analyzers tested.
 """
 import os
-
+import sys
 from enrichment_plots_multiplex import (
     load_persistence_map, load_all_enrichment_results,
     create_persistence_lollipop_plot, create_enrichment_heatmap,
@@ -70,10 +70,7 @@ SEED_GENES_FILE = cfg.SEED_GENES_FILE
 ORPHANET_TERM_CAP = 10
 LEGEND_BOTTOM_THRESHOLD = 10
 
-write_manifest(os.path.join(OUTPUT_DIR, PPI_SOURCE),
-               args={"persistence_threshold": PERSISTENCE_THRESHOLD, "nodes_file": NODES_FILE},
-               inputs=[NODES_FILE, SUPRA_GRAPH_PKL, SEED_GENES_FILE],
-               extra={"n_clusters": len(clusters)})
+
 
 # 'spatial' dropped -- spatial transcriptomics results are no longer part of
 # this analysis.

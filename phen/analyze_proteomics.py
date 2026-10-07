@@ -2,6 +2,13 @@
 """
 analyze_proteomics.py - Analyze proteomics data (e.g., DRG by gender) across HiDeF clusters
 
+Multiple testing: the family is every test performed -- 2 per cluster
+(male-high and female-high). It is corrected once with
+pipeline_config.MULTIPLE_TESTING_METHOD BEFORE any significance filtering,
+and a cluster is kept only if a direction passes the ADJUSTED threshold.
+(Previously clusters were pre-filtered on raw p < 0.05 and FDR was then run
+on the survivors only.)
+
 Usage:
     python analyze_proteomics.py --ppi_source STRING --expression_data proteomics.csv --input_dir ./input --output_dir ./output
 """
@@ -11,12 +18,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import fisher_exact
-from statsmodels.stats.multitest import multipletests
+from scipy.stats import fisher_exact, hypergeom
 import pickle
 import os
 from common_utils import *
 from hidef_multiplex_adapter import MultiplexClusterLoaderMixin
+from multiple_testing import adjust_pvalues, get_alpha, method_label
 
 class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
     def __init__(self, ppi_source, proteomics_file, input_dir, output_dir, cluster_type='seed_lcc_hidef', annotation_prefix=None, metadata_file=None, persistence_threshold=None):
@@ -33,6 +40,7 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
         print(f"Persistence Threshold: {persistence_threshold}")
         print(f"Proteomics File: {proteomics_file}")
         print(f"Metadata File: {metadata_file}")
+        print(f"Multiple testing: {method_label()} (alpha={get_alpha()})")
 
         self.ppi_source = ppi_source
         self.proteomics_file = proteomics_file
@@ -174,15 +182,28 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
             print(f"{'='*80}\n")
             return False
     
+    @staticmethod
+    def _hypergeom_enrichment(overlap_genes, highly_expressed, total):
+        """Overlap count, fold enrichment and hypergeometric p vs a highly-expressed set."""
+        overlap = len(overlap_genes.intersection(highly_expressed))
+        if overlap == 0:
+            return overlap, 1.0, 1.0
+        fold_enrichment = (overlap / len(overlap_genes)) / (len(highly_expressed) / total)
+        try:
+            p_value = hypergeom.sf(overlap - 1, total, len(highly_expressed), len(overlap_genes))
+        except Exception:
+            p_value = 1.0
+        return overlap, fold_enrichment, p_value
+    
     def analyze_cluster_expression(self):
         """Analyze protein expression patterns in clusters using hypergeometric test."""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"STARTING CLUSTER EXPRESSION ANALYSIS")
         print(f"{'='*80}")
 
         summarized_results = []
         gene_level_results = []
-        cluster_info = {}
 
         if 'gender' not in self.sample_info.columns:
             print("✗ No gender information - cannot perform analysis")
@@ -221,15 +242,18 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
         total_proteins = len(self.expression_data.index)
         print(f"  Total proteins in dataset: {total_proteins}")
 
+        expr_genes = set(self.expression_data.index)
+
         print(f"\nProcessing {len(self.clusters)} clusters...")
 
+        # ---------------- PASS 1: run every test, keep everything ----------------
+        cluster_tests = {}
         for cluster_idx, (cluster_name, cluster_genes) in enumerate(self.clusters.items()):
             print(f"\n{'-'*80}")
             print(f"Processing cluster {cluster_idx + 1}/{len(self.clusters)}: {cluster_name}")
             print(f"  Cluster size: {len(cluster_genes)} genes")
 
             cluster_genes_set = set(str(g) for g in cluster_genes)
-            expr_genes = set(self.expression_data.index)
             overlap_genes = cluster_genes_set.intersection(expr_genes)
 
             if len(overlap_genes) < 2:
@@ -238,110 +262,82 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
 
             print(f"  Genes in expression data: {len(overlap_genes)}")
 
-            # Test male overexpression
-            male_overlap = len(overlap_genes.intersection(male_highly_expressed))
-
-            if male_overlap == 0:
-                male_fold_enrichment = 1.0
-                male_p_value = 1.0
-            else:
-                male_fold_enrichment = (male_overlap / len(overlap_genes)) / (len(male_highly_expressed) / total_proteins)
-                try:
-                    from scipy.stats import hypergeom
-                    male_p_value = hypergeom.sf(
-                        male_overlap - 1,
-                        total_proteins,
-                        len(male_highly_expressed),
-                        len(overlap_genes)
-                    )
-                except:
-                    male_p_value = 1.0
-
+            male_overlap, male_fe, male_p = self._hypergeom_enrichment(
+                overlap_genes, male_highly_expressed, total_proteins)
             print(f"  Male enrichment:")
             print(f"    Overlap: {male_overlap} proteins")
-            print(f"    Fold enrichment: {male_fold_enrichment:.2f}")
-            print(f"    P-value: {male_p_value:.2e}")
+            print(f"    Fold enrichment: {male_fe:.2f}")
+            print(f"    P-value: {male_p:.2e}")
 
-            # Test female overexpression
-            female_overlap = len(overlap_genes.intersection(female_highly_expressed))
-
-            if female_overlap == 0:
-                female_fold_enrichment = 1.0
-                female_p_value = 1.0
-            else:
-                female_fold_enrichment = (female_overlap / len(overlap_genes)) / (len(female_highly_expressed) / total_proteins)
-                try:
-                    from scipy.stats import hypergeom
-                    female_p_value = hypergeom.sf(
-                        female_overlap - 1,
-                        total_proteins,
-                        len(female_highly_expressed),
-                        len(overlap_genes)
-                    )
-                except:
-                    female_p_value = 1.0
-
+            female_overlap, female_fe, female_p = self._hypergeom_enrichment(
+                overlap_genes, female_highly_expressed, total_proteins)
             print(f"  Female enrichment:")
             print(f"    Overlap: {female_overlap} proteins")
-            print(f"    Fold enrichment: {female_fold_enrichment:.2f}")
-            print(f"    P-value: {female_p_value:.2e}")
+            print(f"    Fold enrichment: {female_fe:.2f}")
+            print(f"    P-value: {female_p:.2e}")
 
-            # Use biggest effect size (fold enrichment), but require significance (p < 0.05)
-            male_significant = male_p_value < 0.05
-            female_significant = female_p_value < 0.05
+            cluster_tests[cluster_name] = {
+                'cluster_genes': cluster_genes,
+                'cluster_genes_set': cluster_genes_set,
+                'overlap_genes': overlap_genes,
+                'male': {'overlap': male_overlap, 'fe': male_fe, 'p': male_p},
+                'female': {'overlap': female_overlap, 'fe': female_fe, 'p': female_p},
+            }
+
+        # ---------------- PASS 2: correct over the full family ----------------
+        names = list(cluster_tests)
+        raw_p = []
+        for name in names:
+            raw_p.append(cluster_tests[name]['male']['p'])
+            raw_p.append(cluster_tests[name]['female']['p'])
+        adj_p = adjust_pvalues(raw_p)
+        for i, name in enumerate(names):
+            cluster_tests[name]['male']['adj'] = float(adj_p[2 * i])
+            cluster_tests[name]['female']['adj'] = float(adj_p[2 * i + 1])
+
+        print(f"\n{'='*80}")
+        print(f"MULTIPLE TESTING CORRECTION")
+        print(f"{'='*80}")
+        print(f"Method: {method_label()}; family = {len(raw_p)} tests "
+              f"({len(names)} clusters x 2 directions); alpha = {alpha}")
+
+        # ---------------- PASS 3: select direction on ADJUSTED significance ----------------
+        for cluster_name, t in cluster_tests.items():
+            male, female = t['male'], t['female']
+            overlap_genes = t['overlap_genes']
+            male_significant = male['adj'] < alpha
+            female_significant = female['adj'] < alpha
 
             if male_significant and female_significant:
                 # Both significant: choose by fold enrichment
-                if male_fold_enrichment > female_fold_enrichment:
-                    best_fold_enrichment = male_fold_enrichment
-                    best_p_value = male_p_value
-                    higher_expr_gender = 'male'
-                    percentage = (male_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                    print(f"  → Best result: Male (OR={male_fold_enrichment:.2f})")
-                else:
-                    best_fold_enrichment = female_fold_enrichment
-                    best_p_value = female_p_value
-                    higher_expr_gender = 'female'
-                    percentage = (female_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                    print(f"  → Best result: Female (OR={female_fold_enrichment:.2f})")
+                chosen = 'male' if male['fe'] > female['fe'] else 'female'
             elif male_significant:
-                # Only male significant
-                best_fold_enrichment = male_fold_enrichment
-                best_p_value = male_p_value
-                higher_expr_gender = 'male'
-                percentage = (male_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                print(f"  → Best result: Male (OR={male_fold_enrichment:.2f})")
+                chosen = 'male'
             elif female_significant:
-                # Only female significant
-                best_fold_enrichment = female_fold_enrichment
-                best_p_value = female_p_value
-                higher_expr_gender = 'female'
-                percentage = (female_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                print(f"  → Best result: Female (OR={female_fold_enrichment:.2f})")
+                chosen = 'female'
             else:
-                # Neither significant: skip this cluster
-                print(f"  ✗ No significant gender difference (male p={male_p_value:.2e}, female p={female_p_value:.2e})")
+                print(f"  ✗ {cluster_name}: no significant gender difference "
+                      f"(male adj p={male['adj']:.2e}, female adj p={female['adj']:.2e})")
                 continue
 
-            cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
-            print(f"  Seed genes: {len(cluster_seed_genes)}")
+            best = male if chosen == 'male' else female
+            higher_expr_gender = chosen
+            percentage = (best['overlap'] / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
+            print(f"  → {cluster_name}: {higher_expr_gender} (FE={best['fe']:.2f}, "
+                  f"p={best['p']:.2e}, adj p={best['adj']:.2e})")
 
-            cluster_info[cluster_name] = {
-                'fold_enrichment': best_fold_enrichment,
-                'p_value': best_p_value,
-                'higher_expression_gender': higher_expr_gender
-            }
+            cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
 
             result = create_standardized_results(
                 cluster_name=cluster_name,
-                cluster_genes=cluster_genes,
+                cluster_genes=t['cluster_genes'],
                 cluster_seed_genes=cluster_seed_genes,
                 cluster_type=self.cluster_type,
                 total_genes_analyzed=len(overlap_genes),
                 percentage=percentage,
-                mean_statistic=best_fold_enrichment,
-                p_value=best_p_value,
-                adjusted_p_value=best_p_value,
+                mean_statistic=best['fe'],
+                p_value=best['p'],
+                adjusted_p_value=best['adj'],
                 statistic_name='fold_enrichment',
                 genes_in_expression_data=len(overlap_genes)
             )
@@ -349,21 +345,17 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
             summarized_results.append(result)
 
             # Gene-level results
-            for gene in cluster_genes_set:
-                is_seed = gene in cluster_seed_genes
-                is_in_expr = gene in overlap_genes
-
+            for gene in t['cluster_genes_set']:
                 gene_level_results.append({
                     'cluster_id': cluster_name,
                     'gene': gene,
-                    'is_seed_gene': is_seed,
-                    'is_in_expression_data': is_in_expr,
-                    'cluster_fold_enrichment': cluster_info[cluster_name]['fold_enrichment'],
-                    'cluster_p_value': cluster_info[cluster_name]['p_value'],
-                    'higher_expression_gender_cluster': cluster_info[cluster_name]['higher_expression_gender']
+                    'is_seed_gene': gene in cluster_seed_genes,
+                    'is_in_expression_data': gene in overlap_genes,
+                    'cluster_fold_enrichment': best['fe'],
+                    'cluster_p_value': best['p'],
+                    'cluster_adjusted_p_value': best['adj'],
+                    'higher_expression_gender_cluster': higher_expr_gender
                 })
-
-            print(f"  ✓ Added enrichment results for this cluster")
 
         print(f"\n{'='*80}")
         print(f"CLUSTER EXPRESSION ANALYSIS COMPLETE")
@@ -377,19 +369,13 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
         print(f"\nResults DataFrame shape: {results_df.shape}")
         print(f"Gene Results DataFrame shape: {gene_results_df.shape}")
 
-        if not results_df.empty and len(results_df) > 1:
-            print(f"\nApplying multiple testing correction...")
-            _, adjusted_pvalues, _, _ = multipletests(results_df['p_value'].values, method='fdr_bh')
-            results_df['adjusted_p_value'] = adjusted_pvalues
-            sig_count = (adjusted_pvalues < 0.05).sum()
-            print(f"  Significant clusters (FDR < 0.05): {sig_count}/{len(results_df)}")
+        if not results_df.empty:
+            sig_count = (results_df['adjusted_p_value'] < alpha).sum()
+            print(f"  Significant clusters (adj p < {alpha}): {sig_count}/{len(results_df)}")
 
         if not gene_results_df.empty:
             print(f"\nAnnotating gene results with cluster significance...")
-            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_id'].map(
-                lambda x: results_df[results_df['cluster_id'] == x]['adjusted_p_value'].values[0] < 0.05
-                if len(results_df[results_df['cluster_id'] == x]) > 0 else False
-            )
+            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_adjusted_p_value'] < alpha
             sig_count = gene_results_df['is_cluster_significant'].sum()
             print(f"  {sig_count} genes in clusters with significant gender differences")
 
@@ -401,6 +387,7 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
     
     def create_visualizations(self):
         """Create standardized visualizations."""
+        alpha = get_alpha()
         plots_dir = os.path.join('plots', self.ppi_source, f'proteomics_analysis_{self.cluster_type_str}')
         ensure_dir(plots_dir)
         
@@ -431,23 +418,23 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
                 gender_results['neg_log_pvalue'] = -np.log10(gender_results['p_value'] + 1e-300)
                 
                 # Color by significance
-                colors = ['red' if pval < 0.05 else 'gray' for pval in gender_results['adjusted_p_value']]
+                colors = ['red' if pval < alpha else 'gray' for pval in gender_results['adjusted_p_value']]
                 
                 plt.scatter(gender_results['mean_fold_enrichment'], gender_results['neg_log_pvalue'], 
                            c=colors, alpha=0.6, s=100)
                 
-                plt.axhline(y=-np.log10(0.05), color='black', linestyle='--', alpha=0.5)
+                plt.axhline(y=-np.log10(alpha), color='black', linestyle='--', alpha=0.5)
                 plt.axvline(x=0, color='black', linestyle='--', alpha=0.5)
                 
                 plt.xlabel('Mean log2(Fold Change) Male/Female')
                 plt.ylabel('-log10(p-value)')
-                plt.title(f'Gender Differences in Protein Expression - {self.ppi_source}')
+                plt.title(f'Gender Differences in Protein Expression - {self.ppi_source}\n(colored by {method_label()} adj p < {alpha})')
                 plt.tight_layout()
                 plt.savefig(os.path.join(plots_dir, 'gender_volcano_plot.png'), dpi=300, bbox_inches='tight')
                 plt.close()
                 
                 # Bar plot of significant changes
-                sig_results = gender_results[gender_results['adjusted_p_value'] < 0.05].copy()
+                sig_results = gender_results[gender_results['adjusted_p_value'] < alpha].copy()
                 if not sig_results.empty:
                     sig_results = sig_results.sort_values('mean_fold_enrichment')
                     
@@ -477,6 +464,7 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
     
     def generate_report(self):
         """Generate a simple text report."""
+        alpha = get_alpha()
         report_file = os.path.join(self.analysis_dir, 'analysis_report.txt')
         
         with open(report_file, 'w') as f:
@@ -486,6 +474,7 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
             f.write(f"Cluster Type: {self.cluster_type}\n")
             f.write(f"Persistence Threshold: {self.persistence_threshold}\n")
             f.write(f"Proteomics file: {self.proteomics_file}\n")
+            f.write(f"Multiple testing: {method_label()}, alpha={alpha}\n")
             f.write(f"Total clusters: {len(self.clusters)}\n")
             
             if self.expression_data is not None:
@@ -500,21 +489,21 @@ class ProteomicsAnalyzer(MultiplexClusterLoaderMixin):
             
             if not self.results.empty:
                 f.write(f"\nAnalysis Results:\n")
-                f.write(f"Clusters with protein data: {len(self.results)}\n")
+                f.write(f"Clusters reported (significant after correction): {len(self.results)}\n")
                 f.write(f"Average proteins per cluster: {self.results['total_genes_analyzed'].mean():.1f}\n")
                 
                 gender_comparisons = self.results[self.results['p_value'] < 1.0]
                 if not gender_comparisons.empty:
-                    sig_gender = gender_comparisons[gender_comparisons['adjusted_p_value'] < 0.05]
-                    f.write(f"Clusters with significant gender differences: {len(sig_gender)}\n")
+                    sig_gender = gender_comparisons[gender_comparisons['adjusted_p_value'] < alpha]
+                    f.write(f"Clusters with significant gender differences (adj p < {alpha}): {len(sig_gender)}\n")
                     
                     # Top differences
                     if len(sig_gender) > 0:
                         f.write("\nTop Gender Differences:\n")
                         top_results = sig_gender.nlargest(5, 'mean_fold_enrichment')
                         for _, row in top_results.iterrows():
-                            f.write(f"  {row['cluster_id']}: log2FC={row['mean_fold_enrichment']:.2f}, ")
-                            f.write(f"p={row['p_value']:.2e}\n")
+                            f.write(f"  {row['cluster_id']}: FE={row['mean_fold_enrichment']:.2f}, ")
+                            f.write(f"p={row['p_value']:.2e}, adj_p={row['adjusted_p_value']:.2e}\n")
     
     def run_analysis(self):
         """Run the complete analysis pipeline."""
@@ -577,7 +566,7 @@ def main():
     parser.add_argument('--input_dir', type=str, default='./input', help='Input directory with HiDeF comparison results')
     parser.add_argument('--output_dir', type=str, default='./output', help='Output directory')
     parser.add_argument('--persistence_threshold', type=int, default=None, 
-                    help='Minimum persistence threshold for HiDeF clusters (default: 5)')
+                    help='Minimum persistence threshold for HiDeF clusters (default: pipeline_config.PERSISTENCE_THRESHOLD)')
    
     args = parser.parse_args()
     

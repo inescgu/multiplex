@@ -5,7 +5,8 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Persistence Threshold: 8
 Expression file: ../../expression_data/neuropathic_pain_drg2.csv
-Total clusters: 2187
+Multiple testing: Benjamini-Hochberg FDR, alpha=0.05
+Total clusters: 2383
 Total genes: 19997
 Total samples: 51
 
@@ -19,60 +20,64 @@ Gender distribution:
   F: 19 samples
 
 Differential Expression Results:
-Total clusters analyzed: 616
-Significant changes: 616
-  Upregulated: 616
-  Downregulated: 0
+Total clusters reported (significant after correction): 498
+Significant changes (adj p < 0.05): 498
+  Pain-upregulated: 94
+  No-pain-upregulated: 404
 
 Top Expression Changes:
-  HiDeF_Cluster_Cluster3-69: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster6-2: OR=10.11, p=9.01e-09
-  HiDeF_Cluster_Cluster3-111: OR=10.11, p=8.03e-16
-  HiDeF_Cluster_Cluster3-131: OR=10.11, p=8.32e-14
-  HiDeF_Cluster_Cluster2-176: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster2-200: OR=10.11, p=8.46e-13
-  HiDeF_Cluster_Cluster1-131: OR=10.11, p=9.77e-03
-  HiDeF_Cluster_Cluster5-23: OR=10.11, p=8.74e-11
-  HiDeF_Cluster_Cluster4-93: OR=10.11, p=8.88e-10
-  HiDeF_Cluster_Cluster3-198: OR=10.11, p=8.88e-10
-  HiDeF_Cluster_Cluster4-105: OR=10.11, p=9.01e-09
-  HiDeF_Cluster_Cluster4-163: OR=10.11, p=9.01e-09
-  HiDeF_Cluster_Cluster2-327: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster3-257: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster4-142: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster2-384: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster3-305: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster3-348: OR=10.11, p=9.14e-08
-  HiDeF_Cluster_Cluster4-191: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster5-74: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster2-438: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster4-200: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster2-449: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster3-360: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster6-16: OR=10.11, p=9.27e-07
-  HiDeF_Cluster_Cluster1-313: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster3-411: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster3-417: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster4-235: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster2-551: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster4-236: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster2-570: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster5-116: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster5-118: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-464: OR=10.11, p=9.40e-06
-  HiDeF_Cluster_Cluster3-503: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-512: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster4-299: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster2-676: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-549: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-562: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-579: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster4-338: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster2-746: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-636: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster4-371: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster5-159: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster3-677: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster4-391: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster4-421: OR=10.11, p=9.53e-05
-  HiDeF_Cluster_Cluster2-914: OR=10.11, p=9.65e-04
+  HiDeF_Cluster_Cluster4-26: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster6-2: FE=10.11, p=9.01e-09, adj_p=2.71e-07
+  HiDeF_Cluster_Cluster3-117: FE=10.11, p=8.03e-16, adj_p=4.72e-14
+  HiDeF_Cluster_Cluster3-136: FE=10.11, p=8.32e-14, adj_p=4.21e-12
+  HiDeF_Cluster_Cluster2-179: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster2-207: FE=10.11, p=8.46e-13, adj_p=3.66e-11
+  HiDeF_Cluster_Cluster2-195: FE=10.11, p=9.77e-03, adj_p=4.85e-02
+  HiDeF_Cluster_Cluster5-26: FE=10.11, p=8.74e-11, adj_p=3.20e-09
+  HiDeF_Cluster_Cluster4-99: FE=10.11, p=8.88e-10, adj_p=3.08e-08
+  HiDeF_Cluster_Cluster3-209: FE=10.11, p=8.88e-10, adj_p=3.08e-08
+  HiDeF_Cluster_Cluster4-111: FE=10.11, p=9.01e-09, adj_p=2.71e-07
+  HiDeF_Cluster_Cluster4-173: FE=10.11, p=9.01e-09, adj_p=2.71e-07
+  HiDeF_Cluster_Cluster2-343: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster3-272: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster4-152: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster2-401: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster3-318: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster3-360: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster2-634: FE=10.11, p=9.14e-08, adj_p=2.20e-06
+  HiDeF_Cluster_Cluster4-206: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster5-78: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster2-468: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster2-475: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster4-215: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster6-23: FE=10.11, p=9.27e-07, adj_p=1.84e-05
+  HiDeF_Cluster_Cluster3-375: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster2-499: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster1-321: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster3-442: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster3-446: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster4-251: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster2-597: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster4-252: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster2-610: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster5-119: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster3-503: FE=10.11, p=9.40e-06, adj_p=1.41e-04
+  HiDeF_Cluster_Cluster3-539: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-552: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-570: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster2-728: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-597: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-608: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-627: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-348: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster2-793: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-390: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-396: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster5-172: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-736: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-427: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-752: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster3-780: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-458: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster4-465: FE=10.11, p=9.53e-05, adj_p=1.11e-03
+  HiDeF_Cluster_Cluster2-995: FE=10.11, p=9.65e-04, adj_p=8.44e-03

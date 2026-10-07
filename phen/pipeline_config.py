@@ -33,6 +33,17 @@ CLUSTER_TYPE = "hidef_from_comparison"
 # SAME value everywhere -- it silently changes which clusters exist.
 PERSISTENCE_THRESHOLD = 8
 
+# ---------------------------------------------------------------------
+# Multiple-testing correction (used by multiple_testing.py -> every analyzer)
+# ---------------------------------------------------------------------
+# One method, one alpha, for ALL enrichment analyses. Options:
+#   "fdr_bh"      Benjamini-Hochberg FDR (default; standard for enrichment)
+#   "fdr_by"      Benjamini-Yekutieli FDR (valid under arbitrary dependence)
+#   "bonferroni"  family-wise error, most conservative
+#   "holm"        family-wise error, uniformly more powerful than Bonferroni
+MULTIPLE_TESTING_METHOD = "fdr_bh"
+ALPHA = 0.05
+
 # hidef_finder Phase-2 weave output (step11c_phase2_weave.py)
 NODES_FILE = str(ROOT / "11_hidef_module" / "results_cpm" / "heterogeneous_hidef_faithful_cpm.nodes")
 EDGES_FILE = str(ROOT / "11_hidef_module" / "results_cpm"  / "heterogeneous_hidef_faithful_cpm.edges")

@@ -5,28 +5,29 @@ PPI Source: combined26_multiplex
 Cluster Source: HiDeF vs Louvain Comparison Results
 Persistence Threshold: 8
 Expression file: ../../expression_data/spatial_transcriptomics_drg.csv
-Total clusters: 2187
+Multiple testing: Benjamini-Hochberg FDR, alpha=0.05 (family = all cluster x cell type tests)
+Total clusters: 2383
 Total cell types: 12
 
 Analysis Results:
-Total clusters analyzed: 2185
-Significant enrichments: 1029
+Total clusters analyzed: 2381
+Significant enrichments (adj p < 0.05): 1082
 
 Top 10 Enrichments:
-  HiDeF_Cluster_Cluster2-46 - Putative_C-LTMRs: OR=1000000.00, p=2.83e-27
-  HiDeF_Cluster_Cluster2-84 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.50e-14
-  HiDeF_Cluster_Cluster3-75 - Putative_C-LTMRs: OR=1000000.00, p=3.55e-12
-  HiDeF_Cluster_Cluster4-30 - Putative_C-LTMRs: OR=1000000.00, p=3.55e-12
-  HiDeF_Cluster_Cluster6-2 - Putative_C-LTMRs: OR=1000000.00, p=1.52e-05
-  HiDeF_Cluster_Cluster3-83 - Ad_LTMRs: OR=1000000.00, p=5.71e-11
-  HiDeF_Cluster_Cluster1-83 - Aß_RA_LTMRs: OR=1000000.00, p=2.29e-10
-  HiDeF_Cluster_Cluster3-82 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.71e-11
-  HiDeF_Cluster_Cluster4-40 - Putative_C-LTMRs: OR=1000000.00, p=2.29e-10
-  HiDeF_Cluster_Cluster4-45 - Putative_silent_nociceptors: OR=1000000.00, p=9.17e-10
+  HiDeF_Cluster_Cluster2-47 - Putative_C-LTMRs: OR=1000000.00, p=2.83e-27, adj_p=2.75e-25
+  HiDeF_Cluster_Cluster2-88 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.50e-14, adj_p=2.50e-12
+  HiDeF_Cluster_Cluster4-32 - Putative_C-LTMRs: OR=1000000.00, p=8.85e-13, adj_p=3.65e-11
+  HiDeF_Cluster_Cluster3-74 - Putative_C-LTMRs: OR=1000000.00, p=3.55e-12, adj_p=1.38e-10
+  HiDeF_Cluster_Cluster6-2 - Putative_C-LTMRs: OR=1000000.00, p=1.52e-05, adj_p=1.98e-04
+  HiDeF_Cluster_Cluster3-85 - Ad_LTMRs: OR=1000000.00, p=5.71e-11, adj_p=1.87e-09
+  HiDeF_Cluster_Cluster4-44 - Putative_C-LTMRs: OR=1000000.00, p=5.71e-11, adj_p=1.87e-09
+  HiDeF_Cluster_Cluster1-104 - Ad_LTMRs: OR=1000000.00, p=3.55e-12, adj_p=1.38e-10
+  HiDeF_Cluster_Cluster3-84 - Pruritogen_receptor_enriched: OR=1000000.00, p=5.71e-11, adj_p=1.87e-09
+  HiDeF_Cluster_Cluster1-100 - Aß_RA_LTMRs: OR=1000000.00, p=1.47e-08, adj_p=3.77e-07
 
 Top Cell Type Associations:
-  Putative_C-LTMRs: 1087 clusters
-  Pruritogen_receptor_enriched: 300 clusters
-  Putative_silent_nociceptors: 135 clusters
-  PENK+_nociceptors: 121 clusters
-  Aß_nociceptors: 98 clusters
+  Putative_C-LTMRs: 1198 clusters
+  Pruritogen_receptor_enriched: 328 clusters
+  Putative_silent_nociceptors: 148 clusters
+  PENK+_nociceptors: 130 clusters
+  TRPA1+_nociceptors: 107 clusters

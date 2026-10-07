@@ -5,7 +5,8 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Persistence Threshold: 8
 Proteomics file: ../../expression_data/matrix-for-limma2.csv
-Total clusters: 2187
+Multiple testing: Benjamini-Hochberg FDR, alpha=0.05
+Total clusters: 2383
 Total proteins: 12038
 Total samples: 16
 
@@ -14,13 +15,13 @@ Sample distribution:
   M: 8 samples
 
 Analysis Results:
-Clusters with protein data: 406
-Average proteins per cluster: 24.9
-Clusters with significant gender differences: 406
+Clusters reported (significant after correction): 243
+Average proteins per cluster: 35.9
+Clusters with significant gender differences (adj p < 0.05): 243
 
 Top Gender Differences:
-  HiDeF_Cluster_Cluster4-48: log2FC=13.60, p=1.69e-15
-  HiDeF_Cluster_Cluster4-49: log2FC=13.60, p=1.69e-15
-  HiDeF_Cluster_Cluster1-127: log2FC=13.60, p=3.20e-13
-  HiDeF_Cluster_Cluster2-200: log2FC=13.60, p=2.33e-14
-  HiDeF_Cluster_Cluster3-183: log2FC=13.60, p=8.29e-10
+  HiDeF_Cluster_Cluster1-107: FE=13.60, p=1.69e-15, adj_p=1.36e-13
+  HiDeF_Cluster_Cluster4-52: FE=13.60, p=1.69e-15, adj_p=1.36e-13
+  HiDeF_Cluster_Cluster4-53: FE=13.60, p=1.69e-15, adj_p=1.36e-13
+  HiDeF_Cluster_Cluster2-207: FE=13.60, p=2.33e-14, adj_p=1.65e-12
+  HiDeF_Cluster_Cluster3-192: FE=13.60, p=8.29e-10, adj_p=4.13e-08

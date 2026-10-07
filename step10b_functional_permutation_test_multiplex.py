@@ -606,6 +606,22 @@ def summarise_null(true_metrics, null_metrics_list):
         pvalues[metric] = float(np.mean(null_vals >= true_val))  # right-tail
     return pvalues, zscores
 
+def write_raw_permutations(null_tag, combined_list, split_list, output_path):
+    """Dump every permutation's metric values so the distributions can be
+    re-plotted later without re-running the permutations. One tidy row per
+    (permutation, scope, metric)."""
+    rows = []
+    for i, m in enumerate(combined_list):
+        for metric, value in m.items():
+            rows.append({'perm': i, 'scope': 'combined', 'metric': metric, 'value': value})
+    for i, m in enumerate(split_list):
+        for metric, value in m.items():
+            base = re.sub(r'__(seeds|neighbors)$', '', metric)
+            scope = 'seeds' if metric.endswith('__seeds') else 'neighbors'
+            rows.append({'perm': i, 'scope': scope, 'metric': base, 'value': value})
+    path = os.path.join(output_path, f"{null_tag}_raw_permutations.csv")
+    pd.DataFrame(rows).to_csv(path, index=False)
+    print(f"Saved raw permutations -> {path}")
 
 def results_table(true_metrics, null_metrics_list, pvalues, zscores):
     return pd.DataFrame({
@@ -1021,6 +1037,7 @@ def main():
             executor, _null1_task, task_args, args.n_perms,
             progress_every=max(1, args.n_perms // 10), label="Null 1")
         print(f"  Completed {len(null1_combined)} valid permutations ({failed} failed/skipped)")
+        write_raw_permutations('null1', null1_combined, null1_split, output_path)   # Null 1
 
         pvals1, zs1 = summarise_null(true_metrics, null1_combined)
         pvals1_split, zs1_split = summarise_null(true_metrics_split, null1_split)
@@ -1055,6 +1072,7 @@ def main():
                 executor, _null2_task, task_args2, args.n_perms_rewired,
                 progress_every=max(1, args.n_perms_rewired // 10), label="Null 2")
             print(f"  Completed {len(null2_combined)} valid permutations ({failed2} failed/skipped)")
+            write_raw_permutations('null2', null2_combined, null2_split, output_path)   # Null 2
 
             pvals2, zs2 = summarise_null(true_metrics, null2_combined)
             pvals2_split, zs2_split = summarise_null(true_metrics_split, null2_split)
@@ -1095,6 +1113,7 @@ def main():
                 executor, _null3_task, task_args3, args.n_perms_fixed_seed,
                 progress_every=max(1, args.n_perms_fixed_seed // 10), label="Null 3")
             print(f"  Completed {len(null3_combined)} valid permutations ({failed3} failed/skipped)")
+            write_raw_permutations('null3', null3_combined, null3_split, output_path)   # Null 3
 
             pvals3, zs3 = summarise_null(true_metrics, null3_combined)
             pvals3_split, zs3_split = summarise_null(true_metrics_split, null3_split)
@@ -1113,14 +1132,14 @@ def main():
             results_table(true_metrics_split, null3_split, pvals3_split, zs3_split).to_csv(
                 os.path.join(output_path, "null3_fixed_seed_random_neighbors_split.csv"),
                 index=False)
-            plot_null_distributions(true_metrics, null3_combined, pvals3, zs3, output_path,
-                "null3_combined_distributions.png",
-                f"Null 3: True seeds fixed, {args.fixed_seed_null_mode} random neighbors "
-                f"(combined module)")
-            plot_null_distributions(true_metrics_split, null3_split, pvals3_split, zs3_split,
-                output_path, "null3_split_distributions.png",
-                f"Null 3: True seeds fixed, {args.fixed_seed_null_mode} random neighbors "
-                f"(seed vs. neighbor decomposition)")
+            # plot_null_distributions(true_metrics, null3_combined, pvals3, zs3, output_path,
+            #     "null3_combined_distributions.png",
+            #     f"Null 3: True seeds fixed, {args.fixed_seed_null_mode} random neighbors "
+            #     f"(combined module)")
+            # plot_null_distributions(true_metrics_split, null3_split, pvals3_split, zs3_split,
+            #     output_path, "null3_split_distributions.png",
+            #     f"Null 3: True seeds fixed, {args.fixed_seed_null_mode} random neighbors "
+            #     f"(seed vs. neighbor decomposition)")
         else:
             print("\n[Null 3/3] Skipped (pass --run-fixed-seed-null to enable)")
     finally:

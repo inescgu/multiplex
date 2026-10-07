@@ -5,11 +5,12 @@ PPI Source: combined26_multiplex
 Cluster Type: hidef_from_comparison
 Annotation: hidef_from_comparison
 Enrichr Library: Orphanet_Augmented_2021
-Total clusters: 2187
+Multiple testing: Benjamini-Hochberg FDR, alpha=0.05 (pooled over all clusters x library terms)
+Total clusters: 2383
 
 Analysis Results:
-Total disease enrichments: 2156
-Significant enrichments (adj p < 0.05): 2002
+Total disease enrichments: 2342
+Significant enrichments (adj p < 0.05): 1574
 
 Diseases per cluster:
   Mean: 1.0
@@ -18,62 +19,62 @@ Diseases per cluster:
 
 Top 20 Enrichments:
 
-  HiDeF_Cluster_Cluster4-93: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
-    Combined Score=8589468.73, p=1.48e-21, adj_p=1.85e-20
+  HiDeF_Cluster_Cluster4-99: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
+    Combined Score=8589468.73, p=1.48e-21, adj_p=6.50e-18
 
-  HiDeF_Cluster_Cluster3-332: Isolated complex III deficiency ORPHA:1460
-    Combined Score=3748961.89, p=2.28e-14, adj_p=1.62e-12
+  HiDeF_Cluster_Cluster3-346: Isolated complex III deficiency ORPHA:1460
+    Combined Score=3748961.89, p=2.28e-14, adj_p=3.29e-11
 
-  HiDeF_Cluster_Cluster3-411: Autosomal recessive intermediate Charcot-Marie-Tooth disease type D ORPHA:435998
-    Combined Score=2640814.66, p=2.97e-12, adj_p=1.46e-10
+  HiDeF_Cluster_Cluster3-442: Autosomal recessive intermediate Charcot-Marie-Tooth disease type D ORPHA:435998
+    Combined Score=2640814.66, p=2.97e-12, adj_p=2.65e-09
 
-  HiDeF_Cluster_Cluster5-159: Mitochondrial trifunctional protein deficiency ORPHA:746
-    Combined Score=1691810.21, p=5.88e-10, adj_p=1.37e-08
+  HiDeF_Cluster_Cluster5-172: Mitochondrial trifunctional protein deficiency ORPHA:746
+    Combined Score=1691810.21, p=5.88e-10, adj_p=2.73e-07
 
-  HiDeF_Cluster_Cluster3-524: Pyridoxal phosphate-responsive seizures ORPHA:79096
-    Combined Score=1688508.69, p=6.12e-10, adj_p=5.07e-08
+  HiDeF_Cluster_Cluster3-563: Pyridoxal phosphate-responsive seizures ORPHA:79096
+    Combined Score=1688508.69, p=6.12e-10, adj_p=2.82e-07
 
-  HiDeF_Cluster_Cluster6-46: Isolated succinate-CoQ reductase deficiency ORPHA:3208
-    Combined Score=1682002.50, p=6.63e-10, adj_p=6.54e-08
+  HiDeF_Cluster_Cluster6-54: Isolated succinate-CoQ reductase deficiency ORPHA:3208
+    Combined Score=1682002.50, p=6.63e-10, adj_p=3.02e-07
 
-  HiDeF_Cluster_Cluster3-29: Blackfan-Diamond anemia ORPHA:124
-    Combined Score=1091516.22, p=9.89e-86, adj_p=1.12e-83
+  HiDeF_Cluster_Cluster3-30: Blackfan-Diamond anemia ORPHA:124
+    Combined Score=1091516.22, p=9.89e-86, adj_p=5.47e-80
+
+  HiDeF_Cluster_Cluster4-537: MiT family translocation renal cell carcinoma ORPHA:319308
+    Combined Score=938165.95, p=1.49e-07, adj_p=3.15e-05
 
   HiDeF_Cluster_Cluster3-38: Blackfan-Diamond anemia ORPHA:124
-    Combined Score=639977.38, p=1.03e-68, adj_p=2.04e-66
+    Combined Score=639977.38, p=1.03e-68, adj_p=6.31e-64
 
-  HiDeF_Cluster_Cluster2-640: Typical urticaria pigmentosa ORPHA:158766
-    Combined Score=421329.00, p=2.52e-05, adj_p=1.30e-04
+  HiDeF_Cluster_Cluster2-690: Typical urticaria pigmentosa ORPHA:158766
+    Combined Score=421329.00, p=2.52e-05, adj_p=2.02e-03
 
-  HiDeF_Cluster_Cluster2-54: Blackfan-Diamond anemia ORPHA:124
-    Combined Score=239668.81, p=1.22e-59, adj_p=2.36e-57
+  HiDeF_Cluster_Cluster2-55: Blackfan-Diamond anemia ORPHA:124
+    Combined Score=239668.81, p=1.22e-59, adj_p=4.51e-55
 
-  HiDeF_Cluster_Cluster2-124: Isolated complex III deficiency ORPHA:1460
-    Combined Score=208510.40, p=1.28e-31, adj_p=1.42e-29
+  HiDeF_Cluster_Cluster2-126: Isolated complex III deficiency ORPHA:1460
+    Combined Score=208510.40, p=1.28e-31, adj_p=1.33e-27
 
-  HiDeF_Cluster_Cluster3-67: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
-    Combined Score=197538.27, p=1.72e-40, adj_p=8.56e-39
+  HiDeF_Cluster_Cluster3-68: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
+    Combined Score=197538.27, p=1.72e-40, adj_p=2.81e-36
 
   HiDeF_Cluster_Cluster2-34: Blackfan-Diamond anemia ORPHA:124
-    Combined Score=70519.41, p=5.36e-76, adj_p=2.57e-73
+    Combined Score=70519.41, p=5.36e-76, adj_p=5.93e-71
 
-  HiDeF_Cluster_Cluster3-81: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
-    Combined Score=53600.13, p=8.24e-30, adj_p=6.92e-28
+  HiDeF_Cluster_Cluster3-83: X-linked intellectual disability-cerebellar hypoplasia-spondylo-epiphyseal dysplasia syndrome ORPHA:459070
+    Combined Score=53600.13, p=8.24e-30, adj_p=7.86e-26
 
-  HiDeF_Cluster_Cluster4-69: Isolated complex I deficiency ORPHA:2609
-    Combined Score=51983.25, p=1.92e-23, adj_p=4.00e-21
+  HiDeF_Cluster_Cluster4-76: Isolated complex I deficiency ORPHA:2609
+    Combined Score=51983.25, p=1.92e-23, adj_p=1.09e-19
 
-  HiDeF_Cluster_Cluster4-48: Myelodysplastic syndrome associated with isolated del(5q) chromosome abnormality ORPHA:86841
-    Combined Score=42839.31, p=1.12e-23, adj_p=1.43e-21
+  HiDeF_Cluster_Cluster4-52: Myelodysplastic syndrome associated with isolated del(5q) chromosome abnormality ORPHA:86841
+    Combined Score=42839.31, p=1.12e-23, adj_p=6.78e-20
 
-  HiDeF_Cluster_Cluster4-144: STT3A-CDG ORPHA:370921
-    Combined Score=37625.24, p=9.94e-14, adj_p=8.03e-12
+  HiDeF_Cluster_Cluster4-154: STT3A-CDG ORPHA:370921
+    Combined Score=37625.24, p=9.94e-14, adj_p=1.22e-10
 
-  HiDeF_Cluster_Cluster2-46: Leigh syndrome with leukodystrophy ORPHA:255241
-    Combined Score=33216.53, p=2.74e-49, adj_p=1.45e-46
+  HiDeF_Cluster_Cluster2-47: Leigh syndrome with leukodystrophy ORPHA:255241
+    Combined Score=33216.53, p=2.74e-49, adj_p=6.32e-45
 
-  HiDeF_Cluster_Cluster3-75: Isolated complex I deficiency ORPHA:2609
-    Combined Score=32738.59, p=4.58e-28, adj_p=1.24e-25
-
-  HiDeF_Cluster_Cluster4-191: Glycogen storage disease due to aldolase A deficiency ORPHA:57
-    Combined Score=25654.32, p=1.78e-11, adj_p=3.43e-10
+  HiDeF_Cluster_Cluster3-74: Isolated complex I deficiency ORPHA:2609
+    Combined Score=32738.59, p=4.58e-28, adj_p=3.95e-24

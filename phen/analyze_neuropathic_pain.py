@@ -2,6 +2,13 @@
 """
 analyze_neuropathic_pain.py - Analyze neuropathic pain gene expression across HiDeF clusters
 
+Multiple testing: for each analysis (overall / male / female) the family is
+every test performed -- 2 per cluster (pain-up and no-pain-up). It is
+corrected once with pipeline_config.MULTIPLE_TESTING_METHOD BEFORE any
+significance filtering, and clusters are kept only if a direction passes
+the ADJUSTED threshold. (Previously clusters were pre-filtered on raw
+p < 0.05 and FDR was then run on the survivors only.)
+
 Usage:
     python analyze_neuropathic_pain.py --ppi_source STRING --expression_data pain_expr.csv --input_dir ./input --output_dir ./output
 """
@@ -11,12 +18,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import fisher_exact
-from statsmodels.stats.multitest import multipletests
+from scipy.stats import fisher_exact, hypergeom
 import pickle
 import os
 from common_utils import *
 from hidef_multiplex_adapter import MultiplexClusterLoaderMixin
+from multiple_testing import adjust_pvalues, get_alpha, method_label
 
 class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
     def __init__(self, ppi_source, expression_file, input_dir, output_dir, cluster_type='seed_lcc_hidef', persistence_threshold=None):
@@ -32,6 +39,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         print(f"Cluster Type: {cluster_type}")
         print(f"Persistence Threshold: {persistence_threshold}")
         print(f"Expression File: {expression_file}")
+        print(f"Multiple testing: {method_label()} (alpha={get_alpha()})")
 
         self.ppi_source = ppi_source
         self.expression_file = expression_file
@@ -194,7 +202,9 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         return self._perform_differential_analysis(pain_samples, no_pain_samples, 'overall')
     
     def analyze_differential_expression_by_gender(self):
-        """Analyze differential expression separately for males and females."""
+        """Analyze differential expression separately for males and females.
+
+        Each sex is its own analysis and therefore its own correction family."""
         print(f"\n{'='*80}")
         print(f"ANALYZING GENDER-SPECIFIC DIFFERENTIAL EXPRESSION")
         print(f"{'='*80}")
@@ -259,8 +269,22 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
 
         return results_by_gender, gene_results_by_gender
     
+    @staticmethod
+    def _hypergeom_enrichment(overlap_genes, highly_expressed, total_genes):
+        """Fold enrichment and hypergeometric p for overlap with a highly-expressed set."""
+        overlap = len(overlap_genes.intersection(highly_expressed))
+        if overlap == 0:
+            return overlap, 1.0, 1.0
+        fold_enrichment = (overlap / len(overlap_genes)) / (len(highly_expressed) / total_genes)
+        try:
+            p_value = hypergeom.sf(overlap - 1, total_genes, len(highly_expressed), len(overlap_genes))
+        except Exception:
+            p_value = 1.0
+        return overlap, fold_enrichment, p_value
+    
     def _perform_differential_analysis(self, pain_samples, no_pain_samples, analysis_type):
         """Perform differential expression analysis using hypergeometric test."""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"STARTING DIFFERENTIAL ANALYSIS ({analysis_type.upper()})")
         print(f"{'='*80}")
@@ -269,7 +293,6 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
 
         summarized_results = []
         gene_level_results = []
-        cluster_info = {}
 
         pain_expr_means = self.expression_data[pain_samples].mean(axis=1)
         no_pain_expr_means = self.expression_data[no_pain_samples].mean(axis=1)
@@ -289,13 +312,16 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         total_genes = len(self.expression_data.index)
         print(f"  Total genes in dataset: {total_genes}")
 
+        expr_genes = set(self.expression_data.index)
+
+        # ---------------- PASS 1: run every test, keep everything ----------------
+        cluster_tests = {}
         for cluster_idx, (cluster_name, cluster_genes) in enumerate(self.clusters.items()):
             print(f"\n{'-'*80}")
             print(f"Processing cluster {cluster_idx + 1}/{len(self.clusters)}: {cluster_name}")
             print(f"  Cluster size: {len(cluster_genes)} genes")
 
             cluster_genes_set = set(str(g) for g in cluster_genes)
-            expr_genes = set(self.expression_data.index)
             overlap_genes = cluster_genes_set.intersection(expr_genes)
 
             if len(overlap_genes) < 2:
@@ -304,110 +330,82 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
 
             print(f"  Genes in expression data: {len(overlap_genes)}")
 
-            # Test pain overexpression
-            pain_overlap = len(overlap_genes.intersection(pain_highly_expressed))
-
-            if pain_overlap == 0:
-                pain_fold_enrichment = 1.0
-                pain_p_value = 1.0
-            else:
-                pain_fold_enrichment = (pain_overlap / len(overlap_genes)) / (len(pain_highly_expressed) / total_genes)
-                try:
-                    from scipy.stats import hypergeom
-                    pain_p_value = hypergeom.sf(
-                        pain_overlap - 1,
-                        total_genes,
-                        len(pain_highly_expressed),
-                        len(overlap_genes)
-                    )
-                except:
-                    pain_p_value = 1.0
-
+            pain_overlap, pain_fe, pain_p = self._hypergeom_enrichment(
+                overlap_genes, pain_highly_expressed, total_genes)
             print(f"  Pain enrichment:")
             print(f"    Overlap: {pain_overlap} genes")
-            print(f"    Fold enrichment: {pain_fold_enrichment:.2f}")
-            print(f"    P-value: {pain_p_value:.2e}")
+            print(f"    Fold enrichment: {pain_fe:.2f}")
+            print(f"    P-value: {pain_p:.2e}")
 
-            # Test no-pain overexpression
-            no_pain_overlap = len(overlap_genes.intersection(no_pain_highly_expressed))
-
-            if no_pain_overlap == 0:
-                no_pain_fold_enrichment = 1.0
-                no_pain_p_value = 1.0
-            else:
-                no_pain_fold_enrichment = (no_pain_overlap / len(overlap_genes)) / (len(no_pain_highly_expressed) / total_genes)
-                try:
-                    from scipy.stats import hypergeom
-                    no_pain_p_value = hypergeom.sf(
-                        no_pain_overlap - 1,
-                        total_genes,
-                        len(no_pain_highly_expressed),
-                        len(overlap_genes)
-                    )
-                except:
-                    no_pain_p_value = 1.0
-
+            no_pain_overlap, no_pain_fe, no_pain_p = self._hypergeom_enrichment(
+                overlap_genes, no_pain_highly_expressed, total_genes)
             print(f"  No-pain enrichment:")
             print(f"    Overlap: {no_pain_overlap} genes")
-            print(f"    Fold enrichment: {no_pain_fold_enrichment:.2f}")
-            print(f"    P-value: {no_pain_p_value:.2e}")
+            print(f"    Fold enrichment: {no_pain_fe:.2f}")
+            print(f"    P-value: {no_pain_p:.2e}")
 
-            # Use biggest effect size (fold enrichment), but require significance (p < 0.05)
-            pain_significant = pain_p_value < 0.05
-            no_pain_significant = no_pain_p_value < 0.05
+            cluster_tests[cluster_name] = {
+                'cluster_genes': cluster_genes,
+                'cluster_genes_set': cluster_genes_set,
+                'overlap_genes': overlap_genes,
+                'pain': {'overlap': pain_overlap, 'fe': pain_fe, 'p': pain_p},
+                'no_pain': {'overlap': no_pain_overlap, 'fe': no_pain_fe, 'p': no_pain_p},
+            }
+
+        # ---------------- PASS 2: correct over the full family ----------------
+        names = list(cluster_tests)
+        raw_p = []
+        for name in names:
+            raw_p.append(cluster_tests[name]['pain']['p'])
+            raw_p.append(cluster_tests[name]['no_pain']['p'])
+        adj_p = adjust_pvalues(raw_p)
+        for i, name in enumerate(names):
+            cluster_tests[name]['pain']['adj'] = float(adj_p[2 * i])
+            cluster_tests[name]['no_pain']['adj'] = float(adj_p[2 * i + 1])
+
+        print(f"\n{'='*80}")
+        print(f"MULTIPLE TESTING CORRECTION ({analysis_type.upper()})")
+        print(f"{'='*80}")
+        print(f"Method: {method_label()}; family = {len(raw_p)} tests "
+              f"({len(names)} clusters x 2 directions); alpha = {alpha}")
+
+        # ---------------- PASS 3: select direction on ADJUSTED significance ----------------
+        for cluster_name, t in cluster_tests.items():
+            pain, no_pain = t['pain'], t['no_pain']
+            overlap_genes = t['overlap_genes']
+            pain_significant = pain['adj'] < alpha
+            no_pain_significant = no_pain['adj'] < alpha
 
             if pain_significant and no_pain_significant:
                 # Both significant: choose by fold enrichment
-                if pain_fold_enrichment > no_pain_fold_enrichment:
-                    best_fold_enrichment = pain_fold_enrichment
-                    best_p_value = pain_p_value
-                    top_expression = 'pain_upregulated'
-                    percentage = (pain_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                    print(f"  → Best result: Pain upregulated (FE={pain_fold_enrichment:.2f})")
-                else:
-                    best_fold_enrichment = no_pain_fold_enrichment
-                    best_p_value = no_pain_p_value
-                    top_expression = 'no_pain_upregulated'
-                    percentage = (no_pain_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                    print(f"  → Best result: No-pain upregulated (FE={no_pain_fold_enrichment:.2f})")
+                chosen = 'pain' if pain['fe'] > no_pain['fe'] else 'no_pain'
             elif pain_significant:
-                # Only pain significant
-                best_fold_enrichment = pain_fold_enrichment
-                best_p_value = pain_p_value
-                top_expression = 'pain_upregulated'
-                percentage = (pain_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                print(f"  → Best result: Pain upregulated (FE={pain_fold_enrichment:.2f})")
+                chosen = 'pain'
             elif no_pain_significant:
-                # Only no-pain significant
-                best_fold_enrichment = no_pain_fold_enrichment
-                best_p_value = no_pain_p_value
-                top_expression = 'no_pain_upregulated'
-                percentage = (no_pain_overlap / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
-                print(f"  → Best result: No-pain upregulated (FE={no_pain_fold_enrichment:.2f})")
+                chosen = 'no_pain'
             else:
-                # Neither significant: skip this cluster
-                print(f"  ✗ No significant differential expression (pain p={pain_p_value:.2e}, no-pain p={no_pain_p_value:.2e})")
+                print(f"  ✗ {cluster_name}: no significant differential expression "
+                      f"(pain adj p={pain['adj']:.2e}, no-pain adj p={no_pain['adj']:.2e})")
                 continue
 
-            cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
-            print(f"  Seed genes: {len(cluster_seed_genes)}")
+            best = pain if chosen == 'pain' else no_pain
+            top_expression = 'pain_upregulated' if chosen == 'pain' else 'no_pain_upregulated'
+            percentage = (best['overlap'] / len(overlap_genes)) * 100 if len(overlap_genes) > 0 else 0
+            print(f"  → {cluster_name}: {top_expression} (FE={best['fe']:.2f}, "
+                  f"p={best['p']:.2e}, adj p={best['adj']:.2e})")
 
-            cluster_info[cluster_name] = {
-                'fold_enrichment': best_fold_enrichment,
-                'p_value': best_p_value,
-                'top_expression': top_expression
-            }
+            cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
 
             result = create_standardized_results(
                 cluster_name=cluster_name,
-                cluster_genes=cluster_genes,
+                cluster_genes=t['cluster_genes'],
                 cluster_seed_genes=cluster_seed_genes,
                 cluster_type=self.cluster_type,
                 total_genes_analyzed=len(overlap_genes),
                 percentage=percentage,
-                mean_statistic=best_fold_enrichment,
-                p_value=best_p_value,
-                adjusted_p_value=best_p_value,
+                mean_statistic=best['fe'],
+                p_value=best['p'],
+                adjusted_p_value=best['adj'],
                 statistic_name='fold_enrichment',
                 genes_in_expression_data=len(overlap_genes)
             )
@@ -415,21 +413,17 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
             result['top_expression'] = top_expression
             summarized_results.append(result)
 
-            for gene in cluster_genes_set:
-                is_seed = gene in cluster_seed_genes
-                is_in_expr = gene in overlap_genes
-
+            for gene in t['cluster_genes_set']:
                 gene_level_results.append({
                     'cluster_id': cluster_name,
                     'gene': gene,
-                    'is_seed_gene': is_seed,
-                    'is_in_expression_data': is_in_expr,
-                    'cluster_fold_enrichment': cluster_info[cluster_name]['fold_enrichment'],
-                    'cluster_p_value': cluster_info[cluster_name]['p_value'],
-                    'cluster_top_expression': cluster_info[cluster_name]['top_expression']
+                    'is_seed_gene': gene in cluster_seed_genes,
+                    'is_in_expression_data': gene in overlap_genes,
+                    'cluster_fold_enrichment': best['fe'],
+                    'cluster_p_value': best['p'],
+                    'cluster_adjusted_p_value': best['adj'],
+                    'cluster_top_expression': top_expression
                 })
-
-            print(f"  ✓ Added enrichment results for this cluster")
 
         print(f"\n{'='*80}")
         print(f"DIFFERENTIAL ANALYSIS COMPLETE ({analysis_type.upper()})")
@@ -443,19 +437,13 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         print(f"\nResults DataFrame shape: {results_df.shape}")
         print(f"Gene Results DataFrame shape: {gene_results_df.shape}")
 
-        if not results_df.empty and len(results_df) > 1:
-            print(f"\nApplying multiple testing correction...")
-            _, adjusted_pvalues, _, _ = multipletests(results_df['p_value'].values, method='fdr_bh')
-            results_df['adjusted_p_value'] = adjusted_pvalues
-            sig_count = (adjusted_pvalues < 0.05).sum()
-            print(f"  Significant clusters (FDR < 0.05): {sig_count}/{len(results_df)}")
+        if not results_df.empty:
+            sig_count = (results_df['adjusted_p_value'] < alpha).sum()
+            print(f"  Significant clusters (adj p < {alpha}): {sig_count}/{len(results_df)}")
 
         if not gene_results_df.empty:
             print(f"\nAnnotating gene results with cluster significance...")
-            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_id'].map(
-                lambda x: results_df[results_df['cluster_id'] == x]['adjusted_p_value'].values[0] < 0.05
-                if len(results_df[results_df['cluster_id'] == x]) > 0 else False
-            )
+            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_adjusted_p_value'] < alpha
             sig_count = gene_results_df['is_cluster_significant'].sum()
             print(f"  {sig_count} genes in clusters with significant differential expression")
 
@@ -464,6 +452,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
     
     def analyze_cluster_overexpression_in_pain(self):
         """Specialized analysis: Are clusters overexpressed in pain/neuropathic pain patients?"""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"ANALYZING CLUSTER OVEREXPRESSION IN PAIN")
         print(f"{'='*80}")
@@ -558,12 +547,6 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
             overexp_percentage = (gene_overexp_count / len(common_genes)) * 100
             print(f"  Genes overexpressed in pain: {gene_overexp_count}/{len(common_genes)} ({overexp_percentage:.1f}%)")
 
-            # Classify overexpression status
-            is_overexpressed = p_value_overexp < 0.05 and log2_fold_change > 0.5
-            overexpression_status = 'Overexpressed in Pain' if is_overexpressed else 'Not Overexpressed'
-
-            print(f"  Status: {overexpression_status}")
-
             pain_overexpression_results.append({
                 'cluster_id': cluster_name,
                 'cluster_type': self.cluster_type,
@@ -571,13 +554,13 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
                 'mean_expression_pain': pain_mean,
                 'mean_expression_no_pain': no_pain_mean,
                 'odds_ratio': odds_ratio,
+                'log2_odds_ratio': log2_fold_change,
                 'p_value_overexpression': p_value_overexp,
                 'percentage_genes_overexpressed': overexp_percentage,
-                'overexpression_status': overexpression_status,
                 'effect_size': 'Large' if odds_ratio > 2 else 'Medium' if odds_ratio > 1.5 else 'Small'
             })
 
-            print(f"  ✓ Added overexpression results")
+            print(f"  ✓ Recorded test for this cluster")
 
         pain_overexp_df = pd.DataFrame(pain_overexpression_results)
 
@@ -586,20 +569,27 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         print(f"{'='*80}")
         print(f"Total clusters analyzed: {len(pain_overexp_df)}")
 
-        # Apply multiple testing correction
-        if not pain_overexp_df.empty and len(pain_overexp_df) > 1:
-            print(f"\nApplying multiple testing correction...")
-            _, adjusted_pvalues, _, _ = multipletests(pain_overexp_df['p_value_overexpression'].values, method='fdr_bh')
-            pain_overexp_df['adjusted_p_value_overexpression'] = adjusted_pvalues
-            pain_overexp_df['significant_overexpression'] = pain_overexp_df['adjusted_p_value_overexpression'] < 0.05
+        # Standardized correction (one test per cluster => family = all clusters tested)
+        if not pain_overexp_df.empty:
+            print(f"\nApplying {method_label()} correction over {len(pain_overexp_df)} tests...")
+            pain_overexp_df['adjusted_p_value_overexpression'] = adjust_pvalues(
+                pain_overexp_df['p_value_overexpression'].values)
+            pain_overexp_df['significant_overexpression'] = (
+                pain_overexp_df['adjusted_p_value_overexpression'] < alpha)
+
+            # Status is decided on the ADJUSTED p-value (was: raw p)
+            is_over = pain_overexp_df['significant_overexpression'] & (pain_overexp_df['log2_odds_ratio'] > 0.5)
+            pain_overexp_df['overexpression_status'] = np.where(
+                is_over, 'Overexpressed in Pain', 'Not Overexpressed')
             sig_count = pain_overexp_df['significant_overexpression'].sum()
-            print(f"  Significant overexpressions (FDR < 0.05): {sig_count}/{len(pain_overexp_df)}")
+            print(f"  Significant overexpressions (adj p < {alpha}): {sig_count}/{len(pain_overexp_df)}")
 
         print(f"\n{'='*80}\n")
         return pain_overexp_df
     
     def create_visualizations(self):
         """Create standardized visualizations."""
+        alpha = get_alpha()
         plots_dir = os.path.join('plots', self.ppi_source, f'neuropathic_pain_analysis_{self.cluster_type_str}')
         ensure_dir(plots_dir)
 
@@ -615,17 +605,17 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         self.results['log2_fold_enrichment'] = self.results['mean_fold_enrichment'].apply(self.safe_log2)
 
         # Color by significance
-        colors = ['red' if pval < 0.05 else 'gray' for pval in self.results['adjusted_p_value']]
+        colors = ['red' if pval < alpha else 'gray' for pval in self.results['adjusted_p_value']]
 
         plt.scatter(self.results['log2_fold_enrichment'], self.results['neg_log_pvalue'], 
                    c=colors, alpha=0.6, s=100)
 
-        plt.axhline(y=-np.log10(0.05), color='black', linestyle='--', alpha=0.5, label='p=0.05')
+        plt.axhline(y=-np.log10(alpha), color='black', linestyle='--', alpha=0.5, label=f'p={alpha}')
         plt.axvline(x=0, color='black', linestyle='--', alpha=0.5, label='OR=1')
 
         plt.xlabel('log2(Fold enrichment) Pain vs. No Pain')
         plt.ylabel('-log10(p-value)')
-        plt.title(f'Neuropathic Pain Enrichment Volcano Plot - {self.ppi_source}')
+        plt.title(f'Neuropathic Pain Enrichment Volcano Plot - {self.ppi_source}\n(colored by {method_label()} adj p < {alpha})')
         plt.legend()
         plt.tight_layout()
         plt.savefig(os.path.join(plots_dir, 'pain_volcano_plot.png'), dpi=300, bbox_inches='tight')
@@ -675,7 +665,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         # 4. P-value distribution
         plt.figure(figsize=(10, 6))
         plt.hist(self.results['p_value'], bins=50, alpha=0.7, edgecolor='black')
-        plt.axvline(x=0.05, color='red', linestyle='--', label='p=0.05')
+        plt.axvline(x=alpha, color='red', linestyle='--', label=f'p={alpha}')
         plt.xlabel('P-value')
         plt.ylabel('Frequency')
         plt.title(f'P-value Distribution - {self.ppi_source}')
@@ -685,7 +675,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
         plt.close()
 
         # 5. Significant clusters bar plot (if any)
-        sig_results = self.results[self.results['adjusted_p_value'] < 0.05].copy()
+        sig_results = self.results[self.results['adjusted_p_value'] < alpha].copy()
         if not sig_results.empty:
             sig_results = sig_results.sort_values('mean_fold_enrichment', ascending=True)
 
@@ -698,7 +688,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
             plt.barh(range(len(sig_results)), sig_results['mean_fold_enrichment'], color=colors)
             plt.yticks(range(len(sig_results)), sig_results['cluster_id'])
             plt.xlabel('Mean Fold Enrichment')
-            plt.title(f'Significant Pain-Associated Clusters (FDR < 0.05) - {self.ppi_source}')
+            plt.title(f'Significant Pain-Associated Clusters ({method_label()} adj p < {alpha}) - {self.ppi_source}')
             plt.axvline(x=1, color='black', linestyle='-', alpha=0.3)
 
             # Add legend
@@ -715,6 +705,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
     
     def generate_report(self):
         """Generate a simple text report."""
+        alpha = get_alpha()
         report_file = os.path.join(self.analysis_dir, 'analysis_report.txt')
         
         with open(report_file, 'w') as f:
@@ -724,6 +715,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
             f.write(f"Cluster Type: {self.cluster_type}\n")
             f.write(f"Persistence Threshold: {self.persistence_threshold}\n")
             f.write(f"Expression file: {self.expression_file}\n")
+            f.write(f"Multiple testing: {method_label()}, alpha={alpha}\n")
             f.write(f"Total clusters: {len(self.clusters)}\n")
 
             if self.expression_data is not None:
@@ -744,20 +736,20 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
             
             if not self.results.empty:
                 f.write(f"\nDifferential Expression Results:\n")
-                f.write(f"Total clusters analyzed: {len(self.results)}\n")
-                f.write(f"Significant changes: {(self.results['adjusted_p_value'] < 0.05).sum()}\n")
+                f.write(f"Total clusters reported (significant after correction): {len(self.results)}\n")
+                f.write(f"Significant changes (adj p < {alpha}): {(self.results['adjusted_p_value'] < alpha).sum()}\n")
                 
-                sig_up = len(self.results[(self.results['adjusted_p_value'] < 0.05) & (self.results['mean_fold_enrichment'] > 0)])
-                sig_down = len(self.results[(self.results['adjusted_p_value'] < 0.05) & (self.results['mean_fold_enrichment'] < 0)])
-                f.write(f"  Upregulated: {sig_up}\n")
-                f.write(f"  Downregulated: {sig_down}\n")
+                sig_up = len(self.results[(self.results['adjusted_p_value'] < alpha) & (self.results['top_expression'] == 'pain_upregulated')])
+                sig_down = len(self.results[(self.results['adjusted_p_value'] < alpha) & (self.results['top_expression'] == 'no_pain_upregulated')])
+                f.write(f"  Pain-upregulated: {sig_up}\n")
+                f.write(f"  No-pain-upregulated: {sig_down}\n")
                 
                 # Top changes
                 f.write("\nTop Expression Changes:\n")
                 top_results = self.results.nlargest(5, 'mean_fold_enrichment', keep='all')
                 for _, row in top_results.iterrows():
-                    f.write(f"  {row['cluster_id']}: OR={row['mean_fold_enrichment']:.2f}, ")
-                    f.write(f"p={row['p_value']:.2e}\n")
+                    f.write(f"  {row['cluster_id']}: FE={row['mean_fold_enrichment']:.2f}, ")
+                    f.write(f"p={row['p_value']:.2e}, adj_p={row['adjusted_p_value']:.2e}\n")
     
     def run_analysis(self):
         """Run the complete analysis pipeline."""
@@ -820,7 +812,7 @@ class NeuropathicPainAnalyzer(MultiplexClusterLoaderMixin):
                 print(f"✓ Saved cluster overexpression analysis")
 
                 # Save significant overexpressions
-                sig_overexp = pain_overexp_df[pain_overexp_df.get('significant_overexpression', False)]
+                sig_overexp = pain_overexp_df[pain_overexp_df['significant_overexpression']]
                 if not sig_overexp.empty:
                     sig_overexp.to_csv(os.path.join(self.analysis_dir, 'significant_pain_overexpressions.csv'), index=False)
                     print(f"✓ Saved {len(sig_overexp)} significant pain overexpressions")
@@ -853,7 +845,7 @@ def main():
     parser.add_argument('--input_dir', type=str, default='./input', help='Input directory with HiDeF comparison results')
     parser.add_argument('--output_dir', type=str, default='./output', help='Output directory')
     parser.add_argument('--persistence_threshold', type=int, default=None, 
-                    help='Minimum persistence threshold for HiDeF clusters (default: 5)')
+                    help='Minimum persistence threshold for HiDeF clusters (default: pipeline_config.PERSISTENCE_THRESHOLD)')
     
     args = parser.parse_args()
     

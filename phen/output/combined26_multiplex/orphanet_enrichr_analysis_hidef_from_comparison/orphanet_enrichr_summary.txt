@@ -1,3 +1,3 @@
-total_clusters_analyzed: 2156
-significant_clusters: 2002
-total_genes_analyzed: 4162
+total_clusters_analyzed: 2342
+significant_clusters: 1574
+total_genes_analyzed: 4164

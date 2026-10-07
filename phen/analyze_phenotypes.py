@@ -2,6 +2,15 @@
 """
 analyze_phenotypes.py - Analyze pain phenotypes across HiDeF clusters
 
+Multiple testing: every (cluster, phenotype) hypergeometric test is part of
+ONE family (phenotypes never seen in a cluster count as p=1 tests via
+`n_untested`). The family is corrected once with
+pipeline_config.MULTIPLE_TESTING_METHOD, and only afterwards is the
+"top phenotype" per cluster picked; the reported adjusted p-value is that
+specific test's adjusted p-value. (Previously the best-by-fold-enrichment
+phenotype was picked first and FDR was run across clusters only, which
+ignores the selection among thousands of phenotypes.)
+
 Usage:
     python analyze_phenotypes.py --ppi_source STRING --expression_data phenotypes.csv --input_dir ./input --output_dir ./output
 """
@@ -11,12 +20,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import fisher_exact
-from statsmodels.stats.multitest import multipletests
+from scipy.stats import fisher_exact, hypergeom
 import pickle
 import os
 from common_utils import *
 from hidef_multiplex_adapter import MultiplexClusterLoaderMixin
+from multiple_testing import adjust_pvalues, get_alpha, method_label
 
 class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
     def __init__(self, ppi_source, expression_file, input_dir, output_dir, cluster_type='seed_lcc_hidef', persistence_threshold=None):
@@ -32,6 +41,7 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         print(f"Cluster Type: {cluster_type}")
         print(f"Persistence Threshold: {persistence_threshold}")
         print(f"Expression File: {expression_file}")
+        print(f"Multiple testing: {method_label()} (alpha={get_alpha()})")
 
         self.ppi_source = ppi_source
         self.expression_file = expression_file
@@ -58,11 +68,10 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         self.seed_genes = None
         self.cluster_seed_mapping = None
         self.expression_data = None
-        self.phenotype_genes = {}
         self.results = []
         self.gene_results = []
-        self.gene_phenotypes={}
-        self.phenotype_genes={}        
+        self.gene_phenotypes = {}
+        self.phenotype_genes = {}
 
         print(f"{'='*80}\n")
 
@@ -177,6 +186,7 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
     
     def analyze_enrichment(self):
         """Analyze phenotype enrichment in each cluster using hypergeometric test."""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"STARTING ENRICHMENT ANALYSIS")
         print(f"{'='*80}")
@@ -188,9 +198,12 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         print(f"Total clusters to process: {len(self.clusters)}")
         print(f"Total phenotypes: {len(self.phenotype_genes)}")
 
-        summarized_results = []
-        gene_level_results = []
-        cluster_info = {}
+        # ---------------- PASS 1: run every test, keep everything ----------------
+        cluster_cache = {}      # cluster_name -> dict(...)
+        all_tests = []          # references to every per-(cluster, phenotype) dict
+        n_untested = 0          # phenotypes with zero overlap (p == 1 by construction)
+        total_genes = len(self.gene_phenotypes)
+        phenotype_gene_set = set(self.gene_phenotypes.keys())
 
         for cluster_idx, (cluster_name, cluster_genes) in enumerate(self.clusters.items()):
             print(f"\n{'-'*80}")
@@ -198,7 +211,6 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
             print(f"  Cluster size: {len(cluster_genes)} genes")
 
             cluster_genes_set = set(str(g) for g in cluster_genes)
-            phenotype_gene_set = set(self.gene_phenotypes.keys())
             overlap_genes = cluster_genes_set.intersection(phenotype_gene_set)
 
             if not overlap_genes:
@@ -208,7 +220,6 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
             print(f"  Genes in phenotype data: {len(overlap_genes)}")
 
             phenotype_results = []
-            total_genes = len(self.gene_phenotypes)
 
             print(f"  Testing enrichment for {len(self.phenotype_genes)} phenotypes...")
             for phenotype, phenotype_genes in self.phenotype_genes.items():
@@ -220,7 +231,6 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
                 fold_enrichment = (genes_in_both / len(overlap_genes)) / (len(phenotype_genes) / total_genes)
 
                 try:
-                    from scipy.stats import hypergeom
                     p_value = hypergeom.sf(
                         genes_in_both - 1,
                         total_genes,
@@ -230,67 +240,93 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
                 except:
                     p_value = 1.0
 
-                phenotype_results.append({
+                entry = {
                     'phenotype': phenotype,
                     'fold_enrichment': fold_enrichment,
                     'p_value': p_value,
                     'genes_in_phenotype': genes_in_both
-                })
+                }
+                phenotype_results.append(entry)
+                all_tests.append(entry)
+
+            n_untested += len(self.phenotype_genes) - len(phenotype_results)
 
             if phenotype_results:
-                best_result = max(phenotype_results, key=lambda x: x['fold_enrichment'])
-                top_phenotype = best_result['phenotype']
-                best_fold_enrichment = best_result['fold_enrichment']
-                best_p_value = best_result['p_value']
-
-                print(f"  Top phenotype: {top_phenotype}")
-                print(f"    Fold enrichment: {best_fold_enrichment:.2f}")
-                print(f"    P-value: {best_p_value:.2e}")
-                print(f"    Genes in phenotype: {best_result['genes_in_phenotype']}")
-
-                percentage = (len(overlap_genes) / len(cluster_genes)) * 100
-                cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
-
-                cluster_info[cluster_name] = {
-                    'fold_enrichment': best_fold_enrichment,
-                    'p_value': best_p_value,
-                    'top_phenotype': top_phenotype,
-                    'genes_in_phenotype': best_result['genes_in_phenotype']
+                cluster_cache[cluster_name] = {
+                    'cluster_genes': cluster_genes,
+                    'cluster_genes_set': cluster_genes_set,
+                    'overlap_genes': overlap_genes,
+                    'phenotype_results': phenotype_results,
                 }
 
-                result = create_standardized_results(
-                    cluster_name=cluster_name,
-                    cluster_genes=cluster_genes,
-                    cluster_seed_genes=cluster_seed_genes,
-                    cluster_type=self.cluster_type,
-                    total_genes_analyzed=len(overlap_genes),
-                    percentage=percentage,
-                    mean_statistic=best_fold_enrichment,
-                    p_value=best_p_value,
-                    adjusted_p_value=best_p_value,
-                    statistic_name='fold_enrichment',
-                    genes_in_expression_data=len(overlap_genes)
-                )
-                result['top_phenotype'] = top_phenotype
-                result['phenotype_count'] = len(phenotype_results)
-                result['genes_in_phenotype'] = best_result['genes_in_phenotype']
-                summarized_results.append(result)
+        # ---------------- PASS 2: correct over the full family ----------------
+        print(f"\n{'='*80}")
+        print(f"MULTIPLE TESTING CORRECTION")
+        print(f"{'='*80}")
+        if all_tests:
+            adj = adjust_pvalues([t['p_value'] for t in all_tests], n_untested=n_untested)
+            for t, a in zip(all_tests, adj):
+                t['adjusted_p_value'] = float(a)
+            print(f"Method: {method_label()}; family = {len(all_tests) + n_untested} "
+                  f"cluster x phenotype tests ({len(all_tests)} with overlap, {n_untested} zero-overlap)")
+        else:
+            print("No tests performed.")
 
-                for gene in cluster_genes_set:
-                    is_seed = gene in cluster_seed_genes
-                    is_in_expr = gene in overlap_genes
+        # ---------------- PASS 3: pick top phenotype per cluster, build outputs ----------------
+        summarized_results = []
+        gene_level_results = []
 
-                    gene_level_results.append({
-                        'cluster_id': cluster_name,
-                        'gene': gene,
-                        'is_seed_gene': is_seed,
-                        'is_in_expression_data': is_in_expr,
-                        'cluster_fold_enrichment': cluster_info[cluster_name]['fold_enrichment'],
-                        'cluster_p_value': cluster_info[cluster_name]['p_value'],
-                        'cluster_top_phenotype': cluster_info[cluster_name]['top_phenotype']
-                    })
+        for cluster_name, cache in cluster_cache.items():
+            cluster_genes = cache['cluster_genes']
+            cluster_genes_set = cache['cluster_genes_set']
+            overlap_genes = cache['overlap_genes']
+            phenotype_results = cache['phenotype_results']
 
-                print(f"  ✓ Added enrichment results for this cluster")
+            # Top phenotype by fold enrichment (selection rule unchanged);
+            # its adjusted p comes from the family-wide correction above.
+            best_result = max(phenotype_results, key=lambda x: x['fold_enrichment'])
+            top_phenotype = best_result['phenotype']
+            best_fold_enrichment = best_result['fold_enrichment']
+            best_p_value = best_result['p_value']
+            best_adj_p = best_result['adjusted_p_value']
+
+            print(f"\n{cluster_name}: top phenotype {top_phenotype}")
+            print(f"    Fold enrichment: {best_fold_enrichment:.2f}")
+            print(f"    P-value: {best_p_value:.2e}  (adj p: {best_adj_p:.2e})")
+            print(f"    Genes in phenotype: {best_result['genes_in_phenotype']}")
+
+            percentage = (len(overlap_genes) / len(cluster_genes)) * 100
+            cluster_seed_genes = self.cluster_seed_mapping[cluster_name]
+
+            result = create_standardized_results(
+                cluster_name=cluster_name,
+                cluster_genes=cluster_genes,
+                cluster_seed_genes=cluster_seed_genes,
+                cluster_type=self.cluster_type,
+                total_genes_analyzed=len(overlap_genes),
+                percentage=percentage,
+                mean_statistic=best_fold_enrichment,
+                p_value=best_p_value,
+                adjusted_p_value=best_adj_p,
+                statistic_name='fold_enrichment',
+                genes_in_expression_data=len(overlap_genes)
+            )
+            result['top_phenotype'] = top_phenotype
+            result['phenotype_count'] = len(phenotype_results)
+            result['genes_in_phenotype'] = best_result['genes_in_phenotype']
+            summarized_results.append(result)
+
+            for gene in cluster_genes_set:
+                gene_level_results.append({
+                    'cluster_id': cluster_name,
+                    'gene': gene,
+                    'is_seed_gene': gene in cluster_seed_genes,
+                    'is_in_expression_data': gene in overlap_genes,
+                    'cluster_fold_enrichment': best_fold_enrichment,
+                    'cluster_p_value': best_p_value,
+                    'cluster_adjusted_p_value': best_adj_p,
+                    'cluster_top_phenotype': top_phenotype
+                })
 
         print(f"\n{'='*80}")
         print(f"ENRICHMENT ANALYSIS COMPLETE")
@@ -304,19 +340,13 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         print(f"\nResults DataFrame shape: {results_df.shape}")
         print(f"Gene Results DataFrame shape: {gene_results_df.shape}")
 
-        if not results_df.empty and len(results_df) > 1:
-            print(f"\nApplying multiple testing correction...")
-            _, adjusted_pvalues, _, _ = multipletests(results_df['p_value'].values, method='fdr_bh')
-            results_df['adjusted_p_value'] = adjusted_pvalues
-            sig_count = (adjusted_pvalues < 0.05).sum()
-            print(f"  Significant clusters (FDR < 0.05): {sig_count}/{len(results_df)}")
+        if not results_df.empty:
+            sig_count = (results_df['adjusted_p_value'] < alpha).sum()
+            print(f"  Significant clusters (adj p < {alpha}): {sig_count}/{len(results_df)}")
 
         if not gene_results_df.empty:
             print(f"\nAnnotating gene results with cluster significance...")
-            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_id'].map(
-                lambda x: results_df[results_df['cluster_id'] == x]['adjusted_p_value'].values[0] < 0.05
-                if len(results_df[results_df['cluster_id'] == x]) > 0 else False
-            )
+            gene_results_df['is_cluster_significant'] = gene_results_df['cluster_adjusted_p_value'] < alpha
             sig_count = gene_results_df['is_cluster_significant'].sum()
             print(f"  {sig_count} genes in clusters with significant phenotype enrichments")
 
@@ -327,7 +357,12 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         return results_df, gene_results_df
     
     def analyze_pain_phenotype_overrepresentation(self):
-        """Specialized analysis: Are certain pain phenotypes overrepresented in clusters?"""
+        """Specialized analysis: Are certain pain phenotypes overrepresented in clusters?
+
+        All (cluster, pain phenotype) Fisher tests form one family; the
+        per-cluster summary reports the adjusted p of that cluster's most
+        significant pain phenotype."""
+        alpha = get_alpha()
         pain_keywords = ['pain', 'nociception', 'analgesia', 'hyperalgesia', 'allodynia', 'neuropathy', 'neuralgia']
         
         # Get all pain-related phenotypes
@@ -340,95 +375,97 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
             print("No pain-related phenotypes found")
             return pd.DataFrame()
         
-        pain_phenotype_results = []
+        phenotype_gene_set = set(self.gene_phenotypes.keys())
+        total_genes = len(self.gene_phenotypes)
+
+        # PASS 1: run every test
+        per_cluster = {}
+        all_tests = []
+        n_untested = 0
         
         for cluster_name, cluster_genes in self.clusters.items():
             cluster_genes_set = set(str(g) for g in cluster_genes)
-            phenotype_gene_set = set(self.gene_phenotypes.keys())
             overlap_genes = cluster_genes_set.intersection(phenotype_gene_set)
             
             if not overlap_genes:
                 continue
             
-            # Analyze each pain phenotype
-            cluster_pain_phenotypes = []
+            entries = []
             total_pain_genes_in_cluster = 0
-            pain_phenotype_odds_ratios = []
-            pain_phenotype_p_values = []
             
             for pain_phenotype in pain_phenotypes:
-                # Count genes in cluster with this pain phenotype
-                genes_with_pain_phenotype = []
-                for gene in overlap_genes:
-                    if gene in self.gene_phenotypes and pain_phenotype in self.gene_phenotypes[gene]:
-                        genes_with_pain_phenotype.append(gene)
+                genes_with_pain_phenotype = [
+                    gene for gene in overlap_genes
+                    if pain_phenotype in self.gene_phenotypes.get(gene, ())
+                ]
                 
-                if genes_with_pain_phenotype:
-                    cluster_pain_phenotypes.append(pain_phenotype)
-                    total_pain_genes_in_cluster += len(genes_with_pain_phenotype)
-                    
-                    # Fisher's exact test for this pain phenotype
-                    phenotype_total = len(self.phenotype_genes[pain_phenotype])
-                    total_genes = len(self.gene_phenotypes)
-                    cluster_size = len(overlap_genes)
-                    
-                    a = len(genes_with_pain_phenotype)
-                    b = cluster_size - a
-                    c = phenotype_total - a
-                    d = total_genes - a - b - c
-                    
-                    if a > 0 and d >= 0:
-                        try:
-                            odds_ratio, p_value = fisher_exact([[a, b], [c, d]], alternative='greater')
-                            odds_ratio = min(odds_ratio, 1e6)
-                            pain_phenotype_odds_ratios.append(odds_ratio)
-                            pain_phenotype_p_values.append(p_value)
-                        except:
-                            pain_phenotype_odds_ratios.append(1.0)
-                            pain_phenotype_p_values.append(1.0)
-            
-            if cluster_pain_phenotypes:
-                # Summary statistics for this cluster
-                mean_pain_odds_ratio = np.mean(pain_phenotype_odds_ratios) if pain_phenotype_odds_ratios else 1.0
-                min_pain_p_value = min(pain_phenotype_p_values) if pain_phenotype_p_values else 1.0
-                pain_percentage = (total_pain_genes_in_cluster / len(overlap_genes)) * 100
+                if not genes_with_pain_phenotype:
+                    n_untested += 1
+                    continue
                 
-                # Most significant pain phenotype
-                if pain_phenotype_p_values:
-                    most_sig_idx = np.argmin(pain_phenotype_p_values)
-                    top_pain_phenotype = list(pain_phenotypes)[most_sig_idx]
-                    top_pain_odds_ratio = pain_phenotype_odds_ratios[most_sig_idx]
+                total_pain_genes_in_cluster += len(genes_with_pain_phenotype)
+                
+                phenotype_total = len(self.phenotype_genes[pain_phenotype])
+                cluster_size = len(overlap_genes)
+                
+                a = len(genes_with_pain_phenotype)
+                b = cluster_size - a
+                c = phenotype_total - a
+                d = total_genes - a - b - c
+                
+                if a > 0 and d >= 0:
+                    try:
+                        odds_ratio, p_value = fisher_exact([[a, b], [c, d]], alternative='greater')
+                        odds_ratio = min(odds_ratio, 1e6)
+                    except:
+                        odds_ratio, p_value = 1.0, 1.0
+                    entry = {'phenotype': pain_phenotype, 'odds_ratio': odds_ratio, 'p_value': p_value}
+                    entries.append(entry)
+                    all_tests.append(entry)
                 else:
-                    top_pain_phenotype = cluster_pain_phenotypes[0] if cluster_pain_phenotypes else 'None'
-                    top_pain_odds_ratio = 1.0
-                
-                pain_phenotype_results.append({
-                    'cluster_id': cluster_name,
-                    'cluster_type': self.cluster_type,
-                    'pain_phenotypes_in_cluster': cluster_pain_phenotypes,
-                    'pain_phenotype_count': len(cluster_pain_phenotypes),
-                    'total_pain_genes_in_cluster': total_pain_genes_in_cluster,
+                    n_untested += 1
+            
+            if entries:
+                per_cluster[cluster_name] = {
+                    'entries': entries,
+                    'total_pain_genes': total_pain_genes_in_cluster,
                     'cluster_size': len(overlap_genes),
-                    'pain_gene_percentage': pain_percentage,
-                    'mean_pain_odds_ratio': mean_pain_odds_ratio,
-                    'top_pain_phenotype': top_pain_phenotype,
-                    'top_pain_odds_ratio': top_pain_odds_ratio,
-                    'min_pain_p_value': min_pain_p_value,
-                    'overrepresented_for_pain': min_pain_p_value < 0.05 and mean_pain_odds_ratio > 1.5
-                })
+                }
         
-        pain_phenotype_df = pd.DataFrame(pain_phenotype_results)
+        # PASS 2: correct over the whole family
+        if all_tests:
+            adj = adjust_pvalues([t['p_value'] for t in all_tests], n_untested=n_untested)
+            for t, a_ in zip(all_tests, adj):
+                t['adjusted_p_value'] = float(a_)
         
-        # Apply multiple testing correction
-        if not pain_phenotype_df.empty and len(pain_phenotype_df) > 1:
-            _, adjusted_pvalues, _, _ = multipletests(pain_phenotype_df['min_pain_p_value'].values, method='fdr_bh')
-            pain_phenotype_df['adjusted_pain_p_value'] = adjusted_pvalues
-            pain_phenotype_df['significant_pain_overrepresentation'] = pain_phenotype_df['adjusted_pain_p_value'] < 0.05
+        # PASS 3: per-cluster summary
+        pain_phenotype_results = []
+        for cluster_name, info in per_cluster.items():
+            entries = info['entries']
+            top = min(entries, key=lambda e: e['p_value'])   # most significant pain phenotype
+            mean_pain_odds_ratio = float(np.mean([e['odds_ratio'] for e in entries]))
+            
+            pain_phenotype_results.append({
+                'cluster_id': cluster_name,
+                'cluster_type': self.cluster_type,
+                'pain_phenotypes_in_cluster': [e['phenotype'] for e in entries],
+                'pain_phenotype_count': len(entries),
+                'total_pain_genes_in_cluster': info['total_pain_genes'],
+                'cluster_size': info['cluster_size'],
+                'pain_gene_percentage': (info['total_pain_genes'] / info['cluster_size']) * 100,
+                'mean_pain_odds_ratio': mean_pain_odds_ratio,
+                'top_pain_phenotype': top['phenotype'],
+                'top_pain_odds_ratio': top['odds_ratio'],
+                'min_pain_p_value': top['p_value'],
+                'adjusted_pain_p_value': top['adjusted_p_value'],
+                'significant_pain_overrepresentation': top['adjusted_p_value'] < alpha,
+                'overrepresented_for_pain': top['adjusted_p_value'] < alpha and mean_pain_odds_ratio > 1.5
+            })
         
-        return pain_phenotype_df
+        return pd.DataFrame(pain_phenotype_results)
     
     def analyze_pain_phenotypes(self):
-        """Special analysis for pain-related phenotypes."""
+        """Special analysis for pain-related phenotypes (descriptive; no hypothesis test)."""
         pain_keywords = ['pain', 'nociception', 'analgesia', 'hyperalgesia', 'allodynia']
         
         pain_results = []
@@ -474,6 +511,7 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
     
     def create_visualizations(self):
         """Create standardized visualizations."""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"CREATING VISUALIZATIONS")
         print(f"{'='*80}")
@@ -497,19 +535,19 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
         self.results['log2_fold_enrichment'] = self.results['mean_fold_enrichment'].apply(self.safe_log2)
 
         # Color by significance
-        colors = ['red' if pval < 0.05 else 'gray' for pval in self.results['adjusted_p_value']]
+        colors = ['red' if pval < alpha else 'gray' for pval in self.results['adjusted_p_value']]
         sig_count = sum(1 for c in colors if c == 'red')
-        print(f"   Significant results (red): {sig_count}/{len(colors)}")
+        print(f"   Significant results (red, adj p < {alpha}): {sig_count}/{len(colors)}")
 
         plt.scatter(self.results['log2_fold_enrichment'], self.results['neg_log_pvalue'], 
                    c=colors, alpha=0.6, s=50)
 
-        plt.axhline(y=-np.log10(0.05), color='black', linestyle='--', alpha=0.5)
+        plt.axhline(y=-np.log10(alpha), color='black', linestyle='--', alpha=0.5)
         plt.axvline(x=0, color='black', linestyle='--', alpha=0.5)
 
         plt.xlabel('log2(Fold Enrichment)')
         plt.ylabel('-log10(p-value)')
-        plt.title(f'Phenotype Enrichment Volcano Plot - {self.ppi_source}')
+        plt.title(f'Phenotype Enrichment Volcano Plot - {self.ppi_source}\n(colored by {method_label()} adj p < {alpha})')
         plt.tight_layout()
         volcano_path = os.path.join(plots_dir, 'phenotype_volcano_plot.png')
         plt.savefig(volcano_path, dpi=300, bbox_inches='tight')
@@ -537,6 +575,7 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
     
     def generate_report(self):
         """Generate a simple text report."""
+        alpha = get_alpha()
         print(f"\n{'='*80}")
         print(f"GENERATING REPORT")
         print(f"{'='*80}")
@@ -551,6 +590,8 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
             f.write(f"Cluster Type: {self.cluster_type}\n")
             f.write(f"Annotation: {self.safe_prefix}\n")
             f.write(f"Gene data file: {self.expression_file}\n")
+            f.write(f"Multiple testing: {method_label()}, alpha={alpha} "
+                    f"(family = all cluster x phenotype tests)\n")
             f.write(f"Total clusters: {len(self.clusters)}\n")
             f.write(f"Total genes with phenotypes: {len(self.gene_phenotypes)}\n")
             f.write(f"Total phenotypes: {len(self.phenotype_genes)}\n\n")
@@ -558,14 +599,15 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
             if not self.results.empty:
                 f.write(f"Analysis Results:\n")
                 f.write(f"Total clusters analyzed: {len(self.results)}\n")
-                f.write(f"Significant enrichments: {(self.results['adjusted_p_value'] < 0.05).sum()}\n\n")
+                f.write(f"Significant enrichments (adj p < {alpha}): {(self.results['adjusted_p_value'] < alpha).sum()}\n\n")
 
                 # Top enrichments
                 f.write("Top 10 Enrichments:\n")
                 top_results = self.results.nlargest(10, 'mean_fold_enrichment')
                 for _, row in top_results.iterrows():
                     f.write(f"  {row['cluster_id']}: ")
-                    f.write(f"OR={row['mean_fold_enrichment']:.2f}, p={row['p_value']:.2e}\n")
+                    f.write(f"FE={row['mean_fold_enrichment']:.2f}, p={row['p_value']:.2e}, "
+                            f"adj_p={row['adjusted_p_value']:.2e}\n")
 
         print(f"✓ Report saved: {report_file}")
         print(f"\n{'='*80}\n")  
@@ -620,6 +662,9 @@ class PhenotypesAnalyzer(MultiplexClusterLoaderMixin):
 
             return True
 
+        print("\n✗ No results generated")
+        return False
+
 def main():
     parser = argparse.ArgumentParser(description='Analyze pain phenotypes across HiDeF clusters from comparison results')
     parser.add_argument('--ppi_source', type=str, required=True, help='PPI source name')
@@ -627,7 +672,7 @@ def main():
     parser.add_argument('--input_dir', type=str, default='./input', help='Input directory with HiDeF comparison results')
     parser.add_argument('--output_dir', type=str, default='./output', help='Output directory')
     parser.add_argument('--persistence_threshold', type=int, default=None, 
-                    help='Minimum persistence threshold for HiDeF clusters (default: 5)')
+                    help='Minimum persistence threshold for HiDeF clusters (default: pipeline_config.PERSISTENCE_THRESHOLD)')
     
     args = parser.parse_args()
     

@@ -22,15 +22,35 @@ set -eo pipefail
 TASK=${SLURM_ARRAY_TASK_ID:-0}
 TASK_DIR=$(printf "task_%03d" "$TASK")
 
+# Same exclusion list as step6 (kept out of the ranking pool, like step6 does)
+EXCL_SEEDS=(
+  "A-PEP.CHRNA7_SLC18A3::ADRA2A" "A-PEP.CHRNA7_SLC18A3::ADRA2C" "A-PEP.SCGN_ADRA2C::RGS9"
+  "A-PROPR.EPHA3::HCN2" "AB-LTMR.CCKAR::KCNQ2" "AB-LTMR.ETV1::KCNQ2" "AB-LTMR.LGI2::SPP1"
+  "AB-LTMR.NSG2::KCNQ2" "C-LTMR.CDH9::GRIA2" "C-PEP.ADORA2B::TRPV1" "C-PEP.TAC1_CHRNA3::TRPV1"
+)
+
+# MultiXrank wdir = the folder holding config.yml, the multiplex files and gene_reference_graph.pkl
+MX_WDIR=${MX_WDIR:-04_multixrank_prep/multixrank_hetero_input}
+MX_CONFIG=${MX_CONFIG:-config.yml}
+MX_TMP=${MX_TMP:-${TMPDIR:-/tmp}/mx11i_${SLURM_JOB_ID}_${TASK}}
+
 COMMON=(
-  --reference-graph 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl
+  --reference-graph "$MX_WDIR/gene_reference_graph.pkl"
   --disease-module-dir 06_disease_module
+  --module-builder multixrank
+  --mx-wdir "$MX_WDIR" --mx-config "$MX_CONFIG" --mx-tmp "$MX_TMP"
+  --lcc-per-layer
+  --exclude-seed-celltypes global_ppi
+  --exclude-seeds "${EXCL_SEEDS[@]}"
+  --max-bridge 30000
   --partition-type CPM
   --gamma-mode calibrated
+  --coverage-floor 0.8
   --max-resolution 0.9 --n-resolutions 40 --n-restarts 5
   --minsize "$MINSIZE" --jaccard "$JACCARD" --chi "$CHI" --consensus-p "$CONSENSUS_P"
   --neighbors "$NEIGHBORS"
-  --cap-factor 1.5 --min-lcc-factor 0.5
+  # size window: only drop absurd modules (>3x or <0.1x the true size), don't force a size match
+  --cap-factor 3 --min-lcc-factor 0.1 --oversize-policy skip
   --perm-timeout "${PERM_TIMEOUT:-0}"
 )
 
@@ -62,4 +82,5 @@ case "$STAGE" in
     echo "Unknown STAGE=$STAGE"; exit 2 ;;
 esac
 
+rm -rf "$MX_TMP" 2>/dev/null || true
 echo "Finished at: $(date)"
