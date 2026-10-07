@@ -55,3 +55,5 @@ __pycache__/
 slurm_logs/
 __pycache__/
 .ipynb_checkpoints/
+00_inputs/go/goa_human.gaf
+*.h5ad
