@@ -1,0 +1,540 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d6" for="node" attr.name="highlight" attr.type="boolean" />
+  <key id="d5" for="node" attr.name="n_submodules" attr.type="long" />
+  <key id="d4" for="node" attr.name="layer" attr.type="string" />
+  <key id="d3" for="node" attr.name="y" attr.type="double" />
+  <key id="d2" for="node" attr.name="x" attr.type="double" />
+  <key id="d1" for="node" attr.name="label" attr.type="string" />
+  <key id="d0" for="node" attr.name="kind" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="M:Cluster2-46">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster2-46</data>
+      <data key="d2">3.061616997868383e-14</data>
+      <data key="d3">-500.0</data>
+      <data key="d4">A-PEP.CHRNA7_SLC18A3</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster2-33">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster2-33</data>
+      <data key="d2">249.99999999999994</data>
+      <data key="d3">-433.01270189221935</data>
+      <data key="d4">A-PEP.NTRK3_S100A16</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster3-76">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster3-76</data>
+      <data key="d2">433.0127018922193</data>
+      <data key="d3">-250.0</data>
+      <data key="d4">A-Propr.EPHA3</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster2-707">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster2-707</data>
+      <data key="d2">500.0</data>
+      <data key="d3">-0.0</data>
+      <data key="d4">A-Propr.HAPLN4</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster3-228">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster3-228</data>
+      <data key="d2">433.01270189221935</data>
+      <data key="d3">249.99999999999991</data>
+      <data key="d4">A-Propr.PCDH8</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster2-51">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster2-51</data>
+      <data key="d2">249.99999999999994</data>
+      <data key="d3">433.01270189221935</data>
+      <data key="d4">ATF3</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster2-77">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster2-77</data>
+      <data key="d2">3.061616997868383e-14</data>
+      <data key="d3">500.0</data>
+      <data key="d4">Ab-LTMR.CCKAR</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster3-69">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster3-69</data>
+      <data key="d2">-249.9999999999999</data>
+      <data key="d3">433.01270189221935</data>
+      <data key="d4">Ab-LTMR.NSG2</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster5-3">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster5-3</data>
+      <data key="d2">-433.01270189221924</data>
+      <data key="d3">250.00000000000017</data>
+      <data key="d4">C-LTMR.CDH9</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster3-56">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster3-56</data>
+      <data key="d2">-500.0</data>
+      <data key="d3">6.123233995736766e-14</data>
+      <data key="d4">C-NP.MRGPRX1_MRGPRX4</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster4-43">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster4-43</data>
+      <data key="d2">-433.0127018922193</data>
+      <data key="d3">-250.00000000000006</data>
+      <data key="d4">C-NP.SST</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="M:Cluster3-24">
+      <data key="d0">submodule</data>
+      <data key="d1">Cluster3-24</data>
+      <data key="d2">-250.00000000000023</data>
+      <data key="d3">-433.0127018922192</data>
+      <data key="d4">C-PEP.TAC1_CHRNA3</data>
+      <data key="d5">0</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:C2CD2L">
+      <data key="d0">gene</data>
+      <data key="d1">C2CD2L</data>
+      <data key="d2">92.7170136958141</data>
+      <data key="d3">-327.11397917443117</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:ERGIC3">
+      <data key="d0">gene</data>
+      <data key="d1">ERGIC3</data>
+      <data key="d2">-97.04064697669965</data>
+      <data key="d3">-325.85750387913976</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:LPAR3">
+      <data key="d0">gene</data>
+      <data key="d1">LPAR3</data>
+      <data key="d2">129.7319135062988</data>
+      <data key="d3">-314.276360259556</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:MGST3">
+      <data key="d0">gene</data>
+      <data key="d1">MGST3</data>
+      <data key="d2">19.725277830715907</data>
+      <data key="d3">5.634793842618374</data>
+      <data key="d4" />
+      <data key="d5">4</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:PTGES">
+      <data key="d0">gene</data>
+      <data key="d1">PTGES</data>
+      <data key="d2">-59.38651775500954</data>
+      <data key="d3">-2.664343320530948</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:STX7">
+      <data key="d0">gene</data>
+      <data key="d1">STX7</data>
+      <data key="d2">2.4492935982947064e-14</data>
+      <data key="d3">-400.0</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:CMTM5">
+      <data key="d0">gene</data>
+      <data key="d1">CMTM5</data>
+      <data key="d2">199.99999999999994</data>
+      <data key="d3">-346.4101615137755</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:JAGN1">
+      <data key="d0">gene</data>
+      <data key="d1">JAGN1</data>
+      <data key="d2">204.29329656388447</data>
+      <data key="d3">111.86404736279891</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:KCNA1">
+      <data key="d0">gene</data>
+      <data key="d1">KCNA1</data>
+      <data key="d2">325.73400329818844</data>
+      <data key="d3">-97.45439495136038</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:OPRM1">
+      <data key="d0">gene</data>
+      <data key="d1">OPRM1</data>
+      <data key="d2">22.076153699783397</data>
+      <data key="d3">-339.28254219429493</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">True</data>
+    </node>
+    <node id="G:PLP1">
+      <data key="d0">gene</data>
+      <data key="d1">PLP1</data>
+      <data key="d2">-163.74685805520383</data>
+      <data key="d3">-218.9513139584258</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:STOM">
+      <data key="d0">gene</data>
+      <data key="d1">STOM</data>
+      <data key="d2">302.6479947480353</data>
+      <data key="d3">0.7431798950371781</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:SYNGR1">
+      <data key="d0">gene</data>
+      <data key="d1">SYNGR1</data>
+      <data key="d2">-9.434259779528047</data>
+      <data key="d3">-339.86908471117584</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:FCER1G">
+      <data key="d0">gene</data>
+      <data key="d1">FCER1G</data>
+      <data key="d2">192.03288241170665</data>
+      <data key="d3">190.1669112988886</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:KCNJ6">
+      <data key="d0">gene</data>
+      <data key="d1">KCNJ6</data>
+      <data key="d2">72.22097901482387</data>
+      <data key="d3">146.54810556189176</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">True</data>
+    </node>
+    <node id="G:MFF">
+      <data key="d0">gene</data>
+      <data key="d1">MFF</data>
+      <data key="d2">327.9278169233413</data>
+      <data key="d3">-89.79614071824876</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:TMEM120B">
+      <data key="d0">gene</data>
+      <data key="d1">TMEM120B</data>
+      <data key="d2">339.8945191222145</data>
+      <data key="d3">8.468522343276359</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:APOD">
+      <data key="d0">gene</data>
+      <data key="d1">APOD</data>
+      <data key="d2">400.0</data>
+      <data key="d3">-0.0</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:TMEM237">
+      <data key="d0">gene</data>
+      <data key="d1">TMEM237</data>
+      <data key="d2">293.49412644127887</data>
+      <data key="d3">171.6426454715454</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:TMEM14B">
+      <data key="d0">gene</data>
+      <data key="d1">TMEM14B</data>
+      <data key="d2">235.38366364111604</data>
+      <data key="d3">245.34573746223094</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:CCDC167">
+      <data key="d0">gene</data>
+      <data key="d1">CCDC167</data>
+      <data key="d2">93.01406125260795</data>
+      <data key="d3">327.0296384263911</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:CREB3L1">
+      <data key="d0">gene</data>
+      <data key="d1">CREB3L1</data>
+      <data key="d2">-180.7933649284122</data>
+      <data key="d3">7.61467142597552</data>
+      <data key="d4" />
+      <data key="d5">4</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:EBP">
+      <data key="d0">gene</data>
+      <data key="d1">EBP</data>
+      <data key="d2">-130.32734019904754</data>
+      <data key="d3">103.62310680608078</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:FAM3C">
+      <data key="d0">gene</data>
+      <data key="d1">FAM3C</data>
+      <data key="d2">-85.53533004848511</data>
+      <data key="d3">329.06489833085624</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:HMOX2">
+      <data key="d0">gene</data>
+      <data key="d1">HMOX2</data>
+      <data key="d2">-111.61382692281903</data>
+      <data key="d3">321.1578329103044</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:TMX2">
+      <data key="d0">gene</data>
+      <data key="d1">TMX2</data>
+      <data key="d2">-180.30036697346642</data>
+      <data key="d3">288.2564442804936</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:VAPB">
+      <data key="d0">gene</data>
+      <data key="d1">VAPB</data>
+      <data key="d2">-55.73237928990609</data>
+      <data key="d3">335.4011059890621</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:RPRM">
+      <data key="d0">gene</data>
+      <data key="d1">RPRM</data>
+      <data key="d2">-332.4615049217615</data>
+      <data key="d3">-71.19935214001299</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:AQP6">
+      <data key="d0">gene</data>
+      <data key="d1">AQP6</data>
+      <data key="d2">-399.28021597408167</data>
+      <data key="d3">-23.985602591777816</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:CYBC1">
+      <data key="d0">gene</data>
+      <data key="d1">CYBC1</data>
+      <data key="d2">-303.2519681618208</data>
+      <data key="d3">-153.74733755737708</data>
+      <data key="d4" />
+      <data key="d5">3</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:EMP1">
+      <data key="d0">gene</data>
+      <data key="d1">EMP1</data>
+      <data key="d2">-291.95019533410783</data>
+      <data key="d3">-174.25579888306828</data>
+      <data key="d4" />
+      <data key="d5">2</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:TMEM14A">
+      <data key="d0">gene</data>
+      <data key="d1">TMEM14A</data>
+      <data key="d2">-364.34319707634955</data>
+      <data key="d3">21.88686236499734</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:BET1">
+      <data key="d0">gene</data>
+      <data key="d1">BET1</data>
+      <data key="d2">-333.794008966203</data>
+      <data key="d3">-220.41224915659836</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:SEC22A">
+      <data key="d0">gene</data>
+      <data key="d1">SEC22A</data>
+      <data key="d2">-326.47389554665756</data>
+      <data key="d3">-163.21701972095352</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:APOL2">
+      <data key="d0">gene</data>
+      <data key="d1">APOL2</data>
+      <data key="d2">-150.6514006772846</data>
+      <data key="d3">-370.54575355004715</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:COMT">
+      <data key="d0">gene</data>
+      <data key="d1">COMT</data>
+      <data key="d2">-167.8315108334691</data>
+      <data key="d3">-324.12587673827454</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:RUSF1">
+      <data key="d0">gene</data>
+      <data key="d1">RUSF1</data>
+      <data key="d2">-215.65532916440026</data>
+      <data key="d3">-336.88689348651457</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <node id="G:VAMP2">
+      <data key="d0">gene</data>
+      <data key="d1">VAMP2</data>
+      <data key="d2">-224.0884061438839</data>
+      <data key="d3">-288.11349540049963</data>
+      <data key="d4" />
+      <data key="d5">1</data>
+      <data key="d6">False</data>
+    </node>
+    <edge source="M:Cluster2-46" target="G:C2CD2L" />
+    <edge source="M:Cluster2-46" target="G:ERGIC3" />
+    <edge source="M:Cluster2-46" target="G:LPAR3" />
+    <edge source="M:Cluster2-46" target="G:MGST3" />
+    <edge source="M:Cluster2-46" target="G:PTGES" />
+    <edge source="M:Cluster2-46" target="G:STX7" />
+    <edge source="M:Cluster2-33" target="G:C2CD2L" />
+    <edge source="M:Cluster2-33" target="G:LPAR3" />
+    <edge source="M:Cluster2-33" target="G:MGST3" />
+    <edge source="M:Cluster2-33" target="G:CMTM5" />
+    <edge source="M:Cluster2-33" target="G:JAGN1" />
+    <edge source="M:Cluster2-33" target="G:KCNA1" />
+    <edge source="M:Cluster2-33" target="G:OPRM1" />
+    <edge source="M:Cluster2-33" target="G:PLP1" />
+    <edge source="M:Cluster2-33" target="G:STOM" />
+    <edge source="M:Cluster2-33" target="G:SYNGR1" />
+    <edge source="M:Cluster3-76" target="G:KCNA1" />
+    <edge source="M:Cluster3-76" target="G:FCER1G" />
+    <edge source="M:Cluster3-76" target="G:KCNJ6" />
+    <edge source="M:Cluster3-76" target="G:MFF" />
+    <edge source="M:Cluster3-76" target="G:TMEM120B" />
+    <edge source="M:Cluster2-707" target="G:MFF" />
+    <edge source="M:Cluster2-707" target="G:APOD" />
+    <edge source="M:Cluster2-707" target="G:TMEM237" />
+    <edge source="M:Cluster3-228" target="G:KCNA1" />
+    <edge source="M:Cluster3-228" target="G:FCER1G" />
+    <edge source="M:Cluster3-228" target="G:TMEM120B" />
+    <edge source="M:Cluster3-228" target="G:TMEM14B" />
+    <edge source="M:Cluster2-51" target="G:PTGES" />
+    <edge source="M:Cluster2-51" target="G:JAGN1" />
+    <edge source="M:Cluster2-51" target="G:STOM" />
+    <edge source="M:Cluster2-51" target="G:KCNJ6" />
+    <edge source="M:Cluster2-51" target="G:TMEM237" />
+    <edge source="M:Cluster2-51" target="G:TMEM14B" />
+    <edge source="M:Cluster2-51" target="G:CCDC167" />
+    <edge source="M:Cluster2-51" target="G:CREB3L1" />
+    <edge source="M:Cluster2-51" target="G:EBP" />
+    <edge source="M:Cluster2-77" target="G:MGST3" />
+    <edge source="M:Cluster2-77" target="G:JAGN1" />
+    <edge source="M:Cluster2-77" target="G:CCDC167" />
+    <edge source="M:Cluster2-77" target="G:FAM3C" />
+    <edge source="M:Cluster2-77" target="G:HMOX2" />
+    <edge source="M:Cluster2-77" target="G:TMX2" />
+    <edge source="M:Cluster2-77" target="G:VAPB" />
+    <edge source="M:Cluster3-69" target="G:MGST3" />
+    <edge source="M:Cluster3-69" target="G:FCER1G" />
+    <edge source="M:Cluster3-69" target="G:FAM3C" />
+    <edge source="M:Cluster3-69" target="G:HMOX2" />
+    <edge source="M:Cluster3-69" target="G:TMX2" />
+    <edge source="M:Cluster3-69" target="G:VAPB" />
+    <edge source="M:Cluster5-3" target="G:KCNJ6" />
+    <edge source="M:Cluster5-3" target="G:EBP" />
+    <edge source="M:Cluster5-3" target="G:TMX2" />
+    <edge source="M:Cluster5-3" target="G:RPRM" />
+    <edge source="M:Cluster3-56" target="G:PTGES" />
+    <edge source="M:Cluster3-56" target="G:PLP1" />
+    <edge source="M:Cluster3-56" target="G:CREB3L1" />
+    <edge source="M:Cluster3-56" target="G:AQP6" />
+    <edge source="M:Cluster3-56" target="G:CYBC1" />
+    <edge source="M:Cluster3-56" target="G:EMP1" />
+    <edge source="M:Cluster3-56" target="G:TMEM14A" />
+    <edge source="M:Cluster4-43" target="G:PLP1" />
+    <edge source="M:Cluster4-43" target="G:CREB3L1" />
+    <edge source="M:Cluster4-43" target="G:CYBC1" />
+    <edge source="M:Cluster4-43" target="G:BET1" />
+    <edge source="M:Cluster4-43" target="G:SEC22A" />
+    <edge source="M:Cluster3-24" target="G:ERGIC3" />
+    <edge source="M:Cluster3-24" target="G:OPRM1" />
+    <edge source="M:Cluster3-24" target="G:SYNGR1" />
+    <edge source="M:Cluster3-24" target="G:CREB3L1" />
+    <edge source="M:Cluster3-24" target="G:EBP" />
+    <edge source="M:Cluster3-24" target="G:RPRM" />
+    <edge source="M:Cluster3-24" target="G:CYBC1" />
+    <edge source="M:Cluster3-24" target="G:EMP1" />
+    <edge source="M:Cluster3-24" target="G:APOL2" />
+    <edge source="M:Cluster3-24" target="G:COMT" />
+    <edge source="M:Cluster3-24" target="G:RUSF1" />
+    <edge source="M:Cluster3-24" target="G:VAMP2" />
+  </graph>
+</graphml>

@@ -12,27 +12,21 @@ Reads (from --step7b-dir, i.e. step 7b's --output-dir, e.g. layer_lcc_analysis):
 Writes (to --out-dir):
     fig_lcc_by_celltype.png     (rename to the slide number it lands on, e.g. fig13a_...)
 
-What changed from the original plot, and why
---------------------------------------------
+Design notes
+------------
 1. Same layer order as every other deck figure: fiber type (A, C, ATF3,
-   non-neuronal, unknown), alphabetical within. The original sorted by p-value,
-   so a cell type sat somewhere different here than on slides 17-18.
-2. The deck colour rule: ORANGE = significant, pale blue = not. The original
-   used fiber colour for the fill, which on the deck palette makes C-fiber
-   orange and collides with "orange = significant". Fiber type is carried by
-   the tick-label colour and by rules between fiber blocks, as on the other
-   figures.
-3. Horizontal bars, so 40+ cell-type names are readable at slide size.
-4. Two panels instead of one: raw LCC size (with a tick for what a
-   degree-matched random gene set gives on average) and the z-score. LCC size
-   alone is not comparable between layers, because it scales with how many
-   seeds the layer contains; z is.
-5. The commented-out p-value line/second axis is gone. p is in the colour.
-6. No long title; the slide carries it.
+   non-neuronal, unknown), alphabetical within.
+2. Deck colour rule: ORANGE = significant, pale blue = not. Fiber type is carried
+   by tick-label colour and by rules between fiber blocks.
+3. Horizontal bars so 40+ cell-type names are readable at slide size.
+4. Two panels: raw LCC size (tick = random-set mean +/- 2 SD) and the z-score.
+   LCC size alone is not comparable between layers; z is.
+5. z panel: grey band = +/-2 SD of the null; black error bars = Monte Carlo
+   standard error of z (delta method, from the number of random sets N).
+   Use --no-errbars to hide the bars, --mc-n to override N for the bars.
 
 Significance is the permutation p from step 7b (p < 0.05, one permutation test per
-cell type, NOT multiple-testing corrected). The caption states the number of
-permutations (--n-sims) and the adaptive 200 -> N scheme. Pass --bh to colour by BH q instead.
+cell type, NOT multiple-testing corrected). Pass --bh to colour by BH q instead.
 """
 from __future__ import annotations
 
@@ -76,6 +70,15 @@ def bh_qvalues(p: np.ndarray) -> np.ndarray:
     return q
 
 
+def z_mc_se(z: np.ndarray, n_sims: int) -> np.ndarray:
+    """Monte Carlo standard error of z = (L - mean)/sd when mean and sd are
+    estimated from n_sims random sets (observed L treated as fixed):
+        Var(z) ~= 1/N + z^2 / (2 (N - 1))
+    """
+    N = max(int(n_sims), 2)
+    return np.sqrt(1.0 / N + np.square(z) / (2.0 * (N - 1)))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -88,6 +91,11 @@ def main():
     ap.add_argument("--n-sims", type=int, default=1000,
                     help="--num-simulations that step 7b was run with (default 1000); "
                          "printed in the caption. Not stored in lcc_summary.csv, so check your run.")
+    ap.add_argument("--mc-n", type=int, default=None,
+                    help="number of random sets used for the z error bars (default: --n-sims). "
+                         "Cell types that stopped at the 200-set interim stage have larger true error.")
+    ap.add_argument("--no-errbars", action="store_true",
+                    help="hide the Monte Carlo error bars on the z panel")
     ap.add_argument("--bh", action="store_true",
                     help="colour by Benjamini-Hochberg q across cell types instead of raw p")
     ap.add_argument("--drop-nonneuronal", action="store_true",
@@ -123,11 +131,12 @@ def main():
         sig_word = "permutation p < 0.05, uncorrected"
     colors = sig_colors(stat.tolist())
 
-    h = max(2.8, 0.17 * n + 1.3)
+    h = max(2.8, 0.17 * n + 1.5)
     size = figsize(args.figsize, (6.2, h))
     h = size[1]
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=size, sharey=True)
-    fig.subplots_adjust(left=0.27, right=0.93, top=1 - 0.30 / h, bottom=0.85 / h, wspace=0.10)
+    # more bottom room for two-line x labels; wider gap between panels
+    fig.subplots_adjust(left=0.27, right=0.93, top=1 - 0.30 / h, bottom=1.05 / h, wspace=0.16)
 
     # ---- panel 1: LCC size, with the random-set mean as a tick ----
     lcc = d["lcc_size"].astype(float).values
@@ -138,16 +147,24 @@ def main():
                color=C.INK, lw=0.9, zorder=4)
     ax1.scatter(rmean, y, marker="|", s=90, linewidths=1.5, color=C.INK, zorder=5)
     ax1.set_xlim(0, float(np.nanmax(np.maximum(lcc, rmean + 2 * rstd))) * 1.08 + 1)
-    ax1.set_xlabel("Size of largest connected component")
+    ax1.set_xlabel("Size of largest\nconnected component", linespacing=1.2)
     ax1.set_title("Seed genes in the layer")
 
-    # ---- panel 2: z-score ----
+    # ---- panel 2: z-score, null band, Monte Carlo error bars ----
     z = d["lcc_z_score"].astype(float).values
+    mc_n = args.mc_n if args.mc_n is not None else args.n_sims
+    se = z_mc_se(np.nan_to_num(z), mc_n)
+
+    ax2.axvspan(-2, 2, color=C.GREY_LT, alpha=0.45, lw=0, zorder=0)   # null +/- 2 SD
     ax2.barh(y, z, height=0.66, color=colors, edgecolor="white", linewidth=0.5, zorder=2)
+    if not args.no_errbars:
+        ax2.errorbar(z, y, xerr=se, fmt="none", ecolor=C.INK, elinewidth=0.9,
+                     capsize=1.8, capthick=0.9, zorder=4)
     ax2.axvline(0, color=C.GREY, lw=0.9, zorder=3)
-    lo, hi = float(np.nanmin(z)), float(np.nanmax(z))
-    ax2.set_xlim(min(-1.0, lo * 1.15), max(1.0, hi * 1.10))
-    ax2.set_xlabel("z vs degree-matched random genes")
+    lo = float(np.nanmin(np.minimum(z, z - se)))
+    hi = float(np.nanmax(np.maximum(z, z + se)))
+    ax2.set_xlim(min(-2.5, lo * 1.15), max(2.5, hi * 1.10))
+    ax2.set_xlabel("z vs degree-matched\nrandom genes", linespacing=1.2)
     ax2.set_title("Distance from random")
     for i, ns in enumerate(d["n_seeds"].values):
         ax2.text(1.01, i, f"n={int(ns)}", transform=ax2.get_yaxis_transform(),
@@ -180,14 +197,17 @@ def main():
                 for f in present]
     leg = fig.legend(handles=handles, loc="lower left", bbox_to_anchor=(0.0, 0.0),
                      ncol=len(handles), columnspacing=0.9, handletextpad=0.4, fontsize=FS["tick"])
-    # colour the fiber entries' text to match the tick labels
     for t in leg.get_texts()[3:]:
         t.set_color(label_color(t.get_text()))
 
+    err_txt = ("" if args.no_errbars else
+               f" Error bars on z = Monte Carlo standard error from {mc_n:,} random sets; "
+               "grey band = random-set \u00b1 2 SD.")
     caption(fig, f"Each cell type: observed LCC of the seed genes vs {args.n_sims:,} degree-matched "
                  f"random gene sets (adaptive: 200 first, extended to {args.n_sims:,} only if interim "
                  f"p \u2264 0.15, so p resolves down to 1/{args.n_sims:,}). Orange = {sig_word}; "
-                 f"{n} cell types tested. Tick and line = random-set mean \u00b1 2 SD. "
+                 f"{n} cell types tested. Tick and line = random-set mean \u00b1 2 SD."
+                 f"{err_txt} "
                  "n = seed genes present in the layer. LCC size depends on how many seeds a layer "
                  "has, so compare layers on z. Label colour = fiber type.",
             y=-0.30 / h)

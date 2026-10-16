@@ -33,9 +33,7 @@ python fig_step7c_density.py \
     --figsize 3.2 2.9
 
 # Slide 15: the nulls (step 10b)
-python fig_step10b_nulls.py \
-    --step10b-dir $BASE/06_disease_module/functional_permutation_test \
-    --out-dir $OUT
+python fig_step10b_nulls.py --validation-dir $BASE/10_validation --out-dir $OUT
 
 # Slides 17-19: neighbour profiles (step 7d, neighbor-mode run)
 python fig_step7d_neighbors.py \
@@ -47,7 +45,8 @@ python fig_step7d_neighbors.py \
 python fig_step7b_lcc.py \
     --step7b-dir $BASE/07b_layer_lcc_analysis \
     --out-dir $OUT \
-    --n-sims 1000
+    --n-sims 1000 \
+    --drop-nonneuronal
 #   -> fig_lcc_by_celltype.png  (rename with --name to match the slide)
 
 python fig_step12_enrichment.py grid \
@@ -56,3 +55,6 @@ python fig_step12_enrichment.py grid \
 
 python fig_step12_enrichment.py gene \
     --tsv ../phen/combined_gene_results_multiplex_significant_only.tsv --out figs
+
+python fig_step12g_removed.py all --removed-dir $BASE/12_hub_removal/hub_removal/removed_genes \
+    --attack degree_static --out-dir deck_figures

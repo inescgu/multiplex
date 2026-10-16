@@ -230,10 +230,13 @@ def caption(fig, text: str, y: float = -0.01, chars_per_inch: float = 15.0) -> N
              color=C.MUTED, ha="left", va="top", linespacing=1.45)
 
 
-def save(fig, path, close: bool = True) -> Path:
+def save(fig, path, close: bool = True, dpi=None, formats=()) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path)
+    fig.savefig(path, dpi=dpi)                      # dpi=None -> rcParams (300)
+    for ext in formats:
+        fig.savefig(path.with_suffix(f".{ext}"))
+        print(f"  saved -> {path.with_suffix(f'.{ext}')}")
     if close:
         plt.close(fig)
     print(f"  saved -> {path}")

@@ -1,0 +1,41 @@
+======================================================================
+FIX 4: DAG NESTING ANALYSIS
+======================================================================
+
+Monotonicity (root edges excluded): 56.8% of parent->child edges satisfy persistence(parent) >= persistence(child); 53.7% strictly >
+  1495 violating edges (parent, child, p_parent, p_child), first 20:
+    ('Cluster1-0', 'Cluster2-2', 7.0, 24.0)
+    ('Cluster1-0', 'Cluster2-9', 7.0, 112.0)
+    ('Cluster1-0', 'Cluster2-51', 7.0, 86.0)
+    ('Cluster1-0', 'Cluster2-93', 7.0, 138.0)
+    ('Cluster1-0', 'Cluster2-106', 7.0, 30.0)
+    ('Cluster1-0', 'Cluster2-107', 7.0, 14.0)
+    ('Cluster1-0', 'Cluster2-162', 7.0, 9.0)
+    ('Cluster1-0', 'Cluster2-191', 7.0, 22.0)
+    ('Cluster1-0', 'Cluster2-206', 7.0, 8.0)
+    ('Cluster1-0', 'Cluster2-207', 7.0, 12.0)
+    ('Cluster1-0', 'Cluster2-221', 7.0, 86.0)
+    ('Cluster1-0', 'Cluster2-307', 7.0, 12.0)
+    ('Cluster1-0', 'Cluster2-377', 7.0, 16.0)
+    ('Cluster1-0', 'Cluster2-378', 7.0, 16.0)
+    ('Cluster1-0', 'Cluster2-380', 7.0, 15.0)
+    ('Cluster1-0', 'Cluster2-386', 7.0, 14.0)
+    ('Cluster1-0', 'Cluster2-401', 7.0, 10.0)
+    ('Cluster1-0', 'Cluster2-496', 7.0, 9.0)
+    ('Cluster1-0', 'Cluster2-641', 7.0, 8.0)
+    ('Cluster1-0', 'Cluster2-689', 7.0, 73.0)
+  ⚠ Monotonicity below 80% -- your persistence hierarchy is NOT cleanly nested (children are often MORE persistent than parents). This directly undercuts a 'broad clusters contain specific sub-clusters' narrative; investigate whether this stems from --neighbors being too small/large, or from weave()'s own cutoff parameter.
+
+Spearman(depth_from_root, persistence): rho=-0.050  p=4.57e-03  (expect NEGATIVE under the hypothesis -- deeper = less persistent = more specific)
+Spearman(n_descendants, persistence):   rho=+0.002  p=9.12e-01  (expect POSITIVE -- broader/more persistent clusters should have more descendants)
+
+----------------------------------------------------------------------
+Label-nesting permutation test (are 'specific' clusters descendants of 'broad' clusters more often than chance, given this DAG's topology?)
+----------------------------------------------------------------------
+  observed_frac_specific_with_broad_ancestor: 0.6804469273743017
+  null_mean_unstratified: 0.07813519553072626
+  null_mean_size_stratified: 0.18933631284916203
+  p_value_unstratified: 0.0004997501249375312
+  p_value_size_stratified: 0.0004997501249375312
+  n_broad_labeled: 81
+  n_specific_labeled: 1233

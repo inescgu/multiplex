@@ -226,6 +226,51 @@ def unique_gene_and_edge_counts(G, module_df):
         "unique_gene_gene_edges": len(bare_pairs),
         "identity_edges": n_identity_edges,
     }
+
+def intra_inter_edge_breakdown(G):
+    """Classify every namespaced edge as intra-celltype or inter-celltype
+    (inter split into same-gene 'identity' edges vs cross-gene edges), and
+    report total (namespaced) and unique (bare-gene-collapsed) counts."""
+    cats = ["intra_celltype", "inter_celltype_identity", "inter_celltype_cross_gene"]
+    total = {c: 0 for c in cats}
+    unique = {c: set() for c in cats}
+
+    for u, v in G.edges():
+        cu, cv = _celltype_of(u), _celltype_of(v)
+        gu, gv = _gene_of(u).upper(), _gene_of(v).upper()
+        if cu == cv:
+            cat, key = "intra_celltype", ("pair", frozenset((gu, gv)))
+        elif gu == gv:
+            cat, key = "inter_celltype_identity", ("id", gu)
+        else:
+            cat, key = "inter_celltype_cross_gene", ("pair", frozenset((gu, gv)))
+        total[cat] += 1
+        unique[cat].add(key)
+
+    inter_total = total["inter_celltype_identity"] + total["inter_celltype_cross_gene"]
+    inter_unique = unique["inter_celltype_identity"] | unique["inter_celltype_cross_gene"]
+    all_total = sum(total.values())
+    all_unique = set().union(*unique.values())
+
+    def row(label, n_tot, n_uniq):
+        return {
+            "category": label,
+            "n_total_edges": n_tot,
+            "pct_of_total_edges": round(100 * n_tot / all_total, 2) if all_total else 0.0,
+            "n_unique_gene_edges": n_uniq,
+            "pct_of_unique_gene_edges": round(100 * n_uniq / len(all_unique), 2) if all_unique else 0.0,
+        }
+
+    rows = [
+        row("intra_celltype", total["intra_celltype"], len(unique["intra_celltype"])),
+        row("inter_celltype (all)", inter_total, len(inter_unique)),
+        row("  inter: identity (same gene)", total["inter_celltype_identity"],
+            len(unique["inter_celltype_identity"])),
+        row("  inter: cross-gene (LR)", total["inter_celltype_cross_gene"],
+            len(unique["inter_celltype_cross_gene"])),
+        row("TOTAL", all_total, len(all_unique)),
+    ]
+    return pd.DataFrame(rows)
 # ---------------------------------------------------------------------------
 # I/O
 # ---------------------------------------------------------------------------
@@ -633,6 +678,17 @@ def main():
     for ct in cell_types:
         print(f"  - {ct}")
 
+    edge_bd = intra_inter_edge_breakdown(G)
+    print("\n" + "-" * 70)
+    print("INTRA- vs INTER-CELLTYPE EDGE BREAKDOWN")
+    print("-" * 70)
+    print(edge_bd.to_string(index=False))
+    print("  (unique = collapsed to bare gene pairs across cell types; identity-edge "
+          "'unique' = unique genes. Unique %s can sum >100 because the same gene pair "
+          "can be both intra in one cell type and inter via another.)")
+    edge_bd_path = str(Path(args.output_dir) / f"{args.out_prefix}_edge_type_breakdown.csv")
+    edge_bd.to_csv(edge_bd_path, index=False)
+
     if "degree_in_module" in module_df.columns:
         isolated_df = module_df[module_df["degree_in_module"] == 0]
     else:
@@ -821,22 +877,22 @@ def main():
         for scope_name, scope_df in scopes.items():
             scope_label = "Final module" if scope_name == "module" else "Candidate"
             for dim_key, (dim_col, dim_label, color) in dims.items():
-                counts = interaction_type_counts(scope_df, dim_col)
+                type_counts = interaction_type_counts(scope_df, dim_col)
 
                 csv_path = str(Path(args.output_dir) / f"{args.out_prefix}_{scope_name}_lr_by_{dim_key}.csv")
-                counts.rename("n_edges").rename_axis(dim_col).reset_index().to_csv(csv_path, index=False)
+                type_counts.rename("n_edges").rename_axis(dim_col).reset_index().to_csv(csv_path, index=False)
                 interaction_csv_paths[(scope_name, dim_key)] = csv_path
 
                 print(f"\n{scope_label} LR edges by {dim_label}:")
-                if counts.empty:
+                if type_counts.empty:
                     print("  (no rows with this field populated)")
                 else:
-                    print(counts.to_string())
+                    print(type_counts.to_string())
 
                 plot_path = str(Path(args.output_dir) / f"{args.out_prefix}_{scope_name}_lr_by_{dim_key}.png")
-                if not args.no_plots and not counts.empty:
+                if not args.no_plots and not type_counts.empty:
                     ok = plot_bar(
-                        counts.index.tolist(), counts.values.tolist(),
+                        type_counts.index.tolist(), type_counts.values.tolist(),
                         title=f"{scope_label} LR edges by {dim_label}",
                         ylabel="Number of unique LR edges", out_path=plot_path, color=color,
                     )
@@ -856,6 +912,10 @@ def main():
         f"Unique gene-gene edges: {counts['unique_gene_gene_edges']:,}   "
         f"Identity edges: {counts['identity_edges']:,}",
         f"Cell types represented: {len(cell_types)}",
+        "",
+        "Intra- vs inter-celltype edge breakdown:",
+        edge_bd.to_string(index=False),
+        f"  Table -> {edge_bd_path}",
         "",
         "Per-cell-type breakdown:",
         pl.to_string(index=False),

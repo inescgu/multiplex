@@ -1,64 +1,75 @@
 #!/usr/bin/env python3
 """
-fig_step10b_nulls.py -- deck figure from step10b_functional_permutation_test_multiplex.py.
+fig_step10_nulls.py -- deck figures for slide 17, from step10_validate_module.py.
 
-Replaces, for slide purposes:  null1_combined_distributions.png
-                               null1_split_distributions.png
-                               null2_combined_distributions.png
-                               null2_split_distributions.png
-                               null3_combined_distributions.png
-                               null3_split_distributions.png
-                               (eleven histograms, currently all on one slide)
+Replaces fig_step10b_nulls.py (which read step 10b's null1_/null2_/null3_ CSVs).
+step 10 writes one summary per null, so this reads those instead:
 
-Reads (from --step10b-dir, i.e. step 10b's output_path):
-    null1_degree_matched_seeds_combined.csv / _split.csv
-    null2_rewired_network_combined.csv      / _split.csv      (if run)
-    null3_fixed_seed_random_neighbors_combined.csv / _split.csv (if run)
-  each with columns: metric, true_value, null_mean, null_std, z_score, p_value
+    <validation-dir>/null_seeds_summary.csv       Null 1  random seeds, real network
+    <validation-dir>/null_rewired_summary.csv     Null 2  true seeds, rewired network
+    <validation-dir>/null_neighbors_summary.csv   Null 3  true seeds, random neighbours, no walk
+      columns: metric, true_value, null_mean, null_sd, z_score, p_value, n_null
+    <validation-dir>/null_seeds_size_adjusted.csv, null_rewired_size_adjusted.csv
+      (from size_adjust_nulls.py; used by --z-basis window, the default)
+    (optional, for the appendix figure)
+    <validation-dir>/null_{seeds,rewired,neighbors}_permutations.csv
 
-Optionally also reads raw per-permutation values, if step10b was patched to
-write them (see step10b_raw_nulls.patch shipped alongside this script):
-    null1_raw_permutations.csv, null2_raw_permutations.csv, null3_raw_permutations.csv
-  each with columns: perm, scope ('combined'|'seeds'|'neighbors'), metric, value
+Writes to --out-dir:
+    fig15a_null_ladder.png        slide figure. One panel per metric, one row per null.
+    fig15a_values.csv             exactly what is drawn (oriented z, p, true/null values)
+    fig15b_null_distributions.png appendix histograms incl. module size (needs *_permutations.csv)
 
-Writes (to --out-dir):
-    fig15a_null_ladder.png          ALWAYS. One panel per metric; three rows per
-                                    panel, one per null. This is the slide figure.
-    fig15b_null_distributions.png   only with --raw-dir / raw CSVs present.
-                                    The histograms, redrawn to the deck theme,
-                                    for the appendix.
+Sizing (painfig rules)
+----------------------
+fig15a is drawn on painfig's SLOT["band"] canvas (9.2 x 2.0 in) with painfig's FS
+type sizes, so place the PNG at 1:1 and do NOT resize it in PowerPoint.
+savefig uses bbox="tight", so the PNG is a hair under 9.2 in wide; read its pixel
+size at 300 dpi to get the physical size to place it at. --figsize W H overrides.
 
-What changed from the original plots, and why
-----------------------------------------------
-1. ELEVEN HISTOGRAMS ON ONE SLIDE IS NOT A RESULT, IT IS A SCREENSHOT. Nobody
-   reads a 2cm-wide histogram. The question the slide asks -- "is the module
-   more informative than a random one?" -- is answered by one number per
-   (metric, null): how far the true value sits from the null, and whether that
-   survives. fig15a is a forest plot of exactly that, with the three nulls
-   stacked so the reader can see the thing that actually matters: whether the
-   signal survives as you move from Null 1 to Null 3.
+What changed from the old script, and why
+-----------------------------------------
+1. NEW INPUTS. The old script expected step 10b's *_combined.csv / *_split.csv files.
 
-2. The nulls are ordered as a LADDER, not as a list. Null 1 holds nothing
-   fixed, Null 2 fixes the seeds and scrambles the network, Null 3 fixes the
-   seeds and discards the network entirely. Each one strips away one possible
-   explanation. The figure draws them in that order with that reading printed
-   on the axis, because "significant against Null 1 only" and "significant
-   against all three" are completely different claims and the old layout made
-   them look alike.
+2. NEIGHBOURS-ONLY IS THE DEFAULT ROW. Seeds are shared by the module and by
+   Nulls 2 and 3, and (in the seeds null) the seed score is circular: seeds are
+   drawn from pain gene databases and scored against pain drug targets and a
+   pain-gene CSV. Whole-module z therefore mixes a built-in signal with the
+   thing the project added. Use --scopes combined neighbors to draw both.
 
-3. Seeds vs neighbors is the decomposition the whole slide turns on (are we
-   learning anything from the random-walk expansion, or just re-reading the
-   seed list?), so it gets its own marker rather than being buried in a
-   separate six-panel PNG with the same axes.
+3. z IS ORIENTED SO RIGHT = MODULE BETTER THAN THE NULL. Conductance is
+   lower-is-better, so its z is sign-flipped. Without this the topology panels
+   would show the best result as a negative number.
 
-4. z-scores, not raw metric values, on a shared axis. The metrics are a
-   fraction, a fraction, and a -log10 p; plotting them on one axis in native
-   units is meaningless. z puts them on one scale, and the p-value is printed
-   next to each point so nothing is hidden behind the standardisation.
+4. THREE STATES, NOT TWO. orange = better than null (p < 0.05, the deck's
+   significance colour, via painfig.sig_colors); pale blue = not distinguishable;
+   mid blue = significantly WORSE than the null (oriented z <= -1.96). In the
+   real run the rewired null makes the module look worse on drug targets, and a
+   two-colour scheme would file that under "not significant". Mid blue rather
+   than deep blue because painfig reserves deep blue for seeds.
+   p_value in the step 10 CSVs is one-sided in the "better" direction, so a
+   worse-than-null result has p = 1; the z-score is what identifies it.
+   (sig_colors tests q < 0.05; here it is fed the raw permutation p, because
+   these tests have no BH family.)
 
-5. Where a null produced too few valid permutations, or a metric was NaN, the
-   row is drawn as an explicit hollow marker labelled "n/a" instead of
-   silently vanishing.
+5. TOPOLOGY PANELS HAVE THEIR OWN AXIS (z reaches 40+ there, 5-15 elsewhere) and
+   Null 3 is drawn as n/a: there is no network to score. Edge density is left
+   out by default because the true module and the Null 1/2 modules differ in
+   size, and density falls with size (--topology edge_density to add it).
+
+7. SIZE-MATCHED BY DEFAULT (--z-basis window). The Null 1/2 modules differ in size from the
+   true module, and size explains most of the variation in the fractions (R2 0.5-0.9) and
+   nearly all of the topology (R2 > 0.96). A raw z against nulls of a different size mixes the
+   effect with a size effect, in opposite directions for the two nulls (Null 1 modules are
+   larger, Null 2 smaller). So Nulls 1-2 are drawn from size_adjust_nulls.py's window
+   comparison: only null modules within +-25% of the true size. Null 3 is size-matched by
+   construction (every null module is exactly the true size). --z-basis raw draws the
+   unadjusted z. The regression z (z_size_adj) is NOT used: where R2 ~ 0.99 the residual SD
+   is tiny and z explodes (conductance z = -31), which is model misfit, not signal.
+   With only 38-70 window nulls the p floor is 0.014-0.026, not 0.01.
+
+6. p-VALUES ARE NOT PRINTED NEXT TO POINTS. They are floored at 1/(n+1)
+   (0.001 for 1,000 runs, 0.0099 for 100), so "p = 0.000999" reads as precision
+   it does not have. The floors are stated in the caption instead.
 """
 from __future__ import annotations
 
@@ -68,216 +79,275 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.transforms import blended_transform_factory
 
-from painfig import C, FS, caption, save, use_theme
+from painfig import (C, FS, SLOT, caption, figsize, panel_title, reference_line,
+                     save, sig_colors, use_theme)
 
-#: (file stem, short label, what this null removes as an explanation)
+#: (file tag, short label, descriptor)
 NULLS = [
-    ("null1_degree_matched_seeds", "Null 1",
-     "random seeds, real network\nrules out: any gene set would score this"),
-    ("null2_rewired_network", "Null 2",
-     "real seeds, rewired network\nrules out: the network adds nothing"),
-    ("null3_fixed_seed_random_neighbors", "Null 3",
-     "real seeds, random neighbours\nrules out: the walk adds nothing"),
+    ("seeds", "Null 1", "random seeds"),
+    ("rewired", "Null 2", "rewired network"),
+    ("neighbors", "Null 3", "random neighbours"),
 ]
-
-#: Pretty names, and the order metrics should appear in.
-METRIC_LABEL = {
-    "drug_target_fraction_disease": "Pain-indication drug targets",
-    "drug_target_fraction_any": "Drug targets, any indication",
-    "pain_phenotype_fraction": "Pain-phenotype genes",
-    "go_bp_best_neg_log10p": "GO:BP enrichment (best \u2212log\u2081\u2080p)",
+FUNCTIONAL = [
+    ("drug_target_any", "Drug targets,\nany indication"),
+    ("drug_target_disease", "Pain-indication\ndrug targets"),
+    ("pain_phenotype", "Pain-phenotype\ngenes"),
+]
+TOPOLOGY = {
+    "mean_internal_degree": "Mean internal\ndegree",
+    "conductance": "Conductance\n(lower = tighter)",
+    "edge_density": "Edge\ndensity",
 }
-METRIC_ORDER = list(METRIC_LABEL)
+LOWER_IS_BETTER = {"conductance"}
+SCOPE_LABEL = {"neighbors": "neighbours only", "combined": "whole module", "seeds": "seeds only"}
+MARKER = {"neighbors": "D", "combined": "o", "seeds": "s"}
+MSIZE = {"neighbors": 34, "combined": 44, "seeds": 34}
+MINUS = "\u2212"
+WORSE = C.BLUE_MID
 
 
-def pretty(metric: str) -> str:
-    return METRIC_LABEL.get(metric, metric.replace("_", " "))
+def load_summaries(val_dir: Path) -> dict[str, pd.DataFrame]:
+    out = {}
+    for tag, _, _ in NULLS:
+        p = val_dir / f"null_{tag}_summary.csv"
+        if p.exists():
+            out[tag] = pd.read_csv(p).set_index("metric")
+        else:
+            print(f"  [info] {p.name} not found -- that null is drawn as 'not run'")
+    if not out:
+        raise SystemExit(f"ERROR: no null_*_summary.csv under {val_dir}")
+    return out
 
 
-def load_summaries(src: Path) -> pd.DataFrame:
-    rows = []
-    for stem, short, _ in NULLS:
-        for scope, suffix in (("combined", "_combined.csv"), ("split", "_split.csv")):
-            p = src / f"{stem}{suffix}"
-            if not p.exists():
+def lookup(summ: dict, tag: str, base: str, scope: str, topology: bool, win: dict | None = None):
+    """-> dict(z, p, true, null, n) with z oriented (right = better), or None.
+    If `win` has the size-adjusted table for this null, use its window z/p (already oriented)."""
+    key = base if (topology or scope == "combined") else f"{base}__{scope}"
+    if win is not None and tag in win:
+        w = win[tag]
+        if key not in w.index or pd.isna(w.loc[key, "z_window"]):
+            return None
+        r = w.loc[key]
+        return dict(z=float(r["z_window"]), p=float(r["p_window"]), true=float(r["true_value"]),
+                    null=float(r["null_mean"]), n=int(r["n_window"]), key=key)
+    df = summ.get(tag)
+    if df is None:
+        return None
+    if key not in df.index:
+        return None
+    r = df.loc[key]
+    if pd.isna(r["z_score"]):
+        return None
+    sign = -1.0 if base in LOWER_IS_BETTER else 1.0
+    return dict(z=float(r["z_score"]) * sign, p=float(r["p_value"]), true=float(r["true_value"]),
+                null=float(r["null_mean"]), n=int(r["n_null"]), key=key)
+
+
+def load_windows(val_dir: Path, basis: str) -> dict:
+    """size_adjust_nulls.py output for the nulls whose modules differ in size from the true one."""
+    out = {}
+    if basis != "window":
+        return out
+    for tag in ("seeds", "rewired"):
+        p = val_dir / f"null_{tag}_size_adjusted.csv"
+        if p.exists():
+            out[tag] = pd.read_csv(p).set_index("metric")
+        else:
+            print(f"  [WARNING] {p.name} missing: Null '{tag}' is drawn on the RAW z (not size-matched). "
+                  f"Run: python size_adjust_nulls.py --validation-dir {val_dir} --null {tag}")
+    return out
+
+
+def state(z: float, p: float) -> str:
+    if sig_colors([p])[0] == C.ORANGE:
+        return "better"
+    return "worse" if z <= -1.96 else "ns"
+
+
+def fmt_z(z: float) -> str:
+    if round(abs(z), 1) == 0:
+        return "0.0"
+    return f"{MINUS if z < 0 else '+'}{abs(z):.1f}"
+
+
+def fig_ladder(summ: dict, out: Path, scopes, topo_metrics, size, win: dict | None = None) -> Path:
+    col = {"better": C.ORANGE, "ns": C.BLUE_PALE, "worse": WORSE}
+    rows = [(tag, short, desc, sc) for tag, short, desc in NULLS for sc in scopes]
+    ypos = {i: len(rows) - 1 - i for i in range(len(rows))}
+
+    panels = [("f", m, lab) for m, lab in FUNCTIONAL] + [("t", m, TOPOLOGY[m]) for m in topo_metrics]
+    nf = len(FUNCTIONAL)
+    ratios = [1.0] * nf + [0.16] + [0.88] * len(topo_metrics)
+    W, H = size
+    left = 0.205 if len(scopes) == 1 else 0.30
+    fig = plt.figure(figsize=(W, H))
+    gs = fig.add_gridspec(1, len(ratios), width_ratios=ratios, left=left, right=0.995,
+                          top=1 - 0.45 / H, bottom=0.62 / H, wspace=0.14)
+    axes, records = [], []
+
+    def zs_of(kind):
+        zs = []
+        for tag, _, _, sc in rows:
+            for k, m, _ in panels:
+                if k == kind:
+                    r = lookup(summ, tag, m, sc, kind == "t", win)
+                    if r:
+                        zs.append(r["z"])
+        return zs or [0.0]
+    lims = {}
+    for kind in ("f", "t"):
+        zs = zs_of(kind)
+        hi = max(max(zs), 3.0) / 0.55            # right ~45% stays free for the value label
+        lo = min(-0.10 * hi, min(zs) * 1.2 - 2.0, -3.0)
+        lims[kind] = (lo, hi)
+
+    ci = 0
+    for kind, metric, label in panels:
+        if kind == "t" and ci == nf:
+            ci += 1                              # spacer column
+        ax = fig.add_subplot(gs[0, ci])
+        ci += 1
+        axes.append(ax)
+        lo, hi = lims[kind]
+        ax.axvspan(-1.96, 1.96, color=C.CARD, zorder=0)   # not past |z| 1.96
+        reference_line(ax, 0)
+        for i, (tag, short, desc, sc) in enumerate(rows):
+            y = ypos[i]
+            if kind == "t" and sc != scopes[0]:
+                continue                         # topology is module-level: draw once per null
+            r = lookup(summ, tag, metric, sc, kind == "t", win)
+            if r is None:
+                if kind == "t" and tag == "neighbors":
+                    txt = "n/a (no network)"
+                elif sc == "seeds" and tag != "seeds":
+                    txt = "n/a: seeds are fixed"
+                elif tag not in summ:
+                    txt = "not run"
+                else:
+                    txt = "n/a"
+                ax.text(lo + 0.30 * (hi - lo), y, txt, fontsize=FS["annot"], color=C.MUTED,
+                        va="center", ha="left", style="italic", zorder=5)
                 continue
-            df = pd.read_csv(p)
-            df["null"] = short
-            if scope == "combined":
-                df["scope"] = "combined"
-                df["base_metric"] = df["metric"]
-            else:
-                df["scope"] = np.where(df["metric"].str.endswith("__seeds"), "seeds", "neighbors")
-                df["base_metric"] = df["metric"].str.replace("__seeds$|__neighbors$", "", regex=True)
-            rows.append(df)
-    if not rows:
-        raise SystemExit(f"ERROR: no null*_combined.csv under {src} -- point --step10b-dir at step 10b's output dir")
-    return pd.concat(rows, ignore_index=True)
-
-
-def p_text(p) -> str:
-    if p is None or (isinstance(p, float) and np.isnan(p)):
-        return ""
-    if p == 0:
-        return "p < 1/n"
-    if p < 0.001:
-        return "p < 0.001"
-    return f"p = {p:.3f}"
-
-
-def fig_ladder(summ: pd.DataFrame, out: Path, scopes=("combined", "neighbors")) -> Path:
-    metrics = [m for m in METRIC_ORDER if m in set(summ["base_metric"])]
-    metrics += sorted(set(summ["base_metric"]) - set(metrics))
-    metrics = [m for m in metrics if summ.loc[summ["base_metric"] == m, "z_score"].notna().any()]
-    if not metrics:
-        raise SystemExit("ERROR: every z_score is NaN -- nothing to plot")
-
-    n = len(metrics)
-    fig, axes = plt.subplots(1, n, figsize=(2.55 * n + 1.6, 3.5), sharex=True, squeeze=False)
-    axes = axes[0]
-
-    # One row per (null, scope). Nulls top to bottom in ladder order.
-    rows = [(short, sc) for short in [n[1] for n in NULLS] for sc in scopes]
-    ypos = {r: i for i, r in enumerate(rows[::-1])}
-
-    marker_for = {"combined": "o", "neighbors": "D", "seeds": "s"}
-    size_for = {"combined": 58, "neighbors": 42, "seeds": 42}
-
-    allz = summ.loc[summ["base_metric"].isin(metrics), "z_score"].dropna()
-    zmax = float(np.nanmax(np.abs(allz))) if len(allz) else 3.0
-    xlim = (min(-1.2, -0.12 * zmax), zmax * 1.42 + 1.0)
-
-    for ax, metric in zip(axes, metrics):
-        sub = summ[summ["base_metric"] == metric]
-        ax.axvspan(xlim[0], 1.96, color=C.CARD, zorder=0)
-        ax.axvline(1.96, color=C.GREY, lw=0.9, ls=(0, (4, 3)), zorder=1)
-        ax.axvline(0, color=C.GREY_LT, lw=0.9, zorder=1)
-
-        for (short, sc), y in ypos.items():
-            r = sub[(sub["null"] == short) & (sub["scope"] == sc)]
-            if not len(r) or pd.isna(r.iloc[0]["z_score"]):
-                ax.scatter([xlim[0] + 0.35], [y], marker=marker_for[sc], s=size_for[sc],
-                           facecolor="none", edgecolor=C.GREY, linewidth=0.9, zorder=4)
-                ax.text(xlim[0] + 0.75, y, "not run" if not len(r) else "n/a",
-                        fontsize=FS["tick"], color=C.MUTED, va="center")
-                continue
-            z = float(r.iloc[0]["z_score"])
-            p = float(r.iloc[0]["p_value"])
-            sig = (not np.isnan(p)) and p < 0.05
-            col = C.ORANGE if sig else C.BLUE_PALE
-            ax.plot([0, z], [y, y], color=col, lw=2.0, solid_capstyle="round", zorder=3)
-            ax.scatter([z], [y], marker=marker_for[sc], s=size_for[sc], color=col,
+            s = state(r["z"], r["p"])
+            ax.plot([0, r["z"]], [y, y], color=col[s], lw=2.0, solid_capstyle="round", zorder=3)
+            ax.scatter([r["z"]], [y], marker=MARKER[sc], s=MSIZE[sc], color=col[s],
                        edgecolor="white", linewidth=0.8, zorder=4)
-            ax.text(z + 0.06 * (xlim[1] - xlim[0]), y, p_text(p), fontsize=FS["tick"],
-                    color=C.INK if sig else C.MUTED, va="center")
-
-        ax.set_xlim(*xlim)
-        ax.set_ylim(-0.7, len(rows) - 0.3)
-        ax.set_title(pretty(metric), fontsize=FS["panel"], color=C.BLUE,
-                     fontweight="bold", loc="left")
-        ax.spines["left"].set_visible(False)
-        ax.tick_params(axis="y", length=0)
+            ax.text(hi, y, fmt_z(r["z"]), fontsize=FS["annot"], ha="right", va="center",
+                    color=C.INK if s != "ns" else C.MUTED,
+                    fontweight="bold" if s != "ns" else "normal")
+            records.append(dict(null=short, scope=sc, metric=metric, panel=label.replace("\n", " "),
+                                state=s, z_oriented=r["z"], p_one_sided=r["p"],
+                                true_value=r["true"], null_mean=r["null"], n_null=r["n"],
+                                source_key=r["key"]))
+        ax.set_xlim(lo, hi)
+        ax.set_ylim(-0.6, len(rows) - 0.4)
         ax.set_yticks([])
+        ax.spines["left"].set_visible(False)
+        panel_title(ax, label)
 
-    # Row labels, written once on the left of the first panel.
-    for (short, sc), y in ypos.items():
-        label = short if sc == "combined" else f"{short} \u00b7 neighbours only"
-        axes[0].text(-0.035, y, label, transform=axes[0].get_yaxis_transform(),
-                     ha="right", va="center", fontsize=FS["tick"],
-                     color=C.INK if sc == "combined" else C.MUTED,
-                     fontweight="bold" if sc == "combined" else "normal")
+    # row labels (bold name + muted descriptor): figure x, first panel's data y
+    tr = blended_transform_factory(fig.transFigure, axes[0].transData)
+    for i, (tag, short, desc, sc) in enumerate(rows):
+        y = ypos[i]
+        d = desc if len(scopes) == 1 else f"{desc} \u00b7 {SCOPE_LABEL[sc]}"
+        if sc == scopes[0]:
+            axes[0].text(0.004, y, short, transform=tr, fontsize=FS["label"], color=C.INK,
+                         fontweight="bold", va="center", ha="left")
+        axes[0].text(0.052, y, d, transform=tr, fontsize=FS["tick"], color=C.MUTED,
+                     va="center", ha="left")
 
-    fig.supxlabel("z-score of the true module against the null  (dashed = z 1.96; shaded = not past it)",
-                  fontsize=FS["tick"], color=C.MUTED, y=0.0)
-
-    caption(fig, "Orange = p < 0.05; circles are the whole module, diamonds the random-walk neighbours "
-                 "alone. Read top to bottom: each null removes one more explanation. Null 1 = "
-                 "degree-matched random seeds on the real network. Null 2 = true seeds, degree-preserving "
-                 "rewired network. Null 3 = true seeds, degree-matched random neighbours and no walk at "
-                 "all. A result that survives Null 3 is a result about the expansion, not the seed list.",
-            y=-0.10)
-    fig.subplots_adjust(wspace=0.18, left=0.17, bottom=0.17)
+    handles = [Line2D([], [], marker="o", ls="", color=C.ORANGE, label="better than null (p < 0.05)"),
+               Line2D([], [], marker="o", ls="", color=C.BLUE_PALE, label="not distinguishable"),
+               Line2D([], [], marker="o", ls="", color=WORSE, label="worse than null (z \u2264 \u22121.96)")]
+    fig.legend(handles=handles, loc="lower left", ncol=3, fontsize=FS["tick"],
+               handletextpad=0.2, columnspacing=1.0, bbox_to_anchor=(left - 0.01, 0.17 / H),
+               labelcolor=C.MUTED)
+    # aligned with the legend (not at the figure's left edge): on the slide the logo sits under the left corner
+    if win:
+        nw = {t: int(w["n_window"].max()) for t, w in win.items()}
+        cap = ("z vs each null, right = module better (conductance flipped). Nulls 1\u20132 size-matched: "
+               f"nulls within \u00b125% of true size (n = {nw.get('seeds', '?')}, {nw.get('rewired', '?')}).")
+    else:
+        cap = ("z of the true module vs each null; right = module better (conductance flipped). "
+               "p floors: Null 3 \u2264 0.001, Nulls 1\u20132 \u2264 0.01. NOT size-matched.")
+    fig.text(left - 0.01, 0.09 / H, cap, fontsize=FS["tick"], color=C.MUTED, ha="left", va="top")
+    pd.DataFrame(records).to_csv(out / "fig15a_values.csv", index=False)
     return save(fig, out / "fig15a_null_ladder.png")
 
 
-def fig_distributions(raw: pd.DataFrame, summ: pd.DataFrame, out: Path) -> Path:
-    """Appendix figure: the histograms, redrawn once in the deck theme."""
-    metrics = [m for m in METRIC_ORDER if m in set(raw["metric"])]
-    metrics += sorted(set(raw["metric"]) - set(metrics))
-    nulls = [short for _, short, _ in NULLS if short in set(raw["null"])]
-    nrow, ncol = len(nulls), len(metrics)
-    fig, axes = plt.subplots(nrow, ncol, figsize=(2.3 * ncol + 1.0, 1.9 * nrow + 0.8),
-                             squeeze=False)
-
-    for i, short in enumerate(nulls):
-        for j, metric in enumerate(metrics):
+def fig_distributions(val_dir: Path, summ: dict, out: Path, true_size: int, topo_metrics, size) -> Path | None:
+    cols = [(f"{m}__neighbors", lab) for m, lab in FUNCTIONAL] + \
+           [(m, TOPOLOGY[m]) for m in topo_metrics] + [("diag_size", "Module size\n(nodes)")]
+    tags = [(t, s) for t, s, _ in NULLS if (val_dir / f"null_{t}_permutations.csv").exists()]
+    if not tags:
+        print("  [info] no null_*_permutations.csv found -- skipping fig15b")
+        return None
+    fig, axes = plt.subplots(len(tags), len(cols), figsize=size, squeeze=False)
+    for i, (tag, short) in enumerate(tags):
+        df = pd.read_csv(val_dir / f"null_{tag}_permutations.csv")
+        for j, (key, lab) in enumerate(cols):
             ax = axes[i][j]
-            vals = raw[(raw["null"] == short) & (raw["metric"] == metric) &
-                       (raw["scope"] == "combined")]["value"].dropna().values
-            s = summ[(summ["null"] == short) & (summ["base_metric"] == metric) &
-                     (summ["scope"] == "combined")]
-            if not len(vals) or not len(s):
+            if key not in df.columns or df[key].dropna().empty:
                 ax.axis("off")
+                ax.text(0.5, 0.5, "n/a", transform=ax.transAxes, ha="center", va="center",
+                        fontsize=FS["annot"], color=C.MUTED, style="italic")
                 continue
-            ax.hist(vals, bins=36, color=C.BLUE_PALE, edgecolor="white", linewidth=0.4)
-            tv = float(s.iloc[0]["true_value"])
-            ax.axvline(tv, color=C.ORANGE, lw=1.8)
-            ax.text(0.98, 0.93, p_text(float(s.iloc[0]["p_value"])), transform=ax.transAxes,
-                    ha="right", va="top", fontsize=FS["tick"], color=C.INK)
+            v = df[key].dropna().to_numpy()
+            if key == "diag_size":
+                tv = true_size
+            else:
+                tv = summ[tag].loc[key, "true_value"] if tag in summ and key in summ[tag].index else np.nan
+            ax.hist(v, bins=30, color=C.BLUE_PALE, edgecolor="white", linewidth=0.4)
+            if not np.isnan(tv):
+                ax.axvline(tv, color=C.ORANGE, lw=1.8)
+            fmt = (lambda x: f"{x:,.0f}") if key == "diag_size" else (lambda x: f"{x:.3g}")
+            ax.text(0.99, 0.97, f"null {fmt(v.mean())}" + (f"\ntrue {fmt(tv)}" if not np.isnan(tv) else ""),
+                    transform=ax.transAxes, ha="right", va="top", fontsize=FS["annot"], color=C.MUTED)
             if i == 0:
-                ax.set_title(pretty(metric), fontsize=FS["panel"], color=C.BLUE,
-                             fontweight="bold", loc="left")
+                panel_title(ax, lab)
             if j == 0:
                 ax.set_ylabel(short, fontsize=FS["label"], color=C.INK, fontweight="bold")
-            ax.tick_params(labelsize=FS["tick"])
             ax.set_yticks([])
             ax.spines["left"].set_visible(False)
-
-    caption(fig, "Grey = null permutations, orange line = the true module. Same bins across a column.", y=-0.02)
-    fig.subplots_adjust(hspace=0.55, wspace=0.18)
+    fig.subplots_adjust(hspace=0.55, wspace=0.18, left=0.04, right=0.995, top=0.88, bottom=0.14)
+    caption(fig, "Pale = null permutations, orange line = true module; each panel has its own x-axis. "
+                 "Null module sizes differ from the true module (right-hand column), so size-dependent "
+                 "metrics (fractions, conductance, edge density) are not like-for-like; see size_adjust_nulls.py.",
+            y=0.06)
     return save(fig, out / "fig15b_null_distributions.png")
 
 
-def load_raw(src: Path) -> pd.DataFrame | None:
-    frames = []
-    for stem, short, _ in NULLS:
-        tag = stem.split("_")[0]  # null1 / null2 / null3
-        p = src / f"{tag}_raw_permutations.csv"
-        if p.exists():
-            df = pd.read_csv(p)
-            df["null"] = short
-            frames.append(df)
-    return pd.concat(frames, ignore_index=True) if frames else None
-
-
 def main():
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--step10b-dir", required=True,
-                    help="step 10b output dir (holds null1_*_combined.csv etc.)")
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--validation-dir", required=True, help="step 10 output dir (10_validation)")
     ap.add_argument("--out-dir", default="deck_figures")
-    ap.add_argument("--raw-dir", default=None,
-                    help="where null*_raw_permutations.csv live (default: --step10b-dir)")
-    ap.add_argument("--scopes", nargs="+", default=["combined", "neighbors"],
-                    choices=["combined", "seeds", "neighbors"],
-                    help="which rows to draw per null (default: whole module + neighbours)")
+    ap.add_argument("--scopes", nargs="+", default=["neighbors"], choices=["neighbors", "combined", "seeds"],
+                    help="rows per null; default neighbours only. 'seeds' exists for Null 1 only and is circular.")
+    ap.add_argument("--topology", nargs="*", default=["mean_internal_degree", "conductance"],
+                    choices=list(TOPOLOGY), help="topology panels (edge_density is size-confounded)")
+    ap.add_argument("--true-size", type=int, default=9940, help="true module size, for the appendix size panel")
+    ap.add_argument("--z-basis", choices=["window", "raw"], default="window",
+                    help="window (default): Nulls 1-2 compared only with null modules within +-25%% of the true size "
+                         "(needs null_*_size_adjusted.csv from size_adjust_nulls.py); raw: unadjusted z")
+    ap.add_argument("--figsize", nargs=2, default=None, metavar=("W", "H"),
+                    help="override the canvas (default: painfig SLOT['band'] for fig15a, SLOT['full'] for fig15b)")
     args = ap.parse_args()
 
     use_theme()
-    src = Path(args.step10b_dir)
+    val = Path(args.validation_dir)
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
-
-    summ = load_summaries(src)
-    fig_ladder(summ, out, scopes=tuple(args.scopes))
-
-    raw = load_raw(Path(args.raw_dir) if args.raw_dir else src)
-    if raw is None:
-        print("  [info] no null*_raw_permutations.csv found -- skipping fig15b. "
-              "Apply step10b_raw_nulls.patch and re-run step 10b if you want the histograms.")
-    else:
-        fig_distributions(raw, summ, out)
+    summ = load_summaries(val)
+    win = load_windows(val, args.z_basis)
+    nrows = len(NULLS) * len(args.scopes)
+    # SLOT['band'] is exactly right for one row per null; taller only if more rows are requested
+    band_w, band_h = SLOT["band"]
+    default_a = (band_w, band_h) if len(args.scopes) == 1 else (band_w, 0.31 * nrows + 1.07)
+    fig_ladder(summ, out, tuple(args.scopes), list(args.topology), figsize(args.figsize, default_a), win or None)
+    fig_distributions(val, summ, out, args.true_size, list(args.topology), figsize(args.figsize, SLOT["full"]))
 
 
 if __name__ == "__main__":

@@ -55,21 +55,73 @@ ROW = 8.0            # dense row labels (layers, genes)
 # ---------------------------------------------------------------------------
 # One layer order for every figure in the deck
 # ---------------------------------------------------------------------------
-FIBER_OF = {}
-for _f, _cts in {
-    "A-fiber": ["A-Propr.EPHA3", "A-Propr.HAPLN4", "A-Propr.PCDH8",
-                "Ab-LTMR.CCKAR", "Ab-LTMR.ETV1", "Ab-LTMR.LGI2", "Ab-LTMR.NSG2",
-                "A-LTMR.TAC3", "A-PEP.CHRNA7_SLC18A3", "A-PEP.KIT",
-                "A-PEP.NTRK3_S100A16", "A-PEP.SCGN_ADRA2C"],
-    "C-fiber": ["C-LTMR.CDH9", "C-PEP.ADORA2B", "C-PEP.TAC1_CACNG5",
-                "C-PEP.TAC1_CHRNA3", "C-NP.MRGPRX1_GFRA2", "C-NP.MRGPRX1_MRGPRX4",
-                "C-NP.SST", "C-Thermo.RXFP1", "C-Thermo.TRPM8"],
-    "ATF3": ["ATF3"],
-}.items():
-    for _ct in _cts:
-        FIBER_OF[_ct] = _f
+
+DRG_HIERARCHY = {
+    "A-fiber": {"color": "#1f77b4", "subcategories": {
+        "Proprioceptors": {"marker": "o", "cell_types": [
+            "A-Propr.EPHA3", "A-Propr.HAPLN4", "A-Propr.PCDH8",
+        ]},
+        "A-beta LTMR": {"marker": "s", "cell_types": [
+            "Ab-LTMR.CCKAR", "Ab-LTMR.ETV1", "Ab-LTMR.LGI2", "Ab-LTMR.NSG2",
+        ]},
+        "A-LTMR": {"marker": "^", "cell_types": ["A-LTMR.TAC3"]},
+        "A-peptidergic": {"marker": "D", "cell_types": [
+            "A-PEP.CHRNA7_SLC18A3", "A-PEP.KIT", "A-PEP.NTRK3_S100A16", "A-PEP.SCGN_ADRA2C",
+        ]},
+    }},
+    "C-fiber": {"color": "#ff7f0e", "subcategories": {
+        "C-LTMR": {"marker": "o", "cell_types": ["C-LTMR.CDH9"]},
+        "C-peptidergic": {"marker": "D", "cell_types": [
+            "C-PEP.ADORA2B", "C-PEP.TAC1_CACNG5", "C-PEP.TAC1_CHRNA3",
+        ]},
+        "MRGPRX nociceptors": {"marker": "s", "cell_types": [
+            "C-NP.MRGPRX1_GFRA2", "C-NP.MRGPRX1_MRGPRX4",
+        ]},
+        "C-thermosensitive": {"marker": "*", "cell_types": [
+            "C-Thermo.RXFP1", "C-Thermo.TRPM8",
+        ]},
+        "C-SST nociceptor": {"marker": "v", "cell_types": ["C-NP.SST"]},
+    }},
+    "Non-classified": {"color": "#d62728", "subcategories": {
+        "ATF3 (injured)": {"marker": "x", "cell_types": ["ATF3"]},
+    }},
+    "Non-neuronal": {"color": "#2ca02c", "subcategories": {
+        "Immune": {"marker": "o", "cell_types": [
+            "B cell", "CD4-positive, alpha-beta T cell", "CD8-positive, alpha-beta T cell",
+            "activated CD4-positive, alpha-beta T cell", "activated CD8-positive, alpha-beta T cell",
+            "basophil", "classical monocyte", "gamma-delta T cell", "granulocyte",
+            "innate lymphoid cell", "intermediate monocyte", "leukocyte", "macrophage",
+            "mast cell", "mature NK T cell", "myeloid cell", "myeloid dendritic cell",
+            "myeloid leukocyte", "naive thymus-derived CD4-positive, alpha-beta T cell",
+            "naive thymus-derived CD8-positive, alpha-beta T cell", "natural killer cell",
+            "neutrophil", "non-classical monocyte", "plasma cell",
+            "plasmacytoid dendritic cell", "regulatory T cell",
+        ]},
+        "Glial/Nervous": {"marker": "s", "cell_types": [
+            "Schwann cell", "enteroglial cell", "microglial cell", "neuron",
+        ]},
+        "Immune/Hematopoietic": {"marker": "^", "cell_types": [
+            "Langerhans cell", "colon macrophage", "common myeloid progenitor",
+            "erythroid progenitor cell", "hematopoietic cell", "hematopoietic precursor cell",
+            "hematopoietic stem cell", "tissue-resident macrophage",
+        ]},
+    }},
+}
+
+#: hierarchy key -> the fiber name painfig's fiber_color() already knows
+FIBER_ALIAS = {"Non-classified": "ATF3"}
+
+FIBER_OF, SUBTYPE_OF, MARKER_OF, ORDER_OF = {}, {}, {}, {}
+for _f, _spec in DRG_HIERARCHY.items():
+    for _sub, _s in _spec["subcategories"].items():
+        for _ct in _s["cell_types"]:
+            FIBER_OF[_ct] = FIBER_ALIAS.get(_f, _f)
+            SUBTYPE_OF[_ct] = _sub
+            MARKER_OF[_ct] = _s["marker"]
+            ORDER_OF[_ct] = len(ORDER_OF)
 
 FIBER_SEQ = ["A-fiber", "C-fiber", "ATF3", "Non-neuronal", "Unclassified"]
+
 
 #: Short tier labels, matching the wording on the deck's definitions slide.
 TIER_SHORT = {
@@ -84,19 +136,21 @@ TIER_SHORT = {
 }
 SHORTLIST_TIERS = ("A:", "A*:", "B:")
 
-
 def fiber_of(layer: str) -> str:
     return FIBER_OF.get(str(layer), "Unclassified")
 
 
+def subtype_of(layer: str) -> str:
+    return SUBTYPE_OF.get(str(layer), "Unclassified")
+
 def layer_order(layers) -> list[str]:
+    """Hierarchy order (fiber > subtype > cell type); unknown layers go last, alphabetical."""
     present = [l for l in set(layers) if str(l) != "global_ppi"]
-    return sorted(present, key=lambda l: (FIBER_SEQ.index(fiber_of(l))
-                                          if fiber_of(l) in FIBER_SEQ else len(FIBER_SEQ), str(l)))
+    return sorted(present, key=lambda l: (ORDER_OF.get(str(l), len(ORDER_OF)), str(l)))
 
 
 def fiber_bounds(layers) -> list[int]:
-    """Indices i (0-based) where layer i starts a new fiber group."""
+    """Indices where layer i starts a new fiber group."""
     out, prev = [], None
     for i, l in enumerate(layers):
         f = fiber_of(l)
@@ -104,6 +158,16 @@ def fiber_bounds(layers) -> list[int]:
             out.append(i)
         prev = f
     return out
+
+
+def subtype_spans(layers) -> list[tuple[int, int, str, str]]:
+    """(start, end, subtype, fiber) for each run of layers sharing a subtype."""
+    spans, start = [], 0
+    for i in range(1, len(layers) + 1):
+        if i == len(layers) or subtype_of(layers[i]) != subtype_of(layers[start]):
+            spans.append((start, i - 1, subtype_of(layers[start]), fiber_of(layers[start])))
+            start = i
+    return spans
 
 
 def style_layer_ticks(ax, layers, axis="y"):
@@ -205,9 +269,8 @@ def fig_tier_breakdown(summ: pd.DataFrame, out: Path, size=None) -> Path:
 # ---------------------------------------------------------------------------
 # fig17b -- candidate x layer heatmap
 # ---------------------------------------------------------------------------
-def fig_candidate_heatmap(pres: pd.DataFrame, summ: pd.DataFrame, out: Path,
-                          top_n: int | None, genes_file: Path | None,
-                          value_col: str = "fc_pctile") -> Path:
+def fig_candidate_heatmap(pres, summ, out, top_n, genes_file,
+                          value_col: str = "fc_pctile", max_cols: int = 30) -> Path:
     p = pres[~pres["is_global"].astype(bool)].copy() if "is_global" in pres else pres.copy()
     ev_map = None          # gene -> literature evidence tier, if the genes file supplies it
 
@@ -253,58 +316,90 @@ def fig_candidate_heatmap(pres: pd.DataFrame, summ: pd.DataFrame, out: Path,
     genes = sel["gene"].tolist()
 
     layers = layer_order(p["cell_type"])
-    M = (p[p["gene"].isin(genes)]
-         .pivot_table(index="gene", columns="cell_type", values=value_col, aggfunc="first")
-         .reindex(index=genes, columns=layers))
+    M_all = (p[p["gene"].isin(genes)]
+             .pivot_table(index="cell_type", columns="gene", values=value_col, aggfunc="first")
+             .reindex(index=layers, columns=genes))
 
-    h = max(3.2, 0.14 * len(genes) + 1.6)
-    fig, ax = plt.subplots(figsize=(max(5.2, 0.24 * len(layers) + 3.0), h))
+    # --- sizes: big enough to read when the PNG is dropped onto a slide ---
+    HM_TICK = 12.0          # gene / layer labels
+    HM_SUB = 12.0           # subtype + evidence labels
+    CELL_W, CELL_H = 0.34, 0.36          # inches per gene column / per layer row
+
+    n_panels = int(np.ceil(len(genes) / max_cols))
+    per = int(np.ceil(len(genes) / n_panels))          # balanced chunks
+    chunks = [(i * per, min((i + 1) * per, len(genes))) for i in range(n_panels)]
+
+    panel_h = CELL_H * len(layers) + 1.5               # rows + room for gene labels
+    w = CELL_W * per + 6.0                             # + layer labels + subtype labels
+    fig, axes = plt.subplots(n_panels, 1, figsize=(w, panel_h * n_panels + 1.4),
+                             squeeze=False, gridspec_kw={"hspace": 0.55})
     cmap = CMAP_WARM.copy()
-    cmap.set_bad("#F4F5F7")           # lighter than the palest real value
-    im = ax.imshow(np.ma.masked_invalid(M.values), cmap=cmap, vmin=0, vmax=1,
-                   aspect="auto", interpolation="nearest")
+    cmap.set_bad("#F4F5F7")
+    fb = set(fiber_bounds(layers))
+    spans = subtype_spans(layers)
 
-    # fiber-type separators between column blocks
-    for i in fiber_bounds(layers):
-        ax.axvline(i - 0.5, color="white", lw=2.4)
-        ax.axvline(i - 0.5, color=C.GREY, lw=0.7)
+    for ax, (c0, c1) in zip(axes[:, 0], chunks):
+        g = genes[c0:c1]
+        M = M_all.iloc[:, c0:c1]
+        im = ax.imshow(np.ma.masked_invalid(M.values), cmap=cmap, vmin=0, vmax=1,
+                       aspect="auto", interpolation="nearest")
 
-    ax.set_xticks(range(len(layers)))
-    ax.set_xticklabels([shorten_layer(l, 24) for l in layers], rotation=90, fontsize=ROW)
-    style_layer_ticks(ax, layers, axis="x")
-    ax.set_yticks(range(len(genes)))
-    ax.set_yticklabels(genes, fontsize=ROW, color=C.INK)
-    if ev_vals:
-        # rule between evidence tiers, with the tier and its gene count on the right
-        start = 0
-        for i in range(1, len(ev_vals) + 1):
-            if i == len(ev_vals) or ev_vals[i] != ev_vals[start]:
-                if i < len(ev_vals):
-                    ax.axhline(i - 0.5, color="white", lw=2.4)
-                    ax.axhline(i - 0.5, color=C.GREY, lw=0.7)
-                lab = "no evidence" if ev_vals[start] == 0 else f"evidence {ev_vals[start]}"
-                ax.text(1.01, (start + i - 1) / 2, f"{lab} (n={i - start})",
-                        transform=ax.get_yaxis_transform(), fontsize=TICK, color=C.MUTED,
-                        va="center", ha="left")
-                start = i
-    ax.tick_params(length=0)
-    for sp in ax.spines.values():
-        sp.set_visible(False)
+        # thick rules between fiber types, thin between subtypes
+        for s, e, sub, fib in spans:
+            if s == 0:
+                continue
+            if s in fb:
+                ax.axhline(s - 0.5, color="white", lw=3.0)
+                ax.axhline(s - 0.5, color=C.GREY, lw=1.0)
+            else:
+                ax.axhline(s - 0.5, color="white", lw=1.6)
+                ax.axhline(s - 0.5, color=C.GREY_LT, lw=0.7)
 
-    cb = fig.colorbar(im, ax=ax, shrink=0.5, pad=0.2 if ev_vals else 0.02)   # room for tier labels
+        ax.set_yticks(range(len(layers)))
+        ax.set_yticklabels([shorten_layer(l, 24) for l in layers], fontsize=HM_TICK)
+        style_layer_ticks(ax, layers, axis="y")
+        ax.set_xticks(range(len(g)))
+        ax.set_xticklabels(g, rotation=90, fontsize=HM_TICK, color=C.INK)
+
+        # subtype brackets + names on the right
+        for s, e, sub, fib in spans:
+            col = fiber_color(fib)
+            ax.plot([1.006, 1.006], [s - 0.4, e + 0.4], color=col, lw=2.2,
+                    transform=ax.get_yaxis_transform(), clip_on=False, solid_capstyle="butt")
+            ax.text(1.014, (s + e) / 2, sub, transform=ax.get_yaxis_transform(),
+                    fontsize=HM_SUB, color=col, va="center", ha="left", fontweight="bold")
+
+        # literature-evidence blocks (local to this panel)
+        if ev_vals:
+            ev = ev_vals[c0:c1]
+            start = 0
+            for i in range(1, len(ev) + 1):
+                if i == len(ev) or ev[i] != ev[start]:
+                    if i < len(ev):
+                        ax.axvline(i - 0.5, color="white", lw=2.6)
+                        ax.axvline(i - 0.5, color=C.GREY, lw=0.9)
+                    lab = "no evidence" if ev[start] == 0 else f"evidence {ev[start]}"
+                    ax.text((start + i - 1) / 2, 1.015, f"{lab} (n={i - start})",
+                            transform=ax.get_xaxis_transform(), fontsize=HM_SUB,
+                            color=C.MUTED, va="bottom", ha="center")
+                    start = i
+
+        ax.tick_params(length=0)
+        for sp in ax.spines.values():
+            sp.set_visible(False)
+
+    # one shared horizontal colorbar under everything
+    cb = fig.colorbar(im, ax=axes[:, 0].tolist(), orientation="horizontal",
+                      shrink=0.35, pad=0.06 / n_panels + 0.03, aspect=30)
     cb.outline.set_visible(False)
-    cb.ax.tick_params(labelsize=TICK, length=2, color=C.GREY_LT, labelcolor=C.MUTED)
-    cb.set_label("Fold-change percentile among the layer's significantly expressed genes  (1 = strongest)",
-                 fontsize=TICK, color=C.MUTED)
+    cb.ax.tick_params(labelsize=HM_TICK, length=2, color=C.GREY_LT, labelcolor=C.MUTED)
+    cb.set_label("Fold-change percentile (1 = strongest)", fontsize=HM_TICK + 1, color=C.MUTED)
 
-    ax.set_title(subtitle, fontsize=PANEL, color=C.BLUE, fontweight="bold",
-                 loc="left", pad=8)
-    caption(fig, "Grey = the gene is not among the significantly expressed genes in that layer. Rows are "
-                 "ordered by " + ("literature evidence tier (strongest first), then " if ev_vals else "")
-                 + "specificity tier, then by strongest expression evidence. Column blocks are "
-                 "A-fiber, C-fiber, ATF3.",
-            y=-0.015)
-    return save(fig, out / "fig17b_candidate_heatmap.png")
+    caption(fig, "Grey = not among the layer's significantly expressed genes. Columns: "
+                 + ("literature evidence tier, then " if ev_vals else "")
+                 + "specificity tier, then expression strength. Rows: fiber type (thick rules), "
+                 "subtype (thin rules).", y=-0.02)
+    return save(fig, out / "fig17b_candidate_heatmap.png", dpi=450)
 
 
 # ---------------------------------------------------------------------------
@@ -474,6 +569,8 @@ def main():
     ap.add_argument("--only", nargs="*", default=None,
                     choices=["tiers", "heatmap", "percentiles", "svn"],
                     help="draw only these figures (svn = the combined slide-18 figure)")
+    ap.add_argument("--max-cols", type=int, default=30,
+                    help="heatmap: max genes per panel; more genes wrap into stacked panels")
     args = ap.parse_args()
 
     use_theme()
@@ -487,7 +584,8 @@ def main():
         fig_tier_breakdown(summ, out, size=figsize(args.figsize, None))
     if "heatmap" in want:
         fig_candidate_heatmap(pres, summ, out, args.top_n,
-                              Path(args.genes_file) if args.genes_file else None)
+                              Path(args.genes_file) if args.genes_file else None,
+                              max_cols=args.max_cols)
     if "percentiles" in want:
         fig_layer_percentiles(pres, out, have_expr)
     if "svn" in want:

@@ -2,7 +2,7 @@
 #SBATCH --job-name=step12g_removed
 #SBATCH --output=slurm_logs/step12g_%j.out
 #SBATCH --error=slurm_logs/step12g_%j.err
-#SBATCH --time=2:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=6G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
