@@ -18,8 +18,8 @@ source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 snapshot 11_hidef_module
 
 python step11a_supragraph.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
-    --module-csv 06_disease_module/disease_module_output/disease_module.csv \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
+    --module-csv 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output 11_hidef_module/supra_graph.pkl
     
 echo "Finished at: $(date)"

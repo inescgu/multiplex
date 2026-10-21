@@ -102,8 +102,8 @@ Writes (to --out-prefix, default "module_exploratory"):
 
 Usage:
   python step6b_module_diagnostics.py \
-      --output-dir 06_disease_module/disease_module_output \
-      --input-dir  04_multixrank_prep/multixrank_hetero_input \
+      --output-dir 06_disease_module/disease_module_output_pseudobulk \
+      --input-dir  04_multixrank_prep/multixrank_hetero_input_pseudobulk \
       --markers-csv ../R/convert_hdrg_human_2025/cell_type_markers.csv
 """
 import argparse

@@ -18,7 +18,7 @@ mkdir -p slurm_logs
 # gone -- see step8_spectral_clustering.slurm's comment for why. Point
 # --ref-graph at the same gene_reference_graph.pkl used there.
 python step9_multiplex_marchenko_pastur.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
     --out-dir 09_marchenko_pastur \
     --omega-sweep 0.1 1.0 5.0 \
     --min-celltypes-present 3 \

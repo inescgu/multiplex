@@ -15,7 +15,7 @@ module load Python/3.14.4-weekly
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step12b_null_replicate.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
     --output-dir 12_hub_removal \
     --step 10 \
     --cascading-step 10 \

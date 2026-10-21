@@ -32,13 +32,13 @@ node IDs won't line up with the clusters CSV.
 
 Usage (matching the two runs in the job script):
   python step8b_component_diagnostic.py \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
       --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
       --label with_ppi
 
   python step8b_component_diagnostic.py \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --exclude-ppi-layer \
       --clusters-csv 08_spectral_analysis/module_no_ppi/spectral_clusters.csv \
       --out-dir 08_spectral_analysis/module_no_ppi/diagnostics \

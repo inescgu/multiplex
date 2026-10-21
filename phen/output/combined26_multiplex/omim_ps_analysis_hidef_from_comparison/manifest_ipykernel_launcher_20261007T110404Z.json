@@ -1,0 +1,74 @@
+{
+  "script": "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/ipykernel_launcher.py",
+  "full_command": "/lisc/data/scratch/menche/ines/hidef_env/lib/python3.10/site-packages/ipykernel_launcher.py -f /lisc/home/user/gerardursin/.local/share/jupyter/runtime/kernel-b99dba19-5c37-4882-aff5-a0faf9326d80.json",
+  "args": {
+    "persistence_threshold": 8,
+    "ppi_source": "combined26_multiplex"
+  },
+  "inputs": {
+    "/lisc/home/user/gerardursin/multiplex/11_hidef_module/results_cpm/heterogeneous_hidef_faithful_cpm.nodes": {
+      "size": 1203186,
+      "mtime": "2026-10-06T12:44:08.660234+00:00"
+    },
+    "/lisc/home/user/gerardursin/multiplex/11_hidef_module/supra_graph.pkl": {
+      "size": 1398565,
+      "mtime": "2026-10-06T12:09:56.324523+00:00"
+    },
+    "/lisc/home/user/gerardursin/multiplex/00_inputs/seed_genes.csv": {
+      "size": 6261,
+      "mtime": "2025-09-20T10:14:29.134378+00:00"
+    }
+  },
+  "timestamp_utc": "2026-10-07T11:04:04.372045+00:00",
+  "hostname": "jupyterhub.lisc",
+  "slurm_job_id": null,
+  "git": {
+    "git_available": true,
+    "commit": "a6887530a86c7073131ad8229cc0fa2e9a889238",
+    "dirty": true,
+    "dirty_files": [
+      "M phen/analyze_neuropathic_pain.py",
+      " M phen/analyze_omim_PS_enrichr.ipynb",
+      " M phen/analyze_orphanet_enrichr.ipynb",
+      " M phen/analyze_phenotypes.py",
+      " M phen/analyze_proteomics.py",
+      " M phen/analyze_spatial_transcriptomics.py",
+      " M phen/output/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/analysis_report.txt",
+      " M phen/output/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/neuropathic_pain_summary.txt",
+      " M phen/output/combined26_multiplex/phenotypes_analysis_hidef_from_comparison/analysis_report.txt",
+      " M phen/output/combined26_multiplex/phenotypes_analysis_hidef_from_comparison/phenotype_summary.txt",
+      " M phen/output/combined26_multiplex/proteomics_analysis_hidef_from_comparison/analysis_report.txt",
+      " M phen/output/combined26_multiplex/proteomics_analysis_hidef_from_comparison/proteomics_summary.txt",
+      " M phen/output/combined26_multiplex/spatial_analysis_hidef_from_comparison/analysis_report.txt",
+      " M phen/output/combined26_multiplex/spatial_analysis_hidef_from_comparison/spatial_transcriptomics_hidef_comparison_summary.txt",
+      " M phen/pipeline_config.py",
+      " M phen/plots/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/odds_ratio_distribution.png",
+      " M phen/plots/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/pain_volcano_plot.png",
+      " M phen/plots/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/pvalue_distribution.png",
+      " M phen/plots/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/significant_pain_clusters.png",
+      " M phen/plots/combined26_multiplex/neuropathic_pain_analysis_hidef_from_comparison/top_pain_enrichments.png",
+      " M phen/plots/combined26_multiplex/phenotype_analysis_hidef_from_comparison_hidef_from_comparison/pain_gene_distribution.png",
+      " M phen/plots/combined26_multiplex/phenotype_analysis_hidef_from_comparison_hidef_from_comparison/phenotype_volcano_plot.png",
+      " M phen/plots/combined26_multiplex/phenotype_analysis_hidef_from_comparison_hidef_from_comparison/top_enrichments.png",
+      " M phen/plots/combined26_multiplex/proteomics_analysis_hidef_from_comparison/gender_volcano_plot.png",
+      " M phen/plots/combined26_multiplex/proteomics_analysis_hidef_from_comparison/protein_coverage.png",
+      " M phen/plots/combined26_multiplex/proteomics_analysis_hidef_from_comparison/significant_gender_differences.png",
+      " M phen/plots/combined26_multiplex/spatial_analysis_hidef_from_comparison/cell_type_enrichment_heatmap.png",
+      " M phen/plots/combined26_multiplex/spatial_analysis_hidef_from_comparison/pvalue_distribution.png",
+      " M phen/plots/combined26_multiplex/spatial_analysis_hidef_from_comparison/significant_enrichments.png",
+      " M phen/plots/combined26_multiplex/spatial_analysis_hidef_from_comparison/spatial_volcano_plot.png",
+      " M phen/plots/combined26_multiplex/tier_source_variation/tier_source_prevalence_heatmap.png",
+      " M phen/plots/combined26_multiplex/tier_source_variation/tier_specificity_stacked_bar.png",
+      " M phen/run_multiplex_visualizations.py",
+      " M step10b_functional_permutation_test_multiplex.py",
+      " M step11i.sh",
+      " M step11i_aggregate.py",
+      " M step11i_cluster_level_null_model.py",
+      " M submit_step11i.sh"
+    ],
+    "branch": "main"
+  },
+  "extra": {
+    "n_clusters_loaded": 2383
+  }
+}

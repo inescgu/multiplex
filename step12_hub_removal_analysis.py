@@ -143,8 +143,8 @@ percentile (has a CLI default but is overridable):
 Usage
 -----
 python step12_hub_removal_analysis.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
-    --disease-module 06_disease_module/disease_module_output/disease_module.csv \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
+    --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --background-graph /path/to/bare_gene_ppi.pkl \
     --output-dir 12_hub_removal \
     --cascading-step 10 \

@@ -71,7 +71,7 @@ Two null models, ported as faithfully as possible to the real code:
 
 Usage:
   python step8g_seed_core_periphery_null.py \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --exclude-ppi-layer \  # only if this run's clusters-csv came from module_no_ppi
       --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
       --cluster-col cluster \

@@ -16,14 +16,14 @@ Usage:
   python step8d_duplicate_groups.py \
       --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
       --embedding 08_spectral_analysis/module_with_ppi/embedding.npy \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
       --label with_ppi
 
   python step8d_duplicate_groups.py \
       --clusters-csv 08_spectral_analysis/module_no_ppi/spectral_clusters.csv \
       --embedding 08_spectral_analysis/module_no_ppi/embedding.npy \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --exclude-ppi-layer \
       --out-dir 08_spectral_analysis/module_no_ppi/diagnostics \
       --label no_ppi

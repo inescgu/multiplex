@@ -30,7 +30,7 @@ EXCL_SEEDS=(
 )
 
 # MultiXrank wdir = the folder holding config.yml, the multiplex files and gene_reference_graph.pkl
-MX_WDIR=${MX_WDIR:-04_multixrank_prep/multixrank_hetero_input}
+MX_WDIR=${MX_WDIR:-04_multixrank_prep/multixrank_hetero_input_pseudobulk}
 MX_CONFIG=${MX_CONFIG:-config.yml}
 MX_TMP=${MX_TMP:-${TMPDIR:-/tmp}/mx11i_${SLURM_JOB_ID}_${TASK}}
 

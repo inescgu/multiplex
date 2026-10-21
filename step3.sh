@@ -14,7 +14,7 @@ echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 
 # Verify prerequisites
-if [ ! -f 04_multixrank_prep/multixrank_hetero_input/bipartite_manifest.json ]; then
+if [ ! -f 04_multixrank_prep/multixrank_hetero_input_pseudobulk/bipartite_manifest.json ]; then
     echo "ERROR: bipartite_manifest.json not found! Run step 2 first."
     exit 1
 fi

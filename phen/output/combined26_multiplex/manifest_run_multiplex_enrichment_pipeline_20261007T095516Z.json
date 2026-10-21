@@ -1,0 +1,41 @@
+{
+  "script": "run_multiplex_enrichment_pipeline.py",
+  "full_command": "run_multiplex_enrichment_pipeline.py",
+  "args": {
+    "persistence_threshold": 8,
+    "nodes_file": "/lisc/home/user/gerardursin/multiplex/11_hidef_module/results_cpm/heterogeneous_hidef_faithful_cpm.nodes"
+  },
+  "inputs": {
+    "/lisc/home/user/gerardursin/multiplex/11_hidef_module/results_cpm/heterogeneous_hidef_faithful_cpm.nodes": {
+      "size": 1203186,
+      "mtime": "2026-10-06T12:44:08.660234+00:00"
+    },
+    "/lisc/home/user/gerardursin/multiplex/11_hidef_module/supra_graph.pkl": {
+      "size": 1398565,
+      "mtime": "2026-10-06T12:09:56.324523+00:00"
+    },
+    "/lisc/home/user/gerardursin/multiplex/00_inputs/seed_genes.csv": {
+      "size": 6261,
+      "mtime": "2025-09-20T10:14:29.134378+00:00"
+    }
+  },
+  "timestamp_utc": "2026-10-07T09:55:16.580104+00:00",
+  "hostname": "node-h04.lisc",
+  "slurm_job_id": "7331804",
+  "git": {
+    "git_available": true,
+    "commit": "a6887530a86c7073131ad8229cc0fa2e9a889238",
+    "dirty": true,
+    "dirty_files": [
+      "M step10b_functional_permutation_test_multiplex.py",
+      " M step11i.sh",
+      " M step11i_aggregate.py",
+      " M step11i_cluster_level_null_model.py",
+      " M submit_step11i.sh"
+    ],
+    "branch": "main"
+  },
+  "extra": {
+    "n_clusters": 2383
+  }
+}

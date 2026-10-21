@@ -43,8 +43,8 @@ export PYTHONUNBUFFERED=1
 
 python -c "import multixrank, yaml, pyarrow, matplotlib, networkx" || exit 1
 
-WDIR=04_multixrank_prep/multixrank_hetero_input
-SCORES=05_multixrank_results/multixrank_hetero_results/gene_rwr_scores.csv
+WDIR=04_multixrank_prep/multixrank_hetero_input_pseudobulk
+SCORES=05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv
 
 # The step6 flags below must be IDENTICAL to the step6 run that made disease_module.csv.
 # --resume: every finished permutation is saved immediately (null_<tag>_partial*.csv), so a timeout
@@ -53,7 +53,7 @@ python -u step10_validate_module.py \
     --wdir $WDIR \
     --config config.yml \
     --scores $SCORES \
-    --disease-module-csv 06_disease_module/disease_module_output/disease_module.csv \
+    --disease-module-csv 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output-dir 10_validation \
     --connectivity all \
     --k 200 \

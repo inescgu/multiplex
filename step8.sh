@@ -27,7 +27,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export OPENBLAS_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export MKL_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
-REF_GRAPH=06_disease_module/disease_module_output/module_graph.pkl
+REF_GRAPH=06_disease_module/disease_module_output_pseudobulk/module_graph.pkl
 
 # ------------------------------------------------------------------
 # Run 1: full module (global_ppi backbone included)

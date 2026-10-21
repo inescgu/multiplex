@@ -19,7 +19,7 @@ Two independent things changed:
 
 1. `--ref-graph` now accepts EITHER gene_reference_graph.pkl (the full
    heterogeneous graph) OR module_graph.pkl (step6's disease-module
-   subgraph, e.g. 06_disease_module/disease_module_output/module_graph.pkl).
+   subgraph, e.g. 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl).
    No format conversion needed: module_graph.pkl is produced by
    `H.subgraph(final_module).copy()` in step6, so it's already namespaced
    "<celltype>::GENE" and already carries the same per-edge `edge_type`
@@ -536,7 +536,7 @@ def main():
     ap.add_argument("--ref-graph", required=True,
                      help="Either gene_reference_graph.pkl / gene_ppi_reference_graph.pkl "
                           "(full heterogeneous graph) OR step6's module_graph.pkl "
-                          "(e.g. 06_disease_module/disease_module_output/module_graph.pkl) "
+                          "(e.g. 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl) "
                           "to restrict clustering to the disease module only. Both formats "
                           "are namespaced '<celltype>::GENE' nodes with 'edge_type' in "
                           "{ppi, inter, both}.")

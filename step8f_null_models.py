@@ -60,14 +60,14 @@ reimplementation).
 
 Usage (pilot timing run first):
   python step8f_null_models.py \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --mode sos --sample-p 0.4 --K 3 --force-k 2 --degree-normalize \
       --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
       --label with_ppi --pilot
 
 Then a real batch, e.g.:
   python step8f_null_models.py \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --mode sos --sample-p 0.4 --K 3 --force-k 2 --degree-normalize \
       --full-ref-graph <path to gene_reference_graph.pkl, for population null> \
       --n-permutation 100 --n-population 100 --n-jobs 4 \

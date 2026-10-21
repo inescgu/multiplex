@@ -970,7 +970,7 @@ def main():
         args.mx_ranker = make_mx_ranker(mx_wdir, args.mx_config, mx_tmp)
 
     dm_dir = Path(args.disease_module_dir)
-    module_df = pd.read_csv(dm_dir / "disease_module_output" / "disease_module.csv")
+    module_df = pd.read_csv(dm_dir / "disease_module_output_pseudobulk" / "disease_module.csv")
     module_df["node"] = module_df["node"].astype(str).str.strip()
     true_module = module_df["node"].tolist()
     n_missing = sum(1 for n in true_module if n not in idx_of)

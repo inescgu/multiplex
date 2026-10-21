@@ -29,7 +29,7 @@ unchanged by the early stop; the rest are speed fixes):
 
 Usage (normally via Slurm array):
     python step12b_null_replicate.py \
-        --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
+        --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
         --output-dir 12_hub_removal \
         --null-id $SLURM_ARRAY_TASK_ID
 """

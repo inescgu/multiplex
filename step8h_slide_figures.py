@@ -20,7 +20,7 @@ Usage:
   python step8h_slide_figures.py \
       --with-ppi-dir 08_spectral_analysis/module_with_ppi \
       --no-ppi-dir 08_spectral_analysis/module_no_ppi \
-      --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+      --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
       --seed-genes-csv 00_inputs/seed_genes.csv \
       --out-dir 08_spectral_analysis/slide_figures
 

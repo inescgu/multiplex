@@ -56,7 +56,7 @@ ENSEMBLE_PKL = str(ROOT / "11_hidef_module" / "ensemble.pkl")
 DISEASE_MODULE_DIR = str(ROOT / "06_disease_module")
 
 # step2.5 output -- full namespaced reference network ("<celltype>::GENE")
-REFERENCE_GRAPH_PKL = str(ROOT / "04_multixrank_prep" / "multixrank_hetero_input" / "gene_reference_graph.pkl")
+REFERENCE_GRAPH_PKL = str(ROOT / "04_multixrank_prep" / "multixrank_hetero_input_pseudobulk" / "gene_reference_graph.pkl")
 SEED_GENES_FILE = str(ROOT / "00_inputs" / "seed_genes.csv")
 
 # The --neighbors value actually used for the .nodes/.edges files above.

@@ -25,7 +25,7 @@ mkdir -p "${PLOT_DIR}"
 
 
 python step12c_plothubremoval.py \
-    ${INPUT_CSV} \
+    ${HUB_REMOVAL_DIR} \
     ${PLOT_DIR}
 
 echo "Finished at: $(date)"

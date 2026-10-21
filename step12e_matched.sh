@@ -17,8 +17,8 @@ module load Python/3.14.4-weekly
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step12e_matched_replicate.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
-    --disease-module 06_disease_module/disease_module_output/disease_module.csv \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
+    --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output-dir 12_hub_removal \
     --variant ${VARIANT} \
     --step 10 \

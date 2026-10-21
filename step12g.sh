@@ -12,8 +12,8 @@ source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 # Add --betweenness-k N / change --cascading-step if the main run used non-default values.
 python step12g_removed_genes.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
-    --disease-module 06_disease_module/disease_module_output/disease_module.csv \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
+    --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output-dir 12_hub_removal \
     --modes degree,betweenness,degree_betweenness \
     --cascading --cascading-step 10 --module-background

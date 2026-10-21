@@ -17,14 +17,14 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export OPENBLAS_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export MKL_NUM_THREADS=$SLURM_CPUS_PER_TASK
-REF_GRAPH=06_disease_module/disease_module_output/module_graph.pkl
+REF_GRAPH=06_disease_module/disease_module_output_pseudobulk/module_graph.pkl
 
 echo ""
 echo "=== Step 8d: module_with_ppi ==="
 python step8d_duplicate_groups.py \
   --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
   --embedding 08_spectral_analysis/module_with_ppi/embedding.npy \
-  --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+  --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
   --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
   --label with_ppi
 
@@ -33,7 +33,7 @@ echo "=== Step 8d: module_no_ppi ==="
 python step8d_duplicate_groups.py \
   --clusters-csv 08_spectral_analysis/module_no_ppi/spectral_clusters.csv \
   --embedding 08_spectral_analysis/module_no_ppi/embedding.npy \
-  --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+  --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
   --exclude-ppi-layer \
   --out-dir 08_spectral_analysis/module_no_ppi/diagnostics \
   --label no_ppi
@@ -61,25 +61,25 @@ echo ""
 echo "=== Step 8g: module with ppi ==="
 # only if this run's clusters-csv came from module_no_ppi
 python step8g_seed_core_periphery_null.py \
-  --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+  --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
   --clusters-csv 08_spectral_analysis/module_with_ppi/spectral_clusters.csv \
   --cluster-col cluster \
   --core-definition composite \
   --seed-genes-csv 00_inputs/seed_genes.csv \
-  --full-ref-graph 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl \
+  --full-ref-graph 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl \
   --out-dir 08_spectral_analysis/module_with_ppi/diagnostics \
   --label with_ppi
 
 echo ""
 echo "=== Step 8g: module no ppi ==="
 python step8g_seed_core_periphery_null.py \
-  --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+  --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
   --exclude-ppi-layer \
   --clusters-csv 08_spectral_analysis/module_no_ppi/spectral_clusters.csv \
   --cluster-col cluster \
   --core-definition composite \
   --seed-genes-csv 00_inputs/seed_genes.csv \
-  --full-ref-graph 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl \
+  --full-ref-graph 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl \
   --out-dir 08_spectral_analysis/module_no_ppi/diagnostics \
   --label no_ppi
 
@@ -88,7 +88,7 @@ echo "=== Step 8f: slide figures ==="
 python step8h_slide_figures.py \
     --with-ppi-dir 08_spectral_analysis/module_with_ppi \
     --no-ppi-dir 08_spectral_analysis/module_no_ppi \
-    --ref-graph 06_disease_module/disease_module_output/module_graph.pkl \
+    --ref-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
     --seed-genes-csv 00_inputs/seed_genes.csv \
     --out-dir 08_spectral_analysis/slide_figures
     

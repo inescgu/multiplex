@@ -12,7 +12,7 @@ The two cheap stages that were sitting behind the null benchmark:
 
 Usage:
     python step12d_tail.py \
-        --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
+        --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
         --background-graph ../og_gene_set/temp/combined26/full_network.pkl \
         --output-dir 12_hub_removal \
         --n-permutations 2000

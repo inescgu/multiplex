@@ -56,8 +56,8 @@ rather than duplicating ~800 lines of already-reviewed code.
 Usage
 -----
 python step12b_layer_preserving_null.py \
-    --module-graph 06_disease_module/disease_module_output/module_graph.pkl \
-    --disease-module 06_disease_module/disease_module_output/disease_module.csv \
+    --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
+    --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output-dir 12_hub_removal \
     --stratify-by-seed-status \
     --n-null 20 \

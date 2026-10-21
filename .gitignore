@@ -57,3 +57,10 @@ __pycache__/
 .ipynb_checkpoints/
 00_inputs/go/goa_human.gaf
 *.h5ad
+
+# audit 2026-10-21
+archive/
+04_multixrank_prep/
+# keep provenance despite the *.json / *.csv rules above
+!**/manifest_*.json
+!results/RESULTS_INDEX.csv
