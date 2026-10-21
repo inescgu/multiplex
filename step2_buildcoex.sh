@@ -17,9 +17,9 @@ module load Python/3.13.5-GCCcore-14.3.0
 source /lisc/data/scratch/menche/ines/multi_env/bin/activate
 
 python step2_build_25hdrg_multiplex.py \
-    --markers-file 00_inputs/hdrg_markers.csv \
+    --markers-file 00_inputs/hdrg_expressed_pseudobulk.csv \
     --base-ppi 00_inputs/ppi_network.pkl \
-    --output-dir 02_hdrg_multiplex/multiplex_2025hdrg_filtered \
+    --output-dir 02_hdrg_multiplex/multiplex_2025hdrg_pseudobulk \
     --seed-genes-file 00_inputs/seed_genes.csv
 
 echo "Finished at: $(date)"

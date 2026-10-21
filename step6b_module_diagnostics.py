@@ -416,13 +416,26 @@ def seed_layer_connectivity(seed_genes: set, degrees: dict) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def load_markers(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
+    for src, dst in [("logFC", "avg_log2FC"), ("marker_log2FC", "avg_log2FC"),
+                     ("FDR", "p_val_adj"), ("marker_FDR", "p_val_adj")]:
+        if src in df.columns and dst not in df.columns:
+            df = df.rename(columns={src: dst})
+    missing = {"gene", "cell_type", "avg_log2FC"} - set(df.columns)
+    if missing:
+        raise SystemExit(f"--markers-csv {path} is missing {missing}; expected marker statistics "
+                         f"(e.g. pseudobulk_markers_all.csv). Found: {list(df.columns)}")
+    df = df.dropna(subset=["avg_log2FC"])
     df["gene"] = df["gene"].astype(str).str.strip().str.upper()
+    df["cell_type"] = df["cell_type"].astype(str).str.replace("/", "_", regex=False)
     return df
 
 
-def expression_specificity_table(genes: list, markers_df: pd.DataFrame, marker_alpha: float) -> pd.DataFrame:
+def expression_specificity_table(genes: list, markers_df: pd.DataFrame, marker_alpha: float,
+                                 min_log2fc: float = 0.25) -> pd.DataFrame:
     has_padj = "p_val_adj" in markers_df.columns
-    sig_df = markers_df[markers_df["p_val_adj"] < marker_alpha] if has_padj else markers_df
+    sig_df = (markers_df[(markers_df["p_val_adj"] < marker_alpha) &
+                         (markers_df["avg_log2FC"] > min_log2fc)]
+              if has_padj else markers_df)
 
     ranked = markers_df.copy()
     ranked["rank_in_celltype"] = ranked.groupby("cell_type")["avg_log2FC"].rank(ascending=False, method="min")
@@ -762,6 +775,7 @@ def main():
         print("SEED CONNECTIVITY ACROSS ALL LAYERS (not just final module)")
         print("-" * 70)
         gene_sets = load_gene_sets(gene_sets_path)
+        gene_sets.pop("global_ppi", None)
         degrees = compute_layer_degrees(Path(args.input_dir), gene_sets, set(unique_seed_genes))
         seed_layer_df = seed_layer_connectivity(set(unique_seed_genes), degrees)
         seed_layer_path = str(Path(args.output_dir) / f"{args.out_prefix}_seed_layer_connectivity.csv")
@@ -994,7 +1008,6 @@ def main():
         plot_path = interaction_plot_paths.get((scope_name, dim_key))
         if plot_path:
             print(f"Saved: {plot_path}")
-
 
 if __name__ == "__main__":
     main()

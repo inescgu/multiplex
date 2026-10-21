@@ -17,8 +17,8 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step5_preflight_seed_reachability.py \
-    --ref-graph 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl \
-    --seeds 04_multixrank_prep/multixrank_hetero_input/seeds/seeds.txt \
+    --ref-graph 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl \
+    --seeds 04_multixrank_prep/multixrank_hetero_input_pseudobulk/seeds/seeds.txt \
     --lcc-per-layer \
     --exclude-ppi-seeds
 

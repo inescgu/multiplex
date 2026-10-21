@@ -18,9 +18,9 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step2_build_bipartite_edges.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --lr-csv pathway_prep/lr_pairs_with_pathways.csv \
-    --scored-lr-csv pathway_prep/lr_sources/liana_long.csv pathway_prep/lr_sources/neuronchat_long.csv \
+    --scored-lr-csv pathway_prep/lr_sources/liana_consensus_top.csv pathway_prep/lr_sources/neuronchat_long.csv \
     --ppi-pkl 00_inputs/ppi_network.pkl \
     --global-ppi-name global_ppi \
     --exclude-identity-from-charts

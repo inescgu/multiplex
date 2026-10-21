@@ -6,352 +6,923 @@ Read each block top to bottom: global role, then per-layer detail.
 among that cell type's markers (q<0.05, tier_enrich_q in layer_seed_tests.csv).
 deg = number of marker neighbours in that layer; pXX = percentile (1.00 = top).
 
-[CHRNB4]  --  A: specific marker + well-connected in an enriched layer
-  Global PPI degree percentile : 0.85
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 3
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=17 (p0.93) | HUB | log2FC=3.03 (p1.00, rank 13) pct1-2=0.39
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=12 (p0.89) | log2FC=1.66 (p0.97, rank 45) pct1-2=0.13
-    [layer         ] C-NP.SST                       deg=17 (p0.87) | log2FC=1.65 (p0.97, rank 119) pct1-2=0.15
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=10 (p0.91) | HUB | log2FC=0.64 (p0.58, rank 676) pct1-2=0.04
+[CD274]  --  A: specific marker + well-connected in an enriched layer
+  Global PPI degree percentile : 0.90
+  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 3
+    [layer         ] C-Thermo.RXFP1                 deg=70 (p0.92) | HUB | log2FC=1.52 (p0.98, rank 153) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=70 (p0.92) | HUB | log2FC=0.54 (p0.95, rank 503) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=69 (p0.92) | HUB | log2FC=0.34 (p0.92, rank 788) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=70 (p0.92) | HUB | log2FC=0.25 (p0.84, rank 1591) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=68 (p0.91) | HUB
+    [layer         ] C-PEP.ADORA2B                  deg=70 (p0.92) | HUB
 
-[NTRK1]  --  A*: specific + connected, but also a generic global hub
+[SCN2B]  --  A: specific marker + well-connected in an enriched layer
+  Global PPI degree percentile : 0.85
+  Present in 20 cell-type layer(s), connected in 20, 'strong' (well-connected + top marker) in 6
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=58 (p0.90) | HUB | log2FC=1.21 (p0.99, rank 86) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=61 (p0.90) | HUB | log2FC=0.90 (p0.98, rank 218) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=60 (p0.90) | log2FC=0.86 (p0.97, rank 315) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=60 (p0.90) | log2FC=0.76 (p0.95, rank 535) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=59 (p0.90) | log2FC=0.70 (p0.93, rank 615) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=58 (p0.90) | log2FC=0.38 (p0.93, rank 657) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=57 (p0.90) | log2FC=0.27 (p0.85, rank 1350) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=60 (p0.90) | HUB | log2FC=0.25 (p0.80, rank 1963) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=60 (p0.90) | log2FC=0.16 (p0.78, rank 2216) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=58 (p0.90) | log2FC=-0.18 (p0.44, rank 5208) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=53 (p0.89) | log2FC=-0.10 (p0.43, rank 4731) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=60 (p0.90) | HUB | log2FC=-0.29 (p0.30, rank 6848) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=60 (p0.90) | HUB | log2FC=-0.58 (p0.08, rank 8232) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=58 (p0.90) | HUB | log2FC=-1.05 (p0.04, rank 8485) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=60 (p0.89) | log2FC=-1.77 (p0.03, rank 8848) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=58 (p0.90) | log2FC=-1.53 (p0.01, rank 9175) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=59 (p0.89) | log2FC=-2.77 (p0.01, rank 8944) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=54 (p0.90) | log2FC=-2.91 (p0.00, rank 8021) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=58 (p0.90) | HUB | log2FC=-3.94 (p0.00, rank 9068) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=56 (p0.90) | HUB | log2FC=-3.30 (p0.00, rank 8437) pct1-2=nan
+
+[OPRL1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.92  <- generic hub; layer-specific reads below matter less
+  Present in 10 cell-type layer(s), connected in 10, 'strong' (well-connected + top marker) in 6
+    [layer         ] C-Thermo.TRPM8                 deg=78 (p0.94) | HUB | log2FC=1.24 (p0.99, rank 119) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=74 (p0.93) | HUB | log2FC=1.01 (p0.99, rank 139) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=76 (p0.94) | HUB | log2FC=1.60 (p0.98, rank 140) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=74 (p0.94) | HUB | log2FC=1.10 (p0.98, rank 155) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=72 (p0.94) | HUB | log2FC=0.50 (p0.95, rank 400) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=73 (p0.93) | HUB | log2FC=0.81 (p0.95, rank 486) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=81 (p0.94) | HUB | log2FC=-0.05 (p0.48, rank 5217) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=77 (p0.93) | HUB
+    [layer         ] A-Propr.PCDH8                  deg=71 (p0.92) | HUB
+    [layer         ] Ab-LTMR.ETV1                   deg=63 (p0.94) | HUB
+
+[CHRNB2]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.93  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 8
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=77 (p0.94) | HUB | log2FC=1.50 (p0.98, rank 151) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=79 (p0.94) | HUB | log2FC=1.37 (p0.98, rank 208) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=61 (p0.93) | HUB | log2FC=1.09 (p0.97, rank 229) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=73 (p0.94) | HUB | log2FC=0.78 (p0.96, rank 341) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=72 (p0.94) | HUB | log2FC=0.74 (p0.93, rank 552) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=77 (p0.93) | HUB | log2FC=0.52 (p0.92, rank 701) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=82 (p0.94) | HUB | log2FC=0.47 (p0.92, rank 738) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=79 (p0.94) | HUB | log2FC=0.61 (p0.91, rank 795) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=80 (p0.94) | HUB | log2FC=0.31 (p0.89, rank 999) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=79 (p0.94) | HUB | log2FC=0.21 (p0.79, rank 1925) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=75 (p0.94) | HUB | log2FC=0.13 (p0.71, rank 2432) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=83 (p0.94) | HUB | log2FC=-0.05 (p0.52, rank 4731) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=79 (p0.94) | HUB | log2FC=-0.12 (p0.42, rank 5874) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=79 (p0.94) | HUB | log2FC=-0.33 (p0.26, rank 6814) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=79 (p0.94) | HUB | log2FC=-0.28 (p0.23, rank 6926) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=76 (p0.94) | HUB | log2FC=-1.11 (p0.20, rank 7260) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=77 (p0.94) | HUB | log2FC=-0.33 (p0.18, rank 7624) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=78 (p0.94) | HUB | log2FC=-0.45 (p0.13, rank 7938) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=76 (p0.94) | HUB | log2FC=-0.60 (p0.07, rank 8289) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=79 (p0.94) | HUB | log2FC=-0.71 (p0.06, rank 9173) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=78 (p0.94) | HUB | log2FC=-0.95 (p0.04, rank 9328) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=80 (p0.94) | HUB | log2FC=-1.01 (p0.03, rank 9601) pct1-2=nan
+
+[LPAR1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.95  <- generic hub; layer-specific reads below matter less
+  Present in 19 cell-type layer(s), connected in 19, 'strong' (well-connected + top marker) in 4
+    [layer         ] C-Thermo.RXFP1                 deg=109 (p0.97) | HUB | log2FC=0.96 (p0.96, rank 366) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=108 (p0.97) | HUB | log2FC=0.77 (p0.96, rank 419) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=103 (p0.97) | HUB | log2FC=0.87 (p0.95, rank 389) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=107 (p0.97) | HUB | log2FC=0.40 (p0.90, rank 889) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=108 (p0.97) | HUB | log2FC=0.25 (p0.86, rank 1371) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=109 (p0.97) | HUB | log2FC=0.20 (p0.81, rank 1895) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=105 (p0.97) | HUB | log2FC=0.22 (p0.80, rank 1773) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=108 (p0.97) | HUB | log2FC=0.15 (p0.80, rank 1852) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=109 (p0.97) | HUB | log2FC=0.25 (p0.75, rank 2327) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=109 (p0.97) | HUB | log2FC=0.02 (p0.61, rank 3619) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=109 (p0.97) | HUB | log2FC=-0.08 (p0.49, rank 4972) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=106 (p0.96) | HUB | log2FC=-0.28 (p0.39, rank 5482) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=105 (p0.97) | HUB | log2FC=-0.22 (p0.30, rank 6224) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=105 (p0.97) | HUB | log2FC=-0.24 (p0.26, rank 6647) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=103 (p0.97) | HUB | log2FC=-0.45 (p0.24, rank 6418) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=107 (p0.97) | HUB | log2FC=-0.46 (p0.21, rank 7158) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=103 (p0.97) | HUB | log2FC=-0.58 (p0.11, rank 7380) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=106 (p0.97) | HUB | log2FC=-0.58 (p0.08, rank 8600) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=107 (p0.96) | HUB | log2FC=-1.04 (p0.07, rank 8467) pct1-2=nan
+
+[PRKAA2]  --  A*: specific + connected, but also a generic global hub
   Global PPI degree percentile : 0.96  <- generic hub; layer-specific reads below matter less
-  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 4
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=21 (p0.96) | HUB | log2FC=1.79 (p0.98, rank 31) pct1-2=0.44
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=18 (p0.91) | HUB | log2FC=1.46 (p0.97, rank 35) pct1-2=0.40
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=29 (p0.98) | HUB | log2FC=1.33 (p0.96, rank 76) pct1-2=0.44
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=16 (p0.85) | log2FC=1.37 (p0.95, rank 53) pct1-2=0.39
-    [layer         ] A-PEP.KIT                      deg=38 (p0.95) | HUB | log2FC=0.98 (p0.60, rank 2007) pct1-2=0.35
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=30 (p0.93) | HUB | log2FC=0.41 (p0.39, rank 1053) pct1-2=0.30
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 2
+    [ENRICHED LAYER] ATF3                           deg=74 (p0.93) | HUB | log2FC=0.47 (p0.94, rank 560) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=76 (p0.93) | HUB | log2FC=0.41 (p0.91, rank 847) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=80 (p0.94) | HUB | log2FC=0.26 (p0.85, rank 1512) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=82 (p0.94) | HUB | log2FC=0.39 (p0.84, rank 1495) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=76 (p0.93) | HUB | log2FC=0.17 (p0.79, rank 1886) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=74 (p0.93) | HUB | log2FC=0.14 (p0.73, rank 2374) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=81 (p0.94) | HUB | log2FC=0.07 (p0.61, rank 3968) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=67 (p0.93) | HUB | log2FC=0.01 (p0.55, rank 3613) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=74 (p0.94) | HUB | log2FC=-0.00 (p0.54, rank 4148) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=79 (p0.94) | HUB | log2FC=-0.06 (p0.52, rank 4764) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=77 (p0.93) | HUB | log2FC=-0.06 (p0.51, rank 4797) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=69 (p0.93) | HUB | log2FC=-0.12 (p0.49, rank 4281) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=67 (p0.93) | HUB | log2FC=-0.09 (p0.44, rank 4651) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=73 (p0.93) | HUB | log2FC=-0.11 (p0.40, rank 5482) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=77 (p0.94) | HUB | log2FC=-0.15 (p0.39, rank 5677) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=62 (p0.94) | HUB | log2FC=-0.14 (p0.38, rank 4242) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=72 (p0.93) | HUB | log2FC=-0.19 (p0.38, rank 5674) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=73 (p0.93) | HUB | log2FC=-0.15 (p0.34, rank 5800) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=80 (p0.94) | HUB | log2FC=-0.25 (p0.33, rank 6150) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=76 (p0.94) | HUB | log2FC=-0.24 (p0.24, rank 7054) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=72 (p0.93) | HUB | log2FC=-0.32 (p0.20, rank 7197) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=77 (p0.93) | HUB | log2FC=-0.49 (p0.11, rank 8629) pct1-2=nan
+
+[S100B]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.98  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 8
+    [layer         ] Ab-LTMR.NSG2                   deg=109 (p0.97) | HUB | log2FC=1.25 (p0.99, rank 112) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=80 (p0.96) | HUB | log2FC=1.47 (p0.99, rank 101) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=123 (p0.98) | HUB | log2FC=1.42 (p0.98, rank 191) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=127 (p0.98) | HUB | log2FC=0.83 (p0.98, rank 216) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=119 (p0.98) | HUB | log2FC=1.12 (p0.97, rank 277) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=102 (p0.97) | HUB | log2FC=1.01 (p0.96, rank 283) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=110 (p0.97) | HUB | log2FC=0.48 (p0.95, rank 443) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=127 (p0.98) | HUB | log2FC=0.50 (p0.94, rank 523) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=124 (p0.97) | HUB | log2FC=0.30 (p0.86, rank 1249) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=121 (p0.98) | HUB | log2FC=0.06 (p0.61, rank 3490) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=126 (p0.97) | HUB | log2FC=-0.14 (p0.56, rank 4054) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=139 (p0.98) | HUB | log2FC=-0.28 (p0.27, rank 7395) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=133 (p0.98) | HUB | log2FC=-0.29 (p0.21, rank 7810) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=126 (p0.98) | HUB | log2FC=-1.06 (p0.20, rank 7181) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=122 (p0.98) | HUB | log2FC=-0.49 (p0.11, rank 8078) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=125 (p0.98) | HUB | log2FC=-1.05 (p0.02, rank 9131) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=141 (p0.98) | HUB | log2FC=-1.53 (p0.02, rank 9030) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=136 (p0.98) | HUB | log2FC=-1.38 (p0.02, rank 8978) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=136 (p0.98) | HUB | log2FC=-1.35 (p0.02, rank 9530) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=134 (p0.98) | HUB | log2FC=-1.44 (p0.02, rank 9778) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=135 (p0.98) | HUB | log2FC=-1.33 (p0.01, rank 9690) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=123 (p0.98) | HUB | log2FC=-1.68 (p0.01, rank 8868) pct1-2=nan
+
+[EFNB1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.98  <- generic hub; layer-specific reads below matter less
+  Present in 20 cell-type layer(s), connected in 20, 'strong' (well-connected + top marker) in 3
+    [layer         ] C-Thermo.TRPM8                 deg=125 (p0.98) | HUB | log2FC=1.71 (p0.99, rank 61) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=128 (p0.98) | HUB | log2FC=1.77 (p0.99, rank 110) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=121 (p0.98) | HUB | log2FC=0.64 (p0.96, rank 387) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=125 (p0.98) | HUB | log2FC=0.23 (p0.79, rank 1907) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=115 (p0.97) | HUB | log2FC=0.16 (p0.74, rank 2302) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=115 (p0.98) | HUB | log2FC=0.23 (p0.72, rank 2433) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=125 (p0.98) | HUB | log2FC=0.08 (p0.60, rank 3677) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=108 (p0.97) | HUB | log2FC=0.03 (p0.60, rank 3357) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=125 (p0.98) | HUB | log2FC=0.02 (p0.56, rank 4289) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=107 (p0.97) | HUB | log2FC=-0.02 (p0.53, rank 3786) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=111 (p0.98) | HUB | log2FC=-0.20 (p0.42, rank 4915) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=116 (p0.97) | HUB | log2FC=-0.11 (p0.41, rank 5304) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=126 (p0.98) | HUB | log2FC=-0.14 (p0.40, rank 5960) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=121 (p0.98) | HUB | log2FC=-0.29 (p0.33, rank 6281) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=118 (p0.97) | HUB | log2FC=-0.17 (p0.32, rank 6375) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=116 (p0.97) | HUB | log2FC=-0.47 (p0.21, rank 7190) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=124 (p0.98) | HUB | log2FC=-0.47 (p0.17, rank 8173) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=117 (p0.98) | HUB | log2FC=-0.45 (p0.13, rank 7954) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=118 (p0.97) | HUB | log2FC=-0.72 (p0.13, rank 7851) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=124 (p0.97) | HUB | log2FC=-0.87 (p0.10, rank 8226) pct1-2=nan
+
+[DTNBP1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.94  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 2
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=72 (p0.93) | HUB | log2FC=1.59 (p0.99, rank 132) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=75 (p0.93) | HUB | log2FC=0.55 (p0.93, rank 685) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=73 (p0.92) | HUB | log2FC=0.33 (p0.89, rank 1046) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=76 (p0.93) | HUB | log2FC=0.40 (p0.86, rank 1456) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=73 (p0.93) | HUB | log2FC=0.40 (p0.85, rank 1415) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=72 (p0.92) | HUB | log2FC=0.27 (p0.85, rank 1382) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=75 (p0.93) | HUB | log2FC=0.19 (p0.82, rank 1740) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=69 (p0.93) | HUB | log2FC=0.78 (p0.81, rank 1705) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=65 (p0.92) | HUB | log2FC=0.10 (p0.64, rank 2923) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=73 (p0.93) | HUB | log2FC=0.08 (p0.63, rank 3323) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=60 (p0.93) | HUB | log2FC=0.06 (p0.54, rank 3143) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=73 (p0.93) | HUB | log2FC=-0.04 (p0.51, rank 4590) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=70 (p0.93) | HUB | log2FC=-0.20 (p0.42, rank 4917) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=73 (p0.93) | HUB | log2FC=-0.27 (p0.23, rank 7015) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=68 (p0.92) | HUB | log2FC=-0.53 (p0.19, rank 7399) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=71 (p0.93) | HUB | log2FC=-0.51 (p0.14, rank 7177) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=74 (p0.93) | HUB | log2FC=-0.42 (p0.13, rank 8083) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=70 (p0.93) | HUB | log2FC=-0.47 (p0.11, rank 7931) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=75 (p0.93) | HUB | log2FC=-0.58 (p0.09, rank 9065) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=73 (p0.93) | HUB | log2FC=-0.72 (p0.09, rank 8540) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=73 (p0.93) | HUB | log2FC=-0.68 (p0.07, rank 9075) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=73 (p0.93) | HUB | log2FC=-0.79 (p0.05, rank 9205) pct1-2=nan
+
+[LGALS1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.98  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 1
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=118 (p0.98) | HUB | log2FC=0.44 (p0.94, rank 557) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=112 (p0.98) | HUB | log2FC=0.33 (p0.90, rank 868) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=112 (p0.97) | HUB | log2FC=0.33 (p0.88, rank 1111) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=127 (p0.98) | HUB | log2FC=0.21 (p0.79, rank 1934) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=119 (p0.98) | HUB | log2FC=0.17 (p0.79, rank 1975) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=127 (p0.98) | HUB | log2FC=0.07 (p0.73, rank 2535) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=118 (p0.98) | HUB | log2FC=0.21 (p0.71, rank 2569) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=114 (p0.98) | HUB | log2FC=0.10 (p0.70, rank 2547) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=122 (p0.98) | HUB | log2FC=0.10 (p0.61, rank 3506) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=92 (p0.97) | HUB | log2FC=0.12 (p0.59, rank 2808) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=117 (p0.98) | HUB | log2FC=-0.02 (p0.55, rank 4063) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=114 (p0.98) | HUB | log2FC=-0.08 (p0.47, rank 4246) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=126 (p0.98) | HUB | log2FC=-0.15 (p0.39, rank 6027) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=127 (p0.98) | HUB | log2FC=-0.49 (p0.16, rank 7683) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=127 (p0.98) | HUB | log2FC=-0.48 (p0.16, rank 7775) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=126 (p0.98) | HUB | log2FC=-0.51 (p0.10, rank 8921) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=129 (p0.98) | HUB | log2FC=-0.93 (p0.09, rank 8319) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=127 (p0.98) | HUB | log2FC=-0.60 (p0.08, rank 8945) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=124 (p0.97) | HUB | log2FC=-1.01 (p0.06, rank 8405) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=128 (p0.98) | HUB | log2FC=-0.84 (p0.06, rank 9519) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=130 (p0.98) | HUB | log2FC=-0.91 (p0.03, rank 9492) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=112 (p0.97) | HUB | log2FC=-3.02 (p0.01, rank 8958) pct1-2=nan
+
+[GRN]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 1.00  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 1
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=205 (p0.99) | HUB | log2FC=0.41 (p0.91, rank 931) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=182 (p0.99) | HUB | log2FC=0.39 (p0.88, rank 1045) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=201 (p0.99) | HUB | log2FC=0.36 (p0.86, rank 1350) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=191 (p0.99) | HUB | log2FC=0.24 (p0.86, rank 1326) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=205 (p0.99) | HUB | log2FC=0.32 (p0.80, rank 1871) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=186 (p0.99) | HUB | log2FC=0.18 (p0.78, rank 2023) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=193 (p0.99) | HUB | log2FC=0.10 (p0.76, rank 2220) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=184 (p0.99) | HUB | log2FC=0.15 (p0.73, rank 2460) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=172 (p0.99) | HUB | log2FC=0.04 (p0.60, rank 3332) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=212 (p0.99) | HUB | log2FC=-0.09 (p0.50, rank 4606) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=178 (p0.99) | HUB | log2FC=-0.16 (p0.34, rank 5856) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=213 (p0.99) | HUB | log2FC=-0.22 (p0.32, rank 6875) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=207 (p0.99) | HUB | log2FC=-0.31 (p0.28, rank 7031) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=201 (p0.99) | HUB | log2FC=-0.22 (p0.28, rank 7095) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=191 (p0.99) | HUB | log2FC=-0.36 (p0.22, rank 7241) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=161 (p0.99) | HUB | log2FC=-0.45 (p0.19, rank 6500) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=191 (p0.99) | HUB | log2FC=-0.91 (p0.09, rank 8289) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=169 (p0.99) | HUB | log2FC=-0.96 (p0.07, rank 7884) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=174 (p0.99) | HUB | log2FC=-1.12 (p0.05, rank 8525) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=184 (p0.99) | HUB | log2FC=-1.29 (p0.04, rank 8745) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=139 (p0.99) | HUB | log2FC=-1.20 (p0.04, rank 6553) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=186 (p0.99) | HUB | log2FC=-2.36 (p0.03, rank 8749) pct1-2=nan
+
+[STX1A]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.97  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 6
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=91 (p0.96) | HUB | log2FC=1.13 (p0.99, rank 87) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=94 (p0.96) | HUB | log2FC=1.24 (p0.99, rank 130) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=92 (p0.96) | HUB | log2FC=0.60 (p0.97, rank 299) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=80 (p0.95) | HUB | log2FC=0.55 (p0.96, rank 341) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=87 (p0.95) | HUB | log2FC=0.58 (p0.96, rank 419) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=95 (p0.96) | HUB | log2FC=0.61 (p0.94, rank 571) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=84 (p0.95) | HUB | log2FC=0.23 (p0.81, rank 1803) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=95 (p0.96) | HUB | log2FC=0.14 (p0.68, rank 3284) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=95 (p0.96) | HUB | log2FC=0.01 (p0.62, rank 3731) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=84 (p0.95) | HUB | log2FC=-0.01 (p0.54, rank 4180) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=87 (p0.95) | HUB | log2FC=-0.08 (p0.44, rank 5137) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=94 (p0.96) | HUB | log2FC=-0.19 (p0.35, rank 5997) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=81 (p0.95) | HUB | log2FC=-0.39 (p0.19, rank 7112) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=96 (p0.96) | HUB | log2FC=-0.91 (p0.04, rank 9535) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=85 (p0.95) | HUB | log2FC=-0.87 (p0.04, rank 8599) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=92 (p0.95) | HUB | log2FC=-1.60 (p0.03, rank 8801) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=93 (p0.96) | HUB | log2FC=-1.22 (p0.02, rank 9484) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=78 (p0.95) | HUB | log2FC=-1.61 (p0.02, rank 8301) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=83 (p0.94) | HUB | log2FC=-2.10 (p0.01, rank 8871) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=87 (p0.95) | HUB | log2FC=-2.46 (p0.01, rank 9002) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=64 (p0.94) | HUB | log2FC=-2.29 (p0.01, rank 6763) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=72 (p0.94) | HUB | log2FC=-2.48 (p0.00, rank 8001) pct1-2=nan
+
+[P2RY2]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.93  <- generic hub; layer-specific reads below matter less
+  Present in 5 cell-type layer(s), connected in 5, 'strong' (well-connected + top marker) in 4
+    [layer         ] A-PEP.KIT                      deg=91 (p0.95) | HUB | log2FC=2.90 (p1.00, rank 10) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=90 (p0.96) | HUB | log2FC=2.06 (p1.00, rank 12) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=92 (p0.96) | HUB | log2FC=1.73 (p1.00, rank 22) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=89 (p0.96) | HUB | log2FC=1.33 (p0.99, rank 47) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=93 (p0.96) | HUB | log2FC=-0.10 (p0.44, rank 5063) pct1-2=nan
+
+[CAMK2A]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.96  <- generic hub; layer-specific reads below matter less
+  Present in 20 cell-type layer(s), connected in 20, 'strong' (well-connected + top marker) in 4
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=89 (p0.96) | HUB | log2FC=0.47 (p0.93, rank 608) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=98 (p0.96) | HUB | log2FC=0.45 (p0.92, rank 817) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=89 (p0.95) | HUB | log2FC=0.32 (p0.91, rank 859) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=101 (p0.96) | HUB | log2FC=0.46 (p0.90, rank 910) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=98 (p0.96) | HUB | log2FC=0.46 (p0.90, rank 989) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=90 (p0.96) | HUB | log2FC=0.42 (p0.89, rank 965) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=98 (p0.96) | HUB | log2FC=0.34 (p0.82, rank 1730) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=99 (p0.96) | HUB | log2FC=0.09 (p0.62, rank 3808) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=84 (p0.95) | HUB | log2FC=0.01 (p0.53, rank 4200) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=101 (p0.96) | HUB | log2FC=-0.10 (p0.45, rank 5450) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=81 (p0.95) | HUB | log2FC=-0.20 (p0.33, rank 5547) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=92 (p0.96) | HUB | log2FC=-0.85 (p0.26, rank 6665) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=89 (p0.95) | HUB | log2FC=-0.56 (p0.12, rank 8147) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=93 (p0.95) | HUB | log2FC=-1.73 (p0.02, rank 9074) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=84 (p0.95) | HUB | log2FC=-1.64 (p0.01, rank 8708) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=89 (p0.95) | HUB | log2FC=-1.53 (p0.01, rank 9249) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=88 (p0.95) | HUB | log2FC=-2.97 (p0.00, rank 9036) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=64 (p0.94) | HUB | log2FC=-3.00 (p0.00, rank 6785) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=82 (p0.95) | HUB | log2FC=-2.96 (p0.00, rank 8430) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=97 (p0.96) | HUB | log2FC=-4.72 (p0.00, rank 9110) pct1-2=nan
 
 [OPRM1]  --  A*: specific + connected, but also a generic global hub
   Global PPI degree percentile : 0.94  <- generic hub; layer-specific reads below matter less
-  Present in 7 cell-type layer(s), connected in 7, 'strong' (well-connected + top marker) in 2
-    [layer         ] C-NP.SST                       deg=30 (p0.95) | HUB | log2FC=1.65 (p0.97, rank 118) pct1-2=0.36
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=15 (p0.91) | HUB | log2FC=1.27 (p0.95, rank 102) pct1-2=0.33
-    [layer         ] C-PEP.ADORA2B                  deg=17 (p0.90) | HUB | log2FC=1.44 (p0.87, rank 444) pct1-2=0.37
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=13 (p0.90) | HUB | log2FC=0.91 (p0.86, rank 231) pct1-2=0.29
-    [layer         ] A-PEP.KIT                      deg=35 (p0.94) | HUB | log2FC=0.98 (p0.60, rank 2022) pct1-2=0.24
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=14 (p0.85) | log2FC=0.51 (p0.55, rank 779) pct1-2=0.25
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=8 (p0.72) | log2FC=0.37 (p0.19, rank 938) pct1-2=0.13
+  Present in 13 cell-type layer(s), connected in 13, 'strong' (well-connected + top marker) in 6
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=78 (p0.94) | HUB | log2FC=1.21 (p0.99, rank 85) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=82 (p0.94) | HUB | log2FC=1.49 (p0.99, rank 113) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=82 (p0.95) | HUB | log2FC=0.80 (p0.98, rank 150) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=81 (p0.94) | HUB | log2FC=0.99 (p0.97, rank 245) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=80 (p0.94) | HUB | log2FC=0.67 (p0.93, rank 641) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=79 (p0.94) | HUB | log2FC=0.43 (p0.91, rank 822) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=76 (p0.94) | HUB | log2FC=0.33 (p0.89, rank 917) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=84 (p0.94) | HUB | log2FC=-0.38 (p0.20, rank 8092) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=77 (p0.94) | HUB | log2FC=-1.02 (p0.02, rank 8752) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=81 (p0.94) | HUB | log2FC=-1.62 (p0.01, rank 9730) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=78 (p0.95) | HUB | log2FC=-1.82 (p0.01, rank 8353) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=81 (p0.94) | HUB | log2FC=-2.49 (p0.00, rank 9894) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=79 (p0.94) | HUB | log2FC=-3.29 (p0.00, rank 9351) pct1-2=nan
 
-[SCN2B]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.85
-  Present in 8 cell-type layer(s), connected in 8, 'strong' (well-connected + top marker) in 2
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=9 (p0.80) | log2FC=1.26 (p0.94, rank 106) pct1-2=0.30
-    [layer         ] C-Thermo.TRPM8                 deg=19 (p0.95) | HUB | log2FC=1.31 (p0.94, rank 196) pct1-2=0.23
-    [layer         ] C-Thermo.RXFP1                 deg=28 (p0.92) | HUB | log2FC=1.32 (p0.87, rank 672) pct1-2=0.20
-    [layer         ] C-PEP.ADORA2B                  deg=17 (p0.90) | HUB | log2FC=1.14 (p0.76, rank 834) pct1-2=0.19
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=7 (p0.72) | log2FC=0.68 (p0.72, rank 706) pct1-2=0.26
-    [layer         ] C-NP.SST                       deg=13 (p0.81) | log2FC=0.67 (p0.69, rank 1191) pct1-2=0.17
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=7 (p0.74) | log2FC=0.56 (p0.66, rank 572) pct1-2=0.21
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=2 (p0.61) | log2FC=0.99 (p0.54, rank 565) pct1-2=0.17
+[MAPK3]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.93  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 2
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=64 (p0.91) | HUB | log2FC=0.78 (p0.97, rank 231) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=66 (p0.92) | HUB | log2FC=0.41 (p0.93, rank 643) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=63 (p0.92) | HUB | log2FC=0.33 (p0.90, rank 862) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=67 (p0.92) | HUB | log2FC=0.16 (p0.78, rank 2053) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=68 (p0.92) | HUB | log2FC=0.08 (p0.65, rank 3218) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=70 (p0.92) | HUB | log2FC=0.06 (p0.65, rank 3247) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=70 (p0.92) | HUB | log2FC=-0.11 (p0.53, rank 4366) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=67 (p0.92) | HUB | log2FC=-0.10 (p0.43, rank 5092) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=68 (p0.92) | HUB | log2FC=-0.13 (p0.40, rank 5935) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=71 (p0.93) | HUB | log2FC=-0.19 (p0.31, rank 6708) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=69 (p0.93) | HUB | log2FC=-0.29 (p0.31, rank 6295) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=68 (p0.92) | HUB | log2FC=-0.24 (p0.30, rank 6413) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=70 (p0.92) | HUB | log2FC=-0.30 (p0.23, rank 7695) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=62 (p0.92) | HUB | log2FC=-0.47 (p0.22, rank 6547) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=63 (p0.92) | HUB | log2FC=-0.35 (p0.22, rank 6918) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=49 (p0.90) | log2FC=-0.53 (p0.17, rank 5646) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=71 (p0.92) | HUB | log2FC=-0.46 (p0.16, rank 8535) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=72 (p0.93) | HUB | log2FC=-0.55 (p0.12, rank 8634) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=61 (p0.91) | HUB | log2FC=-1.08 (p0.05, rank 7669) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=68 (p0.91) | HUB | log2FC=-1.49 (p0.04, rank 8758) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=69 (p0.92) | HUB | log2FC=-1.62 (p0.02, rank 8765) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=67 (p0.93) | HUB | log2FC=-2.74 (p0.01, rank 8896) pct1-2=nan
 
-[KCNJ6]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.85
-  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 4
-    [layer         ] C-Thermo.RXFP1                 deg=17 (p0.82) | log2FC=3.72 (p1.00, rank 25) pct1-2=0.37
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=5 (p0.86) | log2FC=4.08 (p0.99, rank 12) pct1-2=0.38
-    [layer         ] A-Propr.EPHA3                  deg=8 (p0.75) | log2FC=3.22 (p0.98, rank 51) pct1-2=0.33
-    [layer         ] C-Thermo.TRPM8                 deg=12 (p0.88) | log2FC=1.30 (p0.94, rank 202) pct1-2=0.08
-    [layer         ] ATF3                           deg=8 (p0.64) | log2FC=0.94 (p0.74, rank 505) pct1-2=0.05
-    [layer         ] A-LTMR.TAC3                    deg=11 (p0.71) | log2FC=1.55 (p0.55, rank 2187) pct1-2=0.09
+[SHC1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.92  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=65 (p0.92) | HUB | log2FC=0.44 (p0.95, rank 508) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=62 (p0.91) | HUB | log2FC=0.41 (p0.93, rank 646) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=56 (p0.90) | log2FC=0.40 (p0.93, rank 623) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=63 (p0.91) | HUB | log2FC=0.30 (p0.85, rank 1354) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=62 (p0.91) | HUB | log2FC=0.28 (p0.84, rank 1417) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=65 (p0.91) | HUB | log2FC=0.28 (p0.79, rank 2089) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=62 (p0.91) | HUB | log2FC=0.18 (p0.77, rank 2086) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=55 (p0.90) | log2FC=-0.11 (p0.50, rank 4534) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=69 (p0.92) | HUB | log2FC=-0.09 (p0.45, rank 5586) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=69 (p0.92) | HUB | log2FC=-0.16 (p0.42, rank 5323) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=64 (p0.91) | HUB | log2FC=-0.33 (p0.21, rank 7903) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=69 (p0.92) | HUB | log2FC=-0.36 (p0.17, rank 8067) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=55 (p0.90) | log2FC=-0.78 (p0.10, rank 7562) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=57 (p0.90) | log2FC=-0.77 (p0.10, rank 8129) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=61 (p0.91) | HUB | log2FC=-0.74 (p0.08, rank 8116) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=63 (p0.91) | HUB | log2FC=-0.78 (p0.07, rank 8573) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=67 (p0.92) | HUB | log2FC=-0.65 (p0.07, rank 9222) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=68 (p0.92) | HUB | log2FC=-0.99 (p0.04, rank 8970) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=46 (p0.88) | log2FC=-1.17 (p0.04, rank 6534) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=58 (p0.89) | log2FC=-1.31 (p0.04, rank 8637) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=56 (p0.90) | HUB | log2FC=-1.23 (p0.04, rank 7737) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=61 (p0.90) | log2FC=-1.87 (p0.03, rank 8872) pct1-2=nan
 
-[PTGIR]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.78
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 3
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=13 (p0.89) | log2FC=1.79 (p0.98, rank 32) pct1-2=0.44
-    [layer         ] A-PEP.KIT                      deg=18 (p0.84) | log2FC=2.22 (p0.98, rank 104) pct1-2=0.45
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=3 (p0.46) | log2FC=1.27 (p0.93, rank 80) pct1-2=0.35
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=11 (p0.87) | log2FC=1.20 (p0.93, rank 118) pct1-2=0.39
-
-[AQP1]  --  B: specific marker, not well-connected there
+[NEDD4L]  --  A*: specific + connected, but also a generic global hub
   Global PPI degree percentile : 0.96  <- generic hub; layer-specific reads below matter less
-  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 2
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=9 (p0.80) | log2FC=1.95 (p0.99, rank 21) pct1-2=0.34
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=7 (p0.74) | log2FC=1.71 (p0.98, rank 20) pct1-2=0.33
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=8 (p0.78) | log2FC=1.54 (p0.97, rank 51) pct1-2=0.34
-    [layer         ] C-Thermo.TRPM8                 deg=22 (p0.96) | HUB | log2FC=0.76 (p0.79, rank 650) pct1-2=0.19
-    [layer         ] C-Thermo.RXFP1                 deg=38 (p0.96) | HUB | log2FC=0.79 (p0.54, rank 2306) pct1-2=0.15
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=5 (p0.60) | log2FC=0.51 (p0.41, rank 677) pct1-2=0.21
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=87 (p0.95) | HUB | log2FC=1.02 (p0.99, rank 113) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=90 (p0.95) | HUB | log2FC=0.74 (p0.97, rank 288) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=94 (p0.96) | HUB | log2FC=0.76 (p0.95, rank 485) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=94 (p0.96) | HUB | log2FC=0.23 (p0.83, rank 1666) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=94 (p0.96) | HUB | log2FC=0.27 (p0.81, rank 1846) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=84 (p0.95) | HUB | log2FC=0.21 (p0.80, rank 1645) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=88 (p0.95) | HUB | log2FC=-0.12 (p0.40, rank 5405) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=88 (p0.95) | HUB | log2FC=-0.34 (p0.33, rank 5989) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=94 (p0.96) | HUB | log2FC=-0.36 (p0.27, rank 6857) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=91 (p0.96) | HUB | log2FC=-0.28 (p0.21, rank 7373) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=95 (p0.96) | HUB | log2FC=-0.39 (p0.20, rank 7368) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=86 (p0.96) | HUB | log2FC=-0.53 (p0.19, rank 6804) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=83 (p0.95) | HUB | log2FC=-1.37 (p0.14, rank 7753) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=72 (p0.95) | HUB | log2FC=-0.93 (p0.07, rank 6338) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=90 (p0.96) | HUB | log2FC=-1.02 (p0.06, rank 8516) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=92 (p0.95) | HUB | log2FC=-1.15 (p0.06, rank 8578) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=85 (p0.96) | HUB | log2FC=-1.14 (p0.04, rank 7697) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=87 (p0.95) | HUB | log2FC=-0.93 (p0.04, rank 8745) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=86 (p0.95) | HUB | log2FC=-1.86 (p0.01, rank 8751) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=95 (p0.96) | HUB | log2FC=-2.55 (p0.00, rank 9834) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=97 (p0.96) | HUB | log2FC=-3.01 (p0.00, rank 9145) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=99 (p0.96) | HUB | log2FC=-3.31 (p0.00, rank 10088) pct1-2=nan
 
-[NOS1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.54
-  Present in 7 cell-type layer(s), connected in 7, 'strong' (well-connected + top marker) in 0
-    [layer         ] C-NP.SST                       deg=9 (p0.69) | log2FC=2.34 (p0.99, rank 43) pct1-2=0.49
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=2 (p0.37) | log2FC=1.70 (p0.98, rank 40) pct1-2=0.43
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=5 (p0.65) | log2FC=1.09 (p0.93, rank 84) pct1-2=0.24
-    [layer         ] C-Thermo.TRPM8                 deg=6 (p0.69) | log2FC=1.05 (p0.90, rank 322) pct1-2=0.35
-    [layer         ] C-PEP.ADORA2B                  deg=3 (p0.40) | log2FC=1.53 (p0.89, rank 375) pct1-2=0.36
-    [layer         ] C-Thermo.RXFP1                 deg=8 (p0.57) | log2FC=0.61 (p0.35, rank 3261) pct1-2=0.20
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=6 (p0.67) | log2FC=0.33 (p0.21, rank 1977) pct1-2=0.33
+[TNFRSF1A]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.92  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=74 (p0.93) | HUB | log2FC=0.65 (p0.93, rank 587) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=74 (p0.93) | HUB | log2FC=0.41 (p0.91, rank 788) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=75 (p0.93) | HUB | log2FC=0.32 (p0.90, rank 902) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=75 (p0.93) | HUB | log2FC=0.18 (p0.75, rank 2471) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=77 (p0.93) | HUB | log2FC=-0.03 (p0.56, rank 4030) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=75 (p0.93) | HUB | log2FC=-0.12 (p0.52, rank 4462) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=67 (p0.93) | HUB | log2FC=-0.16 (p0.37, rank 5201) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=73 (p0.93) | HUB | log2FC=-0.24 (p0.31, rank 6452) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=77 (p0.93) | HUB | log2FC=-0.21 (p0.30, rank 6925) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=73 (p0.93) | HUB | log2FC=-0.25 (p0.25, rank 6725) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=78 (p0.94) | HUB | log2FC=-0.40 (p0.22, rank 7677) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=72 (p0.92) | HUB | log2FC=-0.57 (p0.19, rank 7292) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=77 (p0.93) | HUB | log2FC=-0.37 (p0.18, rank 8178) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=73 (p0.94) | HUB | log2FC=-1.26 (p0.16, rank 7566) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=66 (p0.93) | HUB | log2FC=-0.53 (p0.16, rank 6784) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=78 (p0.93) | HUB | log2FC=-0.54 (p0.13, rank 8840) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=78 (p0.94) | HUB | log2FC=-0.66 (p0.09, rank 8362) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=67 (p0.93) | HUB | log2FC=-0.84 (p0.09, rank 7679) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=75 (p0.93) | HUB | log2FC=-1.01 (p0.07, rank 8433) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=73 (p0.93) | HUB | log2FC=-1.05 (p0.06, rank 8547) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=69 (p0.93) | HUB | log2FC=-0.96 (p0.05, rank 8403) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=54 (p0.91) | HUB | log2FC=-1.28 (p0.03, rank 6588) pct1-2=nan
 
-[P2RY1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.71
-  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 1
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=3 (p0.73) | log2FC=4.23 (p0.99, rank 10) pct1-2=0.61
-    [layer         ] Ab-LTMR.CCKAR                  deg=11 (p0.89) | HUB | log2FC=1.98 (p0.96, rank 60) pct1-2=0.27
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=5 (p0.73) | log2FC=1.84 (p0.95, rank 88) pct1-2=0.26
+[NTRK1]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.96  <- generic hub; layer-specific reads below matter less
+  Present in 21 cell-type layer(s), connected in 21, 'strong' (well-connected + top marker) in 6
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=119 (p0.98) | HUB | log2FC=1.59 (p1.00, rank 35) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=117 (p0.98) | HUB | log2FC=1.43 (p1.00, rank 34) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=122 (p0.98) | HUB | log2FC=1.53 (p1.00, rank 42) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=124 (p0.98) | HUB | log2FC=0.77 (p0.98, rank 159) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=124 (p0.98) | HUB | log2FC=0.88 (p0.97, rank 342) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=123 (p0.98) | HUB | log2FC=0.49 (p0.93, rank 670) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=122 (p0.98) | HUB | log2FC=-0.40 (p0.23, rank 7186) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=128 (p0.98) | HUB | log2FC=-0.48 (p0.17, rank 7629) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=125 (p0.98) | HUB | log2FC=-1.29 (p0.02, rank 9645) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=128 (p0.98) | HUB | log2FC=-2.09 (p0.01, rank 10021) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=117 (p0.98) | HUB | log2FC=-2.42 (p0.00, rank 8405) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=124 (p0.98) | HUB | log2FC=-3.67 (p0.00, rank 9062) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=124 (p0.97) | HUB | log2FC=-4.43 (p0.00, rank 9105) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=101 (p0.98) | HUB | log2FC=-4.10 (p0.00, rank 6797) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=127 (p0.98) | HUB | log2FC=-3.34 (p0.00, rank 9702) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=124 (p0.98) | HUB | log2FC=-4.30 (p0.00, rank 8829) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=127 (p0.98) | HUB | log2FC=-4.02 (p0.00, rank 9936) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=116 (p0.98) | HUB | log2FC=-3.63 (p0.00, rank 8035) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=122 (p0.98) | HUB | log2FC=-3.97 (p0.00, rank 8941) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=124 (p0.97) | HUB | log2FC=-4.39 (p0.00, rank 8986) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=128 (p0.98) | HUB | log2FC=-4.64 (p0.00, rank 9224) pct1-2=nan
 
-[LPAR3]  --  B: specific marker, not well-connected there
+[HDAC4]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.94  <- generic hub; layer-specific reads below matter less
+  Present in 21 cell-type layer(s), connected in 21, 'strong' (well-connected + top marker) in 3
+    [layer         ] C-NP.SST                       deg=77 (p0.93) | HUB | log2FC=0.97 (p0.97, rank 249) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=77 (p0.93) | HUB | log2FC=0.75 (p0.96, rank 414) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=72 (p0.93) | HUB | log2FC=0.52 (p0.91, rank 762) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=79 (p0.94) | HUB | log2FC=0.12 (p0.71, rank 2698) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=80 (p0.94) | HUB | log2FC=-0.07 (p0.51, rank 4849) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=72 (p0.93) | HUB | log2FC=-0.10 (p0.40, rank 5371) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=78 (p0.94) | HUB | log2FC=-0.40 (p0.39, rank 5466) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=72 (p0.93) | HUB | log2FC=-0.27 (p0.24, rank 6964) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=71 (p0.93) | HUB | log2FC=-0.27 (p0.22, rank 7302) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=70 (p0.93) | HUB | log2FC=-0.55 (p0.13, rank 8102) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=76 (p0.93) | HUB | log2FC=-0.59 (p0.11, rank 8166) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=68 (p0.93) | HUB | log2FC=-0.59 (p0.11, rank 7429) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=77 (p0.93) | HUB | log2FC=-1.01 (p0.06, rank 8410) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=78 (p0.93) | HUB | log2FC=-0.85 (p0.06, rank 9533) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=76 (p0.93) | HUB | log2FC=-0.89 (p0.05, rank 8844) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=77 (p0.93) | HUB | log2FC=-0.77 (p0.05, rank 9373) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=70 (p0.93) | HUB | log2FC=-1.04 (p0.05, rank 7637) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=72 (p0.93) | HUB | log2FC=-1.15 (p0.05, rank 8642) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=78 (p0.93) | HUB | log2FC=-1.38 (p0.04, rank 8722) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=69 (p0.93) | HUB | log2FC=-1.09 (p0.04, rank 8513) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=67 (p0.93) | HUB | log2FC=-1.24 (p0.04, rank 8149) pct1-2=nan
+
+[HTR3A]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.92  <- generic hub; layer-specific reads below matter less
+  Present in 13 cell-type layer(s), connected in 13, 'strong' (well-connected + top marker) in 3
+    [layer         ] C-NP.SST                       deg=72 (p0.93) | HUB | log2FC=3.81 (p1.00, rank 4) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=73 (p0.93) | HUB | log2FC=0.55 (p0.96, rank 366) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=67 (p0.92) | HUB | log2FC=0.81 (p0.95, rank 430) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=74 (p0.93) | HUB | log2FC=0.44 (p0.86, rank 1268) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=70 (p0.92) | HUB | log2FC=0.15 (p0.76, rank 2209) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=74 (p0.93) | HUB | log2FC=-0.32 (p0.21, rank 7847) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=75 (p0.93) | HUB | log2FC=-3.00 (p0.00, rank 9274) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=74 (p0.93) | HUB | log2FC=-3.07 (p0.00, rank 9349) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=69 (p0.93) | HUB | log2FC=-3.44 (p0.00, rank 8298) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=69 (p0.93) | HUB | log2FC=-4.08 (p0.00, rank 8443) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=73 (p0.93) | HUB | log2FC=-5.09 (p0.00, rank 10106) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=74 (p0.93) | HUB | log2FC=-4.62 (p0.00, rank 9168) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=75 (p0.93) | HUB | log2FC=-4.83 (p0.00, rank 9866) pct1-2=nan
+
+[PRKCA]  --  A*: specific + connected, but also a generic global hub
+  Global PPI degree percentile : 0.97  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 4
+    [layer         ] C-NP.SST                       deg=103 (p0.96) | HUB | log2FC=1.52 (p0.99, rank 107) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=93 (p0.96) | HUB | log2FC=1.04 (p0.99, rank 106) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=100 (p0.96) | HUB | log2FC=0.84 (p0.97, rank 329) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=96 (p0.96) | HUB | log2FC=0.51 (p0.96, rank 397) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=95 (p0.96) | HUB | log2FC=0.23 (p0.81, rank 1787) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=95 (p0.96) | HUB | log2FC=-0.34 (p0.18, rank 7367) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=97 (p0.96) | HUB | log2FC=-0.52 (p0.16, rank 7826) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=102 (p0.96) | HUB | log2FC=-0.49 (p0.16, rank 8254) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=86 (p0.96) | HUB | log2FC=-0.56 (p0.12, rank 7327) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=96 (p0.96) | HUB | log2FC=-0.52 (p0.10, rank 8166) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=101 (p0.96) | HUB | log2FC=-0.72 (p0.08, rank 8458) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=101 (p0.96) | HUB | log2FC=-0.90 (p0.06, rank 8715) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=101 (p0.96) | HUB | log2FC=-1.16 (p0.03, rank 9606) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=88 (p0.96) | HUB | log2FC=-1.69 (p0.02, rank 7891) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=87 (p0.96) | HUB | log2FC=-1.67 (p0.02, rank 8318) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=96 (p0.95) | HUB | log2FC=-2.02 (p0.01, rank 8861) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=106 (p0.97) | HUB | log2FC=-1.82 (p0.01, rank 9974) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=97 (p0.96) | HUB | log2FC=-2.53 (p0.01, rank 8996) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=90 (p0.96) | HUB | log2FC=-2.47 (p0.01, rank 9004) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=90 (p0.96) | HUB | log2FC=-3.30 (p0.00, rank 8985) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=92 (p0.96) | HUB | log2FC=-2.55 (p0.00, rank 8798) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=69 (p0.95) | HUB | log2FC=-2.61 (p0.00, rank 6776) pct1-2=nan
+
+[CTSB]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.87
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 5
+    [layer         ] Ab-LTMR.ETV1                   deg=51 (p0.90) | HUB | log2FC=0.92 (p0.95, rank 342) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=60 (p0.90) | HUB | log2FC=0.86 (p0.94, rank 568) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=56 (p0.90) | HUB | log2FC=0.60 (p0.93, rank 553) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=57 (p0.90) | log2FC=0.58 (p0.91, rank 789) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=57 (p0.90) | log2FC=0.47 (p0.91, rank 846) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=58 (p0.89) | log2FC=0.50 (p0.88, rank 1083) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=58 (p0.91) | HUB | log2FC=0.50 (p0.87, rank 1071) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=61 (p0.90) | HUB | log2FC=0.24 (p0.86, rank 1413) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=61 (p0.91) | HUB | log2FC=0.22 (p0.85, rank 1406) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=60 (p0.90) | HUB | log2FC=0.21 (p0.79, rank 1908) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=60 (p0.89) | log2FC=-0.10 (p0.60, rank 3669) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=58 (p0.89) | log2FC=-0.09 (p0.58, rank 3795) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=60 (p0.90) | log2FC=-0.01 (p0.53, rank 4715) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=57 (p0.90) | HUB | log2FC=-0.21 (p0.33, rank 5567) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=58 (p0.90) | HUB | log2FC=-0.18 (p0.32, rank 6191) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=60 (p0.90) | log2FC=-0.31 (p0.22, rank 7753) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=57 (p0.90) | log2FC=-0.38 (p0.16, rank 7569) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=60 (p0.90) | HUB | log2FC=-0.79 (p0.04, rank 8941) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=59 (p0.89) | log2FC=-1.00 (p0.04, rank 8802) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=59 (p0.90) | log2FC=-1.00 (p0.04, rank 9367) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=50 (p0.88) | log2FC=-2.44 (p0.03, rank 8786) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=58 (p0.89) | log2FC=-1.42 (p0.01, rank 9707) pct1-2=nan
+
+[PLP1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.91  <- generic hub; layer-specific reads below matter less
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [layer         ] C-NP.SST                       deg=53 (p0.88) | log2FC=0.74 (p0.95, rank 449) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=47 (p0.85) | log2FC=0.51 (p0.93, rank 617) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=43 (p0.85) | log2FC=0.75 (p0.93, rank 536) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=52 (p0.87) | log2FC=0.42 (p0.85, rank 1342) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=52 (p0.87) | log2FC=0.26 (p0.85, rank 1490) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=49 (p0.87) | log2FC=0.21 (p0.79, rank 1846) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=50 (p0.86) | log2FC=0.23 (p0.75, rank 2501) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=48 (p0.86) | log2FC=0.07 (p0.73, rank 2492) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=52 (p0.87) | log2FC=0.06 (p0.65, rank 3251) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=51 (p0.87) | log2FC=-0.07 (p0.50, rank 4857) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=46 (p0.85) | log2FC=-0.05 (p0.44, rank 4937) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=49 (p0.87) | log2FC=-0.11 (p0.42, rank 5231) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=44 (p0.85) | log2FC=-0.28 (p0.36, rank 5440) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=45 (p0.86) | log2FC=-0.55 (p0.35, rank 5863) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=51 (p0.87) | log2FC=-0.23 (p0.27, rank 7194) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=46 (p0.84) | log2FC=-0.43 (p0.27, rank 6604) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=46 (p0.86) | log2FC=-0.30 (p0.25, rank 6222) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=44 (p0.84) | log2FC=-0.41 (p0.24, rank 6925) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=47 (p0.84) | log2FC=-0.60 (p0.18, rank 7493) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=38 (p0.84) | log2FC=-0.82 (p0.09, rank 6186) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=51 (p0.87) | log2FC=-0.61 (p0.07, rank 8664) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=50 (p0.87) | log2FC=-1.08 (p0.03, rank 8843) pct1-2=nan
+
+[UCHL1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.85
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 1
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=49 (p0.87) | log2FC=0.37 (p0.91, rank 725) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=51 (p0.87) | log2FC=0.36 (p0.89, rank 984) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=53 (p0.88) | log2FC=0.27 (p0.88, rank 1138) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=51 (p0.87) | log2FC=0.30 (p0.87, rank 1144) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=52 (p0.88) | log2FC=0.16 (p0.78, rank 2074) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=48 (p0.87) | log2FC=0.28 (p0.76, rank 1900) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=42 (p0.87) | log2FC=0.32 (p0.74, rank 1754) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=49 (p0.87) | log2FC=0.08 (p0.68, rank 2721) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=50 (p0.87) | log2FC=0.18 (p0.67, rank 2992) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=49 (p0.87) | log2FC=0.16 (p0.66, rank 3041) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=52 (p0.87) | log2FC=0.08 (p0.65, rank 3228) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=53 (p0.87) | log2FC=-0.10 (p0.59, rank 3711) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=52 (p0.86) | log2FC=-0.36 (p0.32, rank 6085) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=54 (p0.88) | log2FC=-0.25 (p0.25, rank 7424) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=55 (p0.88) | log2FC=-0.52 (p0.13, rank 8801) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=50 (p0.87) | log2FC=-0.46 (p0.12, rank 7903) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=55 (p0.88) | log2FC=-0.56 (p0.12, rank 8670) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=53 (p0.87) | log2FC=-0.59 (p0.12, rank 8110) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=50 (p0.86) | log2FC=-0.48 (p0.11, rank 8597) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=46 (p0.86) | log2FC=-1.55 (p0.11, rank 8037) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=55 (p0.88) | log2FC=-0.67 (p0.09, rank 8366) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=53 (p0.87) | log2FC=-0.57 (p0.09, rank 9042) pct1-2=nan
+
+[CDK5]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.86
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 6
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=47 (p0.85) | log2FC=0.72 (p0.97, rank 302) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=43 (p0.84) | log2FC=0.54 (p0.96, rank 346) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=44 (p0.85) | log2FC=0.67 (p0.95, rank 454) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=40 (p0.86) | log2FC=0.88 (p0.94, rank 382) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=47 (p0.86) | log2FC=0.88 (p0.94, rank 546) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=45 (p0.85) | log2FC=0.59 (p0.91, rank 778) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=46 (p0.86) | log2FC=0.44 (p0.84, rank 1255) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=45 (p0.85) | log2FC=0.22 (p0.81, rank 1743) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=49 (p0.85) | log2FC=-0.02 (p0.64, rank 3233) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=48 (p0.85) | log2FC=-0.20 (p0.49, rank 4682) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=47 (p0.85) | log2FC=-0.07 (p0.44, rank 5227) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=48 (p0.86) | log2FC=-0.30 (p0.32, rank 6340) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=48 (p0.85) | log2FC=-0.31 (p0.25, rank 7602) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=47 (p0.85) | log2FC=-0.29 (p0.23, rank 7619) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=48 (p0.86) | log2FC=-0.43 (p0.19, rank 7946) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=46 (p0.85) | log2FC=-0.37 (p0.16, rank 8113) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=49 (p0.86) | log2FC=-0.37 (p0.15, rank 8363) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=41 (p0.84) | log2FC=-1.35 (p0.14, rank 7726) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=45 (p0.85) | log2FC=-0.42 (p0.14, rank 7823) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=48 (p0.85) | log2FC=-0.67 (p0.09, rank 8367) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=45 (p0.85) | log2FC=-0.61 (p0.07, rank 8306) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=48 (p0.85) | log2FC=-0.83 (p0.06, rank 8617) pct1-2=nan
+
+[PRNP]  --  B: specific marker, not well-connected there
   Global PPI degree percentile : 0.83
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=8 (p0.75) | log2FC=1.49 (p0.98, rank 37) pct1-2=0.38
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=4 (p0.58) | log2FC=1.55 (p0.98, rank 30) pct1-2=0.30
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=3 (p0.46) | log2FC=1.10 (p0.87, rank 151) pct1-2=0.23
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=7 (p0.83) | log2FC=0.98 (p0.78, rank 357) pct1-2=0.25
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=47 (p0.85) | log2FC=0.69 (p0.95, rank 458) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=44 (p0.84) | log2FC=0.49 (p0.95, rank 463) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=42 (p0.83) | log2FC=0.60 (p0.93, rank 657) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=44 (p0.84) | log2FC=0.35 (p0.88, rank 1114) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=43 (p0.83) | log2FC=0.25 (p0.87, rank 1250) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=46 (p0.85) | log2FC=0.33 (p0.85, rank 1472) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=43 (p0.84) | log2FC=0.29 (p0.77, rank 1989) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=46 (p0.84) | log2FC=0.15 (p0.69, rank 3179) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=45 (p0.84) | log2FC=-0.07 (p0.58, rank 3960) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=38 (p0.81) | log2FC=-0.04 (p0.51, rank 4082) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=47 (p0.85) | log2FC=-0.07 (p0.46, rank 5002) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=40 (p0.83) | log2FC=-0.19 (p0.43, rank 4837) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=43 (p0.85) | log2FC=-0.15 (p0.41, rank 4769) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=36 (p0.83) | log2FC=-0.15 (p0.37, rank 4283) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=45 (p0.84) | log2FC=-0.19 (p0.32, rank 6742) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=41 (p0.82) | log2FC=-0.52 (p0.19, rank 7385) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=47 (p0.84) | log2FC=-0.62 (p0.17, rank 7602) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=43 (p0.84) | log2FC=-0.45 (p0.13, rank 7931) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=43 (p0.82) | log2FC=-0.91 (p0.08, rank 8256) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=45 (p0.84) | log2FC=-1.35 (p0.02, rank 8967) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=41 (p0.84) | log2FC=-3.01 (p0.01, rank 8957) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=42 (p0.82) | log2FC=-1.86 (p0.01, rank 9748) pct1-2=nan
 
-[ADCYAP1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.44
-  Present in 7 cell-type layer(s), connected in 7, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=3 (p0.46) | log2FC=2.33 (p0.99, rank 13) pct1-2=0.45
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=3 (p0.48) | log2FC=1.78 (p0.98, rank 32) pct1-2=0.40
-    [layer         ] ATF3                           deg=4 (p0.45) | log2FC=2.48 (p0.98, rank 44) pct1-2=0.42
-    [layer         ] C-PEP.ADORA2B                  deg=5 (p0.55) | log2FC=1.62 (p0.91, rank 321) pct1-2=0.34
-    [layer         ] C-Thermo.TRPM8                 deg=5 (p0.62) | log2FC=0.99 (p0.88, rank 367) pct1-2=0.22
-    [layer         ] A-Propr.EPHA3                  deg=7 (p0.72) | log2FC=1.46 (p0.85, rank 398) pct1-2=0.33
-    [layer         ] C-Thermo.RXFP1                 deg=6 (p0.48) | log2FC=1.23 (p0.84, rank 808) pct1-2=0.36
-
-[MME]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.59
-  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 1
-    [layer         ] A-PEP.KIT                      deg=8 (p0.59) | log2FC=2.26 (p0.98, rank 95) pct1-2=0.26
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=4 (p0.81) | log2FC=2.56 (p0.95, rank 57) pct1-2=0.37
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=5 (p0.73) | log2FC=1.12 (p0.83, rank 285) pct1-2=0.20
-
-[ANXA1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.78
-  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=5 (p0.73) | log2FC=2.66 (p0.99, rank 21) pct1-2=0.39
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=7 (p0.72) | log2FC=1.77 (p0.97, rank 88) pct1-2=0.35
-    [layer         ] C-NP.SST                       deg=9 (p0.69) | log2FC=0.80 (p0.78, rank 846) pct1-2=0.18
-
-[PRKCD]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.80
-  Present in 2 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 2
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=6 (p0.79) | log2FC=2.32 (p0.98, rank 38) pct1-2=0.37
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=9 (p0.80) | log2FC=1.67 (p0.96, rank 102) pct1-2=0.39
-
-[PLCB3]  --  B: specific marker, not well-connected there
+[CSK]  --  B: specific marker, not well-connected there
   Global PPI degree percentile : 0.69
-  Present in 2 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 2
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=6 (p0.79) | log2FC=2.79 (p0.99, rank 17) pct1-2=0.42
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=8 (p0.77) | log2FC=1.76 (p0.96, rank 90) pct1-2=0.43
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 0
+    [layer         ] Ab-LTMR.NSG2                   deg=24 (p0.66) | log2FC=0.77 (p0.96, rank 348) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=26 (p0.67) | log2FC=0.58 (p0.95, rank 478) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=26 (p0.68) | log2FC=0.66 (p0.90, rank 874) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=25 (p0.68) | log2FC=0.59 (p0.89, rank 855) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=23 (p0.64) | log2FC=0.30 (p0.88, rank 1028) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=21 (p0.66) | log2FC=0.53 (p0.85, rank 1001) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=23 (p0.63) | log2FC=0.25 (p0.83, rank 1495) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=27 (p0.68) | log2FC=0.18 (p0.80, rank 1809) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=27 (p0.69) | log2FC=0.14 (p0.79, rank 1952) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=25 (p0.65) | log2FC=0.15 (p0.73, rank 2510) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=26 (p0.67) | log2FC=0.05 (p0.62, rank 3722) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=26 (p0.68) | log2FC=0.11 (p0.61, rank 3489) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=26 (p0.66) | log2FC=-0.14 (p0.56, rank 4042) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=22 (p0.60) | log2FC=-0.08 (p0.43, rank 5317) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=25 (p0.68) | log2FC=-0.41 (p0.39, rank 5499) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=25 (p0.65) | log2FC=-0.16 (p0.38, rank 5733) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=24 (p0.63) | log2FC=-0.20 (p0.30, rank 6899) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=26 (p0.66) | log2FC=-0.28 (p0.27, rank 7375) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=22 (p0.61) | log2FC=-0.31 (p0.20, rank 7272) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=27 (p0.68) | log2FC=-0.41 (p0.15, rank 8286) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=25 (p0.65) | log2FC=-0.50 (p0.11, rank 8835) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=22 (p0.62) | log2FC=-0.73 (p0.05, rank 8472) pct1-2=nan
 
-[KCNA1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.42
-  Present in 9 cell-type layer(s), connected in 8, 'strong' (well-connected + top marker) in 0
-    [layer         ] Ab-LTMR.LGI2                   deg=5 (p0.62) | log2FC=2.55 (p0.99, rank 26) pct1-2=0.50
-    [layer         ] Ab-LTMR.NSG2                   deg=3 (p0.50) | log2FC=1.88 (p0.98, rank 21) pct1-2=0.35
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=3 (p0.45) | log2FC=1.59 (p0.98, rank 27) pct1-2=0.42
-    [ENRICHED LAYER] Ab-LTMR.ETV1                   deg=2 (p0.44) | log2FC=1.88 (p0.96, rank 38) pct1-2=0.35
-    [layer         ] Ab-LTMR.CCKAR                  deg=4 (p0.63) | log2FC=0.96 (p0.82, rank 277) pct1-2=0.29
-    [layer         ] A-Propr.HAPLN4                 deg=2 (p0.41) | log2FC=1.19 (p0.77, rank 294) pct1-2=0.20
-    [layer         ] A-Propr.PCDH8                  deg=3 (p0.49) | log2FC=1.12 (p0.59, rank 965) pct1-2=0.23
-    [layer         ] A-LTMR.TAC3                    deg=0 (p0.05) | log2FC=0.86 (p0.17, rank 4086) pct1-2=0.26
-    [layer         ] A-Propr.EPHA3                  deg=4 (p0.55) | log2FC=0.35 (p0.11, rank 2324) pct1-2=0.24
+[EFNB2]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.73
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=35 (p0.76) | log2FC=2.29 (p0.99, rank 55) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=33 (p0.75) | log2FC=1.75 (p0.99, rank 99) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=31 (p0.76) | log2FC=1.53 (p0.98, rank 122) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=33 (p0.77) | log2FC=1.53 (p0.98, rank 144) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=21 (p0.66) | log2FC=1.16 (p0.97, rank 195) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=33 (p0.75) | log2FC=0.39 (p0.84, rank 1491) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=32 (p0.75) | log2FC=0.44 (p0.83, rank 1561) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=33 (p0.78) | log2FC=0.71 (p0.79, rank 1868) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=34 (p0.76) | log2FC=0.12 (p0.75, rank 2473) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=34 (p0.75) | log2FC=0.18 (p0.71, rank 2897) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=32 (p0.76) | log2FC=0.07 (p0.68, rank 2744) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=35 (p0.77) | log2FC=-0.16 (p0.47, rank 4947) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=33 (p0.75) | log2FC=-0.39 (p0.16, rank 8179) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=35 (p0.77) | log2FC=-0.50 (p0.14, rank 7938) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=35 (p0.77) | log2FC=-0.54 (p0.10, rank 8963) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=32 (p0.76) | log2FC=-0.51 (p0.10, rank 8072) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=34 (p0.77) | log2FC=-0.57 (p0.08, rank 8571) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=34 (p0.76) | log2FC=-0.84 (p0.06, rank 8636) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=33 (p0.76) | log2FC=-0.78 (p0.05, rank 8548) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=28 (p0.72) | log2FC=-0.91 (p0.04, rank 7945) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=34 (p0.77) | log2FC=-1.22 (p0.02, rank 8917) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=35 (p0.77) | log2FC=-1.42 (p0.01, rank 9709) pct1-2=nan
 
-[P2RY12]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.66
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=5 (p0.62) | log2FC=3.56 (p1.00, rank 3) pct1-2=0.38
-    [layer         ] C-Thermo.TRPM8                 deg=7 (p0.74) | log2FC=1.22 (p0.93, rank 231) pct1-2=0.14
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=5 (p0.64) | log2FC=0.69 (p0.76, rank 403) pct1-2=0.09
-    [layer         ] C-PEP.ADORA2B                  deg=8 (p0.70) | log2FC=0.68 (p0.38, rank 2185) pct1-2=0.10
+[NRG1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.83
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 4
+    [layer         ] A-Propr.PCDH8                  deg=44 (p0.83) | log2FC=1.37 (p0.98, rank 159) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=45 (p0.83) | log2FC=1.15 (p0.97, rank 230) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=43 (p0.84) | log2FC=1.05 (p0.96, rank 375) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=34 (p0.82) | log2FC=0.76 (p0.92, rank 522) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=40 (p0.83) | log2FC=0.59 (p0.89, rank 848) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=42 (p0.84) | log2FC=0.40 (p0.88, rank 1016) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=41 (p0.84) | log2FC=0.66 (p0.78, rank 2010) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=43 (p0.84) | log2FC=0.29 (p0.78, rank 1975) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=43 (p0.83) | log2FC=0.02 (p0.58, rank 3883) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=47 (p0.85) | log2FC=-0.13 (p0.40, rank 5504) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=45 (p0.84) | log2FC=-0.25 (p0.34, rank 6463) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=46 (p0.84) | log2FC=-0.37 (p0.21, rank 8002) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=46 (p0.85) | log2FC=-0.46 (p0.20, rank 7506) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=43 (p0.84) | log2FC=-0.36 (p0.17, rank 7473) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=39 (p0.82) | log2FC=-0.55 (p0.12, rank 7303) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=47 (p0.85) | log2FC=-0.75 (p0.06, rank 9157) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=43 (p0.83) | log2FC=-0.76 (p0.05, rank 8901) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=45 (p0.84) | log2FC=-0.84 (p0.05, rank 9423) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=45 (p0.84) | log2FC=-1.28 (p0.02, rank 9723) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=48 (p0.85) | log2FC=-1.52 (p0.02, rank 9017) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=42 (p0.83) | log2FC=-1.48 (p0.01, rank 8985) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=44 (p0.84) | log2FC=-1.47 (p0.01, rank 8838) pct1-2=nan
 
-[KCNK18]  --  B: specific marker, not well-connected there
+[NT5E]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.68
+  Present in 13 cell-type layer(s), connected in 13, 'strong' (well-connected + top marker) in 0
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=24 (p0.64) | log2FC=0.78 (p0.98, rank 156) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=24 (p0.64) | log2FC=0.61 (p0.96, rank 389) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=24 (p0.65) | log2FC=0.59 (p0.96, rank 409) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=23 (p0.64) | log2FC=0.37 (p0.91, rank 744) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=26 (p0.66) | log2FC=0.40 (p0.85, rank 1409) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=25 (p0.65) | log2FC=0.28 (p0.82, rank 1752) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=25 (p0.67) | log2FC=0.23 (p0.73, rank 2384) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=25 (p0.64) | log2FC=0.00 (p0.70, rank 2767) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=24 (p0.63) | log2FC=-0.06 (p0.52, rank 4820) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=25 (p0.65) | log2FC=-0.05 (p0.50, rank 4675) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=25 (p0.65) | log2FC=-0.21 (p0.30, rank 6956) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=26 (p0.66) | log2FC=-0.62 (p0.10, rank 9115) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=24 (p0.63)
+
+[NDN]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.76
+  Present in 21 cell-type layer(s), connected in 21, 'strong' (well-connected + top marker) in 2
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=32 (p0.75) | log2FC=0.65 (p0.96, rank 336) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=34 (p0.77) | log2FC=0.42 (p0.94, rank 560) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=34 (p0.77) | log2FC=0.25 (p0.84, rank 1465) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=38 (p0.80) | log2FC=0.17 (p0.82, rank 1700) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=32 (p0.76) | log2FC=0.21 (p0.80, rank 1795) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=30 (p0.74) | log2FC=0.14 (p0.72, rank 2296) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=36 (p0.78) | log2FC=0.06 (p0.68, rank 3190) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=38 (p0.79) | log2FC=0.07 (p0.61, rank 3929) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=35 (p0.77) | log2FC=-0.15 (p0.43, rank 5242) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=35 (p0.77) | log2FC=-0.12 (p0.41, rank 5844) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=33 (p0.76) | log2FC=-0.17 (p0.37, rank 5864) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=36 (p0.78) | log2FC=-0.14 (p0.37, rank 6135) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=37 (p0.79) | log2FC=-0.18 (p0.36, rank 5879) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=31 (p0.74) | log2FC=-0.16 (p0.34, rank 5851) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=28 (p0.76) | log2FC=-0.48 (p0.19, rank 5510) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=32 (p0.76) | log2FC=-0.62 (p0.15, rank 7142) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=32 (p0.77) | log2FC=-0.54 (p0.15, rank 6819) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=37 (p0.78) | log2FC=-0.69 (p0.14, rank 7821) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=33 (p0.76) | log2FC=-0.67 (p0.13, rank 7863) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=35 (p0.77) | log2FC=-0.66 (p0.08, rank 9033) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=36 (p0.77) | log2FC=-1.04 (p0.06, rank 8450) pct1-2=nan
+
+[DICER1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.85
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 0
+    [ENRICHED LAYER] ATF3                           deg=30 (p0.72) | log2FC=0.42 (p0.93, rank 642) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=32 (p0.74) | log2FC=0.24 (p0.86, rank 1422) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=39 (p0.79) | log2FC=0.04 (p0.73, rank 2428) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=26 (p0.68) | log2FC=0.04 (p0.61, rank 3446) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=28 (p0.72) | log2FC=0.14 (p0.59, rank 3678) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=32 (p0.74) | log2FC=0.01 (p0.58, rank 4111) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=27 (p0.69) | log2FC=0.02 (p0.56, rank 3978) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=27 (p0.69) | log2FC=-0.01 (p0.53, rank 4315) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=32 (p0.74) | log2FC=-0.02 (p0.51, rank 4505) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=30 (p0.72) | log2FC=-0.03 (p0.50, rank 4880) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=31 (p0.72) | log2FC=-0.06 (p0.48, rank 5251) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=38 (p0.79) | log2FC=-0.20 (p0.47, rank 4782) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=30 (p0.71) | log2FC=-0.13 (p0.43, rank 5712) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=29 (p0.71) | log2FC=-0.10 (p0.40, rank 5615) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=30 (p0.72) | log2FC=-0.14 (p0.40, rank 5589) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=30 (p0.72) | log2FC=-0.19 (p0.39, rank 5610) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=29 (p0.72) | log2FC=-0.29 (p0.31, rank 6296) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=24 (p0.66) | log2FC=-0.25 (p0.29, rank 5892) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=23 (p0.65) | log2FC=-0.32 (p0.27, rank 5861) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=27 (p0.70) | log2FC=-0.32 (p0.23, rank 6776) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=26 (p0.69) | log2FC=-0.52 (p0.20, rank 6768) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=21 (p0.66) | log2FC=-0.55 (p0.16, rank 5698) pct1-2=nan
+
+[MAP2K1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.79
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 4
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=38 (p0.80) | log2FC=0.70 (p0.98, rank 210) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=36 (p0.79) | log2FC=0.50 (p0.95, rank 441) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=38 (p0.80) | log2FC=0.46 (p0.93, rank 655) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=38 (p0.80) | log2FC=0.38 (p0.92, rank 824) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=32 (p0.76) | log2FC=0.27 (p0.85, rank 1212) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=41 (p0.81) | log2FC=0.13 (p0.80, rank 1803) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=41 (p0.82) | log2FC=0.23 (p0.78, rank 2137) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=37 (p0.78) | log2FC=0.09 (p0.67, rank 3000) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=40 (p0.81) | log2FC=0.06 (p0.63, rank 3662) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=39 (p0.80) | log2FC=-0.09 (p0.45, rank 5584) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=38 (p0.80) | log2FC=-0.17 (p0.37, rank 5819) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=38 (p0.80) | log2FC=-0.37 (p0.26, rank 6955) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=40 (p0.80) | log2FC=-0.60 (p0.17, rank 7443) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=31 (p0.76) | log2FC=-0.66 (p0.12, rank 7114) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=40 (p0.81) | log2FC=-0.66 (p0.07, rank 9251) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=32 (p0.76) | log2FC=-0.97 (p0.07, rank 7887) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=37 (p0.80) | log2FC=-0.84 (p0.06, rank 8262) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=40 (p0.83) | log2FC=-1.96 (p0.06, rank 8488) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=29 (p0.77) | log2FC=-1.08 (p0.05, rank 6471) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=36 (p0.79) | log2FC=-1.21 (p0.04, rank 8693) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=36 (p0.79) | log2FC=-0.93 (p0.03, rank 8653) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=36 (p0.78) | log2FC=-1.35 (p0.03, rank 8973) pct1-2=nan
+
+[CDK5R1]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.72
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 0
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=31 (p0.74) | log2FC=0.52 (p0.96, rank 384) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=30 (p0.73) | log2FC=0.44 (p0.92, rank 706) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=31 (p0.73) | log2FC=0.44 (p0.89, rank 1026) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=30 (p0.72) | log2FC=0.36 (p0.86, rank 1248) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=30 (p0.71) | log2FC=0.32 (p0.81, rank 1879) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=31 (p0.73) | log2FC=0.05 (p0.67, rank 3303) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=28 (p0.72) | log2FC=0.03 (p0.59, rank 3402) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=29 (p0.73) | log2FC=-0.08 (p0.53, rank 3962) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=30 (p0.72) | log2FC=-0.12 (p0.52, rank 4493) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=29 (p0.72) | log2FC=-0.11 (p0.43, rank 5133) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=29 (p0.71) | log2FC=-0.15 (p0.39, rank 5627) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=30 (p0.73) | log2FC=-0.12 (p0.38, rank 5588) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=24 (p0.71) | log2FC=-0.18 (p0.35, rank 4435) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=30 (p0.71) | log2FC=-0.21 (p0.32, rank 6722) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=28 (p0.72) | log2FC=-0.25 (p0.32, rank 5451) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=29 (p0.72) | log2FC=-0.24 (p0.28, rank 6337) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=30 (p0.73) | log2FC=-0.32 (p0.19, rank 7207) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=30 (p0.72) | log2FC=-0.44 (p0.17, rank 7619) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=30 (p0.71) | log2FC=-0.63 (p0.16, rank 7636) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=28 (p0.69) | log2FC=-0.67 (p0.14, rank 7719) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=29 (p0.73) | log2FC=-2.26 (p0.04, rank 8695) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=30 (p0.72) | log2FC=-0.88 (p0.03, rank 9474) pct1-2=nan
+
+[APOE]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.85
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=36 (p0.78) | log2FC=0.45 (p0.92, rank 742) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=35 (p0.79) | log2FC=0.69 (p0.92, rank 646) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=37 (p0.79) | log2FC=0.50 (p0.91, rank 871) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=38 (p0.79) | log2FC=0.37 (p0.89, rank 1052) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=36 (p0.79) | log2FC=0.23 (p0.81, rank 1693) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=36 (p0.79) | log2FC=-0.01 (p0.48, rank 4553) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=38 (p0.79) | log2FC=-0.06 (p0.47, rank 4908) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=35 (p0.79) | log2FC=-0.16 (p0.46, rank 4588) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=39 (p0.80) | log2FC=-0.09 (p0.44, rank 5638) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=37 (p0.79) | log2FC=-0.14 (p0.44, rank 5520) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=35 (p0.78) | log2FC=-0.17 (p0.33, rank 5962) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=36 (p0.80) | log2FC=-0.22 (p0.32, rank 5681) pct1-2=nan
+    [ENRICHED LAYER] ATF3                           deg=37 (p0.79) | log2FC=-0.32 (p0.30, rank 6506) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=33 (p0.78) | log2FC=-0.82 (p0.27, rank 6592) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=38 (p0.79) | log2FC=-0.46 (p0.18, rank 7515) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=29 (p0.77) | log2FC=-0.52 (p0.17, rank 5632) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=36 (p0.79) | log2FC=-0.56 (p0.17, rank 7528) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=37 (p0.78) | log2FC=-0.73 (p0.12, rank 7900) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=38 (p0.80) | log2FC=-0.50 (p0.10, rank 8885) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=37 (p0.78) | log2FC=-0.95 (p0.08, rank 8360) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=37 (p0.79) | log2FC=-0.63 (p0.07, rank 8718) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=36 (p0.79) | log2FC=-1.18 (p0.02, rank 8895) pct1-2=nan
+
+[PER2]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.73
+  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 1
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=34 (p0.77) | log2FC=0.53 (p0.94, rank 581) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=35 (p0.77) | log2FC=0.27 (p0.88, rank 1140) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=33 (p0.76) | log2FC=0.29 (p0.86, rank 1307) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=36 (p0.78) | log2FC=0.17 (p0.73, rank 2598) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=36 (p0.78) | log2FC=-0.06 (p0.51, rank 4847) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=36 (p0.78)
+
+[CHRNB4]  --  B: specific marker, not well-connected there
+  Global PPI degree percentile : 0.85
+  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 3
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=48 (p0.85) | log2FC=2.70 (p1.00, rank 12) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=47 (p0.85) | log2FC=1.42 (p1.00, rank 36) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=50 (p0.86) | log2FC=1.35 (p0.99, rank 131) pct1-2=nan
+
+[MIF]  --  B: specific marker, not well-connected there
   Global PPI degree percentile : 0.58
-  Present in 2 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=4 (p0.67) | log2FC=3.17 (p1.00, rank 8) pct1-2=0.57
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=7 (p0.72) | log2FC=2.93 (p0.99, rank 17) pct1-2=0.66
-
-[LXN]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.59
-  Present in 6 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=3 (p0.46) | log2FC=1.69 (p0.98, rank 44) pct1-2=0.31
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=2 (p0.39) | log2FC=0.78 (p0.85, rank 179) pct1-2=0.17
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=3 (p0.46) | log2FC=1.06 (p0.84, rank 189) pct1-2=0.21
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=3 (p0.48) | log2FC=0.82 (p0.83, rank 284) pct1-2=0.25
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=3 (p0.46) | log2FC=0.65 (p0.70, rank 753) pct1-2=0.22
-    [layer         ] C-Thermo.TRPM8                 deg=5 (p0.62) | log2FC=0.49 (p0.54, rank 1441) pct1-2=0.11
-
-[NPTX1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.69
-  Present in 7 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=4 (p0.54) | log2FC=1.66 (p0.99, rank 21) pct1-2=0.34
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=3 (p0.46) | log2FC=1.26 (p0.92, rank 89) pct1-2=0.23
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=4 (p0.58) | log2FC=0.81 (p0.87, rank 166) pct1-2=0.22
-    [layer         ] Ab-LTMR.LGI2                   deg=2 (p0.36) | log2FC=1.00 (p0.83, rank 324) pct1-2=0.31
-    [layer         ] A-PEP.KIT                      deg=8 (p0.59) | log2FC=1.29 (p0.78, rank 1085) pct1-2=0.15
-    [layer         ] Ab-LTMR.NSG2                   deg=2 (p0.39) | log2FC=0.56 (p0.45, rank 734) pct1-2=0.13
-    [ENRICHED LAYER] Ab-LTMR.ETV1                   deg=0 (p0.11) | log2FC=0.33 (p0.10, rank 768) pct1-2=0.08
-
-[GAL]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.55
-  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=3 (p0.46) | log2FC=4.08 (p1.00, rank 2) pct1-2=0.61
-    [layer         ] C-Thermo.TRPM8                 deg=4 (p0.54) | log2FC=2.26 (p0.98, rank 51) pct1-2=0.22
-    [layer         ] C-PEP.ADORA2B                  deg=3 (p0.40) | log2FC=2.33 (p0.97, rank 104) pct1-2=0.44
-
-[RGS4]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.35
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=3 (p0.59) | log2FC=2.12 (p0.97, rank 57) pct1-2=0.36
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=3 (p0.46) | log2FC=1.53 (p0.95, rank 130) pct1-2=0.34
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=2 (p0.37) | log2FC=1.31 (p0.95, rank 89) pct1-2=0.33
-    [layer         ] C-NP.SST                       deg=3 (p0.36) | log2FC=0.79 (p0.78, rank 865) pct1-2=0.31
-
-[PTAFR]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.62
-  Present in 1 cell-type layer(s), connected in 1, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=7 (p0.72) | log2FC=3.64 (p1.00, rank 7) pct1-2=0.32
-
-[GABRB3]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.30
-  Present in 4 cell-type layer(s), connected in 4, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=3 (p0.46) | log2FC=1.39 (p0.94, rank 159) pct1-2=0.31
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=3 (p0.59) | log2FC=1.17 (p0.84, rank 255) pct1-2=0.18
-    [layer         ] C-NP.SST                       deg=3 (p0.36) | log2FC=0.48 (p0.47, rank 2062) pct1-2=0.12
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=2 (p0.61) | log2FC=0.73 (p0.26, rank 913) pct1-2=0.11
-
-[CAMK4]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.39
-  Present in 5 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [layer         ] C-NP.SST                       deg=3 (p0.36) | log2FC=2.30 (p0.99, rank 47) pct1-2=0.38
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=0 (p0.07) | log2FC=1.75 (p0.98, rank 37) pct1-2=0.32
-    [layer         ] C-PEP.ADORA2B                  deg=4 (p0.49) | log2FC=2.17 (p0.96, rank 129) pct1-2=0.45
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=0 (p0.08) | log2FC=0.94 (p0.88, rank 228) pct1-2=0.24
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=4 (p0.54) | log2FC=0.27 (p0.05, rank 2392) pct1-2=0.19
-
-[OPRD1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.39
-  Present in 6 cell-type layer(s), connected in 5, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=0 (p0.11) | log2FC=2.13 (p0.97, rank 55) pct1-2=0.30
-    [layer         ] C-Thermo.TRPM8                 deg=3 (p0.46) | log2FC=0.69 (p0.75, rank 785) pct1-2=0.23
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=2 (p0.36) | log2FC=0.65 (p0.70, rank 745) pct1-2=0.27
-    [layer         ] C-Thermo.RXFP1                 deg=4 (p0.36) | log2FC=0.88 (p0.62, rank 1891) pct1-2=0.24
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=4 (p0.54) | log2FC=0.38 (p0.34, rank 1133) pct1-2=0.16
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=5 (p0.62) | log2FC=0.29 (p0.14, rank 1634) pct1-2=0.09
-
-[EDNRA]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.69
-  Present in 3 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 1
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=6 (p0.79) | log2FC=2.86 (p0.99, rank 14) pct1-2=0.46
-    [layer         ] C-NP.SST                       deg=9 (p0.69) | log2FC=0.42 (p0.37, rank 2420) pct1-2=0.19
-    [layer         ] A-LTMR.TAC3                    deg=8 (p0.61) | log2FC=0.48 (p0.03, rank 4764) pct1-2=0.20
-
-[ADAM11]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.51
-  Present in 9 cell-type layer(s), connected in 7, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=2 (p0.34) | log2FC=1.96 (p0.99, rank 12) pct1-2=0.41
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=0 (p0.08) | log2FC=1.06 (p0.93, rank 89) pct1-2=0.22
-    [layer         ] Ab-LTMR.CCKAR                  deg=0 (p0.10) | log2FC=1.08 (p0.85, rank 231) pct1-2=0.23
-    [layer         ] Ab-LTMR.NSG2                   deg=2 (p0.39) | log2FC=0.71 (p0.65, rank 468) pct1-2=0.13
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=1 (p0.24) | log2FC=0.70 (p0.63, rank 425) pct1-2=0.16
-    [layer         ] Ab-LTMR.LGI2                   deg=1 (p0.23) | log2FC=0.58 (p0.54, rank 872) pct1-2=0.30
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=2 (p0.61) | log2FC=0.89 (p0.44, rank 690) pct1-2=0.18
-    [layer         ] A-LTMR.TAC3                    deg=5 (p0.46) | log2FC=1.12 (p0.30, rank 3435) pct1-2=0.20
-    [ENRICHED LAYER] Ab-LTMR.ETV1                   deg=1 (p0.30) | log2FC=0.41 (p0.16, rank 718) pct1-2=0.04
-
-[CACNG2]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.44
-  Present in 4 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [layer         ] C-NP.SST                       deg=4 (p0.43) | log2FC=2.64 (p0.99, rank 28) pct1-2=0.45
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=2 (p0.36) | log2FC=1.64 (p0.96, rank 110) pct1-2=0.44
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=0 (p0.08) | log2FC=0.76 (p0.85, rank 189) pct1-2=0.19
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=1 (p0.23) | log2FC=0.80 (p0.82, rank 306) pct1-2=0.16
-
-[FSTL1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.71
-  Present in 2 cell-type layer(s), connected in 1, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=0 (p0.11) | log2FC=2.83 (p0.99, rank 15) pct1-2=0.38
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=4 (p0.54) | log2FC=2.32 (p0.99, rank 36) pct1-2=0.34
-
-[PTGDR]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.13
-  Present in 4 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [layer         ] C-NP.SST                       deg=3 (p0.36) | log2FC=2.20 (p0.99, rank 54) pct1-2=0.44
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=2 (p0.36) | log2FC=1.67 (p0.96, rank 103) pct1-2=0.51
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=0 (p0.11) | log2FC=1.47 (p0.90, rank 158) pct1-2=0.35
-    [layer         ] A-LTMR.TAC3                    deg=1 (p0.15) | log2FC=1.67 (p0.61, rank 1900) pct1-2=0.34
-
-[CHRNA7]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.55
-  Present in 2 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=1 (p0.25) | log2FC=5.11 (p1.00, rank 1) pct1-2=0.61
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=2 (p0.34) | log2FC=1.56 (p0.98, rank 29) pct1-2=0.34
-
-[KCNQ2]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.09
-  Present in 9 cell-type layer(s), connected in 6, 'strong' (well-connected + top marker) in 0
-    [layer         ] Ab-LTMR.LGI2                   deg=1 (p0.23) | log2FC=1.93 (p0.97, rank 60) pct1-2=0.43
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=1 (p0.21) | log2FC=1.28 (p0.96, rank 66) pct1-2=0.33
-    [layer         ] Ab-LTMR.NSG2                   deg=1 (p0.26) | log2FC=1.37 (p0.94, rank 76) pct1-2=0.22
-    [ENRICHED LAYER] Ab-LTMR.ETV1                   deg=1 (p0.30) | log2FC=1.54 (p0.92, rank 72) pct1-2=0.20
-    [layer         ] Ab-LTMR.CCKAR                  deg=1 (p0.27) | log2FC=0.87 (p0.78, rank 338) pct1-2=0.19
-    [layer         ] A-Propr.PCDH8                  deg=0 (p0.09) | log2FC=0.79 (p0.36, rank 1519) pct1-2=0.19
-    [layer         ] A-LTMR.TAC3                    deg=1 (p0.15) | log2FC=1.18 (p0.33, rank 3268) pct1-2=0.21
-    [layer         ] A-Propr.HAPLN4                 deg=0 (p0.10) | log2FC=0.57 (p0.28, rank 922) pct1-2=0.04
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=0 (p0.08) | log2FC=0.27 (p0.04, rank 1111) pct1-2=0.08
-
-[GRIK1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.13
-  Present in 5 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=0 (p0.08) | log2FC=2.08 (p0.98, rank 55) pct1-2=0.46
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=0 (p0.07) | log2FC=1.16 (p0.94, rank 110) pct1-2=0.32
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=1 (p0.31) | log2FC=1.50 (p0.91, rank 150) pct1-2=0.24
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=1 (p0.25) | log2FC=0.69 (p0.82, rank 217) pct1-2=0.16
-    [layer         ] C-Thermo.RXFP1                 deg=2 (p0.22) | log2FC=0.34 (p0.07, rank 4664) pct1-2=0.14
-
-[RELN]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.13
-  Present in 3 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=0 (p0.08) | log2FC=3.43 (p1.00, rank 4) pct1-2=0.49
-    [layer         ] C-Thermo.TRPM8                 deg=2 (p0.35) | log2FC=1.50 (p0.96, rank 140) pct1-2=0.23
-    [layer         ] C-PEP.ADORA2B                  deg=1 (p0.20) | log2FC=0.84 (p0.54, rank 1622) pct1-2=0.12
-
-[SPP1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.33
-  Present in 7 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 0
-    [layer         ] Ab-LTMR.LGI2                   deg=1 (p0.23) | log2FC=3.01 (p1.00, rank 10) pct1-2=0.36
-    [layer         ] Ab-LTMR.NSG2                   deg=0 (p0.09) | log2FC=2.22 (p0.99, rank 9) pct1-2=0.34
-    [ENRICHED LAYER] Ab-LTMR.ETV1                   deg=0 (p0.11) | log2FC=2.57 (p0.99, rank 7) pct1-2=0.36
-    [layer         ] A-Propr.HAPLN4                 deg=0 (p0.10) | log2FC=2.66 (p0.98, rank 28) pct1-2=0.36
-    [layer         ] A-Propr.EPHA3                  deg=0 (p0.08) | log2FC=2.16 (p0.94, rank 167) pct1-2=0.30
-    [layer         ] A-Propr.PCDH8                  deg=0 (p0.09) | log2FC=1.87 (p0.87, rank 306) pct1-2=0.25
-    [layer         ] Ab-LTMR.CCKAR                  deg=2 (p0.42) | log2FC=0.87 (p0.78, rank 342) pct1-2=0.30
-
-[GFRA2]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.09
-  Present in 2 cell-type layer(s), connected in 0, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=0 (p0.11) | log2FC=4.36 (p1.00, rank 1) pct1-2=0.63
-    [ENRICHED LAYER] C-LTMR.CDH9                    deg=0 (p0.16) | log2FC=2.55 (p0.95, rank 60) pct1-2=0.59
-
-[PTGER3]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.55
-  Present in 6 cell-type layer(s), connected in 2, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=0 (p0.08) | log2FC=2.40 (p1.00, rank 6) pct1-2=0.46
-    [layer         ] ATF3                           deg=1 (p0.19) | log2FC=2.38 (p0.98, rank 46) pct1-2=0.37
-    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=1 (p0.21) | log2FC=1.30 (p0.97, rank 60) pct1-2=0.39
-    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=0 (p0.08) | log2FC=1.14 (p0.94, rank 72) pct1-2=0.33
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=0 (p0.07) | log2FC=0.61 (p0.70, rank 500) pct1-2=0.18
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=0 (p0.08) | log2FC=0.56 (p0.65, rank 654) pct1-2=0.06
-
-[KCNK3]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.13
-  Present in 8 cell-type layer(s), connected in 3, 'strong' (well-connected + top marker) in 0
-    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=1 (p0.22) | log2FC=1.81 (p0.98, rank 30) pct1-2=0.38
-    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=1 (p0.23) | log2FC=1.41 (p0.96, rank 61) pct1-2=0.34
-    [layer         ] C-Thermo.TRPM8                 deg=0 (p0.07) | log2FC=1.61 (p0.96, rank 121) pct1-2=0.34
-    [layer         ] C-Thermo.RXFP1                 deg=0 (p0.04) | log2FC=1.60 (p0.93, rank 366) pct1-2=0.31
-    [layer         ] A-Propr.EPHA3                  deg=0 (p0.08) | log2FC=0.78 (p0.53, rank 1234) pct1-2=0.29
-    [layer         ] A-Propr.HAPLN4                 deg=0 (p0.10) | log2FC=0.65 (p0.35, rank 833) pct1-2=0.13
-    [layer         ] ATF3                           deg=2 (p0.30) | log2FC=0.35 (p0.16, rank 1613) pct1-2=0.19
-    [layer         ] C-PEP.ADORA2B                  deg=0 (p0.07) | log2FC=0.34 (p0.04, rank 3373) pct1-2=0.14
-
-[HRH1]  --  B: specific marker, not well-connected there
-  Global PPI degree percentile : 0.03
-  Present in 3 cell-type layer(s), connected in 0, 'strong' (well-connected + top marker) in 0
-    [layer         ] C-NP.SST                       deg=0 (p0.06) | log2FC=2.25 (p0.99, rank 50) pct1-2=0.44
-    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=0 (p0.08) | log2FC=1.57 (p0.95, rank 121) pct1-2=0.47
-    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=0 (p0.11) | log2FC=1.52 (p0.91, rank 142) pct1-2=0.41
+  Present in 22 cell-type layer(s), connected in 22, 'strong' (well-connected + top marker) in 0
+    [ENRICHED LAYER] ATF3                           deg=22 (p0.60) | log2FC=0.34 (p0.91, rank 887) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.CHRNA7_SLC18A3           deg=21 (p0.59) | log2FC=0.31 (p0.88, rank 1082) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.SCGN_ADRA2C              deg=19 (p0.56) | log2FC=0.29 (p0.87, rank 1110) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_MRGPRX4           deg=21 (p0.58) | log2FC=0.14 (p0.76, rank 2384) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CHRNA3              deg=21 (p0.59) | log2FC=0.13 (p0.74, rank 2443) pct1-2=nan
+    [ENRICHED LAYER] C-NP.MRGPRX1_GFRA2             deg=20 (p0.58) | log2FC=0.14 (p0.74, rank 2358) pct1-2=nan
+    [ENRICHED LAYER] Ab-LTMR.CCKAR                  deg=20 (p0.58) | log2FC=0.22 (p0.72, rank 2473) pct1-2=nan
+    [ENRICHED LAYER] A-PEP.NTRK3_S100A16            deg=21 (p0.59) | log2FC=0.12 (p0.69, rank 2864) pct1-2=nan
+    [ENRICHED LAYER] C-PEP.TAC1_CACNG5              deg=19 (p0.55) | log2FC=0.08 (p0.66, rank 3130) pct1-2=nan
+    [layer         ] C-Thermo.RXFP1                 deg=23 (p0.61) | log2FC=0.08 (p0.62, rank 3887) pct1-2=nan
+    [layer         ] Ab-LTMR.NSG2                   deg=20 (p0.59) | log2FC=0.00 (p0.61, rank 3287) pct1-2=nan
+    [layer         ] Ab-LTMR.ETV1                   deg=17 (p0.57) | log2FC=0.13 (p0.60, rank 2717) pct1-2=nan
+    [layer         ] Ab-LTMR.LGI2                   deg=22 (p0.61) | log2FC=-0.02 (p0.51, rank 4480) pct1-2=nan
+    [layer         ] A-Propr.HAPLN4                 deg=20 (p0.59) | log2FC=-0.05 (p0.50, rank 4009) pct1-2=nan
+    [layer         ] C-LTMR.CDH9                    deg=22 (p0.60) | log2FC=-0.10 (p0.44, rank 5192) pct1-2=nan
+    [layer         ] C-Thermo.TRPM8                 deg=22 (p0.60) | log2FC=-0.11 (p0.43, rank 5630) pct1-2=nan
+    [layer         ] C-PEP.ADORA2B                  deg=22 (p0.60) | log2FC=-0.23 (p0.35, rank 5928) pct1-2=nan
+    [ENRICHED LAYER] A-Propr.EPHA3                  deg=22 (p0.59) | log2FC=-0.48 (p0.24, rank 6891) pct1-2=nan
+    [layer         ] C-NP.SST                       deg=21 (p0.58) | log2FC=-0.42 (p0.14, rank 8339) pct1-2=nan
+    [layer         ] A-Propr.PCDH8                  deg=21 (p0.59) | log2FC=-0.93 (p0.08, rank 8292) pct1-2=nan
+    [layer         ] A-PEP.KIT                      deg=20 (p0.56) | log2FC=-0.89 (p0.03, rank 9479) pct1-2=nan
+    [layer         ] A-LTMR.TAC3                    deg=19 (p0.57) | log2FC=-2.54 (p0.02, rank 8834) pct1-2=nan

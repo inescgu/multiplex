@@ -14,6 +14,6 @@ module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 python step6c_export_module_for_datadivr.py \
-  --module-dir 06_disease_module/disease_module_output \
+  --module-dir 06_disease_module/disease_module_output_pseudobulk \
   --out 06_disease_module/datadivr
 echo "Finished at: $(date)"

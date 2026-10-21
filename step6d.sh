@@ -14,8 +14,8 @@ module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 python step6d_export_context_for_datadivr.py \
-  --ref-graph 04_multixrank_prep/multixrank_hetero_input/gene_reference_graph.pkl \
-  --module-dir 06_disease_module/disease_module_output \
+  --ref-graph 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl \
+  --module-dir 06_disease_module/disease_module_output_pseudobulk \
   --out 06_disease_module/datadivr \
-  --scores-csv 05_multixrank_results/multixrank_hetero_results/gene_rwr_scores.csv
+  --scores-csv 05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv
 echo "Finished at: $(date)"

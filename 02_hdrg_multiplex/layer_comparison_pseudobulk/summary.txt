@@ -1,0 +1,48 @@
+======================================================================
+LAYER SET OVERVIEW
+======================================================================
+Old layers: 22   New layers: 22   Matched by name: 22
+
+======================================================================
+PER-LAYER OVERLAP (matched layers)
+======================================================================
+Mean node Jaccard: 0.222   median: 0.179
+Mean edge Jaccard: 0.056
+Total nodes  old: 52,156   new: 202,094
+Total edges  old: 207,922   new: 2,701,743
+Edges among shared genes are identical -> same base PPI; differences come from marker sets.
+Least similar layers (node Jaccard):
+   Ab-LTMR.ETV1                        J=0.105  old=849  new=6817
+   A-PEP.SCGN_ADRA2C                   J=0.112  old=1153  new=8301
+   A-PEP.CHRNA7_SLC18A3                J=0.118  old=1225  new=8970
+   C-LTMR.CDH9                         J=0.120  old=1229  new=9917
+   A-Propr.HAPLN4                      J=0.124  old=1276  new=8044
+
+Layers whose best node-overlap partner is NOT their name match: 8
+   old A-PEP.CHRNA7_SLC18A3  -> best new Ab-LTMR.ETV1 (J=0.129) vs name match A-PEP.CHRNA7_SLC18A3
+   old A-PEP.SCGN_ADRA2C  -> best new Ab-LTMR.ETV1 (J=0.118) vs name match A-PEP.SCGN_ADRA2C
+   old A-Propr.EPHA3  -> best new A-Propr.PCDH8 (J=0.226) vs name match A-Propr.EPHA3
+   old ATF3  -> best new A-Propr.EPHA3 (J=0.159) vs name match ATF3
+   old Ab-LTMR.CCKAR  -> best new Ab-LTMR.ETV1 (J=0.185) vs name match Ab-LTMR.CCKAR
+   old Ab-LTMR.LGI2  -> best new Ab-LTMR.ETV1 (J=0.220) vs name match Ab-LTMR.LGI2
+   old Ab-LTMR.NSG2  -> best new Ab-LTMR.ETV1 (J=0.158) vs name match Ab-LTMR.NSG2
+   old C-PEP.TAC1_CHRNA3  -> best new Ab-LTMR.ETV1 (J=0.169) vs name match C-PEP.TAC1_CHRNA3
+
+======================================================================
+GENE PROMISCUITY (how many layers each gene appears in)
+======================================================================
+old: 12,007 unique genes; mean layers/gene 4.34, median 4; genes in >= half of layers: 56
+new: 11,620 unique genes; mean layers/gene 17.39, median 22; genes in >= half of layers: 9,305
+
+======================================================================
+SEED GENES
+======================================================================
+Seed-gene hits summed over layers  old: 1277   new: 4228
+Layers that lost seeds: 21   gained seeds: 22 (see layer_comparison.csv)
+
+======================================================================
+UPSTREAM MARKER SETS (before PPI filtering)
+======================================================================
+Old markers: {'n_rows': 58813, 'pct_negative_log2FC': 0.0, 'pct_padj_ge_0.05': 0.0}
+New markers: {'n_rows': 212840}
+Mean marker-set Jaccard: 0.223; mean fraction of NEW markers already in OLD: 0.233

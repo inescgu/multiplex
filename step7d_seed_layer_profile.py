@@ -76,7 +76,7 @@ import pandas as pd
 from scipy import stats
 
 SEP = "::"
-MARKER_COLS = ["avg_log2FC", "pct.1", "pct.2", "pct_diff", "fc_pctile", "fc_rank"]
+MARKER_COLS = ["avg_log2FC", "pct.1", "pct.2", "pct_diff", "fc_pctile", "fc_rank", "is_sig_up"]
 
 # Wording for the target gene set; switched in main() by set_terms().
 T = {"s": "seed", "p": "seeds", "S": "Seed", "P": "Seeds", "U": "SEED"}
@@ -222,14 +222,27 @@ def layer_degrees(edge_path: Path, node_universe: set) -> pd.Series:
     return deg.reindex(universe).fillna(0).astype(int)
 
 
-def load_markers(path: str) -> pd.DataFrame:
+def load_markers(path: str, alpha: float = 0.05, min_lfc: float = 0.25) -> pd.DataFrame:
     df = pd.read_csv(path)
+    for src, dst in [("logFC", "avg_log2FC"), ("marker_log2FC", "avg_log2FC"),
+                     ("FDR", "p_val_adj"), ("marker_FDR", "p_val_adj")]:
+        if src in df.columns and dst not in df.columns:
+            df = df.rename(columns={src: dst})
+    missing = {"gene", "cell_type", "avg_log2FC"} - set(df.columns)
+    if missing:
+        raise SystemExit(f"--markers-csv {path} is missing {missing}; expected marker statistics "
+                         f"(e.g. pseudobulk_markers_all.csv). Found: {list(df.columns)}")
+    df = df.dropna(subset=["avg_log2FC"]).copy()
     df["gene"] = df["gene"].astype(str).str.strip().str.upper()
     df["layer"] = df["cell_type"].map(marker_ct_to_layer_name)
-    df["pct_diff"] = df["pct.1"] - df["pct.2"] if {"pct.1", "pct.2"} <= set(df.columns) else np.nan
+    for c in ("pct.1", "pct.2"):
+        if c not in df.columns:
+            df[c] = np.nan                      # pseudobulk has no per-cell percentages
+    df["pct_diff"] = df["pct.1"] - df["pct.2"]
+    df["is_sig_up"] = ((df["p_val_adj"] < alpha) & (df["avg_log2FC"] > min_lfc)
+                       if "p_val_adj" in df.columns else df["avg_log2FC"] > min_lfc)
     return (df.sort_values("avg_log2FC", ascending=False)
               .drop_duplicates(subset=["layer", "gene"], keep="first"))
-
 
 # ---------------------------------------------------------------------------
 # Stats helpers
@@ -350,7 +363,12 @@ def analyse_layer(ct, deg, target, universe, markers_ct, hub_frac, min_seeds, is
 
     targets_u = target & universe
     if not is_global and len(targets_u):
-        L = set(frame["gene"]) & universe
+        if markers_ct is not None and len(markers_ct) and "is_sig_up" in markers_ct.columns:
+            # expression-based layers: test against the cell type's significant markers,
+            # not against every expressed gene (which would make nearly every layer 'enriched')
+            L = set(markers_ct.loc[markers_ct["is_sig_up"].astype(bool), "gene"]) & set(frame["gene"]) & universe
+        else:
+            L = set(frame["gene"]) & universe
         a = len(targets_u & L)
         b = len(L) - a
         c = len(targets_u) - a
@@ -824,9 +842,10 @@ def categorize_seeds(pres_all, summ, tests, have_markers) -> pd.Series:
     p = pres_all.copy()
     p["in_enriched"] = p["cell_type"].isin(enrich_ok)
     if have_markers:
-        p["is_specific"] = (p["fc_pctile"] >= 0.90) & (p["pct_diff"].fillna(0) >= 0.30)
-    else:
-        p["is_specific"] = False
+        if p["pct_diff"].notna().any():
+            p["is_specific"] = (p["fc_pctile"] >= 0.90) & (p["pct_diff"].fillna(0) >= 0.30)
+        else:
+            p["is_specific"] = (p["fc_pctile"] >= 0.90) & (p["is_sig_up"] == True)  # noqa: E712
 
     g = p.groupby("gene")
     flags = pd.DataFrame({

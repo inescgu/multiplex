@@ -12,7 +12,7 @@ echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"
 
 python step0_compare_multiplex_layers.py \
-    --old-dir 02_hdrg_multiplex/multiplex_2025hdrg \
-    --new-dir 02_hdrg_multiplex/multiplex_2025hdrg_filtered \
-    --output-dir 02_hdrg_multiplex/layer_comparison
+    --old-dir 02_hdrg_multiplex/multiplex_2025hdrg_filtered \
+    --new-dir 02_hdrg_multiplex/multiplex_2025hdrg_pseudobulk \
+    --output-dir 02_hdrg_multiplex/layer_comparison_pseudobulk
 echo "Finished at: $(date)"

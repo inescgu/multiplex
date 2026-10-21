@@ -19,7 +19,7 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 mkdir -p 07_analysis/topology_output
 
 python step7_layer_topology_stats.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --csv layers_categories.csv \
     --output-dir 07_analysis/topology_output \
     --top-n-eigen 5 \

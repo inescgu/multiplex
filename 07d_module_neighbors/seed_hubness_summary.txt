@@ -2,51 +2,53 @@
 NEIGHBOR HUBNESS / MARKER-STRENGTH SUMMARY
 ==============================================================================
 MODE: NEIGHBOR -- target genes are the non-seed genes the disease module recruited (not your input seeds)
-Neighbors: 3941 | in enrichment universe: 3941 | hub / top-marker cutoff: top 10%
+Neighbors: 767 | in enrichment universe: 767 | hub / top-marker cutoff: top 10%
 Test background excludes the 408 real seeds.
 
 GLOBAL PPI ('global_ppi'): are neighbors hubs in the full network?
-  neighbors in PPI: 3941 | median degree neighbors 46.0 vs others 14.0
-  degree AUC = 0.781 (p = 0.00e+00) | neighbors in top 10%: 968 (expected 394.3, p = 4.06e-152)
+  neighbors in PPI: 767 | median degree neighbors 54.0 vs others 19.0
+  degree AUC = 0.718 (p = 2.86e-93) | neighbors in top 10%: 286 (expected 76.7, p = 4.10e-90)
 
 PER-LAYER (testable layers = 22 of 22; BH across layers)
   Neighbors have higher degree than other genes        (q<0.05): 22 layers
   Neighbors over-represented in the top-degree bin     (q<0.05): 22 layers
-  Neighbors higher degree than DEGREE-MATCHED genes    (q<0.05): 16 layers  <- survives literature/popularity bias
-  Neighbors enriched among markers (q<0.05): 22 layers  <- circular by construction, ignore
-  Your SEEDS enriched among markers (q<0.05): 9 layers <- these define 'enriched layer' for the tiers
+  Neighbors higher degree than DEGREE-MATCHED genes    (q<0.05): 0 layers  <- survives literature/popularity bias
+  Neighbors enriched among markers (q<0.05): 21 layers  <- circular by construction, ignore
+  Your SEEDS enriched among markers (q<0.05): 10 layers <- these define 'enriched layer' for the tiers
       - A-PEP.CHRNA7_SLC18A3
       - A-PEP.NTRK3_S100A16
       - A-PEP.SCGN_ADRA2C
-      - Ab-LTMR.ETV1
-      - C-LTMR.CDH9
+      - A-Propr.EPHA3
+      - ATF3
+      - Ab-LTMR.CCKAR
       - C-NP.MRGPRX1_GFRA2
       - C-NP.MRGPRX1_MRGPRX4
       - C-PEP.TAC1_CACNG5
       - C-PEP.TAC1_CHRNA3
-  Neighbors have higher avg_log2FC than other markers  (q<0.05): 0 layers
-  Neighbors have higher pct.1-pct.2 than other markers (q<0.05): 12 layers
+  Neighbors have higher avg_log2FC than other markers  (q<0.05): 4 layers
+  Neighbors have higher pct.1-pct.2 than other markers (q<0.05): 0 layers
 
 SEEDS vs NEIGHBORS (same layers; each tested against a background without the other set)
                                                      seeds   neighbors
-  global PPI degree AUC                              0.565       0.781
-  layers: higher degree (q<0.05)                        14          22
-  layers: higher than degree-matched (q<0.05)            8          16
-  layers: higher avg_log2FC (q<0.05)                    15           0
-  median degree AUC across layers                    0.603       0.788
+  global PPI degree AUC                              0.511       0.718
+  layers: higher degree (q<0.05)                         0          22
+  layers: higher than degree-matched (q<0.05)            0           0
+  layers: higher avg_log2FC (q<0.05)                     1           4
+  median degree AUC across layers                    0.525       0.703
 
 POOLED neighbor-layer entries (descriptive; entries are not independent)
-  n = 19566 | median degree percentile 0.71 (null 0.50) | fraction in top 10%: 0.21 (null ~0.10)
+  n = 13932 | median degree percentile 0.78 (null 0.50) | fraction in top 10%: 0.36 (null ~0.10)
   median avg_log2FC percentile among markers: 0.48 (null 0.50)
 
 NEIGHBOR CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
-  A: specific marker + well-connected in an enriched layer          3
-  A*: specific + connected, but also a generic global hub          11
-  B: specific marker, not well-connected there                     68
-  C: hub in an enriched layer, not a distinct marker              703
-  F: present, unremarkable                                       3156
+  A: specific marker + well-connected in an enriched layer          2
+  A*: specific + connected, but also a generic global hub         117
+  B: specific marker, not well-connected there                    306
+  C: hub in an enriched layer, not a distinct marker              138
+  F: present, unremarkable                                        163
+  E: absent from all cell-type layers (global_ppi only)            41
 
-Isolated genes (degree 0) across layers: 7,455 (in gene sets json but with no edges in ppi_layer.tsv)
+Isolated genes (degree 0) across layers: 3,495 (in gene sets json but with no edges in ppi_layer.tsv)
 
 ------------------------------------------------------------------------------
 HOW TO READ THIS

@@ -1,912 +1,630 @@
 #!/usr/bin/env python3
 """
-Step 7c (replaces step10_pathway_connection_analysis.py AND
-step14_analyze_interlayer_edges.py — merged into one script): inter-cell-type
-(bipartite) connectivity analysis.
+Step 7c: inter-cell-type (bipartite) connectivity analysis.
 
-Why these two got merged
----------------------------
-Both old scripts existed to answer the same underlying question — "which
-cell types are connected to which, via what, and how much?" — but got
-there two different ways because of what the old homogeneous structure
-made easy vs. hard:
+Rewritten for the expression-based (pseudobulk) layers. What changed vs the
+previous version and why:
 
-  - step14 scanned integrated_multiplex.pkl's edges directly (fast, one
-    pass) but its DRG-hierarchy-aware heatmaps were the more polished half.
-  - step10's pathway-connectivity script instead RE-DERIVED cell-type
-    connectivity from scratch — cross-referencing separate LR/pathway edge
-    lists against per-cell-type gene TSVs — because the old special
-    ppi_layer/pathway_layer/ligand_receptor_layer files didn't carry that
-    mapping directly. That reconstruction is where its extra value lived:
-    gene-overlap-across-cell-types analysis and top-pathway/gene-label
-    tables.
+1. EDGE CLASSES ARE MUTUALLY EXCLUSIVE NOW. Every non-identity bipartite
+   edge gets exactly one class, in priority order:
+       scored_lr     - proposed by LIANA consensus / NeuronChat for THIS
+                       cell-type pair (scored_lr_edge_provenance.csv)
+       flat_lr_only  - only in the flat LR resource (--lr-csv)
+       reactome      - shares a Reactome pathway (only meaningful if step2
+                       was run with --reactome-csv)
+       other         - none of the above (should be ~0)
+   The old version incremented both the LR and Reactome counters for edges
+   that were both, then summed them, so pair totals were double-counted
+   (and fine-level totals disagreed with group-level totals).
 
-In the new heterogeneous structure, "which cell types are connected, via
-what" is no longer something to reconstruct at all — it's exactly what
-bipartite/<ct_a>__<ct_b>.tsv + bipartite_manifest.json already ARE, written
-directly by step 2. So this script reads those files as the source of
-truth for connectivity and counts, borrows step14's DRG-hierarchy heatmap
-code (more general than step10's hardcoded NEURON_GROUPS) for the visuals,
-and borrows step10's gene-overlap analysis (which is genuinely
-cell-type-set-driven, not graph-edge-driven, so it transfers over cleanly
-using celltype_gene_sets.json instead of re-reading TSVs).
+2. WHY SPLIT scored_lr FROM flat_lr_only. A flat-LR edge between cell types
+   A and B exists whenever the ligand is expressed in A and the receptor in
+   B -- with expression-based layers that is mostly a function of layer
+   size, not of cell-type-specific signalling. scored_lr edges are the
+   cell-type-specific evidence. Heatmaps and the report show both, and the
+   directional (sender -> receiver) heatmap uses scored_lr only.
 
-Dropped from the old scripts (say the word if you want these back):
-  - step10's hardcoded NEURON_GROUPS grouping and its per-group heatmap
-    grid (the DRG_HIERARCHY subcategory level below is the same idea,
-    more general, and already covered by this script).
-  - step10's networkx spring-layout network diagrams (nice to look at,
-    lowest analytical value per line of code, easy to bolt back on).
+3. global_ppi IS EXCLUDED by default (--exclude-celltypes). It is a
+   backbone, not a cell type: identity edges to it carry no biology, and
+   step2's flat-LR expansion also attaches LR edges to it. Excluding it keeps
+   it from appearing as a giant 'Unclassified' group.
 
-What edge_type labeling means here
--------------------------------------
-Because step 2 merges LR and Reactome edges into ONE bipartite file per
-cell-type pair (MultiXrank only allows one bipartite file per pair — see
-the pipeline README), a raw bipartite edge doesn't carry its own source
-label on disk. This script re-derives it by re-checking each edge against
---lr-csv / --reactome-csv (same idea step10 already used, just pointed at
-the new files) — pass both to get a full ligand_receptor/reactome/other
-breakdown; skip either flag and those edges are labeled 'other'.
+4. IDENTITY EDGES (gene X <-> gene X) are dropped, as before.
 
-NEW: LR interaction-type breakdown (method/source + NeuronChat ligand_type)
-------------------------------------------------------------------------------
-Two things changed with this update:
+5. NAMESPACED FILES ARE HANDLED. If step3b already ran, bipartite files
+   contain '<celltype>::GENE'; the prefix is stripped automatically.
 
-1. Edge labeling now also checks each raw bipartite edge against
-   scored_lr_edge_provenance.csv (written by step2_build_bipartite_edges.py
-   whenever it was run with --scored-lr-csv), in addition to --lr-csv.
-   Previously, an edge that came ONLY from LIANA/NeuronChat's scored-LR
-   output (i.e. not also present in the flat --lr-csv resource) had no way
-   to be recognized as 'ligand_receptor' at all here -- it silently fell
-   into the 'other' bucket. Matching is done on the unordered
-   (cell-type-pair, gene-pair) combination, since a raw bipartite edge's
-   g1/g2 column order doesn't reliably reflect ligand-vs-receptor
-   direction once it's mixed with LR/Reactome/identity edges in the same
-   file (see FIX note in step2's docstring).
+6. VECTORISED. No per-edge Python loops (the old iterrows over ~10^5-10^6
+   edges was the slow part).
 
-2. Every bipartite edge matched against the provenance file is now
-   attributed to whichever method(s) (cellphonedb, natmi, connectome, sca,
-   logfc, liana_consensus, neuronchat) and, for NeuronChat rows, ligand_type
-   categor(y/ies) (Neurotransmitter, Neuropeptide, Gas, Gap junction
-   protein) proposed it. Two new histograms are produced network-wide (not
-   restricted to any particular disease module -- see
-   step6b_module_diagnostics.py for the module-restricted version of the
-   same breakdown):
-       lr_edges_by_source.csv / .png
-       lr_edges_by_ligand_type.csv / .png
-   Edges labeled 'ligand_receptor' purely via --lr-csv (i.e. with no
-   matching provenance row -- the flat resource carries no per-method
-   information) simply don't appear in these two breakdowns; they're still
-   counted normally everywhere else (edge_counts_by_celltype_pair.csv,
-   the heatmaps, etc).
+7. NEW OUTPUTS: directional scored-LR sender x receiver heatmap + CSV, and
+   per-cell-type layer-specific genes (genes present in only that layer),
+   which is where cell-type identity lives once layers are expression-based.
 
-Only generated if scored_lr_edge_provenance.csv exists under --wdir (i.e.
-step2 was run with --scored-lr-csv). Auto-discovered by default; override
-with --scored-lr-provenance-csv if it lives somewhere else.
-
-NEW: density-normalized heatmaps (this update)
-------------------------------------------------
-Raw edge-count heatmaps (heatmap_celltype.png / heatmap_subcategory.png /
-heatmap_fibertype.png, kept exactly as before) naturally favor whichever
-cell type or group has the most genes to draw edges from -- most visibly
-'Unclassified', which is just the leftover bucket for every cell type not
-in DRG_HIERARCHY (in practice, PPI-linked types with far larger gene sets
-than any DRG neuron subtype). Raw counts alone therefore make the biggest
-layer look like the "best connected" one almost by construction, not
-because it's actually more densely wired.
-
-To make cross-group comparisons fair, every hierarchy heatmap now also
-gets a density-normalized twin (heatmap_*_density.png, plus matching
-edge_density_by_*.csv): edges / (n_genes_group_a * n_genes_group_b), i.e.
-what fraction of all possible gene-gene pairs between the two groups are
-actually realized as bipartite edges. A group's gene pool is the UNION of
-its member cell types' gene sets (celltype_gene_sets.json), not a sum, so
-a gene shared across several cell types in the same group isn't
-double-counted. This is an approximation at the group level (it doesn't
-try to subtract out gene pairs that could never appear as a
-between-cell-type bipartite edge in the first place), but it's enough to
-stop the biggest layer from automatically looking like the best-connected
-one. The absolute-count plots are unchanged and still produced -- density
-is an additional lens, not a replacement.
+Outputs (--output-dir):
+    edges_annotated.csv.gz             one row per non-identity bipartite edge
+    edge_counts_by_celltype_pair.csv   per pair: counts per class, total, density
+    scored_lr_directional.csv          sender x receiver unique scored-LR edges
+    edge_counts_by_subcategory.csv / edge_counts_by_fibertype.csv (+ density)
+    lr_edges_by_source.csv / lr_edges_by_ligand_type.csv
+    gene_layer_membership.csv          gene -> number of layers, which layers
+    layer_specific_genes.csv           genes present in exactly one layer
+    top_genes_scored_lr.csv / top_pathways.csv (if --reactome-csv)
+    interlayer_analysis_report.txt
+    *.png heatmaps / bar charts (unless --no-plots)
 """
 import argparse
 import json
-from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 # ============================================================================
-# DRG NEURON HIERARCHY (same constant as step 7 — keep in sync if edited)
+# DRG neuron hierarchy (keep in sync with step 7)
 # ============================================================================
 DRG_HIERARCHY = {
     "A-fiber": {"color": "#1f77b4", "subcategories": {
-        "Proprioceptors": {"cell_types": ["A-Propr.EPHA3", "A-Propr.HAPLN4", "A-Propr.PCDH8"]},
-        "A-beta LTMR": {"cell_types": ["Ab-LTMR.CCKAR", "Ab-LTMR.ETV1", "Ab-LTMR.LGI2", "Ab-LTMR.NSG2"]},
-        "A-LTMR": {"cell_types": ["A-LTMR.TAC3"]},
-        "A-peptidergic": {"cell_types": ["A-PEP.CHRNA7_SLC18A3", "A-PEP.KIT", "A-PEP.NTRK3_S100A16", "A-PEP.SCGN_ADRA2C"]},
+        "Proprioceptors": ["A-Propr.EPHA3", "A-Propr.HAPLN4", "A-Propr.PCDH8"],
+        "A-beta LTMR": ["Ab-LTMR.CCKAR", "Ab-LTMR.ETV1", "Ab-LTMR.LGI2", "Ab-LTMR.NSG2"],
+        "A-LTMR": ["A-LTMR.TAC3"],
+        "A-peptidergic": ["A-PEP.CHRNA7_SLC18A3", "A-PEP.KIT", "A-PEP.NTRK3_S100A16", "A-PEP.SCGN_ADRA2C"],
     }},
     "C-fiber": {"color": "#ff7f0e", "subcategories": {
-        "C-LTMR": {"cell_types": ["C-LTMR.CDH9"]},
-        "C-peptidergic": {"cell_types": ["C-PEP.ADORA2B", "C-PEP.TAC1_CACNG5", "C-PEP.TAC1_CHRNA3"]},
-        "MRGPRX nociceptors": {"cell_types": ["C-NP.MRGPRX1_GFRA2", "C-NP.MRGPRX1_MRGPRX4"]},
-        "C-thermosensitive": {"cell_types": ["C-Thermo.RXFP1", "C-Thermo.TRPM8"]},
-        "C-SST nociceptor": {"cell_types": ["C-NP.SST"]},
+        "C-LTMR": ["C-LTMR.CDH9"],
+        "C-peptidergic": ["C-PEP.ADORA2B", "C-PEP.TAC1_CACNG5", "C-PEP.TAC1_CHRNA3"],
+        "MRGPRX nociceptors": ["C-NP.MRGPRX1_GFRA2", "C-NP.MRGPRX1_MRGPRX4"],
+        "C-thermosensitive": ["C-Thermo.RXFP1", "C-Thermo.TRPM8"],
+        "C-SST nociceptor": ["C-NP.SST"],
     }},
     "ATF3": {"color": "#d62728", "subcategories": {
-        "ATF3 (injured)": {"cell_types": ["ATF3"]},
+        "ATF3 (injured)": ["ATF3"],
     }},
 }
+UNCLASSIFIED = "Unclassified"
 UNCLASSIFIED_COLOR = "#7f7f7f"
-EDGE_TYPE_COLS = ["ligand_receptor", "reactome"]
+CLASSES = ["scored_lr", "flat_lr_only", "reactome", "other"]
 
 
-def build_hierarchy_lookup(hierarchy: dict) -> dict:
-    ct_to_fiber, ct_to_subcat, subcat_to_fiber = {}, {}, {}
-    fiber_colors, fiber_order, subcat_order, fine_order = {}, [], [], []
-    for fiber, fdata in hierarchy.items():
-        fiber_order.append(fiber)
-        fiber_colors[fiber] = fdata["color"]
-        for subcat, sdata in fdata["subcategories"].items():
-            subcat_order.append(subcat)
-            subcat_to_fiber[subcat] = fiber
-            for ct in sdata["cell_types"]:
-                fine_order.append(ct)
-                ct_to_fiber[ct] = fiber
-                ct_to_subcat[ct] = subcat
-    return {"ct_to_fiber": ct_to_fiber, "ct_to_subcat": ct_to_subcat, "subcat_to_fiber": subcat_to_fiber,
-            "fiber_colors": fiber_colors, "fiber_order": fiber_order, "subcat_order": subcat_order, "fine_order": fine_order}
+def build_hierarchy():
+    h = {"ct_to_fiber": {}, "ct_to_subcat": {}, "subcat_to_fiber": {}, "fiber_colors": {},
+         "fiber_order": [], "subcat_order": [], "fine_order": [],
+         "fine_fiber_bounds": [], "fine_subcat_bounds": [], "subcat_fiber_bounds": []}
+    i_fine = i_sub = 0
+    for fiber, fdata in DRG_HIERARCHY.items():
+        h["fiber_order"].append(fiber)
+        h["fiber_colors"][fiber] = fdata["color"]
+        for subcat, cts in fdata["subcategories"].items():
+            h["subcat_order"].append(subcat)
+            h["subcat_to_fiber"][subcat] = fiber
+            i_sub += 1
+            for ct in cts:
+                h["fine_order"].append(ct)
+                h["ct_to_fiber"][ct] = fiber
+                h["ct_to_subcat"][ct] = subcat
+                i_fine += 1
+            h["fine_subcat_bounds"].append(i_fine)
+        h["fine_fiber_bounds"].append(i_fine)
+        h["subcat_fiber_bounds"].append(i_sub)
+    for k in ("fine_fiber_bounds", "fine_subcat_bounds", "subcat_fiber_bounds"):
+        h[k] = h[k][:-1]
+    return h
 
 
-def compute_fine_boundaries(hierarchy: dict):
-    fiber_bounds, subcat_bounds, idx = [], [], 0
-    for fiber, fdata in hierarchy.items():
-        for subcat, sdata in fdata["subcategories"].items():
-            idx += len(sdata["cell_types"])
-            subcat_bounds.append(idx)
-        fiber_bounds.append(idx)
-    return fiber_bounds[:-1], subcat_bounds[:-1]
+def sorted_key(a: pd.Series, b: pd.Series, sep: str = "|") -> pd.Series:
+    """Order-independent key for two string columns."""
+    a = a.astype(str).values
+    b = b.astype(str).values
+    lo = np.where(a <= b, a, b)
+    hi = np.where(a <= b, b, a)
+    return pd.Series(lo, dtype=object) + sep + pd.Series(hi, dtype=object)
 
 
-def compute_subcat_boundaries(hierarchy: dict):
-    bounds, idx = [], 0
-    for fiber, fdata in hierarchy.items():
-        idx += len(fdata["subcategories"])
-        bounds.append(idx)
-    return bounds[:-1]
-
-
-# ============================================================================
-# Cell-type name sanitizing (kept in sync with step1/step2's sanitize_name())
-# ============================================================================
-def sanitize_name(name: str) -> str:
-    return name.replace(" ", "_").replace("/", "-").replace(",", "")
+def strip_namespace(s: pd.Series) -> pd.Series:
+    return s.astype(str).str.split("::").str[-1].str.strip().str.upper()
 
 
 # ============================================================================
-# LOADING: bipartite files are the source of truth for connectivity
+# Loading
 # ============================================================================
-def load_celltype_gene_sets(wdir: Path) -> dict[str, set]:
+def load_gene_sets(wdir: Path, exclude: set) -> dict:
     with open(wdir / "celltype_gene_sets.json") as f:
         raw = json.load(f)
-    return {ct: set(genes) for ct, genes in raw.items()}
+    return {ct: set(genes) for ct, genes in raw.items() if ct not in exclude}
 
 
-def load_bipartite_edges(wdir: Path) -> pd.DataFrame:
-    """One row per raw bipartite edge, across every cell-type pair."""
+def load_bipartite(wdir: Path, exclude: set) -> pd.DataFrame:
     manifest_path = wdir / "bipartite_manifest.json"
     if not manifest_path.exists():
-        raise SystemExit(f"ERROR: {manifest_path} not found — run step 2 first.")
+        raise SystemExit(f"ERROR: {manifest_path} not found - run step 2 first.")
     with open(manifest_path) as f:
         manifest = json.load(f)
 
-    rows = []
+    frames, n_skipped_files = [], 0
     for m in manifest:
-        df = pd.read_csv(wdir / m["file"], sep="\t", header=None, names=["gene_a", "gene_b"], dtype=str)
-        for ga, gb in zip(df["gene_a"], df["gene_b"]):
-            ga, gb = str(ga).strip().upper(), str(gb).strip().upper()
-            if not ga or not gb or ga == gb:
-                continue
-            ct1, ct2 = sorted([m["source"], m["target"]])
-            rows.append({"cell_type_1": ct1, "cell_type_2": ct2, "gene_a": ga, "gene_b": gb})
-    print(f"Loaded {len(rows):,} raw bipartite edges across {len(manifest)} cell-type pair(s)\n")
-    return pd.DataFrame(rows)
+        if m["source"] in exclude or m["target"] in exclude:
+            n_skipped_files += 1
+            continue
+        df = pd.read_csv(wdir / m["file"], sep="\t", header=None, names=["g1", "g2"], dtype=str)
+        df["ct1"], df["ct2"] = m["source"], m["target"]
+        frames.append(df)
+    if not frames:
+        raise SystemExit("ERROR: no bipartite files left after exclusions.")
+
+    e = pd.concat(frames, ignore_index=True)
+    e["g1"], e["g2"] = strip_namespace(e["g1"]), strip_namespace(e["g2"])
+    n_raw = len(e)
+    e = e[(e["g1"] != e["g2"]) & (e["g1"] != "") & (e["g2"] != "")]
+    e = e.drop_duplicates(subset=["ct1", "ct2", "g1", "g2"]).reset_index(drop=True)
+    print(f"Bipartite files: {len(manifest)} total, {n_skipped_files} skipped (excluded cell types)")
+    print(f"Edges: {n_raw:,} raw -> {len(e):,} after dropping identity edges / duplicates\n")
+    return e
 
 
-def load_lr_set(lr_csv: str) -> set:
+def load_lr_keys(lr_csv: str | None) -> set:
+    if not lr_csv:
+        return set()
     df = pd.read_csv(lr_csv)
     if "ligand_gname" not in df.columns:
         df = pd.read_csv(lr_csv, sep="\t")
-    df["ligand_gname"] = df["ligand_gname"].str.strip().str.upper()
-    df["receptor_gname"] = df["receptor_gname"].str.strip().str.upper()
-    return set(zip(df["ligand_gname"], df["receptor_gname"]))
+    df = df.dropna(subset=["ligand_gname", "receptor_gname"])
+    keys = sorted_key(df["ligand_gname"].str.strip().str.upper(),
+                      df["receptor_gname"].str.strip().str.upper())
+    print(f"Flat LR resource: {len(set(keys)):,} unique gene pairs")
+    return set(keys)
 
 
-def load_pathway_map(reactome_csv: str, uniprot_map_csv: str | None, restrict_to: set) -> dict[tuple, list]:
-    """gene-pair -> list of pathway names, for top-pathway reporting."""
-    u2s = {}
-    if uniprot_map_csv:
-        u2s_df = pd.read_csv(uniprot_map_csv)
-        u2s = dict(zip(u2s_df["uniprotid"], u2s_df["symbol"]))
-
-    df_temp = pd.read_csv(reactome_csv, nrows=5)
-    use_symbol_cols = {"symbol1", "symbol2"}.issubset(df_temp.columns)
-    id_cols = ["symbol1", "symbol2"] if use_symbol_cols else ["uniprot1", "uniprot2"]
-    usecols = id_cols + ["common_pathway"]
-    df = pd.read_csv(reactome_csv, low_memory=False, usecols=usecols).dropna(subset=["common_pathway"])
-
-    c1 = df[id_cols[0]].astype(str).str.strip().str.upper()
-    c2 = df[id_cols[1]].astype(str).str.strip().str.upper()
-    if not use_symbol_cols and u2s:
-        lookup = {str(k).upper(): v for k, v in u2s.items()}
-        c1 = c1.map(lookup).fillna(c1).astype(str).str.upper()
-        c2 = c2.map(lookup).fillna(c2).astype(str).str.upper()
-
-    pathway = df["common_pathway"].astype(str).str.strip()
-    valid = (c1 != c2) & (c1.isin(restrict_to)) & (c2.isin(restrict_to))
-    keys = list(zip(c1[valid], c2[valid]))
-
-    pw_map = defaultdict(set)
-    for (a, b), p in zip(keys, pathway[valid]):
-        key = (min(a, b), max(a, b))
-        pw_map[key].add(p)
-    return {k: sorted(v) for k, v in pw_map.items()}
-
-
-# ============================================================================
-# NEW: scored-LR provenance loading + lookup (method/source + ligand_type)
-# ============================================================================
-def load_lr_provenance(wdir: Path, override_path: str | None) -> pd.DataFrame | None:
-    """Loads scored_lr_edge_provenance.csv written by
-    step2_build_bipartite_edges.py (only present if step2 was run with
-    --scored-lr-csv). Returns None if not found, so callers can skip the
-    interaction-type breakdown gracefully."""
-    path = Path(override_path) if override_path else (wdir / "scored_lr_edge_provenance.csv")
+def load_provenance(wdir: Path, override: str | None, exclude: set) -> pd.DataFrame | None:
+    path = Path(override) if override else wdir / "scored_lr_edge_provenance.csv"
     if not path.exists():
-        print(f"[info] {path} not found -- skipping LR interaction-type breakdown. "
-              f"(Re-run step2_build_bipartite_edges.py with --scored-lr-csv to generate it.)\n")
+        print(f"[info] {path} not found - no scored-LR breakdown.\n")
         return None
+    p = pd.read_csv(path)
+    for c in ("cell_type_source", "cell_type_target"):
+        p[c] = p[c].astype(str).str.strip()
+    for c in ("ligand", "receptor"):
+        p[c] = p[c].astype(str).str.strip().str.upper()
+    if "ligand_type" not in p.columns:
+        p["ligand_type"] = pd.NA
+    p.loc[p["ligand_type"].astype(str).isin(["", "nan", "None", "<NA>"]), "ligand_type"] = pd.NA
+    p = p[~p["cell_type_source"].isin(exclude) & ~p["cell_type_target"].isin(exclude)].copy()
+    p["key"] = (sorted_key(p["cell_type_source"], p["cell_type_target"]).values + "||" +
+                sorted_key(p["ligand"], p["receptor"]).values)
+    print(f"Scored-LR provenance: {len(p):,} rows; sources: {sorted(p['source'].unique())}")
+    return p
 
-    df = pd.read_csv(path)
-    required = {"cell_type_source", "cell_type_target", "ligand", "receptor", "source"}
-    missing = required - set(df.columns)
-    if missing:
-        print(f"[warn] {path} is missing columns {missing} -- skipping LR interaction-type breakdown.\n")
-        return None
 
-    df["cell_type_source"] = df["cell_type_source"].astype(str).str.strip()
-    df["cell_type_target"] = df["cell_type_target"].astype(str).str.strip()
-    df["ligand"] = df["ligand"].astype(str).str.strip().str.upper()
-    df["receptor"] = df["receptor"].astype(str).str.strip().str.upper()
-    df["source"] = df["source"].astype(str).str.strip()
-    if "ligand_type" not in df.columns:
-        df["ligand_type"] = pd.NA
+def load_pathway_map(reactome_csv: str | None, uniprot_map: str | None, universe: set) -> dict:
+    if not reactome_csv:
+        return {}
+    head = pd.read_csv(reactome_csv, nrows=5)
+    sym = {"symbol1", "symbol2"}.issubset(head.columns)
+    cols = ["symbol1", "symbol2"] if sym else ["uniprot1", "uniprot2"]
+    df = pd.read_csv(reactome_csv, usecols=cols + ["common_pathway"], low_memory=False)
+    df = df.dropna(subset=["common_pathway"])
+    a = df[cols[0]].astype(str).str.strip().str.upper()
+    b = df[cols[1]].astype(str).str.strip().str.upper()
+    if not sym and uniprot_map:
+        u = pd.read_csv(uniprot_map)
+        lut = {str(k).upper(): str(v).upper() for k, v in zip(u["uniprotid"], u["symbol"])}
+        a, b = a.map(lut).fillna(a), b.map(lut).fillna(b)
+    ok = (a != b) & a.isin(universe) & b.isin(universe)
+    keys = sorted_key(a[ok].reset_index(drop=True), b[ok].reset_index(drop=True))
+    pw = df.loc[ok, "common_pathway"].astype(str).reset_index(drop=True)
+    long = pd.DataFrame({"key": keys, "pw": pw})
+    long = long.assign(pw=long["pw"].str.split("|")).explode("pw")
+    long["pw"] = long["pw"].str.strip()
+    long = long[long["pw"] != ""].drop_duplicates()
+    pmap = long.groupby("key")["pw"].apply(lambda x: "; ".join(sorted(x))).to_dict()
+    print(f"Reactome map: {len(pmap):,} gene pairs with a shared pathway")
+    return pmap
+
+
+# ============================================================================
+# Annotation + counts
+# ============================================================================
+def annotate_edges(e: pd.DataFrame, lr_keys: set, prov: pd.DataFrame | None, pmap: dict) -> pd.DataFrame:
+    e = e.copy()
+    e["gene_key"] = sorted_key(e["g1"], e["g2"]).values
+    e["key"] = sorted_key(e["ct1"], e["ct2"]).values + "||" + e["gene_key"]
+
+    if prov is not None and len(prov):
+        agg = prov.groupby("key").agg(
+            lr_sources=("source", lambda x: "; ".join(sorted(set(x)))),
+            lr_ligand_types=("ligand_type", lambda x: "; ".join(sorted(set(x.dropna())))),
+        ).reset_index()
+        e = e.merge(agg, on="key", how="left")
     else:
-        df["ligand_type"] = df["ligand_type"].astype(str).str.strip()
-        df.loc[df["ligand_type"].isin(["", "nan", "None", "<NA>"]), "ligand_type"] = pd.NA
+        e["lr_sources"], e["lr_ligand_types"] = np.nan, np.nan
 
-    print(f"Loaded scored-LR edge provenance: {path} ({len(df):,} rows)")
-    print(f"  Sources present     : {sorted(df['source'].dropna().unique())}")
-    lt_present = sorted(df['ligand_type'].dropna().unique())
-    print(f"  Ligand types present: {lt_present if lt_present else '(none)'}\n")
-    return df
+    in_scored = e["lr_sources"].notna()
+    in_flat = e["gene_key"].isin(lr_keys) if lr_keys else pd.Series(False, index=e.index)
+    e["pathways"] = e["gene_key"].map(pmap).fillna("") if pmap else ""
+    shares_pw = e["pathways"] != ""
 
-
-def build_provenance_lookup(prov_df: pd.DataFrame | None) -> dict:
-    """Maps (frozenset({ct1, ct2}), frozenset({gene1, gene2})) -> list of
-    {'source': ..., 'ligand_type': ...} dicts. Deliberately unordered/
-    direction-agnostic on both cell types and genes: a raw bipartite edge's
-    g1/g2 column order doesn't reliably preserve ligand-vs-receptor
-    direction once LR/Reactome/scored-LR/identity edges are merged into one
-    file per cell-type pair (see step2's FIX note), so matching a bipartite
-    edge against this lookup has to be direction-agnostic too."""
-    lookup = defaultdict(list)
-    if prov_df is None or prov_df.empty:
-        return lookup
-    for row in prov_df.itertuples(index=False):
-        ct_key = frozenset((row.cell_type_source, row.cell_type_target))
-        gene_key = frozenset((row.ligand, row.receptor))
-        lookup[(ct_key, gene_key)].append({
-            "source": row.source,
-            "ligand_type": row.ligand_type if pd.notna(row.ligand_type) else None,
-        })
-    return lookup
+    e["in_flat_lr"] = in_flat
+    e["shares_pathway"] = shares_pw
+    e["edge_class"] = np.select([in_scored, in_flat, shares_pw], CLASSES[:3], default="other")
+    e[["lr_sources", "lr_ligand_types"]] = e[["lr_sources", "lr_ligand_types"]].fillna("")
+    return e.drop(columns=["key"])
 
 
-# ============================================================================
-# Edge labeling + counts
-# ============================================================================
-def label_and_count_edges(bip_df: pd.DataFrame, lr_set: set | None, pw_map: dict | None,
-                           prov_lookup: dict | None) -> tuple[pd.DataFrame, dict, dict, dict]:
-    """Returns (annotated per-edge df, edge_counts[pair][type]=count,
-    pathway_involvement[pathway]=set(pairs), gene_involvement[gene]=set(pairs)).
-
-    The annotated df also carries an 'lr_sources' / 'lr_ligand_types' column
-    (semicolon-joined) for every edge that matched the scored-LR provenance
-    lookup, whether or not it also matched --lr-csv -- this is what feeds
-    the network-wide interaction-type histograms in main().
-    """
-    edge_counts = defaultdict(lambda: defaultdict(int))
-    pathway_involvement = defaultdict(set)
-    gene_involvement = defaultdict(set)
-    rows = []
-    prov_lookup = prov_lookup or {}
-
-    for _, row in bip_df.iterrows():
-        ga, gb, ct1, ct2 = row["gene_a"], row["gene_b"], row["cell_type_1"], row["cell_type_2"]
-        pair = (ct1, ct2)
-        key = (min(ga, gb), max(ga, gb))
-
-        prov_matches = prov_lookup.get((frozenset((ct1, ct2)), frozenset((ga, gb))), [])
-        matched_lr_csv = lr_set is not None and ((ga, gb) in lr_set or (gb, ga) in lr_set)
-
-        etype = "other"
-        pw_names = []
-        if matched_lr_csv or prov_matches:
-            etype = "ligand_receptor"
-        if pw_map is not None and key in pw_map:
-            pw_names = pw_map[key]
-            etype = "reactome" if etype == "other" else "ligand_receptor+reactome"
-
-        edge_counts[pair][etype if "+" not in etype else "ligand_receptor"] += 1
-        if "reactome" in etype:
-            edge_counts[pair]["reactome"] += 1
-
-        for p in pw_names:
-            pathway_involvement[p].add(pair)
-        gene_involvement[ga].add(pair)
-        gene_involvement[gb].add(pair)
-
-        lr_sources = sorted({m["source"] for m in prov_matches})
-        lr_ligand_types = sorted({m["ligand_type"] for m in prov_matches if m["ligand_type"]})
-
-        rows.append({"cell_type_1": ct1, "cell_type_2": ct2, "gene_a": ga, "gene_b": gb,
-                      "edge_type": etype, "pathways": "; ".join(pw_names),
-                      "lr_sources": "; ".join(lr_sources), "lr_ligand_types": "; ".join(lr_ligand_types)})
-
-    return pd.DataFrame(rows), edge_counts, pathway_involvement, gene_involvement
+def pair_counts(e: pd.DataFrame, gene_sets: dict) -> pd.DataFrame:
+    c = (e.groupby(["ct1", "ct2", "edge_class"]).size()
+         .unstack(fill_value=0).reindex(columns=CLASSES, fill_value=0).reset_index())
+    c = c.rename(columns={k: f"n_{k}" for k in CLASSES})
+    c["total"] = c[[f"n_{k}" for k in CLASSES]].sum(axis=1)
+    n1 = c["ct1"].map(lambda x: len(gene_sets.get(x, ())))
+    n2 = c["ct2"].map(lambda x: len(gene_sets.get(x, ())))
+    c["n_genes_1"], c["n_genes_2"] = n1, n2
+    possible = (n1 * n2).replace(0, np.nan)
+    c["density_total_per_1e6"] = 1e6 * c["total"] / possible
+    c["density_scored_per_1e6"] = 1e6 * c["n_scored_lr"] / possible
+    return c.sort_values("total", ascending=False).reset_index(drop=True)
 
 
-def edge_counts_to_df(edge_counts: dict) -> pd.DataFrame:
-    rows = []
-    for (a, b), type_counts in sorted(edge_counts.items()):
-        row = {"cell_type_1": a, "cell_type_2": b}
-        for et in EDGE_TYPE_COLS:
-            row[f"n_{et}"] = type_counts.get(et, 0)
-        row["n_other"] = type_counts.get("other", 0)
-        row["total"] = sum(v for k, v in type_counts.items() if k != "ligand_receptor+reactome")
-        rows.append(row)
-    df = pd.DataFrame(rows)
-    if len(df):
-        df = df.sort_values("total", ascending=False).reset_index(drop=True)
-    return df
+def group_rollup(pairs: pd.DataFrame, lookup: dict, gene_sets: dict) -> pd.DataFrame:
+    d = pairs.copy()
+    d["grp1"] = d["ct1"].map(lambda x: lookup.get(x, UNCLASSIFIED))
+    d["grp2"] = d["ct2"].map(lambda x: lookup.get(x, UNCLASSIFIED))
+    d["group_1"] = np.where(d["grp1"] <= d["grp2"], d["grp1"], d["grp2"])
+    d["group_2"] = np.where(d["grp1"] <= d["grp2"], d["grp2"], d["grp1"])
+    cols = [f"n_{k}" for k in CLASSES] + ["total"]
+    g = d.groupby(["group_1", "group_2"])[cols].sum().reset_index()
+
+    pools = {}
+    for ct, genes in gene_sets.items():
+        pools.setdefault(lookup.get(ct, UNCLASSIFIED), set()).update(genes)
+    sizes = {k: len(v) for k, v in pools.items()}
+    possible = (g["group_1"].map(sizes) * g["group_2"].map(sizes)).replace(0, np.nan)
+    g["density_total_per_1e6"] = 1e6 * g["total"] / possible
+    g["density_scored_per_1e6"] = 1e6 * g["n_scored_lr"] / possible
+    return g.sort_values("total", ascending=False).reset_index(drop=True)
+
+
+def directional_scored(prov: pd.DataFrame | None) -> pd.DataFrame:
+    if prov is None or prov.empty:
+        return pd.DataFrame()
+    u = prov.drop_duplicates(subset=["cell_type_source", "cell_type_target", "ligand", "receptor"])
+    return pd.crosstab(u["cell_type_source"], u["cell_type_target"])
+
+
+def gene_membership(gene_sets: dict) -> pd.DataFrame:
+    rows = {}
+    for ct, genes in gene_sets.items():
+        for g in genes:
+            rows.setdefault(g, []).append(ct)
+    df = pd.DataFrame({"gene": list(rows), "n_layers": [len(v) for v in rows.values()],
+                       "layers": ["|".join(sorted(v)) for v in rows.values()]})
+    return df.sort_values(["n_layers", "gene"]).reset_index(drop=True)
 
 
 # ============================================================================
-# NEW: network-wide LR interaction-type histograms (method/source + ligand_type)
+# Plotting
 # ============================================================================
-def lr_interaction_type_counts(annotations_df: pd.DataFrame, column: str) -> pd.Series:
-    """Unique-edge counts grouped by `column` ('lr_sources' or
-    'lr_ligand_types', which are semicolon-joined multi-value strings --
-    exploded to one row per value first). Rows with an empty value are
-    dropped (e.g. edges labeled ligand_receptor purely via --lr-csv, with
-    no matching provenance row, have nothing here)."""
-    sub = annotations_df[annotations_df["edge_type"].isin(["ligand_receptor", "ligand_receptor+reactome"])]
-    sub = sub[sub[column] != ""]
-    if sub.empty:
-        return pd.Series(dtype=int)
-    exploded = sub.assign(**{column: sub[column].str.split("; ")}).explode(column)
-    # Dedup on a gene-order-INDEPENDENT key: the same conceptual edge can
-    # appear in the annotated table with (gene_a, gene_b) in either order
-    # (e.g. once via --lr-csv's undirected pair, once via a scored-LR row
-    # whose ligand/receptor happened to land in the opposite gene_a/gene_b
-    # slot) -- without sorting here, that single edge would be counted
-    # twice for the same source/ligand_type.
-    gene_lo = exploded[["gene_a", "gene_b"]].min(axis=1)
-    gene_hi = exploded[["gene_a", "gene_b"]].max(axis=1)
-    exploded = exploded.assign(_gene_lo=gene_lo, _gene_hi=gene_hi)
-    key_cols = ["cell_type_1", "cell_type_2", "_gene_lo", "_gene_hi", column]
-    exploded = exploded.drop_duplicates(subset=key_cols)
-    return exploded.groupby(column).size().sort_values(ascending=False)
-
-
-def plot_lr_interaction_bar(counts: pd.Series, title: str, out_path: Path, color: str) -> bool:
-    if counts.empty:
-        print(f"  [plot] No data for '{title}' -- skipping.")
-        return False
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(max(6, 0.9 * len(counts) + 2), 5.5))
-    ax.bar(range(len(counts)), counts.values, color=color, edgecolor="white")
-    ax.set_xticks(range(len(counts)))
-    ax.set_xticklabels(counts.index.tolist(), rotation=30, ha="right", fontsize=9)
-    ax.set_ylabel("Number of unique LR edges")
-    ax.set_title(title, fontsize=12, fontweight="bold")
-    ax.grid(axis="y", alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(out_path, dpi=200, bbox_inches="tight")
-    print(f"  Saved -> {out_path}")
-    plt.close(fig)
-    return True
-
-
-def lr_interaction_type_section(annotations_df: pd.DataFrame, out: Path, no_plots: bool) -> dict:
-    print("\nSECTION: LR INTERACTION-TYPE BREAKDOWN (method/source + NeuronChat ligand_type)")
-    by_source = lr_interaction_type_counts(annotations_df, "lr_sources")
-    by_ligand_type = lr_interaction_type_counts(annotations_df, "lr_ligand_types")
-
-    by_source.rename("n_edges").rename_axis("source").reset_index().to_csv(out / "lr_edges_by_source.csv", index=False)
-    by_ligand_type.rename("n_edges").rename_axis("ligand_type").reset_index().to_csv(
-        out / "lr_edges_by_ligand_type.csv", index=False)
-
-    print("\nLR edges by method/source (network-wide):")
-    print(by_source.to_string() if not by_source.empty else "  (no provenance-matched edges)")
-    print("\nLR edges by NeuronChat ligand_type (network-wide):")
-    print(by_ligand_type.to_string() if not by_ligand_type.empty else "  (no provenance-matched edges)")
-
-    source_plot = ligand_type_plot = None
-    if not no_plots:
-        if plot_lr_interaction_bar(by_source, "Network-wide LR edges by method/source",
-                                    out / "lr_edges_by_source.png", "#8172B2"):
-            source_plot = out / "lr_edges_by_source.png"
-        if plot_lr_interaction_bar(by_ligand_type, "Network-wide LR edges by NeuronChat ligand_type",
-                                    out / "lr_edges_by_ligand_type.png", "#55A868"):
-            ligand_type_plot = out / "lr_edges_by_ligand_type.png"
-
-    return {"by_source": by_source, "by_ligand_type": by_ligand_type,
-            "source_plot": source_plot, "ligand_type_plot": ligand_type_plot}
-
-
-# ============================================================================
-# Hierarchy-aware heatmaps (from old step14, generalized: no more
-# layer_id()/"source::celltype" parsing needed — cell-type names are direct)
-# ============================================================================
-def pivot_symmetric(df: pd.DataFrame, col1: str, col2: str, order: list, value_col: str = "total") -> pd.DataFrame:
+def symmetric_matrix(df, c1, c2, order, value):
     mat = pd.DataFrame(0.0, index=order, columns=order)
-    if len(df) == 0:
-        return mat
-    order_set = set(order)
-    for _, row in df.iterrows():
-        a, b = row[col1], row[col2]
-        if a in order_set and b in order_set:
-            mat.loc[a, b] += row[value_col]
+    for a, b, v in zip(df[c1], df[c2], df[value]):
+        if a in mat.index and b in mat.index and pd.notna(v):
+            mat.loc[a, b] += v
             if a != b:
-                mat.loc[b, a] += row[value_col]
+                mat.loc[b, a] += v
     return mat
 
 
-def build_group_rollup(annotations_df: pd.DataFrame, group_lookup: dict) -> pd.DataFrame:
-    if len(annotations_df) == 0:
-        return pd.DataFrame(columns=["group_1", "group_2"] + [f"n_{e}" for e in EDGE_TYPE_COLS] + ["n_other", "total"])
-    df = annotations_df.copy()
-    df["g1"] = df["cell_type_1"].map(lambda x: group_lookup.get(x, "Unclassified"))
-    df["g2"] = df["cell_type_2"].map(lambda x: group_lookup.get(x, "Unclassified"))
-    df["pair"] = list(zip(df[["g1", "g2"]].min(axis=1), df[["g1", "g2"]].max(axis=1)))
-    counts = df.groupby(["pair", "edge_type"]).size().unstack(fill_value=0)
-    rows = []
-    for pair, row in counts.iterrows():
-        g1, g2 = pair
-        d = {"group_1": g1, "group_2": g2}
-        for et in EDGE_TYPE_COLS:
-            d[f"n_{et}"] = int(row.get(et, 0)) + int(row.get("ligand_receptor+reactome", 0) if et == "ligand_receptor" else 0)
-        d["n_other"] = int(row.get("other", 0))
-        d["total"] = int(row.sum())
-        rows.append(d)
-    out = pd.DataFrame(rows)
-    if len(out):
-        out = out.sort_values("total", ascending=False).reset_index(drop=True)
-    return out
-
-
-# ============================================================================
-# NEW: group-level gene pools + density, for normalizing group heatmaps
-# ============================================================================
-def build_group_gene_universe(gene_sets: dict, group_lookup: dict) -> dict:
-    """Union (NOT sum) of every group's member cell types' gene sets --
-    the relevant 'pool size' for that group when normalizing edge counts
-    into a density. Using union rather than sum means a gene shared by
-    several cell types in the same group is only counted once, so the
-    density isn't artificially deflated for groups with lots of gene
-    overlap between their own member cell types.
-
-    Cell types absent from group_lookup fall into 'Unclassified', the
-    same catch-all bucket build_group_rollup() already uses -- in
-    practice this is usually a much larger gene pool than any single DRG
-    fiber/subcategory, which is exactly why its raw edge counts dwarf
-    everything else and why this normalization matters."""
-    group_genes = defaultdict(set)
-    for ct, genes in gene_sets.items():
-        group_genes[group_lookup.get(ct, "Unclassified")] |= genes
-    return {g: len(s) for g, s in group_genes.items()}
-
-
-def calculate_group_density(group_df: pd.DataFrame, group_gene_sizes: dict) -> pd.DataFrame:
-    """Same idea as calculate_density() below, but at the subcategory/
-    fiber-type group level: density_percent = 100 * actual edges /
-    (n_genes_group_1 * n_genes_group_2). This is an approximation for
-    within-group (diagonal) entries -- it doesn't subtract out gene pairs
-    that could never appear as a between-cell-type bipartite edge (e.g.
-    a gene paired with itself, or two genes belonging to the same single
-    cell type) -- but it's a consistent yardstick across every group pair,
-    which raw counts alone are not."""
-    rows = []
-    for _, row in group_df.iterrows():
-        g1, g2 = row["group_1"], row["group_2"]
-        n1, n2 = group_gene_sizes.get(g1, 0), group_gene_sizes.get(g2, 0)
-        n_possible = n1 * n2
-        n_actual = row["total"]
-        density = 100 * n_actual / n_possible if n_possible else 0
-        rows.append({"group_1": g1, "group_2": g2, "n_genes_1": n1, "n_genes_2": n2,
-                      "n_possible_edges": n_possible, "n_actual_edges": n_actual, "density_percent": density})
-    df = pd.DataFrame(rows)
-    if len(df):
-        df = df.sort_values("n_actual_edges", ascending=False).reset_index(drop=True)
-    return df
-
-
-def plot_hierarchy_heatmap(mat, order, tick_colors, output_path, title, major_boundaries=None, minor_boundaries=None,
-                            annot=None, cbar_label="Inter-cell-type edges", fmt=".0f"):
-    if mat.values.sum() == 0:
-        print(f"  Skipping {output_path.name}: no data.")
+def plot_heatmap(mat, path, title, tick_colors, major=None, minor=None,
+                 cbar="Edges", fmt=".0f", xlabel=None, ylabel=None):
+    if mat.empty or np.nansum(mat.values) == 0:
+        print(f"  skip {path.name}: no data")
         return
+    import matplotlib
+    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import seaborn as sns
-    n = len(order)
-    if annot is None:
-        annot = n <= 18
+    n = max(mat.shape)
     size = max(6, min(0.55 * n + 3, 22))
     fig, ax = plt.subplots(figsize=(size, size))
-    sns.heatmap(mat, xticklabels=order, yticklabels=order, cmap="rocket_r", annot=annot, fmt=fmt,
-                annot_kws={"size": 7}, linewidths=0.4, linecolor="white",
-                cbar_kws={"label": cbar_label}, square=True, ax=ax)
-    ax.set_title(title, fontsize=13, fontweight="bold", pad=14)
-    for label in ax.get_xticklabels():
-        label.set_color(tick_colors.get(label.get_text(), "black"))
-        label.set_rotation(90 if n > 6 else 30)
-        label.set_fontsize(8 if n < 25 else 6)
-    for label in ax.get_yticklabels():
-        label.set_color(tick_colors.get(label.get_text(), "black"))
-        label.set_fontsize(8 if n < 25 else 6)
-    for b in (minor_boundaries or []):
-        ax.axhline(b, color="grey", linewidth=0.9, linestyle="--")
-        ax.axvline(b, color="grey", linewidth=0.9, linestyle="--")
-    for b in (major_boundaries or []):
-        ax.axhline(b, color="black", linewidth=2.4)
-        ax.axvline(b, color="black", linewidth=2.4)
+    sns.heatmap(mat, cmap="rocket_r", annot=n <= 18, fmt=fmt, annot_kws={"size": 7},
+                linewidths=0.4, linecolor="white", cbar_kws={"label": cbar}, square=True, ax=ax)
+    ax.set_title(title, fontsize=12, fontweight="bold", pad=12)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    for lab in list(ax.get_xticklabels()) + list(ax.get_yticklabels()):
+        lab.set_color(tick_colors.get(lab.get_text(), "black"))
+        lab.set_fontsize(8)
+    for b in minor or []:
+        ax.axhline(b, color="grey", lw=0.9, ls="--")
+        ax.axvline(b, color="grey", lw=0.9, ls="--")
+    for b in major or []:
+        ax.axhline(b, color="black", lw=2.2)
+        ax.axvline(b, color="black", lw=2.2)
     plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches="tight")
-    print(f"  Saved -> {output_path}")
-    plt.close()
-
-
-def plot_edgetype_breakdown(df, col1, col2, output_path, title):
-    if len(df) == 0:
-        print("  No data to plot."); return
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(max(8, 0.8 * len(df) + 2), 7))
-    x_labels = [f"{row[col1]}\n<->\n{row[col2]}" for _, row in df.iterrows()]
-    x = np.arange(len(x_labels))
-    bottom = np.zeros(len(df))
-    colors = {"n_ligand_receptor": "#2ca02c", "n_reactome": "#ff7f0e", "n_other": "#d62728"}
-    for et in ["n_ligand_receptor", "n_reactome", "n_other"]:
-        values = df[et].values
-        ax.bar(x, values, 0.6, label=et.replace("n_", "").replace("_", " ").title(), bottom=bottom, color=colors.get(et, "#999"))
-        bottom += values
-    ax.set_ylabel("Number of edges", fontsize=12, fontweight="bold")
-    ax.set_title(title, fontsize=14, fontweight="bold")
-    ax.set_xticks(x); ax.set_xticklabels(x_labels, fontsize=9, rotation=45, ha="right")
-    ax.legend(title="Edge Type"); ax.grid(axis="y", alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=200, bbox_inches="tight")
-    print(f"  Saved -> {output_path}")
-    plt.close()
-
-
-def hierarchy_breakdown_section(edge_counts_df, annotations_df, gene_sets, density_df, out, no_plots) -> dict:
-    hl = build_hierarchy_lookup(DRG_HIERARCHY)
-    all_cts_seen = set(edge_counts_df["cell_type_1"]) | set(edge_counts_df["cell_type_2"]) if len(edge_counts_df) else set()
-    unmapped = sorted(all_cts_seen - set(hl["ct_to_fiber"].keys()))
-    if unmapped:
-        print(f"  ⚠ {len(unmapped)} cell type(s) not in DRG_HIERARCHY (bucketed 'Unclassified' at "
-              f"subcategory/fiber level, excluded from fine heatmap): {unmapped}")
-
-    fiber_bounds_fine, subcat_bounds_fine = compute_fine_boundaries(DRG_HIERARCHY)
-    fine_order = hl["fine_order"]
-    fine_tick_colors = {ct: hl["fiber_colors"][hl["ct_to_fiber"][ct]] for ct in fine_order}
-    fine_mat = pivot_symmetric(edge_counts_df, "cell_type_1", "cell_type_2", fine_order, "total")
-    if not no_plots:
-        plot_hierarchy_heatmap(fine_mat, fine_order, fine_tick_colors, out / "heatmap_celltype.png",
-                                "Inter-Cell-Type Edges — Fine Cell Type\n(thick=fiber boundary, dashed=subcategory boundary)",
-                                major_boundaries=fiber_bounds_fine, minor_boundaries=subcat_bounds_fine)
-        # NEW: density-normalized twin — same edges, divided by
-        # n_genes(ct1) * n_genes(ct2), so a cell-type pair with huge gene
-        # sets doesn't just look "more connected" by virtue of having more
-        # genes available to form edges from.
-        fine_density_mat = pivot_symmetric(density_df, "cell_type_1", "cell_type_2", fine_order, "density_percent")
-        plot_hierarchy_heatmap(fine_density_mat, fine_order, fine_tick_colors, out / "heatmap_celltype_density.png",
-                                "Inter-Cell-Type Edge DENSITY — Fine Cell Type\n"
-                                "(% of possible gene-gene pairs realized; thick=fiber, dashed=subcategory)",
-                                major_boundaries=fiber_bounds_fine, minor_boundaries=subcat_bounds_fine,
-                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
-
-    subcat_df = build_group_rollup(annotations_df, hl["ct_to_subcat"])
-    subcat_df.to_csv(out / "edge_counts_by_subcategory.csv", index=False)
-    subcat_gene_sizes = build_group_gene_universe(gene_sets, hl["ct_to_subcat"])
-    subcat_density_df = calculate_group_density(subcat_df, subcat_gene_sizes)
-    subcat_density_df.to_csv(out / "edge_density_by_subcategory.csv", index=False)
-    subcat_order = list(hl["subcat_order"])
-    subcat_tick_colors = {s: hl["fiber_colors"][hl["subcat_to_fiber"][s]] for s in subcat_order}
-    if len(subcat_df) and "Unclassified" in set(subcat_df["group_1"]).union(subcat_df["group_2"]):
-        subcat_order = subcat_order + ["Unclassified"]
-        subcat_tick_colors["Unclassified"] = UNCLASSIFIED_COLOR
-    subcat_bounds = compute_subcat_boundaries(DRG_HIERARCHY)
-    subcat_mat = pivot_symmetric(subcat_df, "group_1", "group_2", subcat_order, "total")
-    if not no_plots:
-        plot_hierarchy_heatmap(subcat_mat, subcat_order, subcat_tick_colors, out / "heatmap_subcategory.png",
-                                "Inter-Cell-Type Edges — DRG Subcategory Level", major_boundaries=subcat_bounds)
-        subcat_density_mat = pivot_symmetric(subcat_density_df, "group_1", "group_2", subcat_order, "density_percent")
-        plot_hierarchy_heatmap(subcat_density_mat, subcat_order, subcat_tick_colors, out / "heatmap_subcategory_density.png",
-                                "Inter-Cell-Type Edge DENSITY — DRG Subcategory Level\n(% of possible gene-gene pairs realized)",
-                                major_boundaries=subcat_bounds,
-                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
-        plot_edgetype_breakdown(subcat_df, "group_1", "group_2", out / "edgetype_breakdown_subcategory.png",
-                                 "Edge Type Breakdown — Subcategory Level")
-
-    fiber_df = build_group_rollup(annotations_df, hl["ct_to_fiber"])
-    fiber_df.to_csv(out / "edge_counts_by_fibertype.csv", index=False)
-    fiber_gene_sizes = build_group_gene_universe(gene_sets, hl["ct_to_fiber"])
-    fiber_density_df = calculate_group_density(fiber_df, fiber_gene_sizes)
-    fiber_density_df.to_csv(out / "edge_density_by_fibertype.csv", index=False)
-    fiber_order = list(hl["fiber_order"])
-    fiber_tick_colors = {f: hl["fiber_colors"][f] for f in fiber_order}
-    if len(fiber_df) and "Unclassified" in set(fiber_df["group_1"]).union(fiber_df["group_2"]):
-        fiber_order = fiber_order + ["Unclassified"]
-        fiber_tick_colors["Unclassified"] = UNCLASSIFIED_COLOR
-    fiber_mat = pivot_symmetric(fiber_df, "group_1", "group_2", fiber_order, "total")
-    if not no_plots:
-        plot_hierarchy_heatmap(fiber_mat, fiber_order, fiber_tick_colors, out / "heatmap_fibertype.png",
-                                "Inter-Cell-Type Edges — Fiber Type Level")
-        fiber_density_mat = pivot_symmetric(fiber_density_df, "group_1", "group_2", fiber_order, "density_percent")
-        plot_hierarchy_heatmap(fiber_density_mat, fiber_order, fiber_tick_colors, out / "heatmap_fibertype_density.png",
-                                "Inter-Cell-Type Edge DENSITY — Fiber Type Level\n(% of possible gene-gene pairs realized)",
-                                cbar_label="Edge density (% of possible gene pairs)", fmt=".4f")
-        plot_edgetype_breakdown(fiber_df, "group_1", "group_2", out / "edgetype_breakdown_fibertype.png",
-                                 "Edge Type Breakdown — Fiber Type Level")
-
-    return {"subcat_df": subcat_df, "fiber_df": fiber_df, "unmapped": unmapped,
-            "subcat_density_df": subcat_density_df, "fiber_density_df": fiber_density_df}
-
-
-# ============================================================================
-# Density metrics (fine cell-type-pair level)
-# ============================================================================
-def calculate_density(edge_counts_df: pd.DataFrame, gene_sets: dict) -> pd.DataFrame:
-    rows = []
-    for _, row in edge_counts_df.iterrows():
-        ct1, ct2 = row["cell_type_1"], row["cell_type_2"]
-        n1, n2 = len(gene_sets.get(ct1, set())), len(gene_sets.get(ct2, set()))
-        n_possible = n1 * n2
-        n_actual = row["total"]
-        density = 100 * n_actual / n_possible if n_possible else 0
-        rows.append({"cell_type_1": ct1, "cell_type_2": ct2, "n_genes_1": n1, "n_genes_2": n2,
-                      "n_possible_edges": n_possible, "n_actual_edges": n_actual, "density_percent": density})
-    return pd.DataFrame(rows)
-
-
-# ============================================================================
-# Gene overlap across cell types (from old step10 — now trivial: reuse the
-# gene_to_celltypes reverse index built straight from celltype_gene_sets.json)
-# ============================================================================
-def analyze_gene_overlap(gene_sets: dict) -> dict:
-    gene_to_celltypes = defaultdict(set)
-    for ct, genes in gene_sets.items():
-        for g in genes:
-            gene_to_celltypes[g].add(ct)
-
-    multi = {g: cts for g, cts in gene_to_celltypes.items() if len(cts) > 1}
-    single = {g: cts for g, cts in gene_to_celltypes.items() if len(cts) == 1}
-    overlap_counts = defaultdict(int)
-    for g, cts in multi.items():
-        overlap_counts[len(cts)] += 1
-
-    return {"total_unique_genes": len(gene_to_celltypes), "genes_in_single_celltype": len(single),
-            "genes_in_multiple_celltypes": len(multi), "overlap_distribution": dict(overlap_counts),
-            "gene_celltype_map": dict(gene_to_celltypes), "multi_celltype_genes": multi}
-
-
-def save_gene_overlap_outputs(overlap: dict, out: Path):
-    rows = [{"gene": g, "n_celltypes": len(cts), "cell_types": "|".join(sorted(cts))}
-            for g, cts in overlap["multi_celltype_genes"].items()]
-    df = pd.DataFrame(rows).sort_values("n_celltypes", ascending=False) if rows else pd.DataFrame(columns=["gene", "n_celltypes", "cell_types"])
-    df.to_csv(out / "genes_shared_across_celltypes.csv", index=False)
-
-    if not overlap["total_unique_genes"]:
-        return
-    import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-    dist = overlap["overlap_distribution"]
-    if dist:
-        axes[0].bar(dist.keys(), dist.values(), color="#1f77b4", edgecolor="black", alpha=0.7)
-    axes[0].set_xlabel("Number of cell types sharing gene"); axes[0].set_ylabel("Count")
-    axes[0].set_title("Gene sharing distribution", fontweight="bold")
-    labels = ["Single cell type", "Multiple cell types"]
-    values = [overlap["genes_in_single_celltype"], overlap["genes_in_multiple_celltypes"]]
-    axes[1].pie(values, labels=labels, autopct="%1.1f%%", colors=["#d62728", "#2ca02c"], startangle=90)
-    axes[1].set_title("Gene categorization", fontweight="bold")
-    plt.tight_layout()
-    plt.savefig(out / "gene_overlap_distribution.png", bbox_inches="tight", dpi=200)
+    plt.savefig(path, dpi=200, bbox_inches="tight")
     plt.close(fig)
-    print(f"  Saved -> {out / 'gene_overlap_distribution.png'}")
+    print(f"  saved {path.name}")
+
+
+def plot_bar(series, path, title, ylabel, color):
+    if series is None or series.empty:
+        return
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(figsize=(max(6, 0.8 * len(series) + 2), 5))
+    ax.bar(range(len(series)), series.values, color=color)
+    ax.set_xticks(range(len(series)))
+    ax.set_xticklabels(series.index, rotation=30, ha="right", fontsize=9)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title, fontweight="bold")
+    ax.grid(axis="y", alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  saved {path.name}")
+
+
+def plot_stacked(groups: pd.DataFrame, path, title):
+    if groups.empty:
+        return
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    labels = [f"{a}\n<->\n{b}" for a, b in zip(groups["group_1"], groups["group_2"])]
+    x = np.arange(len(groups))
+    bottom = np.zeros(len(groups))
+    colors = {"scored_lr": "#2ca02c", "flat_lr_only": "#98df8a", "reactome": "#ff7f0e", "other": "#d62728"}
+    fig, ax = plt.subplots(figsize=(max(8, 0.8 * len(groups) + 2), 7))
+    for k in CLASSES:
+        v = groups[f"n_{k}"].values
+        if v.sum() == 0:
+            continue
+        ax.bar(x, v, 0.6, bottom=bottom, label=k, color=colors[k])
+        bottom += v
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
+    ax.set_ylabel("Edges")
+    ax.set_title(title, fontweight="bold")
+    ax.legend(title="Edge class")
+    ax.grid(axis="y", alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  saved {path.name}")
+
+
+def plot_membership(mem: pd.DataFrame, n_layers: int, path):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    dist = mem["n_layers"].value_counts().sort_index()
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    ax.bar(dist.index, dist.values, color="#1f77b4")
+    ax.set_xlabel(f"Number of layers containing the gene (of {n_layers})")
+    ax.set_ylabel("Genes")
+    ax.set_title("Gene sharing across cell-type layers", fontweight="bold")
+    plt.tight_layout()
+    plt.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  saved {path.name}")
 
 
 # ============================================================================
-# Report
-# ============================================================================
-def write_report(edge_counts_df, density_df, pathway_involvement, gene_involvement, overlap, hierarchy_info,
-                  lr_interaction_info, output_path: Path):
-    lines = ["=" * 80, "INTER-CELL-TYPE CONNECTIVITY ANALYSIS REPORT", "=" * 80]
-    total = edge_counts_df["total"].sum() if len(edge_counts_df) else 0
-    lines.append(f"\nTotal cell-type pairs connected : {len(edge_counts_df)}")
-    lines.append(f"Total inter-cell-type edges     : {total:,}")
-
-    lines.append("\nTOP 10 CELL-TYPE PAIRS BY VOLUME\n" + "-" * 80)
-    for _, row in edge_counts_df.head(10).iterrows():
-        lines.append(f"  {row['cell_type_1']:<30} <-> {row['cell_type_2']:<30}  "
-                      f"L-R: {row['n_ligand_receptor']:>6,} | Reactome: {row['n_reactome']:>6,} | Total: {row['total']:>8,}")
-
-    fiber_df, subcat_df = hierarchy_info["fiber_df"], hierarchy_info["subcat_df"]
-    lines.append("\nFIBER-TYPE LEVEL BREAKDOWN — RAW COUNTS\n" + "-" * 80)
-    for _, row in fiber_df.sort_values("total", ascending=False).iterrows():
-        lines.append(f"  {row['group_1']:<20} <-> {row['group_2']:<20}  total: {row['total']:>8,}")
-    if hierarchy_info["unmapped"]:
-        lines.append(f"\n  ⚠ Cell types not in DRG_HIERARCHY (bucketed 'Unclassified'): {hierarchy_info['unmapped']}")
-
-    # NEW: density-normalized ranking, right next to the raw-count one
-    # above, so re-ranking (e.g. 'Unclassified' dropping out of the top
-    # spot once it's not just winning by gene-pool size) is easy to see.
-    fiber_density_df = hierarchy_info.get("fiber_density_df")
-    lines.append("\nFIBER-TYPE LEVEL BREAKDOWN — DENSITY-NORMALIZED (% of possible gene pairs realized)\n" + "-" * 80)
-    if fiber_density_df is not None and len(fiber_density_df):
-        for _, row in fiber_density_df.sort_values("density_percent", ascending=False).iterrows():
-            lines.append(f"  {row['group_1']:<20} <-> {row['group_2']:<20}  "
-                          f"density: {row['density_percent']:>10.4f}%  "
-                          f"({row['n_actual_edges']:>8,} / {row['n_possible_edges']:>14,} possible)")
-        lines.append("  (a group's raw edge count naturally scales with how many genes it has -- density is what "
-                      "tells you if a group is actually more densely wired than another, not just bigger)")
-    else:
-        lines.append("  (no data)")
-
-    if pathway_involvement:
-        top_pathways = sorted(((p, len(pairs)) for p, pairs in pathway_involvement.items()), key=lambda x: -x[1])[:10]
-        lines.append("\nTOP 10 PATHWAYS BY CELL-TYPE-PAIR INVOLVEMENT\n" + "-" * 80)
-        for i, (p, n) in enumerate(top_pathways, 1):
-            lines.append(f"  {i:2}. {p:<60} ({n} pairs)")
-
-    top_genes = sorted(((g, len(pairs)) for g, pairs in gene_involvement.items()), key=lambda x: -x[1])[:10]
-    lines.append("\nTOP 10 GENES BY INTER-CELL-TYPE INVOLVEMENT\n" + "-" * 80)
-    for i, (g, n) in enumerate(top_genes, 1):
-        lines.append(f"  {i:2}. {g:<20} ({n} pairs)")
-
-    lines.append("\nGENE OVERLAP ACROSS CELL TYPES\n" + "-" * 80)
-    lines.append(f"  Total unique genes (across all cell types) : {overlap['total_unique_genes']:,}")
-    lines.append(f"  Genes in exactly 1 cell type                : {overlap['genes_in_single_celltype']:,}")
-    lines.append(f"  Genes in >1 cell type                       : {overlap['genes_in_multiple_celltypes']:,}")
-
-    if len(density_df):
-        lines.append("\nDENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by Edge Count)\n" + "-" * 80)
-        for _, row in density_df.sort_values("n_actual_edges", ascending=False).head(5).iterrows():
-            lines.append(f"  {row['cell_type_1']:<30} <-> {row['cell_type_2']:<30}  "
-                          f"{row['n_actual_edges']:>6,} / {row['n_possible_edges']:>10,} possible "
-                          f"({row['density_percent']:.3f}%)")
-        lines.append("\nDENSITY METRICS — FINE CELL-TYPE PAIRS (Top 5 by DENSITY, min 1 edge)\n" + "-" * 80)
-        nonzero = density_df[density_df["n_actual_edges"] > 0]
-        for _, row in nonzero.sort_values("density_percent", ascending=False).head(5).iterrows():
-            lines.append(f"  {row['cell_type_1']:<30} <-> {row['cell_type_2']:<30}  "
-                          f"{row['n_actual_edges']:>6,} / {row['n_possible_edges']:>10,} possible "
-                          f"({row['density_percent']:.3f}%)")
-
-    lines.append("\nLR INTERACTION-TYPE BREAKDOWN (method/source + NeuronChat ligand_type)\n" + "-" * 80)
-    if lr_interaction_info is None:
-        lines.append("  (skipped -- no scored_lr_edge_provenance.csv found)")
-    else:
-        by_source, by_ligand_type = lr_interaction_info["by_source"], lr_interaction_info["by_ligand_type"]
-        lines.append("  By method/source:")
-        if by_source.empty:
-            lines.append("    (no provenance-matched edges)")
-        else:
-            for src, n in by_source.items():
-                lines.append(f"    {src:<20} {n:>8,}")
-        lines.append("  By NeuronChat ligand_type:")
-        if by_ligand_type.empty:
-            lines.append("    (no provenance-matched edges)")
-        else:
-            for lt, n in by_ligand_type.items():
-                lines.append(f"    {lt:<20} {n:>8,}")
-
-    lines.append("\n" + "=" * 80 + "\nEnd of report\n" + "=" * 80)
-    text = "\n".join(lines)
-    output_path.write_text(text)
-    print(f"\nSaved report -> {output_path}")
-    print(text)
-
-
-# ============================================================================
-# MAIN
+# Main
 # ============================================================================
 def main():
     ap = argparse.ArgumentParser(description="Inter-cell-type connectivity analysis (heterogeneous structure)")
-    ap.add_argument("--wdir", required=True, help="MultiXrank wdir (needs bipartite_manifest.json + celltype_gene_sets.json)")
-    ap.add_argument("--lr-csv", default=None, help="Optional, to label edges as ligand_receptor")
-    ap.add_argument("--reactome-csv", default=None, help="Optional, to label edges as reactome + get pathway names")
+    ap.add_argument("--wdir", required=True)
+    ap.add_argument("--lr-csv", default=None, help="Flat LR resource used in step2 (ligand_gname, receptor_gname)")
+    ap.add_argument("--reactome-csv", default=None,
+                    help="Optional: annotate edges with shared Reactome pathways")
     ap.add_argument("--uniprot-map", default=None)
     ap.add_argument("--scored-lr-provenance-csv", default=None,
-                     help="Optional override for scored_lr_edge_provenance.csv's location "
-                          "(default: auto-discovered at <wdir>/scored_lr_edge_provenance.csv, "
-                          "written by step2_build_bipartite_edges.py when run with --scored-lr-csv)")
+                    help="Default: <wdir>/scored_lr_edge_provenance.csv")
+    ap.add_argument("--exclude-celltypes", nargs="*", default=["global_ppi"],
+                    help="Multiplexes to leave out of the analysis (default: global_ppi). "
+                         "Pass the flag with no values to include everything.")
     ap.add_argument("--output-dir", default="interlayer_analysis")
     ap.add_argument("--no-plots", action="store_true")
+    ap.add_argument("--top-n", type=int, default=25)
     args = ap.parse_args()
 
-    wdir = Path(args.wdir)
-    out = Path(args.output_dir)
+    wdir, out = Path(args.wdir), Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
+    exclude = set(args.exclude_celltypes)
+    h = build_hierarchy()
 
-    print("\n" + "=" * 80 + "\nSTEP 7c: INTER-CELL-TYPE CONNECTIVITY ANALYSIS\n" + "=" * 80 + "\n")
+    print("=" * 78 + "\nSTEP 7c: INTER-CELL-TYPE CONNECTIVITY ANALYSIS\n" + "=" * 78)
+    print(f"Excluded multiplexes: {sorted(exclude) if exclude else '(none)'}\n")
 
-    gene_sets = load_celltype_gene_sets(wdir)
-    bip_df = load_bipartite_edges(wdir)
+    gene_sets = load_gene_sets(wdir, exclude)
+    edges = load_bipartite(wdir, exclude)
+    lr_keys = load_lr_keys(args.lr_csv)
+    prov = load_provenance(wdir, args.scored_lr_provenance_csv, exclude)
+    universe = set().union(*gene_sets.values()) if gene_sets else set()
+    pmap = load_pathway_map(args.reactome_csv, args.uniprot_map, universe)
+    print()
 
-    lr_set = load_lr_set(args.lr_csv) if args.lr_csv else None
-    pw_map = None
-    if args.reactome_csv:
-        gene_universe = set().union(*gene_sets.values()) if gene_sets else set()
-        pw_map = load_pathway_map(args.reactome_csv, args.uniprot_map, gene_universe)
-        print(f"Loaded pathway map: {len(pw_map):,} gene pairs with shared-pathway annotation\n")
+    unmapped = sorted(set(gene_sets) - set(h["fine_order"]))
+    if unmapped:
+        print(f"WARNING: cell types not in DRG_HIERARCHY (grouped as '{UNCLASSIFIED}'): {unmapped}\n")
+    missing = sorted(set(h["fine_order"]) - set(gene_sets))
+    if missing:
+        print(f"NOTE: hierarchy cell types with no layer in this wdir: {missing}\n")
 
-    prov_df = load_lr_provenance(wdir, args.scored_lr_provenance_csv)
-    prov_lookup = build_provenance_lookup(prov_df)
+    # ---- annotate + count ----
+    e = annotate_edges(edges, lr_keys, prov, pmap)
+    e.to_csv(out / "edges_annotated.csv.gz", index=False)
+    class_totals = e["edge_class"].value_counts().reindex(CLASSES, fill_value=0)
+    print("Edge classes (mutually exclusive):")
+    print(class_totals.to_string() + "\n")
+    if class_totals["other"] > 0 and not pmap:
+        print("NOTE: 'other' edges present and no --reactome-csv given; if step2 used --reactome-csv, "
+              "pass the same file here so those edges are labelled 'reactome'.\n")
 
-    annotations_df, edge_counts, pathway_involvement, gene_involvement = label_and_count_edges(
-        bip_df, lr_set, pw_map, prov_lookup)
-    annotations_df.to_csv(out / "annotations.csv", index=False)
+    pairs = pair_counts(e, gene_sets)
+    pairs.to_csv(out / "edge_counts_by_celltype_pair.csv", index=False)
 
-    edge_counts_df = edge_counts_to_df(edge_counts)
-    edge_counts_df.to_csv(out / "edge_counts_by_celltype_pair.csv", index=False)
-    print("SECTION 1: EDGE COUNTS BY CELL-TYPE PAIR")
-    print(edge_counts_df.to_string(index=False))
+    sub = group_rollup(pairs, h["ct_to_subcat"], gene_sets)
+    sub.to_csv(out / "edge_counts_by_subcategory.csv", index=False)
+    fib = group_rollup(pairs, h["ct_to_fiber"], gene_sets)
+    fib.to_csv(out / "edge_counts_by_fibertype.csv", index=False)
 
-    # Computed up front (moved ahead of the hierarchy section) since the
-    # hierarchy heatmaps now need it too, for the fine-level density plot.
-    density_df = calculate_density(edge_counts_df, gene_sets)
-    density_df.to_csv(out / "density.csv", index=False)
+    direc = directional_scored(prov)
+    if not direc.empty:
+        # full layer order (not just types with edges) so hierarchy boundary lines stay aligned
+        order = [c for c in h["fine_order"] if c in gene_sets] + unmapped
+        order += sorted(set(direc.index.union(direc.columns)) - set(order))
+        direc = direc.reindex(index=order, columns=order, fill_value=0)
+        direc.to_csv(out / "scored_lr_directional.csv")
 
-    print("\nSECTION 2: DRG HIERARCHY BREAKDOWN (raw counts + density-normalized)")
-    hierarchy_info = hierarchy_breakdown_section(edge_counts_df, annotations_df, gene_sets, density_df, out, args.no_plots)
+    # ---- LR method / ligand-type breakdown ----
+    by_source = by_ltype = pd.Series(dtype=int)
+    if prov is not None and len(prov):
+        by_source = prov.drop_duplicates(["key", "source"]).groupby("source").size().sort_values(ascending=False)
+        lt = prov.dropna(subset=["ligand_type"])
+        by_ltype = lt.drop_duplicates(["key", "ligand_type"]).groupby("ligand_type").size().sort_values(ascending=False)
+        by_source.rename("n_unique_edges").to_csv(out / "lr_edges_by_source.csv")
+        by_ltype.rename("n_unique_edges").to_csv(out / "lr_edges_by_ligand_type.csv")
 
-    print("\nSECTION 3: DENSITY METRICS")
-    print(density_df.to_string(index=False))
+    # ---- gene membership / layer-specific genes ----
+    mem = gene_membership(gene_sets)
+    mem.to_csv(out / "gene_layer_membership.csv", index=False)
+    specific = mem[mem["n_layers"] == 1].rename(columns={"layers": "cell_type"})[["cell_type", "gene"]]
+    specific.sort_values(["cell_type", "gene"]).to_csv(out / "layer_specific_genes.csv", index=False)
+    n_layers = len(gene_sets)
 
-    print("\nSECTION 4: GENE OVERLAP ACROSS CELL TYPES")
-    overlap = analyze_gene_overlap(gene_sets)
-    if not args.no_plots:
-        save_gene_overlap_outputs(overlap, out)
+    # ---- top genes / pathways ----
+    sc = e[e["edge_class"] == "scored_lr"]
+    if len(sc):
+        long = pd.concat([sc[["g1", "ct1", "ct2"]].rename(columns={"g1": "gene"}),
+                          sc[["g2", "ct1", "ct2"]].rename(columns={"g2": "gene"})])
+        top_genes = (long.drop_duplicates().groupby("gene").size()
+                     .sort_values(ascending=False).rename("n_celltype_pairs"))
     else:
-        rows = [{"gene": g, "n_celltypes": len(cts), "cell_types": "|".join(sorted(cts))}
-                for g, cts in overlap["multi_celltype_genes"].items()]
-        pd.DataFrame(rows).sort_values("n_celltypes", ascending=False).to_csv(
-            out / "genes_shared_across_celltypes.csv", index=False)
-    print(f"  Total unique genes: {overlap['total_unique_genes']:,} | "
-          f"in >1 cell type: {overlap['genes_in_multiple_celltypes']:,}")
+        top_genes = pd.Series(dtype=int, name="n_celltype_pairs")
+    top_genes.to_csv(out / "top_genes_scored_lr.csv")
 
-    lr_interaction_info = None
-    if prov_df is not None:
-        lr_interaction_info = lr_interaction_type_section(annotations_df, out, args.no_plots)
+    top_pw = pd.Series(dtype=int)
+    if pmap:
+        pw = e[e["pathways"] != ""][["pathways", "ct1", "ct2"]]
+        pw = pw.assign(pathways=pw["pathways"].str.split("; ")).explode("pathways")
+        top_pw = pw.drop_duplicates().groupby("pathways").size().sort_values(ascending=False)
+        top_pw.rename("n_celltype_pairs").to_csv(out / "top_pathways.csv")
 
-    print("\nSECTION 5: REPORT")
-    write_report(edge_counts_df, density_df, pathway_involvement, gene_involvement, overlap,
-                 hierarchy_info, lr_interaction_info, out / "interlayer_analysis_report.txt")
+    # ---- plots ----
+    if not args.no_plots:
+        print("Plotting ...")
+        fine = [c for c in h["fine_order"] if c in gene_sets] + unmapped
+        fine_colors = {c: h["fiber_colors"].get(h["ct_to_fiber"].get(c), UNCLASSIFIED_COLOR) for c in fine}
+        bounds_ok = not missing and not unmapped
+        fb = h["fine_fiber_bounds"] if bounds_ok else None
+        sb = h["fine_subcat_bounds"] if bounds_ok else None
 
-    print(f"\nAll outputs saved to: {out.resolve()}")
+        for value, fname, title, cbar, fmt in [
+            ("total", "heatmap_celltype_total.png", "All inter-cell-type edges", "Edges", ".0f"),
+            ("n_scored_lr", "heatmap_celltype_scored_lr.png", "Scored LR edges (LIANA/NeuronChat)", "Edges", ".0f"),
+            ("n_flat_lr_only", "heatmap_celltype_flat_lr.png",
+             "Flat-resource-only LR edges\n(driven by layer gene content)", "Edges", ".0f"),
+            ("density_scored_per_1e6", "heatmap_celltype_scored_density.png",
+             "Scored LR edge density", "Edges per 10^6 possible gene pairs", ".2f"),
+        ]:
+            mat = symmetric_matrix(pairs, "ct1", "ct2", fine, value)
+            plot_heatmap(mat, out / fname, title, fine_colors, fb, sb, cbar, fmt)
+
+        if not direc.empty:
+            dcol = {c: h["fiber_colors"].get(h["ct_to_fiber"].get(c), UNCLASSIFIED_COLOR) for c in direc.index}
+            plot_heatmap(direc, out / "heatmap_scored_lr_directional.png",
+                         "Scored LR edges, sender (rows) -> receiver (columns)", dcol,
+                         fb, sb, "Unique LR edges", ".0f", xlabel="Receiver", ylabel="Sender")
+
+        sub_order = [s for s in h["subcat_order"] if s in set(sub["group_1"]) | set(sub["group_2"])]
+        if UNCLASSIFIED in set(sub["group_1"]) | set(sub["group_2"]):
+            sub_order.append(UNCLASSIFIED)
+        sub_colors = {s: h["fiber_colors"].get(h["subcat_to_fiber"].get(s), UNCLASSIFIED_COLOR) for s in sub_order}
+        for value, fname, title, cbar, fmt in [
+            ("n_scored_lr", "heatmap_subcategory_scored_lr.png", "Scored LR edges - subcategory", "Edges", ".0f"),
+            ("density_scored_per_1e6", "heatmap_subcategory_scored_density.png",
+             "Scored LR density - subcategory", "Edges per 10^6 possible gene pairs", ".2f"),
+        ]:
+            plot_heatmap(symmetric_matrix(sub, "group_1", "group_2", sub_order, value), out / fname,
+                         title, sub_colors, None, None, cbar, fmt)
+
+        fib_order = [f for f in h["fiber_order"] if f in set(fib["group_1"]) | set(fib["group_2"])]
+        fib_colors = {f: h["fiber_colors"].get(f, UNCLASSIFIED_COLOR) for f in fib_order}
+        plot_heatmap(symmetric_matrix(fib, "group_1", "group_2", fib_order, "density_scored_per_1e6"),
+                     out / "heatmap_fibertype_scored_density.png", "Scored LR density - fiber type",
+                     fib_colors, None, None, "Edges per 10^6 possible gene pairs", ".2f")
+
+        plot_stacked(sub, out / "edgeclass_breakdown_subcategory.png", "Edge classes - subcategory pairs")
+        plot_stacked(fib, out / "edgeclass_breakdown_fibertype.png", "Edge classes - fiber-type pairs")
+        plot_bar(by_source, out / "lr_edges_by_source.png", "Scored LR edges by method", "Unique edges", "#8172B2")
+        plot_bar(by_ltype, out / "lr_edges_by_ligand_type.png", "NeuronChat edges by ligand type",
+                 "Unique edges", "#55A868")
+        plot_membership(mem, n_layers, out / "gene_layer_membership.png")
+
+    # ---- report ----
+    L = ["=" * 78, "INTER-CELL-TYPE CONNECTIVITY REPORT", "=" * 78,
+         f"wdir: {wdir}", f"excluded multiplexes: {sorted(exclude) if exclude else 'none'}",
+         f"cell-type layers analysed: {n_layers}",
+         f"non-identity bipartite edges: {len(e):,} across {len(pairs)} cell-type pairs", "",
+         "EDGE CLASSES (mutually exclusive, priority scored_lr > flat_lr_only > reactome > other)"]
+    for k in CLASSES:
+        L.append(f"  {k:<14} {class_totals[k]:>10,}  ({100 * class_totals[k] / max(len(e), 1):5.1f}%)")
+    L += ["  note: flat_lr_only edges exist wherever ligand and receptor are both in the two layers;",
+          "  with expression-based layers they mostly track layer size. scored_lr is the",
+          "  cell-type-specific signal.", ""]
+
+    L.append(f"TOP {min(10, len(pairs))} CELL-TYPE PAIRS BY SCORED-LR EDGES")
+    for _, r in pairs.sort_values("n_scored_lr", ascending=False).head(10).iterrows():
+        L.append(f"  {r.ct1:<24} <-> {r.ct2:<24} scored {r.n_scored_lr:>6,} | flat {r.n_flat_lr_only:>6,} "
+                 f"| density {r.density_scored_per_1e6:7.2f}/1e6")
+    L.append("")
+
+    if not direc.empty:
+        L.append("SCORED LR, OUTGOING (sender) vs INCOMING (receiver) PER CELL TYPE")
+        outgoing, incoming = direc.sum(axis=1), direc.sum(axis=0)
+        for ct in direc.index:
+            L.append(f"  {ct:<24} out {int(outgoing.get(ct, 0)):>6,} | in {int(incoming.get(ct, 0)):>6,}")
+        L.append("")
+
+    L.append("FIBER-TYPE LEVEL")
+    for _, r in fib.iterrows():
+        L.append(f"  {r.group_1:<10} <-> {r.group_2:<10} total {r.total:>8,} | scored {r.n_scored_lr:>7,} "
+                 f"| scored density {r.density_scored_per_1e6:7.2f}/1e6")
+    L.append("")
+
+    if len(by_source):
+        L.append("SCORED LR EDGES BY METHOD (unique cell-type-pair x gene-pair)")
+        L += [f"  {k:<20} {v:>8,}" for k, v in by_source.items()]
+        L.append("")
+    if len(by_ltype):
+        L.append("NEURONCHAT EDGES BY LIGAND TYPE")
+        L += [f"  {k:<28} {v:>8,}" for k, v in by_ltype.items()]
+        L.append("")
+
+    L.append("GENE SHARING ACROSS LAYERS")
+    L.append(f"  unique genes: {len(mem):,} | in all {n_layers} layers: {(mem.n_layers == n_layers).sum():,} "
+             f"| in exactly 1 layer: {(mem.n_layers == 1).sum():,}")
+    spec_counts = specific["cell_type"].value_counts()
+    for ct in [c for c in h["fine_order"] if c in gene_sets] + unmapped:
+        L.append(f"    layer-specific genes in {ct:<24} {int(spec_counts.get(ct, 0)):>5,}")
+    L.append("")
+
+    if len(top_genes):
+        L.append(f"TOP {args.top_n} GENES BY NUMBER OF CELL-TYPE PAIRS WITH A SCORED-LR EDGE")
+        L += [f"  {i:>2}. {g:<16} {n:>4}" for i, (g, n) in enumerate(top_genes.head(args.top_n).items(), 1)]
+        L.append("")
+    if len(top_pw):
+        L.append(f"TOP {args.top_n} SHARED PATHWAYS BY CELL-TYPE-PAIR INVOLVEMENT")
+        L += [f"  {i:>2}. {p[:60]:<60} {n:>4}" for i, (p, n) in enumerate(top_pw.head(args.top_n).items(), 1)]
+        L.append("")
+
+    text = "\n".join(L)
+    (out / "interlayer_analysis_report.txt").write_text(text + "\n")
+    print(text)
+    print(f"\nAll outputs in {out.resolve()}")
 
 
 if __name__ == "__main__":

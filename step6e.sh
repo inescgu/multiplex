@@ -14,8 +14,8 @@ module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 python step6e_export_wwiznet.py \
-    --module-dir 06_disease_module/disease_module_output \
-    --per-celltype-scores 05_multixrank_results/multixrank_hetero_results/per_celltype_scores.csv \
-    --provenance 04_multixrank_prep/multixrank_hetero_input/scored_lr_edge_provenance.csv \
+    --module-dir 06_disease_module/disease_module_output_pseudobulk \
+    --per-celltype-scores 05_multixrank_results/multixrank_pseudo_results/per_celltype_scores.csv \
+    --provenance 04_multixrank_prep/multixrank_hetero_input_pseudobulk/scored_lr_edge_provenance.csv \
     --out 06_disease_module/wwiznet_export/data
 echo "Finished at: $(date)"

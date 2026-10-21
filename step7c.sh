@@ -19,10 +19,9 @@ source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 # --no-plots gives you the CSVs + text report in a single fast pass;
 # drop the flag once you want the DRG-hierarchy heatmap PNGs too.
 python step7c_interlayer_connectivity_analysis.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --lr-csv pathway_prep/lr_pairs_with_pathways.csv \
     --reactome-csv pathway_prep/reactome_interactions_with_pathways_v2.csv \
-    --uniprot-map 00_inputs/uniprot_to_symbol.csv \
     --output-dir 07_analysis/interlayer_connectivity \
     2>&1 | tee slurm_logs/step7c_connectivity_$(date +%s).log
 

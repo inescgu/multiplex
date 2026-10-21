@@ -10,25 +10,25 @@ GLOBAL PPI ('global_ppi'): are seeds hubs in the full network?
 
 PER-LAYER (testable layers = 22 of 22; BH across layers)
   Seeds have higher degree than other genes        (q<0.05): 0 layers
-  Seeds over-represented in the top-degree bin     (q<0.05): 4 layers
-  Seeds higher degree than DEGREE-MATCHED genes    (q<0.05): 3 layers  <- survives literature/popularity bias
-  Seeds enriched among the cell type's markers     (q<0.05): 9 layers
-  Seeds have higher avg_log2FC than other markers  (q<0.05): 15 layers
-  Seeds have higher pct.1-pct.2 than other markers (q<0.05): 19 layers
+  Seeds over-represented in the top-degree bin     (q<0.05): 22 layers
+  Seeds higher degree than DEGREE-MATCHED genes    (q<0.05): 0 layers  <- survives literature/popularity bias
+  Seeds enriched among the cell type's markers     (q<0.05): 10 layers
+  Seeds have higher avg_log2FC than other markers  (q<0.05): 1 layers
+  Seeds have higher pct.1-pct.2 than other markers (q<0.05): 0 layers
 
 POOLED seed-layer entries (descriptive; entries are not independent)
-  n = 1277 | median degree percentile 0.47 (null 0.50) | fraction in top 10%: 0.14 (null ~0.10)
-  median avg_log2FC percentile among markers: 0.66 (null 0.50)
+  n = 4228 | median degree percentile 0.48 (null 0.50) | fraction in top 10%: 0.17 (null ~0.10)
+  median avg_log2FC percentile among markers: 0.42 (null 0.50)
 
 SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
-  A: specific marker + well-connected in an enriched layer          1
-  A*: specific + connected, but also a generic global hub           2
-  B: specific marker, not well-connected there                     38
-  C: hub in an enriched layer, not a distinct marker               29
-  F: present, unremarkable                                        205
-  E: absent from all cell-type layers (global_ppi only)           133
+  A: specific marker + well-connected in an enriched layer          2
+  A*: specific + connected, but also a generic global hub          21
+  B: specific marker, not well-connected there                    159
+  C: hub in an enriched layer, not a distinct marker               17
+  F: present, unremarkable                                         60
+  E: absent from all cell-type layers (global_ppi only)           149
 
-Isolated genes (degree 0) across layers: 7,455 (in gene sets json but with no edges in ppi_layer.tsv)
+Isolated genes (degree 0) across layers: 3,495 (in gene sets json but with no edges in ppi_layer.tsv)
 
 ------------------------------------------------------------------------------
 HOW TO READ THIS

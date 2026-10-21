@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=step2n
-#SBATCH --output=slurm_logs/step2b_%j.out
-#SBATCH --error=slurm_logs/step2b_%j.err
+#SBATCH --job-name=step3b
+#SBATCH --output=slurm_logs/step3b_%j.out
+#SBATCH --error=slurm_logs/step3b_%j.err
 #SBATCH --time=12:00:00
 #SBATCH --mem=25G
 #SBATCH --ntasks=1
@@ -18,6 +18,6 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step3b_namespace_nodes.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --exclude-ppi-seeds
 echo "Finished at: $(date)"

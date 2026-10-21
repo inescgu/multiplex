@@ -23,7 +23,7 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step3_build_config_seeds.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --seed-csv 00_inputs/seed_genes.csv \
     --r 0.7 \
     --self-loops 0

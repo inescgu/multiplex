@@ -199,7 +199,7 @@ import pandas as pd
 # put through the identical transform or it will silently fail to match.
 # ---------------------------------------------------------------------------
 def sanitize_name(name: str) -> str:
-    return name.replace(" ", "_").replace("/", "-").replace(",", "")
+    return name.replace(" ", "_").replace("/", "_").replace(",", "")
 
 
 # ---------------------------------------------------------------------------

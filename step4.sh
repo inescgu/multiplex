@@ -17,9 +17,9 @@ module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
 python step4_run_multixrank.py \
-    --wdir 04_multixrank_prep/multixrank_hetero_input \
+    --wdir 04_multixrank_prep/multixrank_hetero_input_pseudobulk \
     --config config.yml \
-    --output-dir 05_multixrank_results/multixrank_hetero_results \
+    --output-dir 05_multixrank_results/multixrank_pseudo_results \
     --aggregation max
 
 echo "Finished at: $(date)"
