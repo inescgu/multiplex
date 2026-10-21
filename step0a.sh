@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 0a: Running LIANA (R) on the Seurat object — natmi, connectome, logfc, sca, cellphonedb + consensus"
 echo "Running on host: $(hostname)"

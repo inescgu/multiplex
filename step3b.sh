@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 3b: Building LR (+ Reactome) bipartite edges between cell types,"
 echo "        plus identity bipartite edges connecting global_ppi to everything"

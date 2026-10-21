@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 1: Building per-cell-type PPI multiplex layers (heterogeneous structure)"
 echo "Running on host: $(hostname)"

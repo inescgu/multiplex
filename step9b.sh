@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 echo "Step 9: Marchenko-Pastur analysis"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"

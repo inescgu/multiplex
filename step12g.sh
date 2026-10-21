@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 module load Python/3.14.4-weekly
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 

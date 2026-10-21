@@ -27,6 +27,7 @@ NULLS=${NULLS:-neighbors}
 EXTRA=${EXTRA:-}
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 echo "Step 10: validate disease module | nulls: $NULLS | extra: $EXTRA"
 echo "Running on host: $(hostname)"
 echo "Starting at: $(date)"

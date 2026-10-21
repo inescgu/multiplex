@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=10          # <- the ONE place this is hardcoded
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 8: Spectral clustering + component diagnostics"
 echo "Running on host: $(hostname)"
@@ -17,7 +18,6 @@ echo "Starting at: $(date)"
 module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
-pip install --upgrade pip
 
 mkdir -p slurm_logs
 mkdir -p 08_spectral_analysis

@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 7d: Seed profiles - can by run anytime after step 1"
 echo "Running on host: $(hostname)"

@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=4      # match this to the workers you actually want
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 7b: Per-cell-type LCC significance analysis"
 echo "Host: $(hostname)"

@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 2b: Preparing pathway and LR reference data"
 echo "Running on host: $(hostname)"

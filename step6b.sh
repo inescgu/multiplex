@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 6b: Investigating disease module structure"
 echo "Running on host: $(hostname)"

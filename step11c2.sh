@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=3
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 source ./run_env.sh
 
 echo "Step 11c phase 2: weave"

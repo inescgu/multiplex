@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Running on host: $(hostname)"
 echo "Current working directory: $(pwd)"

@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=2          # <- the ONE place this is hardcoded
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 8: Spectral clustering + component diagnostics"
 echo "Running on host: $(hostname)"

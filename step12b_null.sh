@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 # Array range is set by submit_step12_split.sh (--array=0-N-1%10)
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 12b null replicate ${SLURM_ARRAY_TASK_ID}"
 echo "Running on host: $(hostname)"; echo "Starting at: $(date)"

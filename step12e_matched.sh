@@ -8,6 +8,7 @@
 # Job name and array range are set by submit_step12e.sh (-J step12e_<variant>, --array=...).
 # VARIANT must be passed in: observed | naive | layer | layer_seed
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 if [ -z "${VARIANT}" ]; then echo "ERROR: VARIANT not set"; exit 1; fi
 

@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 7c: Inter-cell-type connectivity analysis (merged old step10 pathway-connectivity + step14 interlayer-edges)"
 echo "Running on host: $(hostname)"

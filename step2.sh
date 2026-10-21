@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 echo "Step 2: Building LR (+ Reactome, + scored LIANA/NeuronChat) bipartite edges"
 echo "        between cell types, plus identity bipartite edges connecting"
 echo "        global_ppi to everything"

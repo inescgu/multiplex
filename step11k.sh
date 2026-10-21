@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 source ./run_env.sh
 echo "Step 11k: DAG nesting"
 echo "Running on host: $(hostname)"

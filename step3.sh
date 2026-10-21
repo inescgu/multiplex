@@ -8,6 +8,7 @@
 #SBATCH --cpus-per-task=1
 
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 3: Writing config.yml, filtering seeds, building reference graphs"
 echo "Running on host: $(hostname)"

@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 source ./run_env.sh
 
 echo "Step 11e: Characterizing persistent heterogeneous HiDeF clusters (cell-type composition, conserved genes, edge-type breakdown)"

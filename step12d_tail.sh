@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 
 echo "Step 12d: permutation test + fc-degree-attack enrichment"
 echo "Running on host: $(hostname)"; echo "Starting at: $(date)"

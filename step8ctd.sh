@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1         # <- the ONE place this is hardcoded
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 echo "Step 8: Spectral clustering + component diagnostics"
 echo "Running on host: $(hostname)"
 echo "Requested cores: $SLURM_CPUS_PER_TASK"

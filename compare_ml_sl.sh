@@ -7,6 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
+set -eo pipefail
 source ./run_env.sh          # provides $RUN_DIR
 
 echo "Comparing high-persistence multiplex vs single-layer HiDeF clusters"
