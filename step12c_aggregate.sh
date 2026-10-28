@@ -11,7 +11,7 @@ set -eo pipefail
 
 echo "Step 12c: aggregate null replicates"
 echo "Running on host: $(hostname)"; echo "Starting at: $(date)"
-module load Python/3.14.4-weekly
+module load Python/3.12.3-GCCcore-13.3.0   # general_env is built on 3.12.3
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step12c_aggregate_null.py \

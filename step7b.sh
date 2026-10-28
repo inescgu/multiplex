@@ -14,7 +14,7 @@ echo "Step 7b: Per-cell-type LCC significance analysis"
 echo "Host: $(hostname)"
 echo "Start: $(date)"
 
-module load Python/3.14.6-weekly
+module load Python/3.12.3-GCCcore-13.3.0   # general_env is built on 3.12.3
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step7b_layer_lcc_analysis.py \

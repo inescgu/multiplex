@@ -387,8 +387,9 @@ def plot_category_distributions(metrics_df, out):
     _print_block("Plotting category-level metric distributions")
     if metrics_df.empty:
         print("  ⚠  No data, skipping"); return
-    palette = _major_category_palette()
     order = metrics_df.groupby("major_category")["n_edges"].mean().sort_values(ascending=False).index.tolist()
+    # seaborn needs every category in the palette (e.g. "ATF3", the injured-neuron type)
+    palette = {c: _major_category_palette().get(c, "#999999") for c in order}
     metrics_to_plot = [("n_nodes", "Node count"), ("n_edges", "Edge count"), ("density", "Density"),
                        ("avg_clustering", "Avg clustering"), ("lcc_fraction", "LCC fraction"), ("degree_mean", "Mean degree")]
     fig, axes = plt.subplots(2, 3, figsize=(18, 11)); axes = axes.flatten()

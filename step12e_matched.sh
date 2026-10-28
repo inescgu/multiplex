@@ -14,7 +14,7 @@ if [ -z "${VARIANT}" ]; then echo "ERROR: VARIANT not set"; exit 1; fi
 
 echo "Step 12e ${VARIANT} replicate ${SLURM_ARRAY_TASK_ID}"
 echo "Running on host: $(hostname)"; echo "Starting at: $(date)"
-module load Python/3.14.4-weekly
+module load Python/3.12.3-GCCcore-13.3.0   # general_env is built on 3.12.3
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step12e_matched_replicate.py \

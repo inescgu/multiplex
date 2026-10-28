@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 cd /lisc/home/user/gerardursin/multiplex/
 set -eo pipefail
-module load Python/3.14.4-weekly
+module load Python/3.12.3-GCCcore-13.3.0   # general_env is built on 3.12.3
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 # Add --betweenness-k N / change --cascading-step if the main run used non-default values.
