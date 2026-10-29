@@ -472,7 +472,7 @@ def plot_top_eigen_per_category(eigen_df, out, top_n_genes=15):
         ax = axes_flat[i]
         sub = cat_gene_agg[cat_gene_agg["major_category"] == cat].sort_values("mean_eigen", ascending=False).head(top_n_genes)
         ax.barh(sub["gene"], sub["mean_eigen"], color=palette.get(cat, "#999999"), edgecolor="white")
-        ax.invert_yaxis(); ax.set_title(f"{cat}\n({len(sub)} top genes)", fontweight="bold", color=palette.get(cat))
+        ax.invert_yaxis(); ax.set_title(f"{cat}\n({len(sub)} top genes)", fontweight="bold", color=palette.get(cat, "#999999"))
     for j in range(len(categories), len(axes_flat)):
         axes_flat[j].set_visible(False)
     fig.suptitle(f"Top {top_n_genes} eigen-central genes per major DRG category", fontsize=12, fontweight="bold")

@@ -27,7 +27,8 @@ What this does
    that actually match the namespaced network and seeds.
 
 Idempotent: originals are preserved as *.tsv.orig on first run, and
-re-running re-derives from those backups.
+re-running re-derives from those backups. If step 1/2 has rebuilt a file
+since (it is plain again, no "::"), the backup is refreshed from it first.
 
 NEW: --exclude-seed-celltypes / --exclude-ppi-seeds
 ------------------------------------------------------
@@ -84,6 +85,22 @@ def namespace(gene: str, ct: str) -> str:
     return f"{ct}{SEP}{gene}"
 
 
+def fresh_backup(path: Path) -> Path:
+    """Return the *.tsv.orig backup to namespace from, refreshing it first if
+    `path` holds plain (not yet namespaced) edges -- i.e. step 1/2 rebuilt it
+    since the last run. Without this, a rerun of step 1/2 into an existing
+    wdir was silently ignored in favour of the old backup."""
+    backup = path.with_suffix(".tsv.orig")
+    if path.exists():
+        with open(path) as f:
+            first = f.readline()
+        if not backup.exists() or SEP not in first:
+            if backup.exists():
+                print(f"  refreshing stale backup: {backup.name}")
+            path.replace(backup)
+    return backup
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--wdir", required=True)
@@ -127,9 +144,7 @@ def main():
     gene_sets: dict[str, set[str]] = {}
     for ct in cell_types:
         layer_path = mul_root / ct / "ppi_layer.tsv"
-        backup = layer_path.with_suffix(".tsv.orig")
-        if not backup.exists():
-            layer_path.rename(backup)
+        backup = fresh_backup(layer_path)
         df = pd.read_csv(backup, sep="\t", header=None, names=["g1", "g2"], dtype=str)
         genes = set(df["g1"]) | set(df["g2"])
         gene_sets[ct] = genes
@@ -147,9 +162,7 @@ def main():
 
     for m in manifest:
         bip_path = wdir / m["file"]
-        backup = bip_path.with_suffix(".tsv.orig")
-        if not backup.exists():
-            bip_path.rename(backup)
+        backup = fresh_backup(bip_path)
         df = pd.read_csv(backup, sep="\t", header=None, names=["g1", "g2"], dtype=str)
         df["g1"] = df["g1"].apply(lambda g, ct=m["source"]: namespace(g, ct))
         df["g2"] = df["g2"].apply(lambda g, ct=m["target"]: namespace(g, ct))

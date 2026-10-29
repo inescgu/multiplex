@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step6_dm_%j.out
 #SBATCH --error=slurm_logs/step6_dm_%j.err
 #SBATCH --time=10:00:00
-#SBATCH --mem=5G
+#SBATCH --mem=8G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 

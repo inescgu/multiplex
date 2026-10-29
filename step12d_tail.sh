@@ -16,7 +16,7 @@ source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
 python step12d_tail.py \
     --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
-    --background-graph ../og_gene_set/temp/combined26/full_network.pkl \
+    --background-graph 00_inputs/ppi_network.pkl \
     --output-dir 12_hub_removal \
     --n-permutations 2000
 echo "Finished at: $(date)"

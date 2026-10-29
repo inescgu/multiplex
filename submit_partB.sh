@@ -3,18 +3,23 @@
 # 1. Checks that every Part A job (steps 1-7) COMPLETED, has no Traceback in
 #    its log, and that the files Part B reads exist. Refuses to submit if not.
 # 2. Submits Part B (steps 8-12) with afterok dependencies inside each branch.
-# Part A job IDs: override with PART_A="first last" if you rerun Part A.
-# SKIP_IDS="id ..." leaves out Part A jobs nothing in Part B reads (e.g. step7b, ~17 h).
+# Part A job IDs are read from slurm_logs/partA_jobs.txt (written by submit_partA.sh);
+# override with PART_A="first last" for a contiguous range.
+# SKIP_IDS="id ..." leaves out Part A jobs nothing in Part B reads.
 # Run with bash, not sbatch: this script calls sbatch itself.
 set -euo pipefail
 cd /lisc/home/user/gerardursin/multiplex/
 
-read -r FIRST LAST <<< "${PART_A:-7521343 7521359}"
+if [ -n "${PART_A:-}" ]; then
+    read -r FIRST LAST <<< "$PART_A"; ALL=$(seq "$FIRST" "$LAST")
+else
+    ALL=$(cat slurm_logs/partA_jobs.txt)
+fi
 SKIP=" ${SKIP_IDS:-} "
-CHECK=$(for id in $(seq "$FIRST" "$LAST"); do [[ "$SKIP" == *" $id "* ]] || echo "$id"; done)
+CHECK=$(for id in $ALL; do [[ "$SKIP" == *" $id "* ]] || echo "$id"; done)
 IDS=$(echo $CHECK | tr ' ' ,)
 
-echo "== Checking Part A jobs $FIRST-$LAST${SKIP_IDS:+ (skipping $SKIP_IDS)}"
+echo "== Checking Part A jobs: $(echo $CHECK)${SKIP_IDS:+ (skipping $SKIP_IDS)}"
 RUNNING=$(squeue -u "$USER" -h -o "%F %j %T" | grep -wFf <(echo "$CHECK") || true)
 if [ -n "$RUNNING" ]; then echo "Part A is still running:"; echo "$RUNNING"; exit 1; fi
 
@@ -35,7 +40,7 @@ for f in 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
          05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv \
          04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl; do
     if [ ! -s "$f" ]; then echo "Missing or empty: $f"; exit 1; fi
-    if [ "$(stat -c %Y "$f")" -lt "$(date -d 2026-10-21 +%s)" ]; then
+    if [ -f slurm_logs/partA_jobs.txt ] && [ "$f" -ot slurm_logs/partA_jobs.txt ]; then
         echo "Stale (not rebuilt by Part A): $f"; exit 1
     fi
 done
@@ -52,8 +57,9 @@ echo "== Marchenko-Pastur (9)"
 J9=$(sub "" step9.sh); J9b=$(sub $J9 step9b.sh); sub $J9b step9v.sh
 
 echo "== Validation (10)"
-NULLS="seeds"     sbatch --parsable --cpus-per-task=25 step10.sh
-NULLS="rewired"   sbatch --parsable --cpus-per-task=25 step10.sh
+# each seeds/rewired worker reruns MultiXrank + step 6 (~5 GB); 25 workers in 64 GB was OOM-killed
+NULLS="seeds"     sbatch --parsable --cpus-per-task=12 --mem=96G step10.sh
+NULLS="rewired"   sbatch --parsable --cpus-per-task=12 --mem=96G step10.sh
 NULLS="neighbors" sbatch --parsable --cpus-per-task=6 --time=02:00:00 step10.sh
 
 echo "== HiDeF (11)"

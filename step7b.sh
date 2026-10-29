@@ -2,10 +2,10 @@
 #SBATCH --job-name=step7b_lcc
 #SBATCH --output=slurm_logs/step7b_lcc_%j.out
 #SBATCH --error=slurm_logs/step7b_lcc_%j.err
-#SBATCH --time=24:00:00
-#SBATCH --mem=20G
+#SBATCH --time=48:00:00
+#SBATCH --mem=32G
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4      # match this to the workers you actually want
+#SBATCH --cpus-per-task=16      # match this to the workers you actually want
 
 cd /lisc/home/user/gerardursin/multiplex/
 set -eo pipefail

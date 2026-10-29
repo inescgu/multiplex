@@ -17,4 +17,4 @@ python step12g_removed_genes.py \
     --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
     --output-dir 12_hub_removal \
     --modes degree,betweenness,degree_betweenness \
-    --cascading --cascading-step 10 --module-background
+    --cascading --cascading-step 10 --betweenness-k 200 --module-background

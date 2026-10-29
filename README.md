@@ -25,23 +25,18 @@ All launchers are SLURM batch scripts that `cd` into this directory. Since 2026-
 ```bash
 cd /lisc/home/user/gerardursin/multiplex
 
-# Part A: build the multiplex and the disease module (steps 1-7)
-sub() { local dep=$1; shift; sbatch --parsable ${dep:+--dependency=afterok:$dep} "$@"; }
-J=$(sub ""  step2_buildcoex.sh)      # per-cell-type layers (runs BEFORE step1, see note below)
-J=$(sub $J  step1.sh)
-J=$(sub $J  step2.sh)
-J=$(sub $J  step3.sh)
-J=$(sub $J  step3b.sh)
-J=$(sub $J  step5.sh)
-J=$(sub $J  step4.sh)
-J6=$(sub $J step6.sh)
-for s in step6b step6c step6d step6e step7_top step7b step7c step7d step7dn; do sub $J6 $s.sh; done
+# Part A: build the multiplex and the disease module (steps 1-7).
+# Refuses to start unless 04_multixrank_prep/multixrank_hetero_input_pseudobulk/ is absent.
+bash submit_partA.sh
 
 # Part B: everything downstream of the module (steps 8-12). Checks Part A first.
-PART_A="<first job id> <last job id>" bash submit_partB.sh
+bash submit_partB.sh
 ```
 
-Run `submit_partB.sh` with **`bash`, not `sbatch`**: it runs on the login node and calls `sbatch` itself. If a Part A job that Part B doesn't read is still running (usually step 7b, ~17 h) or needs a separate rerun, leave it out of the check with `SKIP_IDS="<job id> ..."`.
+Run both with **`bash`, not `sbatch`**: they run on the login node and call `sbatch` themselves.
+- `submit_partA.sh` writes the Part A job IDs to `slurm_logs/partA_jobs.txt`, leaving out step 7b (~17 h; nothing in Part B reads it).
+- `submit_partB.sh` reads those IDs. It refuses to submit until each of those jobs has COMPLETED with no Traceback in its log, and the module files are newer than the Part A submission.
+- To leave out a job that needs a separate rerun, use `SKIP_IDS="<job id> ..."`.
 
 After Part B, run these by hand:
 
@@ -109,13 +104,13 @@ After Part B, run these by hand:
 | 3b | 1.5 min | 3.7 GB | 12 h / 25 GB | |
 | 5 | 3 min | 3.9 GB | 12 h / 10 GB | |
 | 4 MultiXrank | 6 min | 2.7 GB | 8 h / 10 GB | |
-| 6 module | **1.1–1.5 h** | 4.0 GB | 10 h / **5 GB** | memory request is tight |
+| 6 module | **1.1–1.5 h** | 4.0 GB | 10 h / 8 GB | |
 | 6b | < 1 min | 0.5 GB | 3 h / 35 GB | |
 | 6c | 4 min | 0.2 GB | 4 h / 10 GB | |
-| 6d | **3.6–3.7 h** | 4.9 GB | **4 h** / 10 GB | time limit is tight |
+| 6d | **3.6–3.7 h** | 4.9 GB | 8 h / 10 GB | |
 | 6e | < 1 min | 0.3 GB | 4 h / 10 GB | |
 | 7 | 2 min | 1.1 GB | 3 h / 15 GB | |
-| 7b | **~17.4 h** (4 CPUs) | 4.3 GB | 24 h / 20 GB | timed out once at a 13 h limit |
+| 7b | **~17.4 h** (4 CPUs) | 4.3 GB | 48 h / 32 GB / 16 CPUs | ~1.5 h per cell type per worker; timed out at 13 h and 24 h with 4 CPUs |
 | 7c | < 1 min | 0.4 GB | 3 h / 30 GB | |
 | 7d, 7dn | < 1 min | 0.5 GB | 3 h / 10 GB | |
 
@@ -133,17 +128,17 @@ Not measured here:
 | Step | Requested (time / mem / CPUs) |
 |---|---|
 | 8 spectral (`step8.sh`) | 24 h / 10 GB / 10 |
-| 8 diagnostics (`step8ctd.sh`, `step8f.sh`) | 5 h / 10 GB / 1; 4 h / 10 GB / 2 |
+| 8 diagnostics (`step8ctd.sh`, `step8f.sh`) | 5 h / 10 GB / 1; 4 h / 32 GB / 2 (8f ran out of memory at 10 GB after its 100 permutations, ~40 min) |
 | 9, 9b, 9v | 16 h / 20, 30, 10 GB / 1 |
-| 10 validation, per null | 48 h / 64 GB / 24 (`seeds`, `rewired` submitted with 25 CPUs; `neighbors` with 6 CPUs and 2 h) |
+| 10 validation, per null | `seeds`, `rewired`: 48 h / 96 GB / 12 workers (each reruns MultiXrank + step 6, ~5 GB; 25 workers in 64 GB was OOM-killed). `neighbors`: 1,000 perms in ~7 min, 5.2 GB on 6 CPUs |
 | 11a / 11preb / 11b | 4 h / 32 GB; 2 h / 5 GB; 4 h / 10 GB |
 | 11c1 consensus / 11c2 weave | 4 h / 55 GB; 6 h / 80 GB / 3 |
 | 11d–k | 4–8 h / 8–10 GB / 1 |
 | 11i (per array task) | 6 h / 32 GB |
-| 12a main | 24 h / 10 GB / 4 |
+| 12a main | 24 h / 10 GB / 4. With exact betweenness it ran past 24 h: ~9 min per recomputation × ~450 per cascading mode ≈ 24 h per mode. Now `--betweenness-k 200` (~0.5 h per mode) |
 | 12b null replicates (50, 10 at a time) | 4 h / 6 GB each |
 | 12e matched replicates (4 variants × 10–50) | 4 h / 6 GB each |
-| 12g removed genes | 24 h / 6 GB |
+| 12g removed genes | 24 h / 6 GB (must use the same `--betweenness-k` as 12a) |
 | 12c, 12f aggregate; 12c plots | ≤ 30 min / 4 GB |
 | comparison `compare_ml_sl` / `plot_sl` / `step6f` | 2 h / 1 h / 1 h, 16 GB |
 | `phen/run.sh` | 4 h / 8 GB |
@@ -195,7 +190,7 @@ slurm_logs/                job logs (not tracked)
 | File | Contents |
 |---|---|
 | `00_inputs/seed_genes.csv` | 408 seed genes (`source`: `zhao` 312, `hpg_zhao` 96) |
-| `00_inputs/ppi_network.pkl` | Human PPI used for every layer and the `global_ppi` backbone |
+| `00_inputs/ppi_network.pkl` | Human PPI used for every layer, the `global_ppi` backbone and the step 12 background. A symlink to `ppi_network_<date>.pkl`, currently `ppi_network_20261028.pkl`: 18,429 genes, 311,941 edges. Built from the 5 sources (≥ 1 source each, largest connected component) by `build_ppi.sh`, using `../PPI_builder` (github.com/ChloeBubu/PPI_builder) and `ppi_tsv_to_pkl.py`. Results up to 2026-10-21 used the single-layer project's network (`../og_gene_set/temp/combined26/full_network.pkl`, 17,053 genes, 302,564 edges) |
 | `00_inputs/hdrg_expressed_pseudobulk.csv` | Per-gene, per-cell-type pseudobulk expression (`frac_blocks_expressed`, `mean_cpm`, markers) |
 | `00_inputs/hdrg_pseudobulk_markers_all.csv` | Marker statistics used by steps 6b and 7d |
 | `neurons_only.csv` / `layers_categories.csv` | Which cell types become layers / category labels |
@@ -203,8 +198,9 @@ slurm_logs/                job logs (not tracked)
 | `pathway_prep/reactome_interactions_with_pathways_v2.csv` | Reactome interactions |
 
 **Dependencies outside this repo:**
+- `../PPI_builder/`: builds the PPI. `sbatch build_ppi.sh` fetches the sources, builds the network and converts it; you then swap the symlink yourself. It needs GitHub SSH access to the private repo and `uv` (`~/.local/bin/uv`).
 - `../R/convert_hdrg_human_2025/seurat_hdrg/seurat_object_preprint_release.Rds`: HDRG Seurat object (steps 0a, 0b).
-- `../og_gene_set/`: single-layer project. It supplies the background network for steps 12/12d (`temp/combined26/full_network.pkl`) and the single-layer HiDeF communities, module graph and enrichment for the comparison scripts.
+- `../og_gene_set/`: single-layer project. It supplies the single-layer HiDeF communities, module graph and enrichment for the comparison scripts.
 - The pseudobulk inputs come from `../R/convert_hdrg_human_2025/` (run with `pseudo.sh`). The copies in `00_inputs/` are byte-identical to these files:
   - `pseudobulk_expressed_layers.R` → `cell_type_expressed_genes.csv` = `00_inputs/hdrg_expressed_pseudobulk.csv`
   - `pseudobulk_markers.R` → `pseudobulk_markers_all.csv` = `00_inputs/hdrg_pseudobulk_markers_all.csv`
@@ -248,5 +244,4 @@ Don't use the cluster's `-weekly` Python modules in launchers: they get removed,
 
 - `deck_figure_scripts/painfigs.sh` calls `fig_step12g_removed.py`, but the file is `fig_step12_removed.py`.
 - Environments aren't pinned (see above).
-- `step6.sh` requests 5 GB but uses 4.0 GB, and `step6d.sh` requests 4 h but takes 3.7 h. Raise both before a larger module pushes them over.
 - The Oct 19 pseudobulk module (archived at `archive/results_pre_pseudobulk/04/…_oct19`) was built from the unfiltered `liana_long.csv`, because of a stale-backup bug in step 3b (fixed 2026-10-21). Results from the 2026-10-21 rerun onwards use `liana_consensus_top.csv`.

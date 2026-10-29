@@ -2,7 +2,7 @@
 #SBATCH --job-name=step6d
 #SBATCH --output=slurm_logs/step6d_%j.out
 #SBATCH --error=slurm_logs/step6d_%j.err
-#SBATCH --time=4:00:00
+#SBATCH --time=8:00:00
 #SBATCH --mem=10G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1

@@ -3,7 +3,7 @@
 #SBATCH --output=slurm_logs/step8f_%j.out
 #SBATCH --error=slurm_logs/step8f_%j.err
 #SBATCH --time=4:00:00
-#SBATCH --mem=10G
+#SBATCH --mem=32G
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2          # <- the ONE place this is hardcoded
 

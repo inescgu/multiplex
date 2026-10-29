@@ -36,6 +36,7 @@ echo "SLURM_JOB_ID: $SLURM_JOB_ID | CPUs: $SLURM_CPUS_PER_TASK"
 module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 mkdir -p slurm_logs 10_validation
+START_MARK=$(mktemp); touch "$START_MARK"
 
 export OMP_NUM_THREADS=1
 export OPENBLAS_NUM_THREADS=1
@@ -74,4 +75,15 @@ python -u step10_validate_module.py \
     $EXTRA
 
 echo "Exit code: $?"
+
+# step10 exits 0 even when every permutation failed (e.g. workers OOM-killed -> BrokenProcessPool),
+# so fail the job unless each requested null wrote a fresh summary. Skipped for split --perm-range runs.
+if [[ "$EXTRA" != *--perm-range* ]]; then
+    for N in $NULLS; do
+        S=10_validation/null_${N}_summary.csv
+        if [ ! -f "$S" ] || [ "$S" -ot "$START_MARK" ]; then
+            echo "ERROR: no new $S -- check the log for failed permutations"; exit 1
+        fi
+    done
+fi
 echo "Finished at: $(date)"

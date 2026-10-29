@@ -17,10 +17,10 @@ echo "SLURM_JOB_ID: $SLURM_JOB_ID"
 module load Python/3.12.3-GCCcore-13.3.0   # general_env is built on 3.12.3
 source /lisc/data/scratch/menche/ines/general_env/bin/activate
 
-python step12a_main.py \
+python -u step12a_main.py \
     --module-graph 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
     --disease-module 06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
-    --background-graph ../og_gene_set/temp/combined26/full_network.pkl \
+    --background-graph 00_inputs/ppi_network.pkl \
     --output-dir 12_hub_removal \
     --n-random-trials 100 \
     --n-null-networks 50 \
@@ -28,6 +28,7 @@ python step12a_main.py \
     --n-permutations 2000 \
     --step 1 \
     --cascading-step 10 \
+    --betweenness-k 200 \
     --null-betweenness-k 200 \
     --cascading-modes degree,betweenness,degree_betweenness,random \
     --n-jobs 4 \
