@@ -4,145 +4,144 @@ INTER-CELL-TYPE CONNECTIVITY REPORT
 wdir: 04_multixrank_prep/multixrank_hetero_input_pseudobulk
 excluded multiplexes: ['global_ppi']
 cell-type layers analysed: 22
-non-identity bipartite edges: 288,608 across 231 cell-type pairs
+non-identity bipartite edges: 19,058 across 231 cell-type pairs
 
 EDGE CLASSES (mutually exclusive, priority scored_lr > flat_lr_only > reactome > other)
-  scored_lr          23,049  (  8.0%)
-  flat_lr_only      203,233  ( 70.4%)
-  reactome            5,831  (  2.0%)
-  other              56,495  ( 19.6%)
+  scored_lr           4,983  ( 26.1%)
+  flat_lr_only       14,075  ( 73.9%)
+  reactome                0  (  0.0%)
+  other                   0  (  0.0%)
   note: flat_lr_only edges exist wherever ligand and receptor are both in the two layers;
   with expression-based layers they mostly track layer size. scored_lr is the
   cell-type-specific signal.
 
 TOP 10 CELL-TYPE PAIRS BY SCORED-LR EDGES
-  ATF3                     <-> C-Thermo.RXFP1           scored    301 | flat    959 | density    3.15/1e6
-  A-LTMR.TAC3              <-> C-Thermo.TRPM8           scored    300 | flat    754 | density    3.32/1e6
-  A-LTMR.TAC3              <-> A-Propr.EPHA3            scored    290 | flat    763 | density    3.30/1e6
-  C-PEP.ADORA2B            <-> C-Thermo.RXFP1           scored    275 | flat  1,021 | density    2.71/1e6
-  A-Propr.EPHA3            <-> C-Thermo.RXFP1           scored    274 | flat    990 | density    2.81/1e6
-  A-Propr.EPHA3            <-> C-LTMR.CDH9              scored    272 | flat    996 | density    2.85/1e6
-  A-Propr.EPHA3            <-> C-PEP.ADORA2B            scored    272 | flat    982 | density    2.83/1e6
-  A-LTMR.TAC3              <-> C-LTMR.CDH9              scored    271 | flat    798 | density    2.99/1e6
-  A-LTMR.TAC3              <-> Ab-LTMR.LGI2             scored    268 | flat    687 | density    3.23/1e6
-  ATF3                     <-> C-LTMR.CDH9              scored    266 | flat    981 | density    2.84/1e6
+  ATF3                     <-> C-NP.MRGPRX1_MRGPRX4     scored     55 | flat     83 | density   31.99/1e6
+  ATF3                     <-> C-NP.SST                 scored     54 | flat    112 | density   24.19/1e6
+  A-LTMR.TAC3              <-> Ab-LTMR.LGI2             scored     52 | flat     52 | density    6.53/1e6
+  A-PEP.KIT                <-> Ab-LTMR.LGI2             scored     51 | flat     64 | density    9.01/1e6
+  C-LTMR.CDH9              <-> C-NP.MRGPRX1_MRGPRX4     scored     49 | flat     71 | density   19.04/1e6
+  Ab-LTMR.LGI2             <-> C-PEP.TAC1_CACNG5        scored     48 | flat     49 | density   12.67/1e6
+  C-NP.MRGPRX1_MRGPRX4     <-> C-Thermo.RXFP1           scored     48 | flat     63 | density   16.05/1e6
+  ATF3                     <-> C-LTMR.CDH9              scored     47 | flat     48 | density   23.87/1e6
+  Ab-LTMR.LGI2             <-> C-NP.MRGPRX1_MRGPRX4     scored     45 | flat     72 | density   12.14/1e6
+  Ab-LTMR.LGI2             <-> C-NP.SST                 scored     45 | flat     88 | density    9.35/1e6
 
 SCORED LR, OUTGOING (sender) vs INCOMING (receiver) PER CELL TYPE
-  A-Propr.EPHA3            out  1,357 | in  1,043
-  A-Propr.HAPLN4           out  1,186 | in    398
-  A-Propr.PCDH8            out  1,181 | in    916
-  Ab-LTMR.CCKAR            out    820 | in    748
-  Ab-LTMR.ETV1             out    324 | in    143
-  Ab-LTMR.LGI2             out  1,237 | in  1,079
-  Ab-LTMR.NSG2             out    783 | in    468
-  A-LTMR.TAC3              out    949 | in    983
-  A-PEP.CHRNA7_SLC18A3     out    853 | in    810
-  A-PEP.KIT                out    622 | in  1,174
-  A-PEP.NTRK3_S100A16      out    765 | in    916
-  A-PEP.SCGN_ADRA2C        out    408 | in    590
-  C-LTMR.CDH9              out    911 | in  1,048
-  C-PEP.ADORA2B            out    805 | in  1,438
-  C-PEP.TAC1_CACNG5        out    401 | in    447
-  C-PEP.TAC1_CHRNA3        out    454 | in    709
-  C-NP.MRGPRX1_GFRA2       out    506 | in    510
-  C-NP.MRGPRX1_MRGPRX4     out    794 | in  1,021
-  C-Thermo.RXFP1           out  1,089 | in    945
-  C-Thermo.TRPM8           out  1,232 | in  1,082
-  C-NP.SST                 out    877 | in    956
-  ATF3                     out    887 | in  1,017
+  A-Propr.EPHA3            out    307 | in    235
+  A-Propr.HAPLN4           out    289 | in    145
+  A-Propr.PCDH8            out    263 | in    219
+  Ab-LTMR.CCKAR            out    205 | in    259
+  Ab-LTMR.ETV1             out    106 | in     35
+  Ab-LTMR.LGI2             out    343 | in    333
+  Ab-LTMR.NSG2             out    150 | in    113
+  A-LTMR.TAC3              out    283 | in    199
+  A-PEP.CHRNA7_SLC18A3     out    320 | in    171
+  A-PEP.KIT                out    194 | in    324
+  A-PEP.NTRK3_S100A16      out    236 | in    229
+  A-PEP.SCGN_ADRA2C        out    179 | in    156
+  C-LTMR.CDH9              out    237 | in    309
+  C-PEP.ADORA2B            out    146 | in    342
+  C-PEP.TAC1_CACNG5        out    195 | in    129
+  C-PEP.TAC1_CHRNA3        out    158 | in    164
+  C-NP.MRGPRX1_GFRA2       out    151 | in    214
+  C-NP.MRGPRX1_MRGPRX4     out    209 | in    353
+  C-Thermo.RXFP1           out    243 | in    193
+  C-Thermo.TRPM8           out    236 | in    214
+  C-NP.SST                 out    252 | in    340
+  ATF3                     out    277 | in    303
 
 FIBER-TYPE LEVEL
-  A-fiber    <-> C-fiber    total  133,176 | scored  10,126 | scored density   82.93/1e6
-  A-fiber    <-> A-fiber    total   78,794 | scored   6,614 | scored density   53.66/1e6
-  C-fiber    <-> C-fiber    total   45,216 | scored   3,434 | scored density   28.39/1e6
-  A-fiber    <-> ATF3       total   17,886 | scored   1,463 | scored density   13.98/1e6
-  ATF3       <-> C-fiber    total   13,536 | scored   1,412 | scored density   13.62/1e6
+  A-fiber    <-> C-fiber    total    8,915 | scored   2,398 | scored density   46.81/1e6
+  A-fiber    <-> A-fiber    total    5,350 | scored   1,315 | scored density   21.08/1e6
+  C-fiber    <-> C-fiber    total    3,086 | scored     692 | scored density   16.45/1e6
+  A-fiber    <-> ATF3       total      893 | scored     286 | scored density   31.57/1e6
+  ATF3       <-> C-fiber    total      814 | scored     292 | scored density   39.25/1e6
 
 SCORED LR EDGES BY METHOD (unique cell-type-pair x gene-pair)
-  liana_consensus        17,218
-  neuronchat              1,023
+  liana_consensus         4,883
+  neuronchat                106
 
 NEURONCHAT EDGES BY LIGAND TYPE
-  Synaptic adhesion molecule        918
-  Neuropeptide                      104
-  Gap junction protein                1
+  Synaptic adhesion molecule         59
+  Neuropeptide                       47
 
 GENE SHARING ACROSS LAYERS
-  unique genes: 11,620 | in all 22 layers: 6,073 | in exactly 1 layer: 485
-    layer-specific genes in A-Propr.EPHA3               68
-    layer-specific genes in A-Propr.HAPLN4               0
-    layer-specific genes in A-Propr.PCDH8               64
-    layer-specific genes in Ab-LTMR.CCKAR                3
-    layer-specific genes in Ab-LTMR.ETV1                 0
-    layer-specific genes in Ab-LTMR.LGI2                25
-    layer-specific genes in Ab-LTMR.NSG2                 2
-    layer-specific genes in A-LTMR.TAC3                 78
-    layer-specific genes in A-PEP.CHRNA7_SLC18A3         4
-    layer-specific genes in A-PEP.KIT                   25
-    layer-specific genes in A-PEP.NTRK3_S100A16          8
-    layer-specific genes in A-PEP.SCGN_ADRA2C            0
-    layer-specific genes in C-LTMR.CDH9                 51
-    layer-specific genes in C-PEP.ADORA2B               39
-    layer-specific genes in C-PEP.TAC1_CACNG5            2
-    layer-specific genes in C-PEP.TAC1_CHRNA3            4
-    layer-specific genes in C-NP.MRGPRX1_GFRA2           2
-    layer-specific genes in C-NP.MRGPRX1_MRGPRX4        31
-    layer-specific genes in C-Thermo.RXFP1              41
-    layer-specific genes in C-Thermo.TRPM8               7
-    layer-specific genes in C-NP.SST                    12
-    layer-specific genes in ATF3                        19
+  unique genes: 10,053 | in all 22 layers: 0 | in exactly 1 layer: 1,652
+    layer-specific genes in A-Propr.EPHA3               13
+    layer-specific genes in A-Propr.HAPLN4              44
+    layer-specific genes in A-Propr.PCDH8               27
+    layer-specific genes in Ab-LTMR.CCKAR               88
+    layer-specific genes in Ab-LTMR.ETV1                20
+    layer-specific genes in Ab-LTMR.LGI2               143
+    layer-specific genes in Ab-LTMR.NSG2                 3
+    layer-specific genes in A-LTMR.TAC3                331
+    layer-specific genes in A-PEP.CHRNA7_SLC18A3        82
+    layer-specific genes in A-PEP.KIT                   92
+    layer-specific genes in A-PEP.NTRK3_S100A16         34
+    layer-specific genes in A-PEP.SCGN_ADRA2C           24
+    layer-specific genes in C-LTMR.CDH9                 70
+    layer-specific genes in C-PEP.ADORA2B               51
+    layer-specific genes in C-PEP.TAC1_CACNG5          164
+    layer-specific genes in C-PEP.TAC1_CHRNA3           69
+    layer-specific genes in C-NP.MRGPRX1_GFRA2          51
+    layer-specific genes in C-NP.MRGPRX1_MRGPRX4        65
+    layer-specific genes in C-Thermo.RXFP1              90
+    layer-specific genes in C-Thermo.TRPM8              45
+    layer-specific genes in C-NP.SST                    94
+    layer-specific genes in ATF3                        52
 
 TOP 25 GENES BY NUMBER OF CELL-TYPE PAIRS WITH A SCORED-LR EDGE
-   1. NRXN1             206
-   2. CD44              201
-   3. ITGB1             191
-   4. NLGN2             184
-   5. NCAM1             180
-   6. SPP1              171
-   7. ITGAV             166
-   8. GPC1              156
-   9. FGFR1             153
-  10. RTN4              144
-  11. ITGA3             136
-  12. APP               134
-  13. LAMA5             126
-  14. NRP2              126
-  15. CACNA1C           124
-  16. GFRA1             118
-  17. PTPRF             118
-  18. FGF13             117
-  19. LRRC4B            110
-  20. SLIT2             109
-  21. SLIT1             109
-  22. ITGB5             108
-  23. BDNF              108
-  24. PTPRS             107
-  25. SCN8A             104
+   1. SPP1              104
+   2. CALM2              92
+   3. CALM3              81
+   4. NRG1               75
+   5. CACNA1C            74
+   6. FGFR1              74
+   7. CALM1              67
+   8. CD44               67
+   9. ITGB5              66
+  10. NRP2               65
+  11. ADCYAP1            63
+  12. SLIT1              61
+  13. ITGB1              61
+  14. SLIT2              61
+  15. RTN4               59
+  16. GRM7               57
+  17. NCAM1              56
+  18. PTH1R              55
+  19. ITGAV              54
+  20. ADRA2A             54
+  21. SEMA3F             54
+  22. PDE1C              53
+  23. LAMA5              52
+  24. EFNA5              52
+  25. ADAM23             50
 
 TOP 25 SHARED PATHWAYS BY CELL-TYPE-PAIR INVOLVEMENT
-   1. p75NTR regulates axonogenesis                                 231
-   2. p75 NTR receptor-mediated signalling                          231
-   3. TGF-beta receptor signaling activates SMADs                   231
-   4. TCF dependent signaling in response to WNT                    231
-   5. Syndecan interactions                                         231
-   6. Synaptic adhesion-like molecules                              231
-   7. Smooth Muscle Contraction                                     231
-   8. Cell junction organization                                    231
-   9. CHL1 interactions                                             231
-  10. Binding and Uptake of Ligands by Scavenger Receptors          231
-  11. Axonal growth inhibition (RHOA activation)                    231
-  12. Axon guidance                                                 231
-  13. Signaling by TGFB family members                              231
-  14. Signaling by WNT                                              231
-  15. Signaling by TGF-beta Receptor Complex                        231
-  16. Signaling by Receptor Tyrosine Kinases                        231
-  17. Cell surface interactions at the vascular wall                231
-  18. Signaling by MET                                              231
-  19. Complement cascade                                            231
-  20. Cell-Cell communication                                       231
-  21. Cellular responses to mechanical stimuli                      231
-  22. Cell-cell junction organization                               231
-  23. Chylomicron clearance                                         231
-  24. Cellular responses to stimuli                                 231
-  25. Cytokine Signaling in Immune system                           231
+   1. Signal Transduction                                           230
+   2. Developmental Biology                                         229
+   3. Axon guidance                                                 225
+   4. Nervous system development                                    225
+   5. Disease                                                       203
+   6. Signaling by Receptor Tyrosine Kinases                        193
+   7. Extracellular matrix organization                             167
+   8. Signaling by GPCR                                             156
+   9. L1CAM interactions                                            151
+  10. Integrin cell surface interactions                            149
+  11. Semaphorin interactions                                       148
+  12. GPCR ligand binding                                           145
+  13. Infectious disease                                            142
+  14. p75 NTR receptor-mediated signalling                          138
+  15. p75NTR regulates axonogenesis                                 138
+  16. Axonal growth inhibition (RHOA activation)                    138
+  17. Other semaphorin interactions                                 138
+  18. Death Receptor Signaling                                      138
+  19. Signaling by WNT                                              136
+  20. Diseases of signal transduction by growth factor receptors a  132
+  21. Class B/2 (Secretin family receptors)                         116
+  22. GPCR downstream signalling                                    114
+  23. TCF dependent signaling in response to WNT                    111
+  24. RAF/MAP kinase cascade                                        110
+  25. MAPK family signaling cascades                                110
 

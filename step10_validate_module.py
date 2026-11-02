@@ -577,7 +577,7 @@ def main():
     ap.add_argument("--max-bridge", type=int, default=30000)
     ap.add_argument("--no-lcc-fallback", action="store_true")
     ap.add_argument("--lcc-per-layer", action="store_true")
-    ap.add_argument("--exclude-seeds", nargs="+", default=[],
+    ap.add_argument("--exclude-seeds", nargs="*", default=[],
                     help="same list as step6; if omitted, read from is_excluded_seed in --disease-module-csv")
     ap.add_argument("--exclude-celltypes", nargs="+", default=[])
     ap.add_argument("--exclude-ppi-layer", action="store_true")

@@ -23,17 +23,13 @@ set -eo pipefail
 TASK=${SLURM_ARRAY_TASK_ID:-0}
 TASK_DIR=$(printf "task_%03d" "$TASK")
 
-# Same exclusion list as step6 (kept out of the ranking pool, like step6 does)
-EXCL_SEEDS=(
-  "A-PEP.CHRNA7_SLC18A3::ADRA2A" "A-PEP.CHRNA7_SLC18A3::ADRA2C" "A-PEP.SCGN_ADRA2C::RGS9"
-  "A-PROPR.EPHA3::HCN2" "AB-LTMR.CCKAR::KCNQ2" "AB-LTMR.ETV1::KCNQ2" "AB-LTMR.LGI2::SPP1"
-  "AB-LTMR.NSG2::KCNQ2" "C-LTMR.CDH9::GRIA2" "C-PEP.ADORA2B::TRPV1" "C-PEP.TAC1_CHRNA3::TRPV1"
-)
-
 # MultiXrank wdir = the folder holding config.yml, the multiplex files and gene_reference_graph.pkl
 MX_WDIR=${MX_WDIR:-04_multixrank_prep/multixrank_hetero_input_pseudobulk}
 MX_CONFIG=${MX_CONFIG:-config.yml}
 MX_TMP=${MX_TMP:-${TMPDIR:-/tmp}/mx11i_${SLURM_JOB_ID}_${TASK}}
+
+# Same exclusion list as step6: the unreachable seeds written by step5
+mapfile -t EXCL_SEEDS < "$MX_WDIR/seeds/excluded_seeds.txt"
 
 COMMON=(
   --reference-graph "$MX_WDIR/gene_reference_graph.pkl"

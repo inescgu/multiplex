@@ -35,15 +35,22 @@ for id in $CHECK; do
 done
 [ "$ERR" -eq 0 ] || exit 1
 
-for f in 06_disease_module/disease_module_output_pseudobulk/module_graph.pkl \
-         06_disease_module/disease_module_output_pseudobulk/disease_module.csv \
-         05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv \
-         04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl; do
+# file -> the Part A step that writes it. A file only has to be newer than partA_jobs.txt
+# if that step was part of the last submit_partA.sh run (FROM=... restarts keep earlier outputs).
+CHAIN=(step2_buildcoex step1 step2 step3 step3b step5 step4 step6)
+FROM=$(cat slurm_logs/partA_from.txt 2>/dev/null || echo "${CHAIN[0]}")
+rebuilt() { local s on=0; for s in "${CHAIN[@]}"; do [ "$s" = "$FROM" ] && on=1; [ "$s" = "$1" ] && return $((1 - on)); done; return 1; }
+while read -r f step; do
     if [ ! -s "$f" ]; then echo "Missing or empty: $f"; exit 1; fi
-    if [ -f slurm_logs/partA_jobs.txt ] && [ "$f" -ot slurm_logs/partA_jobs.txt ]; then
+    if [ -f slurm_logs/partA_jobs.txt ] && rebuilt "$step" && [ "$f" -ot slurm_logs/partA_jobs.txt ]; then
         echo "Stale (not rebuilt by Part A): $f"; exit 1
     fi
-done
+done <<'LIST'
+06_disease_module/disease_module_output_pseudobulk/module_graph.pkl step6
+06_disease_module/disease_module_output_pseudobulk/disease_module.csv step6
+05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv step4
+04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl step3b
+LIST
 echo "Part A looks clean."
 echo
 

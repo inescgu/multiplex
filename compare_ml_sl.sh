@@ -16,6 +16,7 @@ module load Python/3.10.4-GCCcore-11.3.0
 source /lisc/data/scratch/menche/ines/hidef_env/bin/activate
 
 SL=../og_gene_set
+SL_PPI=${SL_PPI:-combined26}     # single-layer network; ppi20261028 once og_gene_set is rerun on it
 OUT="$RUN_DIR/compare_singlelayer"
 snapshot "$OUT"
 
@@ -27,9 +28,9 @@ python compare_multiplex_vs_singlelayer.py \
     --ml-supra-graph 11_hidef_module/supra_graph.pkl \
     --ml-enrich-dir phen/output/combined26_multiplex \
     --ml-cluster-type '*' \
-    --sl-communities $SL/output/combined26/hidef/hidef_communities.pkl \
-    --sl-network $SL/output/combined26/rwr/module_graph.pkl \
-    --sl-enrich-dir $SL/phen/output/combined26 \
+    --sl-communities $SL/output/${SL_PPI}/hidef/hidef_communities.pkl \
+    --sl-network $SL/output/${SL_PPI}/rwr/module_graph.pkl \
+    --sl-enrich-dir $SL/step8_phenotype/output/${SL_PPI} \
     --sl-cluster-type hidef_from_comparison \
     --persistence-quantile 0.75 \
     --min-size 4 \

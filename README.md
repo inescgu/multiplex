@@ -37,6 +37,7 @@ Run both with **`bash`, not `sbatch`**: they run on the login node and call `sba
 - `submit_partA.sh` writes the Part A job IDs to `slurm_logs/partA_jobs.txt`, leaving out step 7b (~17 h; nothing in Part B reads it).
 - `submit_partB.sh` reads those IDs. It refuses to submit until each of those jobs has COMPLETED with no Traceback in its log, and the module files are newer than the Part A submission.
 - To leave out a job that needs a separate rerun, use `SKIP_IDS="<job id> ..."`.
+- To rerun only the end of Part A and keep the earlier outputs, use `FROM=step5 bash submit_partA.sh` or `FROM=step6 bash submit_partA.sh`. Step 7b is only submitted on a full run.
 
 After Part B, run these by hand:
 
@@ -65,7 +66,7 @@ After Part B, run these by hand:
 | 2 | `step2.sh` | `step2_build_bipartite_edges.py` | Bipartite edges between cell types: LR, Reactome, scored LIANA/NeuronChat, `global_ppi` identity edges | `…/bipartite/`, `bipartite_manifest.json`, `scored_lr_edge_provenance.csv` |
 | 3 | `step3.sh` | `step3_build_config_seeds.py` | MultiXrank `config.yml` (r = 0.7), filters seeds, reference graphs | `config.yml`, `seeds/seeds.txt`, `gene_reference_graph.pkl` |
 | 3b | `step3b.sh` | `step3b_namespace_nodes.py` | Renames nodes to `<cell_type>::GENE`, expands seeds per cell type (not into `global_ppi`) | namespaced `.tsv` + `.tsv.orig` backups |
-| 5 | `step5.sh` | `step5_preflight_seed_reachability.py` | Checks that seeds are reachable before the walk | log only |
+| 5 | `step5.sh` | `step5_preflight_seed_reachability.py` | Finds seeds that can't reach the main seed cluster after the per-layer LCC filter and writes them to `<wdir>/seeds/excluded_seeds.txt`. Steps 6, 10 and 11i read this file as `--exclude-seeds`, so the list never has to be pasted by hand | `seeds/excluded_seeds.txt` |
 | 4 | `step4.sh` | `step4_run_multixrank.py` | MultiXrank; aggregates scores across cell types with `max` | `05_multixrank_results/multixrank_pseudo_results/` |
 | 6 | `step6.sh` | `step6_build_disease_module.py` | Top-200 genes + greedy bridging into a connected module; elbow diagnostics | `06_disease_module/disease_module_output_pseudobulk/` (`disease_module.csv`, `module_graph.pkl`) |
 | 6b | `step6b.sh` | `step6b_module_diagnostics.py` | Composition / LR / marker diagnostics | `module_exploratory_*` in the module folder |

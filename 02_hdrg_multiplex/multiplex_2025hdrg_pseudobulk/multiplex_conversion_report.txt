@@ -6,44 +6,44 @@ SUMMARY STATISTICS
 --------------------------------------------------------------------------------
 Number of cell types: 22
 P-value threshold: 0.05
-Log2FC threshold: 0.0
+Log2FC threshold: 0.25
 
 MARKER GENE STATISTICS
-  Total marker genes: 12,608
-  Marker genes in PPI: 11,620
-  Genes in multiplex: 11,620
+  Total marker genes: 10,891
+  Marker genes in PPI: 10,053
+  Genes in multiplex: 10,053
   Genes lost: 0
   Gene retention: 100.0%
 
 EDGE STATISTICS
-  Total edges in multiplex: 2,701,743
+  Total edges in multiplex: 85,936
 
 PER CELL TYPE STATISTICS
 --------------------------------------------------------------------------------
 Cell Type                                Markers      In PPI       In Layer     Node %    
 --------------------------------------------------------------------------------
-A-LTMR.TAC3                              9645         9130         9130         100.0%
-A-PEP.CHRNA7/SLC18A3                     9424         8970         8970         100.0%
-A-PEP.KIT                                10413        9812         9812         100.0%
-A-PEP.NTRK3/S100A16                      9769         9284         9284         100.0%
-A-PEP.SCGN/ADRA2C                        8710         8301         8301         100.0%
-A-Propr.EPHA3                            10216        9628         9628         100.0%
-A-Propr.HAPLN4                           8412         8044         8044         100.0%
-A-Propr.PCDH8                            9842         9275         9275         100.0%
-ATF3                                     9877         9429         9429         100.0%
-Ab-LTMR.CCKAR                            9254         8836         8836         100.0%
-Ab-LTMR.ETV1                             7121         6817         6817         100.0%
-Ab-LTMR.LGI2                             9523         9083         9083         100.0%
-Ab-LTMR.NSG2                             8906         8466         8466         100.0%
-C-LTMR.CDH9                              10443        9917         9917         100.0%
-C-NP.MRGPRX1/GFRA2                       9439         8947         8947         100.0%
-C-NP.MRGPRX1/MRGPRX4                     10469        9947         9947         100.0%
-C-NP.SST                                 10279        9711         9711         100.0%
-C-PEP.ADORA2B                            10547        9995         9995         100.0%
-C-PEP.TAC1/CACNG5                        9612         9112         9112         100.0%
-C-PEP.TAC1/CHRNA3                        9797         9336         9336         100.0%
-C-Thermo.RXFP1                           10713        10144        10144        100.0%
-C-Thermo.TRPM8                           10429        9910         9910         100.0%
+A-LTMR.TAC3                              3505         3218         3218         100.0%
+A-PEP.CHRNA7/SLC18A3                     1593         1491         1491         100.0%
+A-PEP.KIT                                2523         2290         2290         100.0%
+A-PEP.NTRK3/S100A16                      1733         1616         1616         100.0%
+A-PEP.SCGN/ADRA2C                        1441         1347         1347         100.0%
+A-Propr.EPHA3                            1098         1008         1008         100.0%
+A-Propr.HAPLN4                           2165         2046         2046         100.0%
+A-Propr.PCDH8                            1468         1325         1325         100.0%
+ATF3                                     1214         1147         1147         100.0%
+Ab-LTMR.CCKAR                            2397         2250         2250         100.0%
+Ab-LTMR.ETV1                             2196         2070         2070         100.0%
+Ab-LTMR.LGI2                             2653         2473         2473         100.0%
+Ab-LTMR.NSG2                             1809         1690         1690         100.0%
+C-LTMR.CDH9                              1873         1717         1717         100.0%
+C-NP.MRGPRX1/GFRA2                       1711         1570         1570         100.0%
+C-NP.MRGPRX1/MRGPRX4                     1662         1499         1499         100.0%
+C-NP.SST                                 2119         1946         1946         100.0%
+C-PEP.ADORA2B                            1606         1479         1479         100.0%
+C-PEP.TAC1/CACNG5                        1633         1532         1532         100.0%
+C-PEP.TAC1/CHRNA3                        1342         1251         1251         100.0%
+C-Thermo.RXFP1                           2208         1995         1995         100.0%
+C-Thermo.TRPM8                           1367         1248         1248         100.0%
 
 ================================================================================
 SEED GENE ANALYSIS
@@ -52,39 +52,39 @@ SEED GENE ANALYSIS
 SUMMARY
 --------------------------------------------------------------------------------
 Total seed genes: 408
-Seed genes in marker genes: 281
-Seed genes in PPI: 372
-Seed genes in both (before multiplex): 259
-Seed genes in multiplex (after): 259
-Seed genes lost: 149
-Seed gene recovery: 63.5%
+Seed genes in marker genes: 267
+Seed genes in PPI: 375
+Seed genes in both (before multiplex): 246
+Seed genes in multiplex (after): 246
+Seed genes lost: 162
+Seed gene recovery: 60.3%
 
 PER CELL TYPE SEED GENE STATISTICS
 --------------------------------------------------------------------------------
 Cell Type                                In Layer        % of Total      Connected   
 --------------------------------------------------------------------------------
-A-LTMR.TAC3                              180             44.1%           False       
-A-PEP.CHRNA7/SLC18A3                     189             46.3%           False       
-A-PEP.KIT                                204             50.0%           False       
-A-PEP.NTRK3/S100A16                      209             51.2%           False       
-A-PEP.SCGN/ADRA2C                        189             46.3%           False       
-A-Propr.EPHA3                            205             50.2%           False       
-A-Propr.HAPLN4                           175             42.9%           False       
-A-Propr.PCDH8                            191             46.8%           False       
-ATF3                                     205             50.2%           False       
-Ab-LTMR.CCKAR                            187             45.8%           False       
-Ab-LTMR.ETV1                             155             38.0%           False       
-Ab-LTMR.LGI2                             185             45.3%           False       
-Ab-LTMR.NSG2                             190             46.6%           False       
-C-LTMR.CDH9                              204             50.0%           False       
-C-NP.MRGPRX1/GFRA2                       185             45.3%           False       
-C-NP.MRGPRX1/MRGPRX4                     200             49.0%           False       
-C-NP.SST                                 193             47.3%           False       
-C-PEP.ADORA2B                            199             48.8%           False       
-C-PEP.TAC1/CACNG5                        181             44.4%           False       
-C-PEP.TAC1/CHRNA3                        196             48.0%           False       
-C-Thermo.RXFP1                           205             50.2%           False       
-C-Thermo.TRPM8                           201             49.3%           False       
+A-LTMR.TAC3                              52              12.7%           False       
+A-PEP.CHRNA7/SLC18A3                     57              14.0%           False       
+A-PEP.KIT                                58              14.2%           False       
+A-PEP.NTRK3/S100A16                      70              17.2%           False       
+A-PEP.SCGN/ADRA2C                        56              13.7%           False       
+A-Propr.EPHA3                            35              8.6%           False       
+A-Propr.HAPLN4                           56              13.7%           False       
+A-Propr.PCDH8                            34              8.3%           False       
+ATF3                                     36              8.8%           False       
+Ab-LTMR.CCKAR                            66              16.2%           False       
+Ab-LTMR.ETV1                             50              12.3%           False       
+Ab-LTMR.LGI2                             61              15.0%           False       
+Ab-LTMR.NSG2                             46              11.3%           False       
+C-LTMR.CDH9                              43              10.5%           False       
+C-NP.MRGPRX1/GFRA2                       51              12.5%           False       
+C-NP.MRGPRX1/MRGPRX4                     46              11.3%           False       
+C-NP.SST                                 51              12.5%           False       
+C-PEP.ADORA2B                            27              6.6%           False       
+C-PEP.TAC1/CACNG5                        47              11.5%           False       
+C-PEP.TAC1/CHRNA3                        49              12.0%           False       
+C-Thermo.RXFP1                           41              10.0%           False       
+C-Thermo.TRPM8                           33              8.1%           False       
 
 ================================================================================
 INTERPRETATION GUIDE
@@ -95,7 +95,7 @@ Gene Retention:
   Status: ✓ EXCELLENT - Most genes retained
 
 Seed Gene Recovery:
-  Current: 63.5%
+  Current: 60.3%
   Status: ✓ GOOD - Majority of seed genes recovered
 
 Where genes are lost:

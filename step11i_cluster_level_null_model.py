@@ -891,7 +891,7 @@ def main():
     # --- step6-fidelity options
     ap.add_argument("--lcc-per-layer", action="store_true",
                     help="Apply step6's --lcc-per-layer filter to the reference graph (use if step6 did).")
-    ap.add_argument("--exclude-seeds", nargs="+", default=[], metavar="NODE",
+    ap.add_argument("--exclude-seeds", nargs="*", default=[], metavar="NODE",
                     help="Same list as step6 --exclude-seeds; kept out of the ranking pool.")
     ap.add_argument("--exclude-seed-celltypes", nargs="+", default=["global_ppi"], metavar="CELLTYPE",
                     help="Cell types never sampled as null seeds (still in graph). Default: global_ppi.")

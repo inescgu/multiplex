@@ -48,7 +48,8 @@ python -c "import multixrank, yaml, pyarrow, matplotlib, networkx" || exit 1
 WDIR=04_multixrank_prep/multixrank_hetero_input_pseudobulk
 SCORES=05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv
 
-# The step6 flags below must be IDENTICAL to the step6 run that made disease_module.csv.
+# The step6 flags below must be IDENTICAL to the step6 run that made disease_module.csv
+# (both read the excluded seeds from the file step5 writes).
 # --resume: every finished permutation is saved immediately (null_<tag>_partial*.csv), so a timeout
 # loses nothing; resubmitting the same line continues where it stopped, and reuses identity_check.csv.
 python -u step10_validate_module.py \
@@ -62,7 +63,7 @@ python -u step10_validate_module.py \
     --max-bridge 30000 \
     --lcc-per-layer \
     --exclude-ppi-seeds \
-    --exclude-seeds A-PEP.CHRNA7_SLC18A3::ADRA2A A-PEP.CHRNA7_SLC18A3::ADRA2C A-PEP.SCGN_ADRA2C::RGS9 A-PROPR.EPHA3::HCN2 AB-LTMR.CCKAR::KCNQ2 AB-LTMR.ETV1::KCNQ2 AB-LTMR.LGI2::SPP1 AB-LTMR.NSG2::KCNQ2 C-LTMR.CDH9::GRIA2 C-PEP.ADORA2B::TRPV1 C-PEP.TAC1_CHRNA3::TRPV1 \
+    --exclude-seeds $(cat "$WDIR/seeds/excluded_seeds.txt") \
     --ot-data ../og_gene_set/gene_ranking/ot_data \
     --phenotype-csv ../expression_data/human_pain_genes_database.csv \
     --topology \

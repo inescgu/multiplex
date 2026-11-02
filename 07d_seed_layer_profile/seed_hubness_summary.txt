@@ -2,33 +2,33 @@
 SEED HUBNESS / MARKER-STRENGTH SUMMARY
 ==============================================================================
 MODE: SEED -- target genes are your input seeds
-Seeds: 408 | in enrichment universe: 372 | hub / top-marker cutoff: top 10%
+Seeds: 408 | in enrichment universe: 375 | hub / top-marker cutoff: top 10%
 
 GLOBAL PPI ('global_ppi'): are seeds hubs in the full network?
-  seeds in PPI: 372 | median degree seeds 18.0 vs others 20.0
-  degree AUC = 0.503 (p = 4.25e-01) | seeds in top 10%: 56 (expected 37.2, p = 1.40e-03)
+  seeds in PPI: 375 | median degree seeds 20.0 vs others 18.0
+  degree AUC = 0.531 (p = 2.03e-02) | seeds in top 10%: 63 (expected 37.8, p = 4.14e-05)
 
 PER-LAYER (testable layers = 22 of 22; BH across layers)
-  Seeds have higher degree than other genes        (q<0.05): 0 layers
-  Seeds over-represented in the top-degree bin     (q<0.05): 22 layers
-  Seeds higher degree than DEGREE-MATCHED genes    (q<0.05): 0 layers  <- survives literature/popularity bias
-  Seeds enriched among the cell type's markers     (q<0.05): 10 layers
-  Seeds have higher avg_log2FC than other markers  (q<0.05): 1 layers
+  Seeds have higher degree than other genes        (q<0.05): 2 layers
+  Seeds over-represented in the top-degree bin     (q<0.05): 2 layers
+  Seeds higher degree than DEGREE-MATCHED genes    (q<0.05): 1 layers  <- survives literature/popularity bias
+  Seeds enriched among the cell type's markers     (q<0.05): 12 layers
+  Seeds have higher avg_log2FC than other markers  (q<0.05): 21 layers
   Seeds have higher pct.1-pct.2 than other markers (q<0.05): 0 layers
 
 POOLED seed-layer entries (descriptive; entries are not independent)
-  n = 4228 | median degree percentile 0.48 (null 0.50) | fraction in top 10%: 0.17 (null ~0.10)
-  median avg_log2FC percentile among markers: 0.42 (null 0.50)
+  n = 1065 | median degree percentile 0.52 (null 0.50) | fraction in top 10%: 0.17 (null ~0.10)
+  median avg_log2FC percentile among markers: 0.73 (null 0.50)
 
 SEED CATEGORIZATION (specificity_tier, full breakdown in seed_layer_summary.csv)
   A: specific marker + well-connected in an enriched layer          2
-  A*: specific + connected, but also a generic global hub          21
-  B: specific marker, not well-connected there                    159
-  C: hub in an enriched layer, not a distinct marker               17
-  F: present, unremarkable                                         60
-  E: absent from all cell-type layers (global_ppi only)           149
+  A*: specific + connected, but also a generic global hub           8
+  B: specific marker, not well-connected there                     79
+  C: hub in an enriched layer, not a distinct marker               31
+  F: present, unremarkable                                        126
+  E: absent from all cell-type layers (global_ppi only)           162
 
-Isolated genes (degree 0) across layers: 3,495 (in gene sets json but with no edges in ppi_layer.tsv)
+Isolated genes (degree 0) across layers: 8,341 (in gene sets json but with no edges in ppi_layer.tsv)
 
 ------------------------------------------------------------------------------
 HOW TO READ THIS

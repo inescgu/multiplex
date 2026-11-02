@@ -1,0 +1,25 @@
+======================================================================
+OMEGA SWEEP COMPARISON (top 30 genes, ranked by permutation p-value)
+======================================================================
+Omega values tested: [0.1, 1.0, 5.0]
+
+Pairwise Jaccard overlap of top-N sets:
+  omega=0.1 vs omega=1.0: 15/45 shared -> Jaccard = 0.333
+  omega=0.1 vs omega=5.0: 8/52 shared -> Jaccard = 0.154
+  omega=1.0 vs omega=5.0: 14/46 shared -> Jaccard = 0.304
+
+Top-30 robust core (in every omega's top-30): 6 gene(s)
+  ['ADCYAP1', 'ADCYAP1R1', 'ADM', 'PCSK1N', 'PLXNA4', 'PTH1R']
+
+ROBUST SIGNIFICANT CORE (perm_qvalue_bh <= 0.05 in EVERY omega tested): 3 gene(s)
+  This is the direct answer to whether a hit's significance holds across your omega range, not just whether it stays in an arbitrary top-N.
+  ['ADCYAP1', 'PCSK1N', 'PLXNA4']
+    omega=0.1: 11 significant gene(s) -- ['ADCYAP1', 'CNTN2', 'EFNA5', 'EPHA6', 'EPHB1', 'LRFN1', 'LRFN4', 'MYH14', 'PCSK1N', 'PLXNA4', 'PSAP']
+    omega=1.0: 18 significant gene(s) -- ['ADCYAP1', 'ADCYAP1R1', 'ADM', 'DLG1', 'EFNA5', 'EFNB2', 'EPHA6', 'ITPR1', 'KCNQ2', 'LRFN1', 'LRFN4', 'NR1D2', 'PCSK1N', 'PLXNA4', 'PTH1R', 'RAMP3', 'RTN3', 'SCARB1']
+    omega=5.0: 11 significant gene(s) -- ['ADCYAP1', 'ADCYAP1R1', 'ADM', 'CABP1', 'ITPR1', 'NR1D2', 'PCSK1N', 'PLXNA4', 'PTH1R', 'RAMP1', 'RAMP3']
+
+omega=0.1: 30 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+
+omega=1.0: 46 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.
+
+omega=5.0: 16 genes flagged as multiplex bridges (fractional threshold, full criteria) in this run.

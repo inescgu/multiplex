@@ -20,6 +20,7 @@ python -c "import igraph, networkx, pandas, matplotlib; print('igraph', igraph._
     echo "ERROR: hidef_env is missing one of igraph/networkx/pandas/matplotlib"; exit 1; }
 
 SL=../og_gene_set
+SL_PPI=${SL_PPI:-combined26}     # single-layer network; ppi20261028 once og_gene_set is rerun on it
 OUT="$RUN_DIR/compare_singlelayer"      # same folder compare_ml_sl.sbatch wrote matched_pairs.csv to
 
 
@@ -29,8 +30,8 @@ python step6f_export_sl_decomposition_wwiznet.py \
     --ml-nodes "$RUN_DIR/heterogeneous_hidef_faithful_cpm.nodes" \
     --ml-edges "$RUN_DIR/heterogeneous_hidef_faithful_cpm.edges" \
     --supra-graph 11_hidef_module/supra_graph.pkl \
-    --sl-communities $SL/output/combined26/hidef/hidef_communities.pkl \
-    --sl-network $SL/output/combined26/rwr/module_graph.pkl \
+    --sl-communities $SL/output/${SL_PPI}/hidef/hidef_communities.pkl \
+    --sl-network $SL/output/${SL_PPI}/rwr/module_graph.pkl \
     --highlight OPRM1 COMT KCNJ6 \
     --out "$RUN_DIR/compare_singlelayer/wwiznet_SL6" \
     --animate "$RUN_DIR/compare_singlelayer/wwiznet_SL6/SL6_decomposition.gif"

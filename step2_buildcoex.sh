@@ -21,6 +21,7 @@ python step2_build_25hdrg_multiplex.py \
     --markers-file 00_inputs/hdrg_expressed_pseudobulk.csv \
     --base-ppi 00_inputs/ppi_network.pkl \
     --output-dir 02_hdrg_multiplex/multiplex_2025hdrg_pseudobulk \
-    --seed-genes-file 00_inputs/seed_genes.csv
+    --seed-genes-file 00_inputs/seed_genes.csv \
+    --log2fc-threshold 0.25 --p-val-threshold 0.05
 
 echo "Finished at: $(date)"

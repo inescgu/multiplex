@@ -138,6 +138,9 @@ def main():
                           "--exclude-seed-celltypes global_ppi. Case-insensitive.")
     ap.add_argument("--exclude-ppi-seeds", action="store_true",
                      help="Shorthand for --exclude-seed-celltypes global_ppi.")
+    ap.add_argument("--write-excluded", default=None, metavar="PATH",
+                     help="Write the unreachable seeds here, one per line (empty file if none). "
+                          "step6/step10/step11i read it as their --exclude-seeds list.")
     args = ap.parse_args()
 
     exclude_celltypes = list(args.exclude_celltypes)
@@ -237,10 +240,19 @@ def main():
               f"cluster ({main_comp_seed_count}/{len(seeds_in_h)} seeds).")
         print("Paste this into your sbatch script:\n")
         print("    --exclude-seeds " + " ".join(unreachable) + " \\")
+        if args.write_excluded:
+            print(f"\n(or let the launchers read it from {args.write_excluded})")
     else:
         print("✓ All seeds present in the graph share the same component. "
               "No exclusions needed on reachability grounds.")
     print("=" * 70)
+
+    if args.write_excluded:
+        # write the seeds as spelled in seeds.txt: step6 matches the cell-type prefix case-sensitively
+        with open(args.seeds) as f:
+            original = {l.strip().upper(): l.strip() for l in f if l.strip()}
+        Path(args.write_excluded).write_text("".join(f"{original.get(s, s)}\n" for s in unreachable))
+        print(f"Wrote {len(unreachable)} excluded seed(s) -> {args.write_excluded}")
 
 
 if __name__ == "__main__":

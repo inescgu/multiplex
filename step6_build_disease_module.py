@@ -612,7 +612,7 @@ def main():
     parser.add_argument("--no-lcc-fallback", action="store_true")
     parser.add_argument("--lcc-per-layer", action="store_true",
                          help="Restrict each cell type to its largest connected component before building the module.")
-    parser.add_argument("--exclude-seeds", nargs="+", default=[], metavar="GENE",
+    parser.add_argument("--exclude-seeds", nargs="*", default=[], metavar="GENE",
                          help="Seed gene(s) to exclude from module building. "
                               "Example: --exclude-seeds A-LTMR.TAC3::TRPV1")
     parser.add_argument("--exclude-celltypes", nargs="+", default=[], metavar="CELLTYPE",

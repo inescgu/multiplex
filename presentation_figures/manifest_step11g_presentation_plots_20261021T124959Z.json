@@ -1,0 +1,32 @@
+{
+  "script": "step11g_presentation_plots.py",
+  "full_command": "step11g_presentation_plots.py --consensus 11_hidef_module/results_cpm/consensus.pkl --wide-scan-csv 11_hidef_module/resolution_profile.csv --partition-type CPM --production-min-resolution 8.34e-04 --production-max-resolution 0.9 --total-nodes 9940 --output-dir presentation_figures",
+  "args": {
+    "consensus": "11_hidef_module/results_cpm/consensus.pkl",
+    "wide_scan_csv": "11_hidef_module/resolution_profile.csv",
+    "fine_scan_csv": null,
+    "partition_type": "CPM",
+    "production_min_resolution": 0.000834,
+    "production_max_resolution": 0.9,
+    "total_nodes": 9940,
+    "output_dir": "presentation_figures"
+  },
+  "inputs": {
+    "11_hidef_module/results_cpm/consensus.pkl": {
+      "missing": true
+    },
+    "11_hidef_module/resolution_profile.csv": {
+      "missing": true
+    }
+  },
+  "timestamp_utc": "2026-10-21T12:49:59.768426+00:00",
+  "hostname": "node-g08.lisc",
+  "slurm_job_id": "7521382",
+  "git": {
+    "git_available": true,
+    "commit": "0b7960c01f74e7e3f2849ce4dac7ea83e3a2f5fe",
+    "dirty": false,
+    "dirty_files": [],
+    "branch": "main"
+  }
+}

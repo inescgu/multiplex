@@ -21,6 +21,7 @@ python step5_preflight_seed_reachability.py \
     --ref-graph 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl \
     --seeds 04_multixrank_prep/multixrank_hetero_input_pseudobulk/seeds/seeds.txt \
     --lcc-per-layer \
-    --exclude-ppi-seeds
+    --exclude-ppi-seeds \
+    --write-excluded 04_multixrank_prep/multixrank_hetero_input_pseudobulk/seeds/excluded_seeds.txt
 
 echo "Finished at: $(date)"

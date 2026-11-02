@@ -22,7 +22,7 @@ from collections import defaultdict
 import time
 import json
 
-def load_celltype_markers(markers_file, p_val_threshold=0.05, log2fc_threshold=0.0):
+def load_celltype_markers(markers_file, p_val_threshold=0.05, log2fc_threshold=None):
     """
     Load cell-type marker genes from CSV file
     
@@ -64,22 +64,21 @@ def load_celltype_markers(markers_file, p_val_threshold=0.05, log2fc_threshold=0
     print(f"  Using gene column: '{gene_col}'")
     print(f"  Using cell_type column: '{celltype_col}'")
     
-#     # Filter by p-value if available
-#     if 'p_val_adj' in markers_df.columns:
-#         print(f"  Filtering by adjusted p-value < {p_val_threshold}...")
-#         markers_df = markers_df[markers_df['p_val_adj'] < p_val_threshold]
-#         print(f"  After p-value filtering: {len(markers_df)} markers")
-#     elif 'p_val' in markers_df.columns:
-#         print(f"  Filtering by p-value < {p_val_threshold}...")
-#         markers_df = markers_df[markers_df['p_val'] < p_val_threshold]
-#         print(f"  After p-value filtering: {len(markers_df)} markers")
-    
-#     # Filter by log2FC if available
-#     if 'avg_log2FC' in markers_df.columns:
-#         print(f"  Filtering by log2FC > {log2fc_threshold}...")
-#         markers_df = markers_df[markers_df['avg_log2FC'] > log2fc_threshold]
-#         print(f"  After log2FC filtering: {len(markers_df)} markers")
-    
+    # Keep only cell-type-specific genes (log2FC > threshold, FDR < threshold) when a
+    # log2FC threshold is given; otherwise every listed gene is used (e.g. all genes
+    # expressed in the cell type, as in hdrg_expressed_pseudobulk.csv).
+    if log2fc_threshold is not None:
+        if {'marker_log2FC', 'marker_FDR'} <= set(markers_df.columns):    # hdrg_expressed_pseudobulk.csv
+            lfc_col, p_col = 'marker_log2FC', 'marker_FDR'
+        elif {'avg_log2FC', 'p_val_adj'} <= set(markers_df.columns):      # Seurat / pseudobulk_markers.R
+            lfc_col, p_col = 'avg_log2FC', 'p_val_adj'
+        else:
+            raise SystemExit(f"--log2fc-threshold given, but no log2FC/FDR columns in {markers_file}")
+        n_before = len(markers_df)
+        markers_df = markers_df[(markers_df[lfc_col] > log2fc_threshold) & (markers_df[p_col] < p_val_threshold)]
+        print(f"  Specific genes only: {lfc_col} > {log2fc_threshold}, {p_col} < {p_val_threshold} "
+              f"-> {len(markers_df)} of {n_before} entries")
+
     # Convert gene names to uppercase
     markers_df[gene_col] = markers_df[gene_col].astype(str).str.upper()
     
@@ -204,7 +203,7 @@ def build_layer_network(cell_type, marker_genes, base_ppi, seed_genes=None):
     return layer_graph
 
 def build_multiplex_from_markers(markers_file, base_ppi_file, output_dir,
-                                 p_val_threshold=0.05, log2fc_threshold=0.0,
+                                 p_val_threshold=0.05, log2fc_threshold=None,
                                  seed_genes_file=None):
     """
     Build multiplex interactome from cell-type marker genes
@@ -623,9 +622,10 @@ def main():
     parser.add_argument('--output-dir', type=str, default='multiplex_markers',
                       help='Output directory for multiplex network')
     parser.add_argument('--p-val-threshold', type=float, default=0.05,
-                      help='P-value threshold for marker significance')
-    parser.add_argument('--log2fc-threshold', type=float, default=0.0,
-                      help='Log2 fold change threshold for markers')
+                      help='FDR threshold, used together with --log2fc-threshold')
+    parser.add_argument('--log2fc-threshold', type=float, default=None,
+                      help='Keep only genes with log2FC above this (cell-type-specific layers; '
+                           'the HDRG paper used 0.75 for neurons). Default: no filter, all listed genes')
     parser.add_argument('--seed-genes-file', type=str, default=None,
                       help='Path to seed genes CSV file (optional)')
     

@@ -3,71 +3,71 @@ DISEASE MODULE DIAGNOSTICS (heterogeneous multiplex + bipartite)
 ======================================================================
 Connectivity mode      : all
 Reference graph        : 04_multixrank_prep/multixrank_hetero_input_pseudobulk/gene_reference_graph.pkl
-  nodes                : 215,638
-  edges                : 3,522,324
+  nodes                : 47,726
+  edges                : 448,634
 Excluded cell types (graph+seeds) : (none)
 Excluded cell types (seeds only, still bridge-eligible) : ['global_ppi']
   Implicitly dropped seeds: []
 
 --- SEEDS ---
-Seeds provided         : 4117
-Seeds excluded         : 0
-  Excluded list        : []
-Seeds after exclusion  : 4117
-Seeds in reference     : 4117
+Seeds provided         : 854
+Seeds excluded         : 14
+  Excluded list        : ['A-PEP.KIT::MC1R', 'A-Propr.EPHA3::KCND2', 'A-Propr.HAPLN4::PRX', 'ATF3::DICER1', 'ATF3::PRX', 'Ab-LTMR.NSG2::SESN2', 'C-PEP.ADORA2B::NAV2', 'C-PEP.ADORA2B::TRPV1', 'C-PEP.TAC1_CHRNA3::NPB', 'C-PEP.TAC1_CHRNA3::TRPV1', 'C-Thermo.RXFP1::HDC', 'C-Thermo.TRPM8::CNR1', 'C-Thermo.TRPM8::OPRD1', 'C-Thermo.TRPM8::RELN']
+Seeds after exclusion  : 840
+Seeds in reference     : 840
 Seeds missing          : 0
 
 --- SEED-ONLY SUBGRAPH ---
-Connected components   : 1671
-Largest seed CC size   : 2158
-Seed subgraph edges    : 6873
-Isolated seeds         : 1560
-  Examples: ['A-LTMR.TAC3::ABCB1', 'A-LTMR.TAC3::ABCC4', 'A-LTMR.TAC3::ACHE', 'A-LTMR.TAC3::ADAM11', 'A-LTMR.TAC3::ADCY5', 'A-LTMR.TAC3::ADCY8', 'A-LTMR.TAC3::BACE1', 'A-LTMR.TAC3::BDKRB2', 'A-LTMR.TAC3::C5AR1', 'A-LTMR.TAC3::CACNA1B', 'A-LTMR.TAC3::CACNA1H', 'A-LTMR.TAC3::CACNA2D1', 'A-LTMR.TAC3::CHRNA7', 'A-LTMR.TAC3::CHRNB2', 'A-LTMR.TAC3::CLOCK', 'A-LTMR.TAC3::CRIP2', 'A-LTMR.TAC3::CTSS', 'A-LTMR.TAC3::DICER1', 'A-LTMR.TAC3::DISC1', 'A-LTMR.TAC3::EFNB2']
+Connected components   : 576
+Largest seed CC size   : 93
+Seed subgraph edges    : 408
+Isolated seeds         : 506
+  Examples: ['A-LTMR.TAC3::ADAM11', 'A-LTMR.TAC3::ADCY8', 'A-LTMR.TAC3::ADORA2A', 'A-LTMR.TAC3::C5AR1', 'A-LTMR.TAC3::CTSS', 'A-LTMR.TAC3::DISC1', 'A-LTMR.TAC3::DLG2', 'A-LTMR.TAC3::EDNRA', 'A-LTMR.TAC3::EFNB2', 'A-LTMR.TAC3::FMR1', 'A-LTMR.TAC3::FRMPD4', 'A-LTMR.TAC3::FYN', 'A-LTMR.TAC3::GRIA2', 'A-LTMR.TAC3::ICA1', 'A-LTMR.TAC3::IKBKE', 'A-LTMR.TAC3::IL1R1', 'A-LTMR.TAC3::KCNQ2', 'A-LTMR.TAC3::MAP2K3', 'A-LTMR.TAC3::MAPK8', 'A-LTMR.TAC3::NAV2']
 
 --- MODULE CONSTRUCTION ---
 Top-k requested            : 200
 Max bridging genes allowed : 30000
-Ranking pool size          : 215650
-Genes added                : 4846
-Full module size           : 8963
+Ranking pool size          : 48296
+Genes added                : 6116
+Full module size           : 6956
 Fully connected            : True
 
 --- BRIDGING ELBOW (components vs. genes added) ---
-Trajectory points saved    : 4846
+Trajectory points saved    : 6116
 Trajectory CSV              : 06_disease_module/disease_module_output_pseudobulk/bridging_trajectory.csv
 Elbow plot                  : 06_disease_module/disease_module_output_pseudobulk/bridging_elbow.png
-Suggested elbow             : +681 genes bridged -> 234 components remaining (max distance from chord = 1082.566)
-  This is a SUGGESTION (max-distance-from-chord method), not enforced. If you want to actually cut here, rerun with --max-bridge 681.
+Suggested elbow             : +1248 genes bridged -> 45 components remaining (max distance from chord = 410.353)
+  This is a SUGGESTION (max-distance-from-chord method), not enforced. If you want to actually cut here, rerun with --max-bridge 1248.
 
 --- FINAL MODULE ---
-Final module size       : 8963
-Final module edges      : 116377
+Final module size       : 6956
+Final module edges      : 28521
 Used LCC fallback       : False
-Seeds in final module   : 4117 / 4117
+Seeds in final module   : 840 / 840
 Seeds dropped by LCC    : 0
 
 --- DOMINANT CELL TYPE DISTRIBUTION ---
-  Ab-LTMR.ETV1                                490 genes
-  A-LTMR.TAC3                                 411 genes
-  A-Propr.HAPLN4                              409 genes
-  Ab-LTMR.NSG2                                395 genes
-  C-PEP.TAC1_CACNG5                           395 genes
-  Ab-LTMR.LGI2                                393 genes
-  C-NP.MRGPRX1_GFRA2                          393 genes
-  C-PEP.TAC1_CHRNA3                           390 genes
-  A-Propr.PCDH8                               390 genes
-  C-Thermo.RXFP1                              390 genes
-  C-Thermo.TRPM8                              388 genes
-  A-PEP.SCGN_ADRA2C                           387 genes
-  C-NP.SST                                    387 genes
-  Ab-LTMR.CCKAR                               387 genes
-  C-LTMR.CDH9                                 385 genes
-  C-NP.MRGPRX1_MRGPRX4                        384 genes
-  A-PEP.KIT                                   384 genes
-  ATF3                                        382 genes
-  A-PEP.NTRK3_S100A16                         381 genes
-  A-Propr.EPHA3                               380 genes
-  C-PEP.ADORA2B                               379 genes
-  A-PEP.CHRNA7_SLC18A3                        377 genes
-  global_ppi                                  306 genes
+  global_ppi                                  481 genes
+  Ab-LTMR.LGI2                                368 genes
+  Ab-LTMR.CCKAR                               359 genes
+  A-LTMR.TAC3                                 345 genes
+  A-PEP.KIT                                   330 genes
+  A-Propr.HAPLN4                              330 genes
+  A-PEP.SCGN_ADRA2C                           319 genes
+  C-LTMR.CDH9                                 318 genes
+  A-PEP.NTRK3_S100A16                         310 genes
+  Ab-LTMR.ETV1                                309 genes
+  C-PEP.TAC1_CACNG5                           305 genes
+  A-PEP.CHRNA7_SLC18A3                        302 genes
+  C-PEP.TAC1_CHRNA3                           297 genes
+  C-NP.SST                                    294 genes
+  Ab-LTMR.NSG2                                293 genes
+  C-NP.MRGPRX1_GFRA2                          284 genes
+  A-Propr.PCDH8                               274 genes
+  C-Thermo.RXFP1                              270 genes
+  ATF3                                        261 genes
+  C-NP.MRGPRX1_MRGPRX4                        253 genes
+  A-Propr.EPHA3                               241 genes
+  C-PEP.ADORA2B                               211 genes
+  C-Thermo.TRPM8                              202 genes
 ======================================================================

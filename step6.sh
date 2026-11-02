@@ -17,6 +17,10 @@ echo "Starting at: $(date)"
 module load Python/3.12.3-GCCcore-13.3.0
 source /lisc/data/scratch/menche/ines/multixrank_env/bin/activate
 
+# unreachable seeds, written by step5 (empty file = none)
+EXCL=04_multixrank_prep/multixrank_hetero_input_pseudobulk/seeds/excluded_seeds.txt
+[ -f "$EXCL" ] || { echo "ERROR: $EXCL missing -- run step5 first"; exit 1; }
+
 python step6_build_disease_module.py \
     --scores 05_multixrank_results/multixrank_pseudo_results/gene_rwr_scores.csv \
     --per-celltype-scores 05_multixrank_results/multixrank_pseudo_results/per_celltype_scores.csv \
@@ -26,5 +30,6 @@ python step6_build_disease_module.py \
     --k 200 \
     --max-bridge 30000 \
     --lcc-per-layer \
-    --exclude-ppi-seeds
+    --exclude-ppi-seeds \
+    --exclude-seeds $(cat "$EXCL")
 echo "Finished at: $(date)"
